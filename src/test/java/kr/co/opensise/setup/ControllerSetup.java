@@ -16,7 +16,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:kr/co/opensise/spring/servlet-context.xml",
-									"classpath:kr/co/opensise/spring/root-context.xml" 
+									"classpath:kr/co/opensise/spring/root-context.xml",
+									"classpath:kr/co/opensise/spring/datasource-context.xml",
+									"classpath:kr/co/opensise/spring/transaction-context.xml",
 									})
 @WebAppConfiguration
 public class ControllerSetup {
