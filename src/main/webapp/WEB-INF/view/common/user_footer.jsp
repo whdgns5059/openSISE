@@ -7,5 +7,5 @@
 </style>
 
 <footer class="footer">
-	<img src="https://via.placeholder.com/1900x100/0000FF/808080?Text=footer"/>
+	<img src="https://via.placeholder.com/1900x100/aaaaFF?text=/common/user_footer.jsp"/>
 </footer>

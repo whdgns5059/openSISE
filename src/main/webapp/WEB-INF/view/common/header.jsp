@@ -10,7 +10,7 @@
 <nav class="navbar navbar-expand-lg" >
 	<!-- openSISE아이콘 -->
 	<a class="navbar-brand" href="#">
-		<img src="https://via.placeholder.com/70x70">
+		<img src="https://via.placeholder.com/250x70">
 	</a>
 
 	<!-- nav items -->
