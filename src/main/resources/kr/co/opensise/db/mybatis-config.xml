@@ -6,13 +6,13 @@
 
 	<typeAliases>
 		<!-- 
-		<typeAlias type="ddit.file.model.ContractVo" alias="contractVo"/>
+		<typeAlias type="kr.co.opensise.test.model.TestVo" alias="testVo"/>
 		 -->
 	</typeAliases>
 
 	<mappers>
 		<!-- 
-		<mapper resource="ddit/config/db/map.xml" />
+		<mapper resource="kr/co/opensise/db/test.xml" />
 		 -->
 	</mappers>
 </configuration>
