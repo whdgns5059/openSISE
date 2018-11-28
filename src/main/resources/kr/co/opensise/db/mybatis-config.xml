@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<!-- 
+		<typeAlias type="ddit.file.model.ContractVo" alias="contractVo"/>
+		 -->
+	</typeAliases>
+
+	<mappers>
+		<!-- 
+		<mapper resource="ddit/config/db/map.xml" />
+		 -->
+	</mappers>
+</configuration>
