@@ -16,7 +16,7 @@ public class IndexControllerTest extends ControllerSetup {
 		
 		/***given***/
 		MvcResult mvcResult = mockMvc.perform(get("/index/index")).andReturn();
-		ModelAndView mav = mvcResult.getModelAndView();
+		ModelAndView mav = mvcResult.getModelAndView(); 
 		/***when***/
 
 		/***then***/
