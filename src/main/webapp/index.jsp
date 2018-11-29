@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	document.location = "/index/index";
+	document.location = "/index/openPage";
 </script>
 
 </head>

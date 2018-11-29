@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/index")
 public class IndexController {
 	
-	@RequestMapping("/index")
+	@RequestMapping("/openPage")
 	public String index() {
 		
-		return "index";
+		return "openPage";
 	}
 	
 	
