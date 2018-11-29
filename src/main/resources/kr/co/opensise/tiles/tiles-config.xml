@@ -4,7 +4,6 @@
 <tiles-definitions>
 	<definition name="userLayout" template="/WEB-INF/view/common/user_layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/common/header.jsp"></put-attribute>
-		<put-attribute name="left" value="/WEB-INF/view/common/admin_left.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/view/common/user_footer.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 	</definition>
@@ -12,6 +11,13 @@
 	<definition name="adminLayout" template="/WEB-INF/view/common/admin_layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/common/header.jsp"></put-attribute>
 		<put-attribute name="left" value="/WEB-INF/view/common/admin_left.jsp"></put-attribute>
+		<put-attribute name="content" value=""></put-attribute>
+	</definition>
+	
+	<definition name="memberLayout" template="/WEB-INF/view/common/member_layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/view/common/header.jsp"></put-attribute>
+		<put-attribute name="left" value="/WEB-INF/view/common/member_left.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/view/common/user_footer.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 	</definition>
 	
@@ -26,6 +32,43 @@
 	
 	<definition name="local" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/local.jsp"></put-attribute>
+	</definition>
+
+	<!--***************** memberLayout ******************* -->
+	<definition name="login" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/login.jsp"></put-attribute>
+	</definition>
+
+	<definition name="signup" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/signup.jsp"></put-attribute>
+	</definition>
+
+	<definition name="signupDetail" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/signupDetail.jsp"></put-attribute>
+	</definition>
+
+	<definition name="myinfo" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/myinfo.jsp"></put-attribute>
+	</definition>
+
+	<definition name="favor" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/favor.jsp"></put-attribute>
+	</definition>
+
+	<definition name="recent" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/recent.jsp"></put-attribute>
+	</definition>
+
+	<definition name="interest" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/interest.jsp"></put-attribute>
+	</definition>
+
+	<definition name="security" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/security.jsp"></put-attribute>
+	</definition>
+
+	<definition name="exit" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/exit.jsp"></put-attribute>
 	</definition>
 
 	<!--***************** adminLayout ******************* -->

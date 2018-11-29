@@ -3,7 +3,7 @@
 <!-- footer -->
 
 <style type="text/css" >
-	.footer {padding : 0px !important]}	
+	.footer {width: 1900px !important;}	
 </style>
 
 <footer class="footer">

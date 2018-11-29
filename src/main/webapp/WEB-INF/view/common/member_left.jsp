@@ -3,5 +3,5 @@
 	<!-- left contents -->
 	
 <div>
-	<img src="https://via.placeholder.com/400x900/ffaaaa?text=/common/admin_left.jsp" />
+	<img src="https://via.placeholder.com/400x900/ffaaaa?text=/common/member_left.jsp" />
 </div>
