@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- footer -->
-	<footer class="footer">
-		<div class="container" style="height: 70px !important;">
-			<div style="height: 50px; width: 400px; float: right; margin-top: 8px;"></div>
-		</div>
-	</footer>
+
+<style type="text/css" >
+	.footer {padding : 0px !important]}	
+</style>
+
+<footer class="footer">
+	<img src="https://via.placeholder.com/1900x100/aaaaFF?text=/common/user_footer.jsp"/>
+</footer>

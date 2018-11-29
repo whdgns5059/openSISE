@@ -2,26 +2,82 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-	<definition name="basicLayout" template="/WEB-INF/view/common/user_layout.jsp">
+	<definition name="userLayout" template="/WEB-INF/view/common/user_layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/common/header.jsp"></put-attribute>
 		<put-attribute name="left" value="/WEB-INF/view/common/admin_left.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/view/common/user_footer.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 	</definition>
 	
-	<definition name="adminLayout" template="/WEB-INF/view/common/admin_user_layout.jsp">
+	<definition name="adminLayout" template="/WEB-INF/view/common/admin_layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/common/header.jsp"></put-attribute>
 		<put-attribute name="left" value="/WEB-INF/view/common/admin_left.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 	</definition>
 	
-	<definition name="main" extends="basicLayout">
-		<put-attribute name="content" value="/WEB-INF/view/main.jsp"></put-attribute>
+	<!--***************** userLayout ******************* -->
+	<definition name="main" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/user/main.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="detail" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/user/detail.jsp"></put-attribute>
+	</definition>
 	
+	<definition name="local" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/user/local.jsp"></put-attribute>
+	</definition>
+
+	<!--***************** adminLayout ******************* -->
 	<definition name="admin" extends="adminLayout">
 		<put-attribute name="content" value="/WEB-INF/view/adminM.jsp"></put-attribute>
 	</definition>
+
+	<definition name="manage/member" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/manage/member.jsp"></put-attribute>
+	</definition>
 	
+	<definition name="manage/dataEtc" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/manage/dataEtc.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="manage/dataTrade" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/manage/dataTrade.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="manage/notice" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/manage/notice.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="manage/report" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/manage/report.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="manage/review" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/manage/review.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="manage/ban" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/manage/ban.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="statis/member" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/statis/member.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="statis/interest" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/statis/interest.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="statis/favor" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/statis/favor.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="statis/pageCount" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/statis/pageCount.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="statis/visitor" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/statis/visitor.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
