@@ -149,7 +149,13 @@ a {
             $(this).hide();  
             $(".window").hide();  
  
-        });      
+        });  
+        
+        //search
+        $("#search").click(function(){
+        	
+        	$(".searchF").submit();
+        })
  
     });
  
@@ -164,8 +170,8 @@ a {
 		<!-- nav_right -->
 		<div class="nav_right">
 			<ul>
-				<li style="margin-right: 50px;"><a href="#">로그인</a></li>
-				<li><a href="#">회원가입</a></li>
+				<li style="margin-right: 50px;"><a href="/login/login">로그인</a></li>
+				<li><a href="/signup/signup">회원가입</a></li>
 			</ul>
 		</div>
 	</div>
@@ -184,21 +190,21 @@ a {
 				<button type="button" class="btn btn-primary btn-lg" style="padding: 20px">Large button</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-primary btn-lg" style="padding: 20px">Large button</button>
+				<button type="button" class="btn btn-primary btn-lg" style="padding: 20px" >Large button</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" style="padding: 20px">Large button</button>
+				<button type="button" class="btn btn-outline-primary"  style="padding:20px">Large button</button>
 			</div>
 		</div>
 		
 		<!-- search -->
 		<div class="search">
-				<form class="form-inline my-2 my-lg-5">
+				<form class="form-inline my-2 my-lg-5 searchF" action="/main/main">
 					<input class="form-control mr-sm-5" type="text"
 						placeholder="지역명, 지하철역명, 아파트명, 등을 입력하세요">
-					<button type="button" class="btn btn-primary btn-lg" style="padding:20px">search</button>
+					<button type="button" class="btn btn-primary btn-lg" id="search">search</button>
 				</form>
-			</div>
+		</div>
 			
 		<!-- board -->
 		<div class="board">
@@ -220,7 +226,7 @@ a {
 						<!--Wrapper for slides -->
 						<div class="carousel-inner" role="listbox">
 							<div class="item active">
-								<img src="/img/img1.png" style="height:400px;" alt="...">
+								<img src="/img/img1.png" style="width:500px;height:400px;" alt="...">
 								<div class="carousel-caption">대전 유성구 관평동 테크노밸리 10단지</div>
 							</div>
 							<div class="item">
@@ -244,7 +250,7 @@ a {
 
 
 
-				</div>
+			</div>
 				
 			<!-- notice -->
 			<div class="notice">
@@ -296,7 +302,7 @@ a {
 							<button type="button" class="btn btn-warning openMask">더보기</button>
 						</div>
 					</div>
-				</div>
+			</div>
 	</div>
 </div>
 
