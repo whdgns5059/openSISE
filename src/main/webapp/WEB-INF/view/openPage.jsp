@@ -66,13 +66,15 @@ a {
 .board{
 	width:1303px ;
 	height:450px ;
+	margin-top:10px;
 }
 .picture{
-	width:750px ;
+	width:650px ;
 	height:450px ;
 	display: inline-block;
 	float: left;
 	margin-top: 30px;
+	margin-left: 50px;
 }
 .notice{
 	width:481px ;
@@ -80,7 +82,7 @@ a {
 	display: inline-block;
 	float: left;
 	margin-top: 30px;
-	padding-left: 40px;
+	margin-left: 20px;
 }
 
  
@@ -107,7 +109,14 @@ a {
  }
  
 </style>
+
+<!-- bxSlider 연결 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+
+
 <!-- layer popup -->
 <script type="text/javascript"> 
 //<![CDATA[
@@ -156,6 +165,15 @@ a {
         	
         	$(".searchF").submit();
         })
+        
+        //bxslider
+        $('.bxslider').bxSlider({
+        	  auto: true,
+        	  autoControls: true,
+        	  stopAutoOnClick: true,
+        	  pager: true,
+        	  slideWidth: 600
+        	});
  
     });
  
@@ -171,7 +189,8 @@ a {
 		<div class="nav_right">
 			<ul>
 				<li style="margin-right: 50px;"><a href="/login/login">로그인</a></li>
-				<li><a href="/signup/signup">회원가입</a></li>
+				<li style="margin-right: 50px;"><a href="/signup/signup">회원가입</a></li>
+				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			</ul>
 		</div>
 	</div>
@@ -212,43 +231,12 @@ a {
 			<!-- picture -->
 			<div class="picture" >
 
-
-				<!-- carousel -->
-					<div id="carousel-example-generic" class="carousel slide"
-						data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#carousel-example-generic" data-slide-to="0"
-								class="active"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-						</ol>
-
-						<!--Wrapper for slides -->
-						<div class="carousel-inner" role="listbox">
-							<div class="item active">
-								<img src="/img/img1.png" style="width:500px;height:400px;" alt="...">
-								<div class="carousel-caption">대전 유성구 관평동 테크노밸리 10단지</div>
-							</div>
-							<div class="item">
-								<img src="/img/img2.png" style="height:400px;" alt="...">
-								<div class="carousel-caption">대전 유성구 관평동 테크노밸리 10단지</div>
-							</div>
-						</div>
-
-						<!--Controls -->
-						<a class="left carousel-control" href="#carousel-example-generic"
-							role="button" data-slide="prev"> <span
-							class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a> <a class="right carousel-control"
-							href="#carousel-example-generic" role="button" data-slide="next">
-							<span class="glyphicon glyphicon-chevron-right"
-							aria-hidden="true"></span> <span class="sr-only">Next</span>
-						</a>
-					</div>
-
-
-
+				<!-- bxslider -->
+				<div class="bxslider">
+				  <div><img src="/img/img1.png"></div>
+				  <div><img src="/img/img2.png"></div>
+				  <div><img src="/img/img3.png"></div>
+				</div>
 
 			</div>
 				
