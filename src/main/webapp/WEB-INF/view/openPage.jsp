@@ -42,6 +42,12 @@ ul li {
 a {
 	text-decoration: none !important;
 }
+td {
+	width: 450px;
+	white-space:nowrap; 
+	overflow:hidden; 
+	text-overflow:ellipsis; 
+}
 .logo{
 	margin: 20px 0 20px 0;
 	padding: 20px 400px 20px 500px;
@@ -98,14 +104,19 @@ a {
 /* 팝업으로 뜨는 윈도우 css  */ 
 .window{
     display: none;
-    position:absolute;  
     left:50%;
-    top:50px;
-    margin-left: -500px;
     width:1000px;
-    height:500px;
+    height:700px;
     background-color:#FFF;
-    z-index:10000;   
+    z-index:10000; 
+    border-radius: 20px;
+    
+    position: fixed;
+    margin-left: -25%; /* half of width */
+    top: 50%;
+    margin-top: -350px; /* half of height */
+    overflow: auto;
+ 
  }
  
 </style>
@@ -246,12 +257,15 @@ a {
 						<div id="container">
 							<div id="mask"></div>
 							<div class="window">
+								<h2 style="margin-left: 20px;display: inline-block;">공지사항</h2>
 								<p
-									style="width: 1000px; height: 50px; text-align: center; vertical-align: middle;">
-									공지사항
+									style="text-align: center; background: #ffffff; padding: 20px;display: inline-block;
+											float:right;">
+									<a href="#" class="close">닫기X</a>
 								</p>
-								<div style="width: 850px;height: 450px; margin-left: 150px;">
-									<table border="1">
+								<hr/>
+								<div style="width: 850px;height: 500px; margin-left: 70px;">
+									<table class="table table-striped">
 										<thead>
 											<tr>
 												<td>번호</td>
@@ -263,18 +277,34 @@ a {
 												<td>공지사항</td>
 												<td>2018.11.30</td>
 											</tr>
+											<tr>
+												<td>2</td>
+												<td>공지사항</td>
+												<td>2018.11.30</td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>공지사항</td>
+												<td>2018.11.30</td>
+											</tr>
+											<tr>
+												<td>4</td>
+												<td>공지사항</td>
+												<td>2018.11.30</td>
+											</tr>
+											<tr>
+												<td>5</td>
+												<td>공지사항</td>
+												<td>2018.11.30</td>
+											</tr>
 										</thead>
 									</table>
 								</div>
-								<p
-									style="text-align: center; background: #ffffff; padding: 20px;">
-									<a href="#" class="close">닫기X</a>
-								</p>
 							</div>
 							<table border="0" cellpadding="0" cellspacing="0" width="100%" >
 								<thead>
 									<tr>
-										<td align="center" style="font-size: medium;">공지사항</td>
+										<td style="font-size: 30px;"><b>공지사항</b></td>
 									</tr>
 								</thead>
 								<tbody>
@@ -285,8 +315,17 @@ a {
 										<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
 																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
 									</tr>
+									<tr>
+										<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
+									</tr>
+									<tr>
+										<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
+									</tr>
 								</tbody>
 							</table>
+							<br/>
 							<button type="button" class="btn btn-warning openMask">더보기</button>
 						</div>
 					</div>
