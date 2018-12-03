@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
+import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 
 @Repository
 public class DataTradeDao implements DataTradeDaoInf{
@@ -15,10 +16,18 @@ public class DataTradeDao implements DataTradeDaoInf{
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
 	
+
 	@Override
-	public int insertData(List<ArticleVo> dataTradeList) {
-		//TODO : dataInsert
-		return 0;
+	public int insertArticleList(List<ArticleVo> articleList) {
+		return template.insert("dataTrade.insertArticleList", articleList);
 	}
+
+
+	@Override
+	public int insertDealList(List<DealVo> dealList) {
+		return template.insert("dataTrade.insertDealList", dealList);
+	}
+
+
 
 }

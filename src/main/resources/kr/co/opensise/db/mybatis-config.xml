@@ -5,14 +5,11 @@
 <configuration>
 
 	<typeAliases>
-		<!-- 
-		<typeAlias type="kr.co.opensise.test.model.TestVo" alias="testVo"/>
-		 -->
+		<typeAlias type="kr.co.opensise.admin.manage.datatrade.model.ArticleVo" alias="articleVo"/>
+		<typeAlias type="kr.co.opensise.admin.manage.datatrade.model.DealVo" alias="dealVo"/>
 	</typeAliases>
 
 	<mappers>
-		<!-- 
-		<mapper resource="kr/co/opensise/db/test.xml" />
-		 -->
+		<mapper resource="kr/co/opensise/db/dataTrade.xml" />
 	</mappers>
 </configuration>

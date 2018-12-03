@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -13,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -22,7 +25,8 @@ import com.google.code.geocoder.model.LatLng;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
-import kr.co.opensise.util.GeoCodingUtil;
+import kr.co.opensise.admin.manage.datatrade.service.DataTradeServiceInf;
+import kr.co.opensise.util.CommonUtil;
 
 
 @Controller
@@ -30,6 +34,9 @@ import kr.co.opensise.util.GeoCodingUtil;
 public class DataTradeController {
 		
 	private Logger log = LoggerFactory.getLogger(DataTradeController.class);
+	
+	@Resource(name="dataTradeService")
+	private DataTradeServiceInf dataTradeService;
 	
 	private final String AT = "실거래 구분 : 아파트(매매)"; 
 	private final String RT = "실거래 구분 : 연립다세대(매매)";
@@ -56,7 +63,8 @@ public class DataTradeController {
 
 	@RequestMapping("/insertData")
 	public String insertData(@RequestPart("tradeData") MultipartFile part, 
-							@RequestParam("dataType") String dataType) {
+							@RequestParam("dataType") String dataType
+							,Model model) {
 	
 		try {
 			
@@ -87,25 +95,37 @@ public class DataTradeController {
 			
 			for(int i = 17; i <= rows ; i++  ) {
 				
+
 				XSSFRow row = sheet.getRow(i);
 				
-				ArticleVo articleVo = new ArticleVo();
-				DealVo dealVo = new DealVo();
-			
-				Map<String, Object> setVoMap = setVo(articleVo, dealVo, division, row);
+				Map<String, Object> setVoMap = setVo(division, row);
 				
-				articleList.add((ArticleVo) setVoMap.get("articleVo"));
-				dealList.add((DealVo) setVoMap.get("dealVo"));
+				ArticleVo articleVo = (ArticleVo) setVoMap.get("articleVo");
+				DealVo dealVo = (DealVo) setVoMap.get("dealVo");
+
+				articleList.add(articleVo);
+				dealList.add(dealVo);
 				
-				log.debug("articleVo ==> {}", (ArticleVo)setVoMap.get("articleVo"));
-				log.debug("dealVo ==> {}", (DealVo)setVoMap.get("dealVo"));
+				log.info("articleVo ==> {}", ((ArticleVo)setVoMap.get("articleVo")).toString());
+				log.info("dealVo ==> {}", ((DealVo)setVoMap.get("dealVo")).toString());
 				
 			}
 			
-		
-			
 			//4. 담은 Vo들을 List에 담고 insert한다..
+			int insertArticleListResult = 0;
+			int insertDealListResult = 0;
 			
+			try {
+				insertArticleListResult = dataTradeService.insertArticleList(articleList);
+			} catch (Exception e) { }
+			insertDealListResult = dataTradeService.insertDealList(dealList);
+			
+			
+			
+			
+			
+			model.addAttribute("insertArticleListResult", insertArticleListResult);
+			model.addAttribute("insertDealListResult", insertDealListResult);
 			
 			
 		} catch (Exception e) { 
@@ -114,51 +134,65 @@ public class DataTradeController {
 		
 		
 		return "manage/dataTrade";
+				
 	}
 	
-	private Map<String, Object> setVo(ArticleVo articleVo, DealVo dealVo, String division, XSSFRow row) {
+	private Map<String, Object> setVo(String division, XSSFRow row) {
+		
+		ArticleVo articleVo = new ArticleVo();
+		DealVo dealVo = new DealVo();
+		Map<String, Object> setVoMap = new HashMap<>();
 		
 		if(division.equals(AT)){
 			
-			//articleVo 넣기..
-			articleVo.setArtcl_bc(1);
-			articleVo.setArtcl_complx(row.getCell(4).toString());
-			float excv_area = Float.parseFloat((row.getCell(5).toString()));
-			articleVo.setArtcl_excv_area(excv_area);
-			articleVo.setArtcl_flr(row.getCell(9).toString());
-			articleVo.setArtcl_const_y(row.getCell(10).toString());
-			
+			//주소 파싱
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
+			String zip = row.getCell(1).toString();
+
+			//articleVo 넣기..
+			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
-			
-			String zip = row.getCell(1).toString();
 			articleVo.setArtcl_zip(zip);
+						
+			articleVo.setArtcl_bc(1);
+			articleVo.setArtcl_complx(row.getCell(4).toString());
+			articleVo.setArtcl_const_y(row.getCell(10).toString());
 			articleVo.setArtcl_rd(row.getCell(11).toString());
 			
 			String rd_detail = row.getCell(2).toString() + row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
 			//주소 - 좌표 변환
-			String location = siGunGu + zip;
-			LatLng latlng = GeoCodingUtil.geoCoding(location);
-			articleVo.setArtcl_lat(String.valueOf(latlng.getLat().floatValue()));
-			articleVo.setArtcl_lng(String.valueOf(latlng.getLng().floatValue()));
+//			String location = siGunGu + " " + zip;
+//			LatLng latlng = GeoCodingUtil.geoCoding(location);
+//			articleVo.setArtcl_lat(String.valueOf(latlng.getLat().floatValue()));
+//			articleVo.setArtcl_lng(String.valueOf(latlng.getLng().floatValue()));
+			
 			
 			//dealVo 넣기..
-			int price = Integer.parseInt(row.getCell(8).toString());
+			//주소 외래키 입력
+			dealVo.setDl_gu(sigunguArr[1]);
+			dealVo.setDl_dong(sigunguArr[2]);
+			dealVo.setDl_zip(zip);
+			
+			dealVo.setDl_ty("매매");
+			int price = CommonUtil.delComma(row.getCell(8).toString().trim());
 			dealVo.setDl_price(price);
+			
+			float excv_area = Float.parseFloat(row.getCell(5).toString());
+			dealVo.setDl_excv_area(excv_area);
+			dealVo.setDl_flr(row.getCell(9).toString());
 			dealVo.setDl_cont_ym(row.getCell(6).toString());
 			dealVo.setDl_cont_d(row.getCell(7).toString());
 			
-			Map<String, Object> setVoMap = new HashMap<>();
 			setVoMap.put("articleVo", articleVo);
 			setVoMap.put("dealVo", dealVo);
 			
 		}
 		
-		return null;
+		return setVoMap;
 	}
 
 	private String divisionValidation(XSSFCell divisionCell) {

@@ -10,7 +10,7 @@ import com.google.code.geocoder.model.GeocoderResult;
 import com.google.code.geocoder.model.GeocoderStatus;
 import com.google.code.geocoder.model.LatLng;
 
-public class GeoCodingUtil {
+public class CommonUtil {
 	
 	public static LatLng geoCoding(String location) {
 		
@@ -26,7 +26,11 @@ public class GeoCodingUtil {
 		try {
 			geocodeResponse = geocoder.geocode(geocoderRequest);
 			
+			System.out.println(geocodeResponse.getStatus().toString());
+			
 			if(geocodeResponse.getStatus() == GeocoderStatus.OK & !geocodeResponse.getResults().isEmpty()) {
+				
+				System.out.println("work!!");
 				
 				GeocoderResult geocoderResult = geocodeResponse.getResults().iterator().next();
 				LatLng latlng = geocoderResult.getGeometry().getLocation();
@@ -40,6 +44,12 @@ public class GeoCodingUtil {
 		}
 		
 		return null;
+	}
+	
+	
+	public static int delComma(String data) {
+		String removeData = data.replaceAll(",", "");
+		return Integer.parseInt(removeData);
 	}
 
 }

@@ -155,7 +155,7 @@
 			<version>2.4.0</version>
 		</dependency>
 
-		<!-- 주소-좌표 변환 -->
+		<!-- 지도 주소 좌표 변환 -->
 		<!-- https://mvnrepository.com/artifact/com.google.code.geocoder-java/geocoder-java -->
 		<dependency>
 			<groupId>com.google.code.geocoder-java</groupId>
