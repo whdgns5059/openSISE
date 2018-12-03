@@ -18,7 +18,7 @@
 	<br/>
 	
 	<%-- 엑셀 데이터 입력용이므로 파일 전송 enctype 설정해주어야함 --%>
-	<form action="#" method="post">
+	<form action="/manage/dataTrade/insertData" method="post" enctype="multipart/form-data">
 		
 		데이터 타입 선택 : 
 		<select name="dataType">

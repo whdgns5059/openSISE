@@ -18,6 +18,8 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:kr/co/opensise/spring/root-context.xml
+			classpath:kr/co/opensise/spring/datasource-context.xml
+			classpath:kr/co/opensise/spring/transaction-context.xml
 		</param-value>
 	</context-param>
 
