@@ -33,12 +33,20 @@
 				<td><input type="submit" value="DB 저장" /></td>
 			</tr>
 			<tr>
-				<td>대전 교통정보</td>
-				<td><a href="ttps://www.data.go.kr/dataset/3034841/openapi.do">대전 교통정보</a></td>
+				<td>교통정보</td>
+				<td>
+					<a href="https://www.data.go.kr/subMain.jsp#/L3B1YnIvdXNlL3ByaS9Jcm9zT3BlbkFwaURldGFpbC9vcGVuQXBpTGlzdFBhZ2UkQF4wMTJtMSRAXnB1YmxpY0RhdGFQaz0zMDM0ODQyJEBeYnJtQ2Q9T0MwMDExJEBecmVxdWVzdENvdW50PTE1NCRAXm9yZ0luZGV4PU9QRU5BUEk=">
+					대전 교통정보</a>
+				</td>
 				<td><input type="file" name="stationData" /></td>
 				<td><input type="submit" value="DB 저장" /></td>
 			</tr>
-			
+			<tr>
+				<td>물가정보</td>
+				<td><a href="http://www.daejeon.go.kr/drh/board/boardNormalList.do?boardId=normal_1009&menuSeq=3306">대전물가정보</a></td>
+				<td><input type="file" name="marketData" /></td>
+				<td><input type="submit" value="DB 저장" /></td>
+			</tr>
 		</tbody>
 	</table>
 	</form>
