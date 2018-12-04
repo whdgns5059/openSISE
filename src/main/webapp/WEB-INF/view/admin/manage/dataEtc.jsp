@@ -3,16 +3,14 @@
     
 <style type="text/css">
 	
-	.dataEtc { width : 1500px; height: 900px;}
-	
+
 </style> 
     
-<div class="dataEtc">
+<div class="admin-title">
 	
-	<br/>
-	<br/>
 	<h2>데이터 업데이트(기타)</h2>
-	<hr/>
+	<div class="hr2">
+	</div>
 	
 	<br/>
 	<form action="/manage/dataEtc/insertDataEtc" method="post" enctype="multipart/form-data">

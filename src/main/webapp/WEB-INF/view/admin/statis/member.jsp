@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
     
     
-<div>
-	<!-- <img src="https://via.placeholder.com/1500x900/aaffaa?text=/admin/statis/member.jsp" /> -->
+<div class="admin-title">
+	<h2>회원통계</h2>
+	<div class="hr2">
+	</div>
+	
+	
 </div>

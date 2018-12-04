@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
     
     
-<div>
-	<img src="https://via.placeholder.com/1500x900/aaffaa?text=/admin/statis/favor.jsp" />
+<div class="admin-title">
+	<h2>인기건물</h2>
+	<div class="hr2">
+	</div>
+	
+	
 </div>
