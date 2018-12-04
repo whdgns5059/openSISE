@@ -12,6 +12,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic");
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon|Jua|Nanum+Gothic+Coding|Noto+Sans+KR');
 :root {
   --blue: #158CBA;
   --indigo: #6610f2;
@@ -2513,21 +2514,22 @@ textarea.form-control {
   cursor: pointer;
 }
 
-a.btn.disabled,
+.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #158CBA;
-  border-color: #158CBA;
+  color: white;
+  background-color: #e8a93f;
+  border-color: #e79634;
+  font-family:'Noto Sans KR', sans-serif;
 }
 
 .btn-primary:hover {
-  color: #fff;
-  background-color: #117298;
-  border-color: #106a8c;
+  color: #e2dbce;
+  background-color: #e79634;
+  border-color: #e0961b;
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -2536,16 +2538,16 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
-  color: #fff;
-  background-color: #158CBA;
-  border-color: #158CBA;
+  color: #f1ebe0;
+  background-color: #e8a93f;
+  border-color: #f0c67d;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #106a8c;
-  border-color: #0f6181;
+  background-color: #e8a93f;
+  border-color: #e79634;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -2810,14 +2812,24 @@ fieldset:disabled a.btn {
   color: #158CBA;
   background-color: transparent;
   background-image: none;
-  border-color: #158CBA;
+  border-color: #cf8b18;
+  font-size: 28px;
+  font-family: 'Do Hyeon', sans-serif;
 }
-
+.btn.focus, .btn:focus, .btn:hover {
+    color: #f1ebe0;
+    text-decoration: none;
+}
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #158CBA;
-  border-color: #158CBA;
+  background-color: #f4b344;
+  border-bottom-color: #cf8b18;
 }
+
+
+
+
+
 
 .btn-outline-primary:focus, .btn-outline-primary.focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(21, 140, 186, 0.5);
@@ -2831,9 +2843,9 @@ fieldset:disabled a.btn {
 
 .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,
 .show > .btn-outline-primary.dropdown-toggle {
-  color: #fff;
-  background-color: #158CBA;
-  border-color: #158CBA;
+  color: #f1ebe0;
+  background-color: #f4b344;
+  border-color: #cf8b18;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
@@ -9515,10 +9527,11 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .btn {
-  border-style: solid;
-  border-width: 0 1px 4px 1px;
-  font-size: 12px;
-  font-weight: bold;
+  width: 180px;
+  border: 1px solid #ffe1af;
+  border-width: 1px;
+  border-bottom: 4px solid #e8a93f;
+  color: #e8a93f;
   text-transform: uppercase;
 }
 
@@ -9536,39 +9549,6 @@ a.text-dark:hover, a.text-dark:focus {
   border-top-width: 1px;
 }
 
-.btn-primary {
-  border-color: #127ba3;
-}
-
-.btn-secondary {
-  border-color: #e3e3e3;
-}
-
-.btn-success {
-  border-color: #23a127;
-}
-
-.btn-info {
-  border-color: #5fc1e8;
-  color: #fff;
-}
-
-.btn-danger {
-  border-color: #ff291d;
-}
-
-.btn-warning {
-  border-color: #ff7702;
-  color: #fff;
-}
-
-.btn-light {
-  border-color: #e9e9e9;
-}
-
-.btn-dark {
-  border-color: #484848;
-}
 
 .btn-group-vertical .btn + .btn:hover {
   margin-top: -1px;

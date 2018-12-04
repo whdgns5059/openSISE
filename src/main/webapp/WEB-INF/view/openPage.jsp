@@ -21,7 +21,7 @@
 }
 .navC{
 	width: 1900px;
-	height: 80px;
+	height: 100px;
 }
 .nav_right{
 	width:500px;
@@ -30,7 +30,7 @@
 	float: right;
 }
 ul{
-	margin-top: 50px;
+	margin-top: 8px;
 	margin-left: 100px;
 }
 ul li {
@@ -49,7 +49,7 @@ td {
 	text-overflow:ellipsis; 
 }
 .logo{
-	margin: 20px 0 20px 0;
+	margin: 10px 0 90px 0;
 	padding: 20px 400px 20px 500px;
 	width: 1303px;
 }
@@ -64,15 +64,34 @@ td {
 	float: left;
 	margin: 10px 50px 0px 100px;
 }
+.btn{
+	padding:15px;
+}
+.align-center{
+	margin: 0 auto;
+}
 .search{
-	
-	width:1303px ;
+	width:1050px ;
 	height:50px ;
+}
+.searchBtn{
+    width: 100px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px;
+}
+.searchBox{
+    width: 900px;
+    height: 49px;
+    border: solid 2px #e8a93f;
+    border-radius: 0.3rem;
+	padding-left: 1rem;
 }
 .board{
 	width:1303px ;
 	height:450px ;
-	margin-top:10px;
+	margin-top:100px;
 }
 .picture{
 	width:650px ;
@@ -90,7 +109,9 @@ td {
 	margin-top: 30px;
 	margin-left: 20px;
 }
-
+input:disabled {
+    background: #99460e;
+}
  
 /* 마스크 뛰우기 */
 #mask {  
@@ -130,6 +151,7 @@ td {
 
 <!-- layer popup -->
 <script type="text/javascript"> 
+
 //<![CDATA[
     function wrapWindowByMask(){
  
@@ -150,45 +172,72 @@ td {
  
     }
  
+    
+    //건물 분류 선택하기
+    function getBC(bc){
+    	var house = document.getElementById("house");
+    	var apt = document.getElementById("apt");
+    	var store = document.getElementById("store");
+    	house.style.backgroundColor = "transparent";
+    	house.style.color = "#e8a93f";
+    	apt.style.backgroundColor = "transparent"
+    	apt.style.color = "#e8a93f";
+    	store.style.backgroundColor = "transparent"
+    	store.style.color = "#e8a93f";
+    	
+        bc.style.color = "#f1ebe0";
+		bc.style.backgroundColor = "#f4b344";
+    }
+    
+    
     $(document).ready(function(){
-        //검은 막 띄우기
-        $(".openMask").click(function(e){
-            e.preventDefault();
-            wrapWindowByMask();
-        });
- 
-        //닫기 버튼을 눌렀을 때
-        $(".window .close").click(function (e) {  
-            //링크 기본동작은 작동하지 않도록 한다.
-            e.preventDefault();  
-            $("#mask, .window").hide();  
-        });       
- 
-        //검은 막을 눌렀을 때
-        $("#mask").click(function () {  
-            $(this).hide();  
-            $(".window").hide();  
- 
-        });  
-        
-        //search
-        $("#search").click(function(){
-        	
-        	$(".searchF").submit();
-        })
-        
-        //bxslider
-        $('.bxslider').bxSlider({
-        	  auto: true,
-        	  autoControls: true,
-        	  stopAutoOnClick: true,
-        	  pager: true,
-        	  slideWidth: 600
-        	});
- 
-    });
- 
-//]]>
+    	
+/*     	//건물 분류 선택하기
+    	$("#house").click(function(){ 
+    		var bc = document.getElementById("house");
+			bc.style.color = "red";
+			bc.style.fontSize = "15px";
+			bc.style.backgroundColor = "#FFFFFF";
+ 		});  */
+    	
+		//검은 막 띄우기
+		$(".openMask").click(function(e) {
+			e.preventDefault();
+			wrapWindowByMask();
+		});
+
+		//닫기 버튼을 눌렀을 때
+		$(".window .close").click(function(e) {
+			//링크 기본동작은 작동하지 않도록 한다.
+			e.preventDefault();
+			$("#mask, .window").hide();
+		});
+
+		//검은 막을 눌렀을 때
+		$("#mask").click(function() {
+			$(this).hide();
+			$(".window").hide();
+
+		});
+
+		//search
+		$("#search").click(function() {
+
+			$(".searchF").submit();
+		})
+
+		//bxslider
+		$('.bxslider').bxSlider({
+			auto : true,
+			autoControls : true,
+			stopAutoOnClick : true,
+			pager : true,
+			slideWidth : 600
+		});
+
+	});
+
+	//]]>
 </script>
 </head>
 <body>
@@ -202,6 +251,7 @@ td {
 				<li style="margin-right: 50px;"><a href="/login/login">로그인</a></li>
 				<li style="margin-right: 50px;"><a href="/signup/signup">회원가입</a></li>
 				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
+				
 			</ul>
 		</div>
 	</div>
@@ -217,22 +267,23 @@ td {
 		<!-- button -->
 		<div class="button">
 			<div class="buttons">
-				<button type="button" class="btn btn-primary btn-lg" style="padding: 20px">Large button</button>
+				<button type="button" class="btn btn-outline-primary" id="house" onclick="getBC(this)">단/다세대</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-primary btn-lg" style="padding: 20px" >Large button</button>
+				<button type="button" class="btn btn-outline-primary" id="apt" onclick="getBC(this)">아파트</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary"  style="padding:20px">Large button</button>
+				<button type="button" class="btn btn-outline-primary" id="store" onclick="getBC(this)">상가</button>
 			</div>
 		</div>
 		
 		<!-- search -->
-		<div class="search">
-				<form class="form-inline my-2 my-lg-5 searchF" action="/main/main">
-					<input class="form-control mr-sm-5" type="text"
+		<div class="search align-center">
+				<form class="my-lg-5 searchF" action="/main/main">
+					<input class="searchBox mr-sm-4" type="text"
 						placeholder="지역명, 지하철역명, 아파트명, 등을 입력하세요">
-					<button type="button" class="btn btn-primary btn-lg" id="search">search</button>
+					<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">시세보기</button>
+					<input type="hidden" id="bc_type"/>
 				</form>
 		</div>
 			
