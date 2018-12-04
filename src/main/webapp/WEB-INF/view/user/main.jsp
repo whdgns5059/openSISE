@@ -1,10 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+
+		
+		// 해당 주소에 대한 좌표값을 담을 변수
+		var x;
+		var y;
+	
+		// 해당 주소를 담을 값
+		var addr;
+		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
-			center : new daum.maps.LatLng(36.3505393936125, 127.38483389033713), // 지도의 중심좌표
+			center : new daum.maps.LatLng(36.3505393936125,127.38483389033713), // 지도의 중심좌표
 			level : 3
 		// 지도의 확대 레벨
 		};
@@ -17,46 +28,7 @@
 		});
 		//마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
-		$("#search").on("click",function(){
-			//현재 표시되어있는 마커는 지우기
-			var loc = $("#loc").val();
-			marker.setMap(null);
-			var ps = new daum.maps.services.Places();
-			ps.keywordSearch(loc,placeSearchCB);
-			
-			/* marker.setMap(null);
-			var ps = new daum.maps.services.Places();
-			ps.keywordSearch(loc,placeSearchCB); */
-		});
-		function placeSearchCB(data, status, pagination) {
-			if (status == daum.maps.services.Status.OK) {
-				var bounds = new daum.maps.LatLngBounds();
-				for (var i = 0; i < data.length; i++) {
-					displayMarker(data[i]);
-					bounds.extend(new daum.maps.LatLng(data[i].y, data[i].x));
-				}
-				map.setBounds(bounds);
-				var moveLatLon = new daum.maps.LatLng(data[0].y, data[0].x);
-				map.setCenter(moveLatLon);
-			}
-			//지도 레벨 표시
-			map.setLevel(3);
-		}
-		// 지도에 마커를 표시하는 함수입니다
-		function displayMarker(place) {
-			// 마커를 생성하고 지도에 표시합니다
-			var marker = new daum.maps.Marker({
-				map : map,
-				position : new daum.maps.LatLng(place.y, place.x)
-			});
-			// 마커에 클릭이벤트를 등록합니다
-			daum.maps.event.addListener(marker, 'click', function() {
-				// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-				infowindow.setContent('<div style="padding:5px;font-size:12px;">'
-						+ place.place_name + '</div>');
-				infowindow.open(map, marker);
-			});
-		}
+		
 	});
 </script>
 
@@ -65,10 +37,10 @@
 	<!-- left contents -->
 	<div>
 		<form style="width: 300px;display: inline-block; float: left; padding-left: 20px; padding-top: 10px;">
-			<input  type="text" placeholder="Search" id="loc">
+			<input  type="text" placeholder="Search" id="loc" value="${search}">
 			<button  type="button" id="search">Search</button>
 		</form>
-			<ul class="nav nav-tabs" style="width: 1000px;">?
+			<ul class="nav nav-tabs" style="width: 1000px;">
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
