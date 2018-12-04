@@ -47,9 +47,9 @@ public class CommonUtil {
 	}
 	
 	
-	public static int delComma(String data) {
+	public static double delComma(String data) {
 		String removeData = data.replaceAll(",", "");
-		return Integer.parseInt(removeData);
+		return Double.parseDouble(removeData);
 	}
 
 }

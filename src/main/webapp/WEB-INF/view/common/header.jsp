@@ -31,10 +31,15 @@
 
 		<!-- 오른쪽 상단 배치// 예: 로그인, 회원가입등 -->
 		<div style="width: 600; height: 70px; float: right;" >
-			<ul class="navbar-nav mr-auto" style="font-size: large; padding-top: 20px;">
-				<li class="nav-item"><a class="nav-link" href="/mypage/myinfo">나의 정보</a></li>
-				<li class="nav-item"><a class="nav-link" href="/login/login">로그인</a></li>
-				<li class="nav-item"><a class="nav-link" href="/signup/signup">회원가입</a></li>
+			<ul class="top-menu">
+				<!-- memVo가 null인 경우 -->
+				<li><a href="/login/login">로그인</a></li>
+				<li><a href="/signup/signup">회원가입</a></li>
+				<!-- 관리자일 경우에 생기는 a tag  --> 
+				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
+				<!-- 로그인 한 경우에 생기는 a tag  --> 
+				<li><a class="nav-link" href="/mypage/myinfo">나의 정보</a></li>
+				<li><a href="/">{회원의 닉네임}님 환영합니다! </a></li>
 			</ul>
 		</div>
 	</div>
