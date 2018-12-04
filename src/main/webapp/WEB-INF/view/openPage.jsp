@@ -353,6 +353,7 @@ input:disabled {
 									</table>
 								</div>
 							</div>
+<<<<<<< HEAD
 					<div class="notice-word word-over">
 						<table border="0" cellpadding="0" cellspacing="0" width="100%" >
 							<thead>
@@ -379,6 +380,36 @@ input:disabled {
 									</tbody>
 								</table>
 							</div>
+=======
+							<table style="table-layout:fixed;" >
+								<thead>
+									<tr>
+										<td style="font-size: 30px;"><b>공지사항</b></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="font-size: medium;line-height: 50px;">1.공지사항입니다.</td>
+									</tr>
+									<tr>
+										<td style="font-size: medium;"><nobr>2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세
+																	   2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</nobr></td>
+									</tr>
+									<tr>
+										<td style="font-size: medium;"><nobr>2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</nobr></td>
+									</tr>
+									<tr>
+										<td style="font-size: medium;"><nobr>2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</nobr></td>
+									</tr>
+								</tbody>
+							</table>
+							<br/>
+							<button type="button" class="btn btn-warning openMask">더보기</button>
+>>>>>>> c6687d5f112c7739cb1a54bf035acdcd876bf418
 						</div>
 					</div>
 			</div>
