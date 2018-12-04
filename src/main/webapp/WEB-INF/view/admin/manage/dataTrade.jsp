@@ -7,6 +7,20 @@
 	
 </style> 
     
+<script>
+	
+	$(document).ready(function(){
+		
+		if(${insertArticleListResult} != null || ${insertDealListResult} != null){
+			alert(${insertArticleListResult} + "건의 \n건물 정보를 업데이트 하였습니다.");
+			alert(${insertDealListResult} + "건의 \n거래 정보를 업데이트 하였습니다.");
+		}
+		
+	});
+	
+
+</script> 
+    
 <div class="dataTradeDiv">
 	
 	<br/>

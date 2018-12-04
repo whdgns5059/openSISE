@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dataTrade">
+
+	<insert id="insertArticleList" parameterType="map">
+		insert all
+		<foreach collection="list" item="aVo" separator=" ">
+			into ARTICLE(
+				ARTCL_GU, ARTCL_DONG, ARTCL_ZIP, ARTCL_BC, ARTCL_COMPLX, 
+				ARTCL_NM, ARTCL_TY, ARTCL_PRPS_PLS, ARTCL_MN_PRPS, ARTCL_CONST_Y, 
+				ARTCL_RD, ARTCL_RD_DETAIL, ARTCL_LAT, ARTCL_LNG	)
+			values (
+				#{aVo.artcl_gu }, #{aVo.artcl_dong}, #{aVo.artcl_zip}, #{aVo.artcl_bc},
+				#{aVo.artcl_complx, jdbcType=VARCHAR}, 
+				#{aVo.artcl_nm, jdbcType=VARCHAR}, 
+				#{aVo.artcl_ty, jdbcType=VARCHAR}, 
+				#{aVo.artcl_prps_pls, jdbcType=VARCHAR},
+				#{aVo.artcl_mn_prps, jdbcType=VARCHAR}, 
+				#{aVo.artcl_const_y, jdbcType=VARCHAR}, 
+				#{aVo.artcl_rd, jdbcType=VARCHAR},
+				#{aVo.artcl_rd_detail, jdbcType=VARCHAR}, 
+				#{aVo.artcl_lat, jdbcType=VARCHAR}, 
+				#{aVo.artcl_lng, jdbcType=VARCHAR}
+				) LOG ERRORS REJECT LIMIT UNLIMITED
+		</foreach>
+		select * from dual
+	</insert>
+
+	<insert id="insertDealList" parameterType="map">
+		insert all
+		<foreach collection="list" item="dVo" separator=" ">
+			into DEAL (
+				DL_NO, DL_EXCV_AREA, DL_TY, DL_PRICE, DL_DEPOS, DL_RNT, DL_CONT_YM,
+				DL_CONT_D, DL_FLR, DL_GU, DL_DONG, DL_ZIP	
+			) values (
+				get_seq_dl, 
+				#{dVo.dl_excv_area, jdbcType=FLOAT}, 
+				#{dVo.dl_ty, jdbcType=VARCHAR}, 
+				#{dVo.dl_price, jdbcType=DOUBLE}, 
+				#{dVo.dl_depos, jdbcType=DOUBLE}, 
+				#{dVo.dl_rnt, jdbcType=VARCHAR}, 
+				#{dVo.dl_cont_ym, jdbcType=VARCHAR},
+				#{dVo.dl_cont_d, jdbcType=VARCHAR}, 
+				#{dVo.dl_flr, jdbcType=VARCHAR}, 
+				#{dVo.dl_gu, jdbcType=VARCHAR},
+				#{dVo.dl_dong, jdbcType=VARCHAR}, 
+				#{dVo.dl_zip, jdbcType=VARCHAR}
+				) 
+		</foreach>
+		select * from dual
+	</insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
