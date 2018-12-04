@@ -3,5 +3,5 @@
     
     
 <div>
-	<img src="https://via.placeholder.com/1500x900/aaffaa?text=/admin/statis/member.jsp" />
+	<!-- <img src="https://via.placeholder.com/1500x900/aaffaa?text=/admin/statis/member.jsp" /> -->
 </div>

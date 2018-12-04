@@ -68,7 +68,7 @@
 			<input  type="text" placeholder="Search" id="loc">
 			<button  type="button" id="search">Search</button>
 		</form>
-			<ul class="nav nav-tabs" style="width: 1000px;">
+			<ul class="nav nav-tabs" style="width: 1000px;">?
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>

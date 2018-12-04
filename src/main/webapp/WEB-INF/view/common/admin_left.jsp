@@ -3,36 +3,69 @@
 	<!-- left contents -->
 	
 <style type="text/css">
-	ul { list-style : none; }	
-	ul a { font-size: large;}
-	.adminLeft {width: 400px; height: 900px;}	
+ul { list-style : none; }	
+.adminLeft {
+	width: 300px; 
+	padding-left: 20px;
+}
+.left-menu li{
+	font-size: 15px;
+	color: #757575;
+}
+.left-menu li a{
+	padding-left: 20px;
+	font-size: 12px;
+	color: #757575;
+}
+.mngr-logout{
+	margin-top: 50px;
+	text-align: center;
+	font-size: 10px;
+}
+.mngr-logout a{
+	color: #e8a93f;
+}
 	
-		
 </style>
 
 <div class="adminLeft">
 	<br/>	
-	<br/>	
-	<ul>
+	<ul class="left-menu">
+		<li><b>회원관리</b></li>
+		<li><a href="/manage/member/member">회원수정</a></li>
+	</ul>
+	<hr/>
+	<ul class="left-menu">
+		<li><b>데이터 갱신</b></li>
 		<li><a href="/manage/dataTrade/dataTrade">실거래 데이터</a></li>
 		<li><a href="/manage/dataEtc/dataEtc">기타 데이터</a></li>
-		<li><a href="/manage/member/member">회원관리</a></li>
+	</ul>
+	<hr/>
+	<ul class="left-menu">
+		<li><b>사이트관리</b></li>
 		<li><a href="/manage/notice/notice">공지사항</a></li>
 		<li><a href="/manage/review/review">리뷰관리</a></li>
 		<li><a href="/manage/report/report">신고관리</a></li>
 		<li><a href="/manage/ban/ban">금지어 관리</a></li>
 	</ul>
-	
-	<ul>
+	<hr/>
+	<ul class="left-menu">
+		<li><b>통계 관리</b></li>
 		<li><a href="/statis/member/member">회원통계</a></li>
 		<li><a href="/statis/favor/favor">인기건물</a></li>
 		<li><a href="/statis/interest/interest">관심사통계</a></li>
 		<li><a href="/statis/visitor/visitor">방문자수</a></li>
 		<li><a href="/statis/pageCount/pageCount">페이지사용량</a></li>
 	</ul>
-	
-	<ul>
+	<hr/>
+	<ul class="left-menu">
+		<li><b>기타 관리</b></li>
 		<li><a href="#">광고문의</a></li>
 		<li><a href="#">1:1 채팅</a></li>
 	</ul>
+	<hr/>
+	<div class="mngr-logout">
+		<a href="/">관리자 로그아웃</a>
+	</div>
 </div>
+

@@ -173,6 +173,8 @@ input:disabled {
     
     //건물 분류 선택하기
     function getBC(bc){
+    	$('#searchText').attr("readonly",false);
+    	$('#searchText').attr("placeholder","지역명, 지하철역명, 아파트명, 등을 입력하세요");
     	var house = document.getElementById("house");
     	var apt = document.getElementById("apt");
     	var store = document.getElementById("store");
@@ -185,6 +187,8 @@ input:disabled {
     	
         bc.style.color = "#f1ebe0";
 		bc.style.backgroundColor = "#f4b344";
+		$("#building").val(bc.value);
+		
     }
     
     
@@ -220,7 +224,6 @@ input:disabled {
 
 		//search
 		$("#search").click(function() {
-
 			$(".searchF").submit();
 		})
 
@@ -270,23 +273,24 @@ input:disabled {
 		<!-- button -->
 		<div class="button">
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="house" onclick="getBC(this)">단/다세대</button>
+				<button type="button" class="btn btn-outline-primary" id="house" value="단/다세대" onclick="getBC(this)">단/다세대</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="apt" onclick="getBC(this)">아파트</button>
+				<button type="button" class="btn btn-outline-primary" id="apt" value="아파트" onclick="getBC(this)">아파트</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="store" onclick="getBC(this)">상가</button>
+				<button type="button" class="btn btn-outline-primary" id="store" value="상가" onclick="getBC(this)">상가</button>
 			</div>
 		</div>
 		
 		<!-- search -->
 		<div class="search align-center">
 				<form class="my-lg-5 searchF" action="/main/main">
-					<input class="searchBox mr-sm-4" type="text"
-						placeholder="지역명, 지하철역명, 아파트명, 등을 입력하세요" readonly="readonly">
+					<input id="searchText" name="searchName" class="searchBox mr-sm-4" type="text"
+						placeholder="건물 분류를 먼저 선택해 주세요" readonly="readonly">
 					<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">시세보기</button>
 					<input type="hidden" id="bc_type"/>
+					<input type="hidden" id="building" name="building"/>
 				</form>
 		</div>
 			

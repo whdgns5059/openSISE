@@ -62,9 +62,8 @@ public class DataTradeController {
 	}
 
 	@RequestMapping("/insertData")
-	public String insertData(@RequestPart("tradeData") MultipartFile part, 
-							@RequestParam("dataType") String dataType
-							,Model model) {
+	public String insertData(@RequestPart("tradeData") MultipartFile part
+			,Model model) {
 	
 		try {
 			
