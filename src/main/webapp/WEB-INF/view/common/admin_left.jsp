@@ -5,8 +5,11 @@
 <style type="text/css">
 ul { list-style : none; }	
 .adminLeft {
-	width: 300px; 
-	padding-left: 20px;
+    width: 12%;
+    padding-left: 18px;
+    padding-right: 20px;
+    float: left;
+    border-right: 1px solid #e2e2e2;
 }
 .left-menu li{
 	font-size: 15px;
@@ -14,17 +17,19 @@ ul { list-style : none; }
 }
 .left-menu li a{
 	padding-left: 20px;
-	font-size: 12px;
+	font-size: 14px;
 	color: #757575;
 }
 .mngr-logout{
-	margin-top: 50px;
-	text-align: center;
-	font-size: 10px;
+    margin-top: 200px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 12px;
 }
 .mngr-logout a{
 	color: #e8a93f;
 }
+
 	
 </style>
 
@@ -36,13 +41,13 @@ ul { list-style : none; }
 	</ul>
 	<hr/>
 	<ul class="left-menu">
-		<li><b>데이터 갱신</b></li>
+		<li><b>데이터 관리</b></li>
 		<li><a href="/manage/dataTrade/dataTrade">실거래 데이터</a></li>
 		<li><a href="/manage/dataEtc/dataEtc">기타 데이터</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">
-		<li><b>사이트관리</b></li>
+		<li><b>사이트 관리</b></li>
 		<li><a href="/manage/notice/notice">공지사항</a></li>
 		<li><a href="/manage/review/review">리뷰관리</a></li>
 		<li><a href="/manage/report/report">신고관리</a></li>
