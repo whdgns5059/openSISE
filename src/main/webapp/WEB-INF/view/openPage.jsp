@@ -301,7 +301,7 @@ td {
 									</table>
 								</div>
 							</div>
-							<table border="0" cellpadding="0" cellspacing="0" width="100%" >
+							<table style="table-layout:fixed;" >
 								<thead>
 									<tr>
 										<td style="font-size: 30px;"><b>공지사항</b></td>
@@ -312,16 +312,18 @@ td {
 										<td style="font-size: medium;line-height: 50px;">1.공지사항입니다.</td>
 									</tr>
 									<tr>
-										<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
-																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
+										<td style="font-size: medium;"><nobr>2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세
+																	   2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</nobr></td>
 									</tr>
 									<tr>
-										<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
-																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
+										<td style="font-size: medium;"><nobr>2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</nobr></td>
 									</tr>
 									<tr>
-										<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
-																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
+										<td style="font-size: medium;"><nobr>2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</nobr></td>
 									</tr>
 								</tbody>
 							</table>
