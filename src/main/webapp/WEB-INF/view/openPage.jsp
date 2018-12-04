@@ -29,19 +29,6 @@
 	display:inline-block;
 	float: right;
 }
-ul{
-	margin-top: 8px;
-	margin-left: 100px;
-}
-ul li {
-	list-style: none;
-	float: left;
-	vertical-align: center;
-	font-size: large;
-}
-a {
-	text-decoration: none !important;
-}
 td {
 	width: 450px;
 	white-space:nowrap; 
@@ -89,26 +76,38 @@ td {
 	padding-left: 1rem;
 }
 .board{
+	border: 1px solid black;
+	
 	width:1303px ;
-	height:450px ;
+	height:500px ;
 	margin-top:100px;
 }
 .picture{
-	width:650px ;
+	width:600px ;
 	height:450px ;
 	display: inline-block;
 	float: left;
-	margin-top: 30px;
-	margin-left: 50px;
 }
 .notice{
-	width:481px ;
+	margin-left: 53px;
+	width:600px ;
 	height:450px ;
 	display: inline-block;
 	float: left;
-	margin-top: 30px;
-	margin-left: 20px;
+	border: 1px solid #bbbbbb;
 }
+.notice-word{
+	padding: 20px;
+	width: 500px;
+	height: 350px;
+	
+}
+.word-over{
+	overflow: hidden; 
+	white-space: nowrap; 
+	text-overflow: ellipsis;
+}
+
 input:disabled {
     background: #99460e;
 }
@@ -139,7 +138,7 @@ input:disabled {
     overflow: auto;
  
  }
- 
+
 </style>
 
 <!-- bxSlider 연결 -->
@@ -247,10 +246,14 @@ input:disabled {
 	<div class="navC">
 		<!-- nav_right -->
 		<div class="nav_right">
-			<ul>
-				<li style="margin-right: 50px;"><a href="/login/login">로그인</a></li>
-				<li style="margin-right: 50px;"><a href="/signup/signup">회원가입</a></li>
+			<ul class="top-menu">
+				<!-- memVo가 null인 경우 -->
+				<li style="margin-right: 50px;" ><a href="/login/login">로그인</a></li>
+				<li style="margin-right: 50px;" ><a href="/signup/signup">회원가입</a></li>
+				<!-- 관리자일 경우에 생기는 a tag  --> 
 				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
+				<!-- 로그인 한 경우에 생기는 a tag  --> 
+				<li><a href="/">{회원의 닉네임}님 환영합니다! </a></li>
 				
 			</ul>
 		</div>
@@ -258,6 +261,7 @@ input:disabled {
 	
 	<!-- contents -->
 	<div class="contents">
+	
 		<!-- logo -->
 		<div class="logo">
 			<img src="/img/snail.png"  />
@@ -292,26 +296,23 @@ input:disabled {
 		
 			<!-- picture -->
 			<div class="picture" >
-
 				<!-- bxslider -->
 				<div class="bxslider">
 				  <div><img src="/img/img1.png"></div>
 				  <div><img src="/img/img2.png"></div>
 				  <div><img src="/img/img3.png"></div>
 				</div>
-
 			</div>
 				
 			<!-- notice -->
 			<div class="notice">
-					<div id="wrap_pop">
-						<div id="container">
-							<div id="mask"></div>
-							<div class="window">
+			
+			
+				<!-- 공지사항 팝업용  -->
+				<div id="mask"></div>
+						<div class="window">
 								<h2 style="margin-left: 20px;display: inline-block;">공지사항</h2>
-								<p
-									style="text-align: center; background: #ffffff; padding: 20px;display: inline-block;
-											float:right;">
+								<p style="text-align: center; background: #ffffff; padding: 20px;display: inline-block;float:right;">
 									<a href="#" class="close">닫기X</a>
 								</p>
 								<hr/>
@@ -352,37 +353,38 @@ input:disabled {
 									</table>
 								</div>
 							</div>
-							<table border="0" cellpadding="0" cellspacing="0" width="100%" >
-								<thead>
-									<tr>
-										<td style="font-size: 30px;"><b>공지사항</b></td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td style="font-size: medium;line-height: 50px;">1.공지사항입니다.</td>
-									</tr>
-									<tr>
-										<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
-																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
-									</tr>
-									<tr>
-										<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
-																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
-									</tr>
-									<tr>
-										<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
-																								무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
-									</tr>
-								</tbody>
-							</table>
-							<br/>
-							<button type="button" class="btn btn-warning openMask">더보기</button>
+					<div class="notice-word word-over">
+						<table border="0" cellpadding="0" cellspacing="0" width="100%" >
+							<thead>
+								<tr>
+									<td style="font-size: 30px;"><b>공지사항</b><button type="button" class="btn btn-warning openMask">더보기</button></td>
+								</tr>
+							</thead>
+									<tbody>
+										<tr>
+											<td style="font-size: medium;line-height: 50px;">1.공지사항입니다.</td>
+										</tr>
+										<tr>
+											<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
+										</tr>
+										<tr>
+											<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
+										</tr>
+										<tr>
+											<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
+																									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 			</div>
-	</div>
-</div>
+		</div>
+	</div><!-- contents -->
+</div><!-- wrap -->
 
 </body>
 </html>

@@ -78,6 +78,20 @@ body {
   background-color: #fff;
 }
 
+/* 커스터마이징 CSS */
+.top-menu{
+	margin-top: 8px;
+	margin-left: 100px;
+}
+.top-menu li{
+	list-style: none;
+	float: left;
+	vertical-align: center;
+    color: #757575;
+    font-size: 13px;
+}
+
+
 [tabindex="-1"]:focus {
   outline: 0 !important;
 }
@@ -171,14 +185,14 @@ sup {
 }
 
 a {
-  color: #158CBA;
-  text-decoration: none;
+  color: #757575;
+  text-decoration: none !important;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
 
 a:hover {
-  color: #0d5875;
+  color: #e8a93f;
   text-decoration: underline;
 }
 
