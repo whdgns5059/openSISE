@@ -102,7 +102,30 @@ body {
     border-top: 1px solid #e2e2e2;
     margin: 16px 0 30px -20px;
 }
-
+.square{
+    width: 2px;
+    height: 18px;
+    float: left;
+    margin-right: 10px;
+}
+.yellow{
+	background: #f4b344;
+}
+.yellow2{
+	background: #f7cc06;
+}
+.green{
+	background: #aad035;
+}
+.mint{
+	background: #45c0a2; 
+}
+.greenblue{
+	background: #3ea6c8; 	
+}
+.blue{
+	background: #4385cd; 	
+}
 
 [tabindex="-1"]:focus {
   outline: 0 !important;
