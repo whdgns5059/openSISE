@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dataEtc">
+
+	<insert id="insertHumanStatistic" parameterType="map">
+		insert all
+		<foreach collection="list" item="hvo" separator=" ">
+			into HUMAN_STATISTIC(
+				hs_dong,hs_gndr,hs_age_grp,hs_hm_no,hs_date	)
+			values (
+				#{hvo.hs_dong},#{hvo.hs_gndr},#{hvo.hs_age_grp}, 
+				#{hvo.hs_hm_no},
+				#{hvo.hs_date}
+				) 
+		</foreach>
+		select * from dual
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,9 +7,11 @@
 	<typeAliases>
 		<typeAlias type="kr.co.opensise.admin.manage.datatrade.model.ArticleVo" alias="articleVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.datatrade.model.DealVo" alias="dealVo"/>
+		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.Human_statisticVo" alias="human_statisticVo"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="kr/co/opensise/db/dataTrade.xml" />
+		<mapper resource="kr/co/opensise/db/dataEtc.xml" />
 	</mappers>
 </configuration>
