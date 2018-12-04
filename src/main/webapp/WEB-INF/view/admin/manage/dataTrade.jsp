@@ -34,18 +34,8 @@
 	<%-- 엑셀 데이터 입력용이므로 파일 전송 enctype 설정해주어야함 --%>
 	<form action="/manage/dataTrade/insertData" method="post" enctype="multipart/form-data">
 		
-		데이터 타입 선택 : 
-		<select name="dataType">
-			<option value="AT">아파트 매매</option>
-			<option value="RT">연립다세대 매매</option>
-			<option value="ST">단독/다가구 매매</option>
-			<option value="OT">오피스텔 매매</option>
-			<option value="AR">아파트 전월세</option>
-			<option value="RR">연립다세대 전월세</option>
-			<option value="SR">단독/다가구 전월세</option>
-			<option value="OR">오피스텔 전월세</option>
-			<option value="NT">상업/업무용</option>
-		</select>	
+		데이터의 종류를 자동으로 구분합니다. 
+		예외처리 안되어있음..
 		<br/>
 		<br/>
 		<input type="file" name="tradeData" />

@@ -5,7 +5,7 @@ public class ArticleVo {
 	private String artcl_gu;
 	private String artcl_dong;
 	private String artcl_zip;
-	private int artcl_bc;
+	private String artcl_bc;
 	private String artcl_complx;
 	private String artcl_nm;
 	private String artcl_ty;
@@ -36,10 +36,10 @@ public class ArticleVo {
 	public void setArtcl_zip(String artcl_zip) {
 		this.artcl_zip = artcl_zip;
 	}
-	public int getArtcl_bc() {
+	public String getArtcl_bc() {
 		return artcl_bc;
 	}
-	public void setArtcl_bc(int artcl_bc) {
+	public void setArtcl_bc(String artcl_bc) {
 		this.artcl_bc = artcl_bc;
 	}
 	public String getArtcl_complx() {

@@ -39,7 +39,7 @@ public class CommonUtilTest {
 		/***given***/
 		String data = "8,200";
 		/***when***/
-		int result = CommonUtil.delComma(data);
+		double result = CommonUtil.delComma(data);
 
 		/***then***/
 		assertEquals(8200, result);

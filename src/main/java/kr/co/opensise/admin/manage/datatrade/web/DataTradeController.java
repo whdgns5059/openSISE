@@ -46,7 +46,7 @@ public class DataTradeController {
 	private final String RR = "실거래 구분 : 연립다세대(전월세)";
 	private final String SR = "실거래 구분 : 단독다가구(전월세)";
 	private final String OR = "실거래 구분 : 오피스텔(전월세)";
-	private final String NT = "실거래 구분 : 상업/업무용";
+	private final String NT = "실거래 구분 : 상업업무용(매매)";
 	
 	
 //	1	아파트
@@ -71,8 +71,8 @@ public class DataTradeController {
 			//buffedinputStream으로 속도 상승
 			BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
 		
-			XSSFWorkbook wb = new XSSFWorkbook(bis);
-			
+
+						XSSFWorkbook wb = new XSSFWorkbook(bis);
 			XSSFSheet sheet = wb.getSheetAt(0);
 			
 		
@@ -103,7 +103,7 @@ public class DataTradeController {
 				ArticleVo articleVo = (ArticleVo) setVoMap.get("articleVo");
 				DealVo dealVo = (DealVo) setVoMap.get("dealVo");
 
-				articleList.add(articleVo);
+			 	articleList.add(articleVo);
 				dealList.add(dealVo);
 				
 				log.info("articleVo ==> {}", ((ArticleVo)setVoMap.get("articleVo")).toString());
@@ -144,7 +144,7 @@ public class DataTradeController {
 		Map<String, Object> setVoMap = new HashMap<>();
 		
 		if(division.equals(AT)){
-			//아파트(매매), 건물코드 1
+			//아파트(매매), 건물코드 apt
 						
 			//주소 파싱
 			String siGunGu = row.getCell(0).toString();
@@ -157,7 +157,7 @@ public class DataTradeController {
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip(zip);
 						
-			articleVo.setArtcl_bc(1);
+			articleVo.setArtcl_bc("apt");
 			articleVo.setArtcl_complx(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(10).toString());
 			articleVo.setArtcl_rd(row.getCell(11).toString());
@@ -165,7 +165,7 @@ public class DataTradeController {
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
-			//주소 - 좌표 변환
+			//TODO : 주소 - 좌표 변환
 //			String location = siGunGu + " " + zip;
 //			LatLng latlng = GeoCodingUtil.geoCoding(location);
 //			articleVo.setArtcl_lat(String.valueOf(latlng.getLat().floatValue()));
@@ -179,7 +179,7 @@ public class DataTradeController {
 			dealVo.setDl_zip(zip);
 			
 			dealVo.setDl_ty("매매");
-			int price = CommonUtil.delComma(row.getCell(8).toString().trim());
+			double price = CommonUtil.delComma(row.getCell(8).toString().trim());
 			dealVo.setDl_price(price);
 			
 			float excv_area = Float.parseFloat(row.getCell(5).toString());
@@ -192,7 +192,7 @@ public class DataTradeController {
 			setVoMap.put("dealVo", dealVo);
 			
 		}else if(division.equals(RT)) {
-			//연립다세대(매매) 건물코드 4
+			//연립다세대(매매) 건물코드 multip
 			
 			//주소 파싱
 			String siGunGu = row.getCell(0).toString();
@@ -205,15 +205,107 @@ public class DataTradeController {
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip(zip);
 						
-			articleVo.setArtcl_bc(4);
+			articleVo.setArtcl_bc("multip");
 			articleVo.setArtcl_nm(row.getCell(4).toString());
-			articleVo.setArtcl_const_y(row.getCell(10).toString());
-			articleVo.setArtcl_rd(row.getCell(11).toString());
+			articleVo.setArtcl_const_y(row.getCell(11).toString());
+			articleVo.setArtcl_rd(row.getCell(12).toString());
 			
 			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
-			//주소 - 좌표 변환
+			//TODO : 주소 - 좌표 변환
+//			String location = siGunGu + " " + zip;
+//			LatLng latlng = GeoCodingUtil.geoCoding(location);
+//			articleVo.setArtcl_lat(String.valueOf(latlng.getLat().floatValue()));
+//			articleVo.setArtcl_lng(String.valueOf(latlng.getLng().floatValue()));
+			
+			
+			//dealVo 넣기..
+			//주소 외래키 입력
+			dealVo.setDl_gu(sigunguArr[1]);
+			dealVo.setDl_dong(sigunguArr[2]);
+			dealVo.setDl_zip(zip);
+			
+			//거래구분 수동입력
+			dealVo.setDl_ty("매매");
+			double price = CommonUtil.delComma(row.getCell(9).toString().trim());
+			dealVo.setDl_price(price);
+			
+			float excv_area = Float.parseFloat(row.getCell(5).toString());
+			dealVo.setDl_excv_area(excv_area);
+			dealVo.setDl_flr(row.getCell(10).toString());
+			dealVo.setDl_cont_ym(row.getCell(7).toString());
+			dealVo.setDl_cont_d(row.getCell(8).toString());
+			
+			setVoMap.put("articleVo", articleVo);
+			setVoMap.put("dealVo", dealVo);
+			
+			
+		}else if(division.equals(ST)) {
+			//단독다가구(매매) 건물코드 단독2, 다가구3
+
+			//주소 파싱
+			String siGunGu = row.getCell(0).toString();
+			String[] sigunguArr = splitSiGunGu(siGunGu);
+			String zip = row.getCell(1).toString();
+			
+			//articleVo 넣기..
+			//article의 주소 복합키
+			articleVo.setArtcl_gu(sigunguArr[1]);
+			articleVo.setArtcl_dong(sigunguArr[2]);
+			articleVo.setArtcl_zip(zip);
+			
+			String articl_bc = row.getCell(2).toString().equals("단독") ? "single" : "multi";
+			articleVo.setArtcl_bc(articl_bc);
+			articleVo.setArtcl_const_y(row.getCell(9).toString());
+			articleVo.setArtcl_rd(row.getCell(10).toString());
+			
+			//TODO : 주소좌표 변환 없음
+			
+			//dealVo 넣기
+			//dealVo의 외래키
+			dealVo.setDl_gu(sigunguArr[1]);
+			dealVo.setDl_dong(sigunguArr[2]);
+			dealVo.setDl_zip(zip);
+			
+			//거래구분 수동입력 
+			dealVo.setDl_ty("매매");
+			double price = CommonUtil.delComma(row.getCell(8).toString().trim());
+			dealVo.setDl_price(price);
+			
+			float excv_area = Float.parseFloat(row.getCell(5).toString());
+			dealVo.setDl_excv_area(excv_area);
+			dealVo.setDl_cont_ym(row.getCell(6).toString());
+			dealVo.setDl_cont_d(row.getCell(7).toString());
+			
+			setVoMap.put("articleVo", articleVo);
+			setVoMap.put("dealVo", dealVo);
+			
+			
+			
+		}else if(division.equals(OT)) {
+			//오피스텔(매매) 건물코드 office
+			
+			//주소 파싱
+			String siGunGu = row.getCell(0).toString();
+			String[] sigunguArr = splitSiGunGu(siGunGu);
+			String zip = row.getCell(1).toString();
+
+			//articleVo 넣기..
+			//article의 주소 복합키
+			articleVo.setArtcl_gu(sigunguArr[1]);
+			articleVo.setArtcl_dong(sigunguArr[2]);
+			articleVo.setArtcl_zip(zip);
+						
+			articleVo.setArtcl_bc("office");
+			articleVo.setArtcl_complx(row.getCell(4).toString());
+			articleVo.setArtcl_const_y(row.getCell(10).toString());
+			articleVo.setArtcl_rd(row.getCell(11).toString());
+			
+			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
+			articleVo.setArtcl_rd_detail(rd_detail);
+			
+			//TODO : 주소 - 좌표 변환
 //			String location = siGunGu + " " + zip;
 //			LatLng latlng = GeoCodingUtil.geoCoding(location);
 //			articleVo.setArtcl_lat(String.valueOf(latlng.getLat().floatValue()));
@@ -227,7 +319,7 @@ public class DataTradeController {
 			dealVo.setDl_zip(zip);
 			
 			dealVo.setDl_ty("매매");
-			int price = CommonUtil.delComma(row.getCell(8).toString().trim());
+			double price = CommonUtil.delComma(row.getCell(8).toString().trim());
 			dealVo.setDl_price(price);
 			
 			float excv_area = Float.parseFloat(row.getCell(5).toString());
@@ -239,34 +331,251 @@ public class DataTradeController {
 			setVoMap.put("articleVo", articleVo);
 			setVoMap.put("dealVo", dealVo);
 			
-			
-		}else if(division.equals(ST)) {
-			//단독다가구(매매) 건물코드 단독2, 다가구3
-			
-			
-		}else if(division.equals(OT)) {
-			//오피스텔(매매) 건물코드 5
-			
-			
 		}else if(division.equals(AR)) {
-			//아파트(전월세) 건물코드 1
+			//아파트(전월세) 건물코드 apt
 			
+			//주소 파싱
+			String siGunGu = row.getCell(0).toString();
+			String[] sigunguArr = splitSiGunGu(siGunGu);
+			String zip = row.getCell(1).toString();
+
+			//articleVo 넣기..
+			//article의 주소 복합키
+			articleVo.setArtcl_gu(sigunguArr[1]);
+			articleVo.setArtcl_dong(sigunguArr[2]);
+			articleVo.setArtcl_zip(zip);
+			
+			//도로명 주소
+			articleVo.setArtcl_rd(row.getCell(13).toString());
+			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
+			articleVo.setArtcl_rd_detail(rd_detail);
+			
+			//건물유형코드, 단지명, 건축년도
+			articleVo.setArtcl_bc("apt");
+			articleVo.setArtcl_complx(row.getCell(4).toString());
+			articleVo.setArtcl_const_y(row.getCell(12).toString());
+			
+			//TODO : 주소-좌표 변환
+			
+			//dealVo
+			//주소 외래키
+			dealVo.setDl_gu(sigunguArr[1]);
+			dealVo.setDl_dong(sigunguArr[2]);
+			dealVo.setDl_zip(zip);
+			
+			//거래유형, 보증금, 월세, 계약년월, 계약일
+			dealVo.setDl_ty(row.getCell(5).toString());
+			
+			double depo = CommonUtil.delComma(row.getCell(9).toString());
+			double rnt = CommonUtil.delComma(row.getCell(10).toString());
+			dealVo.setDl_depos(depo);
+			dealVo.setDl_rnt(rnt);
+			dealVo.setDl_cont_ym(row.getCell(7).toString());
+			dealVo.setDl_cont_d(row.getCell(8).toString());
+			
+			//층, 전용면적
+			dealVo.setDl_flr(row.getCell(11).toString());
+			float excv_area = Float.parseFloat(row.getCell(6).toString());
+			dealVo.setDl_excv_area(excv_area);
+			
+			setVoMap.put("articleVo", articleVo);
+			setVoMap.put("dealVo", dealVo);
 			
 		}else if(division.equals(RR)) {
-			//연립다세대(전월세) 건물코드 4
+			//연립다세대(전월세) 건물코드 multip
 			
+			//주소 파싱
+			String siGunGu = row.getCell(0).toString();
+			String[] sigunguArr = splitSiGunGu(siGunGu);
+			String zip = row.getCell(1).toString();
+
+			//articleVo 넣기..
+			//article의 주소 복합키
+			articleVo.setArtcl_gu(sigunguArr[1]);
+			articleVo.setArtcl_dong(sigunguArr[2]);
+			articleVo.setArtcl_zip(zip);
+			
+			//도로명 주소
+			articleVo.setArtcl_rd(row.getCell(13).toString());
+			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
+			articleVo.setArtcl_rd_detail(rd_detail);
+			
+			//건물유형코드, 단지명, 건축년도
+			articleVo.setArtcl_bc("multip");
+			articleVo.setArtcl_nm(row.getCell(4).toString());
+			articleVo.setArtcl_const_y(row.getCell(12).toString());
+			
+			//TODO : 주소-좌표 변환
+			
+			//dealVo
+			//주소 외래키
+			dealVo.setDl_gu(sigunguArr[1]);
+			dealVo.setDl_dong(sigunguArr[2]);
+			dealVo.setDl_zip(zip);
+			
+			//거래유형, 보증금, 월세, 계약년월, 계약일
+			dealVo.setDl_ty(row.getCell(5).toString());
+			
+			double depo = CommonUtil.delComma(row.getCell(9).toString());
+			double rnt = CommonUtil.delComma(row.getCell(10).toString());
+			dealVo.setDl_depos(depo);
+			dealVo.setDl_rnt(rnt);
+			dealVo.setDl_cont_ym(row.getCell(7).toString());
+			dealVo.setDl_cont_d(row.getCell(8).toString());
+			
+			//층, 전용면적
+			dealVo.setDl_flr(row.getCell(11).toString());
+			float excv_area = Float.parseFloat(row.getCell(6).toString());
+			dealVo.setDl_excv_area(excv_area);
+			
+			setVoMap.put("articleVo", articleVo);
+			setVoMap.put("dealVo", dealVo);
 
 
 		}else if(division.equals(SR)) {
-			//단독다가구(전월세) 건물코드 단독2, 다가구3
-
-
-		}else if(division.equals(OR)) {
-			//오피스텔(전월세) 건물코드 5
+			//단독다가구(전월세) 건물코드 다가구 multip
 			
+			//주소 파싱
+			String siGunGu = row.getCell(0).toString();
+			String[] sigunguArr = splitSiGunGu(siGunGu);
+			String zip = row.getCell(1).toString();
+
+			//articleVo 넣기..
+			//article의 주소 복합키
+			articleVo.setArtcl_gu(sigunguArr[1]);
+			articleVo.setArtcl_dong(sigunguArr[2]);
+			articleVo.setArtcl_zip(zip);
+			
+			//도로명 주소
+			articleVo.setArtcl_rd(row.getCell(10).toString());
+			
+			//건물유형코드, 건축년도
+			articleVo.setArtcl_bc("multi");
+			articleVo.setArtcl_const_y(row.getCell(9).toString());
+			
+			//TODO : 주소-좌표 변환
+			
+			//dealVo
+			//주소 외래키
+			dealVo.setDl_gu(sigunguArr[1]);
+			dealVo.setDl_dong(sigunguArr[2]);
+			dealVo.setDl_zip(zip);
+			
+			//거래유형, 보증금, 월세, 계약년월, 계약일
+			dealVo.setDl_ty(row.getCell(4).toString());
+			
+			double depo = CommonUtil.delComma(row.getCell(7).toString());
+			double rnt = CommonUtil.delComma(row.getCell(8).toString());
+			dealVo.setDl_depos(depo);
+			dealVo.setDl_rnt(rnt);
+			dealVo.setDl_cont_ym(row.getCell(5).toString());
+			dealVo.setDl_cont_d(row.getCell(6).toString());
+			
+			//전용면적
+			float excv_area = Float.parseFloat(row.getCell(3).toString());
+			dealVo.setDl_excv_area(excv_area);
+			
+			setVoMap.put("articleVo", articleVo);
+			setVoMap.put("dealVo", dealVo);
+			
+		}else if(division.equals(OR)) {
+			//오피스텔(전월세) 건물코드 office
+			
+			//주소 파싱
+			String siGunGu = row.getCell(0).toString();
+			String[] sigunguArr = splitSiGunGu(siGunGu);
+			String zip = row.getCell(1).toString();
+
+			//articleVo 넣기..
+			//article의 주소 복합키
+			articleVo.setArtcl_gu(sigunguArr[1]);
+			articleVo.setArtcl_dong(sigunguArr[2]);
+			articleVo.setArtcl_zip(zip);
+			
+			//도로명 주소
+			articleVo.setArtcl_rd(row.getCell(13).toString());
+			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
+			articleVo.setArtcl_rd_detail(rd_detail);
+			
+			//건물유형코드, 단지명, 건축년도
+			articleVo.setArtcl_bc("office");
+			articleVo.setArtcl_complx(row.getCell(4).toString());
+			articleVo.setArtcl_const_y(row.getCell(12).toString());
+			
+			//TODO : 주소-좌표 변환
+			
+			//dealVo
+			//주소 외래키
+			dealVo.setDl_gu(sigunguArr[1]);
+			dealVo.setDl_dong(sigunguArr[2]);
+			dealVo.setDl_zip(zip);
+			
+			//거래유형, 보증금, 월세, 계약년월, 계약일
+			dealVo.setDl_ty(row.getCell(5).toString());
+			
+			double depo = CommonUtil.delComma(row.getCell(9).toString());
+			double rnt = CommonUtil.delComma(row.getCell(10).toString());
+			dealVo.setDl_depos(depo);
+			dealVo.setDl_rnt(rnt);
+			dealVo.setDl_cont_ym(row.getCell(7).toString());
+			dealVo.setDl_cont_d(row.getCell(8).toString());
+			
+			//층, 전용면적
+			dealVo.setDl_flr(row.getCell(11).toString());
+			float excv_area = Float.parseFloat(row.getCell(6).toString());
+			dealVo.setDl_excv_area(excv_area);
+			
+			setVoMap.put("articleVo", articleVo);
+			setVoMap.put("dealVo", dealVo);
 
 		}else if(division.equals(NT)) {
 			//상가 건물코드 6
+			
+			//주소 파싱
+			String siGunGu = row.getCell(0).toString();
+			String[] sigunguArr = splitSiGunGu(siGunGu);
+			String zip = row.getCell(2).toString();
+
+			//articleVo 넣기..
+			//article의 주소 복합키
+			articleVo.setArtcl_gu(sigunguArr[1]);
+			articleVo.setArtcl_dong(sigunguArr[2]);
+			articleVo.setArtcl_zip(zip);
+			
+			//도로명 주소
+			articleVo.setArtcl_rd(row.getCell(3).toString());
+			
+			//건물 코드, 유형, 용도지역, 주용도,
+			articleVo.setArtcl_bc("store");
+			articleVo.setArtcl_ty(row.getCell(1).toString());
+			articleVo.setArtcl_prps_pls(row.getCell(5).toString());
+			articleVo.setArtcl_mn_prps(row.getCell(4).toString());
+			
+			//건축년도
+			articleVo.setArtcl_const_y(row.getCell(11).toString());
+			
+			//TODO : 주소좌표 변환
+			
+			//dealVO
+			//주소 외래키
+			dealVo.setDl_gu(sigunguArr[1]);
+			dealVo.setDl_dong(sigunguArr[2]);
+			dealVo.setDl_zip(zip);
+			
+			//거래유형(매매), 거래금액, 계약년월, 계약일
+			dealVo.setDl_ty("매매");
+			double price = CommonUtil.delComma(row.getCell(9).toString());
+			dealVo.setDl_price(price);
+			dealVo.setDl_cont_ym(row.getCell(11).toString());
+			dealVo.setDl_cont_d(row.getCell(12).toString());
+			
+			//층, 전용면적
+			dealVo.setDl_flr(row.getCell(10).toString());
+			float excv_area = Float.parseFloat(row.getCell(7).toString());
+			dealVo.setDl_excv_area(excv_area);
+			
+			setVoMap.put("articleVo", articleVo);
+			setVoMap.put("dealVo", dealVo);
 			
 		}
 		
@@ -300,162 +609,7 @@ public class DataTradeController {
 		
 		return result;
 	}
-	
-	/*
-	private Map<String, Integer> divisionCellIndex(XSSFCell divisionCell) {
-		
-		String division = divisionCell.toString();
-	
-		Map<String, Integer> cellIndexMap = new HashMap<>(); 
-		
-		//TODO : 지번이 **이면 안넣어도됨
-		
-		if(division.equals(AT)) {
-			
-			cellIndexMap.put("sigungu", 0);
-			cellIndexMap.put("zip", 1);
-			cellIndexMap.put("rd_detail_1", 2);
-			cellIndexMap.put("rd_detail_2", 3);
-			cellIndexMap.put("complx", 4);
-			cellIndexMap.put("excv_area", 5);
-			cellIndexMap.put("cont_ym", 6);
-			cellIndexMap.put("cont_d", 7);
-			cellIndexMap.put("price", 8);
-			cellIndexMap.put("floor", 9);
-			cellIndexMap.put("const_y", 10);
-			cellIndexMap.put("rd", 11);
-			
-		}else if(division.equals(RT)) {
-			
-			cellIndexMap.put("sigungu", 0);
-			cellIndexMap.put("zip", 1);
-			cellIndexMap.put("rd_detail_1", 2);
-			cellIndexMap.put("rd_detail_2", 3);
-			cellIndexMap.put("nm", 4);
-			cellIndexMap.put("excv_area", 5);
-			cellIndexMap.put("cont_ym", 6);
-			cellIndexMap.put("cont_d", 7);
-			cellIndexMap.put("price", 8);
-			cellIndexMap.put("floor", 9);
-			cellIndexMap.put("const_y", 10);
-			cellIndexMap.put("rd", 11);
-			
-		}else if(division.equals(ST)) {
-			
-			cellIndexMap.put("sigungu", 0);
-			cellIndexMap.put("zip", 1);
-			cellIndexMap.put("classf", 2);
-			cellIndexMap.put("excv_area", 5);
-			cellIndexMap.put("cont_ym", 6);
-			cellIndexMap.put("cont_d", 7);
-			cellIndexMap.put("price", 8);
-			cellIndexMap.put("const_y", 9);
-			cellIndexMap.put("rd", 10);
-			
-		}else if(division.equals(OT)) {
-			
-			cellIndexMap.put("sigungu", 0);
-			cellIndexMap.put("zip", 1);
-			cellIndexMap.put("rd_detail_1", 2);
-			cellIndexMap.put("rd_detail_2", 3);
-			cellIndexMap.put("complx", 4);
-			cellIndexMap.put("excv_area", 5);
-			cellIndexMap.put("cont_ym", 6);
-			cellIndexMap.put("cont_d", 7);
-			cellIndexMap.put("price", 8);
-			cellIndexMap.put("floor", 9);
-			cellIndexMap.put("const_y", 10);
-			cellIndexMap.put("rd", 11);
 
-		}else if(division.equals(AR)) {
-			
-			cellIndexMap.put("sigungu", 0);
-			cellIndexMap.put("zip", 1);
-			cellIndexMap.put("rd_detail_1", 2);
-			cellIndexMap.put("rd_detail_2", 3);
-			cellIndexMap.put("complx", 4);
-			cellIndexMap.put("dl_ty", 5);
-			cellIndexMap.put("excv_area", 6);
-			cellIndexMap.put("cont_ym", 7);
-			cellIndexMap.put("cont_d", 8);
-			cellIndexMap.put("depos", 9);
-			cellIndexMap.put("rnt", 10);
-			cellIndexMap.put("floor", 11);
-			cellIndexMap.put("const_y", 12);
-			cellIndexMap.put("rd", 13);
-
-		}else if(division.equals(RR)) {
-			
-			cellIndexMap.put("sigungu", 0);
-			cellIndexMap.put("zip", 1);
-			cellIndexMap.put("rd_detail_1", 2);
-			cellIndexMap.put("rd_detail_2", 3);
-			cellIndexMap.put("complx", 4);
-			cellIndexMap.put("dl_ty", 5);
-			cellIndexMap.put("excv_area", 6);
-			cellIndexMap.put("cont_ym", 7);
-			cellIndexMap.put("cont_d", 8);
-			cellIndexMap.put("depos", 9);
-			cellIndexMap.put("rnt", 10);
-			cellIndexMap.put("floor", 11);
-			cellIndexMap.put("const_y", 12);
-			cellIndexMap.put("rd", 13);
-
-		}else if(division.equals(SR)) {
-			
-			cellIndexMap.put("sigungu", 0);
-			cellIndexMap.put("zip", 1);
-			cellIndexMap.put("excv_area", 3);
-			cellIndexMap.put("dl_ty", 4);
-			cellIndexMap.put("cont_ym", 5);
-			cellIndexMap.put("cont_d", 6);
-			cellIndexMap.put("depos", 7);
-			cellIndexMap.put("rnt", 8);
-			cellIndexMap.put("const_y", 9);
-			cellIndexMap.put("rd", 10);
-
-		}else if(division.equals(OR)) {
-
-			cellIndexMap.put("sigungu", 0);
-			cellIndexMap.put("zip", 1);
-			cellIndexMap.put("rd_detail_1", 2);
-			cellIndexMap.put("rd_detail_2", 3);
-			cellIndexMap.put("complx", 4);
-			cellIndexMap.put("dl_ty", 5);
-			cellIndexMap.put("excv_area", 6);
-			cellIndexMap.put("cont_ym", 7);
-			cellIndexMap.put("cont_d", 8);
-			cellIndexMap.put("depos", 9);
-			cellIndexMap.put("rnt", 10);
-			cellIndexMap.put("floor", 11);
-			cellIndexMap.put("const_y", 12);
-			cellIndexMap.put("rd", 13);
-
-		}else if(division.equals(NT)) {
-			
-			cellIndexMap.put("sigungu", 0);
-			cellIndexMap.put("artcle_ty", 1);
-			cellIndexMap.put("zip", 2);
-			cellIndexMap.put("rd", 3);
-			cellIndexMap.put("prps_pls", 4);
-			cellIndexMap.put("mn_prps", 5);
-			cellIndexMap.put("excv_area", 7);
-			cellIndexMap.put("price", 9);
-			cellIndexMap.put("floor", 10);
-			cellIndexMap.put("cont_ym", 11);
-			cellIndexMap.put("cont_d", 12);
-			cellIndexMap.put("const_y", 13);
-
-		}else {
-			
-			return null;
-
-		}
-		
-		return cellIndexMap;
-
-	}
-	*/
 	
 	private String[] splitSiGunGu(String siGunGu) {
 	
