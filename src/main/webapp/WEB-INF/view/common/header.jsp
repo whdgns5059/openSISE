@@ -27,6 +27,9 @@
 	height: 3px;
 	background:#3a589e; 
 }
+.top-menu li a{
+	color: #ffffff;
+}
 </style>
 
 
