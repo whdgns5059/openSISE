@@ -1,6 +1,7 @@
 package kr.co.opensise.admin.manage.datatrade.web;
 
 import java.io.BufferedInputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,12 +50,6 @@ public class DataTradeController {
 	private final String NT = "실거래 구분 : 상업업무용(매매)";
 	
 	
-//	1	아파트
-//	2	단독
-//	3	다가구
-//	4	연립다세대
-//	5	오피스텔
-//	6	상업
 	
 	@RequestMapping("/dataTrade")
 	public String dataTrade() {
@@ -119,10 +114,6 @@ public class DataTradeController {
 			} catch (Exception e) { }
 			insertDealListResult = dataTradeService.insertDealList(dealList);
 			
-			
-			
-			
-			
 			model.addAttribute("insertArticleListResult", insertArticleListResult);
 			model.addAttribute("insertDealListResult", insertDealListResult);
 			
@@ -132,10 +123,20 @@ public class DataTradeController {
 		}
 		
 		
-		return "manage/dataTrade";
+		return "redirect:/manage/dataTrade/dataTrade";
 				
 	}
 	
+	
+	
+	/**
+	 * @param division
+	 * @param row
+	 * @return Map<String, Obejct>
+	 * articleVo, dealVo를 해당 row의 데이터를 division에 맞게 저장하는 로직이다.
+	 * 아파트매매, 오피스텔 전월세 등의 데이터에 맞게 저장함
+	 *
+	 */
 	private Map<String, Object> setVo(String division, XSSFRow row) {
 		
 		ArticleVo articleVo = new ArticleVo();
@@ -164,11 +165,22 @@ public class DataTradeController {
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
-			//TODO : 주소 - 좌표 변환
-//			String location = siGunGu + " " + zip;
-//			LatLng latlng = GeoCodingUtil.geoCoding(location);
-//			articleVo.setArtcl_lat(String.valueOf(latlng.getLat().floatValue()));
-//			articleVo.setArtcl_lng(String.valueOf(latlng.getLng().floatValue()));
+
+			//주소 - 좌표 변환
+			String lat = "";
+			String lng = "";
+			try {
+				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
+				
+				lat = coordMap.get("lat");
+				lng = coordMap.get("lng");
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
+			
 			
 			
 			//dealVo 넣기..
@@ -212,11 +224,20 @@ public class DataTradeController {
 			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
-			//TODO : 주소 - 좌표 변환
-//			String location = siGunGu + " " + zip;
-//			LatLng latlng = GeoCodingUtil.geoCoding(location);
-//			articleVo.setArtcl_lat(String.valueOf(latlng.getLat().floatValue()));
-//			articleVo.setArtcl_lng(String.valueOf(latlng.getLng().floatValue()));
+			//주소 - 좌표 변환
+			String lat = "";
+			String lng = "";
+			try {
+				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
+				
+				lat = coordMap.get("lat");
+				lng = coordMap.get("lng");
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
 			
 			
 			//dealVo 넣기..
@@ -259,7 +280,20 @@ public class DataTradeController {
 			articleVo.setArtcl_const_y(row.getCell(9).toString());
 			articleVo.setArtcl_rd(row.getCell(10).toString());
 			
-			//TODO : 주소좌표 변환 없음
+			//주소 - 좌표 변환(동까지만 변환)
+			String lat = "";
+			String lng = "";
+			try {
+				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu);
+				
+				lat = coordMap.get("lat");
+				lng = coordMap.get("lng");
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
 			
 			//dealVo 넣기
 			//dealVo의 외래키
@@ -304,11 +338,20 @@ public class DataTradeController {
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
-			//TODO : 주소 - 좌표 변환
-//			String location = siGunGu + " " + zip;
-//			LatLng latlng = GeoCodingUtil.geoCoding(location);
-//			articleVo.setArtcl_lat(String.valueOf(latlng.getLat().floatValue()));
-//			articleVo.setArtcl_lng(String.valueOf(latlng.getLng().floatValue()));
+			//주소 - 좌표 변환
+			String lat = "";
+			String lng = "";
+			try {
+				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
+				
+				lat = coordMap.get("lat");
+				lng = coordMap.get("lng");
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
 			
 			
 			//dealVo 넣기..
@@ -354,7 +397,20 @@ public class DataTradeController {
 			articleVo.setArtcl_complx(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(12).toString());
 			
-			//TODO : 주소-좌표 변환
+			//주소 - 좌표 변환
+			String lat = "";
+			String lng = "";
+			try {
+				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
+				
+				lat = coordMap.get("lat");
+				lng = coordMap.get("lng");
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
 			
 			//dealVo
 			//주소 외래키
@@ -404,7 +460,20 @@ public class DataTradeController {
 			articleVo.setArtcl_nm(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(12).toString());
 			
-			//TODO : 주소-좌표 변환
+			//주소 - 좌표 변환
+			String lat = "";
+			String lng = "";
+			try {
+				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
+				
+				lat = coordMap.get("lat");
+				lng = coordMap.get("lng");
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
 			
 			//dealVo
 			//주소 외래키
@@ -452,7 +521,20 @@ public class DataTradeController {
 			articleVo.setArtcl_bc("multi");
 			articleVo.setArtcl_const_y(row.getCell(9).toString());
 			
-			//TODO : 주소-좌표 변환
+			//주소 - 좌표 변환(동까지만 변환)
+			String lat = "";
+			String lng = "";
+			try {
+				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu);
+				
+				lat = coordMap.get("lat");
+				lng = coordMap.get("lng");
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
 			
 			//dealVo
 			//주소 외래키
@@ -501,7 +583,20 @@ public class DataTradeController {
 			articleVo.setArtcl_complx(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(12).toString());
 			
-			//TODO : 주소-좌표 변환
+			//주소 - 좌표 변환
+			String lat = "";
+			String lng = "";
+			try {
+				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
+				
+				lat = coordMap.get("lat");
+				lng = coordMap.get("lng");
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
 			
 			//dealVo
 			//주소 외래키
@@ -553,7 +648,20 @@ public class DataTradeController {
 			//건축년도
 			articleVo.setArtcl_const_y(row.getCell(11).toString());
 			
-			//TODO : 주소좌표 변환
+			//주소 - 좌표 변환(동까지만 변환)
+			String lat = "";
+			String lng = "";
+			try {
+				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu);
+				
+				lat = coordMap.get("lat");
+				lng = coordMap.get("lng");
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
 			
 			//dealVO
 			//주소 외래키

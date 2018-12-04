@@ -93,7 +93,39 @@ body {
     font-size: 13px;
     margin-right: 50px;
 }
-
+.admin-title { 
+	width: 85%;
+    float: left;
+    padding: 35px 0 0 45px;
+}
+.hr2{
+    border-top: 1px solid #e2e2e2;
+    margin: 16px 0 30px -20px;
+}
+.square{
+    width: 2px;
+    height: 18px;
+    float: left;
+    margin-right: 10px;
+}
+.yellow{
+	background: #f4b344;
+}
+.yellow2{
+	background: #f7cc06;
+}
+.green{
+	background: #aad035;
+}
+.mint{
+	background: #45c0a2; 
+}
+.greenblue{
+	background: #3ea6c8; 	
+}
+.blue{
+	background: #4385cd; 	
+}
 
 [tabindex="-1"]:focus {
   outline: 0 !important;
@@ -196,7 +228,7 @@ a {
 
 a:hover {
   color: #d3741b;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:not([href]):not([tabindex]) {

@@ -21,6 +21,7 @@
 }
 .bc-select li{
 	float: left;
+	padding: 0 8px;
 }
 .navline{
 	width: 100%;
@@ -29,6 +30,10 @@
 }
 .top-menu li a{
 	color: #ffffff;
+}
+.top-menu li a:hover {
+  color: #d3741b;
+  text-decoration: none;
 }
 </style>
 

@@ -2,13 +2,15 @@ package kr.co.opensise.util;
 
 import static org.junit.Assert.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Map;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.code.geocoder.model.LatLng;
 
-import kr.co.opensise.setup.ControllerSetup;
 
 
 public class CommonUtilTest {
@@ -19,17 +21,53 @@ public class CommonUtilTest {
 	public void geoCodingTest() {
 		
 		/***given***/
-		String location = "경기도 성남시 분당구 삼평동";
+		String location = "대전서구 월평동 1212";
 		
 		/***when***/
-		LatLng latLng = CommonUtil.geoCoding(location);
+		Map<String, String> result = null;
+		try {
+			result = CommonUtil.addr2Coord(location);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		
-		log.debug("Lat ->> {}", latLng.getLat());
-		log.debug("Lng ->> {}", latLng.getLng());
+		String lat = result.get("lat");
+		String lng = result.get("lng");
 		
+		log.info("lat : {}, lng: {}", lat, lng);;
 
 		/***then***/
 		assertTrue(true);
+		
+	}
+	
+	@Test
+	public void getJSONdataTest() {
+		
+		
+		/***given***/
+		String location = "대전 서구 월평동 1212";
+		String query = "";
+		try {
+			query = "https://dapi.kakao.com/v2/local/search/address.json?query="+ URLEncoder.encode(location, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		/***when***/
+		String result = null;
+		try {
+			result = CommonUtil.getJSONData(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		log.info(result);
+		
+
+		/***then***/
+		
+
+	
+
 		
 	}
 	
@@ -42,7 +80,7 @@ public class CommonUtilTest {
 		double result = CommonUtil.delComma(data);
 
 		/***then***/
-		assertEquals(8200, result);
+		assertTrue(8200 == result);
 	}
 
 }

@@ -3,8 +3,6 @@
    
 <style type="text/css">
 	
-	.dataTradeDiv { width : 1500px; height: 900px;}
-	
 </style> 
     
 <script>
@@ -21,11 +19,12 @@
 
 </script> 
     
-<div class="dataTradeDiv">
+<div class="admin-title">
+	<h2>실거래 데이터</h2>
+	<div class="hr2">
+	</div>
 	
-	<br/>
-	<br/>
-	<br/>
+
 	
 	<a href="http://rtdown.molit.go.kr">국토 교통부 실거래 정보 다운로드페이지</a>
 	<br/>
