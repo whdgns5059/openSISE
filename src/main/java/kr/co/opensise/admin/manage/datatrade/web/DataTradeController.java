@@ -120,10 +120,6 @@ public class DataTradeController {
 			} catch (Exception e) { }
 			insertDealListResult = dataTradeService.insertDealList(dealList);
 			
-			
-			
-			
-			
 			model.addAttribute("insertArticleListResult", insertArticleListResult);
 			model.addAttribute("insertDealListResult", insertDealListResult);
 			
@@ -133,10 +129,20 @@ public class DataTradeController {
 		}
 		
 		
-		return "manage/dataTrade";
+		return "redirect:/manage/dataTrade/dataTrade";
 				
 	}
 	
+	
+	
+	/**
+	 * @param division
+	 * @param row
+	 * @return Map<String, Obejct>
+	 * articleVo, dealVo를 해당 row의 데이터를 division에 맞게 저장하는 로직이다.
+	 * 아파트매매, 오피스텔 전월세 등의 데이터에 맞게 저장함
+	 *
+	 */
 	private Map<String, Object> setVo(String division, XSSFRow row) {
 		
 		ArticleVo articleVo = new ArticleVo();
