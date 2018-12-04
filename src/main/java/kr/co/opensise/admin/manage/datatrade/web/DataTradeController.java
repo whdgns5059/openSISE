@@ -144,7 +144,8 @@ public class DataTradeController {
 		Map<String, Object> setVoMap = new HashMap<>();
 		
 		if(division.equals(AT)){
-			
+			//아파트(매매), 건물코드 1
+						
 			//주소 파싱
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
@@ -161,7 +162,7 @@ public class DataTradeController {
 			articleVo.setArtcl_const_y(row.getCell(10).toString());
 			articleVo.setArtcl_rd(row.getCell(11).toString());
 			
-			String rd_detail = row.getCell(2).toString() + row.getCell(3).toString();
+			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
 			//주소 - 좌표 변환
@@ -189,6 +190,83 @@ public class DataTradeController {
 			
 			setVoMap.put("articleVo", articleVo);
 			setVoMap.put("dealVo", dealVo);
+			
+		}else if(division.equals(RT)) {
+			//연립다세대(매매) 건물코드 4
+			
+			//주소 파싱
+			String siGunGu = row.getCell(0).toString();
+			String[] sigunguArr = splitSiGunGu(siGunGu);
+			String zip = row.getCell(1).toString();
+
+			//articleVo 넣기..
+			//article의 주소 복합키
+			articleVo.setArtcl_gu(sigunguArr[1]);
+			articleVo.setArtcl_dong(sigunguArr[2]);
+			articleVo.setArtcl_zip(zip);
+						
+			articleVo.setArtcl_bc(4);
+			articleVo.setArtcl_nm(row.getCell(4).toString());
+			articleVo.setArtcl_const_y(row.getCell(10).toString());
+			articleVo.setArtcl_rd(row.getCell(11).toString());
+			
+			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
+			articleVo.setArtcl_rd_detail(rd_detail);
+			
+			//주소 - 좌표 변환
+//			String location = siGunGu + " " + zip;
+//			LatLng latlng = GeoCodingUtil.geoCoding(location);
+//			articleVo.setArtcl_lat(String.valueOf(latlng.getLat().floatValue()));
+//			articleVo.setArtcl_lng(String.valueOf(latlng.getLng().floatValue()));
+			
+			
+			//dealVo 넣기..
+			//주소 외래키 입력
+			dealVo.setDl_gu(sigunguArr[1]);
+			dealVo.setDl_dong(sigunguArr[2]);
+			dealVo.setDl_zip(zip);
+			
+			dealVo.setDl_ty("매매");
+			int price = CommonUtil.delComma(row.getCell(8).toString().trim());
+			dealVo.setDl_price(price);
+			
+			float excv_area = Float.parseFloat(row.getCell(5).toString());
+			dealVo.setDl_excv_area(excv_area);
+			dealVo.setDl_flr(row.getCell(9).toString());
+			dealVo.setDl_cont_ym(row.getCell(6).toString());
+			dealVo.setDl_cont_d(row.getCell(7).toString());
+			
+			setVoMap.put("articleVo", articleVo);
+			setVoMap.put("dealVo", dealVo);
+			
+			
+		}else if(division.equals(ST)) {
+			//단독다가구(매매) 건물코드 단독2, 다가구3
+			
+			
+		}else if(division.equals(OT)) {
+			//오피스텔(매매) 건물코드 5
+			
+			
+		}else if(division.equals(AR)) {
+			//아파트(전월세) 건물코드 1
+			
+			
+		}else if(division.equals(RR)) {
+			//연립다세대(전월세) 건물코드 4
+			
+
+
+		}else if(division.equals(SR)) {
+			//단독다가구(전월세) 건물코드 단독2, 다가구3
+
+
+		}else if(division.equals(OR)) {
+			//오피스텔(전월세) 건물코드 5
+			
+
+		}else if(division.equals(NT)) {
+			//상가 건물코드 6
 			
 		}
 		
