@@ -50,12 +50,6 @@ public class DataTradeController {
 	private final String NT = "실거래 구분 : 상업업무용(매매)";
 	
 	
-//	1	아파트
-//	2	단독
-//	3	다가구
-//	4	연립다세대
-//	5	오피스텔
-//	6	상업
 	
 	@RequestMapping("/dataTrade")
 	public String dataTrade() {

@@ -25,6 +25,14 @@ public class CommonUtil {
 	
 	private static Logger log = LoggerFactory.getLogger(CommonUtil.class);
 	
+	
+	/*******************************************
+	 * @param location
+	 * @return Map<String, String>
+	 * @throws UnsupportedEncodingException
+	 * location에 해당되는 lat,lng를 map으로 리턴한다
+	 * 해당 메서드는 kakao REST API를 이용함
+	 ******************************************/
 	public static Map<String, String> addr2Coord(String location) throws UnsupportedEncodingException {
 		
         String url = "https://dapi.kakao.com/v2/local/search/address.json?query="+ URLEncoder.encode(location, "UTF-8");
@@ -77,12 +85,14 @@ public class CommonUtil {
 		  	
 	        return resultMap;
 	    }
-
-
-
 	
 	
 	
+	/*******************************************
+	 * @param data
+	 * @return double
+	 * 콤마가 존재하는 숫자 문자열을 콤마가 없는 문자로 변환해준다
+	 ******************************************/
 	public static double delComma(String data) {
 		String removeData = data.replaceAll(",", "");
 		return Double.parseDouble(removeData);
