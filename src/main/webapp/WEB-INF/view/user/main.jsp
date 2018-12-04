@@ -126,7 +126,7 @@
 				</li>
 			</ul>
 		<!-- <img src="https://via.placeholder.com/1400x850/ffaaaa?text=daum_map" /> -->
-		<div id="map" style="width: 1400px; height: 800px;"></div>
+		<div id="map" style="width: 1300px; height: 800px;"></div>
 	</div>
 	<!-- right contents -->
 	<div>
