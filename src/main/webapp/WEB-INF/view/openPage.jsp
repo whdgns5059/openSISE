@@ -163,7 +163,6 @@ input:disabled {
         $("#mask").css({"width":maskWidth,"height":maskHeight});  
  
         //애니메이션 효과 - 일단 0초동안 까맣게 됐다가 60% 불투명도로 간다.
- 
         $("#mask").fadeIn(0);      
         $("#mask").fadeTo("slow",0.6);    
  
@@ -281,7 +280,7 @@ input:disabled {
 		<div class="search align-center">
 				<form class="my-lg-5 searchF" action="/main/main">
 					<input class="searchBox mr-sm-4" type="text"
-						placeholder="지역명, 지하철역명, 아파트명, 등을 입력하세요">
+						placeholder="지역명, 지하철역명, 아파트명, 등을 입력하세요" readonly="readonly">
 					<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">시세보기</button>
 					<input type="hidden" id="bc_type"/>
 				</form>
