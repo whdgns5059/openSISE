@@ -113,6 +113,9 @@
 	#siseTableDiv {width:1200px; height: 500px; text-align: center;}
 	#siseTable {width: 1000px; height: 400px; margin: auto; border:1px solid black;}
 	
+	#loanClacDiv {width: 1200px; height: 200px; text-align: center;}
+	.marginTop {margin-top: 30px;}
+	
 	#radarChartDiv {width: 1200px; height:500px;}
 </style>
 
@@ -173,6 +176,10 @@
 						</c:forEach>
 					</tbody>
 				</table>	
+			</div>
+			<div id="loanClacDiv">
+				<span class="subTitle"> 대출금 계산기</span><br/>
+				<input type="range" class="marginTop">
 			</div>
 			<div id="radarChartDiv">
 				
