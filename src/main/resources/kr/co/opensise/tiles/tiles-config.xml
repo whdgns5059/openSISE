@@ -33,6 +33,10 @@
 	<definition name="local" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/local.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="login" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/login.jsp"></put-attribute>
+	</definition>
 
 	<!--***************** memberLayout ******************* -->
 	<definition name="selectLogin" extends="userLayout">

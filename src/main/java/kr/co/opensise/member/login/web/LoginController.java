@@ -1,36 +1,75 @@
-package kr.co.opensise.member.login.web;
+package kr.co.opensise.member.Login.web;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import kr.co.opensise.member.Login.model.MemberVo;
+import kr.co.opensise.member.Login.service.LoginServiceInf;
+import kr.co.opensise.member.encrypt.sha.KISA_SHA256;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 	
+	@Resource(name = "loginService")
+	private LoginServiceInf loginService;
+	
 	/**  
-	* Method   : login 
-	* ÀÛ¼ºÀÚ :  ±èÁÖ¿¬
-	* º¯°æÀÌ·Â :  
+	* Method   :  
+	* ì‘ì„±ì :  
+	* ë³€ê²½ì´ë ¥ :  
 	* @return  
-	* Method ¼³¸í :  ·Î±×ÀÎ Á¢¼Ó ¹æ¹ı ¼±ÅÃ(Ä«Ä«¿ÀÅå/¿ÀÇÂ½Ã¼¼)
+	* Method ì„¤ëª… : ë¡œê·¸ì¸ ì„ íƒ(ì˜¤í”ˆì‹œì„¸/ì¹´ì¹´ì˜¤í†¡ ë¡œê·¸ì¸)
 	*/
 	@RequestMapping("/selectLogin")
 	public String selectLogin() {
 		return "selectLogin";
 	}
 
-	
-
 	/**  
-	* Method   : login 
-	* ÀÛ¼ºÀÚ :  
-	* º¯°æÀÌ·Â :  
+	* Method   :  
+	* ì‘ì„±ì :  
+	* ë³€ê²½ì´ë ¥ :  
 	* @return  
-	* Method ¼³¸í :  OpenSisy ·Î±×ÀÎ¹æ½Ä
+	* Method ì„¤ëª… : ì˜¤í”ˆì‹œì„¸ ë¡œê·¸ì¸
 	*/
 	@RequestMapping("/login")
 	public String login() {
 		return "login";
+	}
+	
+	
+	/**  
+	* Method   :  
+	* ì‘ì„±ì :  
+	* ë³€ê²½ì´ë ¥ :  
+	* @return  
+	* Method ì„¤ëª… : ì˜¤í”ˆì‹œì„¸  ì•”í˜¸í™” ë° ë¡œê·¸ì¸
+	*/
+	@RequestMapping(value="/openLogin", method= {RequestMethod.POST})
+	public String loginView(@RequestParam("mem_email") String mem_email,@RequestParam("mem_pass") String mem_pass, Model model, HttpServletRequest request, HttpServletResponse response) {
+
+		String encryptPass = KISA_SHA256.encrypt(mem_pass);
+		MemberVo user = loginService.selectMember(mem_email);
+		
+		if (user != null && user.authPass(encryptPass)) {
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("mem_email", user.getMem_pass());
+			model.addAttribute("memberVo",user);
+			return "openPage";
+		} else {
+			model.addAttribute("msg","IDì™€ PWë¥¼ ë‹¤ì‹œ í™•ì¸í•´ ì£¼ì„¸ìš”");
+			return "loginErr";
+		}
 	}
 
 }
