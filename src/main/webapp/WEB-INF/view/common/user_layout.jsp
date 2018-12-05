@@ -11,9 +11,8 @@
 <%@ include file="/WEB-INF/view/common/basicLib.jsp" %> 
 
 <style type="text/css">
-	.pageWrapper {width: 1900px;}
-	.contentWrapper {width:1900px;}
 	.row {width : 1900px !important;}
+	.contentWrapper {height: 1000px}
 </style>
 
 
@@ -22,12 +21,13 @@
 	<div class="pageWrapper">
 	<tiles:insertAttribute name="header"/>
 	
-	<div class="contentWrapper">
-		<!-- 모바일에서 컬럼들이 하나는 꽉찬너비로, 다른 하나는 절반너비로 쌓이게 합니다 -->
-		<tiles:insertAttribute name="content"/>
-	</div>
-	
-	<tiles:insertAttribute name="footer"/>
+		<div class="contentWrapper">
+			<!-- 모바일에서 컬럼들이 하나는 꽉찬너비로, 다른 하나는 절반너비로 쌓이게 합니다 -->
+			<tiles:insertAttribute name="content"/>
+		</div>
+		<div>	
+			<tiles:insertAttribute name="footer"/>
+		</div>
 	</div>
 </body>
 <!-- </html> -->

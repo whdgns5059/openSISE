@@ -39,15 +39,12 @@ public class InsertAllData{
 	 * 데이터 분량에 따라 시간이 오래걸림 1000건에 1분 내외
 	 * @throws IOException 
 	 ******************************************/
-	public Map<String, Object> insertAllDataTrade(String root) throws IOException {
+	public void insertAllDataTrade(String root) throws IOException {
 		
 		File directory = new File(root);
 		
 		File[] listOfFile = directory.listFiles();
 		
-		List<String> fileList = new ArrayList<>();
-		int totalArticleVo = 0;
-		int totalDealVo = 0;
 		
 		
 		
@@ -76,9 +73,6 @@ public class InsertAllData{
 					e.printStackTrace();
 				}
 				
-				fileList.add("**************************************************");
-				fileList.add(file.getCanonicalPath().toString());
-				fileList.add("**************************************************");
 
 
 			} else if ( file.isFile()) {
@@ -146,8 +140,6 @@ public class InsertAllData{
 				insertArticleListResult = dataTradeService.insertArticleList(articleList);
 				insertDealListResult = dataTradeService.insertDealList(dealList);
 				
-				totalArticleVo += insertArticleListResult;
-				totalDealVo += insertDealListResult;
 				
 				
 				try {
@@ -166,24 +158,73 @@ public class InsertAllData{
 					e1.printStackTrace();
 				}		
 				
-				fileList.add("**************************************************");
-				fileList.add(file.getName());
-				fileList.add("**************************************************");
 				
 			}
 			
+			log.info("**********************************");
+			log.info(">> 좌표 입력하기 << ");
+			log.info("**********************************");
+			//모든 실거래 인서트를 마치고 좌표가 null인 
+			//주소들만 가져와서 좌표를 입력해 준다
+			
+			//1. 좌표가 없는 article list 가져오기
+			List<ArticleVo> coordNullArticleList = dataTradeService.selectCoordNullArticle();
+			
+			//2. 해당 리스트에 좌표 입력
+			int coordUpdateResult = 0;
+			for(ArticleVo articleVo : coordNullArticleList) {
+				
+				String gu = articleVo.getArtcl_gu();
+				String dong = articleVo.getArtcl_dong();
+				String zip = articleVo.getArtcl_zip();
+				
+				StringBuffer sb = new StringBuffer();
+				
+				if(zip.equals("*")) {
+					sb.append(gu);
+					sb.append(' ');
+					sb.append(dong);
+				}else {
+					sb.append(gu);
+					sb.append(' ');
+					sb.append(dong);
+					sb.append(' ');
+					sb.append(zip);
+				}
+				
+				String location = sb.toString();
+			
+				String lat = "";
+				String lng = "";
+
+				try {
+
+					Map<String, String> latlngMap = CommonUtil.addr2Coord(location);
+					lat = latlngMap.get("lat");
+					lng = latlngMap.get("lng");
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				
+				articleVo.setArtcl_lat(lat);
+				articleVo.setArtcl_lng(lng);
+				
+				log.info("좌표변경 : {}", articleVo.toString());
+				
+				//3. 좌표 업데이트. 
+				coordUpdateResult += dataTradeService.updataLatLngArticle(articleVo);
+			}
 			
 		}
 		
-		Map<String, Object> resultMap = new HashMap<>();
-		
-		resultMap.put("totalArticleVo", totalArticleVo);
-		resultMap.put("totalDealVo", totalDealVo);
-		resultMap.put("fileList", fileList);
-		
-		return resultMap;
+		log.info("***************************************");
+		log.info("              종료!!");
+		log.info("***************************************");
 		
 	}
+		
+		
 	private final String AT = "실거래 구분 : 아파트(매매)"; 
 	private final String RT = "실거래 구분 : 연립다세대(매매)";
 	private final String ST = "실거래 구분 : 단독다가구(매매)";
@@ -289,22 +330,6 @@ public class InsertAllData{
 			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
-			
-			
 			//dealVo 넣기..
 			//주소 외래키 입력
 			dealVo.setDl_gu(sigunguArr[1]);
@@ -338,33 +363,20 @@ public class InsertAllData{
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
+			articleVo.setArtcl_zip("*");
 			
 			String articl_bc = row.getCell(2).toString().equals("단독") ? "single" : "multi";
 			articleVo.setArtcl_bc(articl_bc);
 			articleVo.setArtcl_const_y(row.getCell(9).toString());
 			articleVo.setArtcl_rd(row.getCell(10).toString());
 			
-			//주소 - 좌표 변환(동까지만 변환)
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
+
 			
 			//dealVo 넣기
 			//dealVo의 외래키
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
+			dealVo.setDl_zip("*");
 			
 			//거래구분 수동입력 
 			dealVo.setDl_ty("매매");
@@ -403,22 +415,7 @@ public class InsertAllData{
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
-			
-			
+
 			//dealVo 넣기..
 			//주소 외래키 입력
 			dealVo.setDl_gu(sigunguArr[1]);
@@ -462,20 +459,7 @@ public class InsertAllData{
 			articleVo.setArtcl_complx(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(12).toString());
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
+
 			
 			//dealVo
 			//주소 외래키
@@ -525,20 +509,7 @@ public class InsertAllData{
 			articleVo.setArtcl_nm(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(12).toString());
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
+
 			
 			//dealVo
 			//주소 외래키
@@ -566,7 +537,7 @@ public class InsertAllData{
 
 
 		}else if(division.equals(SR)) {
-			//단독다가구(전월세) 건물코드 다가구 multip
+			//단독다가구(전월세) 건물코드 다가구 multi
 			
 			//주소 파싱
 			String siGunGu = row.getCell(0).toString();
@@ -577,7 +548,7 @@ public class InsertAllData{
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
+			articleVo.setArtcl_zip("*");
 			
 			//도로명 주소
 			articleVo.setArtcl_rd(row.getCell(10).toString());
@@ -586,26 +557,12 @@ public class InsertAllData{
 			articleVo.setArtcl_bc("multi");
 			articleVo.setArtcl_const_y(row.getCell(9).toString());
 			
-			//주소 - 좌표 변환(동까지만 변환)
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
 			
 			//dealVo
 			//주소 외래키
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
+			dealVo.setDl_zip("*");
 			
 			//거래유형, 보증금, 월세, 계약년월, 계약일
 			dealVo.setDl_ty(row.getCell(4).toString());
@@ -648,20 +605,6 @@ public class InsertAllData{
 			articleVo.setArtcl_complx(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(12).toString());
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
 			
 			//dealVo
 			//주소 외래키
@@ -699,7 +642,7 @@ public class InsertAllData{
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
+			articleVo.setArtcl_zip("*");
 			
 			//도로명 주소
 			articleVo.setArtcl_rd(row.getCell(3).toString());
@@ -713,26 +656,13 @@ public class InsertAllData{
 			//건축년도
 			articleVo.setArtcl_const_y(row.getCell(11).toString());
 			
-			//주소 - 좌표 변환(동까지만 변환)
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
+
 			
 			//dealVO
 			//주소 외래키
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
+			dealVo.setDl_zip("*");
 			
 			//거래유형(매매), 거래금액, 계약년월, 계약일
 			dealVo.setDl_ty("매매");
@@ -752,7 +682,7 @@ public class InsertAllData{
 		}
 		
 		return setVoMap;
-	}
+	}	
 
 	public String divisionValidation(XSSFCell divisionCell) {
 		
