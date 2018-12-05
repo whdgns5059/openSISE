@@ -65,15 +65,12 @@ public class DataTradeController {
 			//buffedinputStream으로 속도 상승
 			BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
 		
-
-						XSSFWorkbook wb = new XSSFWorkbook(bis);
+			XSSFWorkbook wb = new XSSFWorkbook(bis);
 			XSSFSheet sheet = wb.getSheetAt(0);
 			
-		
 			//9번째 행에서 파일 구분 가져오기
 			XSSFRow divisionRow = sheet.getRow(8);
 			XSSFCell divisionCell = divisionRow.getCell(0);
-			
 			
 			//1. 파일의 실거래 구분을 확인
 			String division = divisionValidation(divisionCell);
@@ -109,13 +106,14 @@ public class DataTradeController {
 			int insertArticleListResult = 0;
 			int insertDealListResult = 0;
 			
-			try {
-				insertArticleListResult = dataTradeService.insertArticleList(articleList);
-			} catch (Exception e) { }
+			insertArticleListResult = dataTradeService.insertArticleList(articleList);
 			insertDealListResult = dataTradeService.insertDealList(dealList);
 			
 			model.addAttribute("insertArticleListResult", insertArticleListResult);
 			model.addAttribute("insertDealListResult", insertDealListResult);
+			
+			log.info("insertResultArticleVo >>> {}", insertArticleListResult);
+			log.info("insertResultDealVo    >>> {}", insertDealListResult);
 			
 			
 		} catch (Exception e) { 
@@ -123,9 +121,81 @@ public class DataTradeController {
 		}
 		
 		
+		log.info("**********************************");
+		log.info(">> 좌표 입력하기 << ");
+		log.info("**********************************");
+		//모든 실거래 인서트를 마치고 좌표가 null인 
+		//주소들만 가져와서 좌표를 입력해 준다
+		
+		//1. 좌표가 없는 article list 가져오기
+		List<ArticleVo> coordNullArticleList = dataTradeService.selectCoordNullArticle();
+		
+		//2. 해당 리스트에 좌표 입력
+		int coordUpdateResult = 0;
+		for(ArticleVo articleVo : coordNullArticleList) {
+			
+			String gu = articleVo.getArtcl_gu();
+			String dong = articleVo.getArtcl_dong();
+			String zip = articleVo.getArtcl_zip();
+			
+			StringBuffer sb = new StringBuffer();
+			
+			if(zip.equals("*")) {
+				sb.append(gu);
+				sb.append(' ');
+				sb.append(dong);
+			}else {
+				sb.append(gu);
+				sb.append(' ');
+				sb.append(dong);
+				sb.append(' ');
+				sb.append(zip);
+			}
+			
+			String location = sb.toString();
+		
+			String lat = "";
+			String lng = "";
+
+			try {
+
+				Map<String, String> latlngMap = CommonUtil.addr2Coord(location);
+				lat = latlngMap.get("lat");
+				lng = latlngMap.get("lng");
+
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			
+			articleVo.setArtcl_lat(lat);
+			articleVo.setArtcl_lng(lng);
+			
+			log.info("좌표변경 : {}", articleVo.toString());
+			
+			//3. 좌표 업데이트. 
+			coordUpdateResult += dataTradeService.updataLatLngArticle(articleVo);
+			
+		}
+		
+		log.info("updateCoordResult >>> {}", coordUpdateResult);
+		
 		return "redirect:/manage/dataTrade/dataTrade";
 				
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -137,7 +207,7 @@ public class DataTradeController {
 	 * 아파트매매, 오피스텔 전월세 등의 데이터에 맞게 저장함
 	 *
 	 */
-	private Map<String, Object> setVo(String division, XSSFRow row) {
+	public Map<String, Object> setVo(String division, XSSFRow row) {
 		
 		ArticleVo articleVo = new ArticleVo();
 		DealVo dealVo = new DealVo();
@@ -224,22 +294,6 @@ public class DataTradeController {
 			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
-			
-			
 			//dealVo 넣기..
 			//주소 외래키 입력
 			dealVo.setDl_gu(sigunguArr[1]);
@@ -273,33 +327,20 @@ public class DataTradeController {
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
+			articleVo.setArtcl_zip("*");
 			
 			String articl_bc = row.getCell(2).toString().equals("단독") ? "single" : "multi";
 			articleVo.setArtcl_bc(articl_bc);
 			articleVo.setArtcl_const_y(row.getCell(9).toString());
 			articleVo.setArtcl_rd(row.getCell(10).toString());
 			
-			//주소 - 좌표 변환(동까지만 변환)
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
+
 			
 			//dealVo 넣기
 			//dealVo의 외래키
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
+			dealVo.setDl_zip("*");
 			
 			//거래구분 수동입력 
 			dealVo.setDl_ty("매매");
@@ -338,22 +379,7 @@ public class DataTradeController {
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 			articleVo.setArtcl_rd_detail(rd_detail);
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
-			
-			
+
 			//dealVo 넣기..
 			//주소 외래키 입력
 			dealVo.setDl_gu(sigunguArr[1]);
@@ -397,20 +423,7 @@ public class DataTradeController {
 			articleVo.setArtcl_complx(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(12).toString());
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
+
 			
 			//dealVo
 			//주소 외래키
@@ -460,20 +473,7 @@ public class DataTradeController {
 			articleVo.setArtcl_nm(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(12).toString());
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
+
 			
 			//dealVo
 			//주소 외래키
@@ -501,7 +501,7 @@ public class DataTradeController {
 
 
 		}else if(division.equals(SR)) {
-			//단독다가구(전월세) 건물코드 다가구 multip
+			//단독다가구(전월세) 건물코드 다가구 multi
 			
 			//주소 파싱
 			String siGunGu = row.getCell(0).toString();
@@ -512,7 +512,7 @@ public class DataTradeController {
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
+			articleVo.setArtcl_zip("*");
 			
 			//도로명 주소
 			articleVo.setArtcl_rd(row.getCell(10).toString());
@@ -521,26 +521,12 @@ public class DataTradeController {
 			articleVo.setArtcl_bc("multi");
 			articleVo.setArtcl_const_y(row.getCell(9).toString());
 			
-			//주소 - 좌표 변환(동까지만 변환)
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
 			
 			//dealVo
 			//주소 외래키
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
+			dealVo.setDl_zip("*");
 			
 			//거래유형, 보증금, 월세, 계약년월, 계약일
 			dealVo.setDl_ty(row.getCell(4).toString());
@@ -583,20 +569,6 @@ public class DataTradeController {
 			articleVo.setArtcl_complx(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(12).toString());
 			
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
 			
 			//dealVo
 			//주소 외래키
@@ -634,7 +606,7 @@ public class DataTradeController {
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
+			articleVo.setArtcl_zip("*");
 			
 			//도로명 주소
 			articleVo.setArtcl_rd(row.getCell(3).toString());
@@ -648,26 +620,13 @@ public class DataTradeController {
 			//건축년도
 			articleVo.setArtcl_const_y(row.getCell(11).toString());
 			
-			//주소 - 좌표 변환(동까지만 변환)
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
+
 			
 			//dealVO
 			//주소 외래키
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
+			dealVo.setDl_zip("*");
 			
 			//거래유형(매매), 거래금액, 계약년월, 계약일
 			dealVo.setDl_ty("매매");
@@ -689,7 +648,7 @@ public class DataTradeController {
 		return setVoMap;
 	}
 
-	private String divisionValidation(XSSFCell divisionCell) {
+	public String divisionValidation(XSSFCell divisionCell) {
 		
 		String division = divisionCell.toString();
 		String result = "";
@@ -718,7 +677,7 @@ public class DataTradeController {
 	}
 
 	
-	private String[] splitSiGunGu(String siGunGu) {
+	public String[] splitSiGunGu(String siGunGu) {
 	
 		String[] result = siGunGu.split(" ");
 		
