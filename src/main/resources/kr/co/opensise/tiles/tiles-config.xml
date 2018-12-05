@@ -35,8 +35,8 @@
 	</definition>
 
 	<!--***************** memberLayout ******************* -->
-	<definition name="login" extends="userLayout">
-		<put-attribute name="content" value="/WEB-INF/view/member/login.jsp"></put-attribute>
+	<definition name="selectLogin" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/selectLogin.jsp"></put-attribute>
 	</definition>
 
 	<definition name="signup" extends="userLayout">
