@@ -11,9 +11,6 @@
 <%@ include file="/WEB-INF/view/common/basicLib.jsp" %> 
 
 <style type="text/css">
-/* div { */
-/* 	border : 1px solid red; */
-/* } */
 .contents {
 	margin: 0 auto;
 	padding-left: 300px;
@@ -36,23 +33,25 @@ td {
 	text-overflow:ellipsis; 
 }
 .logo{
-	margin: 10px 0 90px 0;
-	padding: 20px 400px 20px 500px;
-	width: 1303px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    padding: 20px 0;
+    width: 300px;
 }
 .button{
-	margin : 0 0 0 100px;
-	width:1303px ;
-	height:100px ;
+    margin: 0 auto;
+    width: 864px;
+    height: 96px;
 }
 .buttons{
-	width: 200px;
-	display: inline-block;
-	float: left;
-	margin: 10px 50px 0px 100px;
+    margin: 0 18px;
+    width: 180px;
+    display: inline-block;
+    float: left;
 }
 .btn{
-	padding:15px;
+	padding:9px;
+	width: 180px;
 }
 .align-center{
 	margin: 0 auto;
@@ -60,6 +59,9 @@ td {
 .search{
 	width:1050px ;
 	height:50px ;
+}
+.searchF{
+	margin-top: 1rem;
 }
 .searchBtn{
     width: 100px;
@@ -177,11 +179,14 @@ input:disabled {
     	$('#searchText').attr("placeholder","지역명, 지하철역명, 아파트명, 등을 입력하세요");
     	var house = document.getElementById("house");
     	var apt = document.getElementById("apt");
+    	var office = document.getElementById("office");
     	var store = document.getElementById("store");
     	house.style.backgroundColor = "transparent";
     	house.style.color = "#e8a93f";
     	apt.style.backgroundColor = "transparent"
     	apt.style.color = "#e8a93f";
+    	office.style.backgroundColor = "transparent"
+    	office.style.color = "#e8a93f";
     	store.style.backgroundColor = "transparent"
     	store.style.color = "#e8a93f";
     	
@@ -193,14 +198,6 @@ input:disabled {
     
     
     $(document).ready(function(){
-    	
-/*     	//건물 분류 선택하기
-    	$("#house").click(function(){ 
-    		var bc = document.getElementById("house");
-			bc.style.color = "red";
-			bc.style.fontSize = "15px";
-			bc.style.backgroundColor = "#FFFFFF";
- 		});  */
     	
 		//검은 막 띄우기
 		$(".openMask").click(function(e) {
@@ -266,8 +263,7 @@ input:disabled {
 	
 		<!-- logo -->
 		<div class="logo">
-			<img src="/img/snail.png"  />
-			<img src="/img/openSise.png"  />
+			<img src="/logo/openSise_logo.png" width="300px"/>
 		</div>
 		
 		<!-- button -->
@@ -279,13 +275,16 @@ input:disabled {
 				<button type="button" class="btn btn-outline-primary" id="apt" value="아파트" onclick="getBC(this)">아파트</button>
 			</div>
 			<div class="buttons">
+				<button type="button" class="btn btn-outline-primary" id="office" value="오피스텔" onclick="getBC(this)">오피스텔</button>
+			</div>
+			<div class="buttons">
 				<button type="button" class="btn btn-outline-primary" id="store" value="상가" onclick="getBC(this)">상가</button>
 			</div>
 		</div>
 		
 		<!-- search -->
 		<div class="search align-center">
-				<form class="my-lg-5 searchF" action="/main/main">
+				<form class="searchF" action="/main/main">
 					<input id="searchText" name="searchName" class="searchBox mr-sm-4" type="text"
 						placeholder="건물 분류를 먼저 선택해 주세요" readonly="readonly">
 					<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">시세보기</button>
