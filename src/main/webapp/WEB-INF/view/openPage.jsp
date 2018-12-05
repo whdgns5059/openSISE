@@ -17,8 +17,8 @@
 	padding-right: 300px;
 }
 .navC{
-	width: 1900px;
-	height: 100px;
+	width: 100%;
+	height: 50px;
 }
 .nav_right{
 	width:500px;
@@ -69,6 +69,11 @@ td {
     font-size: 18px;
     font-weight: 600;
     padding: 8px;
+    background-color: #ffae24;
+    border-bottom: 4px solid #4159a9;
+}
+.searchBtn:hover{
+	 border-bottom: 4px solid #626f9c;
 }
 .searchBox{
     width: 900px;
@@ -78,11 +83,9 @@ td {
 	padding-left: 1rem;
 }
 .board{
-	border: 1px solid black;
-	
 	width:1303px ;
 	height:500px ;
-	margin-top:100px;
+    margin: 100px 0 150px 0;
 }
 .picture{
 	width:600px ;
@@ -91,18 +94,47 @@ td {
 	float: left;
 }
 .notice{
-	margin-left: 53px;
-	width:600px ;
-	height:450px ;
-	display: inline-block;
-	float: left;
-	border: 1px solid #bbbbbb;
+    width: 640px;
+    height: 450px;
+    display: inline-block;
+    float: right;
+    border: 1px solid #bbbbbb;
+}
+.notice-top{
+	width: 568px;
+    height: 70px;
+    display: block;
+}
+.notice-top h6{
+    width: 150px;
+    float: left;
+    font-weight: bold;
+    font-size: 30px;
+    color: #3a589e;
+}
+.see-more{
+    width: 100px;
+    padding-left: 9%;
+    color: #808080;
+    background-color: transparent;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    float: right;
+}
+.see-more:hover{
+	color: black;
 }
 .notice-word{
-	padding: 20px;
-	width: 500px;
-	height: 350px;
-	
+    margin: 28px 36px;
+    width: 556px;
+    height: 394px;
+}
+.notice-cont{
+    width: 568px;
+    height: 324px;
+    font-size: 22px;
+    font-variant: all-petite-caps;
 }
 .word-over{
 	overflow: hidden; 
@@ -113,8 +145,34 @@ td {
 input:disabled {
     background: #99460e;
 }
- 
-/* 마스크 뛰우기 */
+.bottom{
+	width: 100%;
+    height: 200px;
+}
+.bottom-in{
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 340px;
+    height: 200px;
+    background-image: url(/logo/openSise_logo_f3af3d.png);
+    background-size: 200px;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.45);
+}
+.bottom-in p{
+    padding-top: 20px;
+    float: left;
+    text-align: center;
+    height: 140px;
+    width: 340px;
+    color: #000000b5;
+    font-size: 13px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* 마스크 띄우기 */
 #mask {  
     position:absolute;  
     z-index:9000;  
@@ -125,22 +183,42 @@ input:disabled {
 } 
 /* 팝업으로 뜨는 윈도우 css  */ 
 .window{
-    display: none;
-    left:50%;
-    width:1000px;
-    height:700px;
-    background-color:#FFF;
-    z-index:10000; 
+    left: 50%;
+    width: 1000px;
+    height: 700px;
+    background-color: #FFF;
+    z-index: 10000;
     border-radius: 20px;
-    
     position: fixed;
-    margin-left: -25%; /* half of width */
+    margin-left: -25%;
     top: 50%;
-    margin-top: -350px; /* half of height */
+    margin-top: -350px;
     overflow: auto;
- 
- }
+    padding: 30px 20px 20px 20px;
+    display: none;
+}
+.window h2{
+    float: left;
+    display: contents;
+}
+.close{
+	font-size: 14px;
+	color: black;
+}
+.notice-pop{
+ 	margin: 0 auto;
+    width: 850px;
+    height: 566px;
+	overflow:scroll;
+	overflow-x:hidden; 
+	overflow-y:auto;
+}
 
+.notice-tbl{
+    margin: 0 auto;
+    width: 830px;
+    height: 566px;
+}
 </style>
 
 <!-- bxSlider 연결 -->
@@ -152,10 +230,9 @@ input:disabled {
 
 <!-- layer popup -->
 <script type="text/javascript"> 
-
 //<![CDATA[
     function wrapWindowByMask(){
- 
+    	
         //화면의 높이와 너비를 구한다.
         var maskHeight = $(document).height();  
         var maskWidth = $(window).width();  
@@ -176,7 +253,8 @@ input:disabled {
     //건물 분류 선택하기
     function getBC(bc){
     	$('#searchText').attr("readonly",false);
-    	$('#searchText').attr("placeholder","지역명, 지하철역명, 아파트명, 등을 입력하세요");
+    	
+    	$('#searchText').attr("placeholder","지역명, 지하철역명, 아파트명을 입력하세요.");
     	var house = document.getElementById("house");
     	var apt = document.getElementById("apt");
     	var office = document.getElementById("office");
@@ -250,9 +328,10 @@ input:disabled {
 				<li style="margin-right: 50px;" ><a href="/login/login">로그인</a></li>
 				<li style="margin-right: 50px;" ><a href="/signup/signup">회원가입</a></li>
 				<!-- 관리자일 경우에 생기는 a tag  --> 
-				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
-				<!-- 로그인 한 경우에 생기는 a tag  --> 
-				<li><a href="/">{회원의 닉네임}님 환영합니다! </a></li>
+<!-- 				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
+-->				<!-- 로그인 한 경우에 생기는 a tag  --> 
+<!--				<li><a href="/">{회원의 닉네임}님 환영합니다! </a></li>
+-->
 				
 			</ul>
 		</div>
@@ -263,7 +342,7 @@ input:disabled {
 	
 		<!-- logo -->
 		<div class="logo">
-			<img src="/logo/openSise_logo.png" width="300px"/>
+			<img src="/logo/openSise_logo2.png" width="300px"/>
 		</div>
 		
 		<!-- button -->
@@ -309,83 +388,160 @@ input:disabled {
 			<!-- notice -->
 			<div class="notice">
 			
-			
 				<!-- 공지사항 팝업용  -->
 				<div id="mask"></div>
-						<div class="window">
-								<h2 style="margin-left: 20px;display: inline-block;">공지사항</h2>
-								<p style="text-align: center; background: #ffffff; padding: 20px;display: inline-block;float:right;">
-									<a href="#" class="close">닫기X</a>
-								</p>
-								<hr/>
-								<div style="width: 850px;height: 500px; margin-left: 70px;">
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<td>번호</td>
-												<td>제목</td>
-												<td>작성일</td>
-											</tr>
-											<tr>
-												<td>1</td>
-												<td>공지사항</td>
-												<td>2018.11.30</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>공지사항</td>
-												<td>2018.11.30</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>공지사항</td>
-												<td>2018.11.30</td>
-											</tr>
-											<tr>
-												<td>4</td>
-												<td>공지사항</td>
-												<td>2018.11.30</td>
-											</tr>
-											<tr>
-												<td>5</td>
-												<td>공지사항</td>
-												<td>2018.11.30</td>
-											</tr>
-										</thead>
-									</table>
+				<div class="window">
+					<h2>공지사항</h2>
+					<a href="#" class="close">닫기X</a>
+					<hr/>
+					<div class="notice-pop">
+
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+								<div class="panel panel-default">
+									<div class="panel-heading" role="tab" id="headingOne">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+												aria-controls="collapseOne"> Collapsible Group Item #1 </a>
+										</h4>
+									</div>
+									<div id="collapseOne" class="panel-collapse collapse in"
+										role="tabpanel" aria-labelledby="headingOne">
+										<div class="panel-body">Anim pariatur cliche
+											reprehenderit, enim eiusmod high life accusamus terry
+											richardson ad squid. 3 wolf moon officia aute, non cupidatat
+											skateboard dolor brunch. Food truck quinoa nesciunt laborum
+											eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
+											it squid single-origin coffee nulla assumenda shoreditch et.
+											Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+											cred nesciunt sapiente ea proident. Ad vegan excepteur
+											butcher vice lomo. Leggings occaecat craft beer
+											farm-to-table, raw denim aesthetic synth nesciunt you
+											probably haven't heard of them accusamus labore sustainable
+											VHS.</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading" role="tab" id="headingTwo">
+										<h4 class="panel-title">
+											<a class="collapsed" data-toggle="collapse"
+												data-parent="#accordion" href="#collapseTwo"
+												aria-expanded="false" aria-controls="collapseTwo">
+												Collapsible Group Item #2 </a>
+										</h4>
+									</div>
+									<div id="collapseTwo" class="panel-collapse collapse"
+										role="tabpanel" aria-labelledby="headingTwo">
+										<div class="panel-body">Anim pariatur cliche
+											reprehenderit, enim eiusmod high life accusamus terry
+											richardson ad squid. 3 wolf moon officia aute, non cupidatat
+											skateboard dolor brunch. Food truck quinoa nesciunt laborum
+											eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
+											it squid single-origin coffee nulla assumenda shoreditch et.
+											Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+											cred nesciunt sapiente ea proident. Ad vegan excepteur
+											butcher vice lomo. Leggings occaecat craft beer
+											farm-to-table, raw denim aesthetic synth nesciunt you
+											probably haven't heard of them accusamus labore sustainable
+											VHS.</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading" role="tab" id="headingThree">
+										<h4 class="panel-title">
+											<a class="collapsed" data-toggle="collapse"
+												data-parent="#accordion" href="#collapseThree"
+												aria-expanded="false" aria-controls="collapseThree">
+												Collapsible Group Item #3 </a>
+										</h4>
+									</div>
+									<div id="collapseThree" class="panel-collapse collapse"
+										role="tabpanel" aria-labelledby="headingThree">
+										<div class="panel-body">Anim pariatur cliche
+											reprehenderit, enim eiusmod high life accusamus terry
+											richardson ad squid. 3 wolf moon officia aute, non cupidatat
+											skateboard dolor brunch. Food truck quinoa nesciunt laborum
+											eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
+											it squid single-origin coffee nulla assumenda shoreditch et.
+											Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+											cred nesciunt sapiente ea proident. Ad vegan excepteur
+											butcher vice lomo. Leggings occaecat craft beer
+											farm-to-table, raw denim aesthetic synth nesciunt you
+											probably haven't heard of them accusamus labore sustainable
+											VHS.</div>
+									</div>
 								</div>
 							</div>
-					<div class="notice-word word-over">
-						<table border="0" cellpadding="0" cellspacing="0" width="100%" >
+
+<!-- 							<table class="table table-striped notice-tbl">
 							<thead>
 								<tr>
-									<td style="font-size: 30px;"><b>공지사항</b><button type="button" class="btn btn-warning openMask">더보기</button></td>
+									<td style="width: 30px;">no.</td>
+									<td>제목</td>
+									<td>작성일</td>
 								</tr>
+								<tr>
+									<td style="width: 30px;">1</td>
+									<td>공지사항</td>
+									<td>2018.11.30</td>
+								</tr>
+								<tr>
+									<td style="width: 30px;">2</td>
+									<td>공지사항</td>
+									<td>2018.11.30</td>
+								</tr>
+								<%for(int i=0 ; i<20 ; i++){
+									%>
+									<tr>
+									<td style="width: 30px;">2</td>
+									<td>공지사항</td>
+									<td>2018.11.30</td>
+								</tr>
+								<%
+								}
+								%>
 							</thead>
-									<tbody>
-										<tr>
-											<td style="font-size: medium;line-height: 50px;">1.공지사항입니다.</td>
-										</tr>
-										<tr>
-											<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
-																									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
-										</tr>
-										<tr>
-											<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
-																									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
-										</tr>
-										<tr>
-											<td style="font-size: medium;">2.동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 
-																									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-						</div>
+						</table>
+ -->					</div>
+				</div>
+				<!-- 우측 하단 공지사항  -->
+				<div class="notice-word">
+					<div class="notice-top">
+						<h6>공지사항</h6><button type="button" class="see-more openMask">더보기</button>
 					</div>
-	</div><!-- contents -->
-</div><!-- wrap -->
+					<div class="notice-cont word-over">
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+						title만 나열합니다.<br/>
+					</div>
+				</div>
+
+			</div><!-- 공지사항 END -->
+		</div>
+	</div><!-- contents END -->
+	
+	<div class="bottom">
+		<hr/>
+		<div class="bottom-in">
+			<p>상호: &nbsp 오픈시세 &nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp 회장: &nbsp <b>김종훈</b> &nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp 팀명: &nbsp 되찾은 자들<br/>
+			주소: &nbsp 대전광역시 중구 중앙로 76 영민빌딩 2층 203호<br/>
+			서비스 이용문의: &nbsp010-6351-4419<br/>
+			팀원:&nbsp <b>송연진 &nbsp 김주연 &nbsp 이소형 &nbsp 유다영</b><br/>
+			©2018-2019 OpenSISE Co. All rights reserved.</p>
+		</div>
+	</div>
+	
+	
+</div><!-- wrap END -->
 
 </body>
 </html>
