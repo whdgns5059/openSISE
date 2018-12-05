@@ -250,7 +250,7 @@ input:disabled {
 		<div class="nav_right">
 			<ul class="top-menu">
 				<!-- memVo가 null인 경우 -->
-				<li style="margin-right: 50px;" ><a href="/login/login">로그인</a></li>
+				<li style="margin-right: 50px;" ><a href="/login/selectLogin">로그인</a></li>
 				<li style="margin-right: 50px;" ><a href="/signup/signup">회원가입</a></li>
 				<!-- 관리자일 경우에 생기는 a tag  --> 
 				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
