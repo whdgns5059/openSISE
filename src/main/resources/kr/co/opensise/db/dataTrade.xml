@@ -52,6 +52,20 @@
 		select * from dual
 	</insert>
 
+
+	<select id="selectCoordNullArticle" resultType="articleVo" >
+		select * from article
+		where artcl_lat is null 
+		and artcl_lng is null
+	</select>
+	
+	<update id="updateLatLngArticle" parameterType="articleVo" >
+		update article
+		set artcl_lat = #{artcl_lat}, artcl_lng = #{artcl_lng} 
+		where artcl_gu = #{artcl_gu} and artcl_dong = #{artcl_dong}
+		and artcl_zip = #{artcl_zip} 
+	</update>
+
 </mapper>
 
 

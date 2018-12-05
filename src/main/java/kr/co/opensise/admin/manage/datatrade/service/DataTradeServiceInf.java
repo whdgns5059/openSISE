@@ -11,5 +11,8 @@ public interface DataTradeServiceInf {
 
 	int insertDealList(List<DealVo> dealList);
 	
+	List<ArticleVo> selectCoordNullArticle();
+
+	int updataLatLngArticle(ArticleVo articleVo);
 
 }

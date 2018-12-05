@@ -29,5 +29,17 @@ public class DataTradeDao implements DataTradeDaoInf{
 	}
 
 
+	@Override
+	public List<ArticleVo> selectCoordNullArticle() {
+		return template.selectList("dataTrade.selectCoordNullArticle");
+	}
+
+
+	@Override
+	public int updataLatLngArticle(ArticleVo articleVo) {
+		return template.update("dataTrade.updateLatLngArticle", articleVo);
+	}
+
+
 
 }
