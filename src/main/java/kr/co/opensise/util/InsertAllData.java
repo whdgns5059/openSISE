@@ -127,14 +127,16 @@ public class InsertAllData{
 					
 					Map<String, Object> setVoMap = setVo(division, row);
 					
-					ArticleVo articleVo = (ArticleVo) setVoMap.get("articleVo");
-					DealVo dealVo = (DealVo) setVoMap.get("dealVo");
-
-				 	articleList.add(articleVo);
-					dealList.add(dealVo);
-					
-					log.info("articleVo ==> {}", ((ArticleVo)setVoMap.get("articleVo")).toString());
-					log.info("dealVo ==> {}", ((DealVo)setVoMap.get("dealVo")).toString());
+					if(setVoMap != null) {
+						ArticleVo articleVo = (ArticleVo) setVoMap.get("articleVo");
+						DealVo dealVo = (DealVo) setVoMap.get("dealVo");
+						
+						articleList.add(articleVo);
+						dealList.add(dealVo);
+						
+						log.info("articleVo ==> {}", ((ArticleVo)setVoMap.get("articleVo")).toString());
+						log.info("dealVo ==> {}", ((DealVo)setVoMap.get("dealVo")).toString());
+					}
 					
 				}
 				
@@ -273,8 +275,13 @@ public class InsertAllData{
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
 			String rd = row.getCell(11).toString();
+			if(rd == null) {
+				return null;
+			}
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
-
+			
+			
+			
 			//articleVo 넣기..
 			//article의 주소 복합키,도로명
 			articleVo.setArtcl_gu(sigunguArr[1]);
@@ -289,22 +296,6 @@ public class InsertAllData{
 			
 			
 
-			//주소 - 좌표 변환
-			String lat = "";
-			String lng = "";
-			try {
-				Map<String, String> coordMap = CommonUtil.addr2Coord(siGunGu + " " + zip);
-				
-				lat = coordMap.get("lat");
-				lng = coordMap.get("lng");
-				
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			articleVo.setArtcl_lat(lat);
-			articleVo.setArtcl_lng(lng);
-			
-			
 			
 			//dealVo 넣기..
 			//주소 외래키 입력
@@ -334,6 +325,9 @@ public class InsertAllData{
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
 			String rd = row.getCell(12).toString();
+			if(rd == null) {
+				return null;
+			}
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
@@ -378,7 +372,10 @@ public class InsertAllData{
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String rd = row.getCell(10).toString();
-
+			if(rd == null) {
+				return null;
+			}
+					
 			//articleVo 넣기..
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
@@ -422,6 +419,9 @@ public class InsertAllData{
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
 			String rd = row.getCell(11).toString();
+			if(rd == null) {
+				return null;
+			}
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
@@ -466,6 +466,9 @@ public class InsertAllData{
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
 			String rd = row.getCell(13).toString();
+			if(rd == null) {
+				return null;
+			}
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
@@ -518,6 +521,9 @@ public class InsertAllData{
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
 			String rd = row.getCell(13).toString();
+			if(rd == null) {
+				return null;
+			}
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
@@ -570,6 +576,9 @@ public class InsertAllData{
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String rd = row.getCell(10).toString();
+			if(rd == null) {
+				return null;
+			}
 
 			//articleVo 넣기..
 			//article의 주소 복합키
@@ -617,6 +626,9 @@ public class InsertAllData{
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
 			String rd = row.getCell(13).toString();
+			if(rd == null) {
+				return null;
+			}
 			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
@@ -667,6 +679,9 @@ public class InsertAllData{
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String rd = row.getCell(3).toString();
+			if(rd == null) {
+				return null;
+			}
 
 			//articleVo 넣기..
 			//article의 주소 복합키
@@ -710,10 +725,10 @@ public class InsertAllData{
 			setVoMap.put("articleVo", articleVo);
 			setVoMap.put("dealVo", dealVo);
 			
-		}	
+		}
 		
 		return setVoMap;
-	}	
+	}
 
 	public String divisionValidation(XSSFCell divisionCell) {
 		
