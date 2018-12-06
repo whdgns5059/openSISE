@@ -26,4 +26,14 @@ public class DataTradeService implements DataTradeServiceInf {
 		return dataTradeDao.insertDealList(dealList);
 	}
 
+	@Override
+	public List<ArticleVo> selectCoordNullArticle() {
+		return dataTradeDao.selectCoordNullArticle();
+	}
+
+	@Override
+	public int updataLatLngArticle(ArticleVo articleVo) {
+		return dataTradeDao.updataLatLngArticle(articleVo);
+	}
+
 }

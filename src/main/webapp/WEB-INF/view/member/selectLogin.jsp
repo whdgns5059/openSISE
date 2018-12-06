@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <style type="text/css">
 .logo{
@@ -34,10 +34,10 @@
 			<img src="/img/openSise.png"  alt="오픈시세" title="오픈시세!" />
 			
 		<!-- button -->
-		<form action="/board/login" method="post">
+		<form action="/login/login" method="post">
 		<div class="button">
 			<input id="buttons" type="submit" class="btn btn-outline-primary"
-			value="OpenSisy Login" />
+			value="OpenSise Login" />
 			<a id="kakao-login-btn"></a>
 		<script type='text/javascript'>
 			//<![CDATA[

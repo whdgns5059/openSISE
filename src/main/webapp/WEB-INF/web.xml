@@ -36,6 +36,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				classpath:kr/co/opensise/spring/servlet-context.xml
+				classpath:kr/co/opensise/spring/interceptor-context.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
