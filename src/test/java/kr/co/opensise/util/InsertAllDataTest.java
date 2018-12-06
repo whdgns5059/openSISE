@@ -31,13 +31,13 @@ public class InsertAllDataTest extends RootSetup{
 		String root = "D:\\A_TeachingMaterial\\7.LastProject\\tradeInfo";
 		
 		/***when***/
-		Map<String, Integer> resultMap =insertAllData.insertAllDataTrade(root, 0, 0, 0);
+		insertAllData.insertAllDataTrade(root);
 	
 		/***then***/
 		log.info("******************************");
-		log.info("totalArticleCnt >>> {}", resultMap.get("totalArticleCnt"));
-		log.info("totalDealCnt >>> {}", resultMap.get("totalDealCnt"));
-		log.info("totalCoordCnt >>> {}", resultMap.get("totalCoordCnt"));
+		log.info("끝끝끝");
+		log.info("끝끝끝");
+		log.info("끝끝끝");
 		log.info("******************************");
 	}
 	
