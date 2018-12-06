@@ -131,19 +131,20 @@ public class DataTradeController {
 		List<ArticleVo> coordNullArticleList = dataTradeService.selectCoordNullArticle();
 		
 		//2. 해당 리스트에 좌표 입력
-		int coordUpdateResult = 0;
 		for(ArticleVo articleVo : coordNullArticleList) {
 			
 			String gu = articleVo.getArtcl_gu();
 			String dong = articleVo.getArtcl_dong();
 			String zip = articleVo.getArtcl_zip();
-			
+			String rd = articleVo.getArtcl_rd().equals("없음") ? "" : articleVo.getArtcl_rd();
 			StringBuffer sb = new StringBuffer();
 			
 			if(zip.equals("*")) {
+				sb.append("대전");
+				sb.append(" ");
 				sb.append(gu);
-				sb.append(' ');
-				sb.append(dong);
+				sb.append(" ");
+				sb.append(rd);
 			}else {
 				sb.append(gu);
 				sb.append(' ');
@@ -173,11 +174,11 @@ public class DataTradeController {
 			log.info("좌표변경 : {}", articleVo.toString());
 			
 			//3. 좌표 업데이트. 
-			coordUpdateResult += dataTradeService.updataLatLngArticle(articleVo);
+			int updateResult = dataTradeService.updataLatLngArticle(articleVo);
+			log.info("좌표변경! {}개", updateResult);
 			
 		}
 		
-		log.info("updateCoordResult >>> {}", coordUpdateResult);
 		
 		return "redirect:/manage/dataTrade/dataTrade";
 				
@@ -220,20 +221,23 @@ public class DataTradeController {
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
-
+			String rd = row.getCell(11).toString() == null ? "없음" : row.getCell(11).toString();
+			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
+			
+			
+			
 			//articleVo 넣기..
-			//article의 주소 복합키
+			//article의 주소 복합키,도로명
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip(zip);
+			articleVo.setArtcl_rd(rd);
+			articleVo.setArtcl_rd_detail(rd_detail);
 						
 			articleVo.setArtcl_bc("apt");
 			articleVo.setArtcl_complx(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(10).toString());
-			articleVo.setArtcl_rd(row.getCell(11).toString());
 			
-			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
-			articleVo.setArtcl_rd_detail(rd_detail);
 			
 
 			//주소 - 좌표 변환
@@ -258,6 +262,7 @@ public class DataTradeController {
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
 			dealVo.setDl_zip(zip);
+			dealVo.setDl_rd(rd);
 			
 			dealVo.setDl_ty("매매");
 			double price = CommonUtil.delComma(row.getCell(8).toString().trim());
@@ -279,26 +284,28 @@ public class DataTradeController {
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
+			String rd = row.getCell(12).toString() == null ? "없음" : row.getCell(12).toString();
+			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
-			//article의 주소 복합키
+			//article의 주소 복합키 도로명주소넣기
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip(zip);
+			articleVo.setArtcl_rd(rd);
+			articleVo.setArtcl_rd_detail(rd_detail);
 						
 			articleVo.setArtcl_bc("multip");
 			articleVo.setArtcl_nm(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(11).toString());
-			articleVo.setArtcl_rd(row.getCell(12).toString());
 			
-			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
-			articleVo.setArtcl_rd_detail(rd_detail);
 			
 			//dealVo 넣기..
 			//주소 외래키 입력
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
 			dealVo.setDl_zip(zip);
+			dealVo.setDl_rd(rd);
 			
 			//거래구분 수동입력
 			dealVo.setDl_ty("매매");
@@ -321,18 +328,18 @@ public class DataTradeController {
 			//주소 파싱
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String zip = row.getCell(1).toString();
-			
+			String rd = row.getCell(10).toString() == null ? "없음" : row.getCell(10).toString();
+
 			//articleVo 넣기..
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip("*");
+			articleVo.setArtcl_rd(rd);
 			
 			String articl_bc = row.getCell(2).toString().equals("단독") ? "single" : "multi";
 			articleVo.setArtcl_bc(articl_bc);
 			articleVo.setArtcl_const_y(row.getCell(9).toString());
-			articleVo.setArtcl_rd(row.getCell(10).toString());
 			
 
 			
@@ -341,6 +348,7 @@ public class DataTradeController {
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
 			dealVo.setDl_zip("*");
+			dealVo.setDl_rd(rd);
 			
 			//거래구분 수동입력 
 			dealVo.setDl_ty("매매");
@@ -364,20 +372,21 @@ public class DataTradeController {
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
+			String rd = row.getCell(11).toString() == null ? "없음" : row.getCell(11).toString();
+			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip(zip);
-						
+			articleVo.setArtcl_rd(rd);
+			articleVo.setArtcl_rd_detail(rd_detail);	
+
 			articleVo.setArtcl_bc("office");
 			articleVo.setArtcl_complx(row.getCell(4).toString());
 			articleVo.setArtcl_const_y(row.getCell(10).toString());
-			articleVo.setArtcl_rd(row.getCell(11).toString());
 			
-			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
-			articleVo.setArtcl_rd_detail(rd_detail);
 			
 
 			//dealVo 넣기..
@@ -385,6 +394,7 @@ public class DataTradeController {
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
 			dealVo.setDl_zip(zip);
+			dealVo.setDl_rd(rd);
 			
 			dealVo.setDl_ty("매매");
 			double price = CommonUtil.delComma(row.getCell(8).toString().trim());
@@ -406,17 +416,18 @@ public class DataTradeController {
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
+			String rd = row.getCell(13).toString() == null ? "없음" : row.getCell(13).toString();
+			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip(zip);
-			
 			//도로명 주소
-			articleVo.setArtcl_rd(row.getCell(13).toString());
-			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
+			articleVo.setArtcl_rd(rd);
 			articleVo.setArtcl_rd_detail(rd_detail);
+			
 			
 			//건물유형코드, 단지명, 건축년도
 			articleVo.setArtcl_bc("apt");
@@ -430,6 +441,7 @@ public class DataTradeController {
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
 			dealVo.setDl_zip(zip);
+			dealVo.setDl_rd(rd);
 			
 			//거래유형, 보증금, 월세, 계약년월, 계약일
 			dealVo.setDl_ty(row.getCell(5).toString());
@@ -456,17 +468,18 @@ public class DataTradeController {
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
+			String rd = row.getCell(13).toString() == null ? "없음" : row.getCell(13).toString();
+			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip(zip);
-			
 			//도로명 주소
-			articleVo.setArtcl_rd(row.getCell(13).toString());
-			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
+			articleVo.setArtcl_rd(rd);
 			articleVo.setArtcl_rd_detail(rd_detail);
+			
 			
 			//건물유형코드, 단지명, 건축년도
 			articleVo.setArtcl_bc("multip");
@@ -480,6 +493,7 @@ public class DataTradeController {
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
 			dealVo.setDl_zip(zip);
+			dealVo.setDl_rd(rd);
 			
 			//거래유형, 보증금, 월세, 계약년월, 계약일
 			dealVo.setDl_ty(row.getCell(5).toString());
@@ -506,16 +520,16 @@ public class DataTradeController {
 			//주소 파싱
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String zip = row.getCell(1).toString();
+			String rd = row.getCell(10).toString() == null ? "없음" : row.getCell(10).toString();
 
 			//articleVo 넣기..
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip("*");
-			
 			//도로명 주소
-			articleVo.setArtcl_rd(row.getCell(10).toString());
+			articleVo.setArtcl_rd(rd);
+			
 			
 			//건물유형코드, 건축년도
 			articleVo.setArtcl_bc("multi");
@@ -527,6 +541,7 @@ public class DataTradeController {
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
 			dealVo.setDl_zip("*");
+			dealVo.setDl_rd(rd);
 			
 			//거래유형, 보증금, 월세, 계약년월, 계약일
 			dealVo.setDl_ty(row.getCell(4).toString());
@@ -552,17 +567,18 @@ public class DataTradeController {
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
 			String zip = row.getCell(1).toString();
+			String rd = row.getCell(13).toString() == null ? "없음" : row.getCell(13).toString();
+			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
 
 			//articleVo 넣기..
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip(zip);
-			
 			//도로명 주소
-			articleVo.setArtcl_rd(row.getCell(13).toString());
-			String rd_detail = row.getCell(2).toString() + " " + row.getCell(3).toString();
+			articleVo.setArtcl_rd(rd);
 			articleVo.setArtcl_rd_detail(rd_detail);
+			
 			
 			//건물유형코드, 단지명, 건축년도
 			articleVo.setArtcl_bc("office");
@@ -575,7 +591,8 @@ public class DataTradeController {
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
 			dealVo.setDl_zip(zip);
-			
+			dealVo.setDl_rd(rd);
+
 			//거래유형, 보증금, 월세, 계약년월, 계약일
 			dealVo.setDl_ty(row.getCell(5).toString());
 			
@@ -600,16 +617,16 @@ public class DataTradeController {
 			//주소 파싱
 			String siGunGu = row.getCell(0).toString();
 			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String zip = row.getCell(2).toString();
+			String rd = row.getCell(3).toString() == null ? "없음" : row.getCell(3).toString();
 
 			//articleVo 넣기..
 			//article의 주소 복합키
 			articleVo.setArtcl_gu(sigunguArr[1]);
 			articleVo.setArtcl_dong(sigunguArr[2]);
 			articleVo.setArtcl_zip("*");
-			
 			//도로명 주소
-			articleVo.setArtcl_rd(row.getCell(3).toString());
+			articleVo.setArtcl_rd(rd);
+			
 			
 			//건물 코드, 유형, 용도지역, 주용도,
 			articleVo.setArtcl_bc("store");
@@ -627,6 +644,7 @@ public class DataTradeController {
 			dealVo.setDl_gu(sigunguArr[1]);
 			dealVo.setDl_dong(sigunguArr[2]);
 			dealVo.setDl_zip("*");
+			dealVo.setDl_rd(rd);
 			
 			//거래유형(매매), 거래금액, 계약년월, 계약일
 			dealVo.setDl_ty("매매");
