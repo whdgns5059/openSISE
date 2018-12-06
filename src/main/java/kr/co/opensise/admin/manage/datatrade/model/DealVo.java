@@ -14,7 +14,15 @@ public class DealVo {
 	private String dl_gu;
 	private String dl_dong;
 	private String dl_zip;
+	private String dl_rd;
 	
+	
+	public String getDl_rd() {
+		return dl_rd;
+	}
+	public void setDl_rd(String dl_rd) {
+		this.dl_rd = dl_rd;
+	}
 	public int getDl_no() {
 		return dl_no;
 	}
@@ -92,8 +100,9 @@ public class DealVo {
 		return "DealVo [dl_no=" + dl_no + ", dl_excv_area=" + dl_excv_area + ", dl_ty=" + dl_ty + ", dl_price="
 				+ dl_price + ", dl_depos=" + dl_depos + ", dl_rnt=" + dl_rnt + ", dl_cont_ym=" + dl_cont_ym
 				+ ", dl_cont_d=" + dl_cont_d + ", dl_flr=" + dl_flr + ", dl_gu=" + dl_gu + ", dl_dong=" + dl_dong
-				+ ", dl_zip=" + dl_zip + "]";
+				+ ", dl_zip=" + dl_zip + ", dl_rd=" + dl_rd + "]";
 	}
+	
 	
 	
 	

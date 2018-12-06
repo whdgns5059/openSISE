@@ -1,6 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<style>
+.main-left{
+	width: 70%;
+	height: 100%;
+	float: left;
+}
+.search-filt{
+	width: 100%;
+	height: 5%;
+}
+.search{
+    margin: 10px 24px 0 40px;
+    width: 280px;
+    height: 37px;
+    float: left;
+}
+.search-box{
+    width: 210px;
+    height: 36px;
+    align-self: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-bottom: 2px solid #4159a9;
+}
+.searchBtn{
+    width: 57px;
+    padding: 0;
+    margin: 0;
+    height: 35px;
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    background-color: #ffae24;
+    border-bottom: 5px solid #4159a9;
+}
+.searchBtn:hover{
+	 border-bottom: 4px solid #626f9c;
+}
+.main-right{
+	width: 30%;
+	height: 100%;
+	float: left;
+	border-left: 1px solid #e0e0e0;
+}
+.filters-div{
+	float: left;
+}
+
+</style>
 <script type="text/javascript">
 //36.3505393936125,127.38483389033713
 	$(document).ready(
@@ -33,77 +85,90 @@
 </script>
 
 
-<!-- 전체 contents div -->
-<div class="row" style="height: 850px !important">
-	<!-- left contents -->
-	<div>
-		<c:forEach items="${buildingSaleList}" var="build">
-			<input type="hidden" class="lat" value="${build.artcl_lat}">
-			<input type="hidden" class="lng" value="${build.artcl_lng}">
-		</c:forEach>
-		<form
-			style="width: 300px; display: inline-block; float: left; padding-left: 20px; padding-top: 10px;">
-			<input type="text" placeholder="Search" id="loc" value="${search}">
-			<button type="button" id="search">Search</button>
-		</form>
-		<ul class="nav nav-tabs" style="width: 1000px;">
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Action</a> <a
-						class="dropdown-item" href="#">Another action</a> <a
-						class="dropdown-item" href="#">Something else here</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
-				</div></li>
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Action</a> <a
-						class="dropdown-item" href="#">Another action</a> <a
-						class="dropdown-item" href="#">Something else here</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
-				</div></li>
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Action</a> <a
-						class="dropdown-item" href="#">Another action</a> <a
-						class="dropdown-item" href="#">Something else here</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
-				</div></li>
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Action</a> <a
-						class="dropdown-item" href="#">Another action</a> <a
-						class="dropdown-item" href="#">Something else here</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
-				</div></li>
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Action</a> <a
-						class="dropdown-item" href="#">Another action</a> <a
-						class="dropdown-item" href="#">Something else here</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
-				</div></li>
-		</ul>
-		<!-- <img src="https://via.placeholder.com/1400x850/ffaaaa?text=daum_map" /> -->
-		<div id="map" style="width: 1300px; height: 800px;"></div>
+<!-- left contents -->
+<div class="main-left">
+	<c:forEach items="${buildingSaleList}" var="build">
+		<input type="hidden" class="lat" value="${build.artcl_lat}">
+		<input type="hidden" class="lng" value="${build.artcl_lng}">
+	</c:forEach>
+	
+	<!-- 검색 조건 -->
+	<div class="search-filt">
+		<!-- 검색어 -->
+		<div class="search"> 
+			<form action="/" method="get">
+				<input type="text" class="search-box" placeholder="Search" id="loc" value="${search}">
+				<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">검색</button>
+			</form>
+		</div>
+		
+		<!-- 필터 -->
+		<div class="filters-div">
+			<ul class="nav nav-tabs" >
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">전/월/매</a>
+					<div class="dropdown-menu">
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#">
+								<input type="checkbox" class="custom-control-input" id="jeonse" />
+		     					<label class="custom-control-label" for="jeonse">&nbsp&nbsp전세</label>
+		     				</a>
+		     			</div>
+		     			<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#">
+								<input type="checkbox" class="custom-control-input" id="wolse" />
+		     					<label class="custom-control-label" for="wolse">&nbsp&nbsp월세</label>
+		     				</a>
+		     			</div>
+		     			<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#">
+								<input type="checkbox" class="custom-control-input" id="maemae" />
+		     					<label class="custom-control-label" for="maemae">&nbsp&nbsp매매</label>
+		     				</a>
+		     			</div>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">가격</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">Action</a> 
+						<a class="dropdown-item" href="#">Another action</a> 
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">면적</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">Action</a> 
+						<a class="dropdown-item" href="#">Another action</a> 
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">준공년도</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">Action</a> 
+						<a class="dropdown-item" href="#">Another action</a> 
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">층수</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">Action</a> 
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+						<div class="dropdown-divider"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
-	<!-- right contents -->
-	<div>
-		<!-- 		<img src="https://via.placeholder.com/500x850/aaffaa?text=/user/main.jsp" /> -->
+	<div id="map" style="width: 100%; height: 95%;"></div>
+</div>
+	
+<!-- right contents -->
+<div class="main-right">
 
 		<!-- 매물리스트  -->
 		<div class="panel-group" id="accordion" role="tablist"
@@ -119,6 +184,9 @@
 						</h4>
 					</div>
 				</c:forEach>
+			
+			
+			
 				<!-- <div id="collapseOne" class="panel-collapse collapse in"
 					role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">Anim pariatur cliche reprehenderit,
@@ -183,4 +251,3 @@
 			</div> -->
 		</div>
 	</div>
-</div>

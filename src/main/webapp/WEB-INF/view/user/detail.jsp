@@ -151,13 +151,24 @@
 	.reportDiv {float:left; width: 800px; text-align: right;}
 	.photo {clear:left;}
 	.reviewModify {text-align: right;}	
+	
+	.class {position: absolute; }	
+	
 </style>
 
 <!-- 전체 contents div -->
 <div class="row" style="height: 850px !important">
-	<!-- left contents -->
-	<div id="map">
+	
+	<div id="mapWrap">
+	<!-- 지도-->
+	<div id="map"> </div>
+	<!-- 지도 오버레이(지역분석으로 이동) -->
+	<div class="toLocal">
+		<img src="https://via.placeholder.com/100x100?text=toLocal" />
 	</div>
+	</div>	
+	
+	
 	<!-- right contents -->
 	<div id="rightContentWrapper">
 		<div id="rightContent">
