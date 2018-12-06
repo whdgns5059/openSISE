@@ -50,10 +50,10 @@
 	<div class="collapse navbar-collapse" id="navbarColor01" >
 		<ul class="navbar-nav mr-auto bc-select">
 		<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
-			<li class="nav-item"><a class="nav-link" href="#">단/다세대 주택</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">아파트</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">상가</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">법원경매</a></li>
+			<li class="nav-item"><a class="nav-link" href="/main/resetMain">단/다세대 주택</a></li>
+			<li class="nav-item"><a class="nav-link" href="/main/resetMain">아파트</a></li>
+			<li class="nav-item"><a class="nav-link" href="/main/resetMain">상가</a></li>
+			<li class="nav-item"><a class="nav-link" href="/main/resetMain">법원경매</a></li>
 		</ul>
 	</div>
 	<!-- 오른쪽 상단 배치// 예: 로그인, 회원가입등 -->
