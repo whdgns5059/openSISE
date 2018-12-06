@@ -33,7 +33,7 @@
 		<foreach collection="list" item="dVo" separator=" ">
 			into DEAL (
 				DL_NO, DL_EXCV_AREA, DL_TY, DL_PRICE, DL_DEPOS, DL_RNT, DL_CONT_YM,
-				DL_CONT_D, DL_FLR, DL_GU, DL_DONG, DL_ZIP	
+				DL_CONT_D, DL_FLR, DL_GU, DL_DONG, DL_ZIP, DL_RD	
 			) values (
 				get_seq_dl, 
 				#{dVo.dl_excv_area, jdbcType=FLOAT}, 
@@ -46,7 +46,8 @@
 				#{dVo.dl_flr, jdbcType=VARCHAR}, 
 				#{dVo.dl_gu, jdbcType=VARCHAR},
 				#{dVo.dl_dong, jdbcType=VARCHAR}, 
-				#{dVo.dl_zip, jdbcType=VARCHAR}
+				#{dVo.dl_zip, jdbcType=VARCHAR},
+				#{dVo.dl_rd, jdbcTyp=VARCHAR}
 				) 
 		</foreach>
 		select * from dual
@@ -63,7 +64,7 @@
 		update article
 		set artcl_lat = #{artcl_lat}, artcl_lng = #{artcl_lng} 
 		where artcl_gu = #{artcl_gu} and artcl_dong = #{artcl_dong}
-		and artcl_zip = #{artcl_zip} 
+		and artcl_zip = #{artcl_zip} and artcl_rd = #{artcl_rd}
 	</update>
 
 </mapper>
