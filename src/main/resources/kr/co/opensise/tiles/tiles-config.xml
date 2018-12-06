@@ -4,7 +4,6 @@
 <tiles-definitions>
 	<definition name="userLayout" template="/WEB-INF/view/common/user_layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/common/header.jsp"></put-attribute>
-		<put-attribute name="footer" value="/WEB-INF/view/common/user_footer.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 	</definition>
 	
