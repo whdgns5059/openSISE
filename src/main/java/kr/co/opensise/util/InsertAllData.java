@@ -136,7 +136,7 @@ public class InsertAllData{
 					}else if(division.equals(RT)) {
 						setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 12, 2, 3, -1, 4, 11, "multip", -1, -1, -1, -1,9, -1, -1, 5, 10, 7, 8);
 					}else if(division.equals(ST)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, -1, 10, -1, -1, -1, -1, 9, "single", -1, -1, 01, -1,8, -1, -1, 4, -1, 6, 7);
+						setVoMap = DataTradeControllerUtil.setVo(row, 0, -1, 10, -1, -1, -1, -1, 9, "single", -1, -1, -1, -1,8, -1, -1, 4, -1, 6, 7);
 					}else if(division.equals(OT)) {
 						setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 11, 2, 3, 4, -1, 10, "office", -1,	-1, -1, -1, 8, -1, -1, 5, 9, 6, 7);
 					}else if(division.equals(AR)) {
