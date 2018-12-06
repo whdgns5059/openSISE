@@ -2,27 +2,26 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
+//36.3505393936125,127.38483389033713
 	$(document).ready(
 			function() {
 
 				// 해당 주소에 대한 좌표값을 담을 변수
-				var x;
-				var y;
+				var x = $(".lat").val(); //위도
+				var y = $(".lng").val(); //경도
 
 				// 해당 주소를 담을 값
 				var addr;
 
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 				mapOption = {
-					center : new daum.maps.LatLng(36.3505393936125,
-							127.38483389033713), // 지도의 중심좌표
+					center : new daum.maps.LatLng(x,y), // 지도의 중심좌표
 					level : 3
 				// 지도의 확대 레벨
 				};
 				var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 				//마커가 표시될 위치입니다 
-				var markerPosition = new daum.maps.LatLng(36.3505393936125,
-						127.38483389033713);
+				var markerPosition = new daum.maps.LatLng(x,y);
 				//마커를 생성합니다
 				var marker = new daum.maps.Marker({
 					position : markerPosition
@@ -38,10 +37,10 @@
 <div class="row" style="height: 850px !important">
 	<!-- left contents -->
 	<div>
-	<c:forEach items="${buildingSaleList}" var="build">
-		<input type="hidden" class="lat" value="${build.artcl_lat}">
-		<input type="hidden" class="lng" value="${build.artcl_lng}">
-	</c:forEach>
+		<c:forEach items="${buildingSaleList}" var="build">
+			<input type="hidden" class="lat" value="${build.artcl_lat}">
+			<input type="hidden" class="lng" value="${build.artcl_lng}">
+		</c:forEach>
 		<form
 			style="width: 300px; display: inline-block; float: left; padding-left: 20px; padding-top: 10px;">
 			<input type="text" placeholder="Search" id="loc" value="${search}">
@@ -111,32 +110,15 @@
 			aria-multiselectable="true">
 			<!-- 1번 시작 -->
 			<div class="panel panel-default">
-				<c:choose>
-					<c:when test="${building eq multi}">
-						<c:forEach items="${buildingSaleList}" var="build">
-							<div class="panel-heading" role="tab" id="headingOne">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion"
-										href="#collapseOne" aria-expanded="true"
-										aria-controls="collapseOne"> ${build.artcl_gu}&nbsp;${build.artcl_dong}&nbsp; ${build.artcl_rd} </a>
-								</h4>
-							</div>
-						</c:forEach>
-
-					</c:when>
-
-					<c:when test="${building eq apt}">
-						<c:forEach items="${buildingSaleList}" var="building">
-							<div class="panel-heading" role="tab" id="headingOne">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion"
-										href="#collapseOne" aria-expanded="true"
-										aria-controls="collapseOne"> ${building.artcl_complx}</a>
-								</h4>
-							</div>
-						</c:forEach>
-					</c:when>
-				</c:choose>
+				<c:forEach items="${buildingSaleList}" var="building">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion"
+								href="#collapseOne" aria-expanded="true"
+								aria-controls="collapseOne"> ${building.artcl_complx}</a>
+						</h4>
+					</div>
+				</c:forEach>
 				<!-- <div id="collapseOne" class="panel-collapse collapse in"
 					role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">Anim pariatur cliche reprehenderit,
