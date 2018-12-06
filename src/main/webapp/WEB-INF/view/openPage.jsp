@@ -349,8 +349,6 @@ input:disabled {
  				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  --> 
 				<li><a href="/">{회원의 닉네임}님 환영합니다! </a></li>
-
-				
 			</ul>
 		</div>
 	</div>
