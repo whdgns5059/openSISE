@@ -366,16 +366,16 @@ input:disabled {
 		<!-- button -->
 		<div class="button">
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="house" value="단/다세대" onclick="getBC(this)">단/다세대</button>
+				<button type="button" class="btn btn-outline-primary" id="house" value="multi" onclick="getBC(this)">단/다세대</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="apt" value="아파트" onclick="getBC(this)">아파트</button>
+				<button type="button" class="btn btn-outline-primary" id="apt" value="apt" onclick="getBC(this)">아파트</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="office" value="오피스텔" onclick="getBC(this)">오피스텔</button>
+				<button type="button" class="btn btn-outline-primary" id="office" value="office" onclick="getBC(this)">오피스텔</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="store" value="상가" onclick="getBC(this)">상가</button>
+				<button type="button" class="btn btn-outline-primary" id="store" value="store" onclick="getBC(this)">상가</button>
 			</div>
 		</div>
 		

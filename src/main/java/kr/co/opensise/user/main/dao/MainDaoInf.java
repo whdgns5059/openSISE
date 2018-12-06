@@ -1,19 +1,22 @@
 package kr.co.opensise.user.main.dao;
 
 import java.util.List;
+import java.util.Map;
+
+import kr.co.opensise.user.main.model.BuildingSaleVo;
 
 public interface MainDaoInf {
-	
 	/**  
-	* Method  : searchBuildingList 
+	* Method   : buildingSaleList 
 	* 작성자 : 1003yd 
 	* 변경이력 :  
-	* @param building
-	* @param searchText
+	* @param searchMap
 	* @return  
-	* Method 설명 : 건물 분류와 검색명으로 매물리스트 조회  
+	* Method 설명 : 건물분류와 검색어를 바탕으로 매물리스트 검색  
 	*/
-	public List searchBuildingList(String building, String searchText);
+	public List<BuildingSaleVo> buildingSaleList(Map<String, String> searchMap);
+	
+
 	
 	
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map">
+	<!-- 건물 형태와 검색어 검색 리스트 -->
+	<!-- parameter는 map 형태로 검색어와 건물 분류 형태를 구분하는 파라미터를 받아온다. -->
+	<select id="searchList" parameterType="map"
+		resultType="buildingSaleVo">
+		select artcl_gu, artcl_dong, artcl_complx, artcl_nm, artcl_lat, artcl_lng,
+		artcl_rd, artcl_rd_detail, dl_price, dl_depos, dl_rnt, dl_cont_ym,
+		dl_cont_d
+		from article inner join deal on (artcl_gu = dl_gu and artcl_dong = dl_dong
+		and artcl_zip = dl_zip and artcl_bc = #{building})
+		where artcl_dong = #{searchName}
+		or artcl_complx like  #{searchName} ||'%'
+		or artcl_nm like #{searchName} ||'%'
+
+	</select>
+
+</mapper>
