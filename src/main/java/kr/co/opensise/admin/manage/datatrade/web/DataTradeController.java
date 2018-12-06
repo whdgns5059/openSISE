@@ -40,15 +40,7 @@ public class DataTradeController {
 	@Resource(name="dataTradeService")
 	private DataTradeServiceInf dataTradeService;
 	
-	private final String AT = "실거래 구분 : 아파트(매매)"; 
-	private final String RT = "실거래 구분 : 연립다세대(매매)";
-	private final String ST = "실거래 구분 : 단독다가구(매매)";
-	private final String OT = "실거래 구분 : 오피스텔(매매)";
-	private final String AR = "실거래 구분 : 아파트(전월세)";
-	private final String RR = "실거래 구분 : 연립다세대(전월세)";
-	private final String SR = "실거래 구분 : 단독다가구(전월세)";
-	private final String OR = "실거래 구분 : 오피스텔(전월세)";
-	private final String NT = "실거래 구분 : 상업업무용(매매)";
+
 	
 	
 	
@@ -88,32 +80,12 @@ public class DataTradeController {
 			List<DealVo> dealList = new ArrayList<>();
 			
 			for(int i = 17; i <= rows ; i++  ) {
-				
 
 				XSSFRow row = sheet.getRow(i);
 				
-				Map<String, Object> setVoMap = null;
-				
-				if(division.equals(AT)) {
-					setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 11, 2, 3, 4, -1, 10, "apt", -1,	-1, -1, -1, 8, -1, -1, 5, 9, 6, 7);
-				}else if(division.equals(RT)) {
-					setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 12, 2, 3, -1, 4, 11, "multip", -1, -1, -1, -1,9, -1, -1, 5, 10, 7, 8);
-				}else if(division.equals(ST)) {
-					setVoMap = DataTradeControllerUtil.setVo(row, 0, -1, 10, -1, -1, -1, -1, 9, "single", -1, -1, -1, -1,8, -1, -1, 4, -1, 6, 7);
-				}else if(division.equals(OT)) {
-					setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 11, 2, 3, 4, -1, 10, "office", -1,	-1, -1, -1, 8, -1, -1, 5, 9, 6, 7);
-				}else if(division.equals(AR)) {
-					setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 13, 2, 3, 4, -1, 12, "apt", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
-				}else if(division.equals(RR)) {
-					setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 13, 2, 3, -1, 4, 12, "multip", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
-				}else if(division.equals(SR)) {
-					setVoMap = DataTradeControllerUtil.setVo(row, 0, -1, 10, -1, -1, -1, -1, 9, "single", -1, -1, -1, 4, -1, 7, 8, 3, -1, 5, 6);
-				}else if(division.equals(OR)) {
-					setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 13, 2, 3, 4, -1, 12, "apt", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
-				}else if(division.equals(NT)) {
-					setVoMap = DataTradeControllerUtil.setVo(row, 0, -1, 3, -1, -1, -1, -1, 14, "store", 4, 5, 1, -1, 9, -1, -1, 7, 10, 11, 12);
-				}
-				
+				DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
+
+				Map<String, Object> setVoMap = dataUtil.setVoMap(division, row);
 				
 				ArticleVo articleVo = (ArticleVo) setVoMap.get("articleVo");
 				DealVo dealVo = (DealVo) setVoMap.get("dealVo");
@@ -132,20 +104,17 @@ public class DataTradeController {
 			}
 			
 			//4. 담은 Vo들을 List에 담고 insert한다..
-			int insertArticleListResult = 0;
-			int insertDealListResult = 0;
-			
-			insertArticleListResult = dataTradeService.insertArticleList(articleList);
-			insertDealListResult = dataTradeService.insertDealList(dealList);
+			int insertArticleListResult = dataTradeService.insertArticleList(articleList);
+			int insertDealListResult = dataTradeService.insertDealList(dealList);
 			
 			totalArticleVoResult += insertArticleListResult;
 			totalDealVoResult += insertDealListResult;
 			
-			model.addAttribute("insertArticleListResult", insertArticleListResult);
-			model.addAttribute("insertDealListResult", insertDealListResult);
-			
 			log.info("insertResultArticleVo >>> {}", insertArticleListResult);
 			log.info("insertResultDealVo    >>> {}", insertDealListResult);
+			
+			wb.close();
+			bis.close();
 			
 			
 		} catch (Exception e) { 
@@ -165,7 +134,9 @@ public class DataTradeController {
 		//2. 해당 리스트에 좌표 입력
 		for(ArticleVo articleVo : coordNullArticleList) {
 			
-			String location = DataTradeControllerUtil.getLocation(articleVo);
+			DataTradeControllerUtil dataUtil= new DataTradeControllerUtil();
+			
+			String location = dataUtil.getLocation(articleVo);
 		
 			String lat = "";
 			String lng = "";
@@ -199,11 +170,15 @@ public class DataTradeController {
 		log.info("**********************************");
 		log.info("좌표 변환 결과 >>> {}", updateCoordResult );
 		log.info("**********************************");
-		
+	
+		model.addAttribute("arResult", totalArticleVoResult);
+		model.addAttribute("dlResult", totalDealVoResult);
 		
 		return "redirect:/manage/dataTrade/dataTrade";
 				
 	}
+
+
 	
 	
 	
