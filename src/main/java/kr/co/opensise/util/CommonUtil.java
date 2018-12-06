@@ -1,10 +1,8 @@
 package kr.co.opensise.util;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -16,9 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 
 
 public class CommonUtil {
@@ -54,7 +52,7 @@ public class CommonUtil {
 		String buf;
 		URL url = new URL(apiUrl);
 		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-		String auth = "KakaoAK f24a67aa2e49241ac5bbbc232c3a893c";
+		String auth = "KakaoAK 5b0c1d183ff30c68efea262ca7f8e7ab";
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("X-Requested-With", "curl");
 		conn.setRequestProperty("Authorization", auth);
@@ -97,5 +95,5 @@ public class CommonUtil {
 		String removeData = data.replaceAll(",", "");
 		return Double.parseDouble(removeData);
 	}
-
+	
 }
