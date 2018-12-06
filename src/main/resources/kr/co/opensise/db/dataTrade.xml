@@ -47,7 +47,7 @@
 				#{dVo.dl_gu, jdbcType=VARCHAR},
 				#{dVo.dl_dong, jdbcType=VARCHAR}, 
 				#{dVo.dl_zip, jdbcType=VARCHAR},
-				#{dVo.dl_rd, jdbcTyp=VARCHAR}
+				#{dVo.dl_rd, jdbcType=VARCHAR}
 				) 
 		</foreach>
 		select * from dual
