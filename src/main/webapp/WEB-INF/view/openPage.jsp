@@ -213,10 +213,6 @@ input:disabled {
 	overflow-x:hidden; 
 	overflow-y:auto;
 }
-	&::-webkit-scrollbar {
-		width: 3px;
-		background: none;
-	}
 .notice-tbl{
     margin: 0 auto;
     width: 830px;

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style>
@@ -27,6 +27,12 @@
     border: none;
     border-bottom: 2px solid #4159a9;
 }
+.search-box::placeholder{
+    font-family: 'Noto Sans KR', sans-serif;
+	font-size: 15px;
+	font-weight: 400;
+    color: #cacaca;
+}
 .searchBtn{
     width: 57px;
     padding: 0;
@@ -47,41 +53,85 @@
 	height: 100%;
 	float: left;
 	border-left: 1px solid #e0e0e0;
+	background: #f5f3f0;
 }
 .filters-div{
 	float: left;
+}
+.articles{
+    width: 95%;
+    height: 100%;
+    float: right;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+::-webkit-scrollbar{width: 16px;}
+::-webkit-scrollbar-track {background-color:#f1f1f1;}
+::-webkit-scrollbar-thumb {background-color:#ffae24;border-radius: 10px;}
+::-webkit-scrollbar-thumb:hover {background: #4159a9;}
+
+.article{
+    width: 500px;
+    height: 140px;
+    margin: 15px 0;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    font-family: 'Nanum Gothic Coding', monospace;
+    background: white;
+}
+.article h4{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 600;
+	color: #4159a9;
+	font-size: 24px;
+}
+.address{
+	margin-top: 8px;
+}
+.avg-price{
 }
 
 </style>
 <script type="text/javascript">
 //36.3505393936125,127.38483389033713
-	$(document).ready(
-			function() {
 
-				// 해당 주소에 대한 좌표값을 담을 변수
-				var x = $(".lat").val(); //위도
-				var y = $(".lng").val(); //경도
+	$(document).ready(function() {
 
-				// 해당 주소를 담을 값
-				var addr;
+		var x;
+		var y;
 
-				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-				mapOption = {
-					center : new daum.maps.LatLng(x,y), // 지도의 중심좌표
-					level : 3
-				// 지도의 확대 레벨
-				};
-				var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-				//마커가 표시될 위치입니다 
-				var markerPosition = new daum.maps.LatLng(x,y);
-				//마커를 생성합니다
-				var marker = new daum.maps.Marker({
-					position : markerPosition
-				});
-				//마커가 지도 위에 표시되도록 설정합니다
-				marker.setMap(map);
+		if ($("#loc").val() == "") {
+			// 검색값이 없을 때 시청으로 기본 좌표값 설정
+			x = 36.3505393936125;
+			y = 127.38483389033713;
+		} else {
+			// 해당 주소에 대한 좌표값을 담을 변수
+			x = $(".lat").val(); //위도
+			y = $(".lng").val(); //경도
+		}
 
-			});
+		// 해당 주소를 담을 값
+		var addr;
+
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center : new daum.maps.LatLng(x, y), // 지도의 중심좌표
+			level : 3
+		// 지도의 확대 레벨
+		};
+		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		//마커가 표시될 위치입니다 
+		var markerPosition = new daum.maps.LatLng(x, y);
+		//마커를 생성합니다
+		var marker = new daum.maps.Marker({
+			position : markerPosition
+		});
+		//마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+
+	});
 </script>
 
 
@@ -97,7 +147,7 @@
 		<!-- 검색어 -->
 		<div class="search"> 
 			<form action="/" method="get">
-				<input type="text" class="search-box" placeholder="Search" id="loc" value="${search}">
+				<input type="text" class="search-box" placeholder="지역명, 지하철역명, 아파트명" id="loc" value="${search}">
 				<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">검색</button>
 			</form>
 		</div>
@@ -170,84 +220,44 @@
 <!-- right contents -->
 <div class="main-right">
 
-		<!-- 매물리스트  -->
-		<div class="panel-group" id="accordion" role="tablist"
-			aria-multiselectable="true">
-			<!-- 1번 시작 -->
-			<div class="panel panel-default">
-				<c:forEach items="${buildingSaleList}" var="building">
-					<div class="panel-heading" role="tab" id="headingOne">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion"
-								href="#collapseOne" aria-expanded="true"
-								aria-controls="collapseOne"> ${building.artcl_complx}</a>
-						</h4>
-					</div>
-				</c:forEach>
-			
-			
-			
-				<!-- <div id="collapseOne" class="panel-collapse collapse in"
-					role="tabpanel" aria-labelledby="headingOne">
-					<div class="panel-body">Anim pariatur cliche reprehenderit,
-						enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-						moon officia aute, non cupidatat skateboard dolor brunch. Food
-						truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-						sunt aliqua put a bird on it squid single-origin coffee nulla
-						assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer
-						labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
-						excepteur butcher vice lomo. Leggings occaecat craft beer
-						farm-to-table, raw denim aesthetic synth nesciunt you probably
-						haven't heard of them accusamus labore sustainable VHS.</div>
-				</div> -->
-			</div>
-
-			<!-- 1번 끝 -->
-			<!-- <div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingTwo">
-					<h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse"
-							data-parent="#accordion" href="#collapseTwo"
-							aria-expanded="false" aria-controls="collapseTwo">
-							Collapsible Group Item #2 </a>
-					</h4>
-				</div>
-				<div id="collapseTwo" class="panel-collapse collapse"
-					role="tabpanel" aria-labelledby="headingTwo">
-					<div class="panel-body">Anim pariatur cliche reprehenderit,
-						enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-						moon officia aute, non cupidatat skateboard dolor brunch. Food
-						truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-						sunt aliqua put a bird on it squid single-origin coffee nulla
-						assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer
-						labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
-						excepteur butcher vice lomo. Leggings occaecat craft beer
-						farm-to-table, raw denim aesthetic synth nesciunt you probably
-						haven't heard of them accusamus labore sustainable VHS.</div>
-				</div>
-			</div> -->
-			<!-- <div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingThree">
-					<h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse"
-							data-parent="#accordion" href="#collapseThree"
-							aria-expanded="false" aria-controls="collapseThree">
-							Collapsible Group Item #3 </a>
-					</h4>
-				</div>
-				<div id="collapseThree" class="panel-collapse collapse"
-					role="tabpanel" aria-labelledby="headingThree">
-					<div class="panel-body">Anim pariatur cliche reprehenderit,
-						enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-						moon officia aute, non cupidatat skateboard dolor brunch. Food
-						truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-						sunt aliqua put a bird on it squid single-origin coffee nulla
-						assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer
-						labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
-						excepteur butcher vice lomo. Leggings occaecat craft beer
-						farm-to-table, raw denim aesthetic synth nesciunt you probably
-						haven't heard of them accusamus labore sustainable VHS.</div>
-				</div>
-			</div> -->
-		</div>
+	<!-- 매물리스트  -->
+	<div class="articles">
+		<c:forEach items="${buildingSaleList}" var="building">
+			<div class="article">
+				<h4>${building.artcl_complx}</h4>
+				<label class="address">상세주소시 상세구 주소동 상세주소단지</label><br/>
+				<label class="avg-price">평균시세&nbsp:&nbsp&nbsp100억</label>
+            </div>
+		</c:forEach>
 	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
