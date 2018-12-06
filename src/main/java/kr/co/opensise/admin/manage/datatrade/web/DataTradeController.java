@@ -59,7 +59,9 @@ public class DataTradeController {
 	@RequestMapping("/insertData")
 	public String insertData(@RequestPart("tradeData") MultipartFile part
 			,Model model) {
-	
+		int totalArticleVoResult = 0;
+		int totalDealVoResult = 0;
+		
 		try {
 			
 			//buffedinputStream으로 속도 상승
@@ -109,6 +111,9 @@ public class DataTradeController {
 			insertArticleListResult = dataTradeService.insertArticleList(articleList);
 			insertDealListResult = dataTradeService.insertDealList(dealList);
 			
+			totalArticleVoResult += insertArticleListResult;
+			totalDealVoResult += insertDealListResult;
+			
 			model.addAttribute("insertArticleListResult", insertArticleListResult);
 			model.addAttribute("insertDealListResult", insertDealListResult);
 			
@@ -129,7 +134,7 @@ public class DataTradeController {
 		
 		//1. 좌표가 없는 article list 가져오기
 		List<ArticleVo> coordNullArticleList = dataTradeService.selectCoordNullArticle();
-		
+		int updateCoordResult = 0;
 		//2. 해당 리스트에 좌표 입력
 		for(ArticleVo articleVo : coordNullArticleList) {
 			
@@ -174,10 +179,17 @@ public class DataTradeController {
 			log.info("좌표변경 : {}", articleVo.toString());
 			
 			//3. 좌표 업데이트. 
-			int updateResult = dataTradeService.updataLatLngArticle(articleVo);
-			log.info("좌표변경! {}개", updateResult);
+			updateCoordResult += dataTradeService.updataLatLngArticle(articleVo);
 			
 		}
+		
+		
+		log.info("**********************************");
+		log.info("ArticleVo 인서트 결과 >> {}", totalArticleVoResult);
+		log.info("DealVo 인서트 결과 >> {}", totalDealVoResult);
+		log.info("**********************************");
+		log.info("좌표 변환 결과 >>> {}", updateCoordResult );
+		log.info("**********************************");
 		
 		
 		return "redirect:/manage/dataTrade/dataTrade";

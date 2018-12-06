@@ -39,14 +39,19 @@ public class InsertAllData{
 	 * 데이터 분량에 따라 시간이 오래걸림 1000건에 1분 내외
 	 * @throws IOException 
 	 ******************************************/
-	public void insertAllDataTrade(String root) throws IOException {
+	public Map<String, Integer> insertAllDataTrade(String root, int articleCnt, int dealCnt, int coordCnt) throws IOException {
 		
 		File directory = new File(root);
 		
 		File[] listOfFile = directory.listFiles();
 		
+		int totalArticleCnt = 0;
+		int totalDealCnt = 0;
+		int totalCoordCnt = 0;
 		
-		
+		totalArticleCnt += articleCnt;
+		totalDealCnt += dealCnt;
+		totalCoordCnt += coordCnt;
 		
 		for(File file : listOfFile) {
 			
@@ -68,7 +73,7 @@ public class InsertAllData{
 				}	
 				
 				try {
-					insertAllDataTrade(file.getCanonicalPath().toString());
+					insertAllDataTrade(file.getCanonicalPath().toString(), articleCnt, dealCnt, coordCnt);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -214,15 +219,24 @@ public class InsertAllData{
 				log.info("좌표변경 : {}", articleVo.toString());
 				
 				//3. 좌표 업데이트. 
-				int updateResult = dataTradeService.updataLatLngArticle(articleVo);
-				log.info("좌표변경! {}개", updateResult);
+				dataTradeService.updataLatLngArticle(articleVo);
+				
 				
 			}
 		}
 		
+		Map<String, Integer> cntResultMap = new HashMap<>();
+		cntResultMap.put("totalArticleCnt", totalArticleCnt);
+		cntResultMap.put("totalDealCnt", totalDealCnt);
+		cntResultMap.put("totalCoordCnt", totalDealCnt);
+		
 		log.info("***************************************");
 		log.info("              종료!!");
 		log.info("***************************************");
+		
+		
+		
+		return cntResultMap;
 		
 	}
 		
