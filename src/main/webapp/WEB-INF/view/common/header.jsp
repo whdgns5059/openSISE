@@ -51,7 +51,6 @@
  		}
  		
  		
- 		
  	});
  	
 	function switchPage(bc) {
@@ -106,7 +105,7 @@
 
 </nav>
 
-
+<!-- 데코 라인 -->
 <div class="navline"></div>
 <!-- navbar끝 -->
 
