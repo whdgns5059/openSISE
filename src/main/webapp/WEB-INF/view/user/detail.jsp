@@ -92,6 +92,26 @@
 
 </script>
 
+<!-- 리뷰 컨트롤 스크립트 -->
+<script>
+	
+	$(document).ready(function(){
+		
+		$('.reviewDetailWrapper').hide();
+		
+		
+		$('.titleWrapper').on('click',  function(){
+			if($(this.nextElementSibling).is(':visible')){
+				$(this.nextElementSibling).hide("slow");
+			}else{
+				$(this.nextElementSibling).show("slow");
+			}
+		});
+		
+	});
+	
+</script>
+
 
 <style type="text/css">
 	#map {width : 650px; height:1000px;}
@@ -117,13 +137,38 @@
 	.marginTop {margin-top: 30px;}
 	
 	#radarChartDiv {width: 1200px; height:500px;}
+	
+	#reviewDiv {width: 1200px; min-height: 300px;}
+	.reviewWrapper {width: 1000px; margin:auto;}
+	.titleWrapper {width: 1000px; margin:auto;}
+	.titleWrapper * {border:1px solid black;}
+	.reviewDate { clear:left; float:left; width:200px;}
+	.reviewTitle {float:left; width: 600px;}
+	.reviewWriter {float:left; width: 200px;}
+	.reviewDetailWrapper {width:1000px;clear:left; margin:auto; padding-top: 15px; padding-bottom: 15px; }
+	.starDivWrapper { height: 45px;}
+	.starDiv {float:left;}
+	.reportDiv {float:left; width: 800px; text-align: right;}
+	.photo {clear:left;}
+	.reviewModify {text-align: right;}	
+	
+	.class {position: absolute; }	
+	
 </style>
 
 <!-- 전체 contents div -->
 <div class="row" style="height: 850px !important">
-	<!-- left contents -->
-	<div id="map">
+	
+	<div id="mapWrap">
+	<!-- 지도-->
+	<div id="map"> </div>
+	<!-- 지도 오버레이(지역분석으로 이동) -->
+	<div class="toLocal">
+		<img src="https://via.placeholder.com/100x100?text=toLocal" />
 	</div>
+	</div>	
+	
+	
 	<!-- right contents -->
 	<div id="rightContentWrapper">
 		<div id="rightContent">
@@ -182,9 +227,45 @@
 				<input type="range" class="marginTop">
 			</div>
 			<div id="radarChartDiv">
-				
 			</div>
-			<div><img src="https://via.placeholder.com/1200x300/ffeb99?text=review" /></div>
+			<div id="reviewDiv">
+				<c:forEach begin="1" end="2">
+					<div class="reviewWrapper">
+						<div class="titleWrapper">
+							<div class="reviewDate"> 2018-10-20</div>
+							<div class="reviewTitle"> 집에서 쥐가 나와요</div>
+							<div class="reviewWriter"> whdgns****</div>
+						</div>
+						<div class="reviewDetailWrapper">
+							<div class="starDivWrapper">
+								<div class="starDiv"><img src="https://via.placeholder.com/180x30"/></div>
+								<div class="reportDiv"> <img src="https://via.placeholder.com/30"/></div>
+							</div>
+							<div class="photo">
+								<img src="https://via.placeholder.com/200" />
+								<img src="https://via.placeholder.com/200" />
+							</div>
+							<div class="reviewText">
+								<p>리뷸비류비류비류비류비ㅠㄹ디ㅠㅁㄹ;ㅣㅏ덜미ㅏㄴ더로ㅓ올키ㅏ터올키ㅏ터올키타어로
+									ㅁㄴㅇㄻㄴㄹㄷㅁㄴㄻㄴㄷㄻㄴㄷ라ㅕㅓㅋ농리ㅏㅓㅋ통리ㅏㅓㅋ녿ㄱ리ㅐㅏㅓㅋ녿ㄹ기ㅏ컨룈나ㅓ
+								</p>
+							</div>
+							<div class="reviewModify">
+								<button>수정</button><button>삭제</button>
+							</div>
+							<div class="replyWrapper">
+								<div class="reply">
+									fewfw*** : 야호호오오오ㅗ오오옹 <br/>
+									fed2***  : 야호돚도롲돌졷ㄹ<br/>
+								</div>
+								<div class="writeReply">
+									<input type="text" /> <button>입력</button>
+								</div>
+							</div>
+						</div>
+					</div>	
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 </div>

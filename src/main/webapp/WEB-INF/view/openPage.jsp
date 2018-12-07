@@ -95,7 +95,7 @@ td {
 }
 .notice{
     width: 640px;
-    height: 450px;
+    height: 454px;
     display: inline-block;
     float: right;
     border: 1px solid #bbbbbb;
@@ -113,8 +113,8 @@ td {
     color: #3a589e;
 }
 .see-more{
-    width: 100px;
-    padding-left: 9%;
+	width: 54px;
+    text-align: center;
     color: #808080;
     background-color: transparent;
     border: none;
@@ -213,11 +213,13 @@ input:disabled {
 	overflow-x:hidden; 
 	overflow-y:auto;
 }
-
 .notice-tbl{
     margin: 0 auto;
     width: 830px;
     height: 566px;
+}
+.notice-content{
+	padding: 8px 90px !important;
 }
 </style>
 
@@ -275,13 +277,16 @@ input:disabled {
     }
     
     // 공지사항 window 내용 fade 효과
-    $("#fadeToggleBtn").on("click", function() {
-
+    $(".공지").on("click", function() {
         // id가 "divBox"인 요소를 1초에 걸쳐 점점 나타나게 하거나 사라지게 함.
-
         $("#divBox").fadeToggle(1000);
 
     });
+    
+    function noticeFade(id){
+		var the = "#" + id;
+		$(the).fadeToggle("fast");
+	}
     
     
     $(document).ready(function(){
@@ -340,8 +345,6 @@ input:disabled {
  				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  --> 
 				<li><a href="/">{회원의 닉네임}님 환영합니다! </a></li>
-
-				
 			</ul>
 		</div>
 	</div>
@@ -357,16 +360,16 @@ input:disabled {
 		<!-- button -->
 		<div class="button">
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="house" value="단/다세대" onclick="getBC(this)">단/다세대</button>
+				<button type="button" class="btn btn-outline-primary" id="house" value="multi" onclick="getBC(this)">단/다세대</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="apt" value="아파트" onclick="getBC(this)">아파트</button>
+				<button type="button" class="btn btn-outline-primary" id="apt" value="apt" onclick="getBC(this)">아파트</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="office" value="오피스텔" onclick="getBC(this)">오피스텔</button>
+				<button type="button" class="btn btn-outline-primary" id="office" value="office" onclick="getBC(this)">오피스텔</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="store" value="상가" onclick="getBC(this)">상가</button>
+				<button type="button" class="btn btn-outline-primary" id="store" value="store" onclick="getBC(this)">상가</button>
 			</div>
 		</div>
 		
@@ -411,26 +414,30 @@ input:disabled {
 									<td>제목</td>
 									<td>작성일</td>
 								</tr>
+								
+			<!-- 공지사항 반복될 구간 START -->					
 								<tr>
-									<td style="width: 30px;">1</td>
-									<td onclick="oneFade('1')">공지사항</td>
+									<td style="width: 30px;">100</td>
+									<td onclick="noticeFade('1')">공지사항</td>
 									<td>2018.11.30</td>
 								</tr>
 								<tr>
-									<td style="width: 30px;">2</td>
-									<td>공지사항</td>
-									<td>2018.11.30</td>
+									<td colspan="3" id="1" class="notice-content" style="display: none;" >100번 공지사항 내용 입니다.</td>
 								</tr>
+			<!-- 공지사항 반복될 구간 END -->	
+								
+								<!-- DUMMY DATA -->
 								<%for(int i=0 ; i<20 ; i++){
 									%>
-									<tr>
-									<td style="width: 30px;">2</td>
+								<tr class>
+									<td style="width: 30px;"><%=i %></td>
 									<td>공지사항</td>
 									<td>2018.11.30</td>
 								</tr>
 								<%
 								}
 								%>
+								
 							</thead>
 						</table>
 					</div>
@@ -441,6 +448,7 @@ input:disabled {
 						<h6>공지사항</h6><button type="button" class="see-more openMask">더보기</button>
 					</div>
 					<div class="notice-cont word-over">
+			<!-- 공지사항 제목만 나열 -->
 						title만 나열합니다.<br/>
 						title만 나열합니다.<br/>
 						title만 나열합니다.<br/>
@@ -457,9 +465,9 @@ input:disabled {
 					</div>
 				</div>
 
-			</div><!-- 공지사항 END -->
-		</div>
-	</div><!-- contents END -->
+			</div>	<!-- 공지사항 END -->
+		</div>	<!-- board END -->
+	</div>	<!-- contents END -->
 	
 	<div class="bottom">
 		<hr/>
@@ -473,7 +481,7 @@ input:disabled {
 	</div>
 	
 	
-</div><!-- wrap END -->
+</div>	<!-- wrap END -->
 
 </body>
 </html>

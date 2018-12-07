@@ -33,8 +33,14 @@ public class InsertAllDataTest extends RootSetup{
 		/***when***/
 		insertAllData.insertAllDataTrade(root);
 	
-		
 		/***then***/
+		log.info("******************************");
+		log.info("끝끝끝");
+		log.info("끝끝끝");
+		log.info("끝끝끝");
+		log.info("******************************");
 	}
+	
+	
 
 }
