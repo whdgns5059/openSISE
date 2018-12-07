@@ -22,7 +22,6 @@ public class MainController {
 	@Resource(name = "mainService")
 	MainServiceInf mainService;
 	
-
 	/**  
 	* Method   : main 
 	* 작성자 : 1003yd 
@@ -42,5 +41,6 @@ public class MainController {
 		model.addAttribute("search", searchName);
 		return "main";
 	}
+	
 
 }

@@ -107,6 +107,43 @@
 </style>
 <script type="text/javascript">
 //36.3505393936125,127.38483389033713
+	$(document).ready(
+			function() {
+				
+				var x;
+				var y;
+				
+				if($("#loc").val() == ""){
+					// 검색값이 없을 때 시청으로 기본 좌표값 설정
+					x = 36.3505393936125;
+					y = 127.38483389033713;
+				}else{
+					// 해당 주소에 대한 좌표값을 담을 변수
+					x = $(".lat").val(); //위도
+					y = $(".lng").val(); //경도
+				}
+				
+				
+				// 해당 주소를 담을 값
+				var addr;
+
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				mapOption = {
+					center : new daum.maps.LatLng(x,y), // 지도의 중심좌표
+					level : 3
+				// 지도의 확대 레벨
+				};
+				var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+				//마커가 표시될 위치입니다 
+				var markerPosition = new daum.maps.LatLng(x,y);
+				//마커를 생성합니다
+				var marker = new daum.maps.Marker({
+					position : markerPosition
+				});
+				//마커가 지도 위에 표시되도록 설정합니다
+				marker.setMap(map);
+
+			});
 
 	$(document).ready(function() {
 

@@ -13,15 +13,22 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.opensise.admin.manage.dataetc.model.Human_statisticVo;
+import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
+import kr.co.opensise.admin.manage.dataetc.model.Market_detailVo;
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcService;
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcServiceInf;
 
@@ -39,8 +46,9 @@ public class DataEtcController {
 		return "manage/dataEtc";
 	}
 
+	//인구통계
 	@RequestMapping("/insertDataEtc")
-	public String insertDateEtc(@RequestPart("etcData") MultipartFile part,Model model) {
+	public String insertDateEtc(@RequestPart("etcData") MultipartFile part, Model model) {
 		try {
 			//buffedinputStream으로 속도 상승
 			BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
@@ -50,11 +58,12 @@ public class DataEtcController {
 			
 			//행의 갯수
 			int rows = sheet.getPhysicalNumberOfRows();
+			
 			//조사시기
-			HSSFRow hs_dateRow = sheet.getRow(1);
-			HSSFCell hs_dateCell = hs_dateRow.getCell(1);
+			HSSFRow hs_dateRow = sheet.getRow(0);
+			HSSFCell hs_dateCell = hs_dateRow.getCell(0);
 			String date = hs_dateCell.toString();
-			log.info("date {}", date);
+			log.warn("date {}", date);
 			
 			int yyyyidx = date.indexOf("년");
 			int MMidx = date.indexOf("월");
@@ -63,15 +72,24 @@ public class DataEtcController {
 			log.info("yyyy : {}",yyyy);
 			String MM = date.substring(MMidx-2, MMidx);
 			log.info("MM : {}",MM);
-			String dateC = yyyy + "/" + MM;
+			if(MM.equals(" 1") || MM.equals(" 2") || MM.equals(" 3") || MM.equals(" 4") ||
+					 MM.equals(" 5") || MM.equals(" 6") || MM.equals(" 7") || MM.equals(" 8") || MM.equals(" 9")) {
+				MM = "0"+MM.substring(1);
+			}
+			System.out.println("MM : " +MM);
+			String hs_date = yyyy + MM;
 			
-			Date hs_date = new SimpleDateFormat("yyyy/MM").parse(dateC);
+//			Date hs_date = new SimpleDateFormat("yyyy/MM").parse(dateC);
 			
 			//반복문을 이용해 성별,연령별,동별,시기별 셀 정보를 human_statisticVo에 담고 list에 넣기
 			List<Human_statisticVo> human_statisticList = new ArrayList<Human_statisticVo>();
 			
 			for(int i=6;i<rows;i++) {
 				HSSFRow row = sheet.getRow(i);
+				
+				if(row==null) {
+					continue;
+				}
 				
 				//주소 파싱
 				String siGunGu = row.getCell(0).toString();
@@ -177,5 +195,202 @@ public class DataEtcController {
 		String[] result = siGunGu.split(" ");
 		
 		return result;
+	}
+	
+	//물가정보
+	@RequestMapping("/insertMarketData")
+	public String insertMarketData(@RequestPart("marketData") MultipartFile part, Model model) {
+		try {
+			//buffedinputStream으로 속도 상승
+			BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
+		
+			XSSFWorkbook wb = new XSSFWorkbook(bis);
+
+			int sheets = wb.getNumberOfSheets();
+			log.info("sheets : {}",sheets);
+			
+			//List
+			List<MarketVo> marketList = new ArrayList<MarketVo>();
+			List<Market_detailVo> marketDetailList = new ArrayList<Market_detailVo>();
+			
+			//Vo
+			MarketVo marketVo = new MarketVo();
+			Market_detailVo marketDetailVo = new Market_detailVo();
+			
+			//각 sheet별
+			for(int sht=0;sht<sheets;sht++) {
+				XSSFSheet sheet = wb.getSheetAt(sht);
+				
+				String mk_classf = "";
+				
+				//시장분류
+				if(sht==0 || sht==3) {
+					XSSFRow mk_classfRow = sheet.getRow(2);
+					XSSFCell mk_classfCell = mk_classfRow.getCell(4);
+					mk_classf = mk_classfCell.toString();
+					log.info("mk_classf : {}", mk_classf);
+				}else if(sht==1) {
+					XSSFRow mk_classfRow = sheet.getRow(2);
+					XSSFCell mk_classfCell = mk_classfRow.getCell(5);
+					mk_classf = mk_classfCell.toString();
+					log.info("mk_classf : {}", mk_classf);
+				}else if(sht==2) {
+					mk_classf = "대형마트";
+					log.info("mk_classf : {}", mk_classf);
+				}
+				
+				//시장분류Vo에 담기
+//				marketVo.setMk_classf(mk_classf);
+				
+				
+				
+				//조사일시
+				XSSFRow mkd_dateRow = sheet.getRow(1);
+				XSSFCell mkd_dateCell = mkd_dateRow.getCell(1);
+				String mkd_date= mkd_dateCell.toString();
+				log.info("mkd_date : {}", mkd_date);
+				
+				String[] mkd_dateArr = mkd_date.split("\\.");
+				
+				String yyyy = mkd_dateArr[0].substring(1);
+				log.info("yyyy : {}",yyyy);
+				
+				int MMidx= mkd_dateArr[1].indexOf("월");
+				String MM = mkd_dateArr[1].substring(2, MMidx);
+				log.info("MM : {}", MM);
+				
+				if(MM.equals("1") || MM.equals("2") || MM.equals("3") || MM.equals("4") ||
+						 MM.equals("5") || MM.equals("6") || MM.equals("7") || MM.equals("8") || MM.equals("9")) {
+					MM = "0"+MM;
+				}
+				
+				mkd_date = yyyy + MM;
+				log.info("mkd_dateC : {}", mkd_date);
+				
+				//조사일시 vo에 담기
+//				marketDetailVo.setMkd_date(mkd_date);
+				
+				//행의 갯수
+				int rows = sheet.getPhysicalNumberOfRows();
+				int lastrow = sheet.getLastRowNum();
+				log.info("rows : {}", rows);
+//				log.info("lastrow : {}", lastrow);
+				
+				
+				//row처리
+				for(int row=5;row<rows;row++) {
+					
+					//셀의 수 
+					XSSFRow mk_Row = sheet.getRow(5);
+					int mk_cells = mk_Row.getPhysicalNumberOfCells();
+					
+					for(int cells=6;cells<mk_cells;cells++) {
+						XSSFRow mk_row = sheet.getRow(row);
+						
+						//가격
+						String mk_price="";
+						int mkd_price = 0;
+						XSSFCell mk_priceCell = mk_row.getCell(cells);
+						
+						
+						mk_price = mk_priceCell.toString();
+						
+					
+							log.info("mk_price :{}", mk_price);
+						int idx = mk_price.indexOf(".");
+							log.info("idx : {}", idx);
+						mkd_price = Integer.parseInt(mk_price.substring(0,idx));
+							log.info("mkd_price : {}",mkd_price);
+						
+						
+						//가격 vo에 담기
+//						marketDetailVo.setMkd_price(mkd_price);
+						
+						//시장명
+						XSSFRow mk_nmRow = sheet.getRow(4);
+						XSSFCell mk_nmCell = mk_nmRow.getCell(cells);
+						String mk_nm = mk_nmCell.toString().replaceAll("\n", " ");
+						log.info("mk_nm :{}",mk_nm);
+						
+						//시장명 vo에 담기
+//						marketVo.setMk_nm(mk_nm);
+//						marketDetailVo.setMkd_mk(mk_nm);
+						
+						//동
+						XSSFRow mk_dongRow = sheet.getRow(3);
+						XSSFCell mk_dongCell = mk_dongRow.getCell(cells);
+						if(mk_dongCell.toString().equals("")) {
+							mk_dongCell = mk_dongRow.getCell(cells-1);
+						}
+						String mk_dong = mk_dongCell.toString();
+						log.info("mk_dong : {}", mk_dong);
+						
+						//동 vo에 담기
+//						marketVo.setMk_dong(mk_dong);
+//						marketDetailVo.setMkd_mk_dong(mk_dong);
+						
+						//품목분류
+						String mkd_prod = "";
+						XSSFRow mkd_prodRow = sheet.getRow(row);
+						XSSFCell mkd_prodCell = mkd_prodRow.getCell(1);
+						if(mkd_prodCell==null) {
+							continue;
+						}else {
+							if(mkd_prodCell.toString().equals("")) {
+								mkd_prodRow=sheet.getRow(row-1);
+								mkd_prodCell = mkd_prodRow.getCell(1);
+							}
+							mkd_prod = mkd_prodCell.toString();
+							log.info("mk_prod : {}", mkd_prod);
+						}
+						
+						//품목분류 vo에 담기
+//						marketDetailVo.setMkd_prod(mkd_prod);
+						
+						//품목상세
+						String mkd_prodDetail = "";
+						XSSFRow mkd_prodDetailRow = sheet.getRow(row);
+						XSSFCell mkd_prodDetailCell = mkd_prodDetailRow.getCell(2);
+						if(mkd_prodCell.toString().equals(sheet.getRow(row-1).getCell(1).toString())) {
+							mkd_prodDetailRow=sheet.getRow(row);
+						}
+						if(mkd_prodDetailCell==null) {
+							continue;
+						}else {
+							mkd_prodDetail = mkd_prodDetailCell.toString();
+							
+							log.info("mkd_prodDetail : {}", mkd_prodDetail);
+						}
+						
+						//품목상세 vo에 넣기
+//						marketDetailVo.setMkd_prod_detail(mkd_prodDetail);
+						
+						//각 vo를 list에 담기
+						
+//						marketList.add(marketVo);
+//						marketDetailList.add(marketDetailVo);
+					}
+					
+					
+//					log.info("marketList : {}", marketList);
+//					log.info("marketDetailList : {}", marketDetailList);
+				}
+				
+//				//각 vo를 list에 담기
+//				
+//				marketList.add(marketVo);
+//				marketDetailList.add(marketDetailVo);
+//				
+//				log.info("marketList : {}", marketList);
+//				log.info("marketDetailList : {}", marketDetailList);
+			}
+			
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/manage/dataEtc/dataEtc";
 	}
 }

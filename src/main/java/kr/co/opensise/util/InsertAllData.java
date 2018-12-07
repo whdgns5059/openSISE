@@ -22,36 +22,40 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import kr.co.opensise.admin.manage.datatrade.dao.DataTradeDaoInf;
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.admin.manage.datatrade.service.DataTradeServiceInf;
+import kr.co.opensise.admin.manage.datatrade.util.DataTradeControllerUtil;
 
 @Service
 public class InsertAllData{
 
 	private Logger log = LoggerFactory.getLogger(InsertAllData.class);
 	
-	@Resource(name="dataTradeService")
-	private DataTradeServiceInf dataTradeService;
+	private final String AT = "실거래 구분 : 아파트(매매)"; 
+	private final String RT = "실거래 구분 : 연립다세대(매매)";
+	private final String ST = "실거래 구분 : 단독다가구(매매)";
+	private final String OT = "실거래 구분 : 오피스텔(매매)";
+	private final String AR = "실거래 구분 : 아파트(전월세)";
+	private final String RR = "실거래 구분 : 연립다세대(전월세)";
+	private final String SR = "실거래 구분 : 단독다가구(전월세)";
+	private final String OR = "실거래 구분 : 오피스텔(전월세)";
+	private final String NT = "실거래 구분 : 상업업무용(매매)";
+	
+	@Resource(name="dataTradeDao")
+	private DataTradeDaoInf dataTradeDao;
 	
 	/*******************************************
 	 * 해당 폴더 밑의 모든 실거래 데이터를 읽어 DB에 입력하는 로직
 	 * 데이터 분량에 따라 시간이 오래걸림 1000건에 1분 내외
 	 * @throws IOException 
 	 ******************************************/
-	public Map<String, Integer> insertAllDataTrade(String root, int articleCnt, int dealCnt, int coordCnt) throws IOException {
+	public void insertAllDataTrade(String root) throws IOException {
 		
 		File directory = new File(root);
 		
 		File[] listOfFile = directory.listFiles();
-		
-		int totalArticleCnt = 0;
-		int totalDealCnt = 0;
-		int totalCoordCnt = 0;
-		
-		totalArticleCnt += articleCnt;
-		totalDealCnt += dealCnt;
-		totalCoordCnt += coordCnt;
 		
 		for(File file : listOfFile) {
 			
@@ -73,7 +77,8 @@ public class InsertAllData{
 				}	
 				
 				try {
-					insertAllDataTrade(file.getCanonicalPath().toString(), articleCnt, dealCnt, coordCnt);
+					insertAllDataTrade(file.getCanonicalPath().toString());
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -107,9 +112,8 @@ public class InsertAllData{
 				//9번째 행에서 파일 구분 가져오기
 				XSSFRow divisionRow = sheet.getRow(8);
 				XSSFCell divisionCell = divisionRow.getCell(0);
-				
+				String division = divisionCell.toString();
 				//1. 파일의 실거래 구분을 확인
-				String division = divisionValidation(divisionCell);
 			
 				//행의 갯수
 				int rows = sheet.getPhysicalNumberOfRows();
@@ -125,8 +129,10 @@ public class InsertAllData{
 
 					XSSFRow row = sheet.getRow(i);
 					
-					Map<String, Object> setVoMap = setVo(division, row);
+					DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
+					Map<String, Object> setVoMap =  dataUtil.setVoMap(division, row);
 					
+										
 					if(setVoMap != null) {
 						ArticleVo articleVo = (ArticleVo) setVoMap.get("articleVo");
 						DealVo dealVo = (DealVo) setVoMap.get("dealVo");
@@ -144,8 +150,8 @@ public class InsertAllData{
 				int insertArticleListResult = 0;
 				int insertDealListResult = 0;
 				
-				insertArticleListResult = dataTradeService.insertArticleList(articleList);
-				insertDealListResult = dataTradeService.insertDealList(dealList);
+				insertArticleListResult = dataTradeDao.insertArticleList(articleList);
+				insertDealListResult = dataTradeDao.insertDealList(dealList);
 				
 				
 				
@@ -165,6 +171,8 @@ public class InsertAllData{
 					e1.printStackTrace();
 				}		
 				
+				wb.close();
+				bis.close();
 				
 			}
 			
@@ -175,32 +183,14 @@ public class InsertAllData{
 			//주소들만 가져와서 좌표를 입력해 준다
 			
 			//1. 좌표가 없는 article list 가져오기
-			List<ArticleVo> coordNullArticleList = dataTradeService.selectCoordNullArticle();
+			List<ArticleVo> coordNullArticleList = dataTradeDao.selectCoordNullArticle();
 			
 			//2. 해당 리스트에 좌표 입력
 			for(ArticleVo articleVo : coordNullArticleList) {
 				
-				String gu = articleVo.getArtcl_gu();
-				String dong = articleVo.getArtcl_dong();
-				String zip = articleVo.getArtcl_zip();
-				String rd = articleVo.getArtcl_rd().equals("없음") ? "" : articleVo.getArtcl_rd();
-				StringBuffer sb = new StringBuffer();
+				DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
 				
-				if(zip.equals("*")) {
-					sb.append("대전");
-					sb.append(" ");
-					sb.append(gu);
-					sb.append(" ");
-					sb.append(rd);
-				}else {
-					sb.append(gu);
-					sb.append(' ');
-					sb.append(dong);
-					sb.append(' ');
-					sb.append(zip);
-				}
-				
-				String location = sb.toString();
+				String location = dataUtil.getLocation(articleVo);
 			
 				String lat = "";
 				String lng = "";
@@ -221,16 +211,11 @@ public class InsertAllData{
 				log.info("좌표변경 : {}", articleVo.toString());
 				
 				//3. 좌표 업데이트. 
-				dataTradeService.updataLatLngArticle(articleVo);
+				dataTradeDao.updataLatLngArticle(articleVo);
 				
 				
 			}
 		}
-		
-		Map<String, Integer> cntResultMap = new HashMap<>();
-		cntResultMap.put("totalArticleCnt", totalArticleCnt);
-		cntResultMap.put("totalDealCnt", totalDealCnt);
-		cntResultMap.put("totalCoordCnt", totalDealCnt);
 		
 		log.info("***************************************");
 		log.info("              종료!!");
@@ -238,531 +223,7 @@ public class InsertAllData{
 		
 		
 		
-		return cntResultMap;
-		
 	}
 		
-		
-	private final String AT = "실거래 구분 : 아파트(매매)"; 
-	private final String RT = "실거래 구분 : 연립다세대(매매)";
-	private final String ST = "실거래 구분 : 단독다가구(매매)";
-	private final String OT = "실거래 구분 : 오피스텔(매매)";
-	private final String AR = "실거래 구분 : 아파트(전월세)";
-	private final String RR = "실거래 구분 : 연립다세대(전월세)";
-	private final String SR = "실거래 구분 : 단독다가구(전월세)";
-	private final String OR = "실거래 구분 : 오피스텔(전월세)";
-	private final String NT = "실거래 구분 : 상업업무용(매매)";	
-
-	/**
-	 * @param division
-	 * @param row
-	 * @return Map<String, Obejct>
-	 * articleVo, dealVo를 해당 row의 데이터를 division에 맞게 저장하는 로직이다.
-	 * 아파트매매, 오피스텔 전월세 등의 데이터에 맞게 저장함
-	 *
-	 */
-	public Map<String, Object> setVo(String division, XSSFRow row) {
-		
-		ArticleVo articleVo = new ArticleVo();
-		DealVo dealVo = new DealVo();
-		Map<String, Object> setVoMap = new HashMap<>();
-		
-		if(division.equals(AT)){
-			//아파트(매매), 건물코드 apt
-						
-			//주소 파싱
-			String siGunGu = row.getCell(0).toString();
-			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String zip = row.getCell(1).toString();
-			String rd = row.getCell(11).toString();
-			if(rd == null) {
-				return null;
-			}
-			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
-			
-			
-			
-			//articleVo 넣기..
-			//article의 주소 복합키,도로명
-			articleVo.setArtcl_gu(sigunguArr[1]);
-			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
-			articleVo.setArtcl_rd(rd);
-			articleVo.setArtcl_rd_detail(rd_detail);
-						
-			articleVo.setArtcl_bc("apt");
-			articleVo.setArtcl_complx(row.getCell(4).toString());
-			articleVo.setArtcl_const_y(row.getCell(10).toString());
-			
-			
-
-			
-			//dealVo 넣기..
-			//주소 외래키 입력
-			dealVo.setDl_gu(sigunguArr[1]);
-			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
-			dealVo.setDl_rd(rd);
-			
-			dealVo.setDl_ty("매매");
-			double price = CommonUtil.delComma(row.getCell(8).toString().trim());
-			dealVo.setDl_price(price);
-			
-			float excv_area = Float.parseFloat(row.getCell(5).toString());
-			dealVo.setDl_excv_area(excv_area);
-			dealVo.setDl_flr(row.getCell(9).toString());
-			dealVo.setDl_cont_ym(row.getCell(6).toString());
-			dealVo.setDl_cont_d(row.getCell(7).toString());
-			
-			setVoMap.put("articleVo", articleVo);
-			setVoMap.put("dealVo", dealVo);
-			
-		}else if(division.equals(RT)) {
-			//연립다세대(매매) 건물코드 multip
-			
-			//주소 파싱
-			String siGunGu = row.getCell(0).toString();
-			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String zip = row.getCell(1).toString();
-			String rd = row.getCell(12).toString();
-			if(rd == null) {
-				return null;
-			}
-			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
-
-			//articleVo 넣기..
-			//article의 주소 복합키 도로명주소넣기
-			articleVo.setArtcl_gu(sigunguArr[1]);
-			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
-			articleVo.setArtcl_rd(rd);
-			articleVo.setArtcl_rd_detail(rd_detail);
-						
-			articleVo.setArtcl_bc("multip");
-			articleVo.setArtcl_nm(row.getCell(4).toString());
-			articleVo.setArtcl_const_y(row.getCell(11).toString());
-			
-			
-			//dealVo 넣기..
-			//주소 외래키 입력
-			dealVo.setDl_gu(sigunguArr[1]);
-			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
-			dealVo.setDl_rd(rd);
-			
-			//거래구분 수동입력
-			dealVo.setDl_ty("매매");
-			double price = CommonUtil.delComma(row.getCell(9).toString().trim());
-			dealVo.setDl_price(price);
-			
-			float excv_area = Float.parseFloat(row.getCell(5).toString());
-			dealVo.setDl_excv_area(excv_area);
-			dealVo.setDl_flr(row.getCell(10).toString());
-			dealVo.setDl_cont_ym(row.getCell(7).toString());
-			dealVo.setDl_cont_d(row.getCell(8).toString());
-			
-			setVoMap.put("articleVo", articleVo);
-			setVoMap.put("dealVo", dealVo);
-			
-			
-		}else if(division.equals(ST)) {
-			//단독다가구(매매) 건물코드 단독2, 다가구3
-
-			//주소 파싱
-			String siGunGu = row.getCell(0).toString();
-			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String rd = row.getCell(10).toString();
-			if(rd == null) {
-				return null;
-			}
-					
-			//articleVo 넣기..
-			//article의 주소 복합키
-			articleVo.setArtcl_gu(sigunguArr[1]);
-			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip("*");
-			articleVo.setArtcl_rd(rd);
-			
-			String articl_bc = row.getCell(2).toString().equals("단독") ? "single" : "multi";
-			articleVo.setArtcl_bc(articl_bc);
-			articleVo.setArtcl_const_y(row.getCell(9).toString());
-			
-
-			
-			//dealVo 넣기
-			//dealVo의 외래키
-			dealVo.setDl_gu(sigunguArr[1]);
-			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip("*");
-			dealVo.setDl_rd(rd);
-			
-			//거래구분 수동입력 
-			dealVo.setDl_ty("매매");
-			double price = CommonUtil.delComma(row.getCell(8).toString().trim());
-			dealVo.setDl_price(price);
-			
-			float excv_area = Float.parseFloat(row.getCell(5).toString());
-			dealVo.setDl_excv_area(excv_area);
-			dealVo.setDl_cont_ym(row.getCell(6).toString());
-			dealVo.setDl_cont_d(row.getCell(7).toString());
-			
-			setVoMap.put("articleVo", articleVo);
-			setVoMap.put("dealVo", dealVo);
-			
-			
-			
-		}else if(division.equals(OT)) {
-			//오피스텔(매매) 건물코드 office
-			
-			//주소 파싱
-			String siGunGu = row.getCell(0).toString();
-			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String zip = row.getCell(1).toString();
-			String rd = row.getCell(11).toString();
-			if(rd == null) {
-				return null;
-			}
-			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
-
-			//articleVo 넣기..
-			//article의 주소 복합키
-			articleVo.setArtcl_gu(sigunguArr[1]);
-			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
-			articleVo.setArtcl_rd(rd);
-			articleVo.setArtcl_rd_detail(rd_detail);	
-
-			articleVo.setArtcl_bc("office");
-			articleVo.setArtcl_complx(row.getCell(4).toString());
-			articleVo.setArtcl_const_y(row.getCell(10).toString());
-			
-			
-
-			//dealVo 넣기..
-			//주소 외래키 입력
-			dealVo.setDl_gu(sigunguArr[1]);
-			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
-			dealVo.setDl_rd(rd);
-			
-			dealVo.setDl_ty("매매");
-			double price = CommonUtil.delComma(row.getCell(8).toString().trim());
-			dealVo.setDl_price(price);
-			
-			float excv_area = Float.parseFloat(row.getCell(5).toString());
-			dealVo.setDl_excv_area(excv_area);
-			dealVo.setDl_flr(row.getCell(9).toString());
-			dealVo.setDl_cont_ym(row.getCell(6).toString());
-			dealVo.setDl_cont_d(row.getCell(7).toString());
-			
-			setVoMap.put("articleVo", articleVo);
-			setVoMap.put("dealVo", dealVo);
-			
-		}else if(division.equals(AR)) {
-			//아파트(전월세) 건물코드 apt
-			
-			//주소 파싱
-			String siGunGu = row.getCell(0).toString();
-			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String zip = row.getCell(1).toString();
-			String rd = row.getCell(13).toString();
-			if(rd == null) {
-				return null;
-			}
-			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
-
-			//articleVo 넣기..
-			//article의 주소 복합키
-			articleVo.setArtcl_gu(sigunguArr[1]);
-			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
-			//도로명 주소
-			articleVo.setArtcl_rd(rd);
-			articleVo.setArtcl_rd_detail(rd_detail);
-			
-			
-			//건물유형코드, 단지명, 건축년도
-			articleVo.setArtcl_bc("apt");
-			articleVo.setArtcl_complx(row.getCell(4).toString());
-			articleVo.setArtcl_const_y(row.getCell(12).toString());
-			
-
-			
-			//dealVo
-			//주소 외래키
-			dealVo.setDl_gu(sigunguArr[1]);
-			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
-			dealVo.setDl_rd(rd);
-			
-			//거래유형, 보증금, 월세, 계약년월, 계약일
-			dealVo.setDl_ty(row.getCell(5).toString());
-			
-			double depo = CommonUtil.delComma(row.getCell(9).toString());
-			double rnt = CommonUtil.delComma(row.getCell(10).toString());
-			dealVo.setDl_depos(depo);
-			dealVo.setDl_rnt(rnt);
-			dealVo.setDl_cont_ym(row.getCell(7).toString());
-			dealVo.setDl_cont_d(row.getCell(8).toString());
-			
-			//층, 전용면적
-			dealVo.setDl_flr(row.getCell(11).toString());
-			float excv_area = Float.parseFloat(row.getCell(6).toString());
-			dealVo.setDl_excv_area(excv_area);
-			
-			setVoMap.put("articleVo", articleVo);
-			setVoMap.put("dealVo", dealVo);
-			
-		}else if(division.equals(RR)) {
-			//연립다세대(전월세) 건물코드 multip
-			
-			//주소 파싱
-			String siGunGu = row.getCell(0).toString();
-			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String zip = row.getCell(1).toString();
-			String rd = row.getCell(13).toString();
-			if(rd == null) {
-				return null;
-			}
-			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
-
-			//articleVo 넣기..
-			//article의 주소 복합키
-			articleVo.setArtcl_gu(sigunguArr[1]);
-			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
-			//도로명 주소
-			articleVo.setArtcl_rd(rd);
-			articleVo.setArtcl_rd_detail(rd_detail);
-			
-			
-			//건물유형코드, 단지명, 건축년도
-			articleVo.setArtcl_bc("multip");
-			articleVo.setArtcl_nm(row.getCell(4).toString());
-			articleVo.setArtcl_const_y(row.getCell(12).toString());
-			
-
-			
-			//dealVo
-			//주소 외래키
-			dealVo.setDl_gu(sigunguArr[1]);
-			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
-			dealVo.setDl_rd(rd);
-			
-			//거래유형, 보증금, 월세, 계약년월, 계약일
-			dealVo.setDl_ty(row.getCell(5).toString());
-			
-			double depo = CommonUtil.delComma(row.getCell(9).toString());
-			double rnt = CommonUtil.delComma(row.getCell(10).toString());
-			dealVo.setDl_depos(depo);
-			dealVo.setDl_rnt(rnt);
-			dealVo.setDl_cont_ym(row.getCell(7).toString());
-			dealVo.setDl_cont_d(row.getCell(8).toString());
-			
-			//층, 전용면적
-			dealVo.setDl_flr(row.getCell(11).toString());
-			float excv_area = Float.parseFloat(row.getCell(6).toString());
-			dealVo.setDl_excv_area(excv_area);
-			
-			setVoMap.put("articleVo", articleVo);
-			setVoMap.put("dealVo", dealVo);
-
-
-		}else if(division.equals(SR)) {
-			//단독다가구(전월세) 건물코드 다가구 multi
-			
-			//주소 파싱
-			String siGunGu = row.getCell(0).toString();
-			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String rd = row.getCell(10).toString();
-			if(rd == null) {
-				return null;
-			}
-
-			//articleVo 넣기..
-			//article의 주소 복합키
-			articleVo.setArtcl_gu(sigunguArr[1]);
-			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip("*");
-			//도로명 주소
-			articleVo.setArtcl_rd(rd);
-			
-			
-			//건물유형코드, 건축년도
-			articleVo.setArtcl_bc("multi");
-			articleVo.setArtcl_const_y(row.getCell(9).toString());
-			
-			
-			//dealVo
-			//주소 외래키
-			dealVo.setDl_gu(sigunguArr[1]);
-			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip("*");
-			dealVo.setDl_rd(rd);
-			
-			//거래유형, 보증금, 월세, 계약년월, 계약일
-			dealVo.setDl_ty(row.getCell(4).toString());
-			
-			double depo = CommonUtil.delComma(row.getCell(7).toString());
-			double rnt = CommonUtil.delComma(row.getCell(8).toString());
-			dealVo.setDl_depos(depo);
-			dealVo.setDl_rnt(rnt);
-			dealVo.setDl_cont_ym(row.getCell(5).toString());
-			dealVo.setDl_cont_d(row.getCell(6).toString());
-			
-			//전용면적
-			float excv_area = Float.parseFloat(row.getCell(3).toString());
-			dealVo.setDl_excv_area(excv_area);
-			
-			setVoMap.put("articleVo", articleVo);
-			setVoMap.put("dealVo", dealVo);
-			
-		}else if(division.equals(OR)) {
-			//오피스텔(전월세) 건물코드 office
-			
-			//주소 파싱
-			String siGunGu = row.getCell(0).toString();
-			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String zip = row.getCell(1).toString();
-			String rd = row.getCell(13).toString();
-			if(rd == null) {
-				return null;
-			}
-			String rd_detail = row.getCell(2).toString() + " "+ row.getCell(3).toString();
-
-			//articleVo 넣기..
-			//article의 주소 복합키
-			articleVo.setArtcl_gu(sigunguArr[1]);
-			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip(zip);
-			//도로명 주소
-			articleVo.setArtcl_rd(rd);
-			articleVo.setArtcl_rd_detail(rd_detail);
-			
-			
-			//건물유형코드, 단지명, 건축년도
-			articleVo.setArtcl_bc("office");
-			articleVo.setArtcl_complx(row.getCell(4).toString());
-			articleVo.setArtcl_const_y(row.getCell(12).toString());
-			
-			
-			//dealVo
-			//주소 외래키
-			dealVo.setDl_gu(sigunguArr[1]);
-			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip(zip);
-			dealVo.setDl_rd(rd);
-
-			//거래유형, 보증금, 월세, 계약년월, 계약일
-			dealVo.setDl_ty(row.getCell(5).toString());
-			
-			double depo = CommonUtil.delComma(row.getCell(9).toString());
-			double rnt = CommonUtil.delComma(row.getCell(10).toString());
-			dealVo.setDl_depos(depo);
-			dealVo.setDl_rnt(rnt);
-			dealVo.setDl_cont_ym(row.getCell(7).toString());
-			dealVo.setDl_cont_d(row.getCell(8).toString());
-			
-			//층, 전용면적
-			dealVo.setDl_flr(row.getCell(11).toString());
-			float excv_area = Float.parseFloat(row.getCell(6).toString());
-			dealVo.setDl_excv_area(excv_area);
-			
-			setVoMap.put("articleVo", articleVo);
-			setVoMap.put("dealVo", dealVo);
-
-		}else if(division.equals(NT)) {
-			//상가 건물코드 6
-			
-			//주소 파싱
-			String siGunGu = row.getCell(0).toString();
-			String[] sigunguArr = splitSiGunGu(siGunGu);
-			String rd = row.getCell(3).toString();
-			if(rd == null) {
-				return null;
-			}
-
-			//articleVo 넣기..
-			//article의 주소 복합키
-			articleVo.setArtcl_gu(sigunguArr[1]);
-			articleVo.setArtcl_dong(sigunguArr[2]);
-			articleVo.setArtcl_zip("*");
-			//도로명 주소
-			articleVo.setArtcl_rd(rd);
-			
-			
-			//건물 코드, 유형, 용도지역, 주용도,
-			articleVo.setArtcl_bc("store");
-			articleVo.setArtcl_ty(row.getCell(1).toString());
-			articleVo.setArtcl_prps_pls(row.getCell(5).toString());
-			articleVo.setArtcl_mn_prps(row.getCell(4).toString());
-			
-			//건축년도
-			articleVo.setArtcl_const_y(row.getCell(11).toString());
-			
-
-			
-			//dealVO
-			//주소 외래키
-			dealVo.setDl_gu(sigunguArr[1]);
-			dealVo.setDl_dong(sigunguArr[2]);
-			dealVo.setDl_zip("*");
-			dealVo.setDl_rd(rd);
-			
-			//거래유형(매매), 거래금액, 계약년월, 계약일
-			dealVo.setDl_ty("매매");
-			double price = CommonUtil.delComma(row.getCell(9).toString());
-			dealVo.setDl_price(price);
-			dealVo.setDl_cont_ym(row.getCell(11).toString());
-			dealVo.setDl_cont_d(row.getCell(12).toString());
-			
-			//층, 전용면적
-			dealVo.setDl_flr(row.getCell(10).toString());
-			float excv_area = Float.parseFloat(row.getCell(7).toString());
-			dealVo.setDl_excv_area(excv_area);
-			
-			setVoMap.put("articleVo", articleVo);
-			setVoMap.put("dealVo", dealVo);
-			
-		}
-		
-		return setVoMap;
-	}
-
-	public String divisionValidation(XSSFCell divisionCell) {
-		
-		String division = divisionCell.toString();
-		String result = "";
-
-		if(division.equals(AT)) {
-			result = AT;
-		}else if(division.equals(RT)) {
-			result = RT;
-		}else if(division.equals(ST)) {
-			result = ST;
-		}else if(division.equals(OT)) {
-			result = OT;
-		}else if(division.equals(AR)) {
-			result = AR;
-		}else if(division.equals(RR)) {
-			result = RR; 
-		}else if(division.equals(SR)) {
-			result = SR ;
-		}else if(division.equals(OR)) {
-			result = OR;
-		}else if(division.equals(NT)) {
-			result = NT;
-		}
-		
-		return result;
-	}
-
 	
-	public String[] splitSiGunGu(String siGunGu) {
-	
-		String[] result = siGunGu.split(" ");
-		
-		return result;
-	}
 }
