@@ -82,5 +82,6 @@ public class CommonUtilTest {
 		/***then***/
 		assertTrue(8200 == result);
 	}
+	
 
 }

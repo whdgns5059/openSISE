@@ -31,19 +31,16 @@ public class InsertAllDataTest extends RootSetup{
 		String root = "D:\\A_TeachingMaterial\\7.LastProject\\tradeInfo";
 		
 		/***when***/
-		Map<String, Object> result = insertAllData.insertAllDataTrade(root);
+		insertAllData.insertAllDataTrade(root);
 	
-		int articleVoResult = (int) result.get("totalArticleVo");
-		int dealVoResult = (int) result.get("totalDealVo");
-		List<String> fileList = (List<String>) result.get("fileList");
-		
-		for(String fileName : fileList) {
-			log.info(fileName);
-		}
-		log.info("totalArticle >>> {}", articleVoResult);
-		log.info("totalDeal    >>> {}", dealVoResult);
-		
 		/***then***/
+		log.info("******************************");
+		log.info("끝끝끝");
+		log.info("끝끝끝");
+		log.info("끝끝끝");
+		log.info("******************************");
 	}
+	
+	
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style type="text/css">
 .logo-tag{
@@ -12,17 +13,7 @@
 	border:0px;
 	background-color: #f3af3d;
 }
-.bc-select{
-	padding-top: 36px;
-	width: 460px;
-    height: 70px;
-	font-size: 20px;
-	font-family: 'Noto Sans KR', sans-serif;
-}
-.bc-select li{
-	float: left;
-	padding: 0 8px;
-}
+
 .navline{
 	width: 100%;
 	height: 3px;
@@ -36,8 +27,26 @@
   text-decoration: none;
 }
 </style>
+<script>
+function switchPage(bc){
+	var house = document.getElementById("house");
+	var apt = document.getElementById("apt");
+	var office = document.getElementById("office");
+	var store = document.getElementById("store");
+	house.style.color = "#ffffffc7";
+	apt.style.color = "#ffffffc7";
+	office.style.color = "#ffffffc7";
+	store.style.color = "#ffffffc7";
+	
+	bc.style.color= "white";
+	
+	document.getElementById("loc").value = "";
+	
+}
+	
 
 
+</script>
 
 <!-- navbar시작 -->
 <nav class="navbar navbar-expand-lg navbar-dark" >
@@ -47,13 +56,14 @@
 	</a>
 
 	<!-- nav items -->
-	<div class="collapse navbar-collapse" id="navbarColor01" >
+	<div class="collapse navbar-collapse">
 		<ul class="navbar-nav mr-auto bc-select">
-		<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
-			<li class="nav-item"><a class="nav-link" href="#">단/다세대 주택</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">아파트</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">상가</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">법원경매</a></li>
+			<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
+			<li class="nav-item" id="house" onclick="switchPage(this)">단/다세대 주택</li>
+			<li class="nav-item" id="apt" onclick="switchPage(this)">아파트</li>
+			<li class="nav-item" id="office" onclick="switchPage(this)">오피스텔</li>
+			<li class="nav-item" id="store" onclick="switchPage(this)">상가</li>
+			<li class="nav-item" id="auction" onclick="switchPage(this)">법원경매</li>
 		</ul>
 	</div>
 	<!-- 오른쪽 상단 배치// 예: 로그인, 회원가입등 -->

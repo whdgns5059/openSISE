@@ -19,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 									"classpath:kr/co/opensise/spring/root-context.xml",
 									"classpath:kr/co/opensise/spring/datasource-context.xml",
 									"classpath:kr/co/opensise/spring/transaction-context.xml",
+									"classpath:kr/co/opensise/spring/interceptor-context.xml",
 									})
 @WebAppConfiguration
 public class ControllerSetup {

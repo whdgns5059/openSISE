@@ -95,7 +95,7 @@ td {
 }
 .notice{
     width: 640px;
-    height: 450px;
+    height: 454px;
     display: inline-block;
     float: right;
     border: 1px solid #bbbbbb;
@@ -113,8 +113,8 @@ td {
     color: #3a589e;
 }
 .see-more{
-    width: 100px;
-    padding-left: 9%;
+	width: 54px;
+    text-align: center;
     color: #808080;
     background-color: transparent;
     border: none;
@@ -213,11 +213,13 @@ input:disabled {
 	overflow-x:hidden; 
 	overflow-y:auto;
 }
-
 .notice-tbl{
     margin: 0 auto;
     width: 830px;
     height: 566px;
+}
+.notice-content{
+	padding: 8px 90px !important;
 }
 </style>
 
@@ -274,6 +276,18 @@ input:disabled {
 		
     }
     
+    // 공지사항 window 내용 fade 효과
+    $(".공지").on("click", function() {
+        // id가 "divBox"인 요소를 1초에 걸쳐 점점 나타나게 하거나 사라지게 함.
+        $("#divBox").fadeToggle(1000);
+
+    });
+    
+    function noticeFade(id){
+		var the = "#" + id;
+		$(the).fadeToggle("fast");
+	}
+    
     
     $(document).ready(function(){
     	
@@ -326,13 +340,11 @@ input:disabled {
 			<ul class="top-menu">
 				<!-- memVo가 null인 경우 -->
 				<li style="margin-right: 50px;" ><a href="/login/selectLogin">로그인</a></li>
-				<li style="margin-right: 50px;" ><a href="/login/signup">회원가입</a></li>
+				<li style="margin-right: 50px;" ><a href="/signup/signup">회원가입</a></li>
 				<!-- 관리자일 경우에 생기는 a tag  --> 
-<!-- 				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
--->				<!-- 로그인 한 경우에 생기는 a tag  --> 
-<!--				<li><a href="/">{회원의 닉네임}님 환영합니다! </a></li>
--->
-				
+ 				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
+			<!-- 로그인 한 경우에 생기는 a tag  --> 
+				<li><a href="/">{회원의 닉네임}님 환영합니다! </a></li>
 			</ul>
 		</div>
 	</div>
@@ -348,16 +360,16 @@ input:disabled {
 		<!-- button -->
 		<div class="button">
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="house" value="단/다세대" onclick="getBC(this)">단/다세대</button>
+				<button type="button" class="btn btn-outline-primary" id="house" value="multi" onclick="getBC(this)">단/다세대</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="apt" value="아파트" onclick="getBC(this)">아파트</button>
+				<button type="button" class="btn btn-outline-primary" id="apt" value="apt" onclick="getBC(this)">아파트</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="office" value="오피스텔" onclick="getBC(this)">오피스텔</button>
+				<button type="button" class="btn btn-outline-primary" id="office" value="office" onclick="getBC(this)">오피스텔</button>
 			</div>
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="store" value="상가" onclick="getBC(this)">상가</button>
+				<button type="button" class="btn btn-outline-primary" id="store" value="store" onclick="getBC(this)">상가</button>
 			</div>
 		</div>
 		
@@ -395,113 +407,40 @@ input:disabled {
 					<a href="#" class="close">닫기X</a>
 					<hr/>
 					<div class="notice-pop">
-
-							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingOne">
-										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
-												aria-controls="collapseOne"> Collapsible Group Item #1 </a>
-										</h4>
-									</div>
-									<div id="collapseOne" class="panel-collapse collapse in"
-										role="tabpanel" aria-labelledby="headingOne">
-										<div class="panel-body">Anim pariatur cliche
-											reprehenderit, enim eiusmod high life accusamus terry
-											richardson ad squid. 3 wolf moon officia aute, non cupidatat
-											skateboard dolor brunch. Food truck quinoa nesciunt laborum
-											eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-											it squid single-origin coffee nulla assumenda shoreditch et.
-											Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-											cred nesciunt sapiente ea proident. Ad vegan excepteur
-											butcher vice lomo. Leggings occaecat craft beer
-											farm-to-table, raw denim aesthetic synth nesciunt you
-											probably haven't heard of them accusamus labore sustainable
-											VHS.</div>
-									</div>
-								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingTwo">
-										<h4 class="panel-title">
-											<a class="collapsed" data-toggle="collapse"
-												data-parent="#accordion" href="#collapseTwo"
-												aria-expanded="false" aria-controls="collapseTwo">
-												Collapsible Group Item #2 </a>
-										</h4>
-									</div>
-									<div id="collapseTwo" class="panel-collapse collapse"
-										role="tabpanel" aria-labelledby="headingTwo">
-										<div class="panel-body">Anim pariatur cliche
-											reprehenderit, enim eiusmod high life accusamus terry
-											richardson ad squid. 3 wolf moon officia aute, non cupidatat
-											skateboard dolor brunch. Food truck quinoa nesciunt laborum
-											eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-											it squid single-origin coffee nulla assumenda shoreditch et.
-											Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-											cred nesciunt sapiente ea proident. Ad vegan excepteur
-											butcher vice lomo. Leggings occaecat craft beer
-											farm-to-table, raw denim aesthetic synth nesciunt you
-											probably haven't heard of them accusamus labore sustainable
-											VHS.</div>
-									</div>
-								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingThree">
-										<h4 class="panel-title">
-											<a class="collapsed" data-toggle="collapse"
-												data-parent="#accordion" href="#collapseThree"
-												aria-expanded="false" aria-controls="collapseThree">
-												Collapsible Group Item #3 </a>
-										</h4>
-									</div>
-									<div id="collapseThree" class="panel-collapse collapse"
-										role="tabpanel" aria-labelledby="headingThree">
-										<div class="panel-body">Anim pariatur cliche
-											reprehenderit, enim eiusmod high life accusamus terry
-											richardson ad squid. 3 wolf moon officia aute, non cupidatat
-											skateboard dolor brunch. Food truck quinoa nesciunt laborum
-											eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-											it squid single-origin coffee nulla assumenda shoreditch et.
-											Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-											cred nesciunt sapiente ea proident. Ad vegan excepteur
-											butcher vice lomo. Leggings occaecat craft beer
-											farm-to-table, raw denim aesthetic synth nesciunt you
-											probably haven't heard of them accusamus labore sustainable
-											VHS.</div>
-									</div>
-								</div>
-							</div>
-
-<!-- 							<table class="table table-striped notice-tbl">
+						<table class="table table-striped notice-tbl">
 							<thead>
 								<tr>
 									<td style="width: 30px;">no.</td>
 									<td>제목</td>
 									<td>작성일</td>
 								</tr>
+								
+			<!-- 공지사항 반복될 구간 START -->					
 								<tr>
-									<td style="width: 30px;">1</td>
-									<td>공지사항</td>
+									<td style="width: 30px;">100</td>
+									<td onclick="noticeFade('1')">공지사항</td>
 									<td>2018.11.30</td>
 								</tr>
 								<tr>
-									<td style="width: 30px;">2</td>
-									<td>공지사항</td>
-									<td>2018.11.30</td>
+									<td colspan="3" id="1" class="notice-content" style="display: none;" >100번 공지사항 내용 입니다.</td>
 								</tr>
+			<!-- 공지사항 반복될 구간 END -->	
+								
+								<!-- DUMMY DATA -->
 								<%for(int i=0 ; i<20 ; i++){
 									%>
-									<tr>
-									<td style="width: 30px;">2</td>
+								<tr class>
+									<td style="width: 30px;"><%=i %></td>
 									<td>공지사항</td>
 									<td>2018.11.30</td>
 								</tr>
 								<%
 								}
 								%>
+								
 							</thead>
 						</table>
- -->					</div>
+					</div>
 				</div>
 				<!-- 우측 하단 공지사항  -->
 				<div class="notice-word">
@@ -509,6 +448,7 @@ input:disabled {
 						<h6>공지사항</h6><button type="button" class="see-more openMask">더보기</button>
 					</div>
 					<div class="notice-cont word-over">
+			<!-- 공지사항 제목만 나열 -->
 						title만 나열합니다.<br/>
 						title만 나열합니다.<br/>
 						title만 나열합니다.<br/>
@@ -525,9 +465,9 @@ input:disabled {
 					</div>
 				</div>
 
-			</div><!-- 공지사항 END -->
-		</div>
-	</div><!-- contents END -->
+			</div>	<!-- 공지사항 END -->
+		</div>	<!-- board END -->
+	</div>	<!-- contents END -->
 	
 	<div class="bottom">
 		<hr/>
@@ -541,7 +481,7 @@ input:disabled {
 	</div>
 	
 	
-</div><!-- wrap END -->
+</div>	<!-- wrap END -->
 
 </body>
 </html>

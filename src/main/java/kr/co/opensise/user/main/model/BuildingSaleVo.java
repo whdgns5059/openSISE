@@ -3,18 +3,19 @@ package kr.co.opensise.user.main.model;
 public class BuildingSaleVo {
 	private String artcl_gu;
 	private String artcl_dong;
-	private String artcl_zip;
 	private String artcl_complx;
 	private String artcl_nm;
+	private String artcl_lat;
+	private String artcl_lng;
 	private String artcl_rd;
 	private String artcl_rd_detail;
-	private String dl_price;
-	private String dl_depos;
-	private String dl_rnt;
+	private double dl_price;
+	private double dl_depos;
+	private double dl_rnt;
 	private String dl_cont_ym;
 	private String dl_cont_d;
-	private String dl_flr;
-	private String dl_excv_area;
+	
+	
 	public String getArtcl_gu() {
 		return artcl_gu;
 	}
@@ -26,12 +27,6 @@ public class BuildingSaleVo {
 	}
 	public void setArtcl_dong(String artcl_dong) {
 		this.artcl_dong = artcl_dong;
-	}
-	public String getArtcl_zip() {
-		return artcl_zip;
-	}
-	public void setArtcl_zip(String artcl_zip) {
-		this.artcl_zip = artcl_zip;
 	}
 	public String getArtcl_complx() {
 		return artcl_complx;
@@ -45,6 +40,18 @@ public class BuildingSaleVo {
 	public void setArtcl_nm(String artcl_nm) {
 		this.artcl_nm = artcl_nm;
 	}
+	public String getArtcl_lat() {
+		return artcl_lat;
+	}
+	public void setArtcl_lat(String artcl_lat) {
+		this.artcl_lat = artcl_lat;
+	}
+	public String getArtcl_lng() {
+		return artcl_lng;
+	}
+	public void setArtcl_lng(String artcl_lng) {
+		this.artcl_lng = artcl_lng;
+	}
 	public String getArtcl_rd() {
 		return artcl_rd;
 	}
@@ -57,22 +64,22 @@ public class BuildingSaleVo {
 	public void setArtcl_rd_detail(String artcl_rd_detail) {
 		this.artcl_rd_detail = artcl_rd_detail;
 	}
-	public String getDl_price() {
+	public double getDl_price() {
 		return dl_price;
 	}
-	public void setDl_price(String dl_price) {
+	public void setDl_price(double dl_price) {
 		this.dl_price = dl_price;
 	}
-	public String getDl_depos() {
+	public double getDl_depos() {
 		return dl_depos;
 	}
-	public void setDl_depos(String dl_depos) {
+	public void setDl_depos(double dl_depos) {
 		this.dl_depos = dl_depos;
 	}
-	public String getDl_rnt() {
+	public double getDl_rnt() {
 		return dl_rnt;
 	}
-	public void setDl_rnt(String dl_rnt) {
+	public void setDl_rnt(double dl_rnt) {
 		this.dl_rnt = dl_rnt;
 	}
 	public String getDl_cont_ym() {
@@ -87,18 +94,10 @@ public class BuildingSaleVo {
 	public void setDl_cont_d(String dl_cont_d) {
 		this.dl_cont_d = dl_cont_d;
 	}
-	public String getDl_flr() {
-		return dl_flr;
-	}
-	public void setDl_flr(String dl_flr) {
-		this.dl_flr = dl_flr;
-	}
-	public String getDl_excv_area() {
-		return dl_excv_area;
-	}
-	public void setDl_excv_area(String dl_excv_area) {
-		this.dl_excv_area = dl_excv_area;
-	}
+	
+	
+	
+
 	
 	
 	
