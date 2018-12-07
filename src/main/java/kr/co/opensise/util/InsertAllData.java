@@ -203,17 +203,23 @@ public class InsertAllData{
 					lat = latlngMap.get("lat");
 					lng = latlngMap.get("lng");
 
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
+					articleVo.setArtcl_lat(lat);
+					articleVo.setArtcl_lng(lng);
+					
+					log.info("좌표변경 : {}", articleVo.toString());
+					
+					//3. 좌표 업데이트. 
+					dataTradeDao.updataLatLngArticle(articleVo);
+
+				} catch (IndexOutOfBoundsException e) {
+					log.info("좌표 변경 실패!!");
+					log.info("해당 주소의 정보를 DB에서 삭제합니다");
+					
+					
+					
+					
 				}
 				
-				articleVo.setArtcl_lat(lat);
-				articleVo.setArtcl_lng(lng);
-				
-				log.info("좌표변경 : {}", articleVo.toString());
-				
-				//3. 좌표 업데이트. 
-				dataTradeDao.updataLatLngArticle(articleVo);
 				
 				
 			}

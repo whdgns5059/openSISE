@@ -15,5 +15,7 @@ public interface DataTradeDaoInf {
 
 	int updataLatLngArticle(ArticleVo articleVo);
 	
+	int deleteArticle(ArticleVo articleVo);
 	
+	int deleteDeal(DealVo dealVo);
 }

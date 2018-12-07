@@ -41,5 +41,17 @@ public class DataTradeDao implements DataTradeDaoInf{
 	}
 
 
+	@Override
+	public int deleteArticle(ArticleVo articleVo) {
+		return template.delete("dataTrade.deleteArticle", articleVo);
+	}
+
+
+	@Override
+	public int deleteDeal(DealVo dealVo) {
+		return template.delete("dataTrade.deleteDeal", dealVo);
+	}
+
+	
 
 }
