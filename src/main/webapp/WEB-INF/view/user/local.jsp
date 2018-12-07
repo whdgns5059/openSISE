@@ -6,10 +6,10 @@
 <div class="row" style="height: 850px !important">
 	<!-- left contents -->
 	<div>
-		<img src="https://via.placeholder.com/500x850/ffaaaa?text=daum_map" />
+		<img src="https://via.placeholder.com/750x850/ffaaaa?text=daum_map" />
 	</div>
 	<!-- right contents -->
 	<div>
-		<img src="https://via.placeholder.com/1400x850/aaffaa?text=/user/local.jsp" />	
+		<img src="https://via.placeholder.com/1150x850/aaffaa?text=/user/local.jsp" />	
 	</div>
 </div>

@@ -18,11 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.code.geocoder.model.LatLng;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
