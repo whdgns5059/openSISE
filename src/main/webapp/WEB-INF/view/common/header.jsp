@@ -4,7 +4,10 @@
 
 <style type="text/css">
 .logo-tag{
-	padding: 5px 40px 0 30px;
+    width: 10%;
+    line-height: 67px;
+    margin-right: 0;
+    margin-left: 46px;
 }
 .navbar { 
 	margin-bottom : 0px !important; 
@@ -20,6 +23,7 @@
 	background:#3a589e; 
 }
 .top-menu li a{
+	display: block;
 	color: #ffffff;
 }
 .top-menu li a:hover {
@@ -43,9 +47,6 @@ function switchPage(bc){
 	document.getElementById("loc").value = "";
 	
 }
-	
-
-
 </script>
 
 <!-- navbar시작 -->
@@ -56,7 +57,7 @@ function switchPage(bc){
 	</a>
 
 	<!-- nav items -->
-	<div class="collapse navbar-collapse">
+	<div class="collapse navbar-collapse bc-select-div">
 		<ul class="navbar-nav mr-auto bc-select">
 			<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
 			<li class="nav-item" id="house" onclick="switchPage(this)">단/다세대 주택</li>

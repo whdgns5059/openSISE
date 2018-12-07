@@ -1,140 +1,142 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
-<!doctype html>
-<html lang="en">
-<head>
-
-<script type="text/javascript">
-		function getCookie(cookieName){
-			//cookieString = > document.cookie
-			var cookies = document.cookie.split("; ");
-			
-			var cookieValue = "";
-			for(var i=0; i< cookies.length; i++){
-				var str  = cookies[i];
-				if(str.startsWith(cookieName + "=")){
-					cookieValue = str.substring((cookieName + "=").length);
-				}
-			}
-			return cookieValue;
-		}
-	</script>
-
+   pageEncoding="UTF-8"%>
+   
 <style type="text/css">
+/* ────────── COMMON ──────────*/
+*{margin:0px;padding:0px;box-sizing:border-box;}
+html, body{height:100%;}
+#wrap {
+	width:100%;height:100%;display:flex;justify-content:center;align-items:center;
+	background-image:url("images/opensiseLogo.png");background-size:100% 100%;background-repeat:no-repeat;
+}
 ul{list-style-type:none;}
-.logo{
-	margin: 100px 0 50px 250px;
-	padding: 20px 400px 50px 500px;
-	width: 1303px;
-}	
-.button{
-	margin : 80px 0 20px 50px;
-	padding: 10px 0 20px 0;
-	width:300px ;
-	height:300px ;
-}	
 
-.buttons{
-	padding: 5px 0 5px 0;
+/* ────────── SECTION ────────── */
+.section{width:500px;}
+.section > .opensiseLogo{text-align:center;}
+.section > .section_signUp {
+	margin-top:20px;border-radius:10px;
+	width:500px;box-shadow:0px 0px 10px #000;
 }
-
-#Sign_in{
-margin : 50px 0 20px 0;
-	width:220px ;
+.section > .section_signUp > form > ul {
+	display:block;
 }
-
-#necessary{
-	color: red;
+.section > .section_signUp > form > ul > li:first-child{position:relative;}
+.section > .section_signUp > form > ul > li:nth-child(2){position:relative;}
+.section > .section_signUp > form > ul > li:nth-child(3){position:relative;}
+.section > .section_signUp > form > ul > li:first-child > span{position:absolute;color:#f00;right:105px;top:5px;}
+.section > .section_signUp > form > ul > li:nth-child(2)> span{position:absolute;color:#f00;right:105px;top:55px;}
+.section > .section_signUp > form > ul > li:nth-child(3) > span{position:absolute;color:#f00;right:5px;top:105px;}
+.section > .section_signUp > form > ul > li > .nameInput {
+	border:none;background-color:rgba(255,255,255,0.8);width:399px;;height:50px;font-size:16px;outline:none;font-weight:bold;
+	text-indent:10px;display:block;float:left;border-radius:10px 0px 0px 0px;border-bottom:1px solid #e4e4e4;transition: all 0.5s;
 }
-
-#necessary span {
-	float: left;
-	height: 35px;
-	line-height: 35px;
-	margin-right: 10px;
+.section > .section_signUp > form > ul > li > .nameBtn {
+	float:left;width:100.5px;height:50px;border:none;background-color:rgba(255,255,255,0.8);border:1px solid #e4e4e4;outline:none;cursor:pointer;font-size:16px;
+	letter-spacing:-0.5px;border-radius:0px 10px 0px 0px;transition:all 0.5s;font-weight:bold;
 }
-
-#necessary input[type=text] {
-	float: left;
-	width: 90%;
+.section > .section_signUp > form > ul > li > .nameBtn:hover {
+	background-color:rgba(255,240,0,0.8);
 }
-
-#necessary input[type=password] {
-	float: left;
-	width: 90%;
+.section > .section_signUp > form > ul > li > .emailInput {
+	border:none;background-color:rgba(255,255,255,0.8);width:399px;;height:50px;font-size:16px;outline:none;
+	text-indent:10px;display:block;clear:left;float:left;border-bottom:1px solid #fff;transition:all 0.5s;font-weight:bold;
 }
-.logoInputCenter{margin:0 auto;width:500px;}
-.logoInputDiv{float:left;}
-.logoInputBtn{float:left;margin-left:-20px;}
-.submitBtnDiv{clear:left;width:500px;margin:0 auto;}
+.section > .section_signUp > form > ul > li > .emailBtn {
+	float:left;;width:100.5px;height:50px;border:none;background-color:rgba(255,255,255,0.8);border:1px solid #e4e4e4;outline:none;cursor:pointer;font-size:16px;
+	letter-spacing:-0.5px;transition:all 0.5s;font-weight:bold;
+}
+.section > .section_signUp > form > ul > li > .emailBtn:hover {
+	background-color:rgba(255,240,0,0.8);
+}
+.section > .section_signUp > form > ul > li > .passwordInput {
+	border:none;background-color:rgba(255,255,255,0.8);width:100%;height:50px;font-size:16px;outline:none;font-weight:bold;
+	text-indent:10px;display:block;clear:left;float:left;border-bottom:1px solid #e4e4e4;margin-top:-2px;transition:all 0.5s;
+}
+.mw{width:100%;height:50px;display:flex;justify-content:center;align-items:center;background-color:rgba(255,255,255,0.8);transition:all 0.5s;font-weight:bold;}
+.mw:hover{background-color:rgba(255,240,0,0.8);}
+.mw > .w_radio, .mw > .m_radio{display:block;vertical-align:middle;margin-top:4px;width:20px;height:20px;}
+input[type="checkbox"]:checked:after {
+	width:20px;height:20px;border-radius:20px;top:-1px;left:-1px;position:relative;content:'';display:inline-block;
+	visibility:visible;box-shadow:0px 0px 20px rgba(255,240,0,1);
+}
+.mw > .m_span, .mw > .w_span{margin-left:10px;vertical-align:middle;}
+.mw > .w_radio{margin-left:20px;}
+.jobs {
+	width:100%;height:50px;outline:none;font-size:16px;text-indent:10px;background-color:rgba(255,255,255,0.8);transition:all 0.5s;cursor:pointer;
+	font-weight:bold;border:1px solid #e4e4e4;
+}
+.jobs:hover{background-color:rgba(255,240,0,0.8);}
+.signUpBtn {
+	width:100%;height:50px;border:none;background-color:rgba(255,255,255,0.8);border:1px solid #e4e4e4;outline:none;cursor:pointer;
+	font-size:16px;border-radius:0px 0px 10px 10px;transition:all 0.5s;font-weight:bold;
+}
+.signUpBtn:hover{background-color:rgba(255,240,0,0.8);}
+.mainBtn{color:#000;font-size:16px;float:right;margin-top:16px;letter-spacing:-1px;}
 </style>
-</head>
 
-<body class="text-center">
-	<!-- 전체 contents div -->
-	<div class="row" style="height: 850px !important">
-	
-		<form action="/login/signUpSelection" method="post">
-		<div class="logo">
-			<img src="/img/openSise_signin.png"  alt="오픈시세 회원가입" title="오픈시세 회원가입" />
+<div id="wrap">
+	<div class="section">
+		<div class="opensiseLogo">
+			<img src="images/logos.png">
 		</div>
-			<div class="logoInputCenter">
-				<div class="logoInputDiv">
-					<ul>
-						<li>
-							<label for="inputEmail" id="necessary">
-								<span>*</span>
-								<input type="text" id="userNm" name="mem_nm" value="" class="form-control"	placeholder="닉네임을 입력하세요" required autofocus>						
-						 	</label>
-						</li>
-						<li>
-						
-							<label for="inputEmail" id="necessary">
-								<span>*</span>
-								<input type="text" id="userId" name="mem_email" value="" class="form-control" placeholder="이메일을 입력하세요" required autofocus>
-							</label> 
-						</li>
-						<li>
-							<label for="inputEmail" id="necessary">
-								<span>*</span>
-								<input type="password" id="inputPassword" name="mem_pass" value="" class="form-control" placeholder="비밀번호를 입력하세요" required>
-							</label>
-						</li>
-						<li>
-							<strong>성별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio"  id="male" name="mem_gndr" value="M">남자
-							<input type="radio"  id="female" name="mem_gndr" value="F">여자	
-						</li>
-						<li>
-							<strong>직장정보</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<select id="jobLiset" name="mem_job">
-								<c:forEach items="${JobList}" var="mem">
-								<option value="${mem.job_no}">${mem.job_nm}</option>
-								</c:forEach>
-							</select>
-						</li>
-						<li>
-							<p id="necessary">* 필수입력사항</p>
-						</li>
-				 	</ul>
+		<div class="section_signUp">
+			<form action="" method="post">
+				<ul>
+					<li>
+						<input type="text" class="nameInput" placeholder="닉네임을 입력해주세요" required autofocus>
+						<input type="button" value="중복확인" class="nameBtn">
+						<span>*</span>
+					</li>
+					<li>
+						<input type="email" class="emailInput" placeholder="이메일을 입력해주세요" required>
+						<input type="button" value="중복확인" class="emailBtn">
+						<span>*</span>
+					</li>
+					<li>
+						<input type="password" class="passwordInput" placeholder="비밀번호를 입력해주세요" required>
+						<span>*</span>
+					</li>
+				</ul>
+				<div class="mw">
+					<input type="checkbox" class="m_radio" />
+					<span class="m_span">남자</span>
+					<input type="checkbox" class="w_radio" />
+					<span class="w_span">여자</span>
 				</div>
-				
-				<div class="logoInputBtn">
-					<ul>
-						<li><input type="button" class="form-control" value="중복확인"/></li>
-						<li><input type="button" class="form-control" value="중복확인"/></li>
-					</ul>				
-				</div>
-				<div class="submitBtnDiv">
-					<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="회원가입" />
-				</div>
-			</div>
+				<select class="jobs">
+					<option>직장정보</option>
+					<option>테스트1</option>
+					<option>테스트2</option>
+				</select>
+				<input type="submit" value="회원가입" class="signUpBtn">
+			</form>
 		</div>
-		</form>
-		
+		<a href="#" class="mainBtn">메인화면으로 가기</a>
 	</div>
-</body>
-</html>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

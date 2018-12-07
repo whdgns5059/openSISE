@@ -16,7 +16,6 @@
 	<definition name="memberLayout" template="/WEB-INF/view/common/member_layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/common/header.jsp"></put-attribute>
 		<put-attribute name="left" value="/WEB-INF/view/common/member_left.jsp"></put-attribute>
-		<put-attribute name="footer" value="/WEB-INF/view/common/user_footer.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 	</definition>
 	
@@ -37,7 +36,6 @@
 		<put-attribute name="content" value="/WEB-INF/view/member/login.jsp"></put-attribute>
 	</definition>
 
-	<!--***************** memberLayout ******************* -->
 	<definition name="selectLogin" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/member/selectLogin.jsp"></put-attribute>
 	</definition>
@@ -50,6 +48,7 @@
 		<put-attribute name="content" value="/WEB-INF/view/member/signupDetail.jsp"></put-attribute>
 	</definition>
 
+	<!--***************** memberLayout ******************* -->
 	<definition name="myinfo" extends="memberLayout">
 		<put-attribute name="content" value="/WEB-INF/view/member/myinfo.jsp"></put-attribute>
 	</definition>

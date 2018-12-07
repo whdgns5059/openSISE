@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <style type="text/css">
@@ -24,10 +21,8 @@
 
 
 </style>
-</head>
-<body>
 <!-- 전체 contents div -->
-<div class="row" style="height: 850px !important">
+<div class="contents">
 	<!-- logo -->
 		<div class="logo" >
 			<img src="/img/snail.png"  />
@@ -80,5 +75,3 @@
 		</div>
 		
 </div>
-</body>
-</html>
