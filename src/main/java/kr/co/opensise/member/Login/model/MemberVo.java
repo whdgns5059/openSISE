@@ -7,8 +7,12 @@ public class MemberVo {
 	private String mem_nm;
 	private String mem_gnde;
 	private int mem_job;
-	private String mem_mngr;
+	private String mem_gndr;
 	private String mem_date;
+	private int job_no;
+	private String job_nm;
+	private int intrst_no;
+	private String intrst_nm;
 	
 	public  MemberVo(){
 		
@@ -16,6 +20,54 @@ public class MemberVo {
 	
 	
 	
+	public int getIntrst_no() {
+		return intrst_no;
+	}
+
+
+
+	public void setIntrst_no(int intrst_no) {
+		this.intrst_no = intrst_no;
+	}
+
+
+
+	public String getIntrst_nm() {
+		return intrst_nm;
+	}
+
+
+
+	public void setIntrst_nm(String intrst_nm) {
+		this.intrst_nm = intrst_nm;
+	}
+
+
+
+	public int getJob_no() {
+		return job_no;
+	}
+
+
+
+	public void setJob_no(int job_no) {
+		this.job_no = job_no;
+	}
+
+
+
+	public String getJob_nm() {
+		return job_nm;
+	}
+
+
+
+	public void setJob_nm(String job_nm) {
+		this.job_nm = job_nm;
+	}
+
+
+
 	public int getMem_no() {
 		return mem_no;
 	}
@@ -88,14 +140,14 @@ public class MemberVo {
 
 
 
-	public String getMem_mngr() {
-		return mem_mngr;
+	public String getMem_gndr() {
+		return mem_gndr;
 	}
 
 
 
-	public void setMem_mngr(String mem_mngr) {
-		this.mem_mngr = mem_mngr;
+	public void setMem_gndr(String mem_gndr) {
+		this.mem_gndr = mem_gndr;
 	}
 
 
@@ -120,11 +172,11 @@ public class MemberVo {
 	
 	/**  
 	* Method   : authPass 
-	* ÀÛ¼ºÀÚ : ±èÁÖ¿¬
-	* º¯°æÀÌ·Â :  
+	* ï¿½Û¼ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½Ö¿ï¿½
+	* ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ :  
 	* @param encryptPass
 	* @return  
-	* Method ¼³¸í : ºñ¹Ð¹øÈ£ °ËÁõ 
+	* Method ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ 
 	*/
 	public boolean authPass(String encryptPass) {
 		return getMem_pass().equals(encryptPass);
