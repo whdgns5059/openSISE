@@ -173,6 +173,9 @@ public class DataTradeController {
 		
 		log.info("updateCoordResult >>> {}", updateCoordResult);
 		
+		model.addAttribute("arResult", totalArticleVoResult);
+		model.addAttribute("dlResult", totalDealVoResult);
+		
 		return "redirect:/manage/dataTrade/dataTrade";
 				
 	}
