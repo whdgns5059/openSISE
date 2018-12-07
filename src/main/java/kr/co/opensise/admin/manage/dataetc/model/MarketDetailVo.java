@@ -1,6 +1,6 @@
 package kr.co.opensise.admin.manage.dataetc.model;
 
-public class Market_detailVo {
+public class MarketDetailVo {
 	
 	private int mkd_no;
 	private String mkd_date;

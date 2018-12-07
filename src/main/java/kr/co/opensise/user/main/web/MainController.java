@@ -39,6 +39,7 @@ public class MainController {
 		//하라미터를 바탕으로  db에 검색 (파라미터 : 건물분류, 검색명)
 		model.addAttribute("buildingSaleList", buildSaleList);
 		model.addAttribute("search", searchName);
+		model.addAttribute("building",building);
 		return "main";
 	}
 	
