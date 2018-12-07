@@ -191,7 +191,9 @@ public class InsertAllData{
 				DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
 				
 				String location = dataUtil.getLocation(articleVo);
-			
+				
+				log.info("주소 >>>> {}", location);
+				
 				String lat = "";
 				String lng = "";
 
