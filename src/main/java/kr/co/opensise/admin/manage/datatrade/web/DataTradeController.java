@@ -18,11 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.code.geocoder.model.LatLng;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
@@ -149,8 +147,16 @@ public class DataTradeController {
 				lat = latlngMap.get("lat");
 				lng = latlngMap.get("lng");
 
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
+			} catch (IndexOutOfBoundsException out) {
+				
+				DealVo dealVo = new DealVo();
+				dealVo.setDl_gu(articleVo.getArtcl_gu());
+				dealVo.setDl_dong(articleVo.getArtcl_dong());
+				dealVo.setDl_zip(articleVo.getArtcl_zip());
+				dealVo.setDl_rd(articleVo.getArtcl_rd());
+				
+				dataTradeService.deleteArticleDeal(articleVo, dealVo);
+				
 			}
 			
 			articleVo.setArtcl_lat(lat);
@@ -164,6 +170,9 @@ public class DataTradeController {
 		}
 		
 		log.info("updateCoordResult >>> {}", updateCoordResult);
+		
+		model.addAttribute("arResult", totalArticleVoResult);
+		model.addAttribute("dlResult", totalDealVoResult);
 		
 		return "redirect:/manage/dataTrade/dataTrade";
 				

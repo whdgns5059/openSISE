@@ -5,7 +5,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -13,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -26,9 +29,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.opensise.admin.manage.dataetc.model.Human_statisticVo;
+import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
-import kr.co.opensise.admin.manage.dataetc.model.Market_detailVo;
+import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcService;
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcServiceInf;
 
@@ -82,7 +85,7 @@ public class DataEtcController {
 //			Date hs_date = new SimpleDateFormat("yyyy/MM").parse(dateC);
 			
 			//반복문을 이용해 성별,연령별,동별,시기별 셀 정보를 human_statisticVo에 담고 list에 넣기
-			List<Human_statisticVo> human_statisticList = new ArrayList<Human_statisticVo>();
+			List<HumanStatisticVo> human_statisticList = new ArrayList<HumanStatisticVo>();
 			
 			for(int i=6;i<rows;i++) {
 				HSSFRow row = sheet.getRow(i);
@@ -115,7 +118,7 @@ public class DataEtcController {
 					HSSFCell cell=row.getCell(columnindex);
 					
 					//Human_statisticVo에 넣기
-					Human_statisticVo human_statisticVo = new Human_statisticVo();
+					HumanStatisticVo human_statisticVo = new HumanStatisticVo();
 					
 					if(sigungu!="") {
 						//동
@@ -149,7 +152,7 @@ public class DataEtcController {
 					HSSFCell cell=row.getCell(columnindex);
 					
 					//Human_statisticVo에 넣기
-					Human_statisticVo human_statisticVo = new Human_statisticVo();
+					HumanStatisticVo human_statisticVo = new HumanStatisticVo();
 					if(sigungu!="") {
 						//동
 						human_statisticVo.setHs_dong(sigungu);
@@ -209,13 +212,15 @@ public class DataEtcController {
 			int sheets = wb.getNumberOfSheets();
 			log.info("sheets : {}",sheets);
 			
+			//Hashset
+			Set<MarketVo> marketSet = new HashSet<MarketVo>();
+			
 			//List
 			List<MarketVo> marketList = new ArrayList<MarketVo>();
-			List<Market_detailVo> marketDetailList = new ArrayList<Market_detailVo>();
+			List<MarketDetailVo> marketDetailList = new ArrayList<MarketDetailVo>();
 			
-			//Vo
-			MarketVo marketVo = new MarketVo();
-			Market_detailVo marketDetailVo = new Market_detailVo();
+			
+			
 			
 			//각 sheet별
 			for(int sht=0;sht<sheets;sht++) {
@@ -239,8 +244,7 @@ public class DataEtcController {
 					log.info("mk_classf : {}", mk_classf);
 				}
 				
-				//시장분류Vo에 담기
-//				marketVo.setMk_classf(mk_classf);
+				
 				
 				
 				
@@ -267,8 +271,7 @@ public class DataEtcController {
 				mkd_date = yyyy + MM;
 				log.info("mkd_dateC : {}", mkd_date);
 				
-				//조사일시 vo에 담기
-//				marketDetailVo.setMkd_date(mkd_date);
+				
 				
 				//행의 갯수
 				int rows = sheet.getPhysicalNumberOfRows();
@@ -283,38 +286,54 @@ public class DataEtcController {
 					//셀의 수 
 					XSSFRow mk_Row = sheet.getRow(5);
 					int mk_cells = mk_Row.getPhysicalNumberOfCells();
+//					log.info("mk_cell : {}", mk_cells);
 					
-					for(int cells=6;cells<mk_cells;cells++) {
+					for(int cells=5;cells<mk_cells;cells++) {
+						//Vo
+						MarketVo marketVo = new MarketVo();
+						MarketDetailVo marketDetailVo = new MarketDetailVo();
+						
+						//시장분류Vo에 담기
+						marketVo.setMk_classf(mk_classf);
+						
+						//조사일시 vo에 담기
+						marketDetailVo.setMkd_date(mkd_date);
+						
 						XSSFRow mk_row = sheet.getRow(row);
 						
 						//가격
 						String mk_price="";
 						int mkd_price = 0;
 						XSSFCell mk_priceCell = mk_row.getCell(cells);
+						mk_priceCell.setCellType(CellType.NUMERIC);
+						if(mk_priceCell==null) {
+							continue;
+						}else {
+							
+//							log.info("=======================");
+//							log.info(cells + " mk_price :{}", mk_priceCell.getNumericCellValue());
+//							log.info("=======================");
+							mkd_price = (int) mk_priceCell.getNumericCellValue();
+//							log.info("mkd_price : {}", mkd_price);
+						}
 						
-						
-						mk_price = mk_priceCell.toString();
-						
-					
-							log.info("mk_price :{}", mk_price);
-						int idx = mk_price.indexOf(".");
-							log.info("idx : {}", idx);
-						mkd_price = Integer.parseInt(mk_price.substring(0,idx));
-							log.info("mkd_price : {}",mkd_price);
 						
 						
 						//가격 vo에 담기
-//						marketDetailVo.setMkd_price(mkd_price);
+						marketDetailVo.setMkd_price(mkd_price);
 						
 						//시장명
 						XSSFRow mk_nmRow = sheet.getRow(4);
 						XSSFCell mk_nmCell = mk_nmRow.getCell(cells);
+						if(mk_nmCell==null) {
+							continue;
+						}
 						String mk_nm = mk_nmCell.toString().replaceAll("\n", " ");
-						log.info("mk_nm :{}",mk_nm);
+//						log.info("mk_nm :{}",mk_nm);
 						
 						//시장명 vo에 담기
-//						marketVo.setMk_nm(mk_nm);
-//						marketDetailVo.setMkd_mk(mk_nm);
+						marketVo.setMk_nm(mk_nm);
+						marketDetailVo.setMkd_mk(mk_nm);
 						
 						//동
 						XSSFRow mk_dongRow = sheet.getRow(3);
@@ -323,11 +342,11 @@ public class DataEtcController {
 							mk_dongCell = mk_dongRow.getCell(cells-1);
 						}
 						String mk_dong = mk_dongCell.toString();
-						log.info("mk_dong : {}", mk_dong);
+//						log.info("mk_dong : {}", mk_dong);
 						
 						//동 vo에 담기
-//						marketVo.setMk_dong(mk_dong);
-//						marketDetailVo.setMkd_mk_dong(mk_dong);
+						marketVo.setMk_dong(mk_dong);
+						marketDetailVo.setMkd_mk_dong(mk_dong);
 						
 						//품목분류
 						String mkd_prod = "";
@@ -341,11 +360,11 @@ public class DataEtcController {
 								mkd_prodCell = mkd_prodRow.getCell(1);
 							}
 							mkd_prod = mkd_prodCell.toString();
-							log.info("mk_prod : {}", mkd_prod);
+//							log.info("mk_prod : {}", mkd_prod);
 						}
 						
 						//품목분류 vo에 담기
-//						marketDetailVo.setMkd_prod(mkd_prod);
+						marketDetailVo.setMkd_prod(mkd_prod);
 						
 						//품목상세
 						String mkd_prodDetail = "";
@@ -359,16 +378,17 @@ public class DataEtcController {
 						}else {
 							mkd_prodDetail = mkd_prodDetailCell.toString();
 							
-							log.info("mkd_prodDetail : {}", mkd_prodDetail);
+//							log.info("mkd_prodDetail : {}", mkd_prodDetail);
 						}
 						
 						//품목상세 vo에 넣기
-//						marketDetailVo.setMkd_prod_detail(mkd_prodDetail);
+						marketDetailVo.setMkd_prod_detail(mkd_prodDetail);
 						
-						//각 vo를 list에 담기
+						//각 vo를 set에 담기(중복제거)
+						marketSet.add(marketVo);
+						//list에 담기
+						marketDetailList.add(marketDetailVo);
 						
-//						marketList.add(marketVo);
-//						marketDetailList.add(marketDetailVo);
 					}
 					
 					
@@ -376,16 +396,20 @@ public class DataEtcController {
 //					log.info("marketDetailList : {}", marketDetailList);
 				}
 				
-//				//각 vo를 list에 담기
-//				
-//				marketList.add(marketVo);
-//				marketDetailList.add(marketDetailVo);
-//				
-//				log.info("marketList : {}", marketList);
-//				log.info("marketDetailList : {}", marketDetailList);
 			}
 			
+			//insert
+			int insertMarketList = 0;
+			int insertMarketDetailList = 0;
 			
+			//list로 옮기기
+			marketList.addAll(marketSet);
+			
+			insertMarketList = dataEtcService.insertMarket(marketList);
+			insertMarketDetailList = dataEtcService.insertMarketDetail(marketDetailList);
+		
+			model.addAttribute("insertMarketList", insertMarketList);	
+			model.addAttribute("insertMarketDetailList", insertMarketDetailList);	
 			
 		}catch (Exception e) {
 			e.printStackTrace();

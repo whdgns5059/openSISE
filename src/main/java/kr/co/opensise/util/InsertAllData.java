@@ -43,8 +43,8 @@ public class InsertAllData{
 	private final String OR = "실거래 구분 : 오피스텔(전월세)";
 	private final String NT = "실거래 구분 : 상업업무용(매매)";
 	
-	@Resource(name="dataTradeDao")
-	private DataTradeDaoInf dataTradeDao;
+	@Resource(name="dataTradeService")
+	private DataTradeServiceInf dataTradeService;
 	
 	/*******************************************
 	 * 해당 폴더 밑의 모든 실거래 데이터를 읽어 DB에 입력하는 로직
@@ -150,8 +150,8 @@ public class InsertAllData{
 				int insertArticleListResult = 0;
 				int insertDealListResult = 0;
 				
-				insertArticleListResult = dataTradeDao.insertArticleList(articleList);
-				insertDealListResult = dataTradeDao.insertDealList(dealList);
+				insertArticleListResult = dataTradeService.insertArticleList(articleList);
+				insertDealListResult = dataTradeService.insertDealList(dealList);
 				
 				
 				
@@ -183,26 +183,36 @@ public class InsertAllData{
 			//주소들만 가져와서 좌표를 입력해 준다
 			
 			//1. 좌표가 없는 article list 가져오기
-			List<ArticleVo> coordNullArticleList = dataTradeDao.selectCoordNullArticle();
-			
+			List<ArticleVo> coordNullArticleList = dataTradeService.selectCoordNullArticle();
+			int updateCoordResult = 0;
 			//2. 해당 리스트에 좌표 입력
 			for(ArticleVo articleVo : coordNullArticleList) {
 				
-				DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
+				DataTradeControllerUtil dataUtil= new DataTradeControllerUtil();
 				
 				String location = dataUtil.getLocation(articleVo);
 			
 				String lat = "";
 				String lng = "";
-
+				
+				log.info("location >>>>>>> {} ", location);
+				
 				try {
 
 					Map<String, String> latlngMap = CommonUtil.addr2Coord(location);
 					lat = latlngMap.get("lat");
 					lng = latlngMap.get("lng");
 
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
+				} catch (IndexOutOfBoundsException out) {
+					
+					DealVo dealVo = new DealVo();
+					dealVo.setDl_gu(articleVo.getArtcl_gu());
+					dealVo.setDl_dong(articleVo.getArtcl_dong());
+					dealVo.setDl_zip(articleVo.getArtcl_zip());
+					dealVo.setDl_rd(articleVo.getArtcl_rd());
+					
+					dataTradeService.deleteArticleDeal(articleVo, dealVo);
+					
 				}
 				
 				articleVo.setArtcl_lat(lat);
@@ -211,10 +221,11 @@ public class InsertAllData{
 				log.info("좌표변경 : {}", articleVo.toString());
 				
 				//3. 좌표 업데이트. 
-				dataTradeDao.updataLatLngArticle(articleVo);
-				
+				updateCoordResult += dataTradeService.updataLatLngArticle(articleVo);
 				
 			}
+			
+			log.info("updateCoordResult >>> {}", updateCoordResult);
 		}
 		
 		log.info("***************************************");

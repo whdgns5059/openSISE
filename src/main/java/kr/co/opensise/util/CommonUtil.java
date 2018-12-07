@@ -31,16 +31,21 @@ public class CommonUtil {
 	 * location에 해당되는 lat,lng를 map으로 리턴한다
 	 * 해당 메서드는 kakao REST API를 이용함
 	 ******************************************/
-	public static Map<String, String> addr2Coord(String location) throws UnsupportedEncodingException {
+	public static Map<String, String> addr2Coord(String location) throws IndexOutOfBoundsException{
 		
-        String url = "https://dapi.kakao.com/v2/local/search/address.json?query="+ URLEncoder.encode(location, "UTF-8");
+        String url = null;
+		try {
+			url = "https://dapi.kakao.com/v2/local/search/address.json?query="+ URLEncoder.encode(location, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
         Map<String, String> addr = null;
         try{
             addr = getRegionAddress(getJSONData(url));
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error("주소 api 요청 에러", e);
-            e.printStackTrace();
-        }
+			e.printStackTrace();
+		}
         return addr;
 
 

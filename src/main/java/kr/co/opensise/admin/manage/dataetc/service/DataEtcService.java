@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.opensise.admin.manage.dataetc.dao.DataEtcDaoInf;
-import kr.co.opensise.admin.manage.dataetc.model.Human_statisticVo;
+import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
+import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
+import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 
 @Service
 public class DataEtcService implements DataEtcServiceInf {
@@ -16,8 +18,18 @@ public class DataEtcService implements DataEtcServiceInf {
 	private DataEtcDaoInf dataEtcDao;
 
 	@Override
-	public int insertHuman_statistic(List<Human_statisticVo> human_statisticList) {
+	public int insertHuman_statistic(List<HumanStatisticVo> human_statisticList) {
 		return dataEtcDao.insertHuman_statistic(human_statisticList);
+	}
+
+	@Override
+	public int insertMarket(List<MarketVo> marketList) {
+		return dataEtcDao.insertMarket(marketList);
+	}
+
+	@Override
+	public int insertMarketDetail(List<MarketDetailVo> marketDetailList) {
+		return dataEtcDao.insertMarketDetail(marketDetailList);
 	}
 
 }

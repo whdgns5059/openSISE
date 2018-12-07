@@ -290,6 +290,8 @@ input:disabled {
     
     $(document).ready(function(){
     	
+    	$("#searchName").val("");
+    	
 		//검은 막 띄우기
 		$(".openMask").click(function(e) {
 			e.preventDefault();

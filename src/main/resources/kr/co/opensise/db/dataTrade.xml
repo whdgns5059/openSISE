@@ -65,6 +65,21 @@
 		where artcl_gu = #{artcl_gu} and artcl_dong = #{artcl_dong}
 		and artcl_zip = #{artcl_zip} and artcl_rd = #{artcl_rd}
 	</update>
+	
+	
+	<delete id="deleteArticle" parameterType="articleVo">
+		delete article
+		where artcl_gu = #{artcl_gu} and artcl_dong=#{artcl_dong} 
+		and artcl_zip=#{artcl_zip} and artcl_rd=#{artcl_rd}
+	</delete>
+	
+	<delete id="deleteDeal" parameterType="dealVo">
+		delete deal
+		where dl_gu = #{dl_gu} and dl_dong=#{dl_dong} 
+		and dl_zip=#{dl_zip} and dl_rd=#{dl_rd}
+	</delete>
+	
+	
 
 </mapper>
 
