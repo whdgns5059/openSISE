@@ -1,16 +1,48 @@
 package kr.co.opensise.member.Login.service;
 
+import java.util.List;
+
 import kr.co.opensise.member.Login.model.MemberVo;
 
 public interface LoginServiceInf {
 
 	/**  
-	* Method   : searchUser 
-	* ÀÛ¼ºÀÚ : ±èÁÖ¿¬
-	* º¯°æÀÌ·Â :  
-	* @param MEM_EMAIL
+	* Method   :  
+	* ì‘ì„±ì :  
+	* ë³€ê²½ì´ë ¥ :  
 	* @return  
-	* Method ¼³¸í :  È¸¿ø ÇÑ »ç¶÷ÀÇ Á¤º¸¸¦ Ãâ·Â
+	* Method ì„¤ëª… : ì˜¤í”ˆì‹œì„¸  ì•”í˜¸í™” ë° ë¡œê·¸ì¸
 	*/
 	public MemberVo selectMember(String mem_email);
+	
+	/**  
+	* Method   : signup 
+	* ì‘ì„±ì :  
+	* ë³€ê²½ì´ë ¥ :  
+	* @param memberVo
+	* @return  
+	* Method ì„¤ëª… :  íšŒì›ê°€ì…
+	*/
+	public int signup(MemberVo memberVo);
+	
+	/**  
+	* Method   : jobList 
+	* ì‘ì„±ì :  
+	* ë³€ê²½ì´ë ¥ :  
+	* @param memberVo
+	* @return  
+	* Method ì„¤ëª… :  ì§ì—…ì¢…ë¥˜ ì¶œë ¥
+	*/
+		public List<MemberVo> jobList();
+		
+		
+		/**  
+		* Method   : interestLiset 
+		* ì‘ì„±ì :  
+		* ë³€ê²½ì´ë ¥ :  
+		* @param memberVo
+		* @return  
+		* Method ì„¤ëª… :  ê´€ì‹¬ì‚¬ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
+		*/
+		public List<MemberVo> interestLiset();
 }

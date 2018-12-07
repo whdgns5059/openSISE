@@ -40,7 +40,18 @@ function switchPage(bc){
 	
 	bc.style.color= "white";
 	
-	document.getElementById("loc").value = "";
+	var building = bc.value;
+	var searchName = $("#loc").val();
+	//document.getElementById("loc").value = "";
+	$.ajax({
+		url:"/main/main",
+		type : "get",
+		data : "building="+building+"&searchName="+searchName,
+		success : function(dt){
+			
+		}
+	});
+	
 	
 }
 	
@@ -58,17 +69,12 @@ function switchPage(bc){
 	<!-- nav items -->
 	<div class="collapse navbar-collapse">
 		<ul class="navbar-nav mr-auto bc-select">
-		<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
-			<li class="nav-item"><a class="nav-link" href="/main/resetMain">단/다세대 주택</a></li>
-			<li class="nav-item"><a class="nav-link" href="/main/resetMain">아파트</a></li>
-			<li class="nav-item"><a class="nav-link" href="/main/resetMain">상가</a></li>
-			<li class="nav-item"><a class="nav-link" href="/main/resetMain">법원경매</a></li>
 			<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
-			<li class="nav-item" id="house" onclick="switchPage(this)">단/다세대 주택</li>
-			<li class="nav-item" id="apt" onclick="switchPage(this)">아파트</li>
-			<li class="nav-item" id="office" onclick="switchPage(this)">오피스텔</li>
-			<li class="nav-item" id="store" onclick="switchPage(this)">상가</li>
-			<li class="nav-item" id="auction" onclick="switchPage(this)">법원경매</li>
+			<li class="nav-item" id="house" onclick="switchPage(this)" value="house">단/다세대 주택</li>
+			<li class="nav-item" id="apt" onclick="switchPage(this)" value="apt">아파트</li>
+			<li class="nav-item" id="office" onclick="switchPage(this)" value="office">오피스텔</li>
+			<li class="nav-item" id="store" onclick="switchPage(this)" value="store">상가</li>
+			<li class="nav-item" id="auction" onclick="switchPage(this)" value="auction">법원경매</li>
 		</ul>
 	</div>
 	<!-- 오른쪽 상단 배치// 예: 로그인, 회원가입등 -->
@@ -76,7 +82,7 @@ function switchPage(bc){
 		<ul class="top-menu">
 			<!-- memVo가 null인 경우 -->
 			<li><a href="/login/selectLogin">로그인</a></li>
-			<li><a href="/signup/signup">회원가입</a></li>
+			<li><a href="/login/signup">회원가입</a></li>
 			<!-- 관리자일 경우에 생기는 a tag  -->
 			<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  -->
@@ -86,6 +92,8 @@ function switchPage(bc){
 	</div>
 
 </nav>
+
+
 <div class="navline"></div>
 <!-- navbar끝 -->
 

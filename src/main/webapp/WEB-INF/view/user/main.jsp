@@ -7,6 +7,7 @@
 	width: 70%;
 	height: 100%;
 	float: left;
+	z-index: 9000;
 }
 .search-filt{
 	width: 100%;
@@ -54,6 +55,7 @@
 	float: left;
 	border-left: 1px solid #e0e0e0;
 	background: #f5f3f0;
+	position: relative;
 }
 .filters-div{
 	float: left;
@@ -91,6 +93,15 @@
 	margin-top: 8px;
 }
 .avg-price{
+}
+.area-analysis{
+    z-index: 10000;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: black;
+    left: -100px;
+    bottom: 0;
 }
 
 </style>
@@ -161,7 +172,7 @@
 		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 		//마커가 표시될 위치입니다 
 		var markerPosition = new daum.maps.LatLng(x, y);
-		//마커를 생성합니다
+		//마커를 생성합니다'
 		var marker = new daum.maps.Marker({
 			position : markerPosition
 		});
@@ -251,7 +262,9 @@
 			</ul>
 		</div>
 	</div>
+	<!-- 지도 -->
 	<div id="map" style="width: 100%; height: 95%;"></div>
+	
 </div>
 	
 <!-- right contents -->
@@ -267,6 +280,12 @@
             </div>
 		</c:forEach>
 	</div>
+	
+	
+	<div class="area-analysis">
+		2
+	</div>
+	
 
 </div>
 

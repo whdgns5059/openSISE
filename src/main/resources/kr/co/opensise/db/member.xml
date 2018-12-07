@@ -10,6 +10,23 @@
   		where mem_email = #{mem_email}
   		
   	</select>
+  	
+  	<!-- 회원등록 -->
+	<insert id="signUpSelection" parameterType="memberVo">
+		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job)
+		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC})  
+	</insert>
+	
+	<!-- 직업정보 받아오기 -->
+	<select id="job" resultType="memberVo">
+		select * from job
+		where job_nm is not null
+	</select>
+	
+	<!-- 관심사정보 받아오기 -->
+	<select id="interest" resultType="memberVo">
+		select *  from interest
+	</select>
 </mapper>
 
 

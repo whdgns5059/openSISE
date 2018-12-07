@@ -163,28 +163,23 @@ public class DataTradeController {
 			
 		}
 		
-		
-		log.info("**********************************");
-		log.info("ArticleVo 인서트 결과 >> {}", totalArticleVoResult);
-		log.info("DealVo 인서트 결과 >> {}", totalDealVoResult);
-		log.info("**********************************");
-		log.info("좌표 변환 결과 >>> {}", updateCoordResult );
-		log.info("**********************************");
-	
-		model.addAttribute("arResult", totalArticleVoResult);
-		model.addAttribute("dlResult", totalDealVoResult);
+		log.info("updateCoordResult >>> {}", updateCoordResult);
 		
 		return "redirect:/manage/dataTrade/dataTrade";
 				
 	}
-
-
 	
 	
 	
-
 	
-
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
