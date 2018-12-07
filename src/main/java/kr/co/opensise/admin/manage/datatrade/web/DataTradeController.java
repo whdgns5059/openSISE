@@ -149,8 +149,16 @@ public class DataTradeController {
 				lat = latlngMap.get("lat");
 				lng = latlngMap.get("lng");
 
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
+			} catch (IndexOutOfBoundsException out) {
+				
+				DealVo dealVo = new DealVo();
+				dealVo.setDl_gu(articleVo.getArtcl_gu());
+				dealVo.setDl_dong(articleVo.getArtcl_dong());
+				dealVo.setDl_zip(articleVo.getArtcl_zip());
+				dealVo.setDl_rd(articleVo.getArtcl_rd());
+				
+				dataTradeService.deleteArticleDeal(articleVo, dealVo);
+				
 			}
 			
 			articleVo.setArtcl_lat(lat);
@@ -164,6 +172,9 @@ public class DataTradeController {
 		}
 		
 		log.info("updateCoordResult >>> {}", updateCoordResult);
+		
+		model.addAttribute("arResult", totalArticleVoResult);
+		model.addAttribute("dlResult", totalDealVoResult);
 		
 		return "redirect:/manage/dataTrade/dataTrade";
 				
