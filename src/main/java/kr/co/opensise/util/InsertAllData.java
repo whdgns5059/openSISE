@@ -129,27 +129,8 @@ public class InsertAllData{
 
 					XSSFRow row = sheet.getRow(i);
 					
-					Map<String, Object> setVoMap = null;
-					
-					if(division.equals(AT)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 11, 2, 3, 4, -1, 10, "apt", -1,	-1, -1, -1, 8, -1, -1, 5, 9, 6, 7);
-					}else if(division.equals(RT)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 12, 2, 3, -1, 4, 11, "multip", -1, -1, -1, -1,9, -1, -1, 5, 10, 7, 8);
-					}else if(division.equals(ST)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, -1, 10, -1, -1, -1, -1, 9, "single", -1, -1, -1, -1,8, -1, -1, 4, -1, 6, 7);
-					}else if(division.equals(OT)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 11, 2, 3, 4, -1, 10, "office", -1,	-1, -1, -1, 8, -1, -1, 5, 9, 6, 7);
-					}else if(division.equals(AR)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 13, 2, 3, 4, -1, 12, "apt", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
-					}else if(division.equals(RR)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 13, 2, 3, -1, 4, 12, "multip", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
-					}else if(division.equals(SR)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, -1, 10, -1, -1, -1, -1, 9, "single", -1, -1, -1, 4, -1, 7, 8, 3, -1, 5, 6);
-					}else if(division.equals(OR)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, 1, 13, 2, 3, 4, -1, 12, "apt", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
-					}else if(division.equals(NT)) {
-						setVoMap = DataTradeControllerUtil.setVo(row, 0, -1, 3, -1, -1, -1, -1, 14, "store", 4, 5, 1, -1, 9, -1, -1, 7, 10, 11, 12);
-					}
+					DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
+					Map<String, Object> setVoMap =  dataUtil.setVoMap(division, row);
 					
 										
 					if(setVoMap != null) {
@@ -190,6 +171,8 @@ public class InsertAllData{
 					e1.printStackTrace();
 				}		
 				
+				wb.close();
+				bis.close();
 				
 			}
 			
@@ -205,7 +188,9 @@ public class InsertAllData{
 			//2. 해당 리스트에 좌표 입력
 			for(ArticleVo articleVo : coordNullArticleList) {
 				
-				String location = DataTradeControllerUtil.getLocation(articleVo);
+				DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
+				
+				String location = dataUtil.getLocation(articleVo);
 			
 				String lat = "";
 				String lng = "";

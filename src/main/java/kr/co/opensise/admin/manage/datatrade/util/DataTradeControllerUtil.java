@@ -11,6 +11,45 @@ import kr.co.opensise.util.CommonUtil;
 
 public class DataTradeControllerUtil {
 	
+	private final String AT = "실거래 구분 : 아파트(매매)"; 
+	private final String RT = "실거래 구분 : 연립다세대(매매)";
+	private final String ST = "실거래 구분 : 단독다가구(매매)";
+	private final String OT = "실거래 구분 : 오피스텔(매매)";
+	private final String AR = "실거래 구분 : 아파트(전월세)";
+	private final String RR = "실거래 구분 : 연립다세대(전월세)";
+	private final String SR = "실거래 구분 : 단독다가구(전월세)";
+	private final String OR = "실거래 구분 : 오피스텔(전월세)";
+	private final String NT = "실거래 구분 : 상업업무용(매매)";
+
+	
+	
+	public Map<String, Object> setVoMap(String division, XSSFRow row) {
+		
+		 Map<String, Object> setVoMap = null;
+		
+		if(division.equals(AT)) {
+			setVoMap = setVo(row, 0, 1, 11, 2, 3, 4, -1, 10, "apt", -1,	-1, -1, -1, 8, -1, -1, 5, 9, 6, 7);
+		}else if(division.equals(RT)) {
+			setVoMap = setVo(row, 0, 1, 12, 2, 3, -1, 4, 11, "multip", -1, -1, -1, -1,9, -1, -1, 5, 10, 7, 8);
+		}else if(division.equals(ST)) {
+			setVoMap = setVo(row, 0, -1, 10, -1, -1, -1, -1, 9, "single", -1, -1, -1, -1,8, -1, -1, 4, -1, 6, 7);
+		}else if(division.equals(OT)) {
+			setVoMap = setVo(row, 0, 1, 11, 2, 3, 4, -1, 10, "office", -1,	-1, -1, -1, 8, -1, -1, 5, 9, 6, 7);
+		}else if(division.equals(AR)) {
+			setVoMap = setVo(row, 0, 1, 13, 2, 3, 4, -1, 12, "apt", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
+		}else if(division.equals(RR)) {
+			setVoMap = setVo(row, 0, 1, 13, 2, 3, -1, 4, 12, "multip", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
+		}else if(division.equals(SR)) {
+			setVoMap = setVo(row, 0, -1, 10, -1, -1, -1, -1, 9, "single", -1, -1, -1, 4, -1, 7, 8, 3, -1, 5, 6);
+		}else if(division.equals(OR)) {
+			setVoMap = setVo(row, 0, 1, 13, 2, 3, 4, -1, 12, "apt", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
+		}else if(division.equals(NT)) {
+			setVoMap = setVo(row, 0, -1, 3, -1, -1, -1, -1, 14, "store", 4, 5, 1, -1, 9, -1, -1, 7, 10, 11, 12);
+		}
+		return setVoMap;
+	}
+	
+	
 	/*******************************************
 	 * @param row 엑셀의 row
 	 * @param ar_sigungu 시군구
@@ -36,7 +75,7 @@ public class DataTradeControllerUtil {
 	 * @return key : articleVo,  dealVo
 	 * 
 	 ******************************************/
-	public static Map<String, Object> setVo(XSSFRow row,
+	public Map<String, Object> setVo(XSSFRow row,
 			int ar_sigungu, int ar_zip, int ar_rd, 
 			int ar_rd_detail1, int ar_rd_detail2, 
 			int ar_complex, int ar_nm, int ar_const_y, String ar_bc, 
@@ -183,7 +222,7 @@ public class DataTradeControllerUtil {
 		return setVoMap;
 	}
 	
-	public static String getLocation(ArticleVo articleVo) {
+	public String getLocation(ArticleVo articleVo) {
 		
 		String gu = articleVo.getArtcl_gu();
 		String dong = articleVo.getArtcl_dong();

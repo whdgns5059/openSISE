@@ -8,7 +8,7 @@ public class Human_statisticVo {
 	private String hs_gndr;
 	private String hs_age_grp;
 	private int hs_hm_no;
-	private Date hs_date;
+	private String hs_date;
 	
 	public String getHs_dong() {
 		return hs_dong;
@@ -34,10 +34,10 @@ public class Human_statisticVo {
 	public void setHs_hm_no(int hs_hm_no) {
 		this.hs_hm_no = hs_hm_no;
 	}
-	public Date getHs_date() {
+	public String getHs_date() {
 		return hs_date;
 	}
-	public void setHs_date(Date hs_date) {
+	public void setHs_date(String hs_date) {
 		this.hs_date = hs_date;
 	}
 	@Override

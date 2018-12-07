@@ -3,35 +3,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-
-<script type="text/javascript">
-		function getCookie(cookieName){
-			//cookieString = > document.cookie
-			var cookies = document.cookie.split("; ");
-			
-			var cookieValue = "";
-			for(var i=0; i< cookies.length; i++){
-				var str  = cookies[i];
-				if(str.startsWith(cookieName + "=")){
-					cookieValue = str.substring((cookieName + "=").length);
-				}
-			}
-			
-			return cookieValue;
-		}
-	</script>
-	
-	<script type="text/javascript">
-	 function showPopup() { 
-		 window.open("/login/pass", "popButten", "width=400, height=300, left=100, top=50"); }
-	
-
-	</script>
 <style type="text/css">
 .logo{
-	margin: 150px 0 100px 250px;
-	padding: 20px 400px 50px 500px;
-	width: 1303px;
+	padding 10px 10px 10px 10px;
+	margin: 100px 0 10px 50px;
+	width: 400px;
+	height: 300px;
 }	
 .button{
 	margin : 100px 0 20px 50px;
@@ -58,7 +35,7 @@ margin : 50px 0 20px 0;
 	
 		<form action="/login/openLogin" method="post">
 		<div class="logo">
-			<img src="/img/openSise_login.png"  alt="오픈시세 로그인" title="오픈시세 로그인 " />
+			<img src="/img/lock.png" width="50px" height="50px" alt="비밀번호 찾기"> 비밀번호 찾기 
 			
 			<div class="button">
 				<label for="inputEmail" class="sr-only">Email address</label> 

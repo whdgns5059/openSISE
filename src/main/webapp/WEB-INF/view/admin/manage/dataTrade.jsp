@@ -9,9 +9,9 @@
 	
 	$(document).ready(function(){
 		
-		if(${insertArticleListResult} != null || ${insertDealListResult} != null){
-			alert(${insertArticleListResult} + "건의 \n건물 정보를 업데이트 하였습니다.");
-			alert(${insertDealListResult} + "건의 \n거래 정보를 업데이트 하였습니다.");
+		if(${param.arResult} != null || ${param.dlResult} != null){
+			alert(${param.arResult} + "건의 \n건물 정보를 업데이트 하였습니다.");
+			alert(${param.dlResult} + "건의 \n거래 정보를 업데이트 하였습니다.");
 		}
 		
 	});
@@ -24,7 +24,7 @@
 	<div class="hr2">
 	</div>
 	
-
+	
 	
 	<a href="http://rtdown.molit.go.kr">국토 교통부 실거래 정보 다운로드페이지</a>
 	<br/>
@@ -43,7 +43,6 @@
 		
 	</form>
 	
-		
 	
 
 </div>

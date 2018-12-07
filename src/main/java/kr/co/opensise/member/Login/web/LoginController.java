@@ -1,5 +1,7 @@
 package kr.co.opensise.member.Login.web;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,7 @@ import kr.co.opensise.member.encrypt.sha.KISA_SHA256;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+	
 	
 	@Resource(name = "loginService")
 	private LoginServiceInf loginService;
@@ -61,7 +64,6 @@ public class LoginController {
 		MemberVo user = loginService.selectMember(mem_email);
 		
 		if (user != null && user.authPass(encryptPass)) {
-			
 			HttpSession session = request.getSession();
 			session.setAttribute("mem_email", user.getMem_pass());
 			model.addAttribute("memberVo",user);
@@ -71,5 +73,67 @@ public class LoginController {
 			return "loginErr";
 		}
 	}
+	
+	/**  
+	* Method   :  
+	* 작성자 :  
+	* 변경이력 :  
+	* @return  
+	* Method 설명 : 비밀번호 찾기
+	*/
+	@RequestMapping("/pass")
+	public String passButton() {
+		return "member/passButton";
+	}
+	
+	
+	
+	/** Method   : signup 
+	* 작성자 :  
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  회원가입
+	*/
+	@RequestMapping("/signup")
+	public String sign_Up(Model model) {
+		List<MemberVo> memberJobLiset = loginService.jobList();
+		model.addAttribute("JobList",memberJobLiset);
+		return "signup";
+	}
+	
+	
+	/** Method   : login 
+	* 작성자 :  
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  회원가입 필수정보입력
+	*/
+	@RequestMapping(value="/signUpSelection", method= {RequestMethod.POST})
+	public String signUpSelection(Model model, MemberVo memberVo) {
+		// 암호화 처리
+		memberVo.setMem_pass(KISA_SHA256.encrypt(memberVo.getMem_pass()));
+		
+		loginService.signup(memberVo);
+		model.addAttribute("mem_email",memberVo.getMem_email());
+		
+		List<MemberVo> interest = loginService.interestLiset();
+		System.out.println("intrstList : " + interest);
+		model.addAttribute("intrstList",interest);
 
+		return "signupDetail";
+	}
+	
+	/** Method   : login 
+	* 작성자 :  
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  회원가입 선택정보입력후 저장 
+	*/
+	@RequestMapping(value="/signupDetail", method= {RequestMethod.POST})
+	public String signupDetail(Model model, MemberVo memberVo) {
+		
+		
+		// 리턴값 임시
+		return "openPage";
+	}
 }
