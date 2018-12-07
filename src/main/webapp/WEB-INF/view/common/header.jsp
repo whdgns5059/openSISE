@@ -58,11 +58,6 @@ function switchPage(bc){
 	<!-- nav items -->
 	<div class="collapse navbar-collapse">
 		<ul class="navbar-nav mr-auto bc-select">
-		<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
-			<li class="nav-item"><a class="nav-link" href="/main/resetMain">단/다세대 주택</a></li>
-			<li class="nav-item"><a class="nav-link" href="/main/resetMain">아파트</a></li>
-			<li class="nav-item"><a class="nav-link" href="/main/resetMain">상가</a></li>
-			<li class="nav-item"><a class="nav-link" href="/main/resetMain">법원경매</a></li>
 			<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
 			<li class="nav-item" id="house" onclick="switchPage(this)">단/다세대 주택</li>
 			<li class="nav-item" id="apt" onclick="switchPage(this)">아파트</li>
