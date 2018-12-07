@@ -2,7 +2,7 @@ package kr.co.opensise.admin.manage.dataetc.model;
 
 import java.util.Date;
 
-public class Human_statisticVo {
+public class HumanStatisticVo {
 
 	private String hs_dong;
 	private String hs_gndr;

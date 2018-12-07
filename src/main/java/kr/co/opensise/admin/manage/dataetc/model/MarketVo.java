@@ -24,6 +24,19 @@ public class MarketVo {
 	public void setMk_classf(String mk_classf) {
 		this.mk_classf = mk_classf;
 	}
+	
+	public boolean equals(Object obj) {
+		if(obj instanceof MarketVo) {
+			MarketVo tmp = (MarketVo) obj;
+			return mk_nm.equals(tmp.mk_nm) && mk_dong.equals(tmp.mk_dong);
+		}
+		return false;
+	}
+	
+	public int hashCode() {
+		return (mk_nm + mk_dong).hashCode();
+	}
+	
 	@Override
 	public String toString() {
 		return "MarketVo [mk_nm=" + mk_nm + ", mk_dong=" + mk_dong + ", mk_classf=" + mk_classf + "]";
