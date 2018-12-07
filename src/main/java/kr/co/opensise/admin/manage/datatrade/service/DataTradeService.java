@@ -36,4 +36,15 @@ public class DataTradeService implements DataTradeServiceInf {
 		return dataTradeDao.updataLatLngArticle(articleVo);
 	}
 
+	@Override
+	public int deleteArticleDeal(ArticleVo articleVo, DealVo dealVo) {
+		
+		int dealResult = dataTradeDao.deleteDeal(dealVo);
+		int articleResult = dataTradeDao.deleteArticle(articleVo);
+		
+		return articleResult;
+	}
+	
+	
+
 }
