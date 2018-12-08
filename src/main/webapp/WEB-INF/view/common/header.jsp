@@ -61,14 +61,14 @@
 		$("#building").val(building);
 		$("#searchName").val(searchName);
 
-		$("#fm").submit();
+		$("#fmi").submit();
 
 	}
 </script>
 
 <!-- navbar시작 -->
 <nav class="navbar navbar-expand-lg navbar-dark">
-	<form action="/main/main" id="fm">
+	<form action="/main/main" id="fmi">
 		<input type="hidden" id="building" name="building" value="${building}"> 
 		<input type="hidden" id="searchName" name="searchName">
 	</form>

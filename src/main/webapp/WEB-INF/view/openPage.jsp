@@ -341,13 +341,8 @@ input:disabled {
 		<div class="nav_right">
 			<ul class="top-menu">
 				<!-- memVo가 null인 경우 -->
-<<<<<<< HEAD
 				<li style="margin-right: 50px;" ><a href="/login/selectLogin">로그인</a></li>
 				<li style="margin-right: 50px;" ><a href="/login/signup">회원가입</a></li>
-=======
-				<li><a href="/login/selectLogin">로그인</a></li>
-				<li><a href="/login/signup">회원가입</a></li>
->>>>>>> 5cda5841165b6fcc8fe4e542c53de1af3ff075af
 				<!-- 관리자일 경우에 생기는 a tag  --> 
  				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  --> 

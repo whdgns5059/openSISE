@@ -157,7 +157,7 @@ public class LoginController {
 	* @return  
 	* Method 설명 :  회원가입시 닉네임 중복체크
 	*/
-	@RequestMapping(value="duplication", method={RequestMethod.POST})
+	@RequestMapping(value="/duplication", method={RequestMethod.POST})
 	public String duplication(@RequestParam("memNm") String mem_nm, Model model ) {
 		int memberNm = loginService.check_nm(mem_nm);
 		model.addAttribute("msg",memberNm);

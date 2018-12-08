@@ -22,11 +22,9 @@ public class MemberVo {
 	private int approval_key;
 	private String mem_mngr;
 	
+	
 	public  MemberVo(){
 	}
-
-	
-	
 	
 	public String getApproval_status() {
 		return approval_status;
