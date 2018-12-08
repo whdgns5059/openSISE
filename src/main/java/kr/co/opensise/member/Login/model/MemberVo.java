@@ -18,45 +18,30 @@ public class MemberVo {
 	private String job_nm;
 	private int intrst_no;
 	private String intrst_nm;
-<<<<<<< HEAD
 	private String approval_status;
 	private int approval_key;
-=======
 	private String mem_mngr;
-	
->>>>>>> 5cda5841165b6fcc8fe4e542c53de1af3ff075af
 	
 	public  MemberVo(){
 	}
-<<<<<<< HEAD
+
 	
 	
 	
 	public String getApproval_status() {
 		return approval_status;
 	}
-
-
-
 	public void setApproval_status(String approval_status) {
 		this.approval_status = approval_status;
 	}
-
-
-
 	public int getApproval_key() {
 		return approval_key;
 	}
-
-
 
 	public void setApproval_key(int approval_key) {
 		this.approval_key = approval_key;
 	}
 
-
-
-=======
 	public int getMem_lvl() {
 		return mem_lvl;
 	}
@@ -81,7 +66,6 @@ public class MemberVo {
 	public void setMem_exdate(Date mem_exdate) {
 		this.mem_exdate = mem_exdate;
 	}
->>>>>>> 5cda5841165b6fcc8fe4e542c53de1af3ff075af
 	public int getIntrst_no() {
 		return intrst_no;
 	}

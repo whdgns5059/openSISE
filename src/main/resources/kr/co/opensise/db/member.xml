@@ -28,7 +28,6 @@
 		select *  from interest
 	</select>
 	
-<<<<<<< HEAD
 	<!-- 닉네임 중복검사  -->
 	<select id="check_nm" parameterType="String" resultType="int">
 		select count(*) 
@@ -42,13 +41,11 @@
 		set mem_pass = #{mem_pass} 
 		where mem_email = #{mem_email}
 	</update>-->
-	
 	 
-=======
 	<delete id="delete" >
 		Delete From member
 	</delete>
->>>>>>> 5cda5841165b6fcc8fe4e542c53de1af3ff075af
+	
 </mapper>
 
 

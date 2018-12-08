@@ -43,7 +43,6 @@ public class LoginDao implements LoginDaoInf{
 		return signUpselection;
 	}
 		
-<<<<<<< HEAD
 		/**
 		 * Method : updateUser 
 		 * 작성자 : 
@@ -58,19 +57,7 @@ public class LoginDao implements LoginDaoInf{
 			return chk_nm;
 		}
 		
-		
-		
 				
-		
-		/**  
-		* Method   : jobList 
-		* 작성자 :  
-		* 변경이력 :  
-		* @param memberVo
-		* @return  
-		* Method 설명 :  직업종류 출력
-		*/
-=======
 	/**  
 	* Method   : jobList 
 	* 작성자 :  
@@ -79,7 +66,6 @@ public class LoginDao implements LoginDaoInf{
 	* @return  
 	* Method 설명 :  직업종류 출력
 s	*/
->>>>>>> 5cda5841165b6fcc8fe4e542c53de1af3ff075af
 	@Override
 	public List<MemberVo> jobList() {
 		List<MemberVo> memberJob = template.selectList("member.job");
