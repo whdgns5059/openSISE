@@ -190,14 +190,9 @@ public class DataTradeController {
 
 			} catch (IndexOutOfBoundsException out) {
 				
-				DealVo dealVo = new DealVo();
-				dealVo.setDl_gu(articleVo.getArtcl_gu());
-				dealVo.setDl_dong(articleVo.getArtcl_dong());
-				dealVo.setDl_zip(articleVo.getArtcl_zip());
-				dealVo.setDl_rd(articleVo.getArtcl_rd());
-				
-				dataTradeService.deleteArticleDeal(articleVo, dealVo);
-				
+				deleteArticleDeal(articleVo);
+				continue;
+
 			}
 			
 			articleVo.setArtcl_lat(lat);
@@ -220,7 +215,15 @@ public class DataTradeController {
 	}
 
 	
-	
+	private void deleteArticleDeal(ArticleVo articleVo) {
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu(articleVo.getArtcl_gu());
+		dealVo.setDl_dong(articleVo.getArtcl_dong());
+		dealVo.setDl_zip(articleVo.getArtcl_zip());
+		dealVo.setDl_rd(articleVo.getArtcl_rd());
+		
+		dataTradeService.deleteArticleDeal(articleVo, dealVo);
+	}
 	
 	
 	
