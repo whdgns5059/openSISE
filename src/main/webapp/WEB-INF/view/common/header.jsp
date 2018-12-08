@@ -3,8 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style type="text/css">
-.logo-tag {
-	padding: 5px 40px 0 30px;
+.logo-tag{
+    width: 10%;
+    line-height: 67px;
+    margin-right: 0;
+    margin-left: 46px;
 }
 
 .navbar {
@@ -20,8 +23,8 @@
 	height: 3px;
 	background: #3a589e;
 }
-
-.top-menu li a {
+.top-menu li a{
+	display: block;
 	color: #ffffff;
 }
 
@@ -46,7 +49,6 @@
  			var store = document.getElementById("store");
  			store.style.color = "white";
  		}
- 		
  		
  		
  	});
@@ -77,7 +79,7 @@
 	</a>
 
 	<!-- nav items -->
-	<div class="collapse navbar-collapse">
+	<div class="collapse navbar-collapse bc-select-div">
 		<ul class="navbar-nav mr-auto bc-select">
 			<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
 			<li class="nav-item" id="house" onclick="switchPage(this)">단/다세대 주택</li>
@@ -103,7 +105,7 @@
 
 </nav>
 
-
+<!-- 데코 라인 -->
 <div class="navline"></div>
 <!-- navbar끝 -->
 

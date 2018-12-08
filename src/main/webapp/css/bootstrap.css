@@ -76,27 +76,58 @@ body {
   color: #222;
   text-align: left;
   background-color: #fff;
+  min-width: 1200px;
 }
 
 /* 커스터마이징 CSS */
-.top-menu{
+
+.contentWrapper {
+	height: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+.contents {
+	margin: 0 auto;
+	padding-left: 300px;
+	padding-right: 300px;
+}
+.nav_right{
+	width: 35%;
+	height: 74px;
+	line-height: 74px;
+	margin: 0;
+    padding: 0;
+    display: inline-block;
     float: right;
-    margin-top: 8px;
+    text-align: left;
+    min-width: 409px;
+}
+.top-menu{
+    padding-left: 0;
+    float: left;
+    width: 100%;
     margin-bottom: 0;
-    margin-right: 10px;
+    margin-right: 100px;
+    line-height: 10px;
 }
 .top-menu li{
 	list-style: none;
-	float: left;
+	float: right;
 	vertical-align: center;
     color: #757575;
     font-size: 13px;
-    margin-right: 50px;
+    text-align: right;
+    margin-right: 20px;
 }
+
+.top-menu li:nth-child(1) { margin-right: 0 !important;}
+
 .admin-title { 
-	width: 85%;
+	max-width:85%;
+	min-width:970px;
     float: left;
     padding: 35px 0 0 45px;
+    
 }
 .hr2{
     border-top: 1px solid #e2e2e2;
@@ -126,19 +157,25 @@ body {
 .blue{
 	background: #4385cd; 	
 }
+.bc-select-div{
+	width: 55%;
+	min-width: 592px;
+}
 .bc-select{
-	padding-top: 46px;
-	width: 500px;
-    height: 70px;
-	font-size: 20px;
-	font-family: 'Noto Sans KR', sans-serif;
+    margin-bottom: 0;
+    padding: 0;
+    width: 100%;
+    height: 74px;
+    line-height: 116px;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-left: 33px;
 }
 .bc-select li{
 	float: left;
 	padding: 0 9px;
-	height: 30px;
 	color: #ffffffc7;
 	border-radius: 5px;
+	font-size: 1.2em;
 }
 .bc-select li:hover{
 	color: white;
@@ -146,6 +183,7 @@ body {
     border-radius: 5px;
     height: 30px;
 }
+
 
 
 /* 커스터마이징 END */
@@ -4273,14 +4311,6 @@ input[type="button"].btn-block {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
-}
-/* 커스터마이징 */
-.nav_right{
-	margin: 0;
-    padding: 0;
-    display: inline-block;
-    float: right;
-    text-align: left;
 }
 
 .nav-link {

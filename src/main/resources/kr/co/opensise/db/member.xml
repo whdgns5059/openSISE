@@ -13,8 +13,8 @@
   	
   	<!-- 회원등록 -->
 	<insert id="signUpSelection" parameterType="memberVo">
-		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job)
-		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC})  
+		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job, mem_date, mem_lvl)
+		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, 3)  
 	</insert>
 	
 	<!-- 직업정보 받아오기 -->
@@ -27,6 +27,10 @@
 	<select id="interest" resultType="memberVo">
 		select *  from interest
 	</select>
+	
+	<delete id="delete" >
+		Delete From member
+	</delete>
 </mapper>
 
 

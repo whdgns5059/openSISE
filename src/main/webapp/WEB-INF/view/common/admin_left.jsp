@@ -5,7 +5,8 @@
 <style type="text/css">
 ul { list-style : none; }	
 .adminLeft {
-    width: 12%;
+    width: 13%;
+    min-width:230px;
     padding-left: 18px;
     padding-right: 20px;
     float: left;
