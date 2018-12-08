@@ -219,18 +219,20 @@ public class InsertAllData{
 				try {
 
 					Map<String, String> latlngMap = CommonUtil.addr2Coord(location);
+					
+					if(latlngMap == null ) {
+						
+						deleteArticleDeal(articleVo);
+						continue;
+					}
+					
 					lat = latlngMap.get("lat");
 					lng = latlngMap.get("lng");
 
 				} catch (IndexOutOfBoundsException out) {
 					
-					DealVo dealVo = new DealVo();
-					dealVo.setDl_gu(articleVo.getArtcl_gu());
-					dealVo.setDl_dong(articleVo.getArtcl_dong());
-					dealVo.setDl_zip(articleVo.getArtcl_zip());
-					dealVo.setDl_rd(articleVo.getArtcl_rd());
-					
-					dataTradeService.deleteArticleDeal(articleVo, dealVo);
+					deleteArticleDeal(articleVo);
+					continue;
 					
 				}
 				
@@ -253,6 +255,18 @@ public class InsertAllData{
 		
 		
 		
+	}
+
+
+
+	private void deleteArticleDeal(ArticleVo articleVo) {
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu(articleVo.getArtcl_gu());
+		dealVo.setDl_dong(articleVo.getArtcl_dong());
+		dealVo.setDl_zip(articleVo.getArtcl_zip());
+		dealVo.setDl_rd(articleVo.getArtcl_rd());
+		
+		dataTradeService.deleteArticleDeal(articleVo, dealVo);
 	}
 	
 	
