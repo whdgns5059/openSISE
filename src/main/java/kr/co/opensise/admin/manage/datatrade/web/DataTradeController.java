@@ -65,11 +65,34 @@ public class DataTradeController {
 			XSSFRow divisionRow = sheet.getRow(8);
 			XSSFCell divisionCell = divisionRow.getCell(0);
 			
+			if(divisionCell == null) {
+				
+				wb.close();
+				bis.close();
+				
+				model.addAttribute("arResult", -1);
+				model.addAttribute("dlResult", -1);
+				
+				return "redirect:/manage/dataTrade/dataTrade";
+				
+				
+			}
+			
 			//1. 파일의 실거래 구분을 확인
 			String division = divisionCell.toString();
 		
 			//행의 갯수
 			int rows = sheet.getPhysicalNumberOfRows();
+			
+			if(rows < 17) {
+				wb.close();
+				bis.close();
+				
+				model.addAttribute("arResult", -1);
+				model.addAttribute("dlResult", -1);
+				
+				return "redirect:/manage/dataTrade/dataTrade";
+			}
 			
 			//2. 반복문을 이용해  실거래 구분에 따라서 
 			//셀에서 필요한 정보를 ArticleVo, DealVo에 각각담아야함 
@@ -84,6 +107,16 @@ public class DataTradeController {
 				DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
 
 				Map<String, Object> setVoMap = dataUtil.setVoMap(division, row);
+				
+				if(setVoMap == null) {
+					wb.close();
+					bis.close();
+					
+					model.addAttribute("arResult", -1);
+					model.addAttribute("dlResult", -1);
+					
+					return "redirect:/manage/dataTrade/dataTrade";
+				}
 				
 				ArticleVo articleVo = (ArticleVo) setVoMap.get("articleVo");
 				DealVo dealVo = (DealVo) setVoMap.get("dealVo");
@@ -177,6 +210,7 @@ public class DataTradeController {
 		return "redirect:/manage/dataTrade/dataTrade";
 				
 	}
+
 	
 	
 	

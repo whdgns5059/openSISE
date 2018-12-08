@@ -45,6 +45,8 @@ public class DataTradeControllerUtil {
 			setVoMap = setVo(row, 0, 1, 13, 2, 3, 4, -1, 12, "apt", -1, -1, -1, 5, -1, 9, 10, 6, 11, 7, 8);
 		}else if(division.equals(NT)) {
 			setVoMap = setVo(row, 0, -1, 3, -1, -1, -1, -1, 14, "store", 4, 5, 1, -1, 9, -1, -1, 7, 10, 11, 12);
+		}else {
+			return null;
 		}
 		return setVoMap;
 	}
