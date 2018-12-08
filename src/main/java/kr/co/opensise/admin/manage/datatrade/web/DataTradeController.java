@@ -177,6 +177,14 @@ public class DataTradeController {
 			try {
 
 				Map<String, String> latlngMap = CommonUtil.addr2Coord(location);
+				
+				if(latlngMap == null ) {
+					
+					deleteArticleDeal(articleVo);
+					continue;
+				}
+				
+				
 				lat = latlngMap.get("lat");
 				lng = latlngMap.get("lng");
 
