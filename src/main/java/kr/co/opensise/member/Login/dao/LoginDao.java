@@ -37,13 +37,13 @@ public class LoginDao implements LoginDaoInf{
 	* @return  
 	* Method 설명 :  회원가입
 	*/
-		@Override
-		public int signup(MemberVo memberVo) {
-			int signUpselection = template.insert("member.signUpSelection", memberVo);
-			return signUpselection;
-		}
+	@Override
+	public int signup(MemberVo memberVo) {
+		int signUpselection = template.insert("member.signUpSelection", memberVo);
+		return signUpselection;
+	}
 		
-		
+<<<<<<< HEAD
 		/**
 		 * Method : updateUser 
 		 * 작성자 : 
@@ -70,6 +70,16 @@ public class LoginDao implements LoginDaoInf{
 		* @return  
 		* Method 설명 :  직업종류 출력
 		*/
+=======
+	/**  
+	* Method   : jobList 
+	* 작성자 :  
+	* 변경이력 :  
+	* @param memberVo
+	* @return  
+	* Method 설명 :  직업종류 출력
+s	*/
+>>>>>>> 5cda5841165b6fcc8fe4e542c53de1af3ff075af
 	@Override
 	public List<MemberVo> jobList() {
 		List<MemberVo> memberJob = template.selectList("member.job");
@@ -85,13 +95,63 @@ public class LoginDao implements LoginDaoInf{
 	* @return  
 	* Method 설명 :  관심사 리스트 출력
 	*/
-		@Override
-		public List<MemberVo> interestLiset() {
-			List<MemberVo> interestLiset = template.selectList("member.interest");		
-			return interestLiset;
-		}
+	@Override
+	public List<MemberVo> interestLiset() {
+		List<MemberVo> interestLiset = template.selectList("member.interest");		
+		return interestLiset;
+	}
+
+	@Override
+	public int delete() {
+		int deleteCnt = template.delete("member.delete");
+		return deleteCnt;
+	}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		
 		
 		
 		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

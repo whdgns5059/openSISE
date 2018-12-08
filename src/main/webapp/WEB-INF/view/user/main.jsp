@@ -68,6 +68,8 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+
 ::-webkit-scrollbar{width: 16px;}
 ::-webkit-scrollbar-track {background-color:#f1f1f1;}
 ::-webkit-scrollbar-thumb {background-color:#ffae24;border-radius: 10px;}
@@ -150,7 +152,7 @@
 		var x;
 		var y;
 
-		if ($("#loc").val() == "") {
+		if ($("#loc").val() == "" || $("#listSize").val() == 0) {
 			// 검색값이 없을 때 시청으로 기본 좌표값 설정
 			x = 36.3505393936125;
 			y = 127.38483389033713;
@@ -172,7 +174,7 @@
 		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 		//마커가 표시될 위치입니다 
 		var markerPosition = new daum.maps.LatLng(x, y);
-		//마커를 생성합니다
+		//마커를 생성합니다'
 		var marker = new daum.maps.Marker({
 			position : markerPosition
 		});
@@ -185,6 +187,7 @@
 
 <!-- left contents -->
 <div class="main-left">
+	<input type="hidden" id="listSize" value="${buildingSaleListSize}" />
 	<c:forEach items="${buildingSaleList}" var="build">
 		<input type="hidden" class="lat" value="${build.artcl_lat}">
 		<input type="hidden" class="lng" value="${build.artcl_lng}">
@@ -203,6 +206,31 @@
 		<!-- 필터 -->
 		<div class="filters-div">
 			<ul class="nav nav-tabs" >
+			<c:if test="${building == 'multi'}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">주거형태</a>
+					<div class="dropdown-menu">
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#">
+								<input type="checkbox" class="custom-control-input" id="jeonse" />
+		     					<label class="custom-control-label" for="jeonse">&nbsp&nbsp단독</label>
+		     				</a>
+		     			</div>
+		     			<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#">
+								<input type="checkbox" class="custom-control-input" id="wolse" />
+		     					<label class="custom-control-label" for="wolse">&nbsp&nbsp다세대</label>
+		     				</a>
+		     			</div>
+		     			<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#">
+								<input type="checkbox" class="custom-control-input" id="maemae" />
+		     					<label class="custom-control-label" for="maemae">&nbsp&nbsp연립</label>
+		     				</a>
+		     			</div>
+					</div> 
+				</li>
+			</c:if>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">전/월/매</a>
 					<div class="dropdown-menu">
@@ -272,21 +300,41 @@
 
 	<!-- 매물리스트  -->
 	<div class="articles">
-		<c:forEach items="${buildingSaleList}" var="building">
-			<div class="article">
-				<h4>${building.artcl_complx}</h4>
+	<c:choose>
+		<c:when test="${buildingSaleListSize != 0}">
+			<c:forEach items="${buildingSaleList}" var="build">
+				<div class="article">
+				<c:choose>
+					<c:when test="${building == 'apt'}">
+						<h4>${build.artcl_complx}</h4>		
+					</c:when>
+					<c:when test="${building == 'multi'}">
+						<h4>${build.artcl_rd}</h4>		
+					</c:when>
+					<c:when test="${building == 'office'}">
+						<h4>${build.artcl_complx}</h4>		
+					</c:when>
+					<c:when test="${building == 'store'}">
+						<h4>${build.artcl_nm}</h4>		
+					</c:when>
+				</c:choose>
+				
 				<label class="address">상세주소시 상세구 주소동 상세주소단지</label><br/>
+				<!-- 평균 시세는 근 3개월 간의 시세를 평균으로 낸다. -->
 				<label class="avg-price">평균시세&nbsp:&nbsp&nbsp100억</label>
-            </div>
-		</c:forEach>
+            	</div>
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			검색 결과가 없습니다.(돋보기 그림 추가 + 글씨크기 키우고 색은 옅은 회색)
+		</c:otherwise>
+	</c:choose>
 	</div>
 	
-	
-	<div class="area-analysis">
+	<!-- 지역분석 버튼 -->
+	<!-- <div class="area-analysis">
 		2
-	</div>
-	
-
+	</div> -->
 </div>
 
 

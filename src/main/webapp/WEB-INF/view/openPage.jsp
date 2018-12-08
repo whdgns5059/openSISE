@@ -11,20 +11,18 @@
 <%@ include file="/WEB-INF/view/common/basicLib.jsp" %> 
 
 <style type="text/css">
-.contents {
-	margin: 0 auto;
-	padding-left: 300px;
-	padding-right: 300px;
-}
 .navC{
 	width: 100%;
 	height: 50px;
 }
 .nav_right{
 	width:500px;
-	height: 80px;
+	height: 50px;
 	display:inline-block;
 	float: right;
+}
+.top-menu{
+    line-height: 28px;
 }
 td {
 	width: 450px;
@@ -57,8 +55,10 @@ td {
 	margin: 0 auto;
 }
 .search{
-	width:1050px ;
-	height:50px ;
+    width: 1028px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 auto;
 }
 .searchF{
 	margin-top: 1rem;
@@ -77,31 +77,33 @@ td {
 }
 .searchBox{
     width: 900px;
+    min-width: 738px;
     height: 49px;
     border: solid 2px #e8a93f;
     border-radius: 0.3rem;
-	padding-left: 1rem;
+    padding-left: 1rem;
 }
 .board{
-	width:1303px ;
-	height:500px ;
-    margin: 100px 0 150px 0;
+    width: 1200px;
+    height: 500px;
+    margin: 88px auto;
+    margin-bottom: 200px;
 }
 .picture{
-	width:600px ;
+	width:590px ;
 	height:450px ;
 	display: inline-block;
 	float: left;
 }
 .notice{
-    width: 640px;
-    height: 454px;
+    width: 590px;
+    height: 450px;
     display: inline-block;
     float: right;
     border: 1px solid #bbbbbb;
 }
 .notice-top{
-	width: 568px;
+	width: 518px;
     height: 70px;
     display: block;
 }
@@ -127,7 +129,7 @@ td {
 }
 .notice-word{
     margin: 28px 36px;
-    width: 556px;
+    width: 518px;
     height: 394px;
 }
 .notice-cont{
@@ -291,6 +293,8 @@ input:disabled {
     
     $(document).ready(function(){
     	
+    	$("#searchName").val("");
+    	
 		//검은 막 띄우기
 		$(".openMask").click(function(e) {
 			e.preventDefault();
@@ -331,16 +335,19 @@ input:disabled {
 </script>
 </head>
 <body>
-<!-- wrap div -->
-<div class="wrap">
 	<!-- navigation -->
 	<div class="navC">
 		<!-- nav_right -->
 		<div class="nav_right">
 			<ul class="top-menu">
 				<!-- memVo가 null인 경우 -->
+<<<<<<< HEAD
 				<li style="margin-right: 50px;" ><a href="/login/selectLogin">로그인</a></li>
 				<li style="margin-right: 50px;" ><a href="/login/signup">회원가입</a></li>
+=======
+				<li><a href="/login/selectLogin">로그인</a></li>
+				<li><a href="/login/signup">회원가입</a></li>
+>>>>>>> 5cda5841165b6fcc8fe4e542c53de1af3ff075af
 				<!-- 관리자일 경우에 생기는 a tag  --> 
  				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  --> 
@@ -480,8 +487,6 @@ input:disabled {
 		</div>
 	</div>
 	
-	
-</div>	<!-- wrap END -->
 
 </body>
 </html>

@@ -30,7 +30,7 @@ public class MainController {
 	* Method 설명 : 건물분류와 검색명을 가지고 매물 검색   
 	*/
 	@RequestMapping("/main")
-	public String main(Model model, @RequestParam("searchName")String searchName, @RequestParam("building")String building) {
+	public String main(Model model, @RequestParam(value="searchName", defaultValue="")String searchName, @RequestParam("building")String building) {
 		Map<String, String> searchMap = new HashMap<String, String>();
 		searchMap.put("searchName", searchName);
 		searchMap.put("building", building);
@@ -38,7 +38,9 @@ public class MainController {
 		List<BuildingSaleVo> buildSaleList = mainService.buildingSaleList(searchMap);
 		//하라미터를 바탕으로  db에 검색 (파라미터 : 건물분류, 검색명)
 		model.addAttribute("buildingSaleList", buildSaleList);
+		model.addAttribute("buildingSaleListSize", buildSaleList.size());
 		model.addAttribute("search", searchName);
+		model.addAttribute("building",building);
 		return "main";
 	}
 	

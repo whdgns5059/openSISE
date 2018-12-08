@@ -13,8 +13,8 @@
   	
   	<!-- 회원가입 -->
 	<insert id="signUpSelection" parameterType="memberVo">
-		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job)
-		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC})  
+		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job, mem_date, mem_lvl)
+		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, 3)  
 	</insert>
 	
 	<!-- 직업정보 받아오기 -->
@@ -28,6 +28,7 @@
 		select *  from interest
 	</select>
 	
+<<<<<<< HEAD
 	<!-- 닉네임 중복검사  -->
 	<select id="check_nm" parameterType="String" resultType="int">
 		select count(*) 
@@ -43,6 +44,11 @@
 	</update>-->
 	
 	 
+=======
+	<delete id="delete" >
+		Delete From member
+	</delete>
+>>>>>>> 5cda5841165b6fcc8fe4e542c53de1af3ff075af
 </mapper>
 
 
