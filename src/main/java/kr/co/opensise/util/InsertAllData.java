@@ -165,6 +165,10 @@ public class InsertAllData{
 					
 				}
 				
+				log.info("***************************************************");
+				log.info("데이터 인서트 중.....");
+				log.info("***************************************************");
+				
 				//4. 담은 Vo들을 List에 담고 insert한다..
 				int insertArticleListResult = 0;
 				int insertDealListResult = 0;
