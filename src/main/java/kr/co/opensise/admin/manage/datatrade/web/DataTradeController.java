@@ -1,6 +1,7 @@
 package kr.co.opensise.admin.manage.datatrade.web;
 
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -149,7 +150,7 @@ public class DataTradeController {
 				lat = latlngMap.get("lat");
 				lng = latlngMap.get("lng");
 
-			} catch (IndexOutOfBoundsException out) {
+			} catch (IndexOutOfBoundsException | NullPointerException | IOException out) {
 				
 				DealVo dealVo = new DealVo();
 				dealVo.setDl_gu(articleVo.getArtcl_gu());

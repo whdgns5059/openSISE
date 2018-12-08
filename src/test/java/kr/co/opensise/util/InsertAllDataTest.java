@@ -27,8 +27,9 @@ public class InsertAllDataTest extends RootSetup{
 	 ******************************************/
 	@Test
 	public void insertAllDataTest() throws IOException {
+		
 		/***given***/
-		String root = "C:\\Users\\1003yd\\Desktop\\OpenSISE\\API\\실거래가 API\\2013";
+		String root = "C:\\Users\\1003yd\\Desktop\\OpenSISE\\API\\실거래가 API\\2012";
 		
 		/***when***/
 		insertAllData.insertAllDataTrade(root);
