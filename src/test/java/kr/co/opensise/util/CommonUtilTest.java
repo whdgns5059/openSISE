@@ -2,6 +2,7 @@ package kr.co.opensise.util;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class CommonUtilTest {
 	private Logger log = LoggerFactory.getLogger(CommonUtilTest.class);
 	
 	@Test
-	public void geoCodingTest() {
+	public void geoCodingTest() throws NullPointerException, IndexOutOfBoundsException, IOException {
 		
 		/***given***/
 		String location = "대전서구 월평동 1212";
