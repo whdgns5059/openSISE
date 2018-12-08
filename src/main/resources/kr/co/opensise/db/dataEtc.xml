@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dataEtc">
-
+<!-- 인구통계 insert -->
 	<insert id="insertHumanStatistic" parameterType="map">
 		insert all
 		<foreach collection="list" item="hvo" separator=" ">
@@ -14,6 +14,32 @@
 				#{hvo.hs_hm_no},
 				#{hvo.hs_date}
 				) 
+		</foreach>
+		select * from dual 
+	</insert>
+<!-- 물가  insert -->	
+	<insert id="insertMarket" parameterType="map">
+		insert all
+		<foreach collection="list" item="mvo" separator=" ">
+			into MARKET(
+				mk_nm,mk_dong,mk_classf	)
+			values (
+				#{mvo.mk_nm},#{mvo.mk_dong},#{mvo.mk_classf}
+				)
+		</foreach>
+		select * from dual 
+	</insert>
+	
+<!-- 물가상세  insert -->	
+	<insert id="insertMarketDetail" parameterType="map">
+		insert all
+		<foreach collection="list" item="mdvo" separator=" ">
+			into Market_detail(
+              mkd_no , mkd_date,mkd_price,mkd_prod,mkd_prod_detail,mkd_mk,mkd_mk_dong) 
+            values  (
+                get_seq_mkd_no(),#{mdvo.mkd_date},#{mdvo.mkd_price},#{mdvo.mkd_prod},
+                #{mdvo.mkd_prod_detail},#{mdvo.mkd_mk},#{mdvo.mkd_mk_dong}
+            )
 		</foreach>
 		select * from dual 
 	</insert>

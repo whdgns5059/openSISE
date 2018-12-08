@@ -57,7 +57,7 @@ public class InsertAllData{
 		
 		File[] listOfFile = directory.listFiles();
 		
-		for(File file : listOfFile) {
+		fileLoop : for(File file : listOfFile) {
 			
 			if(file.isDirectory()) {
 				
@@ -112,11 +112,25 @@ public class InsertAllData{
 				//9번째 행에서 파일 구분 가져오기
 				XSSFRow divisionRow = sheet.getRow(8);
 				XSSFCell divisionCell = divisionRow.getCell(0);
+				
+				if(divisionCell == null) {
+					
+					printError(file);
+					continue;
+					
+				}
+				
 				String division = divisionCell.toString();
 				//1. 파일의 실거래 구분을 확인
 			
 				//행의 갯수
 				int rows = sheet.getPhysicalNumberOfRows();
+				
+				if(rows < 17) {
+					
+					printError(file);
+					continue;
+				}
 				
 				//2. 반복문을 이용해  실거래 구분에 따라서 
 				//셀에서 필요한 정보를 ArticleVo, DealVo에 각각담아야함 
@@ -132,6 +146,11 @@ public class InsertAllData{
 					DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
 					Map<String, Object> setVoMap =  dataUtil.setVoMap(division, row);
 					
+					if(setVoMap == null) {
+						printError(file);
+						continue fileLoop;
+					}
+					
 										
 					if(setVoMap != null) {
 						ArticleVo articleVo = (ArticleVo) setVoMap.get("articleVo");
@@ -145,6 +164,10 @@ public class InsertAllData{
 					}
 					
 				}
+				
+				log.info("***************************************************");
+				log.info("데이터 인서트 중.....");
+				log.info("***************************************************");
 				
 				//4. 담은 Vo들을 List에 담고 insert한다..
 				int insertArticleListResult = 0;
@@ -200,18 +223,20 @@ public class InsertAllData{
 				try {
 
 					Map<String, String> latlngMap = CommonUtil.addr2Coord(location);
+					
+					if(latlngMap == null ) {
+						
+						deleteArticleDeal(articleVo);
+						continue;
+					}
+					
 					lat = latlngMap.get("lat");
 					lng = latlngMap.get("lng");
 
 				} catch (IndexOutOfBoundsException out) {
 					
-					DealVo dealVo = new DealVo();
-					dealVo.setDl_gu(articleVo.getArtcl_gu());
-					dealVo.setDl_dong(articleVo.getArtcl_dong());
-					dealVo.setDl_zip(articleVo.getArtcl_zip());
-					dealVo.setDl_rd(articleVo.getArtcl_rd());
-					
-					dataTradeService.deleteArticleDeal(articleVo, dealVo);
+					deleteArticleDeal(articleVo);
+					continue;
 					
 				}
 				
@@ -234,6 +259,36 @@ public class InsertAllData{
 		
 		
 		
+	}
+
+
+
+	private void deleteArticleDeal(ArticleVo articleVo) {
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu(articleVo.getArtcl_gu());
+		dealVo.setDl_dong(articleVo.getArtcl_dong());
+		dealVo.setDl_zip(articleVo.getArtcl_zip());
+		dealVo.setDl_rd(articleVo.getArtcl_rd());
+		
+		dataTradeService.deleteArticleDeal(articleVo, dealVo);
+	}
+	
+	
+	
+	private void printError(File file) {
+		
+		
+		log.info("***************************************************");
+		log.info("파일 명 : {}", file.getName() );
+		log.info("해당파일은 실거래 파일이 아니거나 잘못된 파일 입니다");
+		log.info("다음 파일을 탐색 합니다.....");
+		log.info("***************************************************");
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 		
 	

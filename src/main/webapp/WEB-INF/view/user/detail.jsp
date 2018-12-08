@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-
 		
 		// 해당 주소에 대한 좌표값을 담을 변수
 		var x;
@@ -15,7 +15,7 @@
 		// 해당 주소를 담을 값
 		var addr;
 		
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
 		mapOption = {
 			center : new daum.maps.LatLng(36.3505393936125,127.38483389033713), // 지도의 중심좌표
 			level : 3
@@ -33,6 +33,35 @@
 		//마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
 		
+		//주소 좌표 변환 객체
+		var geocoder = new daum.maps.services.Geocoder();
+
+		
+		<%-- toLocal 클릭시 좌표읽어서 이동 --%>
+		$('.toLocal').on('click', function(){
+			
+			var geocoder = new daum.maps.services.Geocoder();
+	
+			var center = map.getCenter();
+
+			var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
+			var callback = function(result, status) {
+			    if (status === daum.maps.services.Status.OK) {
+			    	
+			    	var gu = result[0].address.region_2depth_name;
+			    	var dong = result[0].address.region_3depth_name;
+
+	
+			    	location.href="/local/local?gu="+gu+"&dong="+dong;
+			    	
+			    }
+			};
+
+			geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+			
+				
+		});
+		
 	});
 </script>
 
@@ -41,10 +70,8 @@
 <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
 <!-- 실거래 차트  -->
 <script>
-
 	$(document).ready(function(){
 		var tradeChartData = {
-
 		type: 'line',  
 		title: { text: '1년간 실거래가'  },
 		legend: {}, // Creates an interactive legend
@@ -54,21 +81,17 @@
 		
 		
 		};
-
 		zingchart.render({ // Render Method[3]
 		  id: 'myChart',
 		  data: tradeChartData,
 		});
 		
 	});
-
 </script>
 <!-- 다각형 그래프 -->
 <script>
-
 	$(document).ready(function(){
 		var radarChartData = {
-
 		type: 'radar',  
 		title: { text: 'openSISE 점수표'  },
 		legend: {}, // Creates an interactive legend
@@ -82,14 +105,12 @@
 		
 		
 		};
-
 		zingchart.render({ // Render Method[3]
 		  id: 'radarChartDiv',
 		  data: radarChartData,
 		});
 		
 	});
-
 </script>
 
 <!-- 리뷰 컨트롤 스크립트 -->
@@ -152,7 +173,10 @@
 	.photo {clear:left;}
 	.reviewModify {text-align: right;}	
 	
-	.class {position: absolute; }	
+	.class {position: absolute; }
+	
+	#mapWrap {position: relative;}
+	.toLocal {position: absolute; top: 740px; left: 540px; z-index: 10; width:150px; height: 150px;}	
 	
 </style>
 

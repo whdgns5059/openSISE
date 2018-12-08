@@ -19,11 +19,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.code.geocoder.model.LatLng;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
@@ -68,11 +66,34 @@ public class DataTradeController {
 			XSSFRow divisionRow = sheet.getRow(8);
 			XSSFCell divisionCell = divisionRow.getCell(0);
 			
+			if(divisionCell == null) {
+				
+				wb.close();
+				bis.close();
+				
+				model.addAttribute("arResult", -1);
+				model.addAttribute("dlResult", -1);
+				
+				return "redirect:/manage/dataTrade/dataTrade";
+				
+				
+			}
+			
 			//1. 파일의 실거래 구분을 확인
 			String division = divisionCell.toString();
 		
 			//행의 갯수
 			int rows = sheet.getPhysicalNumberOfRows();
+			
+			if(rows < 17) {
+				wb.close();
+				bis.close();
+				
+				model.addAttribute("arResult", -1);
+				model.addAttribute("dlResult", -1);
+				
+				return "redirect:/manage/dataTrade/dataTrade";
+			}
 			
 			//2. 반복문을 이용해  실거래 구분에 따라서 
 			//셀에서 필요한 정보를 ArticleVo, DealVo에 각각담아야함 
@@ -87,6 +108,16 @@ public class DataTradeController {
 				DataTradeControllerUtil dataUtil = new DataTradeControllerUtil();
 
 				Map<String, Object> setVoMap = dataUtil.setVoMap(division, row);
+				
+				if(setVoMap == null) {
+					wb.close();
+					bis.close();
+					
+					model.addAttribute("arResult", -1);
+					model.addAttribute("dlResult", -1);
+					
+					return "redirect:/manage/dataTrade/dataTrade";
+				}
 				
 				ArticleVo articleVo = (ArticleVo) setVoMap.get("articleVo");
 				DealVo dealVo = (DealVo) setVoMap.get("dealVo");
@@ -147,19 +178,22 @@ public class DataTradeController {
 			try {
 
 				Map<String, String> latlngMap = CommonUtil.addr2Coord(location);
+				
+				if(latlngMap == null ) {
+					
+					deleteArticleDeal(articleVo);
+					continue;
+				}
+				
+				
 				lat = latlngMap.get("lat");
 				lng = latlngMap.get("lng");
 
 			} catch (IndexOutOfBoundsException | NullPointerException | IOException out) {
 				
-				DealVo dealVo = new DealVo();
-				dealVo.setDl_gu(articleVo.getArtcl_gu());
-				dealVo.setDl_dong(articleVo.getArtcl_dong());
-				dealVo.setDl_zip(articleVo.getArtcl_zip());
-				dealVo.setDl_rd(articleVo.getArtcl_rd());
-				
-				dataTradeService.deleteArticleDeal(articleVo, dealVo);
-				
+				deleteArticleDeal(articleVo);
+				continue;
+
 			}
 			
 			articleVo.setArtcl_lat(lat);
@@ -180,8 +214,17 @@ public class DataTradeController {
 		return "redirect:/manage/dataTrade/dataTrade";
 				
 	}
+
 	
-	
+	private void deleteArticleDeal(ArticleVo articleVo) {
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu(articleVo.getArtcl_gu());
+		dealVo.setDl_dong(articleVo.getArtcl_dong());
+		dealVo.setDl_zip(articleVo.getArtcl_zip());
+		dealVo.setDl_rd(articleVo.getArtcl_rd());
+		
+		dataTradeService.deleteArticleDeal(articleVo, dealVo);
+	}
 	
 	
 	
