@@ -120,7 +120,7 @@ body {
     margin-right: 20px;
 }
 
-.top-menu li:nth-child(1) { margin-right: 0 !important;}
+.top-menu li:nth-child(1) { margin-right: 32px !important;}
 
 .admin-title { 
 	max-width:85%;
@@ -169,6 +169,7 @@ body {
     line-height: 116px;
     font-family: 'Noto Sans KR', sans-serif;
     margin-left: 33px;
+    cursor: pointer;
 }
 .bc-select li{
 	float: left;
@@ -183,7 +184,6 @@ body {
     border-radius: 5px;
     height: 30px;
 }
-
 
 
 /* 커스터마이징 END */
