@@ -13,6 +13,8 @@ public class MemberVo {
 	private String job_nm;
 	private int intrst_no;
 	private String intrst_nm;
+	private String approval_status;
+	private int approval_key;
 	
 	public  MemberVo(){
 		
@@ -20,6 +22,30 @@ public class MemberVo {
 	
 	
 	
+	public String getApproval_status() {
+		return approval_status;
+	}
+
+
+
+	public void setApproval_status(String approval_status) {
+		this.approval_status = approval_status;
+	}
+
+
+
+	public int getApproval_key() {
+		return approval_key;
+	}
+
+
+
+	public void setApproval_key(int approval_key) {
+		this.approval_key = approval_key;
+	}
+
+
+
 	public int getIntrst_no() {
 		return intrst_no;
 	}

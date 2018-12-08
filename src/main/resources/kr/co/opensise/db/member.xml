@@ -11,7 +11,7 @@
   		
   	</select>
   	
-  	<!-- 회원등록 -->
+  	<!-- 회원가입 -->
 	<insert id="signUpSelection" parameterType="memberVo">
 		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job)
 		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC})  
@@ -27,6 +27,22 @@
 	<select id="interest" resultType="memberVo">
 		select *  from interest
 	</select>
+	
+	<!-- 닉네임 중복검사  -->
+	<select id="check_nm" parameterType="String" resultType="int">
+		select count(*) 
+		from member 
+		where mem_nm = #{mem_nm}
+	</select> 
+	
+	<!-- 비밀번호 찾기 
+	<update id="update_pw" parameterType="memberVo">
+		update member 
+		set mem_pass = #{mem_pass} 
+		where mem_email = #{mem_email}
+	</update>-->
+	
+	 
 </mapper>
 
 

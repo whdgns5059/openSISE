@@ -1,8 +1,11 @@
 package kr.co.opensise.member.Login.service;
 
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
@@ -40,6 +43,21 @@ public class LoginService implements LoginServiceInf{
 	public int signup(MemberVo memberVo) {
 		return loginDao.signup(memberVo);
 	}
+	
+
+	/**
+	 * Method : updateUser 
+	 * 작성자 : 
+	 * 변경이력 :
+	 * 
+	 * @param UserVo
+	 * @return Method 설명 : 회원가입(닉네임 중복검사)
+	 */
+	@Override
+	public int check_nm(String mem_nm) {
+		// TODO Auto-generated method stub
+		return loginDao.check_nm(mem_nm);
+	}
 
 	/**  
 	* Method   : jobList 
@@ -68,4 +86,26 @@ public class LoginService implements LoginServiceInf{
 		// TODO Auto-generated method stub
 		return loginDao.interestLiset();
 	}
+
+	/**  
+	* Method   : create_key 
+	* 작성자 :  
+	* 변경이력 :  
+	* @param memberVo
+	* @return  
+	* Method 설명 :  회원가입 메일인증키 
+	*/
+	@Override
+	public String create_key() {
+		String key = "";
+		Random rd = new Random();
+
+		for (int i = 0; i < 8; i++) {
+			key += rd.nextInt(10);
+		}
+		return key;
+	}
+
+
+	
 }

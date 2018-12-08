@@ -79,11 +79,25 @@ public class LoginController {
 	* 작성자 :  
 	* 변경이력 :  
 	* @return  
-	* Method 설명 : 비밀번호 찾기
+	* Method 설명 : 비밀번호 찾기 팝업으로 이동
 	*/
 	@RequestMapping("/pass")
 	public String passButton() {
 		return "member/passButton";
+	}
+	
+
+	/**  
+	* Method   :  
+	* 작성자 :  
+	* 변경이력 :  
+	* @return  
+	* Method 설명 : 비밀번호 찾기 
+	*/
+	@RequestMapping("/passChk")
+	public String passButtonChk() {
+		// 임시 return
+		return "signup";
 	}
 	
 	
@@ -135,5 +149,20 @@ public class LoginController {
 		
 		// 리턴값 임시
 		return "openPage";
+	}
+	
+	/** Method   : login 
+	* 작성자 :  
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  회원가입시 닉네임 중복체크
+	*/
+	@RequestMapping(value="duplication", method={RequestMethod.POST})
+	public String duplication(@RequestParam("memNm") String mem_nm, Model model ) {
+		int memberNm = loginService.check_nm(mem_nm);
+		model.addAttribute("msg",memberNm);
+		
+		return "signup";
+		
 	}
 }

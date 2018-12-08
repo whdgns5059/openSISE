@@ -21,6 +21,55 @@
 			}
 			return cookieValue;
 		}
+		
+		$(document).ready(function(){
+			$("#duplication").on("click",function(){
+				// 사용자가 입력한 email을 memEmail 변수에 저장
+				var memberNm = $("#userNm").val();
+				// 파라미터로 보낼 form 태그 안 input(hidden)에 value 값 저장
+				$("#memNm").val(memberNm);
+				//form 실행
+				$("#fm").submit();
+				
+			});
+			
+			/*$("#duplication").on("click",function(){
+	            var memberNm = $("#userNm").val();
+	            $.ajax({
+	               contentType : "application/json; charset=utf-8",
+	               url:"/login/duplication",
+	               type: "GET",
+	               //파라미터 보낼 값
+	               data : "memNm="+memberNm,
+	               //요청이 성공했을 때(controller에서 돌아왔을 때)
+	               // dt: controller 에서 보내는 값 (ex: model.addAttribute(key,value))
+	               // dt -> {mem_nm : 늘보, mem_email:brown}
+	               success: function(dt){
+	                  var html="";
+	                  /* html += "<c:if test='${msg == 0}'>";
+	                  html += "<span id='y'>:: 사용가능한 닉네임 입니다.</span>";
+	                  html += "</c:if>";
+	                  html += "<c:if test='${msg >= 1}'>";
+	                  html += "<span id='n'>:: 중복된 닉네임 입니다.</span>";
+	                  html += "</c:if>"; 
+	                  
+	                  
+	                  
+	                  if(dt.msg ==0){
+	                	  html += "<span id='y'>:: 사용가능한 닉네임 입니다.</span>";
+	                  }else{
+	                	  html += "<span id='n'>:: 중복된 닉네임 입니다.</span>";	  
+	                  }
+	                  $("#duplicate").html("");
+	                  $("#duplicate").html(html);
+	               }
+	            });
+	         });
+			
+		*/
+		});
+			
+	       
 	</script>
 
 <style type="text/css">
@@ -66,6 +115,13 @@ margin : 50px 0 20px 0;
 	float: left;
 	width: 90%;
 }
+
+#y{
+	color: green;
+}
+#n{
+	color: red;
+}
 .logoInputCenter{margin:0 auto;width:500px;}
 .logoInputDiv{float:left;}
 .logoInputBtn{float:left;margin-left:-20px;}
@@ -87,20 +143,30 @@ margin : 50px 0 20px 0;
 						<li>
 							<label for="inputEmail" id="necessary">
 								<span>*</span>
-								<input type="text" id="userNm" name="mem_nm" value="" class="form-control"	placeholder="닉네임을 입력하세요" required autofocus>						
+								<input type="text" id="userNm" name="mem_nm" value="${param.memNm}"  class="form-control"	placeholder="닉네임을 입력하세요" required autofocus>						
 						 	</label>
+						 	<div id="duplicate" >
+								<c:if test="${msg == 0}">
+									<span id="y">:: 사용가능한 닉네임 입니다.</span>	
+								</c:if>
+								<c:if test="${msg >= 1}">
+									<span id="n">:: 중복된 닉네임 입니다.</span>	
+								</c:if>
+							</div>
+						 	
 						</li>
 						<li>
 						
 							<label for="inputEmail" id="necessary">
 								<span>*</span>
-								<input type="text" id="userId" name="mem_email" value="" class="form-control" placeholder="이메일을 입력하세요" required autofocus>
+								<input type="text" id="userId" name="mem_email"  class="form-control" placeholder="이메일을 입력하세요" required autofocus>
+								
 							</label> 
 						</li>
 						<li>
 							<label for="inputEmail" id="necessary">
 								<span>*</span>
-								<input type="password" id="inputPassword" name="mem_pass" value="" class="form-control" placeholder="비밀번호를 입력하세요" required>
+								<input type="password" id="inputPassword" name="mem_pass" class="form-control" placeholder="비밀번호를 입력하세요" required>
 							</label>
 						</li>
 						<li>
@@ -124,17 +190,20 @@ margin : 50px 0 20px 0;
 				
 				<div class="logoInputBtn">
 					<ul>
-						<li><input type="button" class="form-control" value="중복확인"/></li>
-						<li><input type="button" class="form-control" value="중복확인"/></li>
+						<li><input type="submit" id="duplication" class="form-control" value="중복확인"/></li>
+						<li><input type="button" class="form-control" value="인증"/></li>
 					</ul>				
 				</div>
 				<div class="submitBtnDiv">
 					<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="회원가입" />
 				</div>
 			</div>
+		</form>
 		</div>
+		<form action="/login/duplication" id="fm" method="post">
+			<input type="hidden" id="memNm" name="memNm">
 		</form>
 		
-	</div>
+		
 </body>
 </html>
