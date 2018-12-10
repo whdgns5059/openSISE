@@ -7,14 +7,14 @@
 	<!-- parameter는 map 형태로 검색어와 건물 분류 형태를 구분하는 파라미터를 받아온다. -->
 	<select id="searchList" parameterType="map"
 		resultType="buildingSaleVo">
-		select artcl_dong, artcl_complx, artcl_nm, artcl_rd,
-		artcl_rd_detail, round(avg(dl_price),0), artcl_lat, artcl_lng
+		select artcl_gu, artcl_dong, artcl_complx, artcl_nm, artcl_rd, dl_ty,
+		artcl_rd_detail, round(avg(dl_price),0), artcl_lat, artcl_lng, round(avg(dl_depos),0)
 		from article inner join deal on (artcl_gu = dl_gu and artcl_dong = dl_dong
 		and artcl_zip = dl_zip and artcl_bc = #{building})
 		where artcl_dong = #{searchName}
 		or artcl_complx like #{searchName} ||'%'
 		or artcl_nm like #{searchName} ||'%'
-		group by artcl_complx,artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng
+		group by artcl_gu, artcl_complx,artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty
 	</select>
 
 </mapper>

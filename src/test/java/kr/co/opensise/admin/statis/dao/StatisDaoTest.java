@@ -14,16 +14,18 @@ import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.util.CommonUtilTest;
 
-public class InsertMemTest extends RootSetup{
+public class StatisDaoTest extends RootSetup{
 	private Logger log = LoggerFactory.getLogger(CommonUtilTest.class);
 
 	@Resource(name="statisDao")
-	private StatisDao statisDao;
+	private StatisDaoInf statisDao;
 	
 	@Test
 	public void signInDaily() {
 		List<MemberVo> memVoList = statisDao.signInDaily();
-		log.info("memVoList : {}", memVoList);
+		
+		for(MemberVo memVo : memVoList)
+			log.info("memVoList : {}",memVo);
 	}
 	
 	
