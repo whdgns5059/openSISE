@@ -58,7 +58,7 @@ public class CommonUtil {
 		String buf;
 		URL url = new URL(apiUrl);
 		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-		String auth = "KakaoAK 5b0c1d183ff30c68efea262ca7f8e7ab";
+		String auth = "KakaoAK f24a67aa2e49241ac5bbbc232c3a893c";
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("X-Requested-With", "curl");
 		conn.setRequestProperty("Authorization", auth);
