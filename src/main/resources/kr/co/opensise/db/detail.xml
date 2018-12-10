@@ -14,8 +14,9 @@
 		select * from deal
 		where dl_gu = #{dl_gu} and dl_dong=#{dl_dong} 
 		and dl_zip=#{dl_zip} and dl_rd=#{dl_rd}
+		and dl_ty = #{dl_ty}
 	</select>
-
+	
 </mapper>
 
 
