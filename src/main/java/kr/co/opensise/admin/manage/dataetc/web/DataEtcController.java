@@ -1,6 +1,13 @@
 package kr.co.opensise.admin.manage.dataetc.web;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +17,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -28,6 +37,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
@@ -417,4 +430,198 @@ public class DataEtcController {
 		
 		return "redirect:/manage/dataEtc/dataEtc";
 	}
+	
+	//교통정보
+	@RequestMapping("/insertStationData")
+	public String insertStation() {
+		BufferedReader br = null;
+//		BufferedReader brAR = null;
+		BufferedReader brA = null;
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();// Document를 생성할 Factory
+		factory.setNamespaceAware(true);
+		
+		
+		try {
+			//openApi 호출(전체 노선별 경유 정류소 정보)
+//			String urlAllRoute = "http://openapitraffic.daejeon.go.kr/"
+//						+"api/rest/busRouteInfo/getStaionByRouteAll"
+//						+"?serviceKey=RT1lHlWUhjho%2FbTmTxIJL4vFER1%2BRzgKGsI1dLvVMCspNNUpTxjfzvhfjSEZ75nE9AHoSPUN3fdIJQ3cZzwAOw%3D%3D&reqPage=1";
+//			
+//			URL urlAR= new URL(urlAllRoute);
+//			HttpURLConnection httpUrlConnectionAR = (HttpURLConnection) urlAR.openConnection();
+			
+			//응답읽기
+//			brAR= new BufferedReader(new InputStreamReader(httpUrlConnectionAR.getInputStream(), "UTF-8"));
+//			String resultAR = "";
+//			String lineAR;
+//			
+//			while((lineAR = brAR.readLine())!=null) {
+//				resultAR = resultAR + lineAR.trim()+"\n"; //result = url로 xml을 읽은 값
+//			}
+//			log.info("resultAR : {}", resultAR);
+			
+			//openApi 호출(전체노선 기본정보 조회)
+			String urlAll = "http://openapitraffic.daejeon.go.kr/"
+						+"api/rest/busRouteInfo/getRouteInfoAll"
+						+"?serviceKey=RT1lHlWUhjho%2FbTmTxIJL4vFER1%2BRzgKGsI1dLvVMCspNNUpTxjfzvhfjSEZ75nE9AHoSPUN3fdIJQ3cZzwAOw%3D%3D&reqPage=1";
+			
+			URL urlA= new URL(urlAll);
+			HttpURLConnection httpUrlConnectionA = (HttpURLConnection) urlA.openConnection();
+			
+			//응답읽기
+			brA= new BufferedReader(new InputStreamReader(httpUrlConnectionA.getInputStream(), "UTF-8"));
+			String resultA = "";
+			String lineA;
+			
+			while((lineA = brA.readLine())!=null) {
+				resultA = resultA + lineA.trim()+"\n"; //result = url로 xml을 읽은 값
+			}
+//			log.info("resultA : {}", resultA);
+			
+			//===============================================================================
+			InputStream isA = new ByteArrayInputStream(resultA.getBytes());// 서버로 부터 받은 string 형태의 xml데이터를 InputStream에 담는다.
+
+			DocumentBuilder builderA = factory.newDocumentBuilder();// Builder 객체를 생성
+			Document docA = builderA.parse(isA); //Document오브젝트 취득
+			Element orderA = docA.getDocumentElement(); //자식 노드 취득
+			
+			//각노드의 리스트 취득
+			NodeList itemsA = orderA.getElementsByTagName("itemList");
+			
+			for(int i=0;i<itemsA.getLength();i++) {
+				// Get element 
+			    Element element = (Element)itemsA.item(i);
+				
+			    //노선 ID
+			    NodeList route_cdList  = element.getElementsByTagName("ROUTE_CD");
+			    
+			    //route_no 노선명칭
+			    NodeList route_noList = element.getElementsByTagName("ROUTE_NO");
+			    
+			    //route_tp 노선유형(1:급행 2: 간선, 3:지선, 4외곽, 5마을)
+			    NodeList route_tpList = element.getElementsByTagName("ROUTE_TP");
+			    
+				for (int j = 0; j < route_cdList.getLength(); j++) {
+//				for (int j = 0; j < 1; j++) {
+
+					//노선 ID
+					Element eventEle = (Element) route_cdList.item(j);
+					Node butstop = eventEle.getFirstChild();
+					String route_cd = butstop.getNodeValue();
+
+					log.info("route_cd : {}", route_cd);
+					
+					//route_no 노선명칭
+					Element eventEle_no = (Element) route_noList.item(j);
+					Node butstop_no = eventEle_no.getFirstChild();
+					String route_cd_no = butstop_no.getNodeValue();
+
+					log.info("route_cd_no : {}", route_cd_no);
+					
+					//route_tp 노선유형(1:급행 2: 간선, 3:지선, 4외곽, 5마을, 6첨단)
+					Element eventEle_tp = (Element) route_tpList.item(j);
+					Node butstop_tp = eventEle_tp.getFirstChild();
+					String route_cd_tp = butstop_tp.getNodeValue();
+
+					log.info("route_cd_tp : {}", route_cd_tp);
+					
+					//===============================================================================
+					//openApi 호출(노선별 경유 정류소 정보)
+					String urlRoute = "http://openapitraffic.daejeon.go.kr/"
+									+"api/rest/busRouteInfo/getStaionByRoute"
+									+"?busRouteId="+route_cd+"&serviceKey=RT1lHlWUhjho%2FbTmTxIJL4vFER1%2BRzgKGsI1dLvVMCspNNUpTxjfzvhfjSEZ75nE9AHoSPUN3fdIJQ3cZzwAOw%3D%3D";
+					
+					URL urlR = new URL(urlRoute);
+					HttpURLConnection httpUrlConnection = (HttpURLConnection) urlR.openConnection();
+					
+					//응답읽기
+					br= new BufferedReader(new InputStreamReader(httpUrlConnection.getInputStream(), "UTF-8"));
+					String result = "";
+					String line;
+					
+					while((line = br.readLine())!=null) {
+						result = result + line.trim()+"\n"; //result = url로 xml을 읽은 값
+					}
+//					log.info("restApi : {}", result);
+					
+					//xml 파싱하기
+					InputStream is = new ByteArrayInputStream(result.getBytes());// 서버로 부터 받은 string 형태의 xml데이터를 InputStream에 담는다.
+
+					DocumentBuilder builder = factory.newDocumentBuilder();// Builder 객체를 생성
+					Document doc = builder.parse(is); //Document오브젝트 취득
+					Element order = doc.getDocumentElement(); //자식 노드 취득
+					
+					//각노드의 리스트 취득
+					NodeList items = order.getElementsByTagName("itemList");
+					
+					for(int k=0;k<items.getLength();k++) {
+						//BUSSTOP_NM, bus_node_id, gps_lati, gps_long
+						// Get element 
+					    Element elementR = (Element)items.item(k);
+					    
+					    //버스정류장명, 
+						NodeList busstop_nmList = elementR.getElementsByTagName("BUSSTOP_NM");
+
+						for (int l = 0; l < busstop_nmList.getLength(); l++) {
+
+							Element eventEleR = (Element) busstop_nmList.item(l);
+							Node butstopR = eventEleR.getFirstChild();
+							String busstop_nm = butstopR.getNodeValue();
+
+							log.info("busstop_nm : {}", busstop_nm);
+						}
+						
+						//버스 정류장 ID
+						NodeList bus_node_idList = elementR.getElementsByTagName("BUS_NODE_ID");
+
+						for (int l = 0; l < bus_node_idList.getLength(); l++) {
+
+							Element eventEleR = (Element) bus_node_idList.item(l);
+							Node butstopR = eventEleR.getFirstChild();
+							String bus_node_id = butstopR.getNodeValue();
+
+							log.info("bus_node_id : {}", bus_node_id);
+						}
+						
+						//위도
+						NodeList gps_latiList = elementR.getElementsByTagName("GPS_LATI");
+
+						for (int l = 0; l < gps_latiList.getLength(); l++) {
+
+							Element eventEleR = (Element) gps_latiList.item(l);
+							Node butstopR = eventEleR.getFirstChild();
+							String gps_lati = butstopR.getNodeValue();
+
+							log.info("gps_lati : {}", gps_lati);
+						}
+						
+						//경도
+						NodeList gps_longList = elementR.getElementsByTagName("GPS_LONG");
+
+						for (int l = 0; l < gps_longList.getLength(); l++) {
+
+							Element eventEleR = (Element) gps_longList.item(l);
+							Node butstopR = eventEleR.getFirstChild();
+							String gps_lati = butstopR.getNodeValue();
+
+							log.info("gps_long : {}", gps_lati);
+						}
+					}
+					//===============================================================================
+				}
+			}
+			//===============================================================================
+			
+			
+			
+			
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/manage/dataEtc/dataEtc";
+	}
+	
 }
