@@ -1,11 +1,24 @@
 package kr.co.opensise.admin.statis.web;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.co.opensise.admin.statis.dao.StatisDao;
+import kr.co.opensise.admin.statis.model.MemberVo;
+import kr.co.opensise.admin.statis.service.StatisServiceInf;
 
 @Controller
 @RequestMapping("/statis")
 public class StatisController {
+	
+	@Resource(name="statisService")
+	private StatisServiceInf statisService;
 	
 	/**
 	* Method : member
@@ -14,8 +27,13 @@ public class StatisController {
 	* @return
 	* Method 설명 : 회원통계
 	*/
-	@RequestMapping("/member")
-	public String member() {
+	@RequestMapping(value="/member", method=RequestMethod.GET)
+	public String member(Model model) {
+		
+		List<MemberVo> memVoInList = statisService.signInDaily();
+		model.addAttribute("memVoInList", memVoInList);
+		List<MemberVo> memVoOutList = statisService.signOutDaily();
+		model.addAttribute("memVoOutList", memVoOutList);
 		
 		return "statis/member";
 	}
@@ -27,7 +45,7 @@ public class StatisController {
 	* @return
 	* Method 설명 : 인기건물
 	*/
-	@RequestMapping("/favor")
+	@RequestMapping(value="/favor", method=RequestMethod.GET)
 	public String favor() {
 		return "statis/favor";
 	}
@@ -39,7 +57,7 @@ public class StatisController {
 	* @return
 	* Method 설명 : 관심사통계
 	*/
-	@RequestMapping("/interest")
+	@RequestMapping(value="/interest", method=RequestMethod.GET)
 	public String interest() {
 		return "statis/interest";
 	}
@@ -51,7 +69,7 @@ public class StatisController {
 	* @return
 	* Method 설명 : 방문자수
 	*/
-	@RequestMapping("/visitor")
+	@RequestMapping(value="/visitor", method=RequestMethod.GET)
 	public String visitor() {
 		return "statis/visitor";
 	}
@@ -63,7 +81,7 @@ public class StatisController {
 	* @return
 	* Method 설명 : 페이지사용량
 	*/
-	@RequestMapping("/pageCount")
+	@RequestMapping(value="/pageCount", method=RequestMethod.GET)
 	public String pageCount() {
 		return "statis/pageCount";
 	}

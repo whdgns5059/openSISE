@@ -10,11 +10,7 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 public class LocalController {
 	
 	@RequestMapping("/local")
-	public String local(ArticleVo articleVo ) {
-		
-		
-		
-		
+	public String local() {
 		return "local";
 	}
 	
