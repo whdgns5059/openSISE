@@ -12,6 +12,8 @@
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo" alias="marketDetailVo"/>
 		<typeAlias type="kr.co.opensise.user.main.model.BuildingSaleVo" alias="buildingSaleVo"/>
 		<typeAlias type="kr.co.opensise.member.Login.model.MemberVo" alias="memberVo"/>
+		<!-- admin : statis -->
+		<typeAlias type="kr.co.opensise.admin.statis.model.MemberVo" alias="memVo"/>
 	</typeAliases>
 
 	<mappers>
@@ -19,5 +21,6 @@
 		<mapper resource="kr/co/opensise/db/dataEtc.xml" />
 		<mapper resource="kr/co/opensise/db/map.xml" />
 		<mapper resource="kr/co/opensise/db/member.xml" />
+		<mapper resource="kr/co/opensise/db/admin_statis.xml" />
 	</mappers>
 </configuration>

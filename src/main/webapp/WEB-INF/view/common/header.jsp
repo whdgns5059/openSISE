@@ -45,7 +45,7 @@
  		}else if ($("#building").val() == "office"){
  			var office= document.getElementById("office");
  			office.style.color = "white";
- 		}else{
+ 		}else if($("#building").val() == "store"){
  			var store = document.getElementById("store");
  			store.style.color = "white";
  		}
