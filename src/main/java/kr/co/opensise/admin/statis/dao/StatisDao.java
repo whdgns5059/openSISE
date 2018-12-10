@@ -1,7 +1,6 @@
 package kr.co.opensise.admin.statis.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -31,14 +30,14 @@ public class StatisDao implements StatisDaoInf {
 
 	@Override
 	public List<MemberVo> signInDaily() {
-		List<MemberVo> memVoList = template.selectOne("admin_statis.signInDaily");
+		List<MemberVo> memVoList = template.selectList("admin_statis.signInDaily");
 		return memVoList;
 	}
 
 	@Override
 	public List<MemberVo> signOutDaily() {
-		// TODO Auto-generated method stub
-		return null;
+		List<MemberVo> memVoList = template.selectList("admin_statis.signOutDaily");
+		return memVoList;
 	}
 
 }

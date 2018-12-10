@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
 .sign-mem{
@@ -83,7 +84,7 @@ $(document).ready(function(){
         },
         /* 세로축 */
         "scale-y": {
-            "values": "0:100:10", /* 시작 : 끝 : 단계 */
+            "values": "0:1000:10", /* 시작 : 끝 : 단계 */
             "line-color": "#f6f7f8",
             "shadow": 0,
             "guide": {
@@ -138,10 +139,10 @@ $(document).ready(function(){
         "series": [
             {// 가입 회원
                 "values": [
-                    10,
-                    25,
-                    14,
-                    36
+                	0
+                	<c:forEach items="${memVoInList }" var="memVo">
+						,${memVo.counts}
+					</c:forEach>
                 ],
                 "text": "가입 회원",
                 "line-color": "#da534d",
@@ -162,10 +163,13 @@ $(document).ready(function(){
             },
             {// 탈퇴 회원
                 "values": [
+                	0,
                     1,
                     0,
                     2,
-                    0
+                    0,
+                    10,
+                    10
                 ],
                 "text": "탈퇴한 회원",
                 "line-color": "#f7cc06",
@@ -216,6 +220,10 @@ width: '100%'
 		<div id="myTabContent" class="tab-content tab-content-size">
 			<div class="tab-pane fade show active" id="daily-in">
 				<p>일별 회원 가입 통계 그래프 입니다.</p>
+				<c:forEach items="${memVoList }" var="memVo">
+					${memVo.ymd}<br/>
+					${memVo.counts}<br/>
+				</c:forEach>
 				<div id='myChart'></div>
 			</div>
 			<div class="tab-pane fade show" id="monthly-in">
