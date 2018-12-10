@@ -5,7 +5,8 @@
 <style type="text/css">
 ul { list-style : none; }	
 .adminLeft {
-    width: 12%;
+    width: 13%;
+    min-width:230px;
     padding-left: 18px;
     padding-right: 20px;
     float: left;
@@ -56,11 +57,11 @@ ul { list-style : none; }
 	<hr/>
 	<ul class="left-menu">
 		<li><b>통계 관리</b></li>
-		<li><a href="/statis/member/member">회원통계</a></li>
-		<li><a href="/statis/favor/favor">인기건물</a></li>
-		<li><a href="/statis/interest/interest">관심사통계</a></li>
-		<li><a href="/statis/visitor/visitor">방문자수</a></li>
-		<li><a href="/statis/pageCount/pageCount">페이지사용량</a></li>
+		<li><a href="/statis/member">회원통계</a></li>
+		<li><a href="/statis/favor">인기건물</a></li>
+		<li><a href="/statis/interest">관심사통계</a></li>
+		<li><a href="/statis/visitor">방문자수</a></li>
+		<li><a href="/statis/pageCount">페이지사용량</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">

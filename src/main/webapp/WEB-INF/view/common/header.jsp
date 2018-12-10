@@ -3,8 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style type="text/css">
-.logo-tag {
-	padding: 5px 40px 0 30px;
+.logo-tag{
+    width: 10%;
+    line-height: 67px;
+    margin-right: 0;
+    margin-left: 46px;
 }
 
 .navbar {
@@ -20,8 +23,8 @@
 	height: 3px;
 	background: #3a589e;
 }
-
-.top-menu li a {
+.top-menu li a{
+	display: block;
 	color: #ffffff;
 }
 
@@ -33,9 +36,9 @@
 <script>
  	$(document).ready(function(){
  		
- 		if($("#building").val() == "house"){
- 			var house = document.getElementById("house");
- 			house.style.color = "white";
+ 		if($("#building").val() == "multi"){
+ 			var multi = document.getElementById("multi");
+ 			multi.style.color = "white";
  		}else if ($("#building").val() == "apt"){
  			var apt = document.getElementById("apt");
  			apt.style.color = "white";
@@ -48,7 +51,6 @@
  		}
  		
  		
- 		
  	});
  	
 	function switchPage(bc) {
@@ -59,14 +61,14 @@
 		$("#building").val(building);
 		$("#searchName").val(searchName);
 
-		$("#fm").submit();
+		$("#fmi").submit();
 
 	}
 </script>
 
 <!-- navbar시작 -->
 <nav class="navbar navbar-expand-lg navbar-dark">
-	<form action="/main/main" id="fm">
+	<form action="/main/main" id="fmi">
 		<input type="hidden" id="building" name="building" value="${building}"> 
 		<input type="hidden" id="searchName" name="searchName">
 	</form>
@@ -77,10 +79,10 @@
 	</a>
 
 	<!-- nav items -->
-	<div class="collapse navbar-collapse">
+	<div class="collapse navbar-collapse bc-select-div">
 		<ul class="navbar-nav mr-auto bc-select">
 			<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
-			<li class="nav-item" id="house" onclick="switchPage(this)">단/다세대 주택</li>
+			<li class="nav-item" id="multi" onclick="switchPage(this)">단/다세대 주택</li>
 			<li class="nav-item" id="apt" onclick="switchPage(this)">아파트</li>
 			<li class="nav-item" id="office" onclick="switchPage(this)">오피스텔</li>
 			<li class="nav-item" id="store" onclick="switchPage(this)">상가</li>
@@ -103,7 +105,7 @@
 
 </nav>
 
-
+<!-- 데코 라인 -->
 <div class="navline"></div>
 <!-- navbar끝 -->
 

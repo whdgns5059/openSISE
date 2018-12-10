@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-
+		
 		
 		// 해당 주소에 대한 좌표값을 담을 변수
 		var x;
@@ -15,7 +16,7 @@
 		// 해당 주소를 담을 값
 		var addr;
 		
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
 		mapOption = {
 			center : new daum.maps.LatLng(36.3505393936125,127.38483389033713), // 지도의 중심좌표
 			level : 3
@@ -33,25 +34,59 @@
 		//마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
 		
+		//주소 좌표 변환 객체
+		var geocoder = new daum.maps.services.Geocoder();
+
+		
+		<%-- toLocal 클릭시 좌표읽어서 이동 --%>
+		$('.toLocal').on('click', function(){
+			
+			var geocoder = new daum.maps.services.Geocoder();
+	
+			var center = map.getCenter();
+
+			var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
+			var callback = function(result, status) {
+			    if (status === daum.maps.services.Status.OK) {
+			    	
+			    	var gu = result[0].address.region_2depth_name;
+			    	var dong = result[0].address.region_3depth_name;
+
+	
+			    	location.href="/local/local?gu="+gu+"&dong="+dong;
+			    	
+			    }
+			};
+
+			geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+			
+				
+		});
+		
 	});
 </script>
 
 
-<!-- 챠트 -->
-<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
-<!-- 실거래 차트  -->
+
 <script>
-
 	$(document).ready(function(){
+		
+	setTradeChart();
+	setRadarChart();
+	reviewControl();
+	clacControl();
+	
+		
+		
+	});
+	
+	<%-- 실거래 차트  --%>
+	function setTradeChart() {
 		var tradeChartData = {
-
 		type: 'line',  
 		title: { text: '1년간 실거래가'  },
 		legend: {}, // Creates an interactive legend
-		series: [  // Insert your series data here
-			  { values: [28, 40, 39, 36, 12, 3, 32, 2, 12, 12, 32] }
-		 	 ]
-		
+		series: [  { values: [28, 40, 39, 36, 12, 3, 32, 2, 12, 12, 32] } ]
 		
 		};
 
@@ -59,46 +94,32 @@
 		  id: 'myChart',
 		  data: tradeChartData,
 		});
+
+	}
+	
+	<%-- 다각형 그래프 --%>
+	function setRadarChart(){
 		
-	});
-
-</script>
-<!-- 다각형 그래프 -->
-<script>
-
-	$(document).ready(function(){
 		var radarChartData = {
 
 		type: 'radar',  
 		title: { text: 'openSISE 점수표'  },
 		legend: {}, // Creates an interactive legend
-		series: [  // Insert your series data here
-			  { values: [28, 40, 39, 36, 12] }
-		 	 ],
-		scaleK : {
-			labels : ["물가", "교통", "상업시설", "편의시설", "물가"]
-		}
-		
-		
-		
+		series: [  { values: [28, 40, 39, 36, 12] } ],
+		scaleK : { labels : ["물가", "교통", "상업시설", "편의시설", "물가"] }
 		};
 
 		zingchart.render({ // Render Method[3]
 		  id: 'radarChartDiv',
 		  data: radarChartData,
 		});
-		
-	});
 
-</script>
-
-<!-- 리뷰 컨트롤 스크립트 -->
-<script>
+	}
 	
-	$(document).ready(function(){
-		
+	
+	<%-- 리뷰 컨트롤 --%>
+	function reviewControl(){
 		$('.reviewDetailWrapper').hide();
-		
 		
 		$('.titleWrapper').on('click',  function(){
 			if($(this.nextElementSibling).is(':visible')){
@@ -107,10 +128,21 @@
 				$(this.nextElementSibling).show("slow");
 			}
 		});
-		
-	});
+	}
 	
+	
+	function clacControl() {
+		<%-- input의 max 값이 최대 값임 --%>	
+		$('#calculator').on('change', function(){
+			
+			var needMoney = this.max - this.value;
+			
+			document.getElementById('calcResult').innerHTML = needMoney;
+		});
+		
+	}
 </script>
+
 
 
 <style type="text/css">
@@ -152,12 +184,15 @@
 	.photo {clear:left;}
 	.reviewModify {text-align: right;}	
 	
-	.class {position: absolute; }	
 	
+	#mapWrap {position: relative;}
+	.toLocal {position: absolute; top: 740px; left: 540px; z-index: 10; width:150px; height: 150px;}	
 </style>
 
 <!-- 전체 contents div -->
 <div class="row" style="height: 850px !important">
+ 	
+	<input type="hidden" id="hello" value="${asdf }">
 	
 	<div id="mapWrap">
 	<!-- 지도-->
@@ -169,6 +204,7 @@
 	</div>	
 	
 	
+		<%-- --%>
 	<!-- right contents -->
 	<div id="rightContentWrapper">
 		<div id="rightContent">
@@ -224,7 +260,8 @@
 			</div>
 			<div id="loanClacDiv">
 				<span class="subTitle"> 대출금 계산기</span><br/>
-				<input type="range" class="marginTop">
+				<input type="range" class="marginTop" id="calculator" max="17000"><br/>
+				<span id="calcResult">얼마일까</span>
 			</div>
 			<div id="radarChartDiv">
 			</div>
