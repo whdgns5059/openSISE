@@ -14,6 +14,11 @@
 <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 <script src="/js/bootstrap.min.js"></script>
 
+<!-- ZING CHART -->
+<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
+
 
 <!-- 챠트 -->
 <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>

@@ -43,7 +43,6 @@ public class InsertAllDataTest extends RootSetup{
 		log.info("끝끝끝");
 		log.info("******************************");
 	}
-	
-	
 
 }
+

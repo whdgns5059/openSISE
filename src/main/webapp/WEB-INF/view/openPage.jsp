@@ -279,12 +279,6 @@ input:disabled {
     }
     
     // 공지사항 window 내용 fade 효과
-    $(".공지").on("click", function() {
-        // id가 "divBox"인 요소를 1초에 걸쳐 점점 나타나게 하거나 사라지게 함.
-        $("#divBox").fadeToggle(1000);
-
-    });
-    
     function noticeFade(id){
 		var the = "#" + id;
 		$(the).fadeToggle("fast");
@@ -341,8 +335,8 @@ input:disabled {
 		<div class="nav_right">
 			<ul class="top-menu">
 				<!-- memVo가 null인 경우 -->
-				<li style="margin-right: 50px;" ><a href="/login/selectLogin">로그인</a></li>
-				<li style="margin-right: 50px;" ><a href="/login/signup">회원가입</a></li>
+				<li><a href="/login/selectLogin">로그인</a></li>
+				<li><a href="/login/signup">회원가입</a></li>
 				<!-- 관리자일 경우에 생기는 a tag  --> 
  				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  --> 
@@ -420,11 +414,11 @@ input:disabled {
 			<!-- 공지사항 반복될 구간 START -->					
 								<tr>
 									<td style="width: 30px;">100</td>
-									<td onclick="noticeFade('1')">공지사항</td>
+									<td onclick="noticeFade('notice_no')">공지사항</td>
 									<td>2018.11.30</td>
 								</tr>
 								<tr>
-									<td colspan="3" id="1" class="notice-content" style="display: none;" >100번 공지사항 내용 입니다.</td>
+									<td colspan="3" id="notice_no" class="notice-content" style="display: none;" >100번 공지사항 내용 입니다.</td>
 								</tr>
 			<!-- 공지사항 반복될 구간 END -->	
 								
