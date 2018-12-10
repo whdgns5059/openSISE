@@ -29,11 +29,10 @@ public class InsertAllDataTest extends RootSetup{
 	public void insertAllDataTest() throws IOException {
 		
 		/***given***/
-<<<<<<< HEAD
+
 		String root = "C:\\Users\\1003yd\\Desktop\\OpenSISE\\API\\실거래가 API\\2012";
-=======
-		String root = "D:\\A_TeachingMaterial\\7.LastProject\\tradeInfo";
->>>>>>> 4c4ef45212f782c45e5b7ae965868c670968ad40
+
+		//String root = "D:\\A_TeachingMaterial\\7.LastProject\\tradeInfo";
 		
 		/***when***/
 		insertAllData.insertAllDataTrade(root);
