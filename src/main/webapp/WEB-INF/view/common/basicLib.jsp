@@ -15,3 +15,7 @@
 <script src="/js/bootstrap.min.js"></script>
 
 
+<!-- 챠트 -->
+<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+
+
