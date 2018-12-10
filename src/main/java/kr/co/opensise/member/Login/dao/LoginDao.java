@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.opensise.member.Login.model.MemberVo;
 
@@ -42,6 +43,21 @@ public class LoginDao implements LoginDaoInf{
 		return signUpselection;
 	}
 		
+		/**
+		 * Method : updateUser 
+		 * 작성자 : 
+		 * 변경이력 :
+		 * 
+		 * @param UserVo
+		 * @return Method 설명 : 회원가입(닉네임 중복검사)
+		 */
+		@Override
+		public int check_nm(String mem_nm) {
+			int chk_nm = template.selectOne("member.check_nm", mem_nm);
+			return chk_nm;
+		}
+		
+				
 	/**  
 	* Method   : jobList 
 	* 작성자 :  
@@ -87,6 +103,9 @@ s	*/
 	
 	
 	
+		
+		
+		
 		
 }
 

@@ -201,7 +201,7 @@ public class DataTradeControllerUtil {
 		}
 		if(dl_rnt != -1) {
 			double rnt = CommonUtil.delComma(row.getCell(dl_rnt).toString());
-			dealVo.setDl_rnt(dl_rnt);
+			dealVo.setDl_rnt(rnt);
 		}
 		
 		//계약 년월

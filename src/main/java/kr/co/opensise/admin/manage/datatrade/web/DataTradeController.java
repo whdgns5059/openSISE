@@ -43,11 +43,27 @@ public class DataTradeController {
 	
 	
 	
+	/*************************************************  
+	* Method   : dataTrade 
+	* 작성자 :  whdgn
+	* 변경이력 :  2018. 12. 8.
+	* @return  
+	* Method 설명 : 실거래 데이터 화면으로 이동
+	**************************************************/
 	@RequestMapping("/dataTrade")
 	public String dataTrade() {
 		return "manage/dataTrade";
 	}
 
+	/*************************************************  
+	* Method   : insertData 
+	* 작성자 :  whdgn
+	* 변경이력 :  2018. 12. 8.
+	* @param part
+	* @param model
+	* @return  
+	* Method 설명 : 실거래 데이터 파일 입력
+	**************************************************/
 	@RequestMapping("/insertData")
 	public String insertData(@RequestPart("tradeData") MultipartFile part
 			,Model model) {
@@ -216,6 +232,15 @@ public class DataTradeController {
 	}
 
 	
+	
+	
+	/*************************************************  
+	* Method   : deleteArticleDeal 
+	* 작성자 :  whdgn
+	* 변경이력 :  2018. 12. 8.
+	* @param articleVo  
+	* Method 설명 : 해당 article과 연관 deal을 전부 삭제
+	**************************************************/
 	private void deleteArticleDeal(ArticleVo articleVo) {
 		DealVo dealVo = new DealVo();
 		dealVo.setDl_gu(articleVo.getArtcl_gu());

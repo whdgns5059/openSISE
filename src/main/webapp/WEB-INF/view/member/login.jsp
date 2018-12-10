@@ -67,7 +67,7 @@
 				<label for="inputPassword" class="sr-only">Password</label> 
 					<input type="password" id="inputPassword" name="mem_pass" class="form-control" value="brownpass" required>
 			
-				<label> <input type="button" id="optionModifyBtn" class="form-control" value="팝업창 호출" onclick="showPopup();">
+				<label> <input type="button" id="optionModifyBtn" class="form-control" value="비밀번호 찾기" onclick="showPopup();">
 				</label><br/>
 			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
 			</div>

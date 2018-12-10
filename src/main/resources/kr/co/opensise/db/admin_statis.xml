@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin_statis">
+
+<!-- 누적 회원 수 -->
+	<select id="countAllMembers" resultType="int">
+		Select count(mem_no) From member Where mem_mngr is null
+	</select>
+	
+<!-- 현재 가입되어 있는 회원 수 -->
+	<select id="countSignIn" resultType="int">
+		Select count(mem_no) From member Where mem_exdate is null And mem_mngr is null
+	</select>
+
+<!-- 5일부터 오늘까지 일별 가입한 회원 수 -->
+	<select id="signInDaily" resultType="memVo">
+		Select count(mem_date) as counts , a.ymd as ymd
+		From member right join (
+		    Select to_date('20181205', 'yyyyMMdd')+(level-1) as ymd
+		    From dual
+		    Connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181205', 'yyyyMMdd'))+1) a
+		On  (to_char(mem_date, 'YYYY/MM/dd') = a.ymd)
+		Where mem_mngr is null
+		Group by  a.ymd
+		Order by a.ymd
+	</select>
+	
+<!-- 5일부터 오늘까지 일별 탈퇴한 회원 수 -->
+	<select id="signOutDaily" resultType="memVo">
+		Select count(mem_exdate) , a.ymd
+		From member right join (
+		    Select to_date('20181205', 'yyyyMMdd')+(level-1) as ymd
+		    From dual
+		    Connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181205', 'yyyyMMdd'))+1) a
+		On  (to_char(mem_date, 'YYYY/MM/dd') = a.ymd)
+		Where mem_mngr is null
+		Group by  a.ymd
+		Order by a.ymd
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

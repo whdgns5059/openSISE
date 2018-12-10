@@ -139,6 +139,12 @@ body {
     float: left;
     margin-right: 10px;
 }
+.red{
+	background: #da534d;
+}
+.orange{
+	background: #e48732;
+}
 .yellow{
 	background: #f4b344;
 }
@@ -184,7 +190,6 @@ body {
     border-radius: 5px;
     height: 30px;
 }
-
 
 /* 커스터마이징 END */
 /* bootstrap.min */
