@@ -14,6 +14,7 @@ public class BuildingSaleVo {
 	private double dl_rnt;
 	private String dl_cont_ym;
 	private String dl_cont_d;
+	private double avg_dl;
 	
 	
 	public String getArtcl_gu() {
@@ -94,6 +95,14 @@ public class BuildingSaleVo {
 	public void setDl_cont_d(String dl_cont_d) {
 		this.dl_cont_d = dl_cont_d;
 	}
+	public double getAvg_dl() {
+		return avg_dl;
+	}
+	public void setAvg_dl(double avg_dl) {
+		this.avg_dl = avg_dl;
+	}
+	
+	
 	
 	
 	

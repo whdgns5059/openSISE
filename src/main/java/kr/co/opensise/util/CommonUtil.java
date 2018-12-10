@@ -106,7 +106,7 @@ public class CommonUtil {
 	 * 콤마가 존재하는 숫자 문자열을 콤마가 없는 문자로 변환해준다
 	 ******************************************/
 	public static double delComma(String data) {
-		String removeData = data.replaceAll(",", "");
+		String removeData = data.replaceAll(",", "").trim();
 		return Double.parseDouble(removeData);
 	}
 	
