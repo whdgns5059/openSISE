@@ -19,5 +19,7 @@
 		<mapper resource="kr/co/opensise/db/dataEtc.xml" />
 		<mapper resource="kr/co/opensise/db/map.xml" />
 		<mapper resource="kr/co/opensise/db/member.xml" />
+		<mapper resource="kr/co/opensise/db/local.xml" />
+
 	</mappers>
 </configuration>

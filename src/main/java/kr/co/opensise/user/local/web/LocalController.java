@@ -3,12 +3,18 @@ package kr.co.opensise.user.local.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
+
 @Controller
 @RequestMapping("/local")
 public class LocalController {
 	
 	@RequestMapping("/local")
-	public String local() {
+	public String local(ArticleVo articleVo ) {
+		
+		
+		
+		
 		return "local";
 	}
 	
