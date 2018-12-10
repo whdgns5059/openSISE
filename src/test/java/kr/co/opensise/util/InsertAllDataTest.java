@@ -2,8 +2,6 @@ package kr.co.opensise.util;
 
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -27,8 +25,10 @@ public class InsertAllDataTest extends RootSetup{
 	 ******************************************/
 	@Test
 	public void insertAllDataTest() throws IOException {
+		
 		/***given***/
-		String root = "E:\\A_TeachingMaterial\\7.LastProject\\other\\실거래2";
+		String root = "C:\\Users\\1003yd\\Desktop\\OpenSISE\\API\\실거래가 API\\2012";
+//		String root = "D:\\A_TeachingMaterial\\7.LastProject\\tradeInfo";
 		
 		/***when***/
 		insertAllData.insertAllDataTrade(root);

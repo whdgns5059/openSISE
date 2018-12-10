@@ -2,6 +2,8 @@ package kr.co.opensise.member.Login.dao;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import kr.co.opensise.member.Login.model.MemberVo;
 
 public interface LoginDaoInf {
@@ -26,6 +28,20 @@ public interface LoginDaoInf {
 	 */
 	public int signup(MemberVo memberVo);
 	
+	
+	
+	
+	/**
+	 * Method : updateUser 
+	 * 작성자 : 
+	 * 변경이력 :
+	 * 
+	 * @param UserVo
+	 * @return Method 설명 : 회원가입(닉네임 중복검사)
+	 */
+	public int check_nm(String mem_nm);
+	
+	
 	/**  
 	* Method   : jobList 
 	* 작성자 :  
@@ -46,34 +62,7 @@ public interface LoginDaoInf {
 	*/
 	public List<MemberVo> interestLiset();
 	
-	
 	public int delete();
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

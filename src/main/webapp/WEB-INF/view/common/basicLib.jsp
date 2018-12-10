@@ -20,3 +20,7 @@
 		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
 
 
+<!-- 챠트 -->
+<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+
+

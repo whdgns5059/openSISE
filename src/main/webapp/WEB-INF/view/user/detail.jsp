@@ -66,8 +66,7 @@
 </script>
 
 
-<!-- 챠트 -->
-<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+
 <!-- 실거래 차트  -->
 <script>
 	$(document).ready(function(){

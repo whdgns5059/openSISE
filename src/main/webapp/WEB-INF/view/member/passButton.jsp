@@ -33,19 +33,16 @@ margin : 50px 0 20px 0;
 	<!-- 전체 contents div -->
 	<div class="row" style="height: 850px !important">
 	
-		<form action="/login/openLogin" method="post">
+		<form action="/login/passChk" method="post">
 		<div class="logo">
 			<img src="/img/lock.png" width="50px" height="50px" alt="비밀번호 찾기"> 비밀번호 찾기 
+			<p> 가입한 이메일 정보 입력후 인증 메일 받기를 클릭하세요.</p>
 			
 			<div class="button">
-				<label for="inputEmail" class="sr-only">Email address</label> 
-					<input type="text" id="userId" name="mem_email" class="form-control" value=""	placeholder="아이디 입력하세요" required autofocus> 
-				<label for="inputPassword" class="sr-only">Password</label> 
-					<input type="password" id="inputPassword" name="mem_pass" class="form-control" value="brownpass" required>
+				<label for="inputEmail" class="sr-only"></label> 
+					<input type="text" id="mememail" name="mem_email" class="form-control" value="" placeholder="이메일을 입력하세요" required autofocus> 
 			
-				<label> <input type="button" id="optionModifyBtn" class="form-control" value="팝업창 호출" onclick="showPopup();">
-				</label><br/>
-			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
+			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="인증메일 받기"" />
 			</div>
 			</div>
 		</form>

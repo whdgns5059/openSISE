@@ -23,7 +23,7 @@ public class LoginControllerTest extends ControllerSetup{
 	
 	@Test
 	public void Logintest() throws Exception {
-		MvcResult mvcResult = mockMvc.perform(post("/login/openLogin").param("mem_email", "brown").param("mem_pass", "brown")).andReturn();
+		MvcResult mvcResult = mockMvc.perform(post("/login/openLogin").param("mem_email", "brown").param("mem_pass", "111")).andReturn();
 		ModelAndView mav = mvcResult.getModelAndView();
 		
 		String viewName = mav.getViewName();
