@@ -25,7 +25,7 @@ public class LoginDao implements LoginDaoInf{
 	*/
 	@Override
 	public MemberVo selectMember(String mem_email) {
-		MemberVo user = template.selectOne("member.selectMember", mem_email);
+		MemberVo user = template.selectOne("member.selectAllMember", mem_email);
 		return user;
 	}
 	
@@ -72,20 +72,6 @@ public class LoginDao implements LoginDaoInf{
 	}
 	
 	/**  
-	* Method   : ageList 
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @param 
-	* @return  
-	* Method 설명 :  연령대 출력
-	
-		public List<MemberVo> ageList(){
-			List<MemberVo> memberAge = template.selectList("member.age");
-			return memberAge;
-		}
-
-	*/
-	/**  
 	* Method   : interestLiset 
 	* 작성자 :  김주연
 	* 변경이력 :  
@@ -116,13 +102,13 @@ public class LoginDao implements LoginDaoInf{
 	* @param mem_email
 	* @return  
 	* Method 설명 :  회원 한 사람의 정보를 출력
-	
+	*/
 	@Override
 	public MemberVo searchUser(String mem_email) {
 		MemberVo member = template.selectOne("member.selectMember", mem_email);
 		return member;
 	}
-	*/
+	
 	
 	
 	

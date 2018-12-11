@@ -59,16 +59,7 @@ public interface LoginServiceInf {
 	*/
 		public List<MemberVo> jobList();
 		
-		/**  
-		* Method   : ageList 
-		* 작성자 :  김주연
-		* 변경이력 :  
-		* @param 
-		* @return  
-		* Method 설명 :  연령대 출력
 		
-			public List<MemberVo> ageList();
-		*/
 		/**  
 		* Method   : interestLiset 
 		* 작성자 :  김주연
@@ -86,7 +77,18 @@ public interface LoginServiceInf {
 		* @param mem_email
 		* @return  
 		* Method 설명 :  회원 한 사람의 정보를 출력
-		
+		*/
 		public MemberVo searchUser(String mem_email);
+		
+		
+		/**  
+		* Method   : updateMember 
+		* 작성자 : 김주연 
+		* 변경이력 :  
+		* @param mem_email
+		* @return  
+		* Method 설명 :  회원 한 사람 정보 수정
+		
+		public int updateMember(MemberVo memberVo);
 		*/
 }
