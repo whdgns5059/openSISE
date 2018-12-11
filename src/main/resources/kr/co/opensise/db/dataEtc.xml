@@ -43,6 +43,50 @@
 		</foreach>
 		select * from dual 
 	</insert>
+
+<!-- bus insert -->
+    <insert id="insertBus" parameterType="map">
+		insert all
+		<foreach collection="list" item="bvo" separator=" ">
+			into bus(
+              bus_cd,bus_no,bus_tp) 
+            values  (
+                #{bvo.bus_cd},#{bvo.bus_no},#{bvo.bus_tp}
+               )
+		</foreach>
+		select * from dual 
+	</insert>	
+
+<!-- route insert -->
+    <insert id="insertRoute" parameterType="map">
+		insert all
+		<foreach collection="list" item="rdvo" separator=" ">
+			into route(
+              rt_cd,rt_id) 
+            values  (
+                #{rdvo.rt_cd},#{rdvo.rt_id}
+               ) 
+		</foreach>
+		select * from dual 
+	</insert>
+	
+<!-- station insert -->
+    <insert id="insertStation" parameterType="map">
+		insert all
+		<foreach collection="list" item="sdvo" separator=" ">
+			into station(
+              sttn_id,sttn_nm,sttn_lat,sttn_lng) 
+            values  (
+                #{sdvo.sttn_id},#{sdvo.sttn_nm},#{sdvo.sttn_lat},#{sdvo.sttn_lng}
+               ) LOG ERRORS REJECT LIMIT UNLIMITED
+		</foreach>
+		select * from dual 
+	</insert>
+
+<!-- delete -->    
+	<delete id="deleteBus">delete from bus</delete>
+	<delete id="deleteRoute">delete from route</delete>
+	<delete id="deleteStation">delete from station</delete>
 </mapper>
 
 
