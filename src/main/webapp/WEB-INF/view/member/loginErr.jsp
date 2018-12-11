@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!doctype html>
-<html lang="en">
-<head>
 
 <script type="text/javascript">
+
+		$(document).ready(function(){
+			var message = '${msg}'; 
+			alert(message); 
+			});	
+		
 		function getCookie(cookieName){
 			//cookieString = > document.cookie
 			var cookies = document.cookie.split("; ");
@@ -20,30 +23,45 @@
 			return cookieValue;
 		}
 	</script>
+	
+	<script type="text/javascript">
+	 function showPopup() { 
+		 window.open("/login/pass", "popButten", "width=400, height=300, left=100, top=50"); }
+	
 
+	</script>
 <style type="text/css">
+.contents {
+    margin: 0 auto;
+    width: 390px;
+}
 .logo{
-	margin: 150px 0 100px 250px;
-	padding: 20px 400px 50px 500px;
-	width: 1303px;
+    margin-top: 165px;
+    width: 390px;
 }	
 .button{
-	margin : 100px 0 20px 50px;
-	width:300px ;
-	height:300px ;
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 300px;
+    height: 190px;
 }	
 
 #Sign_in{
-margin : 50px 0 20px 0;
-	width:220px ;
+    margin: 0 auto;
+    margin-top: 16px;
+    width: 220px;
+    display: block;
+}
+
+#passButton{
+	margin: 10px;
+	width: 80%;
 }
 
 </style>
-</head>
 
-<body class="text-center">
-	<!-- 전체 contents div -->
-	<div class="row" style="height: 850px !important">
+	<!-- 가운데정렬 div -->
+	<div class="contents">
 	
 		<form action="/login/openLogin" method="post">
 		<div class="logo">
@@ -55,7 +73,8 @@ margin : 50px 0 20px 0;
 				<label for="inputPassword" class="sr-only">Password</label> 
 					<input type="password" id="inputPassword" name="mem_pass" class="form-control" value="brownpass" required>
 			
-				<label> <a href="http://localhost:8081/board/passwordFind">비밀번호찾기</a>	</label><br/>
+				<label> <input type="button" id="optionModifyBtn" class="form-control" value="비밀번호 찾기" onclick="showPopup();">
+				</label><br/>
 			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
 			</div>
 			</div>

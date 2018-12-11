@@ -65,4 +65,15 @@ public interface LoginDaoInf {
 	public int delete();
 	
 	
+
+	/**  
+	* Method   : searchUser 
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param mem_email
+	* @return  
+	* Method 설명 :  회원 한 사람의 정보를 출력
+	
+	public MemberVo searchUser(String mem_email);
+	*/
 }

@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.opensise.member.Login.model.MemberVo;
 
@@ -17,9 +16,10 @@ public class LoginDao implements LoginDaoInf{
 	private SqlSessionTemplate template;
 	
 	/**  
-	* Method   :  
-	* 작성자 :  
+	* Method   :  selectMember
+	* 작성자 :  김주연
 	* 변경이력 :  
+	* @param mem_email
 	* @return  
 	* Method 설명 : 오픈시세  암호화 및 로그인
 	*/
@@ -31,7 +31,7 @@ public class LoginDao implements LoginDaoInf{
 	
 	/**  
 	* Method   : signup 
-	* 작성자 :  
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @param memberVo
 	* @return  
@@ -44,11 +44,10 @@ public class LoginDao implements LoginDaoInf{
 	}
 		
 		/**
-		 * Method : updateUser 
-		 * 작성자 : 
+		 * Method : check_nm 
+		 * 작성자 : 김주연
 		 * 변경이력 :
-		 * 
-		 * @param UserVo
+		 * @param mem_nm
 		 * @return Method 설명 : 회원가입(닉네임 중복검사)
 		 */
 		@Override
@@ -60,12 +59,12 @@ public class LoginDao implements LoginDaoInf{
 				
 	/**  
 	* Method   : jobList 
-	* 작성자 :  
+	* 작성자 :  김주연
 	* 변경이력 :  
-	* @param memberVo
+	* @param 
 	* @return  
 	* Method 설명 :  직업종류 출력
-s	*/
+	*/
 	@Override
 	public List<MemberVo> jobList() {
 		List<MemberVo> memberJob = template.selectList("member.job");
@@ -75,9 +74,9 @@ s	*/
 	
 	/**  
 	* Method   : interestLiset 
-	* 작성자 :  
+	* 작성자 :  김주연
 	* 변경이력 :  
-	* @param memberVo
+	* @param 
 	* @return  
 	* Method 설명 :  관심사 리스트 출력
 	*/
@@ -87,12 +86,30 @@ s	*/
 		return interestLiset;
 	}
 
+	
+	
 	@Override
 	public int delete() {
 		int deleteCnt = template.delete("member.delete");
 		return deleteCnt;
 	}
-		
+
+	
+
+	/**  
+	* Method   : searchUser 
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param mem_email
+	* @return  
+	* Method 설명 :  회원 한 사람의 정보를 출력
+	
+	@Override
+	public MemberVo searchUser(String mem_email) {
+		MemberVo member = template.selectOne("member.selectMember", mem_email);
+		return member;
+	}
+	*/
 	
 	
 	
