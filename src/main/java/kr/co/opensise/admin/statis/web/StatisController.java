@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.opensise.admin.statis.dao.StatisDao;
 import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.admin.statis.service.StatisServiceInf;
 
@@ -34,8 +33,12 @@ public class StatisController {
 		model.addAttribute("memVoInList", memVoInList);
 		List<MemberVo> memVoOutList = statisService.signOutDaily();
 		model.addAttribute("memVoOutList", memVoOutList);
+		List<MemberVo> memVoInMonthly = statisService.signInMonthly();
+		model.addAttribute("memVoInMonthly", memVoInMonthly);
+		List<MemberVo> memVoOutMonthly = statisService.signOutMonthly();
+		model.addAttribute("memVoOutMonthly", memVoOutMonthly);
 		
-		return "statis/member";
+		return "statis/member"; 
 	}
 	
 	/**

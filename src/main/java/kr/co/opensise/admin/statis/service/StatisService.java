@@ -35,4 +35,14 @@ public class StatisService implements StatisServiceInf {
 		return statisDao.signOutDaily();
 	}
 
+	@Override
+	public List<MemberVo> signInMonthly() {
+		return statisDao.signInMonthly();
+	}
+
+	@Override
+	public List<MemberVo> signOutMonthly() {
+		return statisDao.signOutMonthly();
+	}
+
 }

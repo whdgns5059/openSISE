@@ -41,6 +41,24 @@ public interface StatisServiceInf {
 	*/
 	public List<MemberVo> signOutDaily();
 	
+	/**
+	* Method : signInMonthly
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 12월부터 오늘까지 일별 가입한 회원 수
+	*/
+	public List<MemberVo> signInMonthly();
+	
+	/**
+	* Method : signOutMonthly
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 12월부터 오늘까지 월별 탈퇴한 회원 수
+	*/
+	public List<MemberVo> signOutMonthly();
+	
 	
 	
 	
