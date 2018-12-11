@@ -131,7 +131,6 @@ public class LoginController {
 		model.addAttribute("mem_email",memberVo.getMem_email());
 		
 		List<MemberVo> interest = loginService.interestLiset();
-		System.out.println("intrstList : " + interest);
 		model.addAttribute("intrstList",interest);
 
 		return "signupDetail";
@@ -146,7 +145,6 @@ public class LoginController {
 	@RequestMapping(value="/signupDetail", method= {RequestMethod.POST})
 	public String signupDetail(Model model, MemberVo memberVo) {
 		
-		
 		// 리턴값 임시
 		return "openPage";
 	}
@@ -160,7 +158,9 @@ public class LoginController {
 	@RequestMapping(value="/duplication", method={RequestMethod.POST})
 	public String duplication(@RequestParam("memNm") String mem_nm, Model model ) {
 		int memberNm = loginService.check_nm(mem_nm);
+		List<MemberVo> memberJobLiset = loginService.jobList();
 		model.addAttribute("msg",memberNm);
+		model.addAttribute("JobList",memberJobLiset);
 		
 		return "signup";
 		

@@ -51,7 +51,17 @@ public interface LoginDaoInf {
 	* Method 설명 :  직업종류 출력
 	*/
 	public List<MemberVo> jobList();
-		
+	
+	/**  
+	* Method   : ageList 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  연령대 출력
+	
+		public List<MemberVo> ageList();
+	*/	
 	/**  
 	* Method   : interestLiset 
 	* 작성자 :  

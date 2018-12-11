@@ -70,8 +70,21 @@ public class LoginDao implements LoginDaoInf{
 		List<MemberVo> memberJob = template.selectList("member.job");
 		return memberJob;
 	}
-
 	
+	/**  
+	* Method   : ageList 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  연령대 출력
+	
+		public List<MemberVo> ageList(){
+			List<MemberVo> memberAge = template.selectList("member.age");
+			return memberAge;
+		}
+
+	*/
 	/**  
 	* Method   : interestLiset 
 	* 작성자 :  김주연
