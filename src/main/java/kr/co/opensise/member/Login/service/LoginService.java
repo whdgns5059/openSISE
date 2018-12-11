@@ -73,18 +73,6 @@ public class LoginService implements LoginServiceInf{
 	}
 
 	/**  
-	* Method   : ageList 
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @param 
-	* @return  
-	* Method 설명 :  연령대 출력
-	
-		public List<MemberVo> ageList(){
-			return loginDao.ageList();
-		}
-	*/
-	/**  
 	* Method   : interestLiset 
 	* 작성자 :  김주연
 	* 변경이력 :  
@@ -124,10 +112,9 @@ public class LoginService implements LoginServiceInf{
 	* @param 
 	* @return  
 	* Method 설명 :  회원 한명의 정보 출력
-	
+	*/
 	public MemberVo searchUser(String mem_email) {
-		// TODO Auto-generated method stub
 		return loginDao.searchUser(mem_email);
 	}
-	*/
+	
 }

@@ -72,6 +72,10 @@
 	<definition name="exit" extends="memberLayout">
 		<put-attribute name="content" value="/WEB-INF/view/member/exit.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="myInfoUpdate" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/myInfoUpdate.jsp"></put-attribute>
+	</definition>
 
 	<!--***************** adminLayout ******************* -->
 	<definition name="admin" extends="adminLayout">
