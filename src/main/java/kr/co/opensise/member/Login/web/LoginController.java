@@ -65,12 +65,12 @@ public class LoginController {
 		
 		if (user != null && user.authPass(encryptPass)) {
 			HttpSession session = request.getSession();
-			session.setAttribute("mem_email", user.getMem_pass());
+			session.setAttribute("nowLogin", user);
 			model.addAttribute("memberVo",user);
 			return "openPage";
 		} else {
 			model.addAttribute("msg","ID와 PW를 다시 확인해 주세요");
-			return "loginErr";
+			return "member/loginErr";
 		}
 	}
 	
