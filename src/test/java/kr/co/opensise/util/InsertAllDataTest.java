@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import kr.co.opensise.setup.RootSetup;
 
-
 public class InsertAllDataTest extends RootSetup{
 
 	private Logger log = LoggerFactory.getLogger(InsertAllDataTest.class);
@@ -28,10 +27,11 @@ public class InsertAllDataTest extends RootSetup{
 	public void insertAllDataTest() throws IOException {
 		
 		/***given***/
-
+		/*
 		String root = "C:\\Users\\1003yd\\Desktop\\OpenSISE\\API\\실거래가 API\\2012";
-
-		//String root = "D:\\A_TeachingMaterial\\7.LastProject\\tradeInfo";
+		/*/
+		String root = "D:\\A_TeachingMaterial\\7.LastProject\\tradeInfo";
+		//*/
 		
 		/***when***/
 		insertAllData.insertAllDataTrade(root);
@@ -43,7 +43,5 @@ public class InsertAllDataTest extends RootSetup{
 		log.info("끝끝끝");
 		log.info("******************************");
 	}
-	
-	
 
 }

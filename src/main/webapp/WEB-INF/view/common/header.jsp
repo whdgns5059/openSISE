@@ -98,7 +98,7 @@
 			<!-- 관리자일 경우에 생기는 a tag  -->
 			<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  -->
-			<li><a href="/mypage/myinfo">나의 정보</a></li>
+			<li><a href="/mypage/selectMypage">나의 정보</a></li>
 			<li><a href="/">{회원의 닉네임}</a></li>
 		</ul>
 	</div>

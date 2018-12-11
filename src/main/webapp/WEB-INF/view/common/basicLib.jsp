@@ -18,3 +18,5 @@
 <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
 
 
+<!-- input type range를 위한 css -->
+<link href="/css/inputRange.css" rel="stylesheet">
