@@ -74,6 +74,21 @@ public class LoginController {
 		}
 	}
 	
+	/** Method   : duplication 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  로그아웃
+	*/
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		
+		return "openPage";
+	}
+	
+	
 	/**  
 	* Method   :  passButton
 	* 작성자 :  김주연
@@ -166,6 +181,8 @@ public class LoginController {
 		
 	}
 	
+	
+
 	
 	
 }

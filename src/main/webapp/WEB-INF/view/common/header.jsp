@@ -107,6 +107,7 @@
 			<li><c:if test="${nowLogin.mem_nm!= null}">
 					${nowLogin.mem_nm} 님 안녕하세요 
 				</c:if></li>
+			<li><a href="/login/logout">로그아웃</a></li>
 		</ul>
 	</div>
 
