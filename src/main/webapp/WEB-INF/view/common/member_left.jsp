@@ -4,7 +4,7 @@
 	
 <style type="text/css">
 ul { list-style : none; }	
-.adminLeft {
+.memberLeft {
     width: 12%;
     padding-left: 18px;
     padding-right: 20px;
@@ -33,10 +33,10 @@ ul { list-style : none; }
 	
 </style>
 
-<div class="adminLeft">
+<div class="memberLeft">
 	<br/>	
 	<ul class="left-menu">
-		<li><a href="/manage/member/member">나의 정보</a></li>
+		<li><a href="/mypage/myInfo">나의 정보</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">

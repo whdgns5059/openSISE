@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<!doctype html>
+<html lang="en">
+<head>
 <script type="text/javascript">
 		function getCookie(cookieName){
 			//cookieString = > document.cookie
@@ -53,7 +55,9 @@
 }
 
 </style>
+</head>
 
+<body>
 	<!-- 가운데정렬 div -->
 	<div class="contents">
 	
@@ -62,7 +66,7 @@
 			<img src="/img/openSise_login.png"  alt="오픈시세 로그인" title="오픈시세 로그인 " />
 			
 			<div class="button">
-				<label for="inputEmail" class="sr-only">Email address</label> 
+				<label for="inputEmail" class="sr-only">Email</label> 
 					<input type="text" id="userId" name="mem_email" class="form-control" value=""	placeholder="아이디 입력하세요" required autofocus> 
 				<label for="inputPassword" class="sr-only">Password</label> 
 					<input type="password" id="inputPassword" name="mem_pass" class="form-control" value="brownpass" required>

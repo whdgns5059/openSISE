@@ -40,4 +40,16 @@ public class StatisDao implements StatisDaoInf {
 		return memVoList;
 	}
 
+	@Override
+	public List<MemberVo> signInMonthly() {
+		List<MemberVo> memVoList = template.selectList("admin_statis.signInMonthly");
+		return memVoList;
+	}
+
+	@Override
+	public List<MemberVo> signOutMonthly() {
+		List<MemberVo> memVoList = template.selectList("admin_statis.signOutMonthly");
+		return memVoList;
+	}
+
 }

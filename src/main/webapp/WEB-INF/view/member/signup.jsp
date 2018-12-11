@@ -170,15 +170,28 @@ margin : 50px 0 20px 0;
 							</label>
 						</li>
 						<li>
-							<strong>성별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio"  id="male" name="mem_gndr" value="M">남자
+							<input type="radio"  id="male" name="mem_gndr" value="M">남자&emsp;&emsp;&emsp;
 							<input type="radio"  id="female" name="mem_gndr" value="F">여자	
 						</li>
 						<li>
-							<strong>직장정보</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<select id="jobLiset" name="mem_job">
+							<select id="jobLiset" name="mem_job" class="form-control">
+								<option value="">직장정보를 선택해 주세요</option>
 								<c:forEach items="${JobList}" var="mem">
 								<option value="${mem.job_no}">${mem.job_nm}</option>
+								</c:forEach>
+							</select>
+						</li>
+						
+						<li>
+							<select id="ageList" name="mem_age" class="form-control">
+								<c:forEach items="age" var="memAge">
+								<option value="">연령대를 선택해 주세요</option>
+								<option value="10대">10대</option>
+								<option value="20대">20대</option>
+								<option value="30대">30대</option>
+								<option value="40대">40대</option>
+								<option value="50대">50대</option>
+								<option value="60대">60대 이상</option>
 								</c:forEach>
 							</select>
 						</li>

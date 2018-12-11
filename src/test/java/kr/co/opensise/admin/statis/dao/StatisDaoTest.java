@@ -25,12 +25,36 @@ public class StatisDaoTest extends RootSetup{
 		List<MemberVo> memVoList = statisDao.signInDaily();
 		
 		for(MemberVo memVo : memVoList)
-			log.info("memVoList : {}",memVo);
+			log.info("signInDaily : {}",memVo);
+	}
+	
+	@Test
+	public void signOutDaily() {
+		List<MemberVo> memVoList = statisDao.signOutDaily();
+		
+		for(MemberVo memVo : memVoList)
+			log.info("signOutDaily : {}",memVo);
+	}
+	
+	@Test
+	public void signInMonthly() {
+		List<MemberVo> memVoList = statisDao.signInMonthly();
+		
+		for(MemberVo memVo : memVoList)
+			log.info("signInMonthly : {}",memVo);
+	}
+	
+	@Test
+	public void signOutMonthly() {
+		List<MemberVo> memVoList = statisDao.signOutMonthly();
+		
+		for(MemberVo memVo : memVoList)
+			log.info("signOutMonthly : {}",memVo);
 	}
 	
 	
 	
-	
+
 	
 	
 	

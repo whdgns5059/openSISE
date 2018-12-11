@@ -31,7 +31,7 @@
     height: 370px;
 }
 
-#myChart {
+#signDaily, #signMonthly {
   height:400px;
   width:100%;
   min-height:150px;
@@ -42,13 +42,10 @@
 </style>
 <script>
 $(document).ready(function(){
-	var myConfig = 
-    {
-        "type": "line",
+	var signDaily = 
+    { "type": "line",
         "utc": true,
-        "plotarea": {
-            "margin": "dynamic 45 60 dynamic",
-        },
+        "plotarea": {"margin": "dynamic 45 60 dynamic" },
         "legend": {
             "layout": "float",
             "background-color": "none",
@@ -60,8 +57,7 @@ $(document).ready(function(){
               "padding": 7,
               "marginRight": 17,
               "cursor":"hand"
-            }
-        },
+            }},
         /* 가로축 */
         "scale-x": {
         	"min-value": 1543968000000,
@@ -70,36 +66,24 @@ $(document).ready(function(){
             "transform": {
                 "type": "date",
                 "all": "%Y<br/>%M %d. %D",
-                "guide": {
-                    "visible": false
-                },
-                "item": {
-                    "visible": false
-                }
-            },
-            "label": {
-                "visible": false
-            },
-            "minor-ticks": 0
-        },
+                "guide": {"visible": false},
+                "item": {"visible": false}},
+            "label": { "visible": false},
+            "minor-ticks": 0 },
         /* 세로축 */
         "scale-y": {
-            "values": "0:1000:10", /* 시작 : 끝 : 단계 */
+            "values": "0:1000:100", /* 시작 : 끝 : 단계 */
             "line-color": "#f6f7f8",
             "shadow": 0,
-            "guide": {
-                "line-style": "dashed"
-            },
+            "guide": { "line-style": "dashed" },
             "label": {
                 "text": "회원 수",
                 "font-family": "'Noto Sans KR', sans-serif",
                 "font-weight": "400",
                 "font-size": "15px",
-                "font-color": "#808080"
-            },
+                "font-color": "#808080"},
             "minor-ticks": 0,
-            "thousands-separator": ","
-        },
+            "thousands-separator": ","},
         "crosshair-x": {
             "line-color": "#efefef",
             "plot-label": {
@@ -107,17 +91,12 @@ $(document).ready(function(){
                 "border-width": "1px",
                 "border-color": "#f6f7f8",
                 "padding": "10px",
-                "font-weight": "bold"
-            },
+                "font-weight": "bold"},
             "scale-label": {
                 "font-color": "#000",
                 "background-color": "#f6f7f8",
-                "border-radius": "5px"
-            }
-        },
-        "tooltip": {
-            "visible": false
-        },
+                "border-radius": "5px"}},
+        "tooltip": {"visible": false},
         "plot": {
             "highlight":true,
             "tooltip-text": "%t views: %v<br>%k",
@@ -125,81 +104,175 @@ $(document).ready(function(){
             "line-width": "2px",
             "marker": {
                 "type": "circle",
-                "size": 3
-            },
-            "highlight-state": {
-                "line-width":3
-            },
+                "size": 3},
+            "highlight-state": { "line-width":3},
             "animation":{
               "effect":1,
               "sequence":2,
-              "speed":100,
-            }
-        },
+              "speed":100, }},
         "series": [
             {// 가입 회원
                 "values": [
                 	0
                 	<c:forEach items="${memVoInList }" var="memVo">
-						,${memVo.counts}
-					</c:forEach>
+            			,${memVo.counts}
+            		</c:forEach>
                 ],
                 "text": "가입 회원",
                 "line-color": "#da534d",
                 "legend-item":{
                   "background-color": "#da534d",
                   "borderRadius":5,
-                   "font-color":"white"
-                },
-                "legend-marker": {
-                    "visible":false
-                },
+                   "font-color":"white"},
+                "legend-marker": {"visible":false },
                 "marker": {
                     "background-color": "#da534d",
                     "border-width": 1,
                     "shadow": 0,
-                    "border-color": "#da534d"
-                }
-            },
+                    "border-color": "#da534d" }},
             {// 탈퇴 회원
                 "values": [
-                	0,
-                    1,
-                    0,
-                    2,
-                    0,
-                    10,
-                    10
+                	0
+                	<c:forEach items="${memVoOutList }" var="memVo">
+            			,${memVo.counts}
+            		</c:forEach>
                 ],
                 "text": "탈퇴한 회원",
                 "line-color": "#f7cc06",
                 "legend-item":{
                   "background-color": "#f7cc06",
                   "borderRadius":5,
-                   "font-color":"white"
-                },
-                "legend-marker": {
-                    "visible":false
-                },
+                   "font-color":"white" },
+                "legend-marker": {"visible":false},
                 "marker": {
                     "background-color": "#f7cc06",
                     "border-width": 1,
                     "shadow": 0,
-                    "border-color": "#f7cc06"
-                }
-            
-            }
+                    "border-color": "#f7cc06"} }
         ]
     };
 
-zingchart.render({ 
-id : 'myChart', 
-data : myConfig, 
-height: '100%', 
-width: '100%' 
-});
+	zingchart.render({ 
+		id : 'signDaily', 
+		data : signDaily, 
+		height: '100%', 
+		width: '100%' 
+	});
 	
+	var signMonthly = 
+    { "type": "line",
+        "utc": true,
+        "plotarea": {"margin": "dynamic 45 60 dynamic" },
+        "legend": {
+            "layout": "float",
+            "background-color": "none",
+            "border-width": 0,
+            "shadow": 0,
+            "align":"center",
+            "adjust-layout":true,
+            "item":{
+              "padding": 7,
+              "marginRight": 17,
+              "cursor":"hand"
+            }},
+        /* 가로축 */
+        "scale-x": {
+        	"labels":[ 
+        		"2018/10"
+        		<c:forEach items="${memVoInMonthly }" var="memVo">
+    				,"${memVo.ymd}"
+    			</c:forEach>
+             ]
+          },
+        /* 세로축 */
+        "scale-y": {
+            "values": "0:1000:100", /* 시작 : 끝 : 단계 */
+            "line-color": "#f6f7f8",
+            "shadow": 0,
+            "guide": { "line-style": "dashed" },
+            "label": {
+                "text": "회원 수",
+                "font-family": "'Noto Sans KR', sans-serif",
+                "font-weight": "400",
+                "font-size": "15px",
+                "font-color": "#808080"},
+            "minor-ticks": 0,
+            "thousands-separator": ","},
+        "crosshair-x": {
+            "line-color": "#efefef",
+            "plot-label": {
+                "border-radius": "5px",
+                "border-width": "1px",
+                "border-color": "#f6f7f8",
+                "padding": "10px",
+                "font-weight": "bold"},
+            "scale-label": {
+                "font-color": "#000",
+                "background-color": "#f6f7f8",
+                "border-radius": "5px"}},
+        "tooltip": {"visible": false},
+        "plot": {
+            "highlight":true,
+            "tooltip-text": "%t views: %v<br>%k",
+            "shadow": 0,
+            "line-width": "2px",
+            "marker": {
+                "type": "circle",
+                "size": 3},
+            "highlight-state": { "line-width":3},
+            "animation":{
+              "effect":1,
+              "sequence":2,
+              "speed":100, }},
+        "series": [
+            {// 가입 회원
+                "values": [
+                	0
+                	<c:forEach items="${memVoInMonthly }" var="memVo">
+            			,${memVo.counts}
+            		</c:forEach>
+                ],
+                "text": "가입 회원",
+                "line-color": "#da534d",
+                "legend-item":{
+                  "background-color": "#da534d",
+                  "borderRadius":5,
+                   "font-color":"white"},
+                "legend-marker": {"visible":false },
+                "marker": {
+                    "background-color": "#da534d",
+                    "border-width": 1,
+                    "shadow": 0,
+                    "border-color": "#da534d" }},
+            {// 탈퇴 회원
+                "values": [
+                	0
+                	<c:forEach items="${memVoOutMonthly }" var="memVo">
+            			,${memVo.counts}
+            		</c:forEach>
+                ],
+                "text": "탈퇴한 회원",
+                "line-color": "#f7cc06",
+                "legend-item":{
+                  "background-color": "#f7cc06",
+                  "borderRadius":5,
+                   "font-color":"white" },
+                "legend-marker": {"visible":false},
+                "marker": {
+                    "background-color": "#f7cc06",
+                    "border-width": 1,
+                    "shadow": 0,
+                    "border-color": "#f7cc06"} }
+        ]
+    };
 
+	zingchart.render({ 
+		id : 'signMonthly', 
+		data : signMonthly, 
+		height: '100%', 
+		width: '100%' 
+	});
+		
 	
 });	
 
@@ -218,16 +291,13 @@ width: '100%'
 			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#gender-in">성별-gender</a></li>
 		</ul>
 		<div id="myTabContent" class="tab-content tab-content-size">
-			<div class="tab-pane fade show active" id="daily-in">
+			<div class="tab-pane fade show" id="daily-in">
 				<p>일별 회원 가입 통계 그래프 입니다.</p>
-				<c:forEach items="${memVoList }" var="memVo">
-					${memVo.ymd}<br/>
-					${memVo.counts}<br/>
-				</c:forEach>
-				<div id='myChart'></div>
+				<div id='signDaily'></div>
 			</div>
-			<div class="tab-pane fade show" id="monthly-in">
+			<div class="tab-pane fade show active" id="monthly-in">
 				<p>월별 회원 가입 통계 그래프 입니다.</p>
+				<div id='signMonthly'></div>
 			</div>
 			<div class="tab-pane fade show" id="age-in">
 				<p>연령별 회원 가입 통계 그래프 입니다.</p>

@@ -64,20 +64,22 @@ public class InsertMemTest extends RootSetup{
 			String[] gndr = {"F", "M"};
 			String ran_gndr = gndr[(int)(Math.random()*gndr.length)];
 			
+			// 연령대 만들기
+			int[] ages = {10, 20, 30, 40, 50, 60};
+			
 			memberVo.setMem_email(email + "@gmail.com");
 			memberVo.setMem_pass(email);
 			memberVo.setMem_nm(ran_name);
 			memberVo.setMem_gndr(ran_gndr);
 			memberVo.setMem_job((int)(Math.random()*7)); // 0~6 랜덤 숫자
+			memberVo.setMem_age(String.valueOf((int)(Math.random()*ages.length)));
 			
 			//int insertCnt = loginDao.signup(memberVo);
 			
 			//log.info("성공 여부 : {}", insertCnt);
 		
 		}
-		
-		
-		
 	}
-
+	
+	
 }

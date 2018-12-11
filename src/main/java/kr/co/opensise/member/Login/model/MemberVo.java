@@ -21,11 +21,19 @@ public class MemberVo {
 	private String approval_status;
 	private int approval_key;
 	private String mem_mngr;
+	private String mem_age;
+	
 	
 	
 	public  MemberVo(){
 	}
 	
+	public String getMem_age() {
+		return mem_age;
+	}
+	public void setMem_age(String mem_age) {
+		this.mem_age = mem_age;
+	}
 	public String getApproval_status() {
 		return approval_status;
 	}

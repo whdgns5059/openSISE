@@ -41,11 +41,12 @@ public class DetailServiceTest extends RootSetup{
 		Map<String, Object> detailMap = detailService.getDetailInfo(articleVo, dl_ty);
 		ArticleVo selectArticleVo = (ArticleVo) detailMap.get("selectArticleVo");
 		List<DealVo> selectDealVoList = (List<DealVo>) detailMap.get("selectDealVoList");		
-		
+		List<String> selectAreas = (List<String>) detailMap.get("selectAreas");
 		
 		/***then***/
 		assertEquals("36.360773619481314", selectArticleVo.getArtcl_lat());
 		assertEquals(7, selectDealVoList.size());
+		assertEquals(2, selectAreas.size());
 		
 		
 	}
