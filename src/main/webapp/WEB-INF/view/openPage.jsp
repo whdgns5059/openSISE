@@ -377,6 +377,7 @@ input:disabled {
 					<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">시세보기</button>
 					<input type="hidden" id="bc_type"/>
 					<input type="hidden" id="building" name="building"/>
+					<input type="hidden" id="building" name="dl_ty" value="매매"/>
 				</form>
 		</div>
 			

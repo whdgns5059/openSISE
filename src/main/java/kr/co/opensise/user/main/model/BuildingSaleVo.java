@@ -14,7 +14,7 @@ public class BuildingSaleVo {
 	private double dl_rnt;
 	private String dl_cont_ym;
 	private String dl_cont_d;
-	private double avg_dl;
+	private int avg_dl;	//평당 평균 시세가
 	
 	
 	public String getArtcl_gu() {
@@ -95,10 +95,10 @@ public class BuildingSaleVo {
 	public void setDl_cont_d(String dl_cont_d) {
 		this.dl_cont_d = dl_cont_d;
 	}
-	public double getAvg_dl() {
+	public int getAvg_dl() {
 		return avg_dl;
 	}
-	public void setAvg_dl(double avg_dl) {
+	public void setAvg_dl(int avg_dl) {
 		this.avg_dl = avg_dl;
 	}
 	

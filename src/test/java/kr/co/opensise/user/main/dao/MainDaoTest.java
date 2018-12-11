@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.main.model.BuildingSaleVo;
+import kr.co.opensise.user.main.model.FilterVo;
 
 public class MainDaoTest  extends RootSetup{
 	
@@ -32,6 +33,18 @@ public class MainDaoTest  extends RootSetup{
 		assertEquals(1019, buildingSaleList.size());
 		
 				
+	}
+	
+	@Test
+	public void searchFilterListTest() {
+		FilterVo filterVo = new FilterVo();
+		filterVo.setBuilding("apt");
+		filterVo.setDl_ty("전세");
+		filterVo.setSearchName("월평동");
+		
+		List<BuildingSaleVo> buildFilterList = mainDao.buildingFilterList(filterVo);
+		
+		assertEquals(15, buildFilterList.size());
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.opensise.user.main.dao.MainDaoInf;
 import kr.co.opensise.user.main.model.BuildingSaleVo;
+import kr.co.opensise.user.main.model.FilterVo;
 
 @Service
 public class MainService implements MainServiceInf {
@@ -20,6 +21,12 @@ public class MainService implements MainServiceInf {
 	public List<BuildingSaleVo> buildingSaleList(Map<String, String> searchMap) {
 		// TODO Auto-generated method stub
 		return mainDao.buildingSaleList(searchMap);
+	}
+
+	@Override
+	public List<BuildingSaleVo> buildingFilterList(FilterVo filterVo) {
+		// TODO Auto-generated method stub
+		return mainDao.buildingFilterList(filterVo);
 	}
 
 }

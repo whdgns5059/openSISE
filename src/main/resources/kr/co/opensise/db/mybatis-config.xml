@@ -10,8 +10,12 @@
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo" alias="human_statisticVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketVo" alias="marketVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo" alias="marketDetailVo"/>
+		
+		<!-- user alias 시작 -->
 		<typeAlias type="kr.co.opensise.user.main.model.BuildingSaleVo" alias="buildingSaleVo"/>
+		<typeAlias type="kr.co.opensise.user.main.model.FilterVo" alias="filterVo"/>
 		<typeAlias type="kr.co.opensise.member.Login.model.MemberVo" alias="memberVo"/>
+		<!-- user alias 끝  -->
 		<!-- admin : statis -->
 		<typeAlias type="kr.co.opensise.admin.statis.model.MemberVo" alias="memVo"/>
 	</typeAliases>
