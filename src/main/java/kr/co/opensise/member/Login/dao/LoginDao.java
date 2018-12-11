@@ -110,8 +110,21 @@ public class LoginDao implements LoginDaoInf{
 	}
 	
 	
-	
-	
+	/**  
+	* Method   : searchUser 
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param mem_email
+	* @return  
+	* Method 설명 :  회원 한 사람의 정보 수정
+	*/
+	@Override
+	public int myInfoUpdate(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		int updateMemCnt = template.update("member.updateUser", memberVo);
+		
+		return updateMemCnt;
+	}
 	
 	
 	

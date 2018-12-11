@@ -88,7 +88,7 @@ public interface LoginServiceInf {
 		* @param mem_email
 		* @return  
 		* Method 설명 :  회원 한 사람 정보 수정
-		
-		public int updateMember(MemberVo memberVo);
 		*/
+		public int myInfoUpdate(MemberVo memberVo);
+		
 }

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
    
 <style type="text/css">
 	
@@ -23,7 +24,17 @@
 		
 		<div class="form-group">
 			<label for="memGndr" class="col-sm-2 control-label">성별</label>
-			<label for="memGndr" class="control-label">${memberVo.mem_gndr}</label>
+			<label for="memGndr" class="control-label" >
+			<!--<c:set var="gndr" value="${memberVo.mem_gndr}" />-->
+			<c:choose>
+				<c:when test="${memberVo.mem_gndr == 'F'}">
+					여자
+				</c:when>
+				<c:when test="${memberVo.mem_gndr == 'M'}">
+					남자
+				</c:when>
+			</c:choose>
+			</label>
 		</div>
 		
 		<div class="form-group">
@@ -33,7 +44,7 @@
 		
 		<div class="form-group">
 			<label for="memJob" class="col-sm-2 control-label">직장정보</label>
-			<label for="memJob" class="control-label">${memberVo.mem_job}</label>
+			<label for="memJob" class="control-label">${memberVo.job_nm}</label>
 		</div>
 	
 	</div>
@@ -41,7 +52,7 @@
 	<div class="form-group">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<!--   <input type="hidden" name="userId" value="${userVo.userId}">-->
+				<input type="hidden" name="mem_email" value="${memberVo.mem_email}">
      			<button type="submit" class="btn btn-default">수정</button>
 			</div>
 		</div>

@@ -36,7 +36,7 @@ ul { list-style : none; }
 <div class="memberLeft">
 	<br/>	
 	<ul class="left-menu">
-		<li><a href="/mypage/selectMypage">나의 정보</a></li>
+		<li><a href="/mypage/myInfo">나의 정보</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">
