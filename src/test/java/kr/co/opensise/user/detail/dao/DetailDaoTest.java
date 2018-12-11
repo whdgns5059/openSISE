@@ -7,6 +7,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
@@ -15,6 +17,8 @@ import kr.co.opensise.user.detail.dao.DetailDaoInf;
 
 public class DetailDaoTest extends RootSetup{
 
+	private Logger log = LoggerFactory.getLogger(DetailDaoTest.class);
+	
 	@Resource(name="detailDao")
 	private DetailDaoInf detailDao;
 	
@@ -42,12 +46,36 @@ public class DetailDaoTest extends RootSetup{
 		dealVo.setDl_dong("월평동");
 		dealVo.setDl_zip("311-1");
 		dealVo.setDl_rd("청사로");
+		dealVo.setDl_ty("매매");
 		
 		/***when***/
 		List<DealVo> result = detailDao.selectDealList(dealVo);
 
 		/***then***/
-		assertEquals(16, result.size());
+		assertEquals(7, result.size());
+	}
+	
+	@Test
+	public void selectAreasTest() {
+		
+		/***given***/
+		ArticleVo articleVo = new ArticleVo();
+		articleVo.setArtcl_gu("서구");
+		articleVo.setArtcl_dong("월평동");
+		articleVo.setArtcl_zip("311-1");
+		articleVo.setArtcl_rd("청사로");
+		
+		/***when***/
+		List<String> result = detailDao.selectAreas(articleVo);
+
+		for(String str : result) {
+			log.info("평수 : {}", str);
+		}
+		
+		/***then***/
+		assertEquals(2, result.size());
+		
+		
 	}
 
 }

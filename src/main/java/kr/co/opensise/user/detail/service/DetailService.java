@@ -36,8 +36,16 @@ public class DetailService implements DetailServiceInf{
 		
 		List<DealVo> selectDealVoList = detailDao.selectDealList(dealVo);
 		detailMap.put("selectDealVoList", selectDealVoList);
+		
+		List<String> selectAreas = detailDao.selectAreas(articleVo);
+		detailMap.put("selectAreas", selectAreas);
 
 		return detailMap;
+	}
+
+	@Override
+	public ArticleVo selectArticleVo(ArticleVo articleVo) {
+		return detailDao.selectArticle(articleVo);
 	}
 
 
