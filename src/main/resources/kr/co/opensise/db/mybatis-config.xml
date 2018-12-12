@@ -16,6 +16,10 @@
 		<typeAlias type="kr.co.opensise.user.main.model.FilterVo" alias="filterVo"/>
 		<typeAlias type="kr.co.opensise.member.Login.model.MemberVo" alias="memberVo"/>
 		<!-- user alias 끝  -->
+	
+		<!-- 거래 평균 -->
+		<typeAlias type="kr.co.opensise.user.detail.model.AvgTradeVo" alias="avgTradeVo"/>
+
 		<!-- admin : statis -->
 		<typeAlias type="kr.co.opensise.admin.statis.model.MemberVo" alias="memVo"/>
 	</typeAliases>
