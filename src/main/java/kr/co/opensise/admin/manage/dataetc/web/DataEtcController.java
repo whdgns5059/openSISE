@@ -482,12 +482,12 @@ public class DataEtcController {
 			//각노드의 리스트 취득
 			NodeList itemsA = orderA.getElementsByTagName("itemList");
 			
+			List<BusVo> busList=new ArrayList<BusVo>();
+			List<RouteVo> routeList = new ArrayList<RouteVo>();
+			List<StationVo> stationList = new ArrayList<StationVo>();
+			
 			//전체 버스 정보의 itemList만큼 반복---> 각 태그이름별로 노드리스트 만들기
 			for(int i=0;i<itemsA.getLength();i++) {
-				List<BusVo> busList = new ArrayList<BusVo>();
-				List<RouteVo> routeList = new ArrayList<RouteVo>();
-				List<StationVo> stationList = new ArrayList<StationVo>();
-
 				// Get element 
 			    Element element = (Element)itemsA.item(i);
 			    
@@ -510,14 +510,14 @@ public class DataEtcController {
 				for (int j = 0; j < route_cdList.getLength(); j++) {
 
 					BusVo busVo = new BusVo();
-					RouteVo routeVo = new RouteVo();
+					
 					
 					//노선 ID
 					Element eventEle = (Element) route_cdList.item(j);
 					Node butstop = eventEle.getFirstChild();
 					String route_cd = butstop.getNodeValue();
 					busVo.setBus_cd(route_cd);
-					routeVo.setRt_cd(route_cd);
+					
 					log.info("route_cd : {}", route_cd);
 					
 					//route_no 노선명칭
@@ -580,7 +580,6 @@ public class DataEtcController {
 						//버스 정류장 ID
 						String bus_node_id = getStationValue(elementR,"BUS_NODE_ID");
 						stationVo.setSttn_id(bus_node_id);
-						routeVo.setRt_id(bus_node_id);
 						log.info("bus_node_id : {}", bus_node_id);
 
 						
@@ -596,47 +595,37 @@ public class DataEtcController {
 						log.info("gps_long : {}", gps_long);
 							
 						
-						
+						RouteVo routeVo = new RouteVo();
+						routeVo.setRt_cd(route_cd);
+						routeVo.setRt_id(bus_node_id);
 						routeSet.add(routeVo);
 						
 						stationList.add(stationVo);
+						
 						
 					}
 					//===============================================================================
 					
 				}
 				
-				//insert
-				
-				int insertRoute=0;
-				int insertStation=0;
-				
-				//station 중복 확인해보기...
-//				HashSet<String> stationset = new HashSet<>();
-//				for(StationVo sVo : stationList) {
-//					
-//					stationset.add(sVo.getSttn_id());
-//					
-//				}
-//				
-//				log.info("list의 크기 {}", stationList.size());
-//				log.info("set의 크기 {}", stationset.size());
-				
-				
-				int insertBus = 0;
-			    insertBus = dataEtcService.insertBus(busList);
-				
-				insertStation = dataEtcService.insertStation(stationList);
-				
-				routeList.addAll(routeSet);
-				insertRoute = dataEtcService.insertRoute(routeList);
-			    
-			    
-			    
-			    model.addAttribute("busList", busList);
-			    model.addAttribute("routeList", routeList);
-			    model.addAttribute("stationList", stationList);
 			}
+			//insert
+			
+			int insertRoute=0;
+			int insertStation=0;
+			int insertBus = 0;
+			insertBus = dataEtcService.insertBus(busList);
+			
+			insertStation = dataEtcService.insertStation(stationList);
+			
+			routeList.addAll(routeSet);
+			insertRoute = dataEtcService.insertRoute(routeList);
+			
+			
+			
+			model.addAttribute("busList", busList);
+			model.addAttribute("routeList", routeList);
+			model.addAttribute("stationList", stationList);
 			
 			//===============================================================================
 			
@@ -646,7 +635,7 @@ public class DataEtcController {
 		
 		return "redirect:/manage/dataEtc/dataEtc";
 	}
-//"BUSSTOP_NM"
+	
 	private String getStationValue(Element elementR,String tagName) {
 		NodeList busstopList = elementR.getElementsByTagName(tagName);
 
