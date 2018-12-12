@@ -120,6 +120,7 @@ public class DataTradeControllerUtil {
 		}else if(ar_zip == -1) {
 			
 			articleVo.setArtcl_zip("*");
+			dealVo.setDl_zip("*");
 			
 		}
 		
