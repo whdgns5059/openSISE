@@ -17,6 +17,18 @@ public class RouteVo {
 	public void setRt_id(String rt_id) {
 		this.rt_id = rt_id;
 	}
+	public boolean equals(Object obj) {
+		if(obj instanceof RouteVo) {
+			RouteVo tmp = (RouteVo) obj;
+			return rt_cd.equals(tmp.rt_cd) && rt_id.equals(tmp.rt_id);
+		}
+		return false;
+	}
+	
+	public int hashCode() {
+		return (rt_cd + rt_id).hashCode();
+	}
+	
 	@Override
 	public String toString() {
 		return "RouteVo [rt_cd=" + rt_cd + ", rt_id=" + rt_id + "]";
