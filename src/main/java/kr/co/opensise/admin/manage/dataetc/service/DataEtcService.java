@@ -37,19 +37,19 @@ public class DataEtcService implements DataEtcServiceInf {
 
 	@Override
 	public int insertBus(List<BusVo> busList) {
-		dataEtcDao.deleteBus();
+//		dataEtcDao.deleteBus();
 		return dataEtcDao.insertBus(busList);
 	}
 
 	@Override
 	public int insertRoute(List<RouteVo> routeList) {
-		dataEtcDao.deleteRoute();
+//		dataEtcDao.deleteRoute();
 		return dataEtcDao.insertRoute(routeList);
 	}
 
 	@Override
 	public int insertStation(List<StationVo> stationList) {
-		dataEtcDao.deleteStation();
+//		dataEtcDao.deleteStation();
 		return dataEtcDao.insertStation(stationList);
 	}
 

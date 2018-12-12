@@ -452,6 +452,8 @@ public class DataEtcController {
 			
 			Set<RouteVo> routeSet = new HashSet<RouteVo>();
 			
+			//AQaEtVk16ydt8lKbZqS3YbaTNMVbUG7vKt18aGAP0we9Uv5TODox8zz67iarSbBoJyg82A%2B513%2FKot1f6dbvKQ%3D%3D:종훈
+			//RT1lHlWUhjho%2FbTmTxIJL4vFER1%2BRzgKGsI1dLvVMCspNNUpTxjfzvhfjSEZ75nE9AHoSPUN3fdIJQ3cZzwAOw%3D%3D:나
 			//openApi 호출(전체노선 기본정보 조회)
 			String urlAll = "http://openapitraffic.daejeon.go.kr/"
 						+"api/rest/busRouteInfo/getRouteInfoAll"
@@ -468,7 +470,7 @@ public class DataEtcController {
 			while((lineA = brA.readLine())!=null) {
 				resultA = resultA + lineA.trim()+"\n"; //result = url로 xml을 읽은 값
 			}
-//			log.info("resultA : {}", resultA);
+			log.info("resultA : {}", resultA);
 			
 			//===============================================================================
 			InputStream isA = new ByteArrayInputStream(resultA.getBytes());// 서버로 부터 받은 string 형태의 xml데이터를 InputStream에 담는다.
@@ -571,55 +573,29 @@ public class DataEtcController {
 					    Element elementR = (Element)items.item(k);
 					    
 					    //버스정류장명, 
-						NodeList busstop_nmList = elementR.getElementsByTagName("BUSSTOP_NM");
-
-						for (int l = 0; l < busstop_nmList.getLength(); l++) {
-
-							Element eventEleR = (Element) busstop_nmList.item(l);
-							Node butstopR = eventEleR.getFirstChild();
-							String busstop_nm = butstopR.getNodeValue();
-							stationVo.setSttn_nm(busstop_nm);
-							log.info("busstop_nm : {}", busstop_nm);
-						}
+						String busstop_nm = getStationValue(elementR,"BUSSTOP_NM");
+						stationVo.setSttn_nm(busstop_nm);
+						log.info("busstop_nm : {}", busstop_nm);
 						
 						//버스 정류장 ID
-						NodeList bus_node_idList = elementR.getElementsByTagName("BUS_NODE_ID");
+						String bus_node_id = getStationValue(elementR,"BUS_NODE_ID");
+						stationVo.setSttn_id(bus_node_id);
+						routeVo.setRt_id(bus_node_id);
+						log.info("bus_node_id : {}", bus_node_id);
 
-						for (int l = 0; l < bus_node_idList.getLength(); l++) {
-
-							Element eventEleR = (Element) bus_node_idList.item(l);
-							Node butstopR = eventEleR.getFirstChild();
-							String bus_node_id = butstopR.getNodeValue();
-							stationVo.setSttn_id(bus_node_id);
-							routeVo.setRt_id(bus_node_id);
-							log.info("bus_node_id : {}", bus_node_id);
-						}
 						
 						//위도
-						NodeList gps_latiList = elementR.getElementsByTagName("GPS_LATI");
-
-						for (int l = 0; l < gps_latiList.getLength(); l++) {
-
-							Element eventEleR = (Element) gps_latiList.item(l);
-							Node butstopR = eventEleR.getFirstChild();
-							String gps_lati = butstopR.getNodeValue();
-							stationVo.setSttn_lat(gps_lati);
-							log.info("gps_lati : {}", gps_lati);
-						}
+						String gps_lati = getStationValue(elementR,"GPS_LATI");
+						stationVo.setSttn_lat(gps_lati);
+						log.info("gps_lati : {}", gps_lati);
+						
 						
 						//경도
-						NodeList gps_longList = elementR.getElementsByTagName("GPS_LONG");
-
-						for (int l = 0; l < gps_longList.getLength(); l++) {
-
-							Element eventEleR = (Element) gps_longList.item(l);
-							Node butstopR = eventEleR.getFirstChild();
-							String gps_long = butstopR.getNodeValue();
-							stationVo.setSttn_lng(gps_long);
-							log.info("getGpsLong : {}", stationVo.getSttn_lng());
-							log.info("gps_long : {}", gps_long);
+						String gps_long = getStationValue(elementR,"GPS_LONG");
+						stationVo.setSttn_lng(gps_long);
+						log.info("gps_long : {}", gps_long);
 							
-						}
+						
 						
 						routeSet.add(routeVo);
 						
@@ -669,6 +645,17 @@ public class DataEtcController {
 		}
 		
 		return "redirect:/manage/dataEtc/dataEtc";
+	}
+//"BUSSTOP_NM"
+	private String getStationValue(Element elementR,String tagName) {
+		NodeList busstopList = elementR.getElementsByTagName(tagName);
+
+		Element eventEleR = (Element) busstopList.item(0);
+		Node butstopR = eventEleR.getFirstChild();
+		String busstop= butstopR.getNodeValue();
+		
+		return busstop;
+		
 	}
 
 	
