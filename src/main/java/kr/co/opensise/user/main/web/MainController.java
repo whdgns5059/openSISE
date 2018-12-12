@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.user.main.model.BuildingSaleVo;
+import kr.co.opensise.user.main.model.FilterVo;
 import kr.co.opensise.user.main.service.MainServiceInf;
 
 
@@ -30,18 +31,29 @@ public class MainController {
 	* Method 설명 : 건물분류와 검색명을 가지고 매물 검색   
 	*/
 	@RequestMapping("/main")
-	public String main(Model model, @RequestParam(value="searchName", defaultValue="")String searchName, @RequestParam("building")String building) {
+	public String main(Model model, @RequestParam(value="searchName", defaultValue="")String searchName, @RequestParam("building")String building, FilterVo filterVo) {
 		Map<String, String> searchMap = new HashMap<String, String>();
 		searchMap.put("searchName", searchName);
 		searchMap.put("building", building);
-		
 		List<BuildingSaleVo> buildSaleList = mainService.buildingSaleList(searchMap);
 		//하라미터를 바탕으로  db에 검색 (파라미터 : 건물분류, 검색명)
 		model.addAttribute("buildingSaleList", buildSaleList);
 		model.addAttribute("buildingSaleListSize", buildSaleList.size());
-		model.addAttribute("search", searchName);
+		model.addAttribute("searchName", searchName);
 		model.addAttribute("building",building);
 		return "main";
+	}
+	
+	@RequestMapping("/mainAjax")
+	public String mainAjax(Model model, FilterVo filterVo) {
+		
+		List<BuildingSaleVo> buildFilterList = mainService.buildingFilterList(filterVo);
+		//하라미터를 바탕으로  db에 검색 (파라미터 : 건물분류, 검색명)
+		model.addAttribute("buildingSaleList", buildFilterList);
+		model.addAttribute("buildingSaleListSize", buildFilterList.size());
+		model.addAttribute("building",filterVo.getBuilding());
+		model.addAttribute("dlType",filterVo.getDl_ty());
+		return "user/mainAjax/rightList";
 	}
 	
 

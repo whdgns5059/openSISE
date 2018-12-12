@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?> 
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -15,6 +15,12 @@
 		where dl_gu = #{dl_gu} and dl_dong=#{dl_dong} 
 		and dl_zip=#{dl_zip} and dl_rd=#{dl_rd}
 		and dl_ty = #{dl_ty}
+	</select>
+	
+	<select id="selectAreas" parameterType="articleVo" resultType="String">
+		select distinct dl_excv_area from deal
+		where dl_gu = #{artcl_gu} and dl_dong=#{artcl_dong} 
+		and dl_zip=#{artcl_zip} and dl_rd=#{artcl_rd}
 	</select>
 	
 </mapper>

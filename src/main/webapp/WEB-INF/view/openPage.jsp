@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -340,7 +342,9 @@ input:disabled {
 				<!-- 관리자일 경우에 생기는 a tag  --> 
  				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  --> 
-				<li><a href="/">{회원의 닉네임}님 환영합니다! </a></li>
+				<li><c:if test="${nowLogin.mem_nm!= null}">
+					${nowLogin.mem_nm} 님 안녕하세요 
+				</c:if></li>
 			</ul>
 		</div>
 	</div>
@@ -377,6 +381,7 @@ input:disabled {
 					<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">시세보기</button>
 					<input type="hidden" id="bc_type"/>
 					<input type="hidden" id="building" name="building"/>
+					<input type="hidden" id="building" name="dl_ty" value="매매"/>
 				</form>
 		</div>
 			

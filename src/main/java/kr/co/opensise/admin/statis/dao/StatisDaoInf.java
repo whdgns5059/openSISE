@@ -42,8 +42,23 @@ public interface StatisDaoInf {
 	*/
 	public List<MemberVo> signOutDaily();
 	
+	/**
+	* Method : signInMonthly
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 :
+	*/
+	public List<MemberVo> signInMonthly();
 	
-	
+	/**
+	* Method : signOutMonthly
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 :
+	*/
+	public List<MemberVo> signOutMonthly();
 	
 	
 	

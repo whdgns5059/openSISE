@@ -11,4 +11,7 @@ public interface DetailDaoInf {
 	
 	List<DealVo> selectDealList(DealVo dealVo);
 
+	List<String> selectAreas(ArticleVo articleVo);
+	
+
 }

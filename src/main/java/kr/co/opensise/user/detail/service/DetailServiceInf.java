@@ -19,5 +19,9 @@ public interface DetailServiceInf {
 	* Map의 key는 selectArticleVo, selectDealVoList
 	**************************************************/
 	Map<String, Object> getDetailInfo(ArticleVo articleVo, String dl_ty);
+	
+	
+	ArticleVo selectArticleVo(ArticleVo articleVo);
+		
 
 }

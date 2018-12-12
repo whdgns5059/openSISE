@@ -26,5 +26,10 @@ public class DetailDao implements DetailDaoInf{
 		return template.selectList("detail.selectDealList", dealVo);
 	}
 
+	@Override
+	public List<String> selectAreas(ArticleVo articleVo) {
+		return template.selectList("detail.selectAreas", articleVo);
+	}
+
 
 }

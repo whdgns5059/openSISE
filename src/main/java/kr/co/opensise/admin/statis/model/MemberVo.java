@@ -1,7 +1,5 @@
 package kr.co.opensise.admin.statis.model;
 
-import java.util.Date;
-
 public class MemberVo {
 	
 	private int mem_no;
@@ -12,16 +10,16 @@ public class MemberVo {
 	private String mem_exdate;
 	private int mem_lvl;
 	private String mem_ldate;
-	private Date ymd;
+	private String ymd;
 	private int counts;
 	
 
 	public MemberVo() {
 	}
-	public Date getYmd() {
+	public String getYmd() {
 		return ymd;
 	}
-	public void setYmd(Date ymd) {
+	public void setYmd(String ymd) {
 		this.ymd = ymd;
 	}
 	public int getcounts() {

@@ -26,8 +26,8 @@ public class LoginController {
 	private LoginServiceInf loginService;
 	
 	/**  
-	* Method   :  
-	* 작성자 :  
+	* Method   :  selectLogin
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 : 로그인 선택(오픈시세/카카오톡 로그인)
@@ -38,8 +38,8 @@ public class LoginController {
 	}
 
 	/**  
-	* Method   :  
-	* 작성자 :  
+	* Method   :  login
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 : 오픈시세 로그인
@@ -51,8 +51,8 @@ public class LoginController {
 	
 	
 	/**  
-	* Method   :  
-	* 작성자 :  
+	* Method   :  loginView
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 : 오픈시세  암호화 및 로그인
@@ -65,18 +65,33 @@ public class LoginController {
 		
 		if (user != null && user.authPass(encryptPass)) {
 			HttpSession session = request.getSession();
-			session.setAttribute("mem_email", user.getMem_pass());
+			session.setAttribute("nowLogin", user);
 			model.addAttribute("memberVo",user);
 			return "openPage";
 		} else {
 			model.addAttribute("msg","ID와 PW를 다시 확인해 주세요");
-			return "loginErr";
+			return "member/loginErr";
 		}
 	}
 	
+	/** Method   : duplication 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  로그아웃
+	*/
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		
+		return "openPage";
+	}
+	
+	
 	/**  
-	* Method   :  
-	* 작성자 :  
+	* Method   :  passButton
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 : 비밀번호 찾기 팝업으로 이동
@@ -88,8 +103,8 @@ public class LoginController {
 	
 
 	/**  
-	* Method   :  
-	* 작성자 :  
+	* Method   :  passButtonChk
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 : 비밀번호 찾기 
@@ -102,8 +117,8 @@ public class LoginController {
 	
 	
 	
-	/** Method   : signup 
-	* 작성자 :  
+	/** Method   : sign_Up 
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 :  회원가입
@@ -116,8 +131,8 @@ public class LoginController {
 	}
 	
 	
-	/** Method   : login 
-	* 작성자 :  
+	/** Method   : signUpSelection 
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 :  회원가입 필수정보입력
@@ -131,14 +146,13 @@ public class LoginController {
 		model.addAttribute("mem_email",memberVo.getMem_email());
 		
 		List<MemberVo> interest = loginService.interestLiset();
-		System.out.println("intrstList : " + interest);
 		model.addAttribute("intrstList",interest);
 
 		return "signupDetail";
 	}
 	
-	/** Method   : login 
-	* 작성자 :  
+	/** Method   : signupDetail 
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 :  회원가입 선택정보입력후 저장 
@@ -146,13 +160,12 @@ public class LoginController {
 	@RequestMapping(value="/signupDetail", method= {RequestMethod.POST})
 	public String signupDetail(Model model, MemberVo memberVo) {
 		
-		
 		// 리턴값 임시
 		return "openPage";
 	}
 	
-	/** Method   : login 
-	* 작성자 :  
+	/** Method   : duplication 
+	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 :  회원가입시 닉네임 중복체크
@@ -160,9 +173,16 @@ public class LoginController {
 	@RequestMapping(value="/duplication", method={RequestMethod.POST})
 	public String duplication(@RequestParam("memNm") String mem_nm, Model model ) {
 		int memberNm = loginService.check_nm(mem_nm);
+		List<MemberVo> memberJobLiset = loginService.jobList();
 		model.addAttribute("msg",memberNm);
+		model.addAttribute("JobList",memberJobLiset);
 		
 		return "signup";
 		
 	}
+	
+	
+
+	
+	
 }
