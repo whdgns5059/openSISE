@@ -78,7 +78,7 @@
 				<label for="inputEmail" class="sr-only">Email</label> 
 					<input type="text" id="userId" name="mem_email" class="form-control" value=""	placeholder="아이디 입력하세요" required autofocus> 
 				<label for="inputPassword" class="sr-only">Password</label> 
-					<input type="password" id="inputPassword" name="mem_pass" class="form-control" value="brownpass" required>
+					<input type="password" id="inputPassword" name="mem_pass" class="form-control" value="wzvnn425" required>
 			<!-- Modal HTML embedded directly into document -->
 			<div id="ex1" class="modal">
 			  <p>Thanks for clicking. That felt good.</p>

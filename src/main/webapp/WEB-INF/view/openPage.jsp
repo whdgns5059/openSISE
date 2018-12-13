@@ -337,13 +337,23 @@ input:disabled {
 		<div class="nav_right">
 			<ul class="top-menu">
 				<!-- memVo가 null인 경우 -->
-				<li><a href="/login/selectLogin">로그인</a></li>
-				<li><a href="/login/signup">회원가입</a></li>
-				<!-- 관리자일 경우에 생기는 a tag  --> 
- 				<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
-			<!-- 로그인 한 경우에 생기는 a tag  --> 
-				<li><c:if test="${nowLogin.mem_nm!= null}">
-					${nowLogin.mem_nm} 님 안녕하세요 
+				<li><c:if test="${nowLogin == null}">
+					<a href="/login/selectLogin">로그인</a>&emsp;
+					<a href="/login/signup">회원가입</a>
+					</c:if></li>
+				
+				<!-- 관리자일 경우에 생기는 a tag -->
+ 				<li><c:if test="${nowLogin.mem_mngr!= null}">
+					${nowLogin.mem_nm} 님 안녕하세요  &emsp;
+					<a href="/manage/dataTrade/dataTrade">관리자</a>&emsp;
+					<a href="/login/logout">로그아웃</a>
+				</c:if></li>
+ 				
+				<!-- 로그인 한 경우에 생기는 a tag -->
+				<li><c:if test="${nowLogin.mem_nm!= null && nowLogin.mem_mngr == null}">
+					${nowLogin.mem_nm} 님 안녕하세요  &emsp;
+					<a href="/mypage/myInfo">나의 정보</a>&emsp;
+					<a href="/login/logout">로그아웃</a>
 				</c:if></li>
 			</ul>
 		</div>

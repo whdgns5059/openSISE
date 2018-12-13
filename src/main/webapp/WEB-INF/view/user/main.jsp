@@ -130,28 +130,80 @@
 	left: -100px;
 	bottom: 0;
 }
+
+#slider-vertical{
+	margin-left: 20px;
+}
+
+#mini{
+	margin-left: 50px;
+}
+
 </style>
+<link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet">
+<!-- <link href="css/boostratp_slider_css_js/css/bootstrap.min.css" rel="stylesheet"> -->
+<script type="text/javascript" src ="/css/boostratp_slider_css_js/js/jquery.min.js"></script>
+<script type="text/javascript" src ="/css/boostratp_slider_css_js/js/bootstrap-slider.js"></script>
 <script type="text/javascript">
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
-		var buildingTy = $("#building").val();
-		getArticleList(buildingTy);
+		/* var dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
+		$("#buildT").html(dl_Type); */
+		
 		settingMap();
+		/*------------ 슬라이트 생성 코드 ---------------*/
+		$(function(){
+			$("#mini").slider({
+				formatter : function(value){
+					return '현재값:' + value;
+				}
+			});
+			
+			$("#mini").on("slide",function(slideEvt){
+				$("#miniVal").text(slideEvt.value);
+			});
+		});
+		
 		
 		/*------------ 마커생성 코드 끝 ----------------*/
 
 		
 		$(".dlSelector").on("click", function(){
-			
-			var dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
-			
+			dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
 			$("#buildT").html(dl_Type);
+			
 			$("#dl_ty").val(dl_Type);
 			
-			getArticleList(dl_Type);
+			if($("#dl_ty").val() == '매매'){
+				$("#dlTypePrice").html("매매가");
+			}else if ($("#dl_ty").val() == '전세'){
+				$("#dlTypePrice").html("보증금");
+			}else{
+				$("#dlTypePrice").html("월세");
+			}
+			
+			getArticleList();
 		}); 
 		
-
+		$("#search").on("click",function(){
+			dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
+			$("#buildT").html(dl_Type);
+			
+			$("#dl_ty").val(dl_Type);
+			
+			if($("#dl_ty").val() == '매매'){
+				$("#dlTypePrice").html("매매가");
+			}else if ($("#dl_ty").val() == '전세'){
+				$("#dlTypePrice").html("보증금");
+			}else{
+				$("#dlTypePrice").html("월세");
+			}
+			
+			getArticleList();
+			console.log($("#dl_ty").val());
+		});
+		
+		
 	});
 	
 	function getArticleList(){
@@ -161,6 +213,7 @@
 			url : "/main/mainAjax",
 			data : param,
 			success : function(data){
+				$(".main-right").html("");
 				$(".main-right").html(data);
 				settingMap();
 			}
@@ -234,10 +287,11 @@
 	<div class="search-filt">
 		<!-- 검색어 -->
 		<div class="search">
-			<form action="/" method="get" name="frm">
+			<input type="hidden" id="dl_type" name="dl_type" value="${dlType}"> 
+			<form method="get" name="frm">
 					<input type="text" class="search-box" placeholder="지역명, 지하철역명, 아파트명" name="searchName" id="loc" value="${searchName}"> 
 					<input type="hidden" id="building" name="building" value="${building}">
-					<input type="hidden" id="dl_ty" name="dl_ty">
+					<input type="hidden" id="dl_ty" name="dl_ty" value ="매매"> 
 				<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">검색</button>
 			</form>
 		</div>
@@ -252,19 +306,25 @@
 							<div class="custom-control custom-checkbox">
 								<a class="dropdown-item" href="#"> 
 									<input type="checkbox" class="custom-control-input" id="single" /> 
-									<label class="custom-control-label" for="jeonse">&ensp단독</label>
+									<label class="custom-control-label" for="jeonse">&nbsp&nbsp단독</label>
 								</a>
 							</div>
 							<div class="custom-control custom-checkbox">
 								<a class="dropdown-item" href="#"> 
 									<input type="checkbox" class="custom-control-input" id="multi" /> 
-									<label class="custom-control-label" for="wolse">&ensp다세대</label>
+									<label class="custom-control-label" for="wolse">&nbsp&nbsp다세대</label>
 								</a>
 							</div>
 							<div class="custom-control custom-checkbox">
 								<a class="dropdown-item" href="#"> 
 									<input type="checkbox" class="custom-control-input" id="multip" /> 
-									<label class="custom-control-label" for="maemae">&ensp연립</label>
+									<label class="custom-control-label" for="maemae">&nbsp&nbsp연립</label>
+								</a>
+							</div>
+							<div class="custom-control custom-checkbox">
+								<a class="dropdown-item" href="#"> 
+									<input type="checkbox" checked="checked" class="custom-control-input" id="multip" /> 
+									<label class="custom-control-label" for="maemae">&nbsp&nbsp전체</label>
 								</a>
 							</div>
 						</div>
@@ -276,13 +336,13 @@
 					<div class="dropdown-menu" id="dlType">
 						<div class="custom-control custom-checkbox">
 							<a class="dropdown-item" href="#"> 
-								<input type="radio" class="custom-control-input dlSelector" id="jeonse" name="buildingType" value="전세"/> 
+								<input type="radio"  class="custom-control-input dlSelector" id="jeonse" name="buildingType" value="전세"/> 
 								<label class="custom-control-label" for="jeonse">&nbsp&nbsp전세</label>
 							</a>
 						</div>
 						<div class="custom-control custom-checkbox">
 							<a class="dropdown-item" href="#"> 
-								<input type="radio" class="custom-control-input dlSelector" id="wolse" name="buildingType" value="월세"/> 
+								<input type="radio"  class="custom-control-input dlSelector" id="wolse" name="buildingType" value="월세"/> 
 								<label class="custom-control-label" for="wolse">&nbsp&nbsp월세</label>
 							</a>
 						</div>
@@ -297,32 +357,13 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">가격</a>
-					<div class="dropdown-menu">
-						<div class="custom-control custom-checkbox">
-							<a class="dropdown-item" href="#"> 
-								<input type="radio" class="custom-control-input" id="low" name="floorType"/> 
-								<label class="custom-control-label" for="low">&nbsp&nbsp저층(5층이하)</label>
-							</a>
-						</div>
-						<div class="custom-control custom-checkbox">
-							<a class="dropdown-item" href="#"> 
-								<input type="radio" class="custom-control-input" id="middle" name="floorType"/> 
-								<label class="custom-control-label" for="middle">&nbsp&nbsp중층(20층 이하)</label>
-							</a>
-						</div>
-						<div class="custom-control custom-checkbox">
-							<a class="dropdown-item" href="#"> 
-								<input type="radio"  class="custom-control-input" id="high" name="floorType"/> 
-								<label class="custom-control-label" for="high">&nbsp&nbsp고층(20층 이상)</label>
-							</a>
-						</div>
-						<div class="custom-control custom-checkbox">
-							<a class="dropdown-item" href="#"> 
-								<input type="radio" checked="checked" class="custom-control-input" id="all" name="floorType"/> 
-								<label class="custom-control-label" for="all">&nbsp&nbsp전체</label>
-							</a>
-						</div>
-					</div></li>
+					<div class="dropdown-menu" style="width:300px; height: 100px;">
+						<h4 id="dlTypePrice"></h4>
+  						<!-- <label for="amount">매매가</label> -->	<br>	
+ 						<input id ="mini" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14">
+						<span>test: <span id="minVal">14</span></span>
+					</div>
+					</li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">면적</a>
@@ -379,6 +420,67 @@
 <!-- right contents -->
 <div class="main-right">
 	<!-- 매물리스트 들어가는 자리 -->
+	
+	<div id="lngLat">
+	<input type="hidden" id="listSize" value="${buildingSaleListSize}" />
+	<c:forEach items="${buildingSaleList}" var="build">
+		<input type="hidden" class="lat" value="${build.artcl_lat}">
+		<input type="hidden" class="lng" value="${build.artcl_lng}">
+	</c:forEach>
+	</div>
+<!-- 매물리스트  -->
+	<div class="articles">
+		<c:choose>
+			<c:when test="${buildingSaleListSize != 0}">
+				<c:forEach items="${buildingSaleList}" var="build">
+					<div class="article">
+						<c:choose>
+							<c:when test="${building == 'apt'}">
+								<h4>${build.artcl_complx}</h4>
+							</c:when>
+							<c:when test="${building == 'multi'}">
+								<c:choose>
+									<c:when test="${build.artcl_bc == 'multi'}">
+										<h4>${build.artcl_rd}</h4>
+									</c:when>
+									<c:when test="${build.artcl_bc == 'multip'}">
+										<h4>${build.artcl_nm}</h4>
+									</c:when>
+									<c:when test="${build.artcl_bc == 'single'}">
+										<h4>${build.artcl_rd}</h4>
+									</c:when>
+								</c:choose>
+								
+							</c:when>
+							<c:when test="${building == 'office'}">
+								<h4>${build.artcl_complx}</h4>
+							</c:when>
+							<c:when test="${building == 'store'}">
+								<h4>${build.artcl_rd}</h4>
+							</c:when>
+						</c:choose>
+						<label class="address">대전광역시 ${build.artcl_gu} ${build.artcl_dong} ${build.artcl_rd} ${build.artcl_rd_detail}</label><br />
+						<!-- 평균 시세는 근 3개월 간의 시세를 평균으로 낸다. -->
+						<c:choose>
+							<c:when test="${build.dl_ty == '매매' }">
+								<label class="avg-price">평당 평균가&nbsp&nbsp${build.avg_dl}만원</label>
+							</c:when>
+							<c:when test="${build.dl_ty == '전세' }">
+								<label class="avg-price">평균 전세가 &nbsp&nbsp${build.dl_depos}만원</label>
+							</c:when>
+							<c:when test="${build.dl_ty == '월세' }">
+								<label class="avg-price">평균 보증금&nbsp ${build.dl_depos}만원 <br> 평균 월세가 &nbsp ${build.dl_rnt}만원</label>
+							</c:when>
+						</c:choose>
+						<br>
+					</div>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+			검색 결과가 없습니다.(돋보기 그림 추가 + 글씨크기 키우고 색은 옅은 회색)
+		</c:otherwise>
+		</c:choose>
+	</div>
 	<!-- 지역분석 버튼 -->
 	<!-- <div class="area-analysis">
 		2

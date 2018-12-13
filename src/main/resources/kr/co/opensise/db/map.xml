@@ -5,17 +5,18 @@
 <mapper namespace="map">
 	<!-- 건물 형태와 검색어 검색 리스트 -->
 	<!-- 처음 검색 쿼리로 기준은 매매로 정해놓는다. -->
-	<select id="searchList" parameterType="map" resultType="buildingSaleVo">
+	<select id="searchList" parameterType="filterVo" resultType="buildingSaleVo">
 		select artcl_gu, artcl_dong, artcl_complx, artcl_nm,
 		artcl_rd, dl_ty,
 		artcl_rd_detail,round(avg(dl_price/round(dl_excv_area/3.3,0)),0)as
-		avg_dl, artcl_lat,
-		artcl_lng
+		avg_dl, artcl_lat, artcl_lng
 		from article inner join deal on (artcl_gu = dl_gu 
 										and
 										artcl_dong = dl_dong
 										and 
-										artcl_zip = dl_zip and artcl_bc = #{building} 
+										artcl_zip = dl_zip 
+										and 
+										artcl_bc = #{building} 
 										and
 										dl_ty = '매매')
 		where artcl_dong = #{searchName}
@@ -25,10 +26,35 @@
 		artcl_nm like #{searchName} ||'%'
 		group by artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty
 	</select>
-
+	
+	<!-- 단/다세대일 경우의 검색 질의 쿼리문 -->
+	<select id="searchSingleList" parameterType="filterVo" resultType="buildingSaleVo">
+		select artcl_gu, artcl_dong, artcl_complx, artcl_nm,
+		artcl_rd, dl_ty,
+		artcl_rd_detail,round(avg(dl_price/round(dl_excv_area/3.3,0)),0)as
+		avg_dl, artcl_lat,
+		artcl_lng, artcl_bc
+		from article inner join deal on (artcl_gu = dl_gu 
+										and
+										artcl_dong = dl_dong
+										and 
+										artcl_zip = dl_zip 
+										and 
+										artcl_bc in ('single', 'multi', 'multip')
+										and
+										dl_ty = '매매')
+		where artcl_dong = #{searchName}
+		or
+		artcl_complx like #{searchName} ||'%'
+		or
+		artcl_nm like #{searchName} ||'%'
+		group by artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty, artcl_bc
+	</select>
+	
+	<!-- 필터를 이용한 매물 리스트 출력 -->
 	<select id="searchFilterList" parameterType="filterVo" resultType="buildingSaleVo">
 		select artcl_gu, artcl_dong, artcl_complx, artcl_nm, artcl_rd, dl_ty,
-		artcl_rd_detail,round(avg(dl_price/round(dl_excv_area/3.3,0)),0)as avg_dl, artcl_lat, artcl_lng
+		artcl_rd_detail,round(avg(dl_price/round(dl_excv_area/3.3,0)),0)as avg_dl, artcl_lat, artcl_lng ,round(avg(dl_depos),0)as dl_depos, round(avg(dl_rnt),0)as dl_rnt
 		from article inner join deal on (artcl_gu = dl_gu 
 										and
 										artcl_dong = dl_dong
@@ -42,6 +68,28 @@
 		or
 		artcl_nm like #{searchName} ||'%'
 		group by artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty
+
+	</select>
+	
+	<!-- 단/다세대일 경우 필터를 이용한 매물 리스트 출력 -->
+	<select id="searchSingleFilterList" parameterType="filterVo" resultType="buildingSaleVo">
+		select artcl_gu, artcl_dong, artcl_complx, artcl_nm, artcl_rd, dl_ty,
+		artcl_rd_detail,round(avg(dl_price/round(dl_excv_area/3.3,0)),0)as avg_dl, artcl_lat, artcl_lng ,round(avg(dl_depos),0)as dl_depos, round(avg(dl_rnt),0)as dl_rnt ,artcl_bc
+		from article inner join deal on (artcl_gu = dl_gu 
+										and
+										artcl_dong = dl_dong
+										and 
+										artcl_zip = dl_zip 
+										and 
+										artcl_bc in ('single', 'multi', 'multip') 
+										and
+										dl_ty = #{dl_ty})
+		where artcl_dong = #{searchName}
+		or
+		artcl_complx like #{searchName} ||'%'
+		or
+		artcl_nm like #{searchName} ||'%'
+		group by artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty, artcl_bc
 
 	</select>
 
