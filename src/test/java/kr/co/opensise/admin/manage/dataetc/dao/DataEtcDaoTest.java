@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
 import kr.co.opensise.setup.RootSetup;
 
 public class DataEtcDaoTest extends RootSetup{
@@ -47,6 +49,40 @@ public class DataEtcDaoTest extends RootSetup{
 		/***then***/
 		assertEquals(2, insertBus);
 		
+	}
+	
+	@Test
+	public void insertInstiDaoTest() {
+		/***Given***/
+		String insti = "도서관";
+		InstiVo instiVo = new InstiVo();
+		instiVo.setInsti_nm(insti);
+		
+		/***When***/
+		int insertInsti = dataEtcDao.insertInsti(instiVo);
+
+		/***Then***/
+		assertEquals("도서관", instiVo.getInsti_nm());
+	}
+	
+	@Test
+	public void selectInstiListDaoTest() {
+		/***Given***/
+		
+		/***When***/
+		List<InstiVo> instiList = dataEtcDao.selectInsti();
+		/***Then***/
+		assertEquals("도서관", instiList.get(0).getInsti_nm());
+	}
+	
+	@Test
+	public void selectInstiAttrListDaoTest() {
+		/***Given***/
+		int iattr_insti=1;
+		/***When***/
+		List<InstiAttrVo> instiAttrList = dataEtcDao.selectInstiAttr(iattr_insti);
+		/***Then***/
+		assertEquals(3, instiAttrList.size());
 	}
 
 }

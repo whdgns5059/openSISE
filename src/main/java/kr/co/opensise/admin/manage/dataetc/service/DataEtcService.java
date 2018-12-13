@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import kr.co.opensise.admin.manage.dataetc.dao.DataEtcDaoInf;
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
 import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
 import kr.co.opensise.admin.manage.dataetc.model.RouteVo;
 import kr.co.opensise.admin.manage.dataetc.model.StationVo;
@@ -37,20 +39,35 @@ public class DataEtcService implements DataEtcServiceInf {
 
 	@Override
 	public int insertBus(List<BusVo> busList) {
-//		dataEtcDao.deleteBus();
+		dataEtcDao.deleteRoute();
+		dataEtcDao.deleteStation();
+		dataEtcDao.deleteBus();
 		return dataEtcDao.insertBus(busList);
 	}
 
 	@Override
 	public int insertRoute(List<RouteVo> routeList) {
-//		dataEtcDao.deleteRoute();
 		return dataEtcDao.insertRoute(routeList);
 	}
 
 	@Override
 	public int insertStation(List<StationVo> stationList) {
-//		dataEtcDao.deleteStation();
 		return dataEtcDao.insertStation(stationList);
+	}
+
+	@Override
+	public int insertInsti(InstiVo instiVo) {
+		return dataEtcDao.insertInsti(instiVo);
+	}
+
+	@Override
+	public List<InstiVo> selectInsti() {
+		return dataEtcDao.selectInsti();
+	}
+
+	@Override
+	public List<InstiAttrVo> selectInstiAttr(int iattr_insti) {
+		return dataEtcDao.selectInstiAttr(iattr_insti);
 	}
 
 

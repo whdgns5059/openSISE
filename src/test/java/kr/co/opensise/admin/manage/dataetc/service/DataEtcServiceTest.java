@@ -12,11 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
 import kr.co.opensise.setup.RootSetup;
 
-public class DataEtcDaoTest extends RootSetup{
+public class DataEtcServiceTest extends RootSetup{
 
-	private Logger log = LoggerFactory.getLogger(DataEtcDaoTest.class);
+	private Logger log = LoggerFactory.getLogger(DataEtcServiceTest.class);
 	
 	@Resource(name="dataEtcService")
 	private DataEtcServiceInf dataEtcService;
@@ -48,5 +49,20 @@ public class DataEtcDaoTest extends RootSetup{
 		assertEquals(2, insertBus);
 		
 	}
+	
+	@Test
+	public void insertInstiDaoTest() {
+		/***Given***/
+		String insti = "도서관";
+		InstiVo instiVo = new InstiVo();
+		instiVo.setInsti_nm(insti);
+		
+		/***When***/
+		int insertInsti = dataEtcService.insertInsti(instiVo);
+
+		/***Then***/
+		assertEquals("도서관", instiVo.getInsti_nm());
+	}
+
 
 }

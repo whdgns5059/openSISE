@@ -87,6 +87,28 @@
 	<delete id="deleteBus">delete from bus</delete>
 	<delete id="deleteRoute">delete from route</delete>
 	<delete id="deleteStation">delete from station</delete>
+	
+<!-- 시설관리 -->
+	<!-- 시설 -->
+	<insert id="insertInsti" parameterType="instiVo">
+		insert into insti(insti_no,insti_nm)
+    values( seq_insti_no.nextval,#{insti_nm})
+	</insert>
+	
+	<select id="selectInstiList" resultType="instiVo">
+		select * from insti
+	</select>
+	
+	<!-- 시설속성 -->
+	<insert id="insertIattr" parameterType="instiAttrVo">
+		insert into insti_attr(iattr_no,iattr_insti,iattr_pare,iattr_key,iattr_val)
+    values(seq_iattr_no.nextval,#{iattr_insti},<if test="iattr_pare!=null"></if>#{iattr_pare},
+    	<if test="iattr_key!=null"></if>#{iattr_key},<if test="iattr_val!=null">#{iattr_val}</if>)
+	</insert>
+	
+	<select id="slelectInstiAttrList" parameterType="Integer" resultType="instiAttrVo">
+		select * from insti_attr where iattr_insti = #{iattr_insti}
+	</select>
 </mapper>
 
 

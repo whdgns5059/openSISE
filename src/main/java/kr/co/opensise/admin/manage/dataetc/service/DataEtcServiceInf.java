@@ -4,6 +4,8 @@ import java.util.List;
 
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
 import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
 import kr.co.opensise.admin.manage.dataetc.model.RouteVo;
 import kr.co.opensise.admin.manage.dataetc.model.StationVo;
@@ -11,15 +13,16 @@ import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 
 public interface DataEtcServiceInf {
 
-	int insertHuman_statistic(List<HumanStatisticVo> human_statisticList);
+	public int insertHuman_statistic(List<HumanStatisticVo> human_statisticList);
 	
-	int insertMarket(List<MarketVo> marketList);
-	int insertMarketDetail(List<MarketDetailVo> marketDetailList);
+	public int insertMarket(List<MarketVo> marketList);
+	public int insertMarketDetail(List<MarketDetailVo> marketDetailList);
 	
-	int insertBus(List<BusVo> busList);
-	int insertRoute(List<RouteVo> routeList);
-	int insertStation(List<StationVo> stationList);
+	public int insertBus(List<BusVo> busList);
+	public int insertRoute(List<RouteVo> routeList);
+	public int insertStation(List<StationVo> stationList);
 	
-	
-
+	public int insertInsti(InstiVo instiVo);
+	public List<InstiVo> selectInsti();
+	public List<InstiAttrVo> selectInstiAttr(int iattr_insti);
 }

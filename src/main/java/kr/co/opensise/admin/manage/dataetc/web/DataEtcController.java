@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,10 +46,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
 import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
 import kr.co.opensise.admin.manage.dataetc.model.RouteVo;
 import kr.co.opensise.admin.manage.dataetc.model.StationVo;
@@ -66,7 +68,9 @@ public class DataEtcController {
 	private DataEtcServiceInf dataEtcService;
 	
 	@RequestMapping("/dataEtc")
-	public String dataEtc() {
+	public String dataEtc(Model model) {
+		List<InstiVo> instiList = dataEtcService.selectInsti();
+		model.addAttribute("instiList", instiList);
 		return "manage/dataEtc";
 	}
 
@@ -647,5 +651,50 @@ public class DataEtcController {
 		
 	}
 
+	//시설관리
 	
+	//시설추가
+	@RequestMapping(value="/insertInsti", method = RequestMethod.POST)
+	public String insertInsti(@RequestParam("insti") String insti) {
+		
+		List<InstiVo> instiList = dataEtcService.selectInsti();
+		
+		InstiVo instiVo = new InstiVo();
+		int cnt=0;
+		for(int i=0;i<instiList.size();i++) {
+			if(insti.equals(instiList.get(i).getInsti_nm())){
+				cnt++;
+			}else {
+				continue;
+			}
+		}
+		if(cnt<=0) {
+			instiVo.setInsti_nm(insti);
+			
+			int insertInsti = dataEtcService.insertInsti(instiVo);
+		}
+		
+		return "redirect:/manage/dataEtc/dataEtc";
+	}
+	
+	//시설속성추가
+	@RequestMapping("/insertIattr")
+	public String insertIattr(@RequestParam("iattr_key") String iattr_key, @RequestParam("iattr_val") String iattr_val) {
+		
+		
+		return "redirect:/manage/dataEtc/dataEtc";
+	}
+	
+	@RequestMapping("/selectInsti")
+	public String selectInsti(@RequestParam("instiHere") Integer instiHere,Model model) {
+		if(!(instiHere.equals("분류"))) {
+			List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(instiHere);
+			model.addAttribute("instiAttrList", instiAttrList);
+		}
+		List<InstiVo> instiList = dataEtcService.selectInsti();
+		
+		model.addAttribute("instiList", instiList);
+		
+		return "manage/dataEtc";
+	}
 }
