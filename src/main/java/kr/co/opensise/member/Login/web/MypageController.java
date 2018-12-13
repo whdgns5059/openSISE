@@ -93,5 +93,19 @@ public class MypageController {
 		model.addAttribute("memberVo", member);
 		return "myinfo";
 	}
+	
+	
+	@RequestMapping(value="/steamList")
+	public String heartList(Model model,  HttpSession session) {
+/*		String userId = (String)session.getAttribute("userId");
+		//UserVo userVo = userService.searchUser(userId);
+		List<heartVo> heartVo = userService.heartList(userId);
+		
+		//model.addAttribute("userVo",userVo);
+		model.addAttribute("heartVo",heartVo);
+*/		
+		return "steamList";
+	}
+	
 }
 	

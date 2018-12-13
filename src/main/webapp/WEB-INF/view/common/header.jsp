@@ -103,10 +103,10 @@
 			<!-- 관리자일 경우에 생기는 a tag  -->
 			<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  -->
-			<li><a href="/mypage/myInfo">나의 정보</a></li>
 			<li><c:if test="${nowLogin.mem_nm!= null}">
 					${nowLogin.mem_nm} 님 안녕하세요 
 				</c:if></li>
+			<li><a href="/mypage/myInfo">나의 정보</a></li>
 			<li><a href="/login/logout">로그아웃</a></li>
 		</ul>
 	</div>
