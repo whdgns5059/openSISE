@@ -3,18 +3,20 @@ package kr.co.opensise.user.main.model;
 public class BuildingSaleVo {
 	private String artcl_gu;
 	private String artcl_dong;
+	private String artcl_bc;
 	private String artcl_complx;
 	private String artcl_nm;
 	private String artcl_lat;
 	private String artcl_lng;
 	private String artcl_rd;
 	private String artcl_rd_detail;
-	private double dl_price;
-	private double dl_depos;
-	private double dl_rnt;
+	private int dl_price;
+	private int dl_depos;
+	private int dl_rnt;
 	private String dl_cont_ym;
 	private String dl_cont_d;
 	private int avg_dl;	//평당 평균 시세가
+	private String dl_ty; 	//매물 형태
 	
 	
 	public String getArtcl_gu() {
@@ -65,22 +67,22 @@ public class BuildingSaleVo {
 	public void setArtcl_rd_detail(String artcl_rd_detail) {
 		this.artcl_rd_detail = artcl_rd_detail;
 	}
-	public double getDl_price() {
+	public int getDl_price() {
 		return dl_price;
 	}
-	public void setDl_price(double dl_price) {
+	public void setDl_price(int dl_price) {
 		this.dl_price = dl_price;
 	}
-	public double getDl_depos() {
+	public int getDl_depos() {
 		return dl_depos;
 	}
-	public void setDl_depos(double dl_depos) {
+	public void setDl_depos(int dl_depos) {
 		this.dl_depos = dl_depos;
 	}
-	public double getDl_rnt() {
+	public int getDl_rnt() {
 		return dl_rnt;
 	}
-	public void setDl_rnt(double dl_rnt) {
+	public void setDl_rnt(int dl_rnt) {
 		this.dl_rnt = dl_rnt;
 	}
 	public String getDl_cont_ym() {
@@ -101,13 +103,18 @@ public class BuildingSaleVo {
 	public void setAvg_dl(int avg_dl) {
 		this.avg_dl = avg_dl;
 	}
-	
-	
-	
-	
-	
-
-	
+	public String getDl_ty() {
+		return dl_ty;
+	}
+	public void setDl_ty(String dl_ty) {
+		this.dl_ty = dl_ty;
+	}
+	public String getArtcl_bc() {
+		return artcl_bc;
+	}
+	public void setArtcl_bc(String artcl_bc) {
+		this.artcl_bc = artcl_bc;
+	}
 	
 	
 

@@ -142,6 +142,9 @@ body {
 .red{
 	background: #da534d;
 }
+.rose{
+	background: #f38b72;
+}
 .orange{
 	background: #e48732;
 }
@@ -155,13 +158,16 @@ body {
 	background: #aad035;
 }
 .mint{
-	background: #45c0a2; 
+	background: #85dcc7; 
 }
 .greenblue{
 	background: #3ea6c8; 	
 }
 .blue{
 	background: #4385cd; 	
+}
+.purple{
+	background: #bc80d2; 	
 }
 .bc-select-div{
 	width: 55%;

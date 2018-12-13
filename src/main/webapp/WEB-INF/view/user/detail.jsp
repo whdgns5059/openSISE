@@ -8,10 +8,10 @@
 	$(document).ready(function(){
 		
 		settingMap();
-		setTradeChart();
 		setRadarChart();
 		reviewControl();
-		clacControl();	
+		
+		$('#areaDiv').on('click', '.areaButton', detailInfoAjax );
 		
 		
 	});
@@ -73,22 +73,7 @@
 		});
 	}
 	
-	<%-- 실거래 차트  --%>
-	function setTradeChart() {
-		var tradeChartData = {
-		type: 'line',  
-		title: { text: '1년간 실거래가'  },
-		legend: {}, // Creates an interactive legend
-		series: [  { values: [28, 40, 39, 36, 12, 3, 32, 2, 12, 12, 32] } ]
-		
-		};
 
-		zingchart.render({ // Render Method[3]
-		  id: 'myChart',
-		  data: tradeChartData,
-		});
-
-	}
 	
 	<%-- 다각형 그래프 --%>
 	function setRadarChart(){
@@ -123,16 +108,37 @@
 		});
 	}
 	
-	
-	function clacControl() {
-		<%-- input의 max 값이 최대 값임 --%>	
-		$('#calculator').on('change', function(){
-			
-			var needMoney = this.max - this.value;
-			
-			document.getElementById('calcResult').innerHTML = needMoney;
-		});
+
+	<%-- 상세 정보 ajax--%>
+	function detailInfoAjax(area_button){
 		
+		var artcl_gu = document.getElementById('artclGu').innerHTML;
+		var artcl_dong = document.getElementById('artclDong').innerHTML;
+		var artcl_zip = document.getElementById('artclZip').innerHTML;
+		var artcl_rd = document.getElementById('artclRd').innerHTML;
+		var dl_ty = document.getElementById('dlTy').innerHTML;
+		
+		var pyungindex = this.innerText.lastIndexOf('평');
+		var dl_excv_area = this.innerText.substr(0, pyungindex);
+		
+		var ajaxData = {
+			artcl_gu : artcl_gu,
+			artcl_dong : artcl_dong,
+			artcl_zip	: artcl_zip,
+			artcl_rd : artcl_rd,
+			dl_ty : dl_ty,
+			dl_excv_area : dl_excv_area
+		}	
+		
+		$.ajax({
+			type : 'POST',
+			url : '/detail/tradeInfoAjax',
+			data : ajaxData,
+			success : function(data){
+				$('#tradeInfoWrapper').html(data);
+			}	
+			
+		});
 	}
 
 	
@@ -157,59 +163,23 @@
 		<div id="rightContent">
 
 			<div id = "articleNameDiv">
-				<span id="articleNameSpan">${selectArticleVo.artcl_complx }</span>
+				<span id="articleNameSpan">${selectArticleVo.artcl_complx}</span>
+				<br/>
+				<span id="artclGu">${selectArticleVo.artcl_gu}</span> 
+				<span id="artclDong">${selectArticleVo.artcl_dong}</span> 
+				<span id="artclZip">${selectArticleVo.artcl_zip}</span>
+				<span id="artclRd">${selectArticleVo.artcl_rd}</span><br/>
+				<span id="dlTy">${dl_ty}</span>
 				<hr/>
+				
 			</div>
-			<div id="buildingClassfWrapper">
-				<div id="tabDiv">
+				<div id="areaDiv">
 					<c:forEach items="${selectAreas }" var="area">
-						<button>${area / 3.3 }평</button>
+						<button class="areaButton">${area  }평</button>
 					</c:forEach>
 				</div>
-				<div id="threeMonthInfoDiv">
-					<div class="subThreeMonth">
-						<span class="subTitle">1년 평균 매매가</span><br/>
-						<span class="subContent">10000만원</span>
-					</div>
-					<div class="subThreeMonth">
-						<span class="subTitle">가장 최근 거래가</span><br/>
-						<span class="subContent">보증금 1100</span><span class="subContent">월세 42만원</span>
-					</div>
-					<div class="floatClearDiv">
-						<hr/>
-					</div>
-				</div>
-				<div id="myChart">
-				</div>
-
-				<div id="siseTableDiv">
-					<span class="subTitle">실거래 시세표</span> <button>전체 시세표</button>
-					<table id="siseTable">
-						<thead>
-							<tr>
-								<td>거래일</td>
-								<td>보증금</td>
-								<td>월세</td>
-								<td>층</td>
-							</tr>
-						</thead>	
-						<tbody>
-							<c:forEach begin="1" end="5">
-							<tr>
-								<td>2018년 10월 2일</td>
-								<td>1000만원</td>
-								<td>40만원</td>
-								<td>4</td>
-							</tr>
-							</c:forEach>
-						</tbody>
-					</table>	
-				</div>
-				<div id="loanClacDiv">
-					<span class="subTitle"> 대출금 계산기</span><br/>
-					<input type="range" class="marginTop" id="calculator" max="17000"><br/>
-					<span id="calcResult">얼마일까</span>
-				</div>
+			<div id="tradeInfoWrapper">
+				
 			</div>
 			<div id="radarChartDiv">
 			</div>

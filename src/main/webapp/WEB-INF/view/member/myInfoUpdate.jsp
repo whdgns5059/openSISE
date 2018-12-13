@@ -64,10 +64,12 @@
 						</li>
 						<li>
 						<span>직업정보 선택</span>
+						
+						memberVo : ${memberVo }
 							<select id="jobLiset" name="mem_job" class="form-control">
-								<option value="">${memberVo.job_nm}</option>
+<%-- 								<option value="">${memberVo.job_nm}</option> --%>
 								<c:forEach items="${JobList}" var="mem">
-								<option value="${mem.job_no}">${mem.job_nm}</option>
+								<option value="${mem.job_no}" <c:if test="${mem.job_no == memberVo.job_no }"> selected </c:if> >${mem.job_nm}</option>
 								</c:forEach>
 							</select>
 						</li>

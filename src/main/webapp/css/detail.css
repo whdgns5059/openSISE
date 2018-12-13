@@ -5,7 +5,7 @@
 					margin:auto; margin-top:40px; margin-bottom: 40px;}
 	#articleNameDiv{text-align: center;}
 	#articleNameSpan {font-size: 40px;  }
-	#tabDiv {height:30px;}
+	#areaDiv {height:30px;}
 	#threeMonthInfoDiv{height: 110px; width:1500px; text-align:center; padding-top: 10px;}
 	.subThreeMonth {float:left; width:600px;}		
 	.floatClearDiv {clear:both; padding: 5px;}

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
+import kr.co.opensise.user.detail.model.AvgTradeVo;
 
 @Service
 public class DetailService implements DetailServiceInf{
@@ -34,11 +35,9 @@ public class DetailService implements DetailServiceInf{
 		ArticleVo selectArticleVo = detailDao.selectArticle(articleVo);
 		detailMap.put("selectArticleVo", selectArticleVo);
 		
-		List<DealVo> selectDealVoList = detailDao.selectDealList(dealVo);
-		detailMap.put("selectDealVoList", selectDealVoList);
-		
 		List<String> selectAreas = detailDao.selectAreas(articleVo);
 		detailMap.put("selectAreas", selectAreas);
+		
 
 		return detailMap;
 	}
@@ -48,5 +47,64 @@ public class DetailService implements DetailServiceInf{
 		return detailDao.selectArticle(articleVo);
 	}
 
+	@Override
+	public Map<String, Object> getDetailTradeInfo(ArticleVo articleVo, String dl_ty, float dl_excv_area) {
+		
+		Map<String, Object> tradeInfoMap = new HashMap<>();
+		
+		//dealVo 생성..
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu(articleVo.getArtcl_gu());
+		dealVo.setDl_dong(articleVo.getArtcl_dong());
+		dealVo.setDl_zip(articleVo.getArtcl_zip());
+		dealVo.setDl_rd(articleVo.getArtcl_rd());
+		dealVo.setDl_ty(dl_ty);
+		dealVo.setDl_excv_area(dl_excv_area);
+		
+		//selectAvgPrice : 1년간 해당 평수의 거래 평균 
+		AvgTradeVo avgTradeVo = detailDao.selectAvgPrice(dealVo);
+		
+		//selectRecentTrade : 가장 최근 거래 내역 s
+		List<DealVo> recentTradeVo = detailDao.selectRecentTrade(dealVo);
+		
+		//electDealListByArea : 해당 평수의 모든 거래 내역
+		List<DealVo> dealListByArea = detailDao.selectDealListByArea(dealVo);
+		
+		tradeInfoMap.put("avgTradeVo",avgTradeVo);
+		tradeInfoMap.put("recentTradeVo", recentTradeVo);
+		tradeInfoMap.put("dealListByArea", dealListByArea);
+		
+		return tradeInfoMap;
+	}
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

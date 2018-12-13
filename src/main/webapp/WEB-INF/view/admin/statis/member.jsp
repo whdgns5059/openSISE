@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-.sign-mem{
+.admin-statis{
     width: 925px;
     height: 550px;
 }
@@ -30,8 +30,17 @@
 .tab-content-size{
     height: 370px;
 }
+.tab-pane p{
+	font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 13px;
+    color: #9a9a9a;
+    margin-top: 12px;
+    margin-left: 12px;
+}
 
-#signDaily, #signMonthly {
+#signDailyG, #signMonthlyG, #signAgeGndrG {
   height:400px;
   width:100%;
   min-height:150px;
@@ -42,7 +51,10 @@
 </style>
 <script>
 $(document).ready(function(){
-	var signDaily = 
+	// 전체 회원 수: 그래프 range설정을 위함
+	var allCnt = <c:out value="${countAllMembers}"/>;
+	
+	var signDailyG = 
     { "type": "line",
         "utc": true,
         "plotarea": {"margin": "dynamic 45 60 dynamic" },
@@ -56,8 +68,8 @@ $(document).ready(function(){
             "item":{
               "padding": 7,
               "marginRight": 17,
-              "cursor":"hand"
-            }},
+              "cursor":"hand" }
+        },
         /* 가로축 */
         "scale-x": {
         	"min-value": 1543968000000,
@@ -67,7 +79,7 @@ $(document).ready(function(){
                 "type": "date",
                 "all": "%Y<br/>%M %d. %D",
                 "guide": {"visible": false},
-                "item": {"visible": false}},
+                "item": {"visible": false} },
             "label": { "visible": false},
             "minor-ticks": 0 },
         /* 세로축 */
@@ -83,7 +95,7 @@ $(document).ready(function(){
                 "font-size": "15px",
                 "font-color": "#808080"},
             "minor-ticks": 0,
-            "thousands-separator": ","},
+            "thousands-separator": "," },
         "crosshair-x": {
             "line-color": "#efefef",
             "plot-label": {
@@ -95,7 +107,7 @@ $(document).ready(function(){
             "scale-label": {
                 "font-color": "#000",
                 "background-color": "#f6f7f8",
-                "border-radius": "5px"}},
+                "border-radius": "5px"} },
         "tooltip": {"visible": false},
         "plot": {
             "highlight":true,
@@ -109,7 +121,7 @@ $(document).ready(function(){
             "animation":{
               "effect":1,
               "sequence":2,
-              "speed":100, }},
+              "speed":100 } },
         "series": [
             {// 가입 회원
                 "values": [
@@ -148,18 +160,19 @@ $(document).ready(function(){
                     "background-color": "#f7cc06",
                     "border-width": 1,
                     "shadow": 0,
-                    "border-color": "#f7cc06"} }
+                    "border-color": "#f7cc06" } 
+            }
         ]
     };
 
 	zingchart.render({ 
-		id : 'signDaily', 
-		data : signDaily, 
+		id : 'signDailyG', 
+		data : signDailyG, 
 		height: '100%', 
 		width: '100%' 
 	});
 	
-	var signMonthly = 
+	var signMonthlyG = 
     { "type": "line",
         "utc": true,
         "plotarea": {"margin": "dynamic 45 60 dynamic" },
@@ -173,8 +186,8 @@ $(document).ready(function(){
             "item":{
               "padding": 7,
               "marginRight": 17,
-              "cursor":"hand"
-            }},
+              "cursor":"hand" }
+        },
         /* 가로축 */
         "scale-x": {
         	"labels":[ 
@@ -183,10 +196,10 @@ $(document).ready(function(){
     				,"${memVo.ymd}"
     			</c:forEach>
              ]
-          },
+        },
         /* 세로축 */
         "scale-y": {
-            "values": "0:1000:100", /* 시작 : 끝 : 단계 */
+            "values": "0:"+allCnt+":"+(allCnt/10) , /* "0:1000:100" 시작 : 끝 : 단계 */
             "line-color": "#f6f7f8",
             "shadow": 0,
             "guide": { "line-style": "dashed" },
@@ -197,7 +210,7 @@ $(document).ready(function(){
                 "font-size": "15px",
                 "font-color": "#808080"},
             "minor-ticks": 0,
-            "thousands-separator": ","},
+            "thousands-separator": "," },
         "crosshair-x": {
             "line-color": "#efefef",
             "plot-label": {
@@ -209,7 +222,7 @@ $(document).ready(function(){
             "scale-label": {
                 "font-color": "#000",
                 "background-color": "#f6f7f8",
-                "border-radius": "5px"}},
+                "border-radius": "5px"} },
         "tooltip": {"visible": false},
         "plot": {
             "highlight":true,
@@ -223,7 +236,7 @@ $(document).ready(function(){
             "animation":{
               "effect":1,
               "sequence":2,
-              "speed":100, }},
+              "speed":100 } },
         "series": [
             {// 가입 회원
                 "values": [
@@ -243,7 +256,7 @@ $(document).ready(function(){
                     "background-color": "#da534d",
                     "border-width": 1,
                     "shadow": 0,
-                    "border-color": "#da534d" }},
+                    "border-color": "#da534d" } },
             {// 탈퇴 회원
                 "values": [
                 	0
@@ -262,17 +275,65 @@ $(document).ready(function(){
                     "background-color": "#f7cc06",
                     "border-width": 1,
                     "shadow": 0,
-                    "border-color": "#f7cc06"} }
+                    "border-color": "#f7cc06"}
+            }
         ]
     };
 
 	zingchart.render({ 
-		id : 'signMonthly', 
-		data : signMonthly, 
+		id : 'signMonthlyG', 
+		data : signMonthlyG, 
 		height: '100%', 
 		width: '100%' 
 	});
 		
+	
+	var signAgeGndrG = {
+	    "graphset":[
+		        {
+	            "type":"pop-pyramid",
+	            "plot":{  "stacked":true  },
+	            "scale-x":{
+	                "values":["10대","20대","30대","40대", "50대","60대"] },
+	            "scale-y":{ 
+	            	"values": "0:"+allCnt+":"+(allCnt/10)},
+	            "legend" : {
+	            	"item" : {"cursor": "pointer"}},
+	            "series":[
+	                {
+	                	"text": "남성",
+	                    "data-side":1,
+	                    "background-color":"#f38b72",
+	                    "values": [
+	                    	<c:forEach items="${memVoM }" var="memVo">
+			            		${memVo.counts},
+			            	</c:forEach>
+			            		0
+			            ]
+	                },
+	            	
+	                {
+	                	"text": "여성",
+	                    "data-side":2,
+	                    "background-color":"#85dcc7",
+	                    "values": [
+	                    	<c:forEach items="${memVoF }" var="memVo">
+			            		${memVo.counts},
+			            	</c:forEach>
+			            		0
+		            	]
+	                }]
+	    }],
+	};
+	
+	
+
+	zingchart.render({ 
+		id : 'signAgeGndrG', 
+		data : signAgeGndrG, 
+		height: "100%", 
+		width: "100%" 
+	});
 	
 });	
 
@@ -282,55 +343,34 @@ $(document).ready(function(){
 	<h2>회원통계</h2>
 	<div class="hr2"></div>
 	
-	<div class="sign-mem">
+	<div class="admin-statis">
 		<div class="square yellow"></div><h5>가입한 회원 수 그래프</h5>
 		<ul class="nav nav-tabs tab-yellow">
-			<li class="nav-item"><a class="nav-link tab-yellow show" data-toggle="tab" href="#daily-in">일별-daily</a></li>
-			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#monthly-in">월별-monthly</a></li>
-			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#age-in">연령별-age</a></li>
-			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#gender-in">성별-gender</a></li>
+			<li class="nav-item"><a class="nav-link tab-yellow show" data-toggle="tab" href="#signDaily">일별-daily</a></li>
+			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#signMonthly">월별-monthly</a></li>
+			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#signAgeGndr">성/연령별-age</a></li>
 		</ul>
 		<div id="myTabContent" class="tab-content tab-content-size">
-			<div class="tab-pane fade show" id="daily-in">
-				<p>일별 회원 가입 통계 그래프 입니다.</p>
-				<div id='signDaily'></div>
+			<div class="tab-pane fade show active" id="signDaily">
+				<p>누적 회원 수: <c:out value="${countAllMembers}"/><br/>
+					현재 가입 회원 수: <c:out value="${countSignIn}"/>
+				</p>
+				<div id='signDailyG'></div>
 			</div>
-			<div class="tab-pane fade show active" id="monthly-in">
-				<p>월별 회원 가입 통계 그래프 입니다.</p>
-				<div id='signMonthly'></div>
+			<div class="tab-pane fade show" id="signMonthly">
+				<p>누적 회원 수: <c:out value="${countAllMembers}"/><br/>
+					현재 가입 회원 수: <c:out value="${countSignIn}"/>
+				</p>
+				<div id='signMonthlyG'></div>
 			</div>
-			<div class="tab-pane fade show" id="age-in">
-				<p>연령별 회원 가입 통계 그래프 입니다.</p>
-			</div>
-			<div class="tab-pane fade show" id="gender-in">
-				<p>성별 회원 가입 통계 그래프 입니다.</p>
+			<div class="tab-pane fade show" id="signAgeGndr">
+				<p>누적 회원 수: <c:out value="${countAllMembers}"/> </p>
+				<div id='signAgeGndrG'></div>
 			</div>
 		</div>
 	</div>
 	<br/>
-	<div class="sign-mem">
-		<div class="square green"></div><h5>탈퇴한 회원 수 그래프</h5>
-		<ul class="nav nav-tabs tab-green">
-			<li class="nav-item"><a class="nav-link show" data-toggle="tab" href="#daily-out">일별-daily</a></li>
-			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#monthly-out">월별-monthly</a></li>
-			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#age-out">연령별-age</a></li>
-			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#gender-out">성별-gender</a></li>
-		</ul>
-		<div id="myTabContent" class="tab-content tab-content-size">
-			<div class="tab-pane fade show active" id="daily-out">
-				<p>일별 회원 가입 통계 그래프 입니다.</p>
-			</div>
-			<div class="tab-pane fade show" id="monthly-out">
-				<p>월별 회원 가입 통계 그래프 입니다.</p>
-			</div>
-			<div class="tab-pane fade show" id="age-out">
-				<p>연령별 회원 가입 통계 그래프 입니다.</p>
-			</div>
-			<div class="tab-pane fade show" id="gender-out">
-				<p>성별 회원 가입 통계 그래프 입니다.</p>
-			</div>
-		</div>
-	</div>
+	
 
 
 </div>
