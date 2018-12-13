@@ -31,8 +31,7 @@
 		<!-- button -->
 		<form action="/login/login" method="post">
 		<div class="button">
-			<input id="buttons" type="submit" class="btn btn-outline-primary"
-			value="OpenSise Login" />
+			<input id="buttons" type="submit" class="btn btn-outline-primary" value="OpenSise Login" />
 			<a id="kakao-login-btn"></a>
 		<script type='text/javascript'>
 			//<![CDATA[
