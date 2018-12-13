@@ -84,7 +84,7 @@ $(document).ready(function(){
             "minor-ticks": 0 },
         /* 세로축 */
         "scale-y": {
-            "values": "0:1000:100", /* 시작 : 끝 : 단계 */
+            "values": "0:"+allCnt+":"+(allCnt/10), /* 시작 : 끝 : 단계 */
             "line-color": "#f6f7f8",
             "shadow": 0,
             "guide": { "line-style": "dashed" },
@@ -354,12 +354,25 @@ $(document).ready(function(){
 			<div class="tab-pane fade show active" id="signDaily">
 				<p>누적 회원 수: <c:out value="${countAllMembers}"/><br/>
 					현재 가입 회원 수: <c:out value="${countSignIn}"/>
+					
+					<br/>시작<br/>
+					<c:forEach items="${memVoInList }" var="memVo">
+            			${memVo.counts}:
+            			${memVoInList[status.index+1].counts }<br/>
+            			<%-- <c:set var="dd" value="${memVoInList[status.index+1].counts}"/>
+            				,${(memVo.counts eq dd) ? memVo.counts:'달라'}<br/> --%>
+            		</c:forEach>
+
+
+            		
 				</p>
 				<div id='signDailyG'></div>
 			</div>
 			<div class="tab-pane fade show" id="signMonthly">
 				<p>누적 회원 수: <c:out value="${countAllMembers}"/><br/>
 					현재 가입 회원 수: <c:out value="${countSignIn}"/>
+					
+            		
 				</p>
 				<div id='signMonthlyG'></div>
 			</div>
@@ -369,8 +382,14 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-	<br/>
-	
 
 
 </div>
+
+
+
+
+
+
+
+
