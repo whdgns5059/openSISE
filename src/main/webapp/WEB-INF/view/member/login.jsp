@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
-<head>
 <!-- Remember to include jQuery :) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 
@@ -10,6 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
+<head>
 <script type="text/javascript">
 		function getCookie(cookieName){
 			//cookieString = > document.cookie
@@ -25,18 +25,16 @@
 			
 			return cookieValue;
 		}
-		
-		$('#sub-modal').modal({
-			  closeExisting: false
-			});
 	</script>
 	
+	<script type="text/javascript">
+
+	</script>
 <style type="text/css">
 .logo{
    margin: 100px 0 50px 300px;
     width: 390px;
 }	
-
 .button{
     margin: 0 auto;
     margin-top: 80px;
@@ -63,8 +61,11 @@
 	margin: 0 0 5px 0;
 }
 
+
+
 </style>
 </head>
+
 <body>
 	<!-- 가운데정렬 div -->
 	<div class="contents">
@@ -78,18 +79,15 @@
 					<input type="text" id="userId" name="mem_email" class="form-control" value=""	placeholder="아이디 입력하세요" required autofocus> 
 				<label for="inputPassword" class="sr-only">Password</label> 
 					<input type="password" id="inputPassword" name="mem_pass" class="form-control" value="brownpass" required>
+			<!-- Modal HTML embedded directly into document -->
+			<div id="ex1" class="modal">
+			  <p>Thanks for clicking. That felt good.</p>
+			  <a href="#" rel="modal:close">Close</a>
+			</div>
 			
-				<div id="ex1" class="modal">
-				  <a href="#" rel="modal:open">닫기</a>
-				</div>
-				
-				<div id="ex1" class="modal">
-				  <a href="#" rel="modal:close">닫기</a>
-				</div>
-				<p><a href="#ex1" rel="modal:open">비밀번호 찾기</a></p>
-				
-				
-				
+			<!-- Link to open the modal -->
+			<p><a href="#ex1" rel="modal:open">Open Modal</a></p>
+				</label><br/>
 			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
 			</div>
 			</div>

@@ -94,7 +94,13 @@ public class MypageController {
 		return "myinfo";
 	}
 	
-	
+	/**  
+	* Method   :  updateFinish
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 : 찜목록 출력
+	*/
 	@RequestMapping(value="/steamList")
 	public String heartList(Model model,  HttpSession session) {
 /*		String userId = (String)session.getAttribute("userId");
@@ -106,6 +112,42 @@ public class MypageController {
 */		
 		return "steamList";
 	}
+	
+	/** Method   : recentlyViewed 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  최근 본 매물
+	*/
+	@RequestMapping("/recentlyviewed")
+	public String recentlyViewed(Model model) {
+		return "recentlyViewed";
+	}
+	
+	
+	/** Method   : passWordChange 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  보안설정(비밀번호 변경)
+	*/
+	@RequestMapping("/passwordChange")
+	public String passWordChange(Model model) {
+		return "passWordChange";
+	}
+	
+	
+	/** Method   : withdrawal 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  회원탈퇴
+	*/
+	@RequestMapping("/withdrawall")
+	public String withdrawal(Model model) {
+		return "withdrawal";
+	}
+	
 	
 }
 	
