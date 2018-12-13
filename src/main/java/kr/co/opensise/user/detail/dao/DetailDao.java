@@ -38,8 +38,8 @@ public class DetailDao implements DetailDaoInf{
 	}
 
 	@Override
-	public DealVo selectRecentTrade(DealVo dealVo) {
-		return template.selectOne("detail.selectRecentTrade", dealVo);
+	public List<DealVo> selectRecentTrade(DealVo dealVo) {
+		return template.selectList("detail.selectRecentTrade", dealVo);
 	}
 
 	@Override

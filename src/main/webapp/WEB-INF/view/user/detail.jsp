@@ -10,7 +10,6 @@
 		settingMap();
 		setRadarChart();
 		reviewControl();
-		clacControl();	
 		
 		$('#areaDiv').on('click', '.areaButton', detailInfoAjax );
 		
@@ -109,32 +108,26 @@
 		});
 	}
 	
-	<%--계산기 컨트롤 --%>
-	function clacControl() {
-		<%-- input의 max 값이 최대 값임 --%>	
-		$('#calculator').on('change', function(){
-			
-			var needMoney = this.max - this.value;
-			
-			document.getElementById('calcResult').innerHTML = needMoney;
-		});
-		
-	}
-	
-	function detailInfoAjax(){
+
+	<%-- 상세 정보 ajax--%>
+	function detailInfoAjax(area_button){
 		
 		var artcl_gu = document.getElementById('artclGu').innerHTML;
 		var artcl_dong = document.getElementById('artclDong').innerHTML;
 		var artcl_zip = document.getElementById('artclZip').innerHTML;
 		var artcl_rd = document.getElementById('artclRd').innerHTML;
 		var dl_ty = document.getElementById('dlTy').innerHTML;
-	
+		
+		var pyungindex = this.innerText.lastIndexOf('평');
+		var dl_excv_area = this.innerText.substr(0, pyungindex);
+		
 		var ajaxData = {
 			artcl_gu : artcl_gu,
 			artcl_dong : artcl_dong,
 			artcl_zip	: artcl_zip,
 			artcl_rd : artcl_rd,
-			dl_ty : dl_ty
+			dl_ty : dl_ty,
+			dl_excv_area : dl_excv_area
 		}	
 		
 		$.ajax({
@@ -182,7 +175,7 @@
 			</div>
 				<div id="areaDiv">
 					<c:forEach items="${selectAreas }" var="area">
-						<button class="areaButton">${area / 3.3 }평</button>
+						<button class="areaButton">${area  }평</button>
 					</c:forEach>
 				</div>
 			<div id="tradeInfoWrapper">

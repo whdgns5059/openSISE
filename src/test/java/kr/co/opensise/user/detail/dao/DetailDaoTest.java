@@ -99,7 +99,7 @@ public class DetailDaoTest extends RootSetup{
 		AvgTradeVo avgTrade = detailDao.selectAvgPrice(dealVo);
 
 		/***then***/
-		assertEquals(16830.0, avgTrade.getAvg_price() , 1e-8);
+		assertEquals(16914.0, avgTrade.getAvg_price() , 1e-8);
 		
 	}
 	
@@ -114,11 +114,10 @@ public class DetailDaoTest extends RootSetup{
 		dealVo.setDl_ty("매매");
 		dealVo.setDl_excv_area(59.76f);
 		/***when***/
-		DealVo recentDealVo = detailDao.selectRecentTrade(dealVo);
-		double recentPrice = recentDealVo.getDl_price();
-
+		List<DealVo> recentDealVo = detailDao.selectRecentTrade(dealVo);
+		
 		/***then***/
-		assertEquals(17200, recentPrice, 1e-8);
+		assertEquals(4, recentDealVo.size());
 	}
 	
 	
@@ -138,7 +137,7 @@ public class DetailDaoTest extends RootSetup{
 		List<DealVo> result = detailDao.selectDealListByArea(dealVo);
 
 		/***then***/
-		assertEquals(6, result.size());
+		assertEquals(516, result.size());
 		
 		
 		

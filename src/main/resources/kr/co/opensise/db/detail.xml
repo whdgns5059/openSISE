@@ -28,6 +28,7 @@
 		where dl_gu = #{dl_gu} and dl_dong= #{dl_dong} and dl_zip= #{dl_zip} and dl_rd= #{dl_rd}
 		and dl_ty = #{dl_ty} 
 		and dl_excv_area = #{dl_excv_area}
+		order by dl_cont_ym desc, substr(dl_cont_d,1,2) desc
 	</select>
 	
 	<!-- 12개월간의 평수별 거래 평균 -->
