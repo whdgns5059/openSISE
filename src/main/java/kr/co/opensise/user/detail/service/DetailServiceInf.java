@@ -23,6 +23,21 @@ public interface DetailServiceInf {
 	
 	
 	ArticleVo selectArticleVo(ArticleVo articleVo);
-		
+	
+	
+	/*************************************************  
+	* Method   : getDetailTradeInfo 
+	* 작성자 :  whdgn
+	* 변경이력 :  2018. 12. 12.
+	* @param articleVo
+	* @param dl_ty
+	* @param dl_excv_area
+	* @return  Map<String, object>
+	* Method 설명 : 평수 클릭시 요청되는 정보
+	* selectAvgPrice : 1년간 해당 평수의 거래 평균
+	* selectRecentTrade : 가장 최근 거래 내역
+	* selectDealListByArea : 해당 평수의 모든 거래 내역
+	**************************************************/
+	Map<String, Object> getDetailTradeInfo(ArticleVo articleVo, String dl_ty, float dl_excv_area );
 
 }
