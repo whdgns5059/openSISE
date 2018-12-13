@@ -16,7 +16,8 @@
 
 <!-- ZING CHART -->
 <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
-
+<!-- <script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script> -->
 
 <!-- input type range를 위한 css -->
 <link href="/css/inputRange.css" rel="stylesheet">
