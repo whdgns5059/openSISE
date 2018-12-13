@@ -13,10 +13,11 @@ public interface DetailServiceInf {
 	* @param articleVo
 	* @param dl_ty
 	* @return  
-	* Method 설명 : 매물 상제정보를 위한 서비스 메서드
+	* Method 설명 : 매물 정보를 위한 서비스 메서드
+	* 건물 기본정보를 위한 articleVo, 건물 평수정보, 리뷰, 점수표를 리턴한다.
 	* articleVo에는 주소 gu, dong, zip, rd 가 필요하고
 	* dl_ty는 거래 구분(매매,전세,월세)을 의미한다
-	* Map의 key는 selectArticleVo, selectDealVoList
+	* Map의 key는 selectArticleVo, selectAreas
 	**************************************************/
 	Map<String, Object> getDetailInfo(ArticleVo articleVo, String dl_ty);
 	

@@ -4,14 +4,17 @@ import java.util.List;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
+import kr.co.opensise.user.detail.model.AvgTradeVo;
 
 public interface DetailDaoInf {
 	
 	ArticleVo selectArticle(ArticleVo articleVo);
-	
-	List<DealVo> selectDealList(DealVo dealVo);
 
 	List<String> selectAreas(ArticleVo articleVo);
-	
 
+	List<DealVo> selectDealList(DealVo dealVo);
+	
+	AvgTradeVo selectAvgPrice(DealVo dealVo);
+	
+	DealVo selectRecentTrade(DealVo dealVo);
 }

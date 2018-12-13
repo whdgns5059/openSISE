@@ -120,6 +120,7 @@ public class DataTradeControllerUtil {
 		}else if(ar_zip == -1) {
 			
 			articleVo.setArtcl_zip("*");
+			dealVo.setDl_zip("*");
 			
 		}
 		
@@ -209,7 +210,11 @@ public class DataTradeControllerUtil {
 			dealVo.setDl_cont_ym(row.getCell(dl_cont_ym).toString());
 		}
 		if(dl_cont_d != -1) {
-			dealVo.setDl_cont_d(row.getCell(dl_cont_d).toString());
+			String cont_d = row.getCell(dl_cont_d).toString();
+			if(cont_d.equals("1~10")) {
+				cont_d = "0" + cont_d;
+			}
+			dealVo.setDl_cont_d(cont_d);
 		}
 		
 		//계약 층수
