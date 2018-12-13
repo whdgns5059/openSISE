@@ -1,6 +1,11 @@
 package kr.co.opensise.admin.statis.web;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -9,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.admin.statis.service.StatisServiceInf;
 
@@ -28,15 +34,26 @@ public class StatisController {
 	*/
 	@RequestMapping(value="/member", method=RequestMethod.GET)
 	public String member(Model model) {
-		
+		// 전체 누적 회원
+		int countSignIn = statisService.countSignIn();
+		model.addAttribute("countSignIn",countSignIn);
+		// 현재 가입되어 있는 회원 수
+		int countAllMembers = statisService.countAllMembers();
+		model.addAttribute("countAllMembers",countAllMembers);
+		// 일별 회원
 		List<MemberVo> memVoInList = statisService.signInDaily();
 		model.addAttribute("memVoInList", memVoInList);
 		List<MemberVo> memVoOutList = statisService.signOutDaily();
 		model.addAttribute("memVoOutList", memVoOutList);
+		// 달별 회원
 		List<MemberVo> memVoInMonthly = statisService.signInMonthly();
 		model.addAttribute("memVoInMonthly", memVoInMonthly);
 		List<MemberVo> memVoOutMonthly = statisService.signOutMonthly();
 		model.addAttribute("memVoOutMonthly", memVoOutMonthly);
+		// 연령별/성별
+		Map<String, List<MemberVo>> memVoAgeGndr = statisService.signInAgeGndr();
+		model.addAttribute("memVoM", memVoAgeGndr.get("M"));
+		model.addAttribute("memVoF", memVoAgeGndr.get("F"));
 		
 		return "statis/member"; 
 	}
@@ -49,7 +66,17 @@ public class StatisController {
 	* Method 설명 : 인기건물
 	*/
 	@RequestMapping(value="/favor", method=RequestMethod.GET)
-	public String favor() {
+	public String favor(Model model) {
+		// 개별 찜
+		List<FavoriteVo> favorEach = statisService.favorEach();
+		model.addAttribute("favorEach", favorEach);
+		// 동별 찜
+		List<FavoriteVo> favorDong = statisService.favorDong();
+		model.addAttribute("favorDong", favorDong);
+		// 구별 찜
+		List<FavoriteVo> favorGu = statisService.favorGu();
+		model.addAttribute("favorGu", favorGu);
+		
 		return "statis/favor";
 	}
 	

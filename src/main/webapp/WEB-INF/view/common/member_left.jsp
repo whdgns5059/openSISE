@@ -40,19 +40,19 @@ ul { list-style : none; }
 	</ul>
 	<hr/>
 	<ul class="left-menu">
-		<li><a href="/manage/dataEtc/dataEtc">찜 목록</a></li>
+		<li><a href="/mypage/steamList">찜 목록</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">
-		<li><a href="/manage/ban/ban">최근 본 매물</a></li>
+		<li><a href="/mypage/recentlyviewed">최근 본 매물</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">
-		<li><a href="/statis/pageCount/pageCount">보안설정</a></li>
+		<li><a href="/mypage/passwordChange">보안설정</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">
-		<li><a href="/statis/pageCount/pageCount">회원탈퇴</a></li>
+		<li><a href="/mypage/withdrawall">회원탈퇴</a></li>
 	</ul>
 </div>
 

@@ -4,17 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin_statis">
 
-<!-- 누적 회원 수 -->
+<!-- ** 회원 통계 ** -->
+	<!-- 누적 회원 수 -->
 	<select id="countAllMembers" resultType="int">
-		Select count(mem_no) From member Where mem_mngr is null
+		Select count(mem_no) as counts From member Where mem_mngr is null
 	</select>
 	
-<!-- 현재 가입되어 있는 회원 수 -->
+	<!-- 현재 가입되어 있는 회원 수 -->
 	<select id="countSignIn" resultType="int">
-		Select count(mem_no) From member Where mem_exdate is null And mem_mngr is null
+		Select count(mem_no) as counts From member Where mem_exdate is null And mem_mngr is null
 	</select>
 
-<!-- 5일부터 오늘까지 일별 가입한 회원 수 -->
+	<!-- 5일부터 오늘까지 일별 가입한 회원 수 -->
 	<select id="signInDaily" resultType="memVo">
 		Select count(mem_date) as counts , a.ymd as ymd
 		From member right join (
@@ -27,7 +28,7 @@
 		Order by a.ymd
 	</select>
 	
-<!-- 5일부터 오늘까지 일별 탈퇴한 회원 수 -->
+	<!-- 5일부터 오늘까지 일별 탈퇴한 회원 수 -->
 	<select id="signOutDaily" resultType="memVo">
 		Select count(mem_exdate) as counts, a.ymd as ymd
 		From member right join (
@@ -40,7 +41,7 @@
 		Order by a.ymd
 	</select>
 	
-<!-- 2018.10 이후 달별 가입한 회원 수 -->
+	<!-- 2018.11 이후 달별 가입한 회원 수 -->
 	<select id="signInMonthly" resultType="memVo">
 		Select count(mem_date) as counts , to_char(a.ymd,'YYYY/MM') as ymd
 		From member right join (
@@ -53,7 +54,7 @@
 		Order by to_char(a.ymd,'YYYY/MM')
 	</select>
 	
-<!-- 2018.10 이후 달별 탈퇴한 회원 수 -->
+	<!-- 2018.11 이후 달별 탈퇴한 회원 수 -->
 	<select id="signOutMonthly" resultType="memVo">
 		Select count(mem_exdate) as counts , to_char(a.ymd,'YYYY/MM') as ymd
 		From member right join (
@@ -66,6 +67,42 @@
 		Order by to_char(a.ymd,'YYYY/MM')
 	</select>
 	
+	<!-- 연령별/성별 가입 회원 수 -->
+	<select id="signInAgeGndr" resultType="memVo">
+		Select count(mem_no) as counts , mem_gndr, mem_age
+		From member
+		Where mem_gndr is not null
+		And  mem_age is not null
+		Group by mem_gndr, mem_age
+		Order by mem_gndr, mem_age
+	</select>
+	
+<!-- ** 찜 통계 ** -->
+	<!-- 개별 찜 받은 개수 -->
+	<select id="favorEach" resultType="favorVo">	
+		Select favor_gu, favor_dong, favor_zip, favor_rd, counts, bc_nm, 
+     	Row_number() Over ( Order by counts desc) as rank
+		From (Select count(*) as counts, favor_gu, favor_dong, favor_zip, favor_rd From favorite Group by favor_gu, favor_dong, favor_zip, favor_rd)
+		    Inner Join article on (favor_gu = artcl_gu and favor_dong = artcl_dong and favor_zip = artcl_zip and favor_rd = artcl_rd)
+		    Inner Join building_classf on ( artcl_bc = bc_no)
+		Where Rownum <![CDATA[ < ]]>= 30
+	</select>
+	
+	<!-- 동별 찜 받은 개수 -->
+	<select id="favorDong" resultType="favorVo">		
+		Select favor_gu, favor_dong, counts, 
+		     Row_number() Over ( Order by counts desc) as rank
+		From (Select count(*) as counts, favor_gu, favor_dong From favorite Group by favor_gu, favor_dong)
+		Where Rownum <![CDATA[ < ]]>= 20
+	</select>
+	
+	<!-- 구별 찜 받은 개수 -->
+	<select id="favorGu" resultType="favorVo">	
+		Select favor_gu, counts, 
+		     Row_number() Over ( Order by counts desc) as rank
+		From (Select count(*) as counts, favor_gu From favorite Group by favor_gu)
+	</select>
+
 	
 	
 	
@@ -85,8 +122,10 @@
 	
 	
 	
-	
-	
+<!-- dummyData 연령대 추가 -->
+	<insert id="test" parameterType="memVo">
+		Update member Set mem_age=#{mem_age} Where mem_no=#{mem_no}
+	</insert>
 	
 	
 	

@@ -23,6 +23,35 @@
 		and dl_zip=#{artcl_zip} and dl_rd=#{artcl_rd}
 	</select>
 	
+	<select id="selectDealListByArea" parameterType="dealVo" resultType="dealVo">
+		select * from deal
+		where dl_gu = #{dl_gu} and dl_dong= #{dl_dong} and dl_zip= #{dl_zip} and dl_rd= #{dl_rd}
+		and dl_ty = #{dl_ty} 
+		and dl_excv_area = #{dl_excv_area}
+	</select>
+	
+	<!-- 12개월간의 평수별 거래 평균 -->
+	<select id="selectAvgPrice" parameterType="dealVo" resultType="avgTradeVo">
+		select  round(avg(DL_PRICE), 1) as avg_price, round(avg(DL_DEPOS), 1) as avg_depos, round(avg(DL_RNT), 1) as avg_rnt from deal
+		where dl_gu = #{dl_gu} and dl_dong=#{dl_dong} and dl_zip=#{dl_zip} and dl_rd=#{dl_rd}
+		and dl_ty = #{dl_ty}
+		and dl_excv_area = #{dl_excv_area}
+		and to_date(dl_cont_ym, 'yyyyMM') between add_months(sysdate,-12) and sysdate 
+	</select>
+	
+	<!-- 최근 거래 내역 -->
+	<select id="selectRecentTrade" parameterType="dealVo" resultType="dealVo">
+		select * from deal
+		where dl_gu = #{dl_gu} and dl_dong= #{dl_dong} and dl_zip=#{dl_zip} and dl_rd=#{dl_rd}
+		and dl_ty = #{dl_ty}
+		and dl_excv_area = #{dl_excv_area}
+		and to_date(dl_cont_ym || substr(dl_cont_d, 1,2), 'yyyyMMdd') 
+		= ( select MAX(to_date(dl_cont_ym || substr(dl_cont_d, 1,2), 'yyyyMMdd')) from deal 
+			where dl_gu = #{dl_gu} and dl_dong= #{dl_dong} and dl_zip= #{dl_zip} and dl_rd= #{dl_rd}
+			and dl_ty = #{dl_ty}
+			and dl_excv_area = #{dl_excv_area})
+	</select>
+	
 </mapper>
 
 

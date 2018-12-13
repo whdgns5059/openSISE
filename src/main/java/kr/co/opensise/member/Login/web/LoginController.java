@@ -100,22 +100,7 @@ public class LoginController {
 	public String passButton() {
 		return "member/passButton";
 	}
-	
 
-	/**  
-	* Method   :  passButtonChk
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @return  
-	* Method 설명 : 비밀번호 찾기 
-	*/
-	@RequestMapping("/passChk")
-	public String passButtonChk() {
-		// 임시 return
-		return "signup";
-	}
-	
-	
 	
 	/** Method   : sign_Up 
 	* 작성자 :  김주연

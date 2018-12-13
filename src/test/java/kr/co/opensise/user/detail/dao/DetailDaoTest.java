@@ -14,6 +14,7 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
+import kr.co.opensise.user.detail.model.AvgTradeVo;
 
 public class DetailDaoTest extends RootSetup{
 
@@ -33,7 +34,7 @@ public class DetailDaoTest extends RootSetup{
 		
 		/***when***/
 		ArticleVo result = detailDao.selectArticle(articleVo);
-
+		log.info(result.toString());
 		/***then***/
 		assertEquals("36.360773619481314", result.getArtcl_lat());
 	}
@@ -50,6 +51,10 @@ public class DetailDaoTest extends RootSetup{
 		
 		/***when***/
 		List<DealVo> result = detailDao.selectDealList(dealVo);
+		
+		for(DealVo dVo : result) {
+			log.info(dVo.toString());
+		}
 
 		/***then***/
 		assertEquals(7, result.size());
@@ -78,4 +83,92 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 
+	@Test
+	public void selectAvgPriceTest() {
+		
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("서구");
+		dealVo.setDl_dong("월평동");
+		dealVo.setDl_zip("311-1");
+		dealVo.setDl_rd("청사로");
+		dealVo.setDl_ty("매매");
+		dealVo.setDl_excv_area(59.76f);
+		
+		/***when***/
+		AvgTradeVo avgTrade = detailDao.selectAvgPrice(dealVo);
+
+		/***then***/
+		assertEquals(16830.0, avgTrade.getAvg_price() , 1e-8);
+		
+	}
+	
+	@Test
+	public void selectRecentTradeTest() {
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("서구");
+		dealVo.setDl_dong("월평동");
+		dealVo.setDl_zip("311-1");
+		dealVo.setDl_rd("청사로");
+		dealVo.setDl_ty("매매");
+		dealVo.setDl_excv_area(59.76f);
+		/***when***/
+		DealVo recentDealVo = detailDao.selectRecentTrade(dealVo);
+		double recentPrice = recentDealVo.getDl_price();
+
+		/***then***/
+		assertEquals(17200, recentPrice, 1e-8);
+	}
+	
+	
+	@Test
+	public void selectDealListByArea() {
+		
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("서구");
+		dealVo.setDl_dong("월평동");
+		dealVo.setDl_zip("311-1");
+		dealVo.setDl_rd("청사로");
+		dealVo.setDl_ty("매매");
+		dealVo.setDl_excv_area(59.76f);
+		
+		/***when***/
+		List<DealVo> result = detailDao.selectDealListByArea(dealVo);
+
+		/***then***/
+		assertEquals(6, result.size());
+		
+		
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

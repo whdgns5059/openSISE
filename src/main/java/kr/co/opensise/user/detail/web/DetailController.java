@@ -27,14 +27,24 @@ public class DetailController {
 		Map<String, Object> detailMap = detailService.getDetailInfo(articleVo, dl_ty);
 		
 		ArticleVo selectArticleVo = (ArticleVo) detailMap.get("selectArticleVo");
-		List<DealVo> selectDealVoList = (List<DealVo>) detailMap.get("selectDealVoList");
 		List<String> selectAreas = (List<String>) detailMap.get("selectAreas");
 		
 		model.addAttribute("selectArticleVo", selectArticleVo);
-		model.addAttribute("selectDealVoList", selectDealVoList);
 		model.addAttribute("selectAreas", selectAreas);
+		model.addAttribute("dl_ty", dl_ty);
 		
 		return "detail";
+	}
+	
+	@RequestMapping("/tradeInfoAjax")
+	public String tradeInfoAjax(ArticleVo articleVo , DealVo dealVo, Model model) {
+		
+		
+		
+		
+		
+		
+		return "user/detailAjax/tradeInfo";
 	}
 
 }

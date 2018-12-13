@@ -4,11 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
    
-<style type="text/css">
-	
-</style> 
-    
-    
 <div class="admin-title">
 	<h1>나의 정보</h1>
 	<div class="hr2">
@@ -59,9 +54,4 @@
 		<div class="col-sm-10"></div>
 	</div>
 </form>
-
-	
-		
-	
-
 </div>
