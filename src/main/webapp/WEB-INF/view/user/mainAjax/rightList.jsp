@@ -35,7 +35,7 @@
 								<h4>${build.artcl_complx}</h4>
 							</c:when>
 							<c:when test="${building == 'store'}">
-								<h4>${build.artcl_nm}</h4>
+								<h4>${build.artcl_rd}</h4>
 							</c:when>
 						</c:choose>
 						<label class="address">대전광역시 ${build.artcl_gu} ${build.artcl_dong} ${build.artcl_rd} ${build.artcl_rd_detail}</label><br />
