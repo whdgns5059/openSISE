@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<html>
+<head>
 <script type="text/javascript">
-
+		
 		$(document).ready(function(){
 			var message = '${msg}'; 
 			alert(message); 
 			});	
-		
+
 		function getCookie(cookieName){
 			//cookieString = > document.cookie
 			var cookies = document.cookie.split("; ");
@@ -59,7 +60,8 @@
 }
 
 </style>
-
+</head>
+<body>
 	<!-- 가운데정렬 div -->
 	<div class="contents">
 	

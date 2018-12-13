@@ -73,27 +73,13 @@
 	</script>
 
 <style type="text/css">
+
 ul{list-style-type:none;}
 .logo{
-	margin: 100px 0 50px 250px;
-	padding: 20px 400px 50px 500px;
-	width: 1303px;
+	margin: 50px 0 50px 350px;
+	padding: 20px 100px 20px 250px;
+	width: 300px;
 }	
-.button{
-	margin : 80px 0 20px 50px;
-	padding: 10px 0 20px 0;
-	width:300px ;
-	height:300px ;
-}	
-
-.buttons{
-	padding: 5px 0 5px 0;
-}
-
-#Sign_in{
-margin : 50px 0 20px 0;
-	width:220px ;
-}
 
 #necessary{
 	color: red;
@@ -116,22 +102,34 @@ margin : 50px 0 20px 0;
 	width: 90%;
 }
 
+#duplicate{
+	margin-top: 0;
+}
+
 #y{
 	color: green;
 }
 #n{
 	color: red;
 }
-.logoInputCenter{margin:0 auto;width:500px;}
-.logoInputDiv{float:left;}
-.logoInputBtn{float:left;margin-left:-20px;}
-.submitBtnDiv{clear:left;width:500px;margin:0 auto;}
+
+#duplication{
+	margin: 0 0 14px 0;
+}
+
+#duplicate{
+	padding: 0 0 0 15px;
+}
+.logoInputCenter{margin:0 auto;width:1000px;}
+.logoInputDiv{float:left;margin:20px 0 0 600px ;}
+.logoInputBtn{float:left; padding: 20px 0 0 0px;}
+.submitBtnDiv{clear:left;width:80px;  padding: 30px 0 30px 720px;}
 </style>
 </head>
 
 <body class="text-center">
 	<!-- 전체 contents div -->
-	<div class="row" style="height: 850px !important">
+	<div class="row" style="height:850px !important">
 	
 		<form action="/login/signUpSelection" method="post">
 		<div class="logo">
@@ -144,16 +142,16 @@ margin : 50px 0 20px 0;
 							<label for="inputEmail" id="necessary">
 								<span>*</span>
 								<input type="text" id="userNm" name="mem_nm" value="${param.memNm}"  class="form-control"	placeholder="닉네임을 입력하세요" required autofocus>						
-						 	</label>
+						 	
 						 	<div id="duplicate" >
 								<c:if test="${msg == 0}">
-									<span id="y">:: 사용가능한 닉네임 입니다.</span>	
+									<span id="y">   사용가능한 닉네임 입니다.</span>	
 								</c:if>
 								<c:if test="${msg >= 1}">
-									<span id="n">:: 중복된 닉네임 입니다.</span>	
+									<span id="n">* 중복된 닉네임 입니다.</span>	
 								</c:if>
 							</div>
-						 	
+						 	</label>
 						</li>
 						<li>
 						
@@ -170,15 +168,28 @@ margin : 50px 0 20px 0;
 							</label>
 						</li>
 						<li>
-							<strong>성별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio"  id="male" name="mem_gndr" value="M">남자
+							<input type="radio"  id="male" name="mem_gndr" value="M">남자&emsp;&emsp;&emsp;
 							<input type="radio"  id="female" name="mem_gndr" value="F">여자	
 						</li>
 						<li>
-							<strong>직장정보</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<select id="jobLiset" name="mem_job">
+							<select id="jobLiset" name="mem_job" class="form-control">
+								<option value="">직장정보를 선택해 주세요</option>
 								<c:forEach items="${JobList}" var="mem">
 								<option value="${mem.job_no}">${mem.job_nm}</option>
+								</c:forEach>
+							</select>
+						</li>
+						
+						<li>
+							<select id="ageList" name="mem_age" class="form-control">
+								<c:forEach items="age" var="memAge">
+								<option value="">연령대를 선택해 주세요</option>
+								<option value="10대">10대</option>
+								<option value="20대">20대</option>
+								<option value="30대">30대</option>
+								<option value="40대">40대</option>
+								<option value="50대">50대</option>
+								<option value="60대">60대 이상</option>
 								</c:forEach>
 							</select>
 						</li>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style type="text/css">
 .logo-tag{
@@ -66,6 +67,10 @@
 	}
 </script>
 
+<script type="text/javascript">
+	var test = "${nowLogin.mem_nm}"
+</script>
+
 <!-- navbar시작 -->
 <nav class="navbar navbar-expand-lg navbar-dark">
 	<form action="/main/main" id="fmi">
@@ -98,8 +103,11 @@
 			<!-- 관리자일 경우에 생기는 a tag  -->
 			<li><a href="/manage/dataTrade/dataTrade">관리자</a></li>
 			<!-- 로그인 한 경우에 생기는 a tag  -->
-			<li><a href="/mypage/selectMypage">나의 정보</a></li>
-			<li><a href="/">{회원의 닉네임}</a></li>
+			<li><c:if test="${nowLogin.mem_nm!= null}">
+					${nowLogin.mem_nm} 님 안녕하세요 
+				</c:if></li>
+			<li><a href="/mypage/myInfo">나의 정보</a></li>
+			<li><a href="/login/logout">로그아웃</a></li>
 		</ul>
 	</div>
 

@@ -53,24 +53,24 @@
 		<put-attribute name="content" value="/WEB-INF/view/member/myinfo.jsp"></put-attribute>
 	</definition>
 
-	<definition name="favor" extends="memberLayout">
-		<put-attribute name="content" value="/WEB-INF/view/member/favor.jsp"></put-attribute>
+	<definition name="myInfoUpdate" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/myInfoUpdate.jsp"></put-attribute>
 	</definition>
-
-	<definition name="recent" extends="memberLayout">
-		<put-attribute name="content" value="/WEB-INF/view/member/recent.jsp"></put-attribute>
+	
+	<definition name="steamList" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/steamList.jsp"></put-attribute>
 	</definition>
-
-	<definition name="interest" extends="memberLayout">
-		<put-attribute name="content" value="/WEB-INF/view/member/interest.jsp"></put-attribute>
+	
+	<definition name="passWordChange" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/passWordChange.jsp"></put-attribute>
 	</definition>
-
-	<definition name="security" extends="memberLayout">
-		<put-attribute name="content" value="/WEB-INF/view/member/security.jsp"></put-attribute>
+	
+	<definition name="withdrawal" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/withdrawal.jsp"></put-attribute>
 	</definition>
-
-	<definition name="exit" extends="memberLayout">
-		<put-attribute name="content" value="/WEB-INF/view/member/exit.jsp"></put-attribute>
+	
+	<definition name="recentlyViewed" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/recentlyViewed.jsp"></put-attribute>
 	</definition>
 
 	<!--***************** adminLayout ******************* -->

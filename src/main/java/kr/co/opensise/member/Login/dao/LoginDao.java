@@ -25,7 +25,7 @@ public class LoginDao implements LoginDaoInf{
 	*/
 	@Override
 	public MemberVo selectMember(String mem_email) {
-		MemberVo user = template.selectOne("member.selectMember", mem_email);
+		MemberVo user = template.selectOne("member.selectAllMember", mem_email);
 		return user;
 	}
 	
@@ -70,7 +70,6 @@ public class LoginDao implements LoginDaoInf{
 		List<MemberVo> memberJob = template.selectList("member.job");
 		return memberJob;
 	}
-
 	
 	/**  
 	* Method   : interestLiset 
@@ -103,16 +102,29 @@ public class LoginDao implements LoginDaoInf{
 	* @param mem_email
 	* @return  
 	* Method 설명 :  회원 한 사람의 정보를 출력
-	
+	*/
 	@Override
 	public MemberVo searchUser(String mem_email) {
 		MemberVo member = template.selectOne("member.selectMember", mem_email);
 		return member;
 	}
+	
+	
+	/**  
+	* Method   : searchUser 
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param mem_email
+	* @return  
+	* Method 설명 :  회원 한 사람의 정보 수정
 	*/
-	
-	
-	
+	@Override
+	public int myInfoUpdate(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		int updateMemCnt = template.update("member.updateUser", memberVo);
+		
+		return updateMemCnt;
+	}
 	
 	
 	

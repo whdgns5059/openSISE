@@ -134,7 +134,40 @@
 <script type="text/javascript">
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
+		var buildingTy = $("#building").val();
+		getArticleList(buildingTy);
+		settingMap();
+		
+		/*------------ 마커생성 코드 끝 ----------------*/
 
+		
+		$(".dlSelector").on("click", function(){
+			
+			var dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
+			
+			$("#buildT").html(dl_Type);
+			$("#dl_ty").val(dl_Type);
+			
+			getArticleList(dl_Type);
+		}); 
+		
+
+	});
+	
+	function getArticleList(){
+	 	var param = $("form[name=frm]").serialize();
+		$.ajax({
+			type : "GET",
+			url : "/main/mainAjax",
+			data : param,
+			success : function(data){
+				$(".main-right").html(data);
+				settingMap();
+			}
+		});
+	}
+	
+	function settingMap(){
 		var x;
 		var y;
 
@@ -175,43 +208,37 @@
 			//마커가 지도 위에 표시되도록 설정합니다
 			marker.setMap(map);
 		}
-		/*------------ 마커생성 코드 끝 ----------------*/
-
-		/*검색한 좌표들을 배열에 담아준다*/
-		function setLatlngArr() {
-			/* console.log(lat[0]);
-			console.log(lng[0]); */
-			var lat = document.getElementsByClassName("lat");
-			var lng = document.getElementsByClassName("lng");
-			var position = [];
-			for (var i = 0; i < lat.length; i++) {
-				position[i] = new daum.maps.LatLng(lat[i].value, lng[i].value);
-			}
-			return position;
+	}
+	
+	/*검색한 좌표들을 배열에 담아준다*/
+	function setLatlngArr() {
+		/* console.log(lat[0]);
+		console.log(lng[0]); */
+		var lat = document.getElementsByClassName("lat");
+		var lng = document.getElementsByClassName("lng");
+		var position = [];
+		for (var i = 0; i < lat.length; i++) {
+			position[i] = new daum.maps.LatLng(lat[i].value, lng[i].value);
 		}
-
-	});
+		return position;
+	}
+	
+	
 </script>
 
 
 <!-- left contents -->
 <div class="main-left">
-	<input type="hidden" id="listSize" value="${buildingSaleListSize}" />
-	<c:forEach items="${buildingSaleList}" var="build">
-		<input type="hidden" class="lat" value="${build.artcl_lat}">
-		<input type="hidden" class="lng" value="${build.artcl_lng}">
-	</c:forEach>
-
+	
 	<!-- 검색 조건 -->
 	<div class="search-filt">
 		<!-- 검색어 -->
 		<div class="search">
-			<form action="/" method="get">
-				<input type="text" class="search-box" placeholder="지역명, 지하철역명, 아파트명"
-					id="loc" value="${search}"> 
-					<input type="hidden" id="building" value="${building}">
-				<button type="button" class="btn btn-primary searchBtn btn-lg"
-					id="search">검색</button>
+			<form action="/" method="get" name="frm">
+					<input type="text" class="search-box" placeholder="지역명, 지하철역명, 아파트명" name="searchName" id="loc" value="${searchName}"> 
+					<input type="hidden" id="building" name="building" value="${building}">
+					<input type="hidden" id="dl_ty" name="dl_ty">
+				<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">검색</button>
 			</form>
 		</div>
 
@@ -219,85 +246,127 @@
 		<div class="filters-div">
 			<ul class="nav nav-tabs">
 				<c:if test="${building == 'multi'}">
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-						role="button" aria-haspopup="true" aria-expanded="false">주거형태</a>
+					<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">주거형태</a>
 						<div class="dropdown-menu">
 							<div class="custom-control custom-checkbox">
-								<a class="dropdown-item" href="#"> <input type="checkbox"
-									class="custom-control-input" id="jeonse" /> <label
-									class="custom-control-label" for="jeonse">&nbsp&nbsp단독</label>
+								<a class="dropdown-item" href="#"> 
+									<input type="checkbox" class="custom-control-input" id="single" /> 
+									<label class="custom-control-label" for="jeonse">&ensp단독</label>
 								</a>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<a class="dropdown-item" href="#"> <input type="checkbox"
-									class="custom-control-input" id="wolse" /> <label
-									class="custom-control-label" for="wolse">&nbsp&nbsp다세대</label>
+								<a class="dropdown-item" href="#"> 
+									<input type="checkbox" class="custom-control-input" id="multi" /> 
+									<label class="custom-control-label" for="wolse">&ensp다세대</label>
 								</a>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<a class="dropdown-item" href="#"> <input type="checkbox"
-									class="custom-control-input" id="maemae" /> <label
-									class="custom-control-label" for="maemae">&nbsp&nbsp연립</label>
+								<a class="dropdown-item" href="#"> 
+									<input type="checkbox" class="custom-control-input" id="multip" /> 
+									<label class="custom-control-label" for="maemae">&ensp연립</label>
 								</a>
 							</div>
-						</div></li>
+						</div>
+					</li>
 				</c:if>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-					role="button" aria-haspopup="true" aria-expanded="false">전/월/매</a>
-					<div class="dropdown-menu">
+					role="button" aria-haspopup="true" aria-expanded="false"><span id="buildT">전/월/매</span></a>
+					<div class="dropdown-menu" id="dlType">
 						<div class="custom-control custom-checkbox">
-							<a class="dropdown-item" href="#"> <input type="checkbox"
-								class="custom-control-input" id="jeonse" /> <label
-								class="custom-control-label" for="jeonse">&nbsp&nbsp전세</label>
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input dlSelector" id="jeonse" name="buildingType" value="전세"/> 
+								<label class="custom-control-label" for="jeonse">&nbsp&nbsp전세</label>
 							</a>
 						</div>
 						<div class="custom-control custom-checkbox">
-							<a class="dropdown-item" href="#"> <input type="checkbox"
-								class="custom-control-input" id="wolse" /> <label
-								class="custom-control-label" for="wolse">&nbsp&nbsp월세</label>
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input dlSelector" id="wolse" name="buildingType" value="월세"/> 
+								<label class="custom-control-label" for="wolse">&nbsp&nbsp월세</label>
 							</a>
 						</div>
 						<div class="custom-control custom-checkbox">
-							<a class="dropdown-item" href="#"> <input type="checkbox"
-								class="custom-control-input" id="maemae" /> <label
-								class="custom-control-label" for="maemae">&nbsp&nbsp매매</label>
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" checked="checked" class="custom-control-input dlSelector" id="maemae" name="buildingType" value="매매"/> 
+								<label class="custom-control-label" for="maemae">&nbsp&nbsp매매</label>
 							</a>
 						</div>
 					</div></li>
+					<!-- 가격 수정 -->
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">가격</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Action</a> <a
-							class="dropdown-item" href="#">Another action</a> <a
-							class="dropdown-item" href="#">Something else here</a>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input" id="low" name="floorType"/> 
+								<label class="custom-control-label" for="low">&nbsp&nbsp저층(5층이하)</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input" id="middle" name="floorType"/> 
+								<label class="custom-control-label" for="middle">&nbsp&nbsp중층(20층 이하)</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio"  class="custom-control-input" id="high" name="floorType"/> 
+								<label class="custom-control-label" for="high">&nbsp&nbsp고층(20층 이상)</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" checked="checked" class="custom-control-input" id="all" name="floorType"/> 
+								<label class="custom-control-label" for="all">&nbsp&nbsp전체</label>
+							</a>
+						</div>
 					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">면적</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Action</a> <a
-							class="dropdown-item" href="#">Another action</a> <a
-							class="dropdown-item" href="#">Something else here</a>
+						<a class="dropdown-item" href="#">Action</a> 
+						<a class="dropdown-item" href="#">Another action</a> 
+						<a class="dropdown-item" href="#">Something else here</a>
 					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">준공년도</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Action</a> <a
-							class="dropdown-item" href="#">Another action</a> <a
-							class="dropdown-item" href="#">Something else here</a>
+						<a class="dropdown-item" href="#">Action</a> 
+						<a class="dropdown-item" href="#">Another action</a> 
+						<a class="dropdown-item" href="#">Something else here</a>
 					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">층수</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Action</a> <a
-							class="dropdown-item" href="#">Another action</a> <a
-							class="dropdown-item" href="#">Something else here</a>
-						<div class="dropdown-divider"></div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input" id="low" name="floorType"/> 
+								<label class="custom-control-label" for="low">&nbsp&nbsp5층이하</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input" id="middle" name="floorType"/> 
+								<label class="custom-control-label" for="middle">&nbsp&nbsp20층 이하</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio"  class="custom-control-input" id="high" name="floorType"/> 
+								<label class="custom-control-label" for="high">&nbsp&nbsp20층 이상</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" checked="checked" class="custom-control-input" id="all" name="floorType"/> 
+								<label class="custom-control-label" for="all">&nbsp&nbsp전체</label>
+							</a>
+						</div>
 					</div></li>
 			</ul>
 		</div>
@@ -309,38 +378,7 @@
 
 <!-- right contents -->
 <div class="main-right">
-
-	<!-- 매물리스트  -->
-	<div class="articles">
-		<c:choose>
-			<c:when test="${buildingSaleListSize != 0}">
-				<c:forEach items="${buildingSaleList}" var="build">
-					<div class="article">
-						<c:choose>
-							<c:when test="${building == 'apt'}">
-								<h4>${build.artcl_complx}</h4>
-							</c:when>
-							<c:when test="${building == 'multi'}">
-								<h4>${build.artcl_rd}</h4>
-							</c:when>
-							<c:when test="${building == 'office'}">
-								<h4>${build.artcl_complx}</h4>
-							</c:when>
-							<c:when test="${building == 'store'}">
-								<h4>${build.artcl_nm}</h4>
-							</c:when>
-						</c:choose>
-						<label class="address">대전광역시 ${build.artcl_gu} ${build.artcl_dong} ${build.artcl_rd} ${build.artcl_rd_detail }</label><br />
-						<!-- 평균 시세는 근 3개월 간의 시세를 평균으로 낸다. -->
-						<label class="avg-price">평균시세&nbsp:&nbsp&nbsp100억</label>
-					</div>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-			검색 결과가 없습니다.(돋보기 그림 추가 + 글씨크기 키우고 색은 옅은 회색)
-		</c:otherwise>
-		</c:choose>
-	</div>
+	<!-- 매물리스트 들어가는 자리 -->
 	<!-- 지역분석 버튼 -->
 	<!-- <div class="area-analysis">
 		2

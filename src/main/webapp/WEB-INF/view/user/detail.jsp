@@ -1,14 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<link href="/css/detail.css" rel="stylesheet">
 
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		
+		settingMap();
+		setRadarChart();
+		reviewControl();
+		clacControl();	
+		
+		$('#areaDiv').on('click', '.areaButton', detailInfoAjax );
 		
 		
+	});
+	
+	<%-- 지도 함수 --%>
+	function settingMap(){
 		// 해당 주소에 대한 좌표값을 담을 변수
 		var x;
 		var y;
@@ -62,40 +72,9 @@
 			
 				
 		});
-		
-	});
-</script>
-
-
-
-<script>
-	$(document).ready(function(){
-		
-	setTradeChart();
-	setRadarChart();
-	reviewControl();
-	clacControl();
-	
-		
-		
-	});
-	
-	<%-- 실거래 차트  --%>
-	function setTradeChart() {
-		var tradeChartData = {
-		type: 'line',  
-		title: { text: '1년간 실거래가'  },
-		legend: {}, // Creates an interactive legend
-		series: [  { values: [28, 40, 39, 36, 12, 3, 32, 2, 12, 12, 32] } ]
-		
-		};
-
-		zingchart.render({ // Render Method[3]
-		  id: 'myChart',
-		  data: tradeChartData,
-		});
-
 	}
+	
+
 	
 	<%-- 다각형 그래프 --%>
 	function setRadarChart(){
@@ -130,7 +109,7 @@
 		});
 	}
 	
-	
+	<%--계산기 컨트롤 --%>
 	function clacControl() {
 		<%-- input의 max 값이 최대 값임 --%>	
 		$('#calculator').on('change', function(){
@@ -141,55 +120,37 @@
 		});
 		
 	}
-</script>
-
-
-
-<style type="text/css">
-	#map {width : 650px; height:1000px;}
-	#rightContentWrapper {width : 1250px; height:1000px; overflow:hidden}
-	#rightContent{width : 1200px; height:920px; overflow-y: scroll; overflow-x:hidden;
-					margin:auto; margin-top:40px; margin-bottom: 40px;}
-	#articleNameDiv{text-align: center;}
-	#articleNameSpan {font-size: 40px;  }
-	#tabDiv {height:30px;}
-	#threeMonthInfoDiv{height: 110px; width:1500px; text-align:center; padding-top: 10px;}
-	.subThreeMonth {float:left; width:600px;}		
-	.floatClearDiv {clear:both; padding: 5px;}
+	
+	function detailInfoAjax(){
 		
-	.subTitle {font-size: 30px;}
-	.subContent {font-size: 25px;}
+		var artcl_gu = document.getElementById('artclGu').innerHTML;
+		var artcl_dong = document.getElementById('artclDong').innerHTML;
+		var artcl_zip = document.getElementById('artclZip').innerHTML;
+		var artcl_rd = document.getElementById('artclRd').innerHTML;
+		var dl_ty = document.getElementById('dlTy').innerHTML;
 	
-	#myChart{ width:1200px; height:500px; margin-top: 30px;}
-	
-	#siseTableDiv {width:1200px; height: 500px; text-align: center;}
-	#siseTable {width: 1000px; height: 400px; margin: auto; border:1px solid black;}
-	
-	#loanClacDiv {width: 1200px; height: 200px; text-align: center;}
-	.marginTop {margin-top: 30px;}
-	
-	#radarChartDiv {width: 1200px; height:500px;}
-	
-	#reviewDiv {width: 1200px; min-height: 300px;}
-	.reviewWrapper {width: 1000px; margin:auto;}
-	.titleWrapper {width: 1000px; margin:auto;}
-	.titleWrapper * {border:1px solid black;}
-	.reviewDate { clear:left; float:left; width:200px;}
-	.reviewTitle {float:left; width: 600px;}
-	.reviewWriter {float:left; width: 200px;}
-	.reviewDetailWrapper {width:1000px;clear:left; margin:auto; padding-top: 15px; padding-bottom: 15px; }
-	.starDivWrapper { height: 45px;}
-	.starDiv {float:left;}
-	.reportDiv {float:left; width: 800px; text-align: right;}
-	.photo {clear:left;}
-	.reviewModify {text-align: right;}	
-	
-	
-	#mapWrap {position: relative;}
-	.toLocal {position: absolute; top: 740px; left: 540px; z-index: 10; width:150px; height: 150px;}	
-</style>
+		var ajaxData = {
+			artcl_gu : artcl_gu,
+			artcl_dong : artcl_dong,
+			artcl_zip	: artcl_zip,
+			artcl_rd : artcl_rd,
+			dl_ty : dl_ty
+		}	
+		
+		$.ajax({
+			type : 'POST',
+			url : '/detail/tradeInfoAjax',
+			data : ajaxData,
+			success : function(data){
+				$('#tradeInfoWrapper').html(data);
+			}	
+			
+		});
+	}
 
-<!-- 전체 contents div -->
+	
+	
+</script>
 <div class="row" style="height: 850px !important">
  	
 	<input type="hidden" id="hello" value="${asdf }">
@@ -204,64 +165,28 @@
 	</div>	
 	
 	
-		<%-- --%>
 	<!-- right contents -->
 	<div id="rightContentWrapper">
 		<div id="rightContent">
 
 			<div id = "articleNameDiv">
-				<span id="articleNameSpan">대덕 아파트</span>
+				<span id="articleNameSpan">${selectArticleVo.artcl_complx}</span>
+				<br/>
+				<span id="artclGu">${selectArticleVo.artcl_gu}</span> 
+				<span id="artclDong">${selectArticleVo.artcl_dong}</span> 
+				<span id="artclZip">${selectArticleVo.artcl_zip}</span>
+				<span id="artclRd">${selectArticleVo.artcl_rd}</span><br/>
+				<span id="dlTy">${dl_ty}</span>
 				<hr/>
+				
 			</div>
-			<div id="tabDiv">
-				<button>10평</button>
-				<button>20평</button>
-				<button>30평</button>
-				<button>40평</button>
-			</div>
-			<div id="threeMonthInfoDiv">
-				<div class="subThreeMonth">
-					<span class="subTitle">3개월 평균 시세</span><br/>
-					<span class="subContent">보증금 1000</span><span class="subContent">월세 40만원</span>
+				<div id="areaDiv">
+					<c:forEach items="${selectAreas }" var="area">
+						<button class="areaButton">${area / 3.3 }평</button>
+					</c:forEach>
 				</div>
-				<div class="subThreeMonth">
-					<span class="subTitle">가장 최근 거래가</span><br/>
-					<span class="subContent">보증금 1100</span><span class="subContent">월세 42만원</span>
-				</div>
-				<div class="floatClearDiv">
-					<hr/>
-				</div>
-			</div>
-			<div id="myChart">
-			</div>
-			
-			<div id="siseTableDiv">
-				<span class="subTitle">실거래 시세표</span> <button>전체 시세표</button>
-				<table id="siseTable">
-					<thead>
-						<tr>
-							<td>거래일</td>
-							<td>보증금</td>
-							<td>월세</td>
-							<td>층</td>
-						</tr>
-					</thead>	
-					<tbody>
-						<c:forEach begin="1" end="5">
-						<tr>
-							<td>2018년 10월 2일</td>
-							<td>1000만원</td>
-							<td>40만원</td>
-							<td>4</td>
-						</tr>
-						</c:forEach>
-					</tbody>
-				</table>	
-			</div>
-			<div id="loanClacDiv">
-				<span class="subTitle"> 대출금 계산기</span><br/>
-				<input type="range" class="marginTop" id="calculator" max="17000"><br/>
-				<span id="calcResult">얼마일까</span>
+			<div id="tradeInfoWrapper">
+				
 			</div>
 			<div id="radarChartDiv">
 			</div>

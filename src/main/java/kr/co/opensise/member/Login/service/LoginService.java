@@ -72,7 +72,6 @@ public class LoginService implements LoginServiceInf{
 		return loginDao.jobList();
 	}
 
-	
 	/**  
 	* Method   : interestLiset 
 	* 작성자 :  김주연
@@ -113,10 +112,24 @@ public class LoginService implements LoginServiceInf{
 	* @param 
 	* @return  
 	* Method 설명 :  회원 한명의 정보 출력
-	
+	*/
 	public MemberVo searchUser(String mem_email) {
-		// TODO Auto-generated method stub
 		return loginDao.searchUser(mem_email);
 	}
+	
+	
+	/**  
+	* Method   : searchUser 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원 한명의 정보 수정
 	*/
+		@Override
+		public int myInfoUpdate(MemberVo memberVo) {
+			// TODO Auto-generated method stub
+			return loginDao.myInfoUpdate(memberVo);
+		}
+	
 }

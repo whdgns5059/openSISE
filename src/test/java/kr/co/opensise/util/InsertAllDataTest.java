@@ -28,9 +28,9 @@ public class InsertAllDataTest extends RootSetup{
 		
 		/***given***/
 		/*
-		String root = "C:\\Users\\1003yd\\Desktop\\OpenSISE\\API\\실거래가 API\\2012";
+		String root = "C:\\Users\\nlbo\\Desktop\\실거래가\\201401";
 		/*/
-		String root = "D:\\A_TeachingMaterial\\7.LastProject\\tradeInfo";
+		String root = "D:\\A_TeachingMaterial\\7.LastProject\\TradeInfo\\second";
 		//*/
 		
 		/***when***/

@@ -74,9 +74,10 @@ public class InsertMemTest extends RootSetup{
 			memberVo.setMem_job((int)(Math.random()*7)); // 0~6 랜덤 숫자
 			memberVo.setMem_age(ages[(int)(Math.random()*ages.length)]);
 			
-			//int insertCnt = loginDao.signup(memberVo);
+			int insertCnt = loginDao.signup(memberVo);
 			
-			//log.info("성공 여부 : {}", insertCnt);
+			log.info("성공 여부 : {}", insertCnt);
+			
 		
 		}
 	}

@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.opensise.user.main.model.BuildingSaleVo;
+import kr.co.opensise.user.main.model.FilterVo;
 
 @Repository
 public class MainDao implements MainDaoInf {
@@ -27,6 +28,12 @@ public class MainDao implements MainDaoInf {
 	public List<BuildingSaleVo> buildingSaleList(Map<String, String> searchMap) {
 		// TODO Auto-generated method stub
 		return template.selectList("map.searchList",searchMap);
+	}
+
+	@Override
+	public List<BuildingSaleVo> buildingFilterList(FilterVo filterVo) {
+		// TODO Auto-generated method stub
+		return template.selectList("map.searchFilterList", filterVo);
 	}
 
 	

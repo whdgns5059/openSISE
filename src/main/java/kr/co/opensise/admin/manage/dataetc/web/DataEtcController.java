@@ -1,6 +1,16 @@
 package kr.co.opensise.admin.manage.dataetc.web;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +20,9 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -28,9 +41,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import kr.co.opensise.admin.manage.dataetc.model.BusVo;
 import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
+import kr.co.opensise.admin.manage.dataetc.model.RouteVo;
+import kr.co.opensise.admin.manage.dataetc.model.StationVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcService;
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcServiceInf;
@@ -417,4 +438,214 @@ public class DataEtcController {
 		
 		return "redirect:/manage/dataEtc/dataEtc";
 	}
+	
+	//교통정보
+	@RequestMapping("/insertStationData")
+	public String insertStation(Model model) {
+//		BufferedReader br = null;
+		BufferedReader brA = null;
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();// Document를 생성할 Factory
+		factory.setNamespaceAware(true);
+		
+		
+		try {
+			
+			Set<RouteVo> routeSet = new HashSet<RouteVo>();
+			
+			//AQaEtVk16ydt8lKbZqS3YbaTNMVbUG7vKt18aGAP0we9Uv5TODox8zz67iarSbBoJyg82A%2B513%2FKot1f6dbvKQ%3D%3D:종훈
+			//RT1lHlWUhjho%2FbTmTxIJL4vFER1%2BRzgKGsI1dLvVMCspNNUpTxjfzvhfjSEZ75nE9AHoSPUN3fdIJQ3cZzwAOw%3D%3D:나
+			//openApi 호출(전체노선 기본정보 조회)
+			String urlAll = "http://openapitraffic.daejeon.go.kr/"
+						+"api/rest/busRouteInfo/getRouteInfoAll"
+						+"?serviceKey=AQaEtVk16ydt8lKbZqS3YbaTNMVbUG7vKt18aGAP0we9Uv5TODox8zz67iarSbBoJyg82A%2B513%2FKot1f6dbvKQ%3D%3D&reqPage=1";
+			
+			URL urlA= new URL(urlAll);
+			HttpURLConnection httpUrlConnectionA = (HttpURLConnection) urlA.openConnection();
+			
+			//응답읽기
+			brA= new BufferedReader(new InputStreamReader(httpUrlConnectionA.getInputStream(), "UTF-8"));
+			String resultA = "";
+			String lineA;
+			
+			while((lineA = brA.readLine())!=null) {
+				resultA = resultA + lineA.trim()+"\n"; //result = url로 xml을 읽은 값
+			}
+			log.info("resultA : {}", resultA);
+			
+			//===============================================================================
+			InputStream isA = new ByteArrayInputStream(resultA.getBytes());// 서버로 부터 받은 string 형태의 xml데이터를 InputStream에 담는다.
+
+			DocumentBuilder builderA = factory.newDocumentBuilder();// Builder 객체를 생성
+			Document docA = builderA.parse(isA); //Document오브젝트 취득
+			Element orderA = docA.getDocumentElement(); //자식 노드 취득
+			
+			//각노드의 리스트 취득
+			NodeList itemsA = orderA.getElementsByTagName("itemList");
+			
+			List<BusVo> busList=new ArrayList<BusVo>();
+			List<RouteVo> routeList = new ArrayList<RouteVo>();
+			List<StationVo> stationList = new ArrayList<StationVo>();
+			
+			//전체 버스 정보의 itemList만큼 반복---> 각 태그이름별로 노드리스트 만들기
+			for(int i=0;i<itemsA.getLength();i++) {
+				// Get element 
+			    Element element = (Element)itemsA.item(i);
+			    
+			    
+//			    getRoute(factory, element, busList, routeList, stationList);
+				BufferedReader br;
+				
+				
+				//노선 ID
+				NodeList route_cdList  = element.getElementsByTagName("ROUTE_CD");
+				
+				//route_no 노선명칭
+				NodeList route_noList = element.getElementsByTagName("ROUTE_NO");
+				
+				
+				//route_tp 노선유형(1:급행 2: 간선, 3:지선, 4외곽, 5마을)
+				NodeList route_tpList = element.getElementsByTagName("ROUTE_TP");
+				
+				//bus_cd의 갯수만큼 반복하며 busVo만들기
+				for (int j = 0; j < route_cdList.getLength(); j++) {
+
+					BusVo busVo = new BusVo();
+					
+					
+					//노선 ID
+					Element eventEle = (Element) route_cdList.item(j);
+					Node butstop = eventEle.getFirstChild();
+					String route_cd = butstop.getNodeValue();
+					busVo.setBus_cd(route_cd);
+					
+					log.info("route_cd : {}", route_cd);
+					
+					//route_no 노선명칭
+					Element eventEle_no = (Element) route_noList.item(j);
+					Node butstop_no = eventEle_no.getFirstChild();
+					String route_cd_no = butstop_no.getNodeValue();
+					busVo.setBus_no(route_cd_no);
+					log.info("route_cd_no : {}", route_cd_no);
+					
+					//route_tp 노선유형(1:급행 2: 간선, 3:지선, 4외곽, 5마을, 6첨단)
+					Element eventEle_tp = (Element) route_tpList.item(j);
+					Node butstop_tp = eventEle_tp.getFirstChild();
+					String route_cd_tp = butstop_tp.getNodeValue();
+					busVo.setBus_tp(route_cd_tp);
+					log.info("route_cd_tp : {}", route_cd_tp);
+					
+					busList.add(busVo);
+					
+					//각 버스(bus_cd(route_cd))에 해당하는 정류소 정보 호출
+					//openApi 호출(노선별 경유 정류소 정보)
+					String urlRoute = "http://openapitraffic.daejeon.go.kr/"
+									+"api/rest/busRouteInfo/getStaionByRoute"
+									+"?busRouteId="+route_cd+"&serviceKey=AQaEtVk16ydt8lKbZqS3YbaTNMVbUG7vKt18aGAP0we9Uv5TODox8zz67iarSbBoJyg82A%2B513%2FKot1f6dbvKQ%3D%3D";
+					
+					URL urlR = new URL(urlRoute);
+					HttpURLConnection httpUrlConnection = (HttpURLConnection) urlR.openConnection();
+					
+					//응답읽기
+					br= new BufferedReader(new InputStreamReader(httpUrlConnection.getInputStream(), "UTF-8"));
+					String result = "";
+					String line;
+					
+					while((line = br.readLine())!=null) {
+						result = result + line.trim()+"\n"; //result = url로 xml을 읽은 값
+					}
+//					log.info("restApi : {}", result);
+					
+					//xml 파싱하기
+					InputStream is = new ByteArrayInputStream(result.getBytes());// 서버로 부터 받은 string 형태의 xml데이터를 InputStream에 담는다.
+
+					DocumentBuilder builder = factory.newDocumentBuilder();// Builder 객체를 생성
+					Document doc = builder.parse(is); //Document오브젝트 취득
+					Element order = doc.getDocumentElement(); //자식 노드 취득
+					
+					//각노드의 리스트 취득
+					NodeList items = order.getElementsByTagName("itemList");
+					
+					//버스 정류소의 갯수 만큼 반복하며 정보가져오기
+					for(int k=0;k<items.getLength();k++) {
+						//BUSSTOP_NM, bus_node_id, gps_lati, gps_long
+						StationVo stationVo = new StationVo();
+						// Get element 
+					    Element elementR = (Element)items.item(k);
+					    
+					    //버스정류장명, 
+						String busstop_nm = getStationValue(elementR,"BUSSTOP_NM");
+						stationVo.setSttn_nm(busstop_nm);
+						log.info("busstop_nm : {}", busstop_nm);
+						
+						//버스 정류장 ID
+						String bus_node_id = getStationValue(elementR,"BUS_NODE_ID");
+						stationVo.setSttn_id(bus_node_id);
+						log.info("bus_node_id : {}", bus_node_id);
+
+						
+						//위도
+						String gps_lati = getStationValue(elementR,"GPS_LATI");
+						stationVo.setSttn_lat(gps_lati);
+						log.info("gps_lati : {}", gps_lati);
+						
+						
+						//경도
+						String gps_long = getStationValue(elementR,"GPS_LONG");
+						stationVo.setSttn_lng(gps_long);
+						log.info("gps_long : {}", gps_long);
+							
+						
+						RouteVo routeVo = new RouteVo();
+						routeVo.setRt_cd(route_cd);
+						routeVo.setRt_id(bus_node_id);
+						routeSet.add(routeVo);
+						
+						stationList.add(stationVo);
+						
+						
+					}
+					//===============================================================================
+					
+				}
+				
+			}
+			//insert
+			
+			int insertRoute=0;
+			int insertStation=0;
+			int insertBus = 0;
+			insertBus = dataEtcService.insertBus(busList);
+			
+			insertStation = dataEtcService.insertStation(stationList);
+			
+			routeList.addAll(routeSet);
+			insertRoute = dataEtcService.insertRoute(routeList);
+			
+			
+			
+			model.addAttribute("busList", busList);
+			model.addAttribute("routeList", routeList);
+			model.addAttribute("stationList", stationList);
+			
+			//===============================================================================
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/manage/dataEtc/dataEtc";
+	}
+	
+	private String getStationValue(Element elementR,String tagName) {
+		NodeList busstopList = elementR.getElementsByTagName(tagName);
+
+		Element eventEleR = (Element) busstopList.item(0);
+		Node butstopR = eventEleR.getFirstChild();
+		String busstop= butstopR.getNodeValue();
+		
+		return busstop;
+		
+	}
+
+	
 }

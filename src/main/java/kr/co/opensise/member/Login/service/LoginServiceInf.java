@@ -77,7 +77,18 @@ public interface LoginServiceInf {
 		* @param mem_email
 		* @return  
 		* Method 설명 :  회원 한 사람의 정보를 출력
-		
-		public MemberVo searchUser(String mem_email);
 		*/
+		public MemberVo searchUser(String mem_email);
+		
+		
+		/**  
+		* Method   : updateMember 
+		* 작성자 : 김주연 
+		* 변경이력 :  
+		* @param mem_email
+		* @return  
+		* Method 설명 :  회원 한 사람 정보 수정
+		*/
+		public int myInfoUpdate(MemberVo memberVo);
+		
 }

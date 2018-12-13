@@ -74,6 +74,21 @@ public class LoginController {
 		}
 	}
 	
+	/** Method   : duplication 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  로그아웃
+	*/
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		
+		return "openPage";
+	}
+	
+	
 	/**  
 	* Method   :  passButton
 	* 작성자 :  김주연
@@ -85,22 +100,7 @@ public class LoginController {
 	public String passButton() {
 		return "member/passButton";
 	}
-	
 
-	/**  
-	* Method   :  passButtonChk
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @return  
-	* Method 설명 : 비밀번호 찾기 
-	*/
-	@RequestMapping("/passChk")
-	public String passButtonChk() {
-		// 임시 return
-		return "signup";
-	}
-	
-	
 	
 	/** Method   : sign_Up 
 	* 작성자 :  김주연
@@ -131,7 +131,6 @@ public class LoginController {
 		model.addAttribute("mem_email",memberVo.getMem_email());
 		
 		List<MemberVo> interest = loginService.interestLiset();
-		System.out.println("intrstList : " + interest);
 		model.addAttribute("intrstList",interest);
 
 		return "signupDetail";
@@ -146,7 +145,6 @@ public class LoginController {
 	@RequestMapping(value="/signupDetail", method= {RequestMethod.POST})
 	public String signupDetail(Model model, MemberVo memberVo) {
 		
-		
 		// 리턴값 임시
 		return "openPage";
 	}
@@ -160,12 +158,16 @@ public class LoginController {
 	@RequestMapping(value="/duplication", method={RequestMethod.POST})
 	public String duplication(@RequestParam("memNm") String mem_nm, Model model ) {
 		int memberNm = loginService.check_nm(mem_nm);
+		List<MemberVo> memberJobLiset = loginService.jobList();
 		model.addAttribute("msg",memberNm);
+		model.addAttribute("JobList",memberJobLiset);
 		
 		return "signup";
 		
 	}
 	
+	
+
 	
 	
 }

@@ -28,9 +28,6 @@ public interface LoginDaoInf {
 	 */
 	public int signup(MemberVo memberVo);
 	
-	
-	
-	
 	/**
 	 * Method : updateUser 
 	 * 작성자 : 
@@ -51,7 +48,7 @@ public interface LoginDaoInf {
 	* Method 설명 :  직업종류 출력
 	*/
 	public List<MemberVo> jobList();
-		
+	
 	/**  
 	* Method   : interestLiset 
 	* 작성자 :  
@@ -61,6 +58,8 @@ public interface LoginDaoInf {
 	* Method 설명 :  관심사 리스트 출력
 	*/
 	public List<MemberVo> interestLiset();
+	
+	
 	
 	public int delete();
 	
@@ -73,7 +72,17 @@ public interface LoginDaoInf {
 	* @param mem_email
 	* @return  
 	* Method 설명 :  회원 한 사람의 정보를 출력
-	
-	public MemberVo searchUser(String mem_email);
 	*/
+	public MemberVo searchUser(String mem_email);
+	
+	/**  
+	* Method   : searchUser 
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param mem_email
+	* @return  
+	* Method 설명 :  회원 한 사람의 정보 수정
+	*/
+	public int myInfoUpdate(MemberVo memberVo);
+	
 }
