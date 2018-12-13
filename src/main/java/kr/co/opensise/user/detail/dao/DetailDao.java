@@ -42,5 +42,10 @@ public class DetailDao implements DetailDaoInf{
 		return template.selectOne("detail.selectRecentTrade", dealVo);
 	}
 
+	@Override
+	public List<DealVo> selectDealListByArea(DealVo dealVo) {
+		return template.selectList("detail.selectDealListByArea", dealVo);
+	}
+
 
 }

@@ -27,10 +27,10 @@ public class InsertAllDataTest extends RootSetup{
 	public void insertAllDataTest() throws IOException {
 		
 		/***given***/
-		//*
-		String root = "C:\\Users\\nlbo\\Desktop\\실거래가\\201401";
 		/*
-		String root = "D:\\A_TeachingMaterial\\7.LastProject\\tradeInfo";
+		String root = "C:\\Users\\nlbo\\Desktop\\실거래가\\201401";
+		/*/
+		String root = "D:\\A_TeachingMaterial\\7.LastProject\\TradeInfo\\second";
 		//*/
 		
 		/***when***/

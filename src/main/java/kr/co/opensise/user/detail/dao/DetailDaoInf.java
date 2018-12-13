@@ -17,4 +17,6 @@ public interface DetailDaoInf {
 	AvgTradeVo selectAvgPrice(DealVo dealVo);
 	
 	DealVo selectRecentTrade(DealVo dealVo);
+	
+	List<DealVo> selectDealListByArea(DealVo dealVo);
 }

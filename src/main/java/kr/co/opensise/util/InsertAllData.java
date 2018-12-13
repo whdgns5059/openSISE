@@ -159,22 +159,24 @@ public class InsertAllData{
 						articleList.add(articleVo);
 						dealList.add(dealVo);
 						
-						log.info("articleVo ==> {}", ((ArticleVo)setVoMap.get("articleVo")).toString());
-						log.info("dealVo ==> {}", ((DealVo)setVoMap.get("dealVo")).toString());
 					}
 					
 				}
 				
-				log.info("***************************************************");
-				log.info("데이터 인서트 중.....");
-				log.info("데이터가 많으면 3분 이상 걸릴 수도 있습니다...");
-				log.info("***************************************************");
 				
 				//4. 담은 Vo들을 List에 담고 insert한다..
 				int insertArticleListResult = 0;
 				int insertDealListResult = 0;
 				
+				log.info("***************************************************");
+				log.info("articleVo List 데이터 인서트 중.....");
+				log.info("데이터가 많으면 3분 이상 걸릴 수도 있습니다...");
+				log.info("***************************************************");
 				insertArticleListResult = dataTradeService.insertArticleList(articleList);
+				log.info("***************************************************");
+				log.info("dealVo List 데이터 인서트 중.....");
+				log.info("데이터가 많으면 3분 이상 걸릴 수도 있습니다...");
+				log.info("***************************************************");
 				insertDealListResult = dataTradeService.insertDealList(dealList);
 				
 				
@@ -184,6 +186,10 @@ public class InsertAllData{
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}		
+				
+				log.info("***************************************************");
+				log.info(" >> {} << 인서트 종료!!", file.getName());
+				log.info("***************************************************");
 				log.info("***************************************************");
 				log.info("insertArticle ::: {}", insertArticleListResult);
 				log.info("insertDeal ::: {}", insertDealListResult);
@@ -244,7 +250,6 @@ public class InsertAllData{
 				articleVo.setArtcl_lat(lat);
 				articleVo.setArtcl_lng(lng);
 				
-				log.info("좌표변경 : {}", articleVo.toString());
 				
 				//3. 좌표 업데이트. 
 				updateCoordResult += dataTradeService.updataLatLngArticle(articleVo);
@@ -255,7 +260,7 @@ public class InsertAllData{
 		}
 		
 		log.info("***************************************");
-		log.info("              종료!!");
+		log.info(" 좌표입력 종료!!");
 		log.info("***************************************");
 		
 		
