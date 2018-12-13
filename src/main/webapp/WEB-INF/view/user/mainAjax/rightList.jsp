@@ -19,7 +19,17 @@
 								<h4>${build.artcl_complx}</h4>
 							</c:when>
 							<c:when test="${building == 'multi'}">
-								<h4>${build.artcl_rd}</h4>
+								<c:choose>
+									<c:when test="${build.artcl_bc == 'multi'}">
+										<h4>${build.artcl_rd}</h4>
+									</c:when>
+									<c:when test="${build.artcl_bc == 'multip'}">
+										<h4>${build.artcl_nm}</h4>
+									</c:when>
+									<c:when test="${build.artcl_bc == 'single'}">
+										<h4>${build.artcl_rd}</h4>
+									</c:when>
+								</c:choose>
 							</c:when>
 							<c:when test="${building == 'office'}">
 								<h4>${build.artcl_complx}</h4>
@@ -32,13 +42,16 @@
 						<!-- 평균 시세는 근 3개월 간의 시세를 평균으로 낸다. -->
 						<c:choose>
 							<c:when test="${dlType == '매매' }">
-								<label class="avg-price">평당 평균가&nbsp:&nbsp&nbsp${build.avg_dl}만원</label>
+								<label class="avg-price">평당 평균가&nbsp&nbsp${build.avg_dl}만원</label>
 							</c:when>
 							<c:when test="${dlType == '전세' }">
-								<label class="avg-price">평당 평균가&nbsp:&nbsp&nbsp${build.avg_dl}만원</label>
+								<label class="avg-price">평균 전세가 &nbsp&nbsp${build.dl_depos}만원</label>
 							</c:when>
-							
+							<c:when test="${dlType == '월세' }">
+								<label class="avg-price">평균 보증금&nbsp ${build.dl_depos}만원 <br> 평균 월세가 &nbsp ${build.dl_rnt}만원</label>
+							</c:when>
 						</c:choose>
+						<br>
 					</div>
 				</c:forEach>
 			</c:when>

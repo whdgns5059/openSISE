@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.main.model.BuildingSaleVo;
+import kr.co.opensise.user.main.model.FilterVo;
 
 public class MainServiceTest extends RootSetup {
 	
@@ -20,14 +21,12 @@ public class MainServiceTest extends RootSetup {
 
 	@Test
 	public void searchListTest() {
-		String searchName = "월평동";
-		String building = "apt";
 		
-		Map<String, String> searchMap = new HashMap<String, String>();
+		FilterVo filterVo = new FilterVo();
+		filterVo.setSearchName("월평동");
+		filterVo.setBuilding("apt");
 
-		searchMap.put("searchName", searchName);
-		searchMap.put("building", building);
-		List<BuildingSaleVo> buildingSaleList = mainService.buildingSaleList(searchMap);
+		List<BuildingSaleVo> buildingSaleList = mainService.buildingSaleList(filterVo);
 		
 		assertEquals(1019, buildingSaleList.size());
 		
