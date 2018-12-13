@@ -3,6 +3,13 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- Remember to include jQuery :) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
 <script type="text/javascript">
 		function getCookie(cookieName){
 			//cookieString = > document.cookie
@@ -18,45 +25,46 @@
 			
 			return cookieValue;
 		}
+		
+		$('#sub-modal').modal({
+			  closeExisting: false
+			});
 	</script>
 	
-	<script type="text/javascript">
-	 function showPopup() { 
-		 window.open("/login/pass", "popButten", "width=400, height=300, left=100, top=50"); }
-	
-
-	</script>
 <style type="text/css">
-.contents {
-    margin: 0 auto;
-    width: 390px;
-}
 .logo{
-    margin-top: 165px;
+   margin: 100px 0 50px 300px;
     width: 390px;
 }	
+
 .button{
     margin: 0 auto;
-    margin-top: 100px;
-    width: 300px;
+    margin-top: 80px;
+    width: 250px;
     height: 190px;
 }	
 
 #Sign_in{
     margin: 0 auto;
-    margin-top: 16px;
+    margin-top: 50px;
     width: 220px;
     display: block;
 }
 
-#passButton{
-	margin: 10px;
-	width: 80%;
+#optionModifyBtn{
+	margin : 10px 0 0 75px;
+	width: 100px;
+	height: 10px;
+	font-size: 7pt;
+	padding-bottom: 15px;
+}
+
+#userId{
+	margin: 0 0 5px 0;
 }
 
 </style>
 </head>
-
 <body>
 	<!-- 가운데정렬 div -->
 	<div class="contents">
@@ -71,8 +79,17 @@
 				<label for="inputPassword" class="sr-only">Password</label> 
 					<input type="password" id="inputPassword" name="mem_pass" class="form-control" value="brownpass" required>
 			
-				<label> <input type="button" id="optionModifyBtn" class="form-control" value="비밀번호 찾기" onclick="showPopup();">
-				</label><br/>
+				<div id="ex1" class="modal">
+				  <a href="#" rel="modal:open">닫기</a>
+				</div>
+				
+				<div id="ex1" class="modal">
+				  <a href="#" rel="modal:close">닫기</a>
+				</div>
+				<p><a href="#ex1" rel="modal:open">비밀번호 찾기</a></p>
+				
+				
+				
 			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
 			</div>
 			</div>

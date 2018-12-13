@@ -4,13 +4,13 @@
 
 <style type="text/css">
 .logo{
-	margin: 150px 0 50px 250px;
-	padding: 20px 400px 20px 500px;
-	width: 1303px;
+	margin: 100px 0 50px 200px;
+	padding: 20px 400px 20px 150px;
+	width: 250px;
 }
 .button{
-	margin : 100px 0 20px 100px;
-	width:300px ;
+	margin : 80px 0 20px 17px;
+	width:200px ;
 	height:200px ;
 }	
 
@@ -22,7 +22,7 @@
 
 </style>
 <!-- 전체 contents div -->
-<div class="contents">
+<div class="contents"style="text-align: center ">
 	<!-- logo -->
 		<div class="logo" >
 			<img src="/img/snail.png"  />

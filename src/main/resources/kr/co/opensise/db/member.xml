@@ -12,7 +12,7 @@
   	
   	<!-- 개별 회원 정보 조회 -->
   	<select id="selectMember" parameterType="String" resultType="memberVo">
-  		select mem_email, mem_nm, mem_gndr, job_nm, mem_age
+  		select mem_email, mem_nm, mem_gndr, job_no, job_nm, mem_age
   		from member inner join job 
   		on (mem_job = job.JOB_NO)
   		where mem_email = #{mem_email}
@@ -21,26 +21,20 @@
   	<!-- 회원수정 -->
   	<update  id="updateUser" parameterType="memberVo">
 		update member
-		set mem_email=#{mem_email},
+		set 
+ 		mem_email=#{mem_email},
 			mem_nm = #{mem_nm},
 			mem_gndr=#{mem_gndr},
 			mem_job=#{mem_job},
 			mem_age=#{mem_age}
-		<!-- <set> 
-			<if test="mem_email != NULL">mem_email=#{mem_email},</if>
-			<if test="mem_nm != NULL">mem_nm = #{mem_nm},</if>
-			<if test="mem_gndr != NULL">mem_gndr=#{mem_gndr},</if>
-			<if test="mem_job != NULL">mem_job=#{mem_job},</if>
-			<if test="mem_age != NULL">mem_age=#{mem_age}</if>
-		</set> --> 
 		where mem_email = #{mem_email}
 	</update >
 	
   	
   	<!-- 회원가입 -->
 	<insert id="signUpSelection" parameterType="memberVo">
-		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job, mem_date, mem_age)
-		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, #{mem_age, jdbcType=VARCHAR})  
+		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job, mem_date, mem_age, mem_lvl)
+		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, #{mem_age, jdbcType=VARCHAR}, 3)  
 	</insert>
 	
 	<!-- 직업정보 받아오기 -->
@@ -71,6 +65,16 @@
 	<delete id="delete" >
 		Delete From member
 	</delete>
+	
+	
+	<!-- 찜리스트 출력 
+	<select id="heartList" resultType="heartVo" parameterType="String">
+		select b.BUILDING_name, b.BUILDING_NO
+		from heart h join BUILDING b 
+		on h.building_no = b.building_no
+		and h.userId = #{userId}
+	</select>-->
+	
 	
 </mapper>
 

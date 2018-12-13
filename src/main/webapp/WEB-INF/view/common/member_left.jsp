@@ -40,7 +40,7 @@ ul { list-style : none; }
 	</ul>
 	<hr/>
 	<ul class="left-menu">
-		<li><a href="/manage/dataEtc/dataEtc">찜 목록</a></li>
+		<li><a href="/mypage/steamList">찜 목록</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">
