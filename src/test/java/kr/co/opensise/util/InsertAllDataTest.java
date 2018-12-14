@@ -2,6 +2,8 @@ package kr.co.opensise.util;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -30,11 +32,21 @@ public class InsertAllDataTest extends RootSetup{
 		/*
 		String root = "C:\\Users\\nlbo\\Desktop\\실거래가\\201401";
 		/*/
-		String root = "D:\\A_TeachingMaterial\\7.LastProject\\TradeInfo\\second";
+		String root = "D:\\A_TeachingMaterial\\7.LastProject\\TradeInfo";
 		//*/
 		
 		/***when***/
-		insertAllData.insertAllDataTrade(root);
+		List<String> sidoWrongList = new ArrayList<>();
+		sidoWrongList.addAll(insertAllData.insertAllDataTrade(root, sidoWrongList));
+		
+		
+		log.info("******************************");
+		log.info("시도구분이 틀린파일");
+		log.info("******************************");
+		
+		for(String str : sidoWrongList) {
+			log.info("{}", str);
+		}
 	
 		/***then***/
 		log.info("******************************");

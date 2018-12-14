@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <style>
+
 
 /* 마스크 띄우기 */
 #mask {  
@@ -118,7 +120,7 @@ function setTradeChart() {
 			        "scale-x":{
 						"labels":[
 							${dealListByArea[0].dl_cont_ym}
-							<c:forEach items="${dealListByArea}" var="dealVo">
+							<c:forEach items="${dealListByArea}" var="dealVo" >
 								,${dealVo.dl_cont_ym}
 							</c:forEach>
 						],

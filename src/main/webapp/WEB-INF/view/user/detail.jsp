@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="/css/detail.css" rel="stylesheet">
 
-
+<script type="text/javascript" src="/js/jquery.raty.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
@@ -141,6 +141,19 @@
 		});
 	}
 
+    $(function() {
+        $('div#star').raty({
+            score: 3
+            ,path : "/img"
+            ,width : 200
+            ,click: function(score, evt) {
+                $("#starRating").val(score);
+                $("#displayStarRating").html(score);
+            }
+        });
+    });
+</script>
+	
 	
 	
 </script>
@@ -182,6 +195,34 @@
 				
 			</div>
 			<div id="radarChartDiv">
+			</div>
+			<div>
+				<button>글쓰기</button>
+				<div>
+					<form id="reviewFrm" action="/detail/insertReview" method="post">
+						<div> 
+							<input type="text" name="post_mem" value="${nowLogin.mem_no }"/>
+							<input type="text" name="post_brd" value="1"/>
+							<input type="text" name="post_gu" value="${selectArticleVo.artcl_gu}"/>
+							<input type="text" name="post_dong" value="${selectArticleVo.artcl_dong}"/>
+							<input type="text" name="post_zip" value="${selectArticleVo.artcl_zip}"/>
+							<input type="text" name="post_rd" value="${selectArticleVo.artcl_rd}"/>
+						</div>
+						<div>
+							<span>제목 : </span>
+							<input type="text" name="post_ttl">
+						</div>	
+						<div>
+							<input type="textarea" name="post_cntnt" >
+						</div>
+						<div id="star" ></div>
+							<input type="hidden" id="starRating" name="post_star" value="3"/>
+						<div>
+							<input type="button" value="작성" />
+							<input type="button" value="취소" />
+						</div>
+					</form>
+				</div>
 			</div>
 			<div id="reviewDiv">
 				<c:forEach begin="1" end="2">

@@ -53,6 +53,13 @@
 			and dl_excv_area = #{dl_excv_area})
 	</select>
 	
+	<insert id="insertReview" parameterType="postVo">
+		insert into post (POST_NO, POST_BRD, POST_MEM, POST_TTL, POST_CNTNT, POST_DATE, POST_STAR, POST_EXST, POST_GU, POST_DONG, POST_ZIP, POST_RD)
+		values (SEQ_POST_NO.NEXTVAL,  #{post_brd}, #{post_mem}, #{post_ttl}, 
+		#{post_cntnt}, sysdate, #{post_star}, #{post_exst}, #{post_gu}, #{post_dong}, #{post_zip}, #{post_rd}) 
+	</insert>		
+	
+		
 </mapper>
 
 

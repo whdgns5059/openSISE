@@ -1,6 +1,7 @@
 package kr.co.opensise.user.detail.dao;
 
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PostVo;
 
 public class DetailDaoTest extends RootSetup{
 
@@ -140,6 +142,28 @@ public class DetailDaoTest extends RootSetup{
 		assertEquals(516, result.size());
 		
 		
+		
+	}
+	
+	
+	@Test
+	public void insertReview() {
+		
+		/***given***/
+		PostVo postVo = new PostVo();
+		postVo.setPost_brd(1);
+		postVo.setPost_mem(7);
+		postVo.setPost_ttl("흠.. 허어..");
+		postVo.setPost_cntnt("흐음.. 허어.. 흐으으음..");
+		postVo.setPost_star("4");
+		postVo.setPost_gu("서구");
+		postVo.setPost_dong("월평동");
+		postVo.setPost_zip("333-1");
+		postVo.setPost_rd("청사로");
+		
+		/***when***/
+
+		/***then***/
 		
 	}
 	

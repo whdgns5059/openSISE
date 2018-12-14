@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.service.DetailServiceInf;
 
 @Controller
@@ -57,6 +58,14 @@ public class DetailController {
 		model.addAttribute("dl_ty", dealVo.getDl_ty());
 		
 		return "user/detailAjax/tradeInfo";
+	}
+	
+	@RequestMapping("/insertReview")
+	public String insertReview(PostVo postVo) {
+	
+		
+		
+		return "";
 	}
 
 }
