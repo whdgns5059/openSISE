@@ -121,13 +121,12 @@ $(document).ready(function(){
             "animation":{
               "effect":1,
               "sequence":2,
-              "speed":100 } },
+              "speed":200 } },
         "series": [
             {// 가입 회원
                 "values": [
-                	0
                 	<c:forEach items="${memVoInList }" var="memVo">
-            			,${memVo.counts}
+            			${memVo.counts},
             		</c:forEach>
                 ],
                 "text": "가입 회원",
@@ -144,9 +143,8 @@ $(document).ready(function(){
                     "border-color": "#da534d" }},
             {// 탈퇴 회원
                 "values": [
-                	0
                 	<c:forEach items="${memVoOutList }" var="memVo">
-            			,${memVo.counts}
+            			${memVo.counts},
             		</c:forEach>
                 ],
                 "text": "탈퇴한 회원",
@@ -236,7 +234,7 @@ $(document).ready(function(){
             "animation":{
               "effect":1,
               "sequence":2,
-              "speed":100 } },
+              "speed":200 } },
         "series": [
             {// 가입 회원
                 "values": [
@@ -325,8 +323,6 @@ $(document).ready(function(){
 	                }]
 	    }],
 	};
-	
-	
 
 	zingchart.render({ 
 		id : 'signAgeGndrG', 
@@ -354,17 +350,6 @@ $(document).ready(function(){
 			<div class="tab-pane fade show active" id="signDaily">
 				<p>누적 회원 수: <c:out value="${countAllMembers}"/><br/>
 					현재 가입 회원 수: <c:out value="${countSignIn}"/>
-					
-					<br/>시작<br/>
-					<c:forEach items="${memVoInList }" var="memVo">
-            			${memVo.counts}:
-            			${memVoInList[status.index+1].counts }<br/>
-            			<%-- <c:set var="dd" value="${memVoInList[status.index+1].counts}"/>
-            				,${(memVo.counts eq dd) ? memVo.counts:'달라'}<br/> --%>
-            		</c:forEach>
-
-
-            		
 				</p>
 				<div id='signDailyG'></div>
 			</div>

@@ -15,6 +15,7 @@
 		<!-- admin : statis START-->
 		<typeAlias type="kr.co.opensise.admin.statis.model.MemberVo" alias="memVo"/>
 		<typeAlias type="kr.co.opensise.admin.statis.model.FavoriteVo" alias="favorVo"/>
+		<typeAlias type="kr.co.opensise.admin.statis.model.InterestVo" alias="intrstVo"/>
 		<!-- admin : statis END-->
 		
 		<!-- user alias 시작 -->

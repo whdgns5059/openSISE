@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.opensise.admin.statis.dao.StatisDaoInf;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
+import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 
 @Service
@@ -84,6 +85,28 @@ public class StatisService implements StatisServiceInf {
 	public List<FavoriteVo> favorGu() {
 		return statisDao.favorGu();
 	}
+
+	@Override
+	public int countAllIntrst() {
+		return statisDao.countAllIntrst();
+	}
+
+	@Override
+	public List<InterestVo> intrstAll() {
+		return statisDao.intrstAll();
+	}
+
+	@Override
+	public List<String> ageList() {
+		return statisDao.ageList();
+	}
+	
+	@Override
+	public List<InterestVo> intrstAge(String mem_age) {
+		return statisDao.intrstAge(mem_age);
+	}
+
+
 
 
 	
