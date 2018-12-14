@@ -3,14 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="/css/detail.css" rel="stylesheet">
 
-
+<script type="text/javascript" src="/js/jquery.raty.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
 		settingMap();
 		setRadarChart();
 		reviewControl();
-		clacControl();	
 		
 		$('#areaDiv').on('click', '.areaButton', detailInfoAjax );
 		
@@ -109,32 +108,26 @@
 		});
 	}
 	
-	<%--계산기 컨트롤 --%>
-	function clacControl() {
-		<%-- input의 max 값이 최대 값임 --%>	
-		$('#calculator').on('change', function(){
-			
-			var needMoney = this.max - this.value;
-			
-			document.getElementById('calcResult').innerHTML = needMoney;
-		});
-		
-	}
-	
-	function detailInfoAjax(){
+
+	<%-- 상세 정보 ajax--%>
+	function detailInfoAjax(area_button){
 		
 		var artcl_gu = document.getElementById('artclGu').innerHTML;
 		var artcl_dong = document.getElementById('artclDong').innerHTML;
 		var artcl_zip = document.getElementById('artclZip').innerHTML;
 		var artcl_rd = document.getElementById('artclRd').innerHTML;
 		var dl_ty = document.getElementById('dlTy').innerHTML;
-	
+		
+		var pyungindex = this.innerText.lastIndexOf('평');
+		var dl_excv_area = this.innerText.substr(0, pyungindex);
+		
 		var ajaxData = {
 			artcl_gu : artcl_gu,
 			artcl_dong : artcl_dong,
 			artcl_zip	: artcl_zip,
 			artcl_rd : artcl_rd,
-			dl_ty : dl_ty
+			dl_ty : dl_ty,
+			dl_excv_area : dl_excv_area
 		}	
 		
 		$.ajax({
@@ -148,6 +141,19 @@
 		});
 	}
 
+    $(function() {
+        $('div#star').raty({
+            score: 3
+            ,path : "/img"
+            ,width : 200
+            ,click: function(score, evt) {
+                $("#starRating").val(score);
+                $("#displayStarRating").html(score);
+            }
+        });
+    });
+</script>
+	
 	
 	
 </script>
@@ -182,13 +188,41 @@
 			</div>
 				<div id="areaDiv">
 					<c:forEach items="${selectAreas }" var="area">
-						<button class="areaButton">${area / 3.3 }평</button>
+						<button class="areaButton">${area  }평</button>
 					</c:forEach>
 				</div>
 			<div id="tradeInfoWrapper">
 				
 			</div>
 			<div id="radarChartDiv">
+			</div>
+			<div>
+				<button>글쓰기</button>
+				<div>
+					<form id="reviewFrm" action="/detail/insertReview" method="post">
+						<div> 
+							<input type="text" name="post_mem" value="${nowLogin.mem_no }"/>
+							<input type="text" name="post_brd" value="1"/>
+							<input type="text" name="post_gu" value="${selectArticleVo.artcl_gu}"/>
+							<input type="text" name="post_dong" value="${selectArticleVo.artcl_dong}"/>
+							<input type="text" name="post_zip" value="${selectArticleVo.artcl_zip}"/>
+							<input type="text" name="post_rd" value="${selectArticleVo.artcl_rd}"/>
+						</div>
+						<div>
+							<span>제목 : </span>
+							<input type="text" name="post_ttl">
+						</div>	
+						<div>
+							<input type="textarea" name="post_cntnt" >
+						</div>
+						<div id="star" ></div>
+							<input type="hidden" id="starRating" name="post_star" value="3"/>
+						<div>
+							<input type="button" value="작성" />
+							<input type="button" value="취소" />
+						</div>
+					</form>
+				</div>
 			</div>
 			<div id="reviewDiv">
 				<c:forEach begin="1" end="2">

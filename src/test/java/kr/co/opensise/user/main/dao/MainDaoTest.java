@@ -21,14 +21,13 @@ public class MainDaoTest  extends RootSetup{
 	
 	@Test
 	public void searchListTest() {
-		String searchName = "월평동";
-		String building = "apt";
 		
-		Map<String, String> searchMap = new HashMap<String, String>();
+		FilterVo filterVo = new FilterVo();
+		filterVo.setSearchName("월평동");
+		filterVo.setBuilding("apt");
+		
 
-		searchMap.put("searchName", searchName);
-		searchMap.put("building", building);
-		List<BuildingSaleVo> buildingSaleList = mainDao.buildingSaleList(searchMap);
+		List<BuildingSaleVo> buildingSaleList = mainDao.buildingSaleList(filterVo);
 		
 		assertEquals(1019, buildingSaleList.size());
 		
@@ -45,6 +44,24 @@ public class MainDaoTest  extends RootSetup{
 		List<BuildingSaleVo> buildFilterList = mainDao.buildingFilterList(filterVo);
 		
 		assertEquals(15, buildFilterList.size());
+	}
+	
+	@Test 
+	public void searchFilterSingleListTest() {
+		FilterVo filterVo = new FilterVo();
+		filterVo.setBuilding("apt");
+		filterVo.setDl_ty("전세");
+		filterVo.setSearchName("갈마동");
+		
+		List<BuildingSaleVo> buildFilterList = null;
+		
+		if(filterVo.getBuilding().equals("multi")) {
+			buildFilterList = mainDao.buildingSingleFilterList(filterVo);
+		}else {
+			buildFilterList = mainDao.buildingFilterList(filterVo);
+		}
+		
+		assertEquals(0, buildFilterList.size());
 	}
 
 }

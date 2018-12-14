@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
+import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.service.DetailServiceInf;
 
 @Controller
@@ -21,6 +23,7 @@ public class DetailController {
 	@Resource(name="detailService")
 	private DetailServiceInf detailService;
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/detail")
 	public String detail(ArticleVo articleVo, @RequestParam("dl_ty") String dl_ty, Model model) {
 		
@@ -36,15 +39,62 @@ public class DetailController {
 		return "detail";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/tradeInfoAjax")
 	public String tradeInfoAjax(ArticleVo articleVo , DealVo dealVo, Model model) {
+	
+		String dl_ty = dealVo.getDl_ty();
+		float dl_excv_area = dealVo.getDl_excv_area();
 		
+		Map<String, Object> tradeInfoMap = detailService.getDetailTradeInfo(articleVo, dl_ty, dl_excv_area);
 		
+		AvgTradeVo avgTradeVo = (AvgTradeVo) tradeInfoMap.get("avgTradeVo");
+		List<DealVo> recentTradeList  = (List<DealVo>) tradeInfoMap.get("recentTradeVo");
+		List<DealVo> dealListByArea = (List<DealVo>) tradeInfoMap.get("dealListByArea");
 		
-		
-		
+		model.addAttribute("avgTradeVo", avgTradeVo);
+		model.addAttribute("recentTradeList", recentTradeList);
+		model.addAttribute("dealListByArea", dealListByArea);
+		model.addAttribute("dl_ty", dealVo.getDl_ty());
 		
 		return "user/detailAjax/tradeInfo";
 	}
+	
+	@RequestMapping("/insertReview")
+	public String insertReview(PostVo postVo) {
+	
+		
+		
+		return "";
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

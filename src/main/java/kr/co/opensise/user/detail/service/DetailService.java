@@ -65,13 +65,13 @@ public class DetailService implements DetailServiceInf{
 		AvgTradeVo avgTradeVo = detailDao.selectAvgPrice(dealVo);
 		
 		//selectRecentTrade : 가장 최근 거래 내역 s
-		DealVo recntTradeVo = detailDao.selectRecentTrade(dealVo);
+		List<DealVo> recentTradeVo = detailDao.selectRecentTrade(dealVo);
 		
 		//electDealListByArea : 해당 평수의 모든 거래 내역
 		List<DealVo> dealListByArea = detailDao.selectDealListByArea(dealVo);
 		
 		tradeInfoMap.put("avgTradeVo",avgTradeVo);
-		tradeInfoMap.put("recntTradeVo", recntTradeVo);
+		tradeInfoMap.put("recentTradeVo", recentTradeVo);
 		tradeInfoMap.put("dealListByArea", dealListByArea);
 		
 		return tradeInfoMap;
