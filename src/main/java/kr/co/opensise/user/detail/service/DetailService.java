@@ -12,6 +12,7 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PostVo;
 
 @Service
 public class DetailService implements DetailServiceInf{
@@ -75,6 +76,11 @@ public class DetailService implements DetailServiceInf{
 		tradeInfoMap.put("dealListByArea", dealListByArea);
 		
 		return tradeInfoMap;
+	}
+
+	@Override
+	public int insertReview(PostVo postVo) {
+		return detailDao.insertReview(postVo);
 	}
 
 

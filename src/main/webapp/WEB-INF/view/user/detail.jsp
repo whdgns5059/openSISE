@@ -10,8 +10,22 @@
 		settingMap();
 		setRadarChart();
 		reviewControl();
+		detailInfoAjax($('.areaButton')[0].innerHTML);
+
 		
-		$('#areaDiv').on('click', '.areaButton', detailInfoAjax );
+		$('#areaDiv').on('click', '.areaButton', function(){
+			
+			var area = this.innerHTML;
+			detailInfoAjax(area);
+			
+		});
+		
+		$('#insertReview').click(function(){
+			
+			$('#reviewFrm').submit();	
+			
+			
+		});
 		
 		
 	});
@@ -110,16 +124,14 @@
 	
 
 	<%-- 상세 정보 ajax--%>
-	function detailInfoAjax(area_button){
+	function detailInfoAjax(area){
 		
 		var artcl_gu = document.getElementById('artclGu').innerHTML;
 		var artcl_dong = document.getElementById('artclDong').innerHTML;
 		var artcl_zip = document.getElementById('artclZip').innerHTML;
 		var artcl_rd = document.getElementById('artclRd').innerHTML;
 		var dl_ty = document.getElementById('dlTy').innerHTML;
-		
-		var pyungindex = this.innerText.lastIndexOf('평');
-		var dl_excv_area = this.innerText.substr(0, pyungindex);
+		var dl_excv_area = area;
 		
 		var ajaxData = {
 			artcl_gu : artcl_gu,
@@ -152,11 +164,29 @@
             }
         });
     });
+    
+    
+    function wrapWindowByMaskReview(){
+    	
+        //화면의 높이와 너비를 구한다.
+        var maskHeight = $(document).height();  
+        var maskWidth = $(window).width();  
+
+        //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+        $("#mask").css({"width":maskWidth,"height":maskHeight});  
+
+        //애니메이션 효과 - 일단 0초동안 까맣게 됐다가 60% 불투명도로 간다.
+        $("#mask").fadeIn(0);      
+        $("#mask").fadeTo("slow",0.6);    
+
+        //윈도우(팝업창) 띄운다.
+       	$('.reviewWindow').show();
+
+    }
 </script>
 	
 	
-	
-</script>
+<div id="mask"></div>	
 <div class="row" style="height: 850px !important">
  	
 	<input type="hidden" id="hello" value="${asdf }">
@@ -188,7 +218,7 @@
 			</div>
 				<div id="areaDiv">
 					<c:forEach items="${selectAreas }" var="area">
-						<button class="areaButton">${area  }평</button>
+						<button class="areaButton">${area  }</button>
 					</c:forEach>
 				</div>
 			<div id="tradeInfoWrapper">
@@ -197,29 +227,31 @@
 			<div id="radarChartDiv">
 			</div>
 			<div>
-				<button>글쓰기</button>
-				<div>
+				<button class="openMask" id="reviewMask">글쓰기</button>
+				<div class="window reviewWindow" id="reviewWindow'>
 					<form id="reviewFrm" action="/detail/insertReview" method="post">
-						<div> 
-							<input type="text" name="post_mem" value="${nowLogin.mem_no }"/>
-							<input type="text" name="post_brd" value="1"/>
-							<input type="text" name="post_gu" value="${selectArticleVo.artcl_gu}"/>
-							<input type="text" name="post_dong" value="${selectArticleVo.artcl_dong}"/>
-							<input type="text" name="post_zip" value="${selectArticleVo.artcl_zip}"/>
-							<input type="text" name="post_rd" value="${selectArticleVo.artcl_rd}"/>
-						</div>
-						<div>
-							<span>제목 : </span>
-							<input type="text" name="post_ttl">
-						</div>	
-						<div>
-							<input type="textarea" name="post_cntnt" >
-						</div>
-						<div id="star" ></div>
-							<input type="hidden" id="starRating" name="post_star" value="3"/>
-						<div>
-							<input type="button" value="작성" />
-							<input type="button" value="취소" />
+						<div class="notice-pop">
+							<div> 
+								<input type="hidden" name="post_mem" value="${nowLogin.mem_no }"/>
+								<input type="hidden" name="post_brd" value="1"/>
+								<input type="hidden" name="post_gu" value="${selectArticleVo.artcl_gu}"/>
+								<input type="hidden" name="post_dong" value="${selectArticleVo.artcl_dong}"/>
+								<input type="hidden" name="post_zip" value="${selectArticleVo.artcl_zip}"/>
+								<input type="hidden" name="post_rd" value="${selectArticleVo.artcl_rd}"/>
+							</div>
+							<div>
+								<span>제목 : </span>
+								<input type="text" name="post_ttl">
+							</div>	
+							<div>
+								<input type="textarea" name="post_cntnt" >
+							</div>
+							<div id="star" ></div>
+								<input type="hidden" id="starRating" name="post_star" value="3"/>
+							<div>
+								<input type="button" id="insertReview" value="작성" />
+								<input type="button" id="cancelReview" class="close" value="취소" />
+							</div>
 						</div>
 					</form>
 				</div>

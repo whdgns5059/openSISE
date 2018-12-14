@@ -40,3 +40,53 @@
 	
 	#mapWrap {position: relative;}
 	.toLocal {position: absolute; top: 740px; left: 540px; z-index: 10; width:150px; height: 150px;}
+
+/* 마스크 띄우기 */
+#mask {  
+    position:absolute;  
+    z-index:9000;  
+    background-color:#000;  
+    display:none;  
+    left:0;
+    top:0;
+} 
+/* 팝업으로 뜨는 윈도우 css  */ 
+.window{
+    left: 50%;
+    width: 1000px;
+    height: 700px;
+    background-color: #FFF;
+    z-index: 10000;
+    border-radius: 20px;
+    position: fixed;
+    margin-left: -25%;
+    top: 50%;
+    margin-top: -350px;
+    overflow: auto;
+    padding: 30px 20px 20px 20px;
+    display: none;
+}
+.window h2{
+    float: left;
+    display: contents;
+}
+.close{
+	font-size: 14px;
+	color: black;
+}
+.notice-pop{
+ 	margin: 0 auto;
+    width: 850px;
+    height: 566px;
+	overflow:scroll;
+	overflow-x:hidden; 
+	overflow-y:auto;
+}
+.notice-tbl{
+    margin: 0 auto;
+    width: 830px;
+    height: 566px;
+}
+.notice-content{
+	padding: 8px 90px !important;
+}

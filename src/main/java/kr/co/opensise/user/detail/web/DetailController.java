@@ -63,9 +63,9 @@ public class DetailController {
 	@RequestMapping("/insertReview")
 	public String insertReview(PostVo postVo) {
 	
+		detailService.insertReview(postVo);
 		
-		
-		return "";
+		return "detail";
 	}
 
 }
