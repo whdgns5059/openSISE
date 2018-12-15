@@ -169,6 +169,27 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 	
+	
+	@Test
+	public void selectReviewTest() {
+		
+		
+		/***given***/
+		ArticleVo articleVo = new ArticleVo();
+		articleVo.setArtcl_gu("서구");
+		articleVo.setArtcl_dong("월평동");
+		articleVo.setArtcl_zip("311-1");
+		articleVo.setArtcl_rd("청사로");
+		
+		/***when***/
+		List<PostVo> result = detailDao.selectReview(articleVo);
+
+		/***then***/
+		assertEquals(6, result.size());
+		
+		
+	}
+	
 }
 
 

@@ -14,6 +14,7 @@ public class PostVo {
 	private String post_dong;
 	private String post_zip;
 	private String post_rd;
+	
 	public int getPost_no() {
 		return post_no;
 	}

@@ -59,6 +59,11 @@
 		#{post_cntnt}, sysdate, #{post_star}, 'N', #{post_gu}, #{post_dong}, #{post_zip}, #{post_rd}) 
 	</insert>		
 	
+	<select id="selectReview" parameterType="articleVo" resultType="postVo">
+		select * from post
+		where post_brd = 1 and post_gu = #{artcl_gu} and post_dong= #{artcl_dong} and post_zip= #{artcl_zip} and post_rd= #{artcl_rd}
+	</select>
+		
 		
 </mapper>
 

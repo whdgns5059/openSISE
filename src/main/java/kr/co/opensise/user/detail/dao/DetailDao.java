@@ -53,5 +53,11 @@ public class DetailDao implements DetailDaoInf{
 		return template.insert("detail.insertReview", postVo);
 	}
 
+	@Override
+	public List<PostVo> selectReview(ArticleVo articleVo) {
+		return template.selectList("detail.selectReview", articleVo);
+		
+	}
+
 
 }

@@ -28,6 +28,11 @@
 		});
 		
 		
+		var reviewLength = $('.reviewStarInput').length;
+		
+		setReviewStar();
+			
+		
 	});
 	
 	<%-- 지도 함수 --%>
@@ -165,6 +170,15 @@
         });
     });
     
+    function setReviewStar() {
+        $('.starReview').raty({
+            score: 3	
+            ,path : "/img"
+            ,width : 200
+
+        });
+    }
+    
     
     function wrapWindowByMaskReview(){
     	
@@ -257,25 +271,27 @@
 				</div>
 			</div>
 			<div id="reviewDiv">
-				<c:forEach begin="1" end="2">
+				<c:forEach items="${selectReview }" var="postVo" varStatus="status">
 					<div class="reviewWrapper">
 						<div class="titleWrapper">
-							<div class="reviewDate"> 2018-10-20</div>
-							<div class="reviewTitle"> 집에서 쥐가 나와요</div>
-							<div class="reviewWriter"> whdgns****</div>
+							<div class="reviewDate">${postVo.post_date }</div>
+							<div class="reviewTitle">${postVo.post_ttl}</div>
+							<div class="reviewWriter">${postVo.post_mem } </div>
 						</div>
 						<div class="reviewDetailWrapper">
 							<div class="starDivWrapper">
-								<div class="starDiv"><img src="https://via.placeholder.com/180x30"/></div>
-								<div class="reportDiv"> <img src="https://via.placeholder.com/30"/></div>
+								<div class="starReview"></div>
+								<div class="starDiv">
+									<input class="reviewStarInput" id="reviewStarRating" type="text" value="${postVo.post_star }"/>
+								</div>
+								<div class="reportDiv"><img src="https://via.placeholder.com/30"/></div>
 							</div>
 							<div class="photo">
 								<img src="https://via.placeholder.com/200" />
 								<img src="https://via.placeholder.com/200" />
 							</div>
 							<div class="reviewText">
-								<p>리뷸비류비류비류비류비ㅠㄹ디ㅠㅁㄹ;ㅣㅏ덜미ㅏㄴ더로ㅓ올키ㅏ터올키ㅏ터올키타어로
-									ㅁㄴㅇㄻㄴㄹㄷㅁㄴㄻㄴㄷㄻㄴㄷ라ㅕㅓㅋ농리ㅏㅓㅋ통리ㅏㅓㅋ녿ㄱ리ㅐㅏㅓㅋ녿ㄹ기ㅏ컨룈나ㅓ
+								<p>${postVo.post_cntnt }
 								</p>
 							</div>
 							<div class="reviewModify">
