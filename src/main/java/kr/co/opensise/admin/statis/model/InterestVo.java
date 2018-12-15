@@ -59,8 +59,9 @@ public class InterestVo {
 	@Override
 	public String toString() {
 		return "InterestVo [intrst_no=" + intrst_no + ", intrst_nm=" + intrst_nm + ", mem_age=" + mem_age
-				+ ", mem_gndr=" + mem_gndr + ", counts=" + counts + "]";
+				+ ", mem_gndr=" + mem_gndr + ", female=" + female + ", male=" + male + ", counts=" + counts + "]";
 	}
+
 	
 	
 	

@@ -295,15 +295,32 @@ $(document).ready(function(){
 	                "values":["10대","20대","30대","40대", "50대","60대"] },
 	            "scale-y":{ 
 	            	"values": "0:"+allCnt+":"+(allCnt/10)},
+	            // 작은 컨트롤러
 	            "legend" : {
-	            	"item" : {"cursor": "pointer"}},
+	            	"overflow": "none",
+	                "alpha": 0.05,
+	                "shadow": false,
+	                "align":"center",
+	                "adjust-layout":true,
+	                "marker": {
+	                    "type": "square",
+	                    "border-radius": "5",
+	                    "border-color": "none",
+	                    "size": "10px",
+	                    "cursor": "pointer"
+	                },
+	                "border-width": 0,
+	                "maxItems": 3,
+	                "toggle-action": "hide"
+	            	
+	            },
 	            "series":[
 	                {
-	                	"text": "남성",
+	                	"text": "여성",
 	                    "data-side":1,
-	                    "background-color":"#f38b72",
+	                    "background-color":"#f7cc06",
 	                    "values": [
-	                    	<c:forEach items="${memVoM }" var="memVo">
+	                    	<c:forEach items="${memVoF }" var="memVo">
 			            		${memVo.counts},
 			            	</c:forEach>
 			            		0
@@ -311,11 +328,11 @@ $(document).ready(function(){
 	                },
 	            	
 	                {
-	                	"text": "여성",
+	                	"text": "남성",
 	                    "data-side":2,
-	                    "background-color":"#85dcc7",
+	                    "background-color":"#f38b72",
 	                    "values": [
-	                    	<c:forEach items="${memVoF }" var="memVo">
+	                    	<c:forEach items="${memVoM }" var="memVo">
 			            		${memVo.counts},
 			            	</c:forEach>
 			            		0

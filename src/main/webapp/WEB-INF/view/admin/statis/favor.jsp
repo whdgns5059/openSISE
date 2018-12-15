@@ -81,10 +81,6 @@
 .favorT td{
 	border: 1px solid #ccc;
 }
-
-#favorGuG a {
-  display: none;
-}
 .zc-ref {
   display: none;
 }
@@ -154,12 +150,12 @@ $(document).ready(function(){
 	    adjustLayout:true,
 	    align:'center',
 	    verticalAlign:'top',
-	    margin: '0 0 0 100',
+	    margin: '0 0 0 0',
 	    marker: {
 	        type:'circle',
 	        cursor:'pointer',
 	        borderWidth:0,
-	        size:5
+	        size:8
 	    },
 	    item: {
 	        fontColor: "#777",
@@ -190,16 +186,6 @@ $(document).ready(function(){
 				}
 			},
 		</c:forEach>
-			{
-				text: "",
-				values : [],
-				lineColor:  'none',
-				backgroundColor:  'none',
-				lineWidth: 1,
-				marker: {
-				  backgroundColor:  'none'
-				}
-			}
 	]
 	};
 	zingchart.render({ 

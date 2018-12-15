@@ -110,11 +110,12 @@ public class StatisController {
 		int maxCnt = statisService.countAllIntrst();
 		model.addAttribute("maxCnt", maxCnt);
 		
+		// 전연령대일 경우 처리
+		if(mem_age.equals("allAge"))
+			mem_age = null;
 		// 해당 연령대의 관심사 리스트
 		List<InterestVo> intrstAge = statisService.intrstAge(mem_age);
 		model.addAttribute("intrstAge", intrstAge);
-		
-		System.out.println("이거 보세요 "+mem_age);
 		
 		return "/admin/statis/ajax/intrstAge";
 	}

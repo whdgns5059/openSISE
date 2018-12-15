@@ -41,16 +41,17 @@
 }
 #selBox{
 	width: 100px;
-	border: none;
-	background: #f4b344;
-	color: white;
+    height: 25px;
+	border: 1px solid #d8d8d8;
+	border-radius: 5px;
+	color: #808080;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #intrstAllG, #intrstAgeG{
-  height:400px;
-  width:100%;
-  min-height:150px;
+	height:500px;
+	width:100%;
+	min-height:150px;
 }
 .zc-ref {
   display: none;
@@ -62,68 +63,123 @@ $(document).ready(function(){
 	colorList.push("#f7cc06");
 	colorList.push("#f38b72");
 	colorList.push("#aad035");
+	colorList.push("#71afdd");
+	colorList.push("#bc80d2");
+	colorList.push("#909090");
+	colorList.push("#3ea6c8");
+	colorList.push("#f4b344");
+	colorList.push("#f29c3e");
+	colorList.push("#4385cd");
+	colorList.push("#61c773");
+	colorList.push("#b07748");
+	colorList.push("#d080aa");
+	colorList.push("#cec440");
+	colorList.push("#9d8cc1");
 	var i = 0;
 	// 관심사 수 최대치
 	var allCnt = ${maxCnt} +1;
 	
-	// 관심사별 선택 그래프
-	var intrstAllG = 
-	{ "type": "bar",
-	    "utc": true,
-	    "plotarea": {"margin": "dynamic 45 60 dynamic" },
-	    /* 가로축 */
-	    "scale-x": {
-	    	"values": [
-            	<c:forEach items="${intrstAll }" var="intrstVo">
-					"${intrstVo.intrst_nm}",
-				</c:forEach>
-			]	
+	/* 관심사별 선택 그래프 */
+	var intrstAllG = {
+	 	type: "ring",
+	 	plot: {
+	 	  slice:'50%',
+	 	  borderWidth:0,
+	 	  animation:{
+	 	    effect:2,
+	 	    sequence:3
+	 	  },
+	 	  valueBox: [
+	 	    {
+	 	      type: 'all',
+	 	      text: '%t',
+	 	      placement: 'out'
+	 	    }, 
+	 	    {
+	 	      type: 'all',
+	 	      text: '%npv%',
+	 	      placement: 'in'
+	 	    }
+	 	  ]
+	 	},
+	// 둥근차트 가운데 정보
+	tooltip:{
+	 	fontSize:16,
+	 	anchor:'c',
+	 	x:'50%',
+	 	y:'58%',
+	 	sticky:true,
+	 	backgroundColor:'none',
+	 	borderWidth:0,
+	 	thousandsSeparator:',',
+	 	text:'<span style="color:%color"> %t</span><br><span style="color:%color">관심 수: %v</span>',
+	    mediaRules:[ { maxWidth:500, y:'54%' }]
+	},
+	plotarea: {
+		backgroundColor: 'transparent',
+	 	borderWidth: 0,
+	 	borderRadius: "0 0 0 10",
+	 	margin: "30 0 30 0"
+	},
+	// 작은 컨트롤러
+	legend : {
+		layout: 'x8',
+	    toggleAction:'remove',
+	    borderWidth:0,
+	    adjustLayout:true,
+	    align:'center',
+	    verticalAlign:'top',
+	    margin: '30 0 0 0',
+	    marker: {
+	        type:'circle',
+	        cursor:'pointer',
+	        borderWidth:0,
+	        size:5
 	    },
-	    /* 세로축 */
-	    "scale-y": {
-	        "values": "0:"+allCnt+":"+Math.ceil(allCnt/10), /* 시작 : 끝 : 단계 */
-	        "line-color": "#f6f7f8",
-	        "shadow": 0,
-	        "guide": { "line-style": "dashed" },
-	        "label": {
-	            "text": "관심 가지는 수",
-	            "font-family": "'Noto Sans KR', sans-serif",
-	            "font-weight": "400",
-	            "font-size": "15px",
-	            "font-color": "#808080"},
-	        "minor-ticks": 0,
-	        "thousands-separator": "," },
-	    "tooltip": {"visible": false},
-	    "plot": {
-	        "highlight":true,
-	        "tooltip-text": "%t views: %v<br>%k",
-	        "shadow": 0,
-	        "line-width": "2px",
-	        "marker": {
-	            "type": "circle",
-	            "size": 3},
-	        "highlight-state": { "line-width":3},
-	        "animation":{
-	          "effect":1,
-	          "sequence":2,
-	          "speed":100 } },
-	    "series": [
-	        {// 관심사 counts
-	            "values": [ 
-			        <c:forEach items="${intrstAll }" var="intrstVo">
-	            		${intrstVo.counts},
-			        </c:forEach>
-	            ],
-	            "legend-marker": {"visible":false },
-	            "background-color": "#aad035",
-	        }
-	    ]
-	};
+	    item: {
+	        fontColor: "#777",
+	        cursor:'pointer',
+	        offsetX:-6,
+	        fontSize:12
+	    },
+	    mediaRules:[{ maxWidth:500, visible:false}]
+	},
+	scaleR:{
+	  refAngle:270
+	},
+	series : [
+		// 관심별 데이터
+		 <c:forEach items="${intrstAll }" var="intrstVo">
+			{
+			 	text: '${intrstVo.intrst_nm}',
+				values : [${intrstVo.counts}],
+				backgroundColor: colorList[i++], 
+				lineWidth: 1,
+				marker: {
+				  backgroundColor: colorList[i]
+				}
+			},
+		</c:forEach>
+	]};
 	zingchart.render({ 
 		id : 'intrstAllG', 
-		data : intrstAllG, 
-		height: '100%', 
-		width: '100%' 
+	 	data: {
+	    graphset: [intrstAllG]
+	  },
+		height: '499', 
+		width: '99%' 
+	});
+	
+	/* 연령 초기 값 */
+	var ageData = {mem_age : "allAge"};
+	$.ajax({
+		type : 'POST',
+		url : '/statis/intrstAgeAjax',
+		data : ageData,
+		success : function(data){
+			// 연령별 관심사 그래프
+			$('#intrstAgeG').html(data);
+		}
 	});
 	
 	// 연령 선택
@@ -141,7 +197,6 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
 	
 	
 });
@@ -162,15 +217,10 @@ $(document).ready(function(){
 			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#intrstAge">연령별-age</a></li>
 		</ul>
 		<div id="myTabContent" class="tab-content tab-content-size">
-			<div class="tab-pane fade show" id="intrstAll">
-				<p>관심사 목록&nbsp: &nbsp
-					<c:forEach items="${intrstAll }" var="intrstVo">
-						${intrstVo.intrst_nm }&nbsp&nbsp
-					</c:forEach>
-				</p>
+			<div class="tab-pane fade show active" id="intrstAll">
 				<div id="intrstAllG"></div>
 			</div>
-			<div class="tab-pane fade show active" id="intrstAge">
+			<div class="tab-pane fade show" id="intrstAge">
 				<p>연령&nbsp:&nbsp
 					<select id="selBox" >
 					  	<option value="allAge" selected>전연령</option>
