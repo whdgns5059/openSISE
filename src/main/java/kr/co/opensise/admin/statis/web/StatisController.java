@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.admin.statis.model.FavoriteVo;
+import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.admin.statis.service.StatisServiceInf;
 
@@ -88,8 +90,33 @@ public class StatisController {
 	* Method 설명 : 관심사통계
 	*/
 	@RequestMapping(value="/interest", method=RequestMethod.GET)
-	public String interest() {
+	public String interest(Model model) {
+		// 관심사 수 최대치
+		int maxCnt = statisService.countAllIntrst();
+		model.addAttribute("maxCnt", maxCnt);
+		// 전체 회원
+		List<InterestVo> intrstAll = statisService.intrstAll();
+		model.addAttribute("intrstAll", intrstAll);
+		//연령 리스트 가져오기
+		List<String> ageList = statisService.ageList();
+		model.addAttribute("ageList", ageList);
+		
 		return "statis/interest";
+	}
+	
+	@RequestMapping(value="/intrstAgeAjax", method=RequestMethod.POST)
+	public String intrstAgeAjax(Model model, @RequestParam("mem_age") String mem_age) {
+		//연령 리스트 가져오기
+		int maxCnt = statisService.countAllIntrst();
+		model.addAttribute("maxCnt", maxCnt);
+		
+		// 해당 연령대의 관심사 리스트
+		List<InterestVo> intrstAge = statisService.intrstAge(mem_age);
+		model.addAttribute("intrstAge", intrstAge);
+		
+		System.out.println("이거 보세요 "+mem_age);
+		
+		return "/admin/statis/ajax/intrstAge";
 	}
 	
 	/**

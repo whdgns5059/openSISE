@@ -84,7 +84,7 @@ $(document).ready(function(){
             "minor-ticks": 0 },
         /* 세로축 */
         "scale-y": {
-            "values": "0:1000:100", /* 시작 : 끝 : 단계 */
+            "values": "0:"+allCnt+":"+(allCnt/10), /* 시작 : 끝 : 단계 */
             "line-color": "#f6f7f8",
             "shadow": 0,
             "guide": { "line-style": "dashed" },
@@ -121,13 +121,12 @@ $(document).ready(function(){
             "animation":{
               "effect":1,
               "sequence":2,
-              "speed":100 } },
+              "speed":200 } },
         "series": [
             {// 가입 회원
                 "values": [
-                	0
                 	<c:forEach items="${memVoInList }" var="memVo">
-            			,${memVo.counts}
+            			${memVo.counts},
             		</c:forEach>
                 ],
                 "text": "가입 회원",
@@ -144,9 +143,8 @@ $(document).ready(function(){
                     "border-color": "#da534d" }},
             {// 탈퇴 회원
                 "values": [
-                	0
                 	<c:forEach items="${memVoOutList }" var="memVo">
-            			,${memVo.counts}
+            			${memVo.counts},
             		</c:forEach>
                 ],
                 "text": "탈퇴한 회원",
@@ -236,7 +234,7 @@ $(document).ready(function(){
             "animation":{
               "effect":1,
               "sequence":2,
-              "speed":100 } },
+              "speed":200 } },
         "series": [
             {// 가입 회원
                 "values": [
@@ -325,8 +323,6 @@ $(document).ready(function(){
 	                }]
 	    }],
 	};
-	
-	
 
 	zingchart.render({ 
 		id : 'signAgeGndrG', 
@@ -360,6 +356,8 @@ $(document).ready(function(){
 			<div class="tab-pane fade show" id="signMonthly">
 				<p>누적 회원 수: <c:out value="${countAllMembers}"/><br/>
 					현재 가입 회원 수: <c:out value="${countSignIn}"/>
+					
+            		
 				</p>
 				<div id='signMonthlyG'></div>
 			</div>
@@ -369,8 +367,14 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-	<br/>
-	
 
 
 </div>
+
+
+
+
+
+
+
+

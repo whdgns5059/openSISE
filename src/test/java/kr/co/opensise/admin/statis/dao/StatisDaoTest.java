@@ -3,9 +3,7 @@ package kr.co.opensise.admin.statis.dao;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -14,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import kr.co.opensise.admin.statis.model.FavoriteVo;
+import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.util.CommonUtilTest;
@@ -105,6 +104,16 @@ public class StatisDaoTest extends RootSetup{
 		for(FavoriteVo favorVo : favorList)
 			log.info("찜 동별 랭킹 {}", favorVo);
 	}
+	
+	@Test
+	public void intrstAgeTest() {
+		List<InterestVo> list = statisDao.intrstAge("20대");
+		
+		for(InterestVo intrstVo : list)
+			log.info("연령별 성별 총 {}", intrstVo);
+	}
+	
+	
 	
 	
 	
