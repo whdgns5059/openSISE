@@ -13,6 +13,7 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PostVo;
 
 public class DetailServiceTest extends RootSetup{
 
@@ -42,10 +43,12 @@ public class DetailServiceTest extends RootSetup{
 		Map<String, Object> detailMap = detailService.getDetailInfo(articleVo, dl_ty);
 		ArticleVo selectArticleVo = (ArticleVo) detailMap.get("selectArticleVo");
 		List<String> selectAreas = (List<String>) detailMap.get("selectAreas");
+		List<PostVo> selectReview  = (List<PostVo>) detailMap.get("selectReview");
 		
 		/***then***/
 		assertEquals("36.360773619481314", selectArticleVo.getArtcl_lat());
 		assertEquals(2, selectAreas.size());
+		assertEquals(6, selectReview.size());
 		
 		
 	}

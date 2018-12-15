@@ -31,10 +31,13 @@ public class DetailController {
 		
 		ArticleVo selectArticleVo = (ArticleVo) detailMap.get("selectArticleVo");
 		List<String> selectAreas = (List<String>) detailMap.get("selectAreas");
+		List<PostVo> selectReview  = (List<PostVo>) detailMap.get("selectReview");
+
 		
 		model.addAttribute("selectArticleVo", selectArticleVo);
 		model.addAttribute("selectAreas", selectAreas);
 		model.addAttribute("dl_ty", dl_ty);
+		model.addAttribute("selectReview", selectReview);
 		
 		return "detail";
 	}
@@ -64,7 +67,7 @@ public class DetailController {
 	public String insertReview(PostVo postVo) {
 	
 		detailService.insertReview(postVo);
-		
+	
 		return "detail";
 	}
 
