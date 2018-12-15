@@ -228,7 +228,7 @@
 			</div>
 			<div>
 				<button class="openMask" id="reviewMask">글쓰기</button>
-				<div class="window reviewWindow" id="reviewWindow'>
+				<div class="window reviewWindow" id="reviewWindow">
 					<form id="reviewFrm" action="/detail/insertReview" method="post">
 						<div class="notice-pop">
 							<div> 
