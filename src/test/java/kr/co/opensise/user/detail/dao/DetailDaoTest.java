@@ -158,12 +158,14 @@ public class DetailDaoTest extends RootSetup{
 		postVo.setPost_star("4");
 		postVo.setPost_gu("서구");
 		postVo.setPost_dong("월평동");
-		postVo.setPost_zip("333-1");
+		postVo.setPost_zip("311-1");
 		postVo.setPost_rd("청사로");
 		
 		/***when***/
-
+		int result = detailDao.insertReview(postVo);
+		
 		/***then***/
+		assertEquals(1, result);
 		
 	}
 	

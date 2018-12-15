@@ -5,55 +5,6 @@
 <style>
 
 
-/* 마스크 띄우기 */
-#mask {  
-    position:absolute;  
-    z-index:9000;  
-    background-color:#000;  
-    display:none;  
-    left:0;
-    top:0;
-} 
-/* 팝업으로 뜨는 윈도우 css  */ 
-.window{
-    left: 50%;
-    width: 1000px;
-    height: 700px;
-    background-color: #FFF;
-    z-index: 10000;
-    border-radius: 20px;
-    position: fixed;
-    margin-left: -25%;
-    top: 50%;
-    margin-top: -350px;
-    overflow: auto;
-    padding: 30px 20px 20px 20px;
-    display: none;
-}
-.window h2{
-    float: left;
-    display: contents;
-}
-.close{
-	font-size: 14px;
-	color: black;
-}
-.notice-pop{
- 	margin: 0 auto;
-    width: 850px;
-    height: 566px;
-	overflow:scroll;
-	overflow-x:hidden; 
-	overflow-y:auto;
-}
-.notice-tbl{
-    margin: 0 auto;
-    width: 830px;
-    height: 566px;
-}
-.notice-content{
-	padding: 8px 90px !important;
-}
 </style>
 
 <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
@@ -119,9 +70,8 @@ function setTradeChart() {
 			            ],
 			        "scale-x":{
 						"labels":[
-							${dealListByArea[0].dl_cont_ym}
-							<c:forEach items="${dealListByArea}" var="dealVo" >
-								,${dealVo.dl_cont_ym}
+							<c:forEach items="${dealListByArea}" var="dealVo">
+								${dealVo.dl_cont_ym},
 							</c:forEach>
 						],
 			            "zooming":true
@@ -178,9 +128,8 @@ function setTradeChart() {
 			                "text":"Series 1 Data",
 			                "line-color": "#f7cc06",
 			                "values":[
-			                	${dealListByArea[0].dl_price}
 			                	<c:forEach items="${dealListByArea}" var="dealVo" begin="1">
-			                		,${dealVo.dl_price}
+			                		${dealVo.dl_price},
 			                	</c:forEach>
 			                	]
 			            }
@@ -220,7 +169,7 @@ function wrapWindowByMask(){
     $("#mask").fadeTo("slow",0.6);    
 
     //윈도우(팝업창) 띄운다.
-    $(".window").show();
+    $("#siseWindow").show();
 
 }
 
@@ -239,7 +188,12 @@ $(document).ready(function(){
 	//검은 막 띄우기
 	$(".openMask").click(function(e) {
 		e.preventDefault();
-		wrapWindowByMask();
+		var buttonId = this.id;
+		if(buttonId == 'reviewMask'){
+			wrapWindowByMaskReview();		
+		}else {
+			wrapWindowByMask();
+		}
 	});
 
 	//닫기 버튼을 눌렀을 때
@@ -254,20 +208,6 @@ $(document).ready(function(){
 		$(this).hide();
 		$(".window").hide();
 
-	});
-
-	//search
-	$("#search").click(function() {
-		$(".searchF").submit();
-	})
-
-	//bxslider
-	$('.bxslider').bxSlider({
-		auto : true,
-		autoControls : true,
-		stopAutoOnClick : true,
-		pager : true,
-		slideWidth : 600
 	});
 
 });
@@ -299,7 +239,7 @@ $(document).ready(function(){
 </div>
 
 <div id="siseTableDiv">
-	<span class="subTitle">실거래 시세표</span> <button class="openMask">전체 시세표</button>
+	<span class="subTitle">실거래 시세표</span> <button class="openMask" id="siseMask">전체 시세표</button>
 	<table id="siseTable">
 		<thead>
 			<tr>
@@ -320,8 +260,7 @@ $(document).ready(function(){
 	</table>	
 </div>
 <!-- 공지사항 팝업용  -->
-<div id="mask"></div>
-<div class="window">
+<div class="window" id="siseWindow">
 	<h2>공지사항</h2>
 	<a href="#" class="close">닫기X</a>
 	<hr/>

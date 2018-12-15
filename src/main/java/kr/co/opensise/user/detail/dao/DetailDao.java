@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PostVo;
 
 @Repository
 public class DetailDao implements DetailDaoInf{
@@ -45,6 +46,11 @@ public class DetailDao implements DetailDaoInf{
 	@Override
 	public List<DealVo> selectDealListByArea(DealVo dealVo) {
 		return template.selectList("detail.selectDealListByArea", dealVo);
+	}
+
+	@Override
+	public int insertReview(PostVo postVo) {
+		return template.insert("detail.insertReview", postVo);
 	}
 
 
