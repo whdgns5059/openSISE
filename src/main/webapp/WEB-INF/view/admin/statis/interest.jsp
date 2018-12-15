@@ -63,7 +63,6 @@ $(document).ready(function(){
 	colorList.push("#f38b72");
 	colorList.push("#aad035");
 	var i = 0;
-	var certi = ["여성","남성","총"];
 	// 관심사 수 최대치
 	var allCnt = ${maxCnt} +1;
 	
@@ -131,6 +130,7 @@ $(document).ready(function(){
 	$("#selBox").on("change", function(){
 		var mem_age = this.value;
 		var ageData = {mem_age : mem_age};
+		
 		$.ajax({
 			type : 'POST',
 			url : '/statis/intrstAgeAjax',
@@ -160,7 +160,6 @@ $(document).ready(function(){
 		<ul class="nav nav-tabs tab-yellow">
 			<li class="nav-item"><a class="nav-link tab-yellow show" data-toggle="tab" href="#intrstAll">전체-all</a></li>
 			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#intrstAge">연령별-age</a></li>
-			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#intrstGndr">성별-gender</a></li>
 		</ul>
 		<div id="myTabContent" class="tab-content tab-content-size">
 			<div class="tab-pane fade show" id="intrstAll">
@@ -174,15 +173,13 @@ $(document).ready(function(){
 			<div class="tab-pane fade show active" id="intrstAge">
 				<p>연령&nbsp:&nbsp
 					<select id="selBox" >
+					  	<option value="allAge" selected>전연령</option>
 						<c:forEach items="${ageList }" var="age">
 					  	<option value="${age }">${age }</option>
 						</c:forEach>
 					</select>
 				</p>
 				<div id="intrstAgeG"></div>
-			</div>
-			<div class="tab-pane fade show" id="intrstGndr">
-				<p>성별</p>
 			</div>
 		</div>
 	</div>	

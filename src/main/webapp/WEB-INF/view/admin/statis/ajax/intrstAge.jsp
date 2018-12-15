@@ -129,7 +129,7 @@ var intrstAgeG = {
                     "alpha": 0.95,
                     "borderRadiusTopLeft": 7,
                     "background-color": colorList[i++],
-                    "text": "총",
+                    "text": "전체",
                 },
             ]
         }

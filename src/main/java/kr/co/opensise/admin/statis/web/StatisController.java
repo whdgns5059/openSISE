@@ -109,9 +109,12 @@ public class StatisController {
 		//연령 리스트 가져오기
 		int maxCnt = statisService.countAllIntrst();
 		model.addAttribute("maxCnt", maxCnt);
+		
 		// 해당 연령대의 관심사 리스트
 		List<InterestVo> intrstAge = statisService.intrstAge(mem_age);
 		model.addAttribute("intrstAge", intrstAge);
+		
+		System.out.println("이거 보세요 "+mem_age);
 		
 		return "/admin/statis/ajax/intrstAge";
 	}

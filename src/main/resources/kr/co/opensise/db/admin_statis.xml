@@ -127,9 +127,24 @@
 	<select id="intrstAge" parameterType="String" resultType="intrstVo">
 		Select Distinct I.INTRST_NO intrst_no
 		     , I.INTRST_NM intrst_nm
-		     , (Select Count(*) CNT From MEM_INTER MI, MEMBER M Where MI.MEM_NO = M.MEM_NO And INTRST_NO = I.INTRST_NO And MEM_GNDR = 'F' And mem_age = #{mem_age}) female
-		     , (Select Count(*) CNT From MEM_INTER MI, MEMBER M Where MI.MEM_NO = M.MEM_NO And INTRST_NO = I.INTRST_NO And MEM_GNDR = 'M' And mem_age = #{mem_age}) male
-		     , (Select Count(*) CNT From MEM_INTER MI, MEMBER M Where MI.MEM_NO = M.MEM_NO And INTRST_NO = I.INTRST_NO And mem_age = #{mem_age}) counts
+		     , (Select Count(*) CNT From MEM_INTER MI, MEMBER M 
+		     	Where MI.MEM_NO = M.MEM_NO And INTRST_NO = I.INTRST_NO And MEM_GNDR = 'F' 
+		     	<if test="mem_age != 'allAge'">
+		     		And mem_age = #{mem_age}
+		     	</if>
+		     	) female
+		     , (Select Count(*) CNT From MEM_INTER MI, MEMBER M 
+		     	Where MI.MEM_NO = M.MEM_NO And INTRST_NO = I.INTRST_NO And MEM_GNDR = 'M' 
+		     	<if test="mem_age != 'allAge'">
+		     		And mem_age = #{mem_age}
+		     	</if>
+		     	) male
+		     , (Select Count(*) CNT From MEM_INTER MI, MEMBER M 
+		     	Where MI.MEM_NO = M.MEM_NO And INTRST_NO = I.INTRST_NO 
+		     	<if test="mem_age != 'allAge'">
+		     		And mem_age = #{mem_age}
+		     	</if>
+		     	) counts
 		From   INTEREST I
 	</select>
 	
