@@ -11,7 +11,6 @@ $(document).ready(function(){
 	colorList.push("#f38b72");
 	colorList.push("#aad035");
 	var i = 0;
-	var certi = ["여성","남성","총"];
 	// 관심사 수 최대치
 	var allCnt = ${maxCnt} +1;
 	
@@ -24,16 +23,17 @@ var intrstAgeG = {
                 "margin": "dynamic"
             },
             "legend": {
-                "layout": "x5",
                 "overflow": "none",
                 "alpha": 0.05,
                 "shadow": false,
                 "align":"center",
                 "adjust-layout":true,
                 "marker": {
-                    "type": "circle",
+                    "type": "square",
+                    "border-radius": "5",
                     "border-color": "none",
-                    "size": "10px"
+                    "size": "10px",
+                    "cursor": "pointer"
                 },
                 "border-width": 0,
                 "maxItems": 3,
@@ -45,8 +45,7 @@ var intrstAgeG = {
                 "animation": {
                     "effect": "ANIMATION_SLIDE_BOTTOM",
                     "sequence": 0, 
-                    "speed": 800,
-                    "delay": 800
+                    "speed": 800
                 }
             },
             "scale-y": {
@@ -91,7 +90,7 @@ var intrstAgeG = {
                 "line-width":"100%",
                 "alpha":0.18,
                 "plot-label":{
-                  "header-text":"%kv Sales"
+                  "header-text":"%kv"
                 }
             },
             "series": [

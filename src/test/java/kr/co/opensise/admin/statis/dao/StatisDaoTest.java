@@ -107,10 +107,17 @@ public class StatisDaoTest extends RootSetup{
 	
 	@Test
 	public void intrstAgeTest() {
-		List<InterestVo> list = statisDao.intrstAge("20대");
-		
+		/***Given***/
+		String mem_age = null;
+		//mem_age = "20대";
+
+		/***When***/
+		List<InterestVo> list = statisDao.intrstAge(mem_age);
+
+		/***Then***/
 		for(InterestVo intrstVo : list)
 			log.info("연령별 성별 총 {}", intrstVo);
+		
 	}
 	
 	
