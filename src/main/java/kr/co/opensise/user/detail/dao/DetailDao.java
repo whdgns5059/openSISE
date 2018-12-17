@@ -59,5 +59,10 @@ public class DetailDao implements DetailDaoInf{
 		
 	}
 
+	@Override
+	public List<DealVo> selectMonthlyAng(DealVo dealVo) {
+		return template.selectList("detail.selectMonthlyAvg", dealVo);
+	}
+
 
 }

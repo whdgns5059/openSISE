@@ -76,11 +76,13 @@ public class DetailServiceTest extends RootSetup{
 		AvgTradeVo avgTradeVo = (AvgTradeVo) detailTradeInfoMap.get("avgTradeVo");
 		List<DealVo> recentTradeVo = (List<DealVo>) detailTradeInfoMap.get("recentTradeVo");
 		List<DealVo> dealListbyArea = (List<DealVo>) detailTradeInfoMap.get("dealListByArea");
+		List<DealVo> monthlyAvg = (List<DealVo>) detailTradeInfoMap.get("monthlyAvg");
 
 		/***then***/
 		assertEquals(15150.0, avgTradeVo.getAvg_price() , 1e-8);
 		assertEquals(1, recentTradeVo.size());
-		assertEquals(76, dealListbyArea.size());
+		assertEquals(128, dealListbyArea.size());
+		assertEquals(131, monthlyAvg.size());
 		
 		
 	}

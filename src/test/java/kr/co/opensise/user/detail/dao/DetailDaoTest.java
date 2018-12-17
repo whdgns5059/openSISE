@@ -190,6 +190,29 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 	
+	@Test
+	public void selectMonthlyAvg() {
+		
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("서구");
+		dealVo.setDl_dong("월평동");
+		dealVo.setDl_zip("311-1");
+		dealVo.setDl_rd("청사로");
+		dealVo.setDl_ty("매매");
+		dealVo.setDl_excv_area(59.76f);
+		
+		/***when***/
+		List<DealVo> result = detailDao.selectMonthlyAng(dealVo);
+		
+		
+		/***then***/
+		assertEquals(131, result.size());
+		
+		
+	}
+
+	
 }
 
 

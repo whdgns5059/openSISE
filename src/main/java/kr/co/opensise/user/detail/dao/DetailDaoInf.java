@@ -25,4 +25,5 @@ public interface DetailDaoInf {
 	
 	List<PostVo> selectReview(ArticleVo articleVo);
 	
+	List<DealVo> selectMonthlyAng(DealVo dealVo);
 }
