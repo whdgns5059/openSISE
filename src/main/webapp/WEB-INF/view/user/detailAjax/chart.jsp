@@ -30,6 +30,24 @@
 	<div id="monthlyAvg"></div>
 </div>
 <div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<td>거래일</td>
+				<td>거래금액</td>
+				<td>층</td>
+			</tr>
+		</thead>	
+		<tbody>
+			<c:forEach items="${dealListByArea }" var="dealList" begin="0" end="6">
+			<tr>
+				<td>${dealList.dl_cont_ym }월  ${dealList.dl_cont_d }</td>
+				<td>${dealList.dl_price }</td>
+				<td>${dealList.dl_flr }</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>	
 </div>
 
 <script src="/js/detailchart.js"></script>

@@ -53,19 +53,19 @@
 			</div>
 		</div>
 		<div>
-			<img src="https://via.placeholder.com/1150x200"/>
+			<img src="https://via.placeholder.com/1100x200"/>
 		</div>
 		<div>
-			<img src="https://via.placeholder.com/1150x200"/>
+			<img src="https://via.placeholder.com/1100x200"/>
 		</div>
 		<div>
-			<img src="https://via.placeholder.com/1150x200"/>
+			<img src="https://via.placeholder.com/1100x200"/>
 		</div>
 		<div>
-			<img src="https://via.placeholder.com/1150x200"/>
+			<img src="https://via.placeholder.com/1100x200"/>
 		</div>
 		<div>
-			<img src="https://via.placeholder.com/1150x200"/>
+			<img src="https://via.placeholder.com/1100x200"/>
 		</div>
 	</div>
 </div>
