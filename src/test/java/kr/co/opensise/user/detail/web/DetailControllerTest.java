@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.setup.ControllerSetup;
+import kr.co.opensise.user.detail.model.AvgTradeVo;
 
 public class DetailControllerTest extends ControllerSetup{
 
@@ -51,5 +52,82 @@ public class DetailControllerTest extends ControllerSetup{
 		assertEquals(2, selectAreas.size());
 		
 	}
+	
+	
+	@Test
+	public void detailTradeInfoAjaxTest() throws Exception {
+		
+		/***given***/
+		String artcl_gu = "서구";
+		String artcl_dong = "월평동";
+		String artcl_zip  = "311-1";
+		String artcl_rd  = "청사로";
+		
+		String dl_ty = "매매";
+		String dl_excv_area = "59.76";
+		
+		/***when***/
+		MvcResult mvcResult = mockMvc.perform(post("/detail/tradeInfoAjax").param("artcl_gu", artcl_gu).param("artcl_dong",artcl_dong)
+							.param("artcl_zip", artcl_zip).param("artcl_rd", artcl_rd).param("dl_ty", dl_ty).param("dl_excv_area", dl_excv_area)).andReturn();
+		
+		ModelAndView mav = mvcResult.getModelAndView();
+		AvgTradeVo avgTradeVo = (AvgTradeVo) mav.getModel().get("avgTradeVo");
+		List<DealVo> recentTradeList = (List<DealVo>) mav.getModel().get("recentTradeList");
+		List<DealVo> dealListByArea = (List<DealVo>) mav.getModel().get("dealListByArea");
+		List<DealVo> monthlyAvg = (List<DealVo>) mav.getModel().get("monthlyAvg");
+		String dl_tyRes = (String) mav.getModel().get("dl_ty");
+		
+		log.info("최근 거래가 {}", recentTradeList.get(0).getDl_price());
+		
+		/***then***/
+		assertEquals(16914.0, avgTradeVo.getAvg_price() , 1e-8);
+		assertEquals(4, recentTradeList.size());
+		assertEquals(863, dealListByArea.size());
+		assertEquals("매매", dl_tyRes);
+		assertEquals(131, monthlyAvg.size());
+		
+		
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

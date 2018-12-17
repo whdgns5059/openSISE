@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.opensise.member.Login.model.MemberVo;
+import kr.co.opensise.member.Login.model.SteamVo;
 
 public interface LoginServiceInf {
 
@@ -66,7 +67,7 @@ public interface LoginServiceInf {
 		* 변경이력 :  
 		* @param 
 		* @return  
-		* Method 설명 :  관심사 리스트 출력
+		* Method 설명 :  회원가입시 관심사 리스트 출력
 		*/
 		public List<MemberVo> interestLiset();
 		
@@ -90,5 +91,25 @@ public interface LoginServiceInf {
 		* Method 설명 :  회원 한 사람 정보 수정
 		*/
 		public int myInfoUpdate(MemberVo memberVo);
+
 		
+		/**  
+		* Method   : updateMember 
+		* 작성자 : 김주연 
+		* 변경이력 :  
+		* @param mem_email
+		* @return  
+		* Method 설명 :  찜리스트 출력
+		*/
+		public List<SteamVo> steamList(int favor_mem);
+		
+		/**  
+		* Method   : steamListUpdate 
+		* 작성자 : 김주연 
+		* 변경이력 :  
+		* @param mem_email
+		* @return  
+		* Method 설명 :  찜리스트 삭제
+		*/
+		public int steamListUpdate(int favor_no); 
 }

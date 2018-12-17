@@ -42,14 +42,21 @@
 	height:500px;
 	width:800px;
 	min-height:150px;
-	overflow: scroll;
-	overflow-x: hidden;
-	overflow-y: auto;
 }
 #favorTotalG{
 	margin-left: 12px;
 	border-top: 1px solid #f4b344;
 	border-bottom: 1px solid #ccc;
+	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+::-webkit-scrollbar {
+	width: 16px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: #e0e0e0;
+	border-radius: 8px;
 }
 #favorDongG{
 	margin-left: 12px;
@@ -73,10 +80,6 @@
 }
 .favorT td{
 	border: 1px solid #ccc;
-}
-
-#favorGuG a {
-  display: none;
 }
 .zc-ref {
   display: none;
@@ -140,18 +143,19 @@ $(document).ready(function(){
 	 	borderRadius: "0 0 0 10",
 	 	margin: "60 0 30 0"
 	},
+	// 작은 컨트롤러
 	legend : {
 	    toggleAction:'remove',
 	    borderWidth:0,
 	    adjustLayout:true,
 	    align:'center',
 	    verticalAlign:'top',
-	    margin: '0 0 0 100',
+	    margin: '0 0 0 0',
 	    marker: {
 	        type:'circle',
 	        cursor:'pointer',
 	        borderWidth:0,
-	        size:5
+	        size:8
 	    },
 	    item: {
 	        fontColor: "#777",
@@ -170,6 +174,7 @@ $(document).ready(function(){
 	  refAngle:270
 	},
 	series : [
+		// 구별 데이터
 		<c:forEach items="${favorGu}" var="gu">
 			{
 			 	text: '${gu.favor_gu}',
@@ -181,16 +186,6 @@ $(document).ready(function(){
 				}
 			},
 		</c:forEach>
-			{
-				text: "",
-				values : [],
-				lineColor:  'transparent',
-				backgroundColor:  'transparent',
-				lineWidth: 1,
-				marker: {
-				  backgroundColor:  'transparent'
-				}
-			}
 	]
 	};
 	zingchart.render({ 
@@ -218,7 +213,7 @@ $(document).ready(function(){
 			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#gu">구별-Gu</a></li>
 		</ul>
 		<div id="myTabContent" class="tab-content tab-content-size">
-			<div class="tab-pane fade show" id="total">
+			<div class="tab-pane fade show active" id="total">
 				<p>가장 관심을 많이 갖는 건물 TOP 30</p>
 				<div id='favorTotalG'>
 					<table class="favorT">
@@ -278,8 +273,8 @@ $(document).ready(function(){
 					</table>
 				</div>
 			</div>
-			<div class="tab-pane fade show active" id="gu">
-				<p>5개 둥근 차트</p>
+			<div class="tab-pane fade show" id="gu">
+				<p>구별 인기</p>
 				<div id='favorGuG'></div>
 			</div>
 		</div>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.opensise.admin.statis.model.FavoriteVo;
+import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 
 public interface StatisServiceInf {
@@ -96,6 +97,43 @@ public interface StatisServiceInf {
 	* Method 설명 : 구별 찜 받은 개수
 	*/
 	public List<FavoriteVo> favorGu();
+	
+	/**
+	* Method : countAllIntrst
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관심사 수 최대치
+	*/
+	public int countAllIntrst();
+	
+	/**
+	* Method : intrstAll
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 관심사별 선택 수
+	*/
+	public List<InterestVo> intrstAll();
+	
+	/**
+	* Method : ageList
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 존재하는 연령대 가져오기
+	*/
+	public List<String> ageList();
+	
+	/**
+	* Method : intrstAge
+	* 작성자 : Bella
+	* 변경이력 :
+	* @param mem_age
+	* @return
+	* Method 설명 : 연령별/성별+총 관심사
+	*/
+	public List<InterestVo> intrstAge(String mem_age);
 	
 	
 	

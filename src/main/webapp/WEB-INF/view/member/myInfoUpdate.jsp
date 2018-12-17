@@ -38,22 +38,14 @@
 						<li>
 							<label for="inputEmail" id="necessary">
 								<span>* 닉네임</span>
-								<input type="text" id="mem_nm" name="mem_nm" value="${param.memNm}"  class="form-control"	placeholder="${memberVo.mem_nm }" required autofocus>						
+								<input type="text" id="mem_nm" name="mem_nm" value="${memberVo.mem_nm }"  class="form-control"	 required autofocus>						
 						 	</label>
 						 	
-						 	<div id="duplicate" >
-								<c:if test="${msg == 0}">
-									<span id="y">:: 사용가능한 닉네임 입니다.</span>	
-								</c:if>
-								<c:if test="${msg >= 1}">
-									<span id="n">:: 중복된 닉네임 입니다.</span>	
-								</c:if>
-							</div>
 						</li>
 						<li>
 							<label for="inputEmail" id="necessary">
 								<span>* 이메일</span>
-								<input type="text" id="mem_email" name="mem_email"  class="form-control" placeholder="${memberVo.mem_email}" required autofocus>
+								<input type="text" id="mem_email" name="mem_email" value="${memberVo.mem_email}" class="form-control"  required autofocus>
 								
 							</label> 
 						</li>
@@ -65,7 +57,6 @@
 						<li>
 						<span>직업정보 선택</span>
 						
-						memberVo : ${memberVo }
 							<select id="jobLiset" name="mem_job" class="form-control">
 <%-- 								<option value="">${memberVo.job_nm}</option> --%>
 								<c:forEach items="${JobList}" var="mem">

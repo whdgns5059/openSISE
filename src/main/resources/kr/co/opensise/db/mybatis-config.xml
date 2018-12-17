@@ -11,20 +11,27 @@
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketVo" alias="marketVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo" alias="marketDetailVo"/>
 		<typeAlias type="kr.co.opensise.user.main.model.BuildingSaleVo" alias="buildingSaleVo"/>
-		<typeAlias type="kr.co.opensise.member.Login.model.MemberVo" alias="memberVo"/>
+		
+		
+		
 		<!-- admin : statis START-->
 		<typeAlias type="kr.co.opensise.admin.statis.model.MemberVo" alias="memVo"/>
 		<typeAlias type="kr.co.opensise.admin.statis.model.FavoriteVo" alias="favorVo"/>
+		<typeAlias type="kr.co.opensise.admin.statis.model.InterestVo" alias="intrstVo"/>
 		<!-- admin : statis END-->
 		
 		<!-- user alias 시작 -->
 		<typeAlias type="kr.co.opensise.user.main.model.BuildingSaleVo" alias="buildingSaleVo"/>
 		<typeAlias type="kr.co.opensise.user.main.model.FilterVo" alias="filterVo"/>
 		<typeAlias type="kr.co.opensise.member.Login.model.MemberVo" alias="memberVo"/>
+		<typeAlias type="kr.co.opensise.member.Login.model.SteamVo" alias="steamVo"/>
 		<!-- user alias 끝  -->
 		
 		<!-- 거래 평균 -->
 		<typeAlias type="kr.co.opensise.user.detail.model.AvgTradeVo" alias="avgTradeVo"/>
+		
+		<!-- 리뷰 -->
+		<typeAlias type="kr.co.opensise.user.detail.model.PostVo" alias="postVo"/>
 		
 	</typeAliases>
 

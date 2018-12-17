@@ -19,9 +19,9 @@
 	<select id="signInDaily" resultType="memVo">
 		Select count(mem_date) as counts , a.ymd as ymd
 		From member right join (
-		    Select to_date('20181206', 'yyyyMMdd')+(level-1) as ymd
+		    Select to_date('20181205', 'yyyyMMdd')+(level-1) as ymd
 		    From dual
-		    Connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181206', 'yyyyMMdd'))+1) a
+		    Connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181205', 'yyyyMMdd'))+1) a
 		On  (to_char(mem_date, 'YYYY/MM/dd') = a.ymd)
 		Where mem_mngr is null
 		Group by  a.ymd
@@ -32,9 +32,9 @@
 	<select id="signOutDaily" resultType="memVo">
 		Select count(mem_exdate) as counts, a.ymd as ymd
 		From member right join (
-		    select to_date('20181206', 'yyyyMMdd')+(level-1) as ymd
+		    select to_date('20181205', 'yyyyMMdd')+(level-1) as ymd
 		    from dual
-		    connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181206', 'yyyyMMdd'))+1) a
+		    connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181205', 'yyyyMMdd'))+1) a
 		On  (to_char(mem_date, 'YYYY/MM/dd') = a.ymd)
 		Where mem_mngr is null
 		Group by  a.ymd
@@ -102,7 +102,52 @@
 		     Row_number() Over ( Order by counts desc) as rank
 		From (Select count(*) as counts, favor_gu From favorite Group by favor_gu)
 	</select>
-
+	
+<!-- 관심사 통계 -->
+	<!-- 관심사 수 최대치 -->
+	<select id="countAllIntrst" resultType="int">
+		Select Max(counts) From (Select Count(intrst_no) as counts, intrst_no From mem_inter Group by intrst_no)
+	</select>
+	
+	<!-- 관심사별 선택 수 -->
+	<select id="intrstAll" resultType="intrstVo">
+		Select count(member.mem_no) counts, interest.intrst_no intrst_no, interest.intrst_nm intrst_nm
+		From member Inner join mem_inter On (member.mem_no = mem_inter.mem_no)
+		            Right Outer join interest On (mem_inter.intrst_no = interest.intrst_no)
+		Group by interest.intrst_no, interest.intrst_nm
+		Order by interest.intrst_no
+	</select>
+	
+	<!-- 연령 리스트 -->
+	<select id="ageList" resultType="string">
+		Select Distinct mem_age From member Where mem_age is not null Order by 1
+	</select>
+	
+	<!-- 연령별/성별+총 관심사 -->
+	<select id="intrstAge" parameterType="string" resultType="intrstVo">
+		Select Distinct I.INTRST_NO intrst_no
+		     , I.INTRST_NM intrst_nm
+		     , (Select Count(*) CNT From MEM_INTER MI, MEMBER M 
+		     	Where MI.MEM_NO = M.MEM_NO And INTRST_NO = I.INTRST_NO And MEM_GNDR = 'F' 
+		     	<if test="value != null">
+		     		And mem_age = #{mem_age}
+		     	</if>
+		     	) female
+		     , (Select Count(*) CNT From MEM_INTER MI, MEMBER M 
+		     	Where MI.MEM_NO = M.MEM_NO And INTRST_NO = I.INTRST_NO And MEM_GNDR = 'M' 
+		     	<if test="value != null">
+		     		And mem_age = #{mem_age}
+		     	</if>
+		     	) male
+		     , (Select Count(*) CNT From MEM_INTER MI, MEMBER M 
+		     	Where MI.MEM_NO = M.MEM_NO And INTRST_NO = I.INTRST_NO 
+		     	<if test="value != null">
+		     		And mem_age = #{mem_age}
+		     	</if>
+		     	) counts
+		From   INTEREST I
+	</select>
+	
 	
 	
 	

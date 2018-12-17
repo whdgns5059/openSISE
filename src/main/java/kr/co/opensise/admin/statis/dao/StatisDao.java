@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.opensise.admin.statis.model.FavoriteVo;
+import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 
 
@@ -76,6 +77,31 @@ public class StatisDao implements StatisDaoInf {
 		List<FavoriteVo> favorVoList = template.selectList("admin_statis.favorGu");
 		return favorVoList;
 	}
+
+	@Override
+	public int countAllIntrst() {
+		int maxCnt = template.selectOne("admin_statis.countAllIntrst");
+		return maxCnt;
+	}
+
+	@Override
+	public List<InterestVo> intrstAll() {
+		List<InterestVo> intrstVo = template.selectList("admin_statis.intrstAll");
+		return intrstVo;
+	}
+
+	@Override
+	public List<String> ageList() {
+		List<String> ageList = template.selectList("admin_statis.ageList");
+		return ageList;
+	}
+	
+	@Override
+	public List<InterestVo> intrstAge(String mem_age) {
+		List<InterestVo> intrstVo = template.selectList("admin_statis.intrstAge", mem_age);
+		return intrstVo;
+	}
+
 
 	
 	

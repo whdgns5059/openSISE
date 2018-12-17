@@ -47,6 +47,10 @@
 	<definition name="signupDetail" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/member/signupDetail.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="loginErr" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/loginErr.jsp"></put-attribute>
+	</definition>
 
 	<!--***************** memberLayout ******************* -->
 	<definition name="myinfo" extends="memberLayout">
@@ -72,6 +76,8 @@
 	<definition name="recentlyViewed" extends="memberLayout">
 		<put-attribute name="content" value="/WEB-INF/view/member/recentlyViewed.jsp"></put-attribute>
 	</definition>
+	
+	
 
 	<!--***************** adminLayout ******************* -->
 	<definition name="admin" extends="adminLayout">
@@ -110,12 +116,12 @@
 		<put-attribute name="content" value="/WEB-INF/view/admin/statis/member.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="statis/interest" extends="adminLayout">
-		<put-attribute name="content" value="/WEB-INF/view/admin/statis/interest.jsp"></put-attribute>
-	</definition>
-	
 	<definition name="statis/favor" extends="adminLayout">
 		<put-attribute name="content" value="/WEB-INF/view/admin/statis/favor.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="statis/interest" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/statis/interest.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="statis/pageCount" extends="adminLayout">
