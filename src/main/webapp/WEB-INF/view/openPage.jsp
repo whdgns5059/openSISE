@@ -370,7 +370,7 @@ input:disabled {
 		<!-- button -->
 		<div class="button">
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="house" value="multi" onclick="getBC(this)">단/다세대</button>
+				<button type="button" class="btn btn-outline-primary" id="house" value="house" onclick="getBC(this)">단/다세대</button>
 			</div>
 			<div class="buttons">
 				<button type="button" class="btn btn-outline-primary" id="apt" value="apt" onclick="getBC(this)">아파트</button>
@@ -391,7 +391,7 @@ input:disabled {
 					<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">시세보기</button>
 					<input type="hidden" id="bc_type"/>
 					<input type="hidden" id="building" name="building"/>
-					<input type="hidden" id="building" name="dl_ty" value="매매"/>
+					<input type="hidden" id="dl_ty" name="dl_ty" value="매매"/>
 				</form>
 		</div>
 			

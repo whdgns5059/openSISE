@@ -39,7 +39,7 @@ public class MainController {
 		
 		//매물리스트 검색 결과를 담을 리스트 
 		List<BuildingSaleVo> buildSaleList = null;
-		if(filterVo.getBuilding().equals("multi")) {
+		if(filterVo.getBuilding().equals("house")) {
 			buildSaleList = mainService.buildingSingleSaleList(filterVo);
 		}else {
 			buildSaleList = mainService.buildingSaleList(filterVo);
@@ -55,18 +55,19 @@ public class MainController {
 	
 	@RequestMapping("/mainAjax")
 	public String mainAjax(Model model, FilterVo filterVo) {
+		logger.info("houseType:" + filterVo.getBuilding());
+		logger.info("searchName:" + filterVo.getSearchName());
 		List<BuildingSaleVo> buildFilterList = null;
-		if(filterVo.getBuilding().equals("multi")) {
+		if(filterVo.getBuilding().equals("all")) {
 			buildFilterList = mainService.buildingSingleFilterList(filterVo);
 		}else {
 			buildFilterList = mainService.buildingFilterList(filterVo);
 		}
-		
 		//파라미터를 바탕으로  db에 검색 (파라미터 : 건물분류, 검색명)
 		model.addAttribute("buildingSaleList", buildFilterList);
 		model.addAttribute("buildingSaleListSize", buildFilterList.size());
 		model.addAttribute("building",filterVo.getBuilding());
-		logger.info("dl_ty : {}" + filterVo.getDl_ty());
+		logger.info("dl_ty :" + filterVo.getDl_ty());
 		model.addAttribute("dlType",filterVo.getDl_ty());
 		return "user/mainAjax/rightList";
 	}

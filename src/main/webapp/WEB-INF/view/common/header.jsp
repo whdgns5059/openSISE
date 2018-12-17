@@ -37,8 +37,8 @@
 <script>
  	$(document).ready(function(){
  		
- 		if($("#building").val() == "multi"){
- 			var multi = document.getElementById("multi");
+ 		if($("#building").val() == "house"){
+ 			var multi = document.getElementById("house");
  			multi.style.color = "white";
  		}else if ($("#building").val() == "apt"){
  			var apt = document.getElementById("apt");
@@ -87,7 +87,7 @@
 	<div class="collapse navbar-collapse bc-select-div">
 		<ul class="navbar-nav mr-auto bc-select">
 			<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
-			<li class="nav-item" id="multi" onclick="switchPage(this)">단/다세대 주택</li>
+			<li class="nav-item" id="house" onclick="switchPage(this)">단/다세대 주택</li>
 			<li class="nav-item" id="apt" onclick="switchPage(this)">아파트</li>
 			<li class="nav-item" id="office" onclick="switchPage(this)">오피스텔</li>
 			<li class="nav-item" id="store" onclick="switchPage(this)">상가</li>
