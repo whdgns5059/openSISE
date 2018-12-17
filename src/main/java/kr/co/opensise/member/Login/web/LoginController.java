@@ -124,6 +124,8 @@ public class LoginController {
 	*/
 	@RequestMapping(value="/signUpSelection", method= {RequestMethod.POST})
 	public String signUpSelection(Model model, MemberVo memberVo) {
+		
+		System.out.println("signUpSelection");
 		// 암호화 처리
 		memberVo.setMem_pass(KISA_SHA256.encrypt(memberVo.getMem_pass()));
 		
@@ -165,7 +167,6 @@ public class LoginController {
 		return "signup";
 		
 	}
-	
 	
 
 	

@@ -87,7 +87,7 @@
 			
 			<!-- Link to open the modal -->
 			<p><a href="#ex1" rel="modal:open">Open Modal</a></p>
-				</label><br/>
+				<br/>
 			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
 			</div>
 			</div>
