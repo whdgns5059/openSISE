@@ -143,6 +143,17 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+#camera{
+	width: 40px; 
+	height:40px; 
+}
+
+#cameraDiv{
+	margin-right: 25px;
+	margin-top: 10px;
+	margin-left: -20px;
+}
+
 </style>
  <link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet">
 <script type="text/javascript" src="/css/boostratp_slider_css_js/js/bootstrap-slider.js"></script>
@@ -448,6 +459,9 @@
 		<!-- 필터 -->
 		<div class="filters-div">
 			<ul class="nav nav-tabs">
+				<li id="cameraDiv">
+					<img  src="../img/camera.png" id="camera"/>
+				</li>
 				<c:if test="${building == 'house'}">
 					<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="houseType">주거형태</a>
