@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.opensise.member.Login.model.MemberVo;
+import kr.co.opensise.member.Login.model.SteamVo;
 
 public interface LoginDaoInf {
 
@@ -48,6 +49,27 @@ public interface LoginDaoInf {
 	* Method 설명 :  직업종류 출력
 	*/
 	public List<MemberVo> jobList();
+	
+	
+	/**  
+	* Method   : updateMember 
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param mem_email
+	* @return  
+	* Method 설명 :  찜리스트 출력
+	*/
+	public List<SteamVo> steamList(int favor_mem);
+	
+	/**  
+	* Method   : steamListUpdate 
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param mem_email
+	* @return  
+	* Method 설명 :  찜리스트 삭제
+	*/
+	public int steamListUpdate(int favor_no); 
 	
 	/**  
 	* Method   : interestLiset 

@@ -13,6 +13,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+// 회원동의 아코디언 
 	$(function() {
 		$("#accordion").accordion({
 			heightStyle : "fill"
@@ -55,6 +56,7 @@
 
 		}); 
 		
+	// 동의버튼 클릭시 색상처리
 	$("#U_checkAgreement1").on("click",function(){
 		console.log(this)
 		$("#firstH3").removeClass("bgColor");

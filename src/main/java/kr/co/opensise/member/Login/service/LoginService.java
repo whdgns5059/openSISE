@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.opensise.member.Login.dao.LoginDaoInf;
 import kr.co.opensise.member.Login.model.MemberVo;
+import kr.co.opensise.member.Login.model.SteamVo;
 
 @Service
 public class LoginService implements LoginServiceInf{
@@ -131,5 +132,32 @@ public class LoginService implements LoginServiceInf{
 			// TODO Auto-generated method stub
 			return loginDao.myInfoUpdate(memberVo);
 		}
+
+		
+		/**  
+		* Method   : searchUser 
+		* 작성자 :  김주연
+		* 변경이력 :  
+		* @param favor_mem
+		* @return  
+		* Method 설명 :  찜리스트 출력
+		*/
+	@Override
+	public List<SteamVo> steamList(int favor_mem) {
+		// TODO Auto-generated method stub
+		return loginDao.steamList(favor_mem);
+	}
+	
+	/**  
+	* Method   : steamListUpdate 
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param favor_no
+	* @return  
+	* Method 설명 :  찜리스트 삭제
+	*/
+	public int steamListUpdate(int favor_no) {
+		return loginDao.steamListUpdate(favor_no);
+	}
 	
 }

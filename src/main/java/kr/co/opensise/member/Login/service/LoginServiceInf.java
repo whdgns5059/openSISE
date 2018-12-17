@@ -100,7 +100,16 @@ public interface LoginServiceInf {
 		* @param mem_email
 		* @return  
 		* Method 설명 :  찜리스트 출력
-		
-		public List<SteamVo> steamList(int favor_mem);
 		*/
+		public List<SteamVo> steamList(int favor_mem);
+		
+		/**  
+		* Method   : steamListUpdate 
+		* 작성자 : 김주연 
+		* 변경이력 :  
+		* @param mem_email
+		* @return  
+		* Method 설명 :  찜리스트 삭제
+		*/
+		public int steamListUpdate(int favor_no); 
 }

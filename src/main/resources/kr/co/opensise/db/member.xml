@@ -66,13 +66,29 @@
 		Delete From member
 	</delete>
 	
-	<!-- 찜리스트 
-	SELECT DISTINCT A.ARTCL_GU, A.ARTCL_DONG, A.ARTCL_ZIP, A.ARTCL_RD, A.ARTCL_COMPLX, A.ARTCL_NM, D.DL_TY
-	FROM FAVORITE F JOIN ARTICLE A ON (F.FAVOR_GU = A.ARTCL_GU AND F.FAVOR_DONG = A.ARTCL_DONG AND F.FAVOR_ZIP = A.ARTCL_ZIP AND F.FAVOR_RD = A.ARTCL_RD)
-	                JOIN  DEAL D ON (D.DL_GU = A.ARTCL_GU AND D.DL_DONG = A.ARTCL_DONG AND D.DL_ZIP = A.ARTCL_ZIP AND D.DL_RD = A.ARTCL_RD)
-	WHERE D.DL_TY = #{favor_ty}
-	AND FAVOR_MEM = #{favor_mem}-->
+	<!-- 찜리스트 -->
+	<select id="steam" resultType="steamVo" parameterType="int">
+		 SELECT A.ARTCL_GU, A.ARTCL_DONG, A.ARTCL_ZIP, A.ARTCL_RD,F.FAVOR_NO,
+		    (CASE WHEN A.ARTCL_COMPLX IS NOT NULL  THEN A.ARTCL_COMPLX
+		             WHEN A.ARTCL_NM IS NOT NULL THEN A.ARTCL_NM
+		             WHEN A.ARTCL_COMPLX IS NULL OR A.ARTCL_NM IS NULL THEN '주택'
+		             ELSE A.ARTCL_RD 
+		         END)  AS ARTCL_NM, 
+		         (select ROUND(AVG(D.DL_RNT)) from deal D where D.DL_GU = A.ARTCL_GU AND D.DL_DONG = A.ARTCL_DONG AND D.DL_ZIP = A.ARTCL_ZIP AND D.DL_RD = A.ARTCL_RD
+		                                      and f.favor_ty = d.dl_ty) as dl_rnt,  --월세 평균액
+		                                      (select ROUND(AVG(D.DL_DEPOS)) from deal D where D.DL_GU = A.ARTCL_GU AND D.DL_DONG = A.ARTCL_DONG AND D.DL_ZIP = A.ARTCL_ZIP AND D.DL_RD = A.ARTCL_RD
+		                                      and f.favor_ty = d.dl_ty) as dl_depos, -- 보증금 평균액
+		                                      (select ROUND(AVG(D.DL_PRICE)) from deal D where D.DL_GU = A.ARTCL_GU AND D.DL_DONG = A.ARTCL_DONG AND D.DL_ZIP = A.ARTCL_ZIP AND D.DL_RD = A.ARTCL_RD
+                                     		 and f.favor_ty = d.dl_ty) as dl_price -- 매매 평균액
+        FROM FAVORITE F JOIN ARTICLE A ON (F.FAVOR_GU = A.ARTCL_GU AND F.FAVOR_DONG = A.ARTCL_DONG AND F.FAVOR_ZIP = A.ARTCL_ZIP AND F.FAVOR_RD = A.ARTCL_RD)
+		WHERE FAVOR_MEM = #{favor_mem}
+	</select>
 	
+	<!-- 찜목록 삭제 -->
+	<delete id="favorDelete" parameterType="int">
+		DELETE from FAVORITE
+        where favor_no = #{favor_no}
+	</delete>
 	
 </mapper>
 

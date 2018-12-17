@@ -21,10 +21,14 @@ public class SteamVo {
 	private String dl_dong;
 	private String dl_zip;
 	private String dl_rd;
-	private String dl_ty;
 	private String dl_price;
 	private String dl_depos;
 	private String dl_rnt;
+	private String dl_ty;
+	
+	public  SteamVo(){
+	}
+	
 	public int getFavor_no() {
 		return favor_no;
 	}
