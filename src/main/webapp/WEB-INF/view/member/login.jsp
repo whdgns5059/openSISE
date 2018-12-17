@@ -27,9 +27,6 @@
 		}
 	</script>
 	
-	<script type="text/javascript">
-
-	</script>
 <style type="text/css">
 .logo{
    margin: 100px 0 50px 300px;

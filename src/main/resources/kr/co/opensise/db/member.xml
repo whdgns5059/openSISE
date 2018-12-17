@@ -8,6 +8,7 @@
   	<select id="selectAllMember" parameterType="String" resultType="memberVo">
   		select * from member
   		where mem_email = #{mem_email}
+  		and mem_exdate is null
   	</select>
   	
   	<!-- 개별 회원 정보 조회 -->
@@ -89,6 +90,12 @@
 		DELETE from FAVORITE
         where favor_no = #{favor_no}
 	</delete>
+	
+	<!-- 보안설정 (비밀변호 변경)-->
+	
+	
+	
+	
 	
 </mapper>
 
