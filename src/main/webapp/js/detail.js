@@ -226,6 +226,17 @@ $('#insertReview').click(function(event){
 	
 });
 
+function getPost_no(rpl_post){
+	
+	var post_noArr = $('.post_noChk');
+	
+	for(var i = 0; i < post_noArr.length; i++){
+		if(post_noArr[i].value == rpl_post){
+			return post_noArr[i];
+		}
+	}
+	
+}
 
 //댓글 작성
 $('.writeReply').on('click', '.insertReply', function(){
@@ -247,14 +258,15 @@ $('.writeReply').on('click', '.insertReply', function(){
 			rpl_post : rpl_post
 		},
 		success : function(data){
-			var post_no = getPost_no();
+			var post_no = getPost_no(rpl_post);
 			$(post_no.nextElementSibling).html(data);
 		}
 	});
 	
+	
 	//리뷰 클래스중에서 포스트와같은 div 가져오기
 	//리플이 담겨야 하는 div 위에 chk용 postID가 존재..
-	function getPost_no(){
+	function getPost_no_insert(){
 		
 		var post_noArr = $('.post_noChk');
 		
@@ -265,6 +277,38 @@ $('.writeReply').on('click', '.insertReply', function(){
 		}
 		
 	}
+	
+	
+});
+
+
+
+//댓글 삭제
+$('.reply').on('click', '.deleteReply',  function(e){
+	
+	e.preventDefault();
+	
+	var rpl_no = this.getElementsByClassName('rpl_no')[0].value;
+	var rpl_post = this.getElementsByClassName('rpl_post')[0].value;
+
+	$.ajax({
+		
+		type : 'POST',
+		url : '/detail/deleteReply',
+		data : {
+			rpl_no : rpl_no,
+			rpl_post : rpl_post
+		},
+		success : function(data){
+			var post_no = getPost_no(rpl_post);
+			$(post_no.nextElementSibling).html(data);	
+		}
+		
+	});
+	
+	//리뷰 클래스중에서 포스트와같은 div 가져오기
+	//리플이 담겨야 하는 div 위에 chk용 postID가 존재..
+
 	
 	
 });

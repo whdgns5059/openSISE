@@ -90,6 +90,12 @@ public class DetailController {
 		int post_no_int = Integer.parseInt(post_no);
 		
 		List<ReplyVo> replyList = detailService.selectReply(post_no_int);
+		
+		for(ReplyVo replyVo : replyList) {
+			String mem_email = replyVo.getMem_email();
+			String emailStar = mem_email.substring(0, 5) + "*********";
+			replyVo.setMem_email(emailStar);
+		}
 	
 		model.addAttribute("replyList", replyList);
 		
@@ -104,6 +110,16 @@ public class DetailController {
 		
 		int result = detailService.insertReply(replyVo);
 	
+		model.addAttribute("post_no", replyVo.getRpl_post());
+		
+		return "redirect:/detail/selectReplyAjax";
+	}
+	
+	@RequestMapping("/deleteReply")
+	public String deleteReply(ReplyVo replyVo, Model model) {
+		
+		int result = detailService.deleteReply(replyVo.getRpl_no());
+		
 		model.addAttribute("post_no", replyVo.getRpl_post());
 		
 		return "redirect:/detail/selectReplyAjax";

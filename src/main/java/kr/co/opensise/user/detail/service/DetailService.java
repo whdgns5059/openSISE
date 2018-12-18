@@ -100,6 +100,11 @@ public class DetailService implements DetailServiceInf{
 		return detailDao.selectReply(post_no);
 	}
 
+	@Override
+	public int deleteReply(int rpl_no) {
+		return detailDao.deleteReply(rpl_no);
+	}
+
 
 }
 

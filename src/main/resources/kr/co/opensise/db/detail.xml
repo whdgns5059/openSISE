@@ -95,6 +95,11 @@
 		where post_no = rpl_post
 		and rpl_mem = mem_no
 	</select>
+	
+	<delete id="deleteReply" parameterType="int">
+		delete reply
+		where rpl_no = #{int}
+	</delete>
 		
 </mapper>
 

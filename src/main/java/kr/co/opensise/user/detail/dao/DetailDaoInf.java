@@ -31,4 +31,6 @@ public interface DetailDaoInf {
 	int insertReply(ReplyVo replyVo);
 	
 	List<ReplyVo> selectReply(int post_no);
+
+	int deleteReply(int rpl_no);
 }

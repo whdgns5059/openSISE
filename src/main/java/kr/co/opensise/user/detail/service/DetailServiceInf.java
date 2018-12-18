@@ -50,7 +50,7 @@ public interface DetailServiceInf {
 	
 	List<ReplyVo> selectReply(int post_no);
 	
-	
+	int deleteReply(int rpl_no);
 	
 	
 }

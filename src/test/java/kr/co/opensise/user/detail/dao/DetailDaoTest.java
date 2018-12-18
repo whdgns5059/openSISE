@@ -244,6 +244,20 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 	
+	
+	@Test
+	public void deleteReply() {
+		
+		/***given***/
+		int rpl_no = 4;
+		/***when***/
+		int result = detailDao.deleteReply(rpl_no);
+
+		/***then***/
+		assertEquals(1, result);
+		
+	}
+	
 }
 
 
