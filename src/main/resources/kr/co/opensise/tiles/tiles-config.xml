@@ -77,6 +77,10 @@
 		<put-attribute name="content" value="/WEB-INF/view/member/recentlyViewed.jsp"></put-attribute>
 	</definition>
 	
+	<!-- <definition name="withdrawal" extends="memberLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/withdrawal.jsp"></put-attribute>
+	</definition> -->
+	
 	
 
 	<!--***************** adminLayout ******************* -->

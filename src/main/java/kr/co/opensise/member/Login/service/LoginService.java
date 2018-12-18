@@ -159,5 +159,23 @@ public class LoginService implements LoginServiceInf{
 	public int steamListUpdate(int favor_no) {
 		return loginDao.steamListUpdate(favor_no);
 	}
+
+	
+	
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원탈퇴
+	*/
+	@Override
+	public int memDelete(MemberVo memverVo) {
+		// TODO Auto-generated method stub
+		return loginDao.memDelete(memverVo);
+	}	
+	
+	
 	
 }
