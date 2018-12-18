@@ -27,6 +27,8 @@
 		}
 	</script>
 	
+	
+	
 <style type="text/css">
 .logo{
    margin: 100px 0 50px 300px;
@@ -78,18 +80,29 @@
 					<input type="password" id="inputPassword" name="mem_pass" class="form-control" value="wzvnn425" required>
 			<!-- Modal HTML embedded directly into document -->
 			<div id="ex1" class="modal">
-			  <p>Thanks for clicking. That felt good.</p>
-			  <a href="#" rel="modal:close">Close</a>
+				<h3 align="center">비밀번호 찾기</h3></br>
+			  	<p>이메일을 작성해 주세요</p>
+			  	<input type="text" class="form-control" placeholder="이메일을 입력하세요"></input>
+			  	</br>
+			  	
+				  <div  align="center">
+					<input type="button" id="modified_N"  value="취소" />
+					<input type="submit" id="modified_Y"  value="인증" />
+				  </div>
+				  
 			</div>
 			
 			<!-- Link to open the modal -->
-			<p><a href="#ex1" rel="modal:open">Open Modal</a></p>
+			<p><a href="#ex1" rel="modal:open">비밀번호 변경</a></p>
 				<br/>
 			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
 			</div>
 			</div>
 		</form>
 		
+		<form action="/mypage/mailSender" id="fm" method="post">
+			<!-- <input type="hidden" id="memNm" name="memNm"> -->
+		</form>
 	</div>
 </body>
 </html>
