@@ -120,6 +120,17 @@ public class StatisDaoTest extends RootSetup{
 		
 	}
 	
+	@Test
+	public void insertVisitor() {
+		/***Given***/
+
+		/***When***/
+		int insertCnt = statisDao.insertVisitor();
+
+		/***Then***/
+		assertEquals(1, insertCnt);
+	}
+	
 	
 	
 	

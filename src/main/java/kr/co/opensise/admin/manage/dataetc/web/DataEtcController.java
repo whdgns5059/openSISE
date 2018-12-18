@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -38,6 +39,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,10 +47,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
 import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
 import kr.co.opensise.admin.manage.dataetc.model.RouteVo;
 import kr.co.opensise.admin.manage.dataetc.model.StationVo;
@@ -66,7 +69,9 @@ public class DataEtcController {
 	private DataEtcServiceInf dataEtcService;
 	
 	@RequestMapping("/dataEtc")
-	public String dataEtc() {
+	public String dataEtc(Model model) {
+		List<InstiVo> instiList = dataEtcService.selectInsti();
+		model.addAttribute("instiList", instiList);
 		return "manage/dataEtc";
 	}
 
@@ -452,12 +457,12 @@ public class DataEtcController {
 			
 			Set<RouteVo> routeSet = new HashSet<RouteVo>();
 			
-			//AQaEtVk16ydt8lKbZqS3YbaTNMVbUG7vKt18aGAP0we9Uv5TODox8zz67iarSbBoJyg82A%2B513%2FKot1f6dbvKQ%3D%3D:종훈
+			//Gtm3470Ghm%2BbyAlbB3JGPbzbRpLu6l74x%2Fa1qprKSiQL6nrZaIF7UC0wPVPUgS7L4qnhGv0KTESkdKG4jQ57cQ%3D%3D :종훈
 			//RT1lHlWUhjho%2FbTmTxIJL4vFER1%2BRzgKGsI1dLvVMCspNNUpTxjfzvhfjSEZ75nE9AHoSPUN3fdIJQ3cZzwAOw%3D%3D:나
 			//openApi 호출(전체노선 기본정보 조회)
 			String urlAll = "http://openapitraffic.daejeon.go.kr/"
 						+"api/rest/busRouteInfo/getRouteInfoAll"
-						+"?serviceKey=AQaEtVk16ydt8lKbZqS3YbaTNMVbUG7vKt18aGAP0we9Uv5TODox8zz67iarSbBoJyg82A%2B513%2FKot1f6dbvKQ%3D%3D&reqPage=1";
+						+"?serviceKey=Gtm3470Ghm%2BbyAlbB3JGPbzbRpLu6l74x%2Fa1qprKSiQL6nrZaIF7UC0wPVPUgS7L4qnhGv0KTESkdKG4jQ57cQ%3D%3D&reqPage=1";
 			
 			URL urlA= new URL(urlAll);
 			HttpURLConnection httpUrlConnectionA = (HttpURLConnection) urlA.openConnection();
@@ -540,7 +545,7 @@ public class DataEtcController {
 					//openApi 호출(노선별 경유 정류소 정보)
 					String urlRoute = "http://openapitraffic.daejeon.go.kr/"
 									+"api/rest/busRouteInfo/getStaionByRoute"
-									+"?busRouteId="+route_cd+"&serviceKey=AQaEtVk16ydt8lKbZqS3YbaTNMVbUG7vKt18aGAP0we9Uv5TODox8zz67iarSbBoJyg82A%2B513%2FKot1f6dbvKQ%3D%3D";
+									+"?busRouteId="+route_cd+"&serviceKey=Gtm3470Ghm%2BbyAlbB3JGPbzbRpLu6l74x%2Fa1qprKSiQL6nrZaIF7UC0wPVPUgS7L4qnhGv0KTESkdKG4jQ57cQ%3D%3D";
 					
 					URL urlR = new URL(urlRoute);
 					HttpURLConnection httpUrlConnection = (HttpURLConnection) urlR.openConnection();
@@ -647,5 +652,67 @@ public class DataEtcController {
 		
 	}
 
+	//시설관리
 	
+	//시설추가
+	@RequestMapping(value="/insertInsti", method = RequestMethod.POST)
+	public String insertInsti(@RequestParam("insti") String insti) {
+		
+		List<InstiVo> instiList = dataEtcService.selectInsti();
+		
+		InstiVo instiVo = new InstiVo();
+		int cnt=0;
+		for(int i=0;i<instiList.size();i++) {
+			if(insti.equals(instiList.get(i).getInsti_nm())){
+				cnt++;
+			}else {
+				continue;
+			}
+		}
+		if(cnt<=0) {
+			instiVo.setInsti_nm(insti);
+			
+			int insertInsti = dataEtcService.insertInsti(instiVo);
+		}
+		
+		return "redirect:/manage/dataEtc/dataEtc";
+	}
+	
+	//시설속성추가
+	@RequestMapping("/insertIattr")
+	public String insertIattr(InstiAttrVo instiAttrVo) {
+		log.info("여기");
+		int insertIattr = dataEtcService.insertInstiattr(instiAttrVo);
+		
+		return "redirect:/manage/dataEtc/dataEtc";
+	}
+	
+	@RequestMapping("/selectInsti")
+	public String selectInsti(@RequestParam("instiHere") Integer iattr_insti,Model model,HttpServletRequest request) throws UnsupportedEncodingException {
+		
+		request.setCharacterEncoding("utf-8");
+		
+		if(!(iattr_insti.equals("분류"))) {
+			log.info("iattr_inst {}", iattr_insti);
+			
+			//시설 속성 테이블에서 제목부분리트스(중복제거)
+			List<InstiAttrVo> insti_attrList = dataEtcService.selectInsti_attr(iattr_insti);
+			//시설 속성 테이블에서 body부분 리스트
+			List<List<InstiAttrVo>> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
+			//
+//			for(int i=0;i<instiAttrList.size();i++) {
+//				log.info("level : {} ", instiAttrList.get(i).get(i).getLevel());
+//			}
+			//
+			model.addAttribute("insti_attrList", insti_attrList);
+			model.addAttribute("instiAttrList", instiAttrList);
+		}
+		
+		List<InstiVo> instiList = dataEtcService.selectInsti();
+		
+		model.addAttribute("instiList", instiList);
+		model.addAttribute("iattr_insti", iattr_insti);
+		
+		return "manage/dataEtc";
+	}
 }

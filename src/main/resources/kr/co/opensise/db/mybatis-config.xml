@@ -19,7 +19,8 @@
 		<typeAlias type="kr.co.opensise.admin.statis.model.FavoriteVo" alias="favorVo"/>
 		<typeAlias type="kr.co.opensise.admin.statis.model.InterestVo" alias="intrstVo"/>
 		<!-- admin : statis END-->
-		
+		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.InstiVo" alias="instiVo"/>
+		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo" alias="instiAttrVo"/>
 		<!-- user alias 시작 -->
 		<typeAlias type="kr.co.opensise.user.main.model.BuildingSaleVo" alias="buildingSaleVo"/>
 		<typeAlias type="kr.co.opensise.user.main.model.FilterVo" alias="filterVo"/>

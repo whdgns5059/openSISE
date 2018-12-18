@@ -1,11 +1,7 @@
 package kr.co.opensise.admin.statis.web;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -31,7 +27,7 @@ public class StatisController {
 	* Method : member
 	* 작성자 : Bella
 	* 변경이력 :
-	* @return
+	* @return 회원 통계 페이지로 이동
 	* Method 설명 : 회원통계
 	*/
 	@RequestMapping(value="/member", method=RequestMethod.GET)
@@ -64,7 +60,7 @@ public class StatisController {
 	* Method : favor
 	* 작성자 : Bella
 	* 변경이력 :
-	* @return
+	* @return 인기건물(찜) 통계 페이지로 이동
 	* Method 설명 : 인기건물
 	*/
 	@RequestMapping(value="/favor", method=RequestMethod.GET)
@@ -86,7 +82,7 @@ public class StatisController {
 	* Method : interest
 	* 작성자 : Bella
 	* 변경이력 :
-	* @return
+	* @return 관심사 통계 페이지로 이동
 	* Method 설명 : 관심사통계
 	*/
 	@RequestMapping(value="/interest", method=RequestMethod.GET)
@@ -110,9 +106,6 @@ public class StatisController {
 		int maxCnt = statisService.countAllIntrst();
 		model.addAttribute("maxCnt", maxCnt);
 		
-		// 전연령대일 경우 처리
-		if(mem_age.equals("allAge"))
-			mem_age = null;
 		// 해당 연령대의 관심사 리스트
 		List<InterestVo> intrstAge = statisService.intrstAge(mem_age);
 		model.addAttribute("intrstAge", intrstAge);
@@ -124,7 +117,7 @@ public class StatisController {
 	* Method : visitor
 	* 작성자 : Bella
 	* 변경이력 :
-	* @return
+	* @return 방문자수 통계 페이지로 이동
 	* Method 설명 : 방문자수
 	*/
 	@RequestMapping(value="/visitor", method=RequestMethod.GET)
@@ -136,7 +129,7 @@ public class StatisController {
 	* Method : pageCount
 	* 작성자 : Bella
 	* 변경이력 :
-	* @return
+	* @return 페이지사용량 통계 페이지로 이동
 	* Method 설명 : 페이지사용량
 	*/
 	@RequestMapping(value="/pageCount", method=RequestMethod.GET)
