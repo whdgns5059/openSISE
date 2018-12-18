@@ -87,4 +87,22 @@ public class DataEtcDao implements DataEtcDaoInf {
 		return template.selectList("dataEtc.slelectInstiAttrList", iattr_insti);
 	}
 
+	/**
+	* Method : selectInsti_attr
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @param iattr_insti
+	* @return
+	* Method 설명 :시설테이블 중 제목부분리스트(중복제거)
+	*/
+	@Override
+	public List<InstiAttrVo> selectInsti_attr(int iattr_insti) {
+		return template.selectList("dataEtc.selectInsti_attr", iattr_insti);
+	}
+
+	@Override
+	public int insertInstiattr(InstiAttrVo instiAttrVo) {
+		return template.insert("dataEtc.insertIattr", instiAttrVo);
+	}
+
 }

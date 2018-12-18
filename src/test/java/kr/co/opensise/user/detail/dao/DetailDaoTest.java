@@ -1,6 +1,7 @@
 package kr.co.opensise.user.detail.dao;
 
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PostVo;
 
 public class DetailDaoTest extends RootSetup{
 
@@ -142,6 +144,74 @@ public class DetailDaoTest extends RootSetup{
 		
 		
 	}
+	
+	
+	@Test
+	public void insertReview() {
+		
+		/***given***/
+		PostVo postVo = new PostVo();
+		postVo.setPost_brd(1);
+		postVo.setPost_mem(7);
+		postVo.setPost_ttl("흠.. 허어..");
+		postVo.setPost_cntnt("흐음.. 허어.. 흐으으음..");
+		postVo.setPost_star("4");
+		postVo.setPost_gu("서구");
+		postVo.setPost_dong("월평동");
+		postVo.setPost_zip("311-1");
+		postVo.setPost_rd("청사로");
+		
+		/***when***/
+		int result = detailDao.insertReview(postVo);
+		
+		/***then***/
+		assertEquals(1, result);
+		
+	}
+	
+	
+	@Test
+	public void selectReviewTest() {
+		
+		
+		/***given***/
+		ArticleVo articleVo = new ArticleVo();
+		articleVo.setArtcl_gu("서구");
+		articleVo.setArtcl_dong("월평동");
+		articleVo.setArtcl_zip("311-1");
+		articleVo.setArtcl_rd("청사로");
+		
+		/***when***/
+		List<PostVo> result = detailDao.selectReview(articleVo);
+
+		/***then***/
+		assertEquals(6, result.size());
+		
+		
+	}
+	
+	@Test
+	public void selectMonthlyAvg() {
+		
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("서구");
+		dealVo.setDl_dong("월평동");
+		dealVo.setDl_zip("311-1");
+		dealVo.setDl_rd("청사로");
+		dealVo.setDl_ty("매매");
+		dealVo.setDl_excv_area(59.76f);
+		
+		/***when***/
+		List<DealVo> result = detailDao.selectMonthlyAng(dealVo);
+		
+		
+		/***then***/
+		assertEquals(131, result.size());
+		
+		
+	}
+
 	
 }
 

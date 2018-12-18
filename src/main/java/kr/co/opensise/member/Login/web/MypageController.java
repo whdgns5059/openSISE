@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.member.Login.model.MemberVo;
+import kr.co.opensise.member.Login.model.SteamVo;
 import kr.co.opensise.member.Login.service.LoginServiceInf;
 
 @Controller
@@ -95,21 +97,39 @@ public class MypageController {
 	}
 	
 	/**  
-	* Method   :  updateFinish
+	* Method   :  steamList
 	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 : 찜목록 출력
 	*/
 	@RequestMapping(value="/steamList")
-	public String heartList(Model model,  HttpSession session) {
-/*		String userId = (String)session.getAttribute("userId");
-		//UserVo userVo = userService.searchUser(userId);
-		List<heartVo> heartVo = userService.heartList(userId);
+	public String steamList(Model model,  HttpSession session) {
+		MemberVo memberVo = (MemberVo)session.getAttribute("nowLogin");
+		List<SteamVo> steamVo = loginService.steamList(memberVo.getMem_no());
 		
-		//model.addAttribute("userVo",userVo);
-		model.addAttribute("heartVo",heartVo);
-*/		
+		model.addAttribute("steamVo",steamVo);
+		
+		return "steamList";
+	}
+	
+	/**  
+	* Method   :  steamListUpdate
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 : 찜목록 저장 클릭시 삭제처리
+	*/
+	@RequestMapping(value="/steamListUpdate", method = {RequestMethod.GET})
+	public String steamListUpdate(Model model, @RequestParam("favor_no") int favor_no, HttpSession session) {
+		loginService.steamListUpdate(favor_no);
+		logger.info("favor_no : "+ favor_no);
+	
+		MemberVo memberVo = (MemberVo)session.getAttribute("nowLogin");
+		List<SteamVo> steamVo = loginService.steamList(memberVo.getMem_no());
+		
+		model.addAttribute("steamVo",steamVo);
+		
 		return "steamList";
 	}
 	

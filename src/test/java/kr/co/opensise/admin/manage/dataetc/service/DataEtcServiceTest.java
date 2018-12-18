@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
 import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
 import kr.co.opensise.setup.RootSetup;
 
@@ -62,6 +63,31 @@ public class DataEtcServiceTest extends RootSetup{
 
 		/***Then***/
 		assertEquals("도서관", instiVo.getInsti_nm());
+	}
+	
+	@Test
+	public void selectInstiAttrListServiceTest() {
+		/***Given***/
+		int iattr_insti=1;
+		/***When***/
+		List<List<InstiAttrVo>> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
+		/***Then***/
+		assertEquals(6, instiAttrList.size());
+	}
+
+	@Test
+	public void insertIattrServiceTest() {
+		/***Given***/
+		InstiAttrVo instiAttrVo = new InstiAttrVo();
+		instiAttrVo.setIattr_insti(2);
+		instiAttrVo.setIattr_key("병원명");
+		instiAttrVo.setIattr_val("충남대병원");
+		
+		/***When***/
+		int insertInstiattr = dataEtcService.insertInstiattr(instiAttrVo);
+		
+		/***Then***/
+		assertEquals(1, insertInstiattr);
 	}
 
 

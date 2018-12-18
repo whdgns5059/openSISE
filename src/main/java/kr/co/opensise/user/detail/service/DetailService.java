@@ -12,6 +12,7 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PostVo;
 
 @Service
 public class DetailService implements DetailServiceInf{
@@ -38,6 +39,8 @@ public class DetailService implements DetailServiceInf{
 		List<String> selectAreas = detailDao.selectAreas(articleVo);
 		detailMap.put("selectAreas", selectAreas);
 		
+		List<PostVo> selectReview = detailDao.selectReview(articleVo);
+		detailMap.put("selectReview", selectReview);
 
 		return detailMap;
 	}
@@ -70,11 +73,20 @@ public class DetailService implements DetailServiceInf{
 		//electDealListByArea : 해당 평수의 모든 거래 내역
 		List<DealVo> dealListByArea = detailDao.selectDealListByArea(dealVo);
 		
+		//montylyAvf : 월별 평균 거래가
+		List<DealVo> monthlyAvg = detailDao.selectMonthlyAng(dealVo);
+		
 		tradeInfoMap.put("avgTradeVo",avgTradeVo);
 		tradeInfoMap.put("recentTradeVo", recentTradeVo);
 		tradeInfoMap.put("dealListByArea", dealListByArea);
+		tradeInfoMap.put("monthlyAvg", monthlyAvg);
 		
 		return tradeInfoMap;
+	}
+
+	@Override
+	public int insertReview(PostVo postVo) {
+		return detailDao.insertReview(postVo);
 	}
 
 

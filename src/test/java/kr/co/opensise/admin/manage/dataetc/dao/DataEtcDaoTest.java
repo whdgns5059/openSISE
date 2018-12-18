@@ -82,7 +82,22 @@ public class DataEtcDaoTest extends RootSetup{
 		/***When***/
 		List<InstiAttrVo> instiAttrList = dataEtcDao.selectInstiAttr(iattr_insti);
 		/***Then***/
-		assertEquals(3, instiAttrList.size());
+		assertEquals(6, instiAttrList.size());
+	}
+	
+	@Test
+	public void insertIattrDaoTest() {
+		/***Given***/
+		InstiAttrVo instiAttrVo = new InstiAttrVo();
+		instiAttrVo.setIattr_insti(2);
+		instiAttrVo.setIattr_key("병원명");
+		instiAttrVo.setIattr_val("을지대병원");
+		
+		/***When***/
+		int insertInstiattr = dataEtcDao.insertInstiattr(instiAttrVo);
+		
+		/***Then***/
+		assertEquals(1, insertInstiattr);
 	}
 
 }

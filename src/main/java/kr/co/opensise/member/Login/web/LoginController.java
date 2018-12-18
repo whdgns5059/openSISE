@@ -68,9 +68,12 @@ public class LoginController {
 			session.setAttribute("nowLogin", user);
 			model.addAttribute("memberVo",user);
 			return "openPage";
-		} else {
+		} else if(user == null ){
+			model.addAttribute("msg","존재하지 않는 회원입니다! 가입후 이용바랍니다");
+			return "loginErr";
+		}else {
 			model.addAttribute("msg","ID와 PW를 다시 확인해 주세요");
-			return "member/loginErr";
+			return "loginErr";
 		}
 	}
 	
@@ -124,6 +127,8 @@ public class LoginController {
 	*/
 	@RequestMapping(value="/signUpSelection", method= {RequestMethod.POST})
 	public String signUpSelection(Model model, MemberVo memberVo) {
+		
+		System.out.println("signUpSelection");
 		// 암호화 처리
 		memberVo.setMem_pass(KISA_SHA256.encrypt(memberVo.getMem_pass()));
 		
@@ -165,7 +170,6 @@ public class LoginController {
 		return "signup";
 		
 	}
-	
 	
 
 	

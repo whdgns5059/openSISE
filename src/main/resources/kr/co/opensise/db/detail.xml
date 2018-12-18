@@ -53,6 +53,37 @@
 			and dl_excv_area = #{dl_excv_area})
 	</select>
 	
+	<insert id="insertReview" parameterType="postVo">
+		insert into post (POST_NO, POST_BRD, POST_MEM, POST_TTL, POST_CNTNT, POST_DATE, POST_STAR, POST_EXST, POST_GU, POST_DONG, POST_ZIP, POST_RD)
+		values (SEQ_POST_NO.NEXTVAL,  #{post_brd}, #{post_mem}, #{post_ttl}, 
+		#{post_cntnt}, sysdate, #{post_star}, 'N', #{post_gu}, #{post_dong}, #{post_zip}, #{post_rd}) 
+	</insert>		
+	
+	<select id="selectReview" parameterType="articleVo" resultType="postVo">
+		select * from post
+		where post_brd = 1 and post_gu = #{artcl_gu} and post_dong= #{artcl_dong} and post_zip= #{artcl_zip} and post_rd= #{artcl_rd}
+	</select>
+	
+	<select id="selectMonthlyAvg" parameterType="dealVo" resultType="dealVo">
+		select NVL(A.DL_PRICE,0) DL_PRICE
+		 , NVL(A.DL_DEPOS,0) DL_DEPOS
+		 , NVL(A.DL_RNT,0) DL_RNT
+		 , B.DL_CONT_YM2 DL_CONT_YM
+		from 
+		(select round(avg(DL_PRICE), 1) as dl_price , round(avg(DL_DEPOS), 1) as dl_depos , round(avg(DL_RNT), 1) as dl_rnt,
+		DL_CONT_YM from deal
+		where dl_gu = #{dl_gu} and dl_dong= #{dl_dong} and dl_zip=#{dl_zip} and dl_rd=#{dl_rd}
+		and dl_ty = #{dl_ty}
+		and dl_excv_area = #{dl_excv_area}
+		GROUP BY DL_EXCV_AREA, DL_TY, DL_CONT_YM, DL_GU, DL_DONG, DL_ZIP, DL_RD
+		order by dl_cont_ym desc) a,
+		(select to_char(add_months(to_date(200801, 'yyyyMM'), level -1),'YYYYMM') as dl_cont_ym2 from dual
+		connect by level &lt; 132) b
+		where a.dl_cont_ym(+) = b.dl_cont_ym2
+		ORDER BY B.dl_cont_ym2
+	</select>
+		
+		
 </mapper>
 
 

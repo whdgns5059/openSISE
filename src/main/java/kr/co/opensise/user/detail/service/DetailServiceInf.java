@@ -3,6 +3,7 @@ package kr.co.opensise.user.detail.service;
 import java.util.Map;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
+import kr.co.opensise.user.detail.model.PostVo;
 
 public interface DetailServiceInf {
 	
@@ -39,5 +40,43 @@ public interface DetailServiceInf {
 	* selectDealListByArea : 해당 평수의 모든 거래 내역
 	**************************************************/
 	Map<String, Object> getDetailTradeInfo(ArticleVo articleVo, String dl_ty, float dl_excv_area );
-
+	
+	int insertReview(PostVo postVo);
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

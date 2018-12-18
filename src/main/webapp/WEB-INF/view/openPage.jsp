@@ -344,8 +344,8 @@ input:disabled {
 				
 				<!-- 관리자일 경우에 생기는 a tag -->
  				<li><c:if test="${nowLogin.mem_mngr!= null}">
-					${nowLogin.mem_nm} 님 안녕하세요  &emsp;
-					<a href="/manage/dataTrade/dataTrade">관리자</a>&emsp;
+					${nowLogin.mem_nm} 관리자님 안녕하세요  &emsp;
+					<a href="/manage/dataTrade/dataTrade">관리정보</a>&emsp;
 					<a href="/login/logout">로그아웃</a>
 				</c:if></li>
  				
@@ -370,7 +370,7 @@ input:disabled {
 		<!-- button -->
 		<div class="button">
 			<div class="buttons">
-				<button type="button" class="btn btn-outline-primary" id="house" value="multi" onclick="getBC(this)">단/다세대</button>
+				<button type="button" class="btn btn-outline-primary" id="house" value="house" onclick="getBC(this)">단/다세대</button>
 			</div>
 			<div class="buttons">
 				<button type="button" class="btn btn-outline-primary" id="apt" value="apt" onclick="getBC(this)">아파트</button>
@@ -391,7 +391,7 @@ input:disabled {
 					<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">시세보기</button>
 					<input type="hidden" id="bc_type"/>
 					<input type="hidden" id="building" name="building"/>
-					<input type="hidden" id="building" name="dl_ty" value="매매"/>
+					<input type="hidden" id="dl_ty" name="dl_ty" value="매매"/>
 				</form>
 		</div>
 			

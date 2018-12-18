@@ -15,26 +15,22 @@
 				<c:forEach items="${buildingSaleList}" var="build">
 					<div class="article">
 						<c:choose>
-							<c:when test="${building == 'apt'}">
+							<c:when test="${build.artcl_bc == 'apt'}">
 								<h4>${build.artcl_complx}</h4>
 							</c:when>
-							<c:when test="${building == 'multi'}">
-								<c:choose>
-									<c:when test="${build.artcl_bc == 'multi'}">
-										<h4>${build.artcl_rd}</h4>
-									</c:when>
-									<c:when test="${build.artcl_bc == 'multip'}">
-										<h4>${build.artcl_nm}</h4>
-									</c:when>
-									<c:when test="${build.artcl_bc == 'single'}">
-										<h4>${build.artcl_rd}</h4>
-									</c:when>
-								</c:choose>
+							<c:when test="${build.artcl_bc == 'multi'}">
+								<h4>${build.artcl_rd}</h4>
 							</c:when>
-							<c:when test="${building == 'office'}">
+							<c:when test="${build.artcl_bc == 'multip'}">
+								<h4>${build.artcl_nm}</h4>
+							</c:when>
+							<c:when test="${build.artcl_bc == 'single'}">
+								<h4>${build.artcl_rd}</h4>
+							</c:when>
+							<c:when test="${build.artcl_bc == 'office'}">
 								<h4>${build.artcl_complx}</h4>
 							</c:when>
-							<c:when test="${building == 'store'}">
+							<c:when test="${build.artcl_bc == 'store'}">
 								<h4>${build.artcl_rd}</h4>
 							</c:when>
 						</c:choose>

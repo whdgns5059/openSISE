@@ -6,6 +6,7 @@ public class InstiAttrVo {
 	private int iattr_pare;
 	private String iattr_key;
 	private String iattr_val;
+	private int level;
 	
 	public int getIattr_no() {
 		return iattr_no;
@@ -37,10 +38,17 @@ public class InstiAttrVo {
 	public void setIattr_val(String iattr_val) {
 		this.iattr_val = iattr_val;
 	}
+	
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	@Override
 	public String toString() {
 		return "InstiAttrVo [iattr_no=" + iattr_no + ", iattr_insti=" + iattr_insti + ", iattr_pare=" + iattr_pare
-				+ ", iattr_key=" + iattr_key + ", iattr_val=" + iattr_val + "]";
+				+ ", iattr_key=" + iattr_key + ", iattr_val=" + iattr_val + ", level=" + level + "]";
 	}
 	
 	

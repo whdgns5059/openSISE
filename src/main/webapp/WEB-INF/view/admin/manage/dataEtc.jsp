@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
 .data-updateDiv{
 	width: 100%;
@@ -65,12 +66,53 @@ label{
 <script type="text/javascript">
 	$(document).ready(function(){
 
-		$("#insti_nm").on("click",function(){
+		$("#insti_nm").on("change",function(){
 			var iattr_insti = $("#insti_nm option:selected").val();
 // 			alert(iattr_insti)
+// 			alert($("#test").text());
 		$("#here").val(iattr_insti);
 			$("#frm").submit();
 		});
+		
+		$("#tbody tr").on("click",function(){
+			var tr = $(this);
+			var td = $(tr.children()[1]).text();
+// 			alert(td.text());
+			$("#iattr_pare").val(td);
+		});
+		
+		 //최상단 체크박스 클릭
+	    $("#checkAll").click(function(){
+	        //클릭되었으면
+	        if($("#checkAll").prop("checked")){
+	            //class가 instiattr인 태그들을 찾아서 checked옵션을 true로 정의
+// 	            $("input[name=chk]").prop("checked",true);
+	            $(".instiattr").prop("checked",true);
+	            //클릭이 안되있으면
+	        }else{
+	            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+	            $(".instiattr").prop("checked",false);
+	        }
+	    })
+
+	    
+	    $("#del").click(function(){
+	    	
+		    var send_array = Array();
+			var send_cnt = 0;
+		    var checkList = $(".instiattr").val();
+			alert(checkList);
+			
+			for(i=0;i<checkList.length;i++){
+				if(checkList[i].checked == true){
+					send_array[send_cnt] = chkbox[i].value;
+			        send_cnt++;
+				}
+			}
+			
+			$("#checked").val(send_array);
+	    });
+
 	});
 </script>
  
@@ -122,6 +164,12 @@ label{
 		<!-- 시설추가 -->
 		<br/>
 		<label>시설 추가하기</label>
+		<form action="/manage/dataEtc/deletInstiAttr">
+			<div style="float: right;margin-right: 130px;margin-top: 25px;">
+				<input type="text" id="checked" name="checked" value=""/>
+				<button type="button" id="del" name="del">삭제</button>
+			</div>
+		</form>
 		<div class="insti">
 			<form id="frm" name="frm" action="/manage/dataEtc/selectInsti" method="post">
 				시설명 : <select id="insti_nm" name="instiNm">
@@ -144,34 +192,44 @@ label{
 					<table class="info">
 						<thead>
 							<tr>
-								<c:forEach items="${instiAttrList }" var="instiAttrVo" varStatus="status">
-									<c:set var="str1" value="${instiAttrList[status.index+1].iattr_pare}"/>
-									<c:choose>
-											<td></td>
-										<c:when test="${instiAttrVo.iattr_key != str1 }">
-											<td>${instiAttrVo.iattr_key }</td>
-										</c:when>
-									</c:choose>
+								<td>번호<input type="checkbox" id="checkAll"/></td>
+								<!-- 중복제거한 컬럼명 -->
+								<c:forEach items="${insti_attrList }" var="instiAttrVo" varStatus="status">
+									<td>${instiAttrVo.iattr_key }</td>
 								</c:forEach>
 							</tr>
 						</thead>
-						<tbody>
-							
-								<c:forEach items="${instiAttrList }" var="instiAttrVo">
-									<c:set var="str" value="${instiAttrList[status.index+1].iattr_pare}"/>
-									<c:choose>
-										<tr>
-											<c:when test="${instiAttrVo.iattr_pare == null }">
-												<td>${str }</td>
-											</c:when>
-											<c:when test="${instiAttrVo.iattr_pare != str }">
-										</tr>
-										<tr>		
-											</c:when>
-												<td>${instiAttrVo.iattr_val }</td>
-										</tr>
-									</c:choose>
-								</c:forEach>
+						<tbody id="tbody">
+							<tr>
+								<c:if test="${instiAttrList !=null }">
+									<!-- 값을 가져오는 반복문 -->
+									<c:forEach items="${instiAttrList }" var="instiAttrListList" varStatus="status">
+									<tr>
+										<td><input type="checkbox" name="chk[]" value="chk${status.count }" class="instiattr"/>&nbsp;${status.count }</td>
+										<td style="display: none;">${instiAttrListList[0].iattr_no }</td>
+										<c:set var="loop_flag" value="false" />
+										<c:forEach items="${instiAttrListList }" var="instiAttrVo2" varStatus="statusAt">
+											<!-- 중복제거한 컬럼명 -->
+											
+												
+													<c:forEach items="${insti_attrList }" var="instiAttrVo" varStatus="status">
+														<c:if test="${fn:trim(instiAttrVo2.iattr_key) == instiAttrVo.iattr_key}">
+																<c:set var="loop_flag" value="true" />
+																<td>${instiAttrVo2.iattr_key} == ${instiAttrVo.iattr_key} / ${instiAttrVo2.iattr_val}</td>
+														</c:if>
+													</c:forEach>
+													
+													<%--컬럼 메타 데이터에 일치하는 속성명이 없는 시설물 속성 공백 출력 --%>
+													<c:if test="${not loop_flag }">
+														<td>&nbsp;</td>
+													</c:if>
+													
+													<c:set var="loop_flag" value="false" />
+										</c:forEach>
+									</tr>
+									</c:forEach>
+								</c:if>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -179,6 +237,8 @@ label{
 				<div class="insti">
 					속성명 : <input type="text" name="iattr_key" placeholder="예: 도서관이름">
 					속성값 : <input type="text" name="iattr_val" placeholder="예: 유성도서관">
+					<input type="hidden" id="iattr_pare" value="0" name="iattr_pare"/>
+					<input type="hidden" value="${iattr_insti }" name="iattr_insti"/>
 					<button>입력</button>
 				</div>
 			</div>

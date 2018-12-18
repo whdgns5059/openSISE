@@ -51,7 +51,10 @@ public class InsertAllData{
 	 * 데이터 분량에 따라 시간이 오래걸림 1000건에 1분 내외
 	 * @throws IOException 
 	 ******************************************/
-	public void insertAllDataTrade(String root) throws IOException {
+	public List<String> insertAllDataTrade(String root, List<String> sidoWorng) throws IOException {
+		
+		List<String> sidoWrongList = new ArrayList<>();
+		sidoWrongList.addAll(sidoWorng);
 		
 		File directory = new File(root);
 		
@@ -77,7 +80,7 @@ public class InsertAllData{
 				}	
 				
 				try {
-					insertAllDataTrade(file.getCanonicalPath().toString());
+					sidoWrongList.addAll((insertAllDataTrade(file.getCanonicalPath().toString(), sidoWrongList)));
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -116,6 +119,18 @@ public class InsertAllData{
 				if(divisionCell == null) {
 					
 					printError(file);
+					continue;
+					
+				}
+				
+				//10번째 행에서 시도 구분 가져오기
+				XSSFRow sidoRow = sheet.getRow(10);
+				XSSFCell sidoCell = sidoRow.getCell(0);
+				
+				if(!sidoCell.toString().equals("시도 : 대전광역시")) {
+					
+					printError(file);
+					sidoWrongList.add(file.getName());
 					continue;
 					
 				}
@@ -263,7 +278,7 @@ public class InsertAllData{
 		log.info(" 좌표입력 종료!!");
 		log.info("***************************************");
 		
-		
+		return sidoWrongList;
 		
 	}
 

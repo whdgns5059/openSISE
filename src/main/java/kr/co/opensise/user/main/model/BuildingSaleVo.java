@@ -3,6 +3,7 @@ package kr.co.opensise.user.main.model;
 public class BuildingSaleVo {
 	private String artcl_gu;
 	private String artcl_dong;
+	private String artcl_zip;
 	private String artcl_bc;
 	private String artcl_complx;
 	private String artcl_nm;
@@ -115,6 +116,13 @@ public class BuildingSaleVo {
 	public void setArtcl_bc(String artcl_bc) {
 		this.artcl_bc = artcl_bc;
 	}
+	public String getArtcl_zip() {
+		return artcl_zip;
+	}
+	public void setArtcl_zip(String artcl_zip) {
+		this.artcl_zip = artcl_zip;
+	}
+	
 	
 	
 

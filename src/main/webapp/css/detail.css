@@ -1,42 +1,88 @@
-@charset "UTF-8";
-	#map {width : 650px; height:1000px;}
-	#rightContentWrapper {width : 1250px; height:1000px; overflow:hidden}
-	#rightContent{width : 1200px; height:920px; overflow-y: scroll; overflow-x:hidden;
-					margin:auto; margin-top:40px; margin-bottom: 40px;}
-	#articleNameDiv{text-align: center;}
-	#articleNameSpan {font-size: 40px;  }
-	#areaDiv {height:30px;}
-	#threeMonthInfoDiv{height: 110px; width:1500px; text-align:center; padding-top: 10px;}
-	.subThreeMonth {float:left; width:600px;}		
-	.floatClearDiv {clear:both; padding: 5px;}
-		
-	.subTitle {font-size: 30px;}
-	.subContent {font-size: 25px;}
-	
-	#myChart{ width:1200px; height:500px; margin-top: 30px;}
-	
-	#siseTableDiv {width:1200px; height: 500px; text-align: center;}
-	#siseTable {width: 1000px; height: 400px; margin: auto; border:1px solid black;}
-	
-	#loanClacDiv {width: 1200px; height: 200px; text-align: center;}
-	.marginTop {margin-top: 30px;}
-	
-	#radarChartDiv {width: 1200px; height:500px;}
-	
-	#reviewDiv {width: 1200px; min-height: 300px;}
-	.reviewWrapper {width: 1000px; margin:auto;}
-	.titleWrapper {width: 1000px; margin:auto;}
-	.titleWrapper * {border:1px solid black;}
-	.reviewDate { clear:left; float:left; width:200px;}
-	.reviewTitle {float:left; width: 600px;}
-	.reviewWriter {float:left; width: 200px;}
-	.reviewDetailWrapper {width:1000px;clear:left; margin:auto; padding-top: 15px; padding-bottom: 15px; }
-	.starDivWrapper { height: 45px;}
-	.starDiv {float:left;}
-	.reportDiv {float:left; width: 800px; text-align: right;}
-	.photo {clear:left;}
-	.reviewModify {text-align: right;}	
-	
-	
-	#mapWrap {position: relative;}
-	.toLocal {position: absolute; top: 740px; left: 540px; z-index: 10; width:150px; height: 150px;}
+.floatclear {clear:left;}
+
+.orangetext {color : #f29c3e; font-weight: bold; font-size: x-large;}
+.textright {text-align: right;}
+
+.detailcontainer { width:1100px; height:900px; overflow-y: scroll; overflow-x:hidden;}
+.detailcontainer div {padding-left :20px; padding-top : 10px;}
+
+
+.chartajax {padding: 0px !important;}
+.chartajax div {padding: 0px !important; margin: 0px !important;}
+#mapWrap {position: relative;}
+#map {width : 700px; height:900px;}
+.toLocal {position: absolute; top: 740px; left: 540px; z-index: 10; width:150px; height: 150px;}
+
+.info {width: 1100px; height: 150px; padding : 20px;}
+.info div {width: 40%; float:left;}
+.info .like {padding-top: 40px;}
+
+
+
+#review {min-height: 300px;}
+#review div {padding:0px !important;}
+
+
+.reviewWrapper {margin:auto; margin:20px;}
+.titleWrapper {margin:auto;}
+.titleWrapper * {border:1px solid black;}
+.reviewDate { clear:left; float:left; width:200px;}
+.reviewTitle {float:left; width: 600px;}
+.reviewWriter {float:left; width: 200px;}
+.reviewDetailWrapper {clear:left; margin:auto; padding-top: 15px; padding-bottom: 15px; }
+.starDivWrapper { height: 45px;}
+.starDiv {float:left;}
+.reportDiv {float:left; width: 800px; text-align: right;}
+.photo {clear:left;}
+.reviewModify {text-align: right;}
+
+
+
+#mask {  
+    position:absolute;  
+    z-index:9000;  
+    background-color:#000;  
+    display:none;  
+    left:0;
+    top:0;
+} 
+.window{
+    left: 50%;
+    width: 1000px;
+    height: 600px;
+    background-color: #FFF;
+    z-index: 10000;
+    border-radius: 20px;
+    position: fixed;
+    margin-left: -25%;
+    top: 50%;
+    margin-top: -350px;
+    overflow: auto;
+    padding: 30px 20px 20px 20px;
+    display: none;
+}
+.window h2{
+    float: left;
+    display: contents;
+}
+.close{
+	font-size: 14px;
+	color: black;
+}
+.notice-pop{
+ 	margin: 0 auto;
+ 	margin-top: 30px;
+    width: 850px;
+    height: 566px;
+	overflow:scroll;
+	overflow-x:hidden; 
+	overflow-y:auto;
+}
+.notice-tbl{
+    margin: 0 auto;
+    width: 830px;
+    height: 566px;
+}
+.notice-content{
+	padding: 8px 90px !important;
+} 	
