@@ -258,6 +258,18 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 	
+	@Test
+	public void selectReviewByNo() {
+		
+		/***given***/
+		String post_no = "5";
+		/***when***/
+		PostVo result = detailDao.selectReviewByNo(post_no);
+
+		/***then***/
+		assertEquals(5, result.getPost_no());
+	}
+	
 }
 
 

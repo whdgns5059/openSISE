@@ -147,9 +147,21 @@
 									<p>${postVo.post_cntnt }
 									</p>
 								</div>
-								<div class="reviewModify">
-									<button class="btn">수정</button>
-									<button class="btn">삭제</button>
+								<div class="reviewModify row">
+									<div class="updateReview">
+										<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
+										<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
+										<button class="btn">수정</button>
+									</div>
+									<div class="deleteReview">
+										<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
+										<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
+										<button class="btn">삭제</button>
+									</div>
+								</div>
+								<div class="floatclear"></div>
+								<div>
+									<hr/>
 								</div>
 								<div class="replyWrapper">
 									<input type="hidden" class="post_noChk" value="${postVo.post_no }"/>

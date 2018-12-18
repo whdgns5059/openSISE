@@ -1,4 +1,4 @@
-.floatclear {clear:left;}
+.floatclear {clear:left; clear:right;}
 
 .orangetext {color : #f29c3e; font-weight: bold; font-size: x-large;}
 .textright {text-align: right;}
@@ -34,7 +34,7 @@
 .starDiv {float:left;}
 .reportDiv {float:left; width: 800px; text-align: right;}
 .photo {clear:left;}
-.reviewModify {text-align: right;}
+.reviewModify {float: right; width: 400px;}
 
 .labelred {color: red; font-weight: bold;}
 .replyInput {width: 400px; margin-right:20px;}

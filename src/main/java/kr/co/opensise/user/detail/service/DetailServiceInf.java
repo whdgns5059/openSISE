@@ -52,6 +52,20 @@ public interface DetailServiceInf {
 	
 	int deleteReply(int rpl_no);
 	
+	PostVo selectReviewByNo(String post_no);
+
+	/*************************************************  
+	* Method   : deleteReview 
+	* 작성자 :  whdgn
+	* 변경이력 :  2018. 12. 19.
+	* @param post_no
+	* @return  
+	* Method 설명 : 삭제시 해당 리뷰를 부모로 하는
+	* 자식 댓글까지 다 삭제한다
+	**************************************************/
+	int deleteReview(String post_no);
+	
+	
 	
 }
 

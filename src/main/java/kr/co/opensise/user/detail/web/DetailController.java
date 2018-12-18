@@ -124,6 +124,22 @@ public class DetailController {
 		
 		return "redirect:/detail/selectReplyAjax";
 	}
+	
+	@RequestMapping("/deleteReview")
+	public String deleteReview(@RequestParam("post_no") String post_no, @RequestParam("dl_ty") String dl_ty, Model model) {
+		
+		PostVo postVo = detailService.selectReviewByNo(post_no);
+		
+		int result = detailService.deleteReview(post_no);
+	
+		model.addAttribute("artcl_gu", postVo.getPost_gu());
+		model.addAttribute("artcl_dong", postVo.getPost_dong());
+		model.addAttribute("artcl_zip", postVo.getPost_zip());
+		model.addAttribute("artcl_rd", postVo.getPost_rd());
+		model.addAttribute("dl_ty", dl_ty);
+		
+		return "redirect:/detail/info";
+	}
 
 }
 

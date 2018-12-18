@@ -80,5 +80,22 @@ public class DetailDao implements DetailDaoInf{
 		return template.delete("detail.deleteReply", rpl_no);
 	}
 
+	@Override
+	public PostVo selectReviewByNo(String post_no) {
+		return template.selectOne("detail.selectReviewByNo", post_no);
+	}
+
+	@Override
+	public int deleteReview(String post_no) {
+		return template.delete("detail.deleteReview", post_no);
+	}
+
+	@Override
+	public int deleteReviewChild(String post_no) {
+		return template.delete("detail.deleteReviewChild", post_no);
+	}
+	
+	
+
 
 }

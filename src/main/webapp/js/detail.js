@@ -314,7 +314,14 @@ $('.reply').on('click', '.deleteReply',  function(e){
 });
 
 
-
+//리뷰 삭제
+$('.deleteReview').on('click', function(){
+	
+	var post_no = this.getElementsByClassName('post_no')[0].value;
+	var dl_ty = this.getElementsByClassName('dl_ty')[0].value;
+	location.href = '/detail/deleteReview?post_no='+post_no+'&dl_ty='+dl_ty;
+	
+});
 
 
 

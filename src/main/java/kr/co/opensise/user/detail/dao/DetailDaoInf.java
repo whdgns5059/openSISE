@@ -33,4 +33,10 @@ public interface DetailDaoInf {
 	List<ReplyVo> selectReply(int post_no);
 
 	int deleteReply(int rpl_no);
+
+	PostVo selectReviewByNo(String post_no);
+
+	int deleteReview(String post_no);
+	
+	int deleteReviewChild(String post_no);
 }

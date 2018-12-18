@@ -105,6 +105,21 @@ public class DetailService implements DetailServiceInf{
 		return detailDao.deleteReply(rpl_no);
 	}
 
+	@Override
+	public PostVo selectReviewByNo(String post_no) {
+		return detailDao.selectReviewByNo(post_no);
+	}
+
+	@Override
+	public int deleteReview(String post_no) {
+		detailDao.deleteReviewChild(post_no);
+		return detailDao.deleteReview(post_no);
+	}
+
+	
+	
+
+
 
 }
 
