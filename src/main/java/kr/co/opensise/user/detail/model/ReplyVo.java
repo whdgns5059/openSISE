@@ -6,8 +6,16 @@ public class ReplyVo {
 	private String rpl_cntnt; 
 	private String rpl_date;
 	private String rpl_exst;
-	private String rpl_post;
+	private int rpl_post;
 	private int rpl_mem;
+	private String mem_email;
+
+	public String getMem_email() {
+		return mem_email;
+	}
+	public void setMem_email(String mem_email) {
+		this.mem_email = mem_email;
+	}
 	public int getRpl_no() {
 		return rpl_no;
 	}
@@ -32,10 +40,10 @@ public class ReplyVo {
 	public void setRpl_exst(String rpl_exst) {
 		this.rpl_exst = rpl_exst;
 	}
-	public String getRpl_post() {
+	public int getRpl_post() {
 		return rpl_post;
 	}
-	public void setRpl_post(String rpl_post) {
+	public void setRpl_post(int rpl_post) {
 		this.rpl_post = rpl_post;
 	}
 	public int getRpl_mem() {

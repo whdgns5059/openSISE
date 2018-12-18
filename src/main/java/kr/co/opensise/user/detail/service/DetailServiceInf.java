@@ -1,9 +1,11 @@
 package kr.co.opensise.user.detail.service;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.user.detail.model.PostVo;
+import kr.co.opensise.user.detail.model.ReplyVo;
 
 public interface DetailServiceInf {
 	
@@ -42,6 +44,11 @@ public interface DetailServiceInf {
 	Map<String, Object> getDetailTradeInfo(ArticleVo articleVo, String dl_ty, float dl_excv_area );
 	
 	int insertReview(PostVo postVo);
+	
+	
+	int insertReply(ReplyVo replyVo);
+	
+	List<ReplyVo> selectReply(int post_no);
 	
 	
 	

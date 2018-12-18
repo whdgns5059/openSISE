@@ -6,6 +6,7 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PostVo;
+import kr.co.opensise.user.detail.model.ReplyVo;
 
 public interface DetailDaoInf {
 	
@@ -26,4 +27,8 @@ public interface DetailDaoInf {
 	List<PostVo> selectReview(ArticleVo articleVo);
 	
 	List<DealVo> selectMonthlyAng(DealVo dealVo);
+	
+	int insertReply(ReplyVo replyVo);
+	
+	List<ReplyVo> selectReply(int post_no);
 }

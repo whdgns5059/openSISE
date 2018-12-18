@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
+import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PostVo;
+import kr.co.opensise.user.detail.model.ReplyVo;
 import kr.co.opensise.user.detail.service.DetailServiceInf;
 
 @Controller
@@ -67,11 +70,43 @@ public class DetailController {
 	}
 	
 	@RequestMapping("/insertReview")
-	public String insertReview(PostVo postVo) {
+	public String insertReview(PostVo postVo, @RequestParam("dl_ty") String dl_ty, Model model) {
 	
 		detailService.insertReview(postVo);
+		
+		
+		model.addAttribute("artcl_gu", postVo.getPost_gu());
+		model.addAttribute("artcl_dong", postVo.getPost_dong());
+		model.addAttribute("artcl_zip", postVo.getPost_zip());
+		model.addAttribute("artcl_rd", postVo.getPost_rd());
+		model.addAttribute("dl_ty", dl_ty);
+		
+		return "redirect:/detail/info";
+	}
 	
-		return "detail";
+	@RequestMapping("/selectReplyAjax")
+	public String selectReplyAjax(@RequestParam("post_no") String post_no, Model model) {
+	
+		int post_no_int = Integer.parseInt(post_no);
+		
+		List<ReplyVo> replyList = detailService.selectReply(post_no_int);
+	
+		model.addAttribute("replyList", replyList);
+		
+		return "user/detailAjax/reply";
+	}
+	
+	@RequestMapping("/insertReply")
+	public String insertReply(ReplyVo replyVo, HttpSession session, Model model) {
+		
+		MemberVo memberVo =  (MemberVo) session.getAttribute("nowLogin");
+		replyVo.setRpl_mem(memberVo.getMem_no());
+		
+		int result = detailService.insertReply(replyVo);
+	
+		model.addAttribute("post_no", replyVo.getRpl_post());
+		
+		return "redirect:/detail/selectReplyAjax";
 	}
 
 }

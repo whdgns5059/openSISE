@@ -82,7 +82,19 @@
 		where a.dl_cont_ym(+) = b.dl_cont_ym2
 		ORDER BY B.dl_cont_ym2
 	</select>
-		
+
+	<insert id="insertReply" parameterType="replyVo">
+		insert into reply (rpl_no, rpl_cntnt, rpl_date, rpl_exst, rpl_post, rpl_mem)
+		values (seq_rpl_no.nextval, #{rpl_cntnt}, sysdate, 'N', #{rpl_post}, #{rpl_mem})
+	</insert>		
+	
+	<select id="selectReply" parameterType="int" resultType="replyVo">
+	    select rpl_no, rpl_cntnt, to_char(rpl_date, 'yyyy-MM-dd') as rlp_date, rpl_exst, rpl_post, rpl_mem, mem_email from 
+		(select * from post
+			where post_no = #{int}), reply b, member
+		where post_no = rpl_post
+		and rpl_mem = mem_no
+	</select>
 		
 </mapper>
 

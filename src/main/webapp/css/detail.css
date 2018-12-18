@@ -22,12 +22,12 @@
 #review {min-height: 300px;}
 #review div {padding:0px !important;}
 
-
 .reviewWrapper {margin:auto; margin:20px;}
 .titleWrapper {margin:auto;}
 .titleWrapper * {border:1px solid black;}
-.reviewDate { clear:left; float:left; width:200px;}
-.reviewTitle {float:left; width: 600px;}
+.reviewNo {clear:left; float:left; width:30px;}
+.reviewDate { float:left; width:200px;}
+.reviewTitle {float:left; width:500px;}
 .reviewWriter {float:left; width: 200px;}
 .reviewDetailWrapper {clear:left; margin:auto; padding-top: 15px; padding-bottom: 15px; }
 .starDivWrapper { height: 45px;}
@@ -36,6 +36,8 @@
 .photo {clear:left;}
 .reviewModify {text-align: right;}
 
+.labelred {color: red; font-weight: bold;}
+.replyInput {width: 400px; margin-right:20px;}
 
 
 #mask {  
@@ -86,3 +88,4 @@
 .notice-content{
 	padding: 8px 90px !important;
 } 	
+.reviewStarDiv {padding-left : 30px !important;}

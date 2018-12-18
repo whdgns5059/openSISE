@@ -13,6 +13,7 @@ import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PostVo;
+import kr.co.opensise.user.detail.model.ReplyVo;
 
 @Service
 public class DetailService implements DetailServiceInf{
@@ -87,6 +88,16 @@ public class DetailService implements DetailServiceInf{
 	@Override
 	public int insertReview(PostVo postVo) {
 		return detailDao.insertReview(postVo);
+	}
+
+	@Override
+	public int insertReply(ReplyVo replyVo) {
+		return detailDao.insertReply(replyVo);
+	}
+
+	@Override
+	public List<ReplyVo> selectReply(int post_no) {
+		return detailDao.selectReply(post_no);
 	}
 
 
