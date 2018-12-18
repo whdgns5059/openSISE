@@ -167,7 +167,7 @@
 		$("#dl_ty").val(dl_Type);
 		
 		
-		settingMap();
+		settingMap(0,0);
 		sliderRange(0,30);
 		
 		/*------------ 슬라이드 생성 코드(매매) ---------------*/
@@ -352,10 +352,9 @@
 		
 		$(".article").hover(
 			function(){
-				console.log(document.getElementsByClassName("article"));
-			},
-			function(){
-				settingMap();
+				var x = this.getElementsByClassName("lat")[0].value;	// mouseOver가 된 해당 매물의 위도
+				var y = this.getElementsByClassName("lng")[0].value;	// mouseOver가 된 해당 매물의 경도
+				settingMap(x,y);
 			}
 		);
 		
@@ -373,23 +372,25 @@
 			success : function(data){
 				$(".main-right").html("");
 				$(".main-right").html(data);
-				settingMap();
+				settingMap(0,0);
 			}
 		});
 	}
 	
-	function settingMap(){
-		var x;
-		var y;
-
+	function settingMap(x,y){
+		var lat;
+		var lng;
 		if ($("#loc").val() == "" || $("#listSize").val() == 0) {
 			// 검색값이 없을 때 시청으로 기본 좌표값 설정
-			x = 36.3505393936125;
-			y = 127.38483389033713;
-		} else {
+			lat = 36.3505393936125;
+			lnt = 127.38483389033713;
+		}else if(x == 0 && y == 0) {
 			// 해당 주소에 대한 좌표값을 담을 변수
-			x = $(".lat").val(); //위도
-			y = $(".lng").val(); //경도
+			lat = $(".lat").val(); //위도
+			lng = $(".lng").val(); //경도
+		}else{
+			lat = x;
+			lng = y;
 		}
 
 		// 해당 주소를 담을 값
@@ -398,7 +399,7 @@
 		/*------------ 지도생성 코드 ----------------*/
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
-			center : new daum.maps.LatLng(x, y), // 지도의 중심좌표
+			center : new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
 			level : 3
 		// 지도의 확대 레벨
 		};
@@ -410,7 +411,7 @@
 		var positions = setLatlngArr();
 
 		//마커가 표시될 위치입니다 
-		var markerPosition = new daum.maps.LatLng(x, y);
+		var markerPosition = new daum.maps.LatLng(lat, lng);
 		for(var i =0; i<positions.length; i++){
 			//마커를 생성합니다
 			var marker = new daum.maps.Marker({
@@ -633,10 +634,10 @@
 	
 	<div id="lngLat">
 	<input type="hidden" id="listSize" value="${buildingSaleListSize}" />
-	<c:forEach items="${buildingSaleList}" var="build">
+<%-- 	<c:forEach items="${buildingSaleList}" var="build">
 		<input type="hidden" class="lat" value="${build.artcl_lat}">
 		<input type="hidden" class="lng" value="${build.artcl_lng}">
-	</c:forEach>
+	</c:forEach> --%>
 	</div>
 <!-- 매물리스트  -->
 	<div class="articles">
@@ -644,6 +645,8 @@
 			<c:when test="${buildingSaleListSize != 0}">
 				<c:forEach items="${buildingSaleList}" var="build">
 					<div class="article">
+						<input type="hidden" class="lat" value="${build.artcl_lat}">
+						<input type="hidden" class="lng" value="${build.artcl_lng}">
 						<c:choose>
 							<c:when test="${building == 'apt'}">
 								<h4>${build.artcl_complx}</h4>
