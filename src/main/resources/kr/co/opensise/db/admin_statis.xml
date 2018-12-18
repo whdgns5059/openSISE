@@ -148,6 +148,10 @@
 		From   INTEREST I
 	</select>
 	
+	<insert id="insertVisitor" >
+		Insert Into visitor Values (sysdate, 1)
+	</insert>
+	
 	
 	
 	
