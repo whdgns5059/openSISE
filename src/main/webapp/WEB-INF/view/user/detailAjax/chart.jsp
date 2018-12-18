@@ -30,6 +30,9 @@
 	<div id="monthlyAvg"></div>
 </div>
 <div>
+	<hr/>
+</div>
+<div>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -41,9 +44,9 @@
 		<tbody>
 			<c:forEach items="${dealListByArea }" var="dealList" begin="0" end="6">
 			<tr>
-				<td>${dealList.dl_cont_ym }월  ${dealList.dl_cont_d }</td>
-				<td>${dealList.dl_price }</td>
-				<td>${dealList.dl_flr }</td>
+				<td width="250px">${dealList.dl_cont_ym }월  ${dealList.dl_cont_d }</td>
+				<td width="300px">${dealList.dl_price }</td>
+				<td width="100px">${dealList.dl_flr }</td>
 			</tr>
 			</c:forEach>
 		</tbody>

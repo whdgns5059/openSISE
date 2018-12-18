@@ -86,8 +86,60 @@ function detailInfoAjax(area){
 }
 
 
-settingMap();
+//리뷰 컨트롤 
+function reviewControl(){
+	$('.reviewDetailWrapper').hide();
+	
+	$('.titleWrapper').on('click',  function(){
+		if($(this.nextElementSibling).is(':visible')){
+			$(this.nextElementSibling).hide("slow");
+		}else{
+			$(this.nextElementSibling).show("slow");
+		}
+	});
+}
 
+
+//리뷰 별
+$(function() {
+    $('.starReview').raty({
+        score: 3
+        ,path : "/img"
+        ,width : 200
+        ,click: function(score, evt) {
+            $("#starRating").val(score);
+            $("#displayStarRating").html(score);
+        }
+    });
+});
+
+//모달 페이지
+function wrapWindowByMask(){
+	
+    //화면의 높이와 너비를 구한다.
+    var maskHeight = $(document).height();  
+    var maskWidth = $(window).width();  
+
+    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+    $("#mask").css({"width":maskWidth,"height":maskHeight});  
+
+    //애니메이션 효과 - 일단 0초동안 까맣게 됐다가 60% 불투명도로 간다.
+    $("#mask").fadeIn(0);      
+    $("#mask").fadeTo("slow",0.6);    
+
+    //윈도우(팝업창) 띄운다.
+   	$('.reviewWindow').show();
+
+}
+
+
+settingMap();
+reviewControl();
+
+
+//최초 로딩시 ajax 호출
+var defaultarea = document.getElementsByClassName('areatab')[0].innerHTML;
+detailInfoAjax(defaultarea);
 
 
 $('.area').on('click', '.areatab', function(){
@@ -98,4 +150,26 @@ $('.area').on('click', '.areatab', function(){
 });
 
 
+$("#reviewWindow").hide();
+
+
+//검은 막 띄우기
+$(".openMask").click(function(e) {
+	e.preventDefault();
+	wrapWindowByMask();
+});
+
+//닫기 버튼을 눌렀을 때
+$(".window .close").click(function(e) {
+	//링크 기본동작은 작동하지 않도록 한다.
+	e.preventDefault();
+	$("#mask, .window").hide();
+});
+
+//검은 막을 눌렀을 때
+$("#mask").click(function() {
+	$(this).hide();
+	$(".window").hide();
+
+});
 

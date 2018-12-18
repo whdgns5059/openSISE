@@ -24,7 +24,7 @@ public class DetailController {
 	private DetailServiceInf detailService;
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/detail")
+	@RequestMapping("/info")
 	public String detail(ArticleVo articleVo, @RequestParam("dl_ty") String dl_ty, Model model) {
 		
 		Map<String, Object> detailMap = detailService.getDetailInfo(articleVo, dl_ty);
