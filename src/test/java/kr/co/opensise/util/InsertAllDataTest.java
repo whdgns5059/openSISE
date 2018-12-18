@@ -32,7 +32,7 @@ public class InsertAllDataTest extends RootSetup{
 		/*
 		String root = "C:\\Users\\nlbo\\Desktop\\실거래가\\201401";
 		/*/
-		String root = "D:\\A_TeachingMaterial\\7.LastProject\\TradeInfo";
+		String root = "D:\\A_TeachingMaterial\\7.LastProject\\TradeInfo\\누락";
 		//*/
 		
 		/***when***/

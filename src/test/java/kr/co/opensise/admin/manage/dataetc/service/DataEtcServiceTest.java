@@ -1,4 +1,4 @@
-package kr.co.opensise.admin.manage.dataetc.dao;
+package kr.co.opensise.admin.manage.dataetc.service;
 
 import static org.junit.Assert.*;
 
@@ -16,12 +16,12 @@ import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
 import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
 import kr.co.opensise.setup.RootSetup;
 
-public class DataEtcDaoTest extends RootSetup{
+public class DataEtcServiceTest extends RootSetup{
 
-	private Logger log = LoggerFactory.getLogger(DataEtcDaoTest.class);
+	private Logger log = LoggerFactory.getLogger(DataEtcServiceTest.class);
 	
-	@Resource(name="dataEtcDao")
-	private DataEtcDaoInf dataEtcDao;
+	@Resource(name="dataEtcService")
+	private DataEtcServiceInf dataEtcService;
 	
 	@Test
 	public void insertBusDaoTest() {
@@ -44,7 +44,7 @@ public class DataEtcDaoTest extends RootSetup{
 		
 		/***when***/
 		int insertBus = 0;
-		insertBus = dataEtcDao.insertBus(busList);
+		insertBus = dataEtcService.insertBus(busList);
 
 		/***then***/
 		assertEquals(2, insertBus);
@@ -59,45 +59,36 @@ public class DataEtcDaoTest extends RootSetup{
 		instiVo.setInsti_nm(insti);
 		
 		/***When***/
-		int insertInsti = dataEtcDao.insertInsti(instiVo);
+		int insertInsti = dataEtcService.insertInsti(instiVo);
 
 		/***Then***/
 		assertEquals("도서관", instiVo.getInsti_nm());
 	}
 	
 	@Test
-	public void selectInstiListDaoTest() {
-		/***Given***/
-		
-		/***When***/
-		List<InstiVo> instiList = dataEtcDao.selectInsti();
-		/***Then***/
-		assertEquals("도서관", instiList.get(0).getInsti_nm());
-	}
-	
-	@Test
-	public void selectInstiAttrListDaoTest() {
+	public void selectInstiAttrListServiceTest() {
 		/***Given***/
 		int iattr_insti=1;
 		/***When***/
-		List<InstiAttrVo> instiAttrList = dataEtcDao.selectInstiAttr(iattr_insti);
+		List<List<InstiAttrVo>> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
 		/***Then***/
 		assertEquals(6, instiAttrList.size());
 	}
-	
+
 	@Test
-	public void insertIattrDaoTest() {
+	public void insertIattrServiceTest() {
 		/***Given***/
 		InstiAttrVo instiAttrVo = new InstiAttrVo();
 		instiAttrVo.setIattr_insti(2);
 		instiAttrVo.setIattr_key("병원명");
-		instiAttrVo.setIattr_val("을지대병원");
+		instiAttrVo.setIattr_val("충남대병원");
 		
 		/***When***/
-		int insertInstiattr = dataEtcDao.insertInstiattr(instiAttrVo);
+		int insertInstiattr = dataEtcService.insertInstiattr(instiAttrVo);
 		
 		/***Then***/
 		assertEquals(1, insertInstiattr);
 	}
+
 
 }

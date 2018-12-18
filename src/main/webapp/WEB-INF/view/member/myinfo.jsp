@@ -19,27 +19,47 @@
 		
 		<div class="form-group">
 			<label for="memGndr" class="col-sm-2 control-label">성별</label>
-			<label for="memGndr" class="control-label" >
-			<!--<c:set var="gndr" value="${memberVo.mem_gndr}" />-->
 			<c:choose>
-				<c:when test="${memberVo.mem_gndr == 'F'}">
-					여자
+				<c:when test="${memberVo.mem_gndr == null}">
+					<label for="memGndr" class="control-label" >선택안함</label>
 				</c:when>
-				<c:when test="${memberVo.mem_gndr == 'M'}">
-					남자
+				<c:when test="${memberVo.mem_gndr != null}">
+					<label for="memGndr" class="control-label" >
+						<c:choose>
+							<c:when test="${memberVo.mem_gndr == 'F'}">
+								여자
+							</c:when>
+							<c:when test="${memberVo.mem_gndr == 'M'}">
+								남자
+							</c:when>
+						</c:choose>
+					</label>
 				</c:when>
 			</c:choose>
-			</label>
 		</div>
 		
 		<div class="form-group">
 			<label for="memAge" class="col-sm-2 control-label">연령대</label>
-			<label for="memAge" class="control-label">${memberVo.mem_age}</label>
+			<c:choose>
+				<c:when test="${memberVo.mem_age == '0' }">
+					<label for="memAge" class="control-label">선택안함</label>
+				</c:when>
+				<c:when test="${memberVo.mem_age != '0' }">
+					<label for="memAge" class="control-label">${memberVo.mem_age}</label>
+				</c:when>
+			</c:choose>
 		</div>
 		
 		<div class="form-group">
 			<label for="memJob" class="col-sm-2 control-label">직장정보</label>
-			<label for="memJob" class="control-label">${memberVo.job_nm}</label>
+			<c:choose>
+				<c:when test="${memberVo.job_nm == null }">
+					<label for="memJob" class="control-label">선택안함</label>
+				</c:when>
+				<c:when test="${memberVo.job_nm != null }">
+					<label for="memJob" class="control-label">${memberVo.job_nm}</label>
+				</c:when>
+			</c:choose>
 		</div>
 	
 	</div>

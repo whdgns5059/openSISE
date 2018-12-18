@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
 import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
+import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
 import kr.co.opensise.admin.manage.dataetc.model.RouteVo;
 import kr.co.opensise.admin.manage.dataetc.model.StationVo;
@@ -21,11 +23,13 @@ public class DataEtcDao implements DataEtcDaoInf {
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
 	
+	//인구통계
 	@Override
 	public int insertHuman_statistic(List<HumanStatisticVo> human_statisticList) {
 		return template.insert("dataEtc.insertHumanStatistic", human_statisticList);
 	}
 
+	//물가
 	@Override
 	public int insertMarket(List<MarketVo> marketList) {
 		return template.insert("dataEtc.insertMarket",marketList);
@@ -36,6 +40,7 @@ public class DataEtcDao implements DataEtcDaoInf {
 		return template.insert("dataEtc.insertMarketDetail",marketDetailList);
 	}
 
+	//교통
 	@Override
 	public int insertBus(List<BusVo> busList) {
 		return template.insert("dataEtc.insertBus",busList);
@@ -64,6 +69,40 @@ public class DataEtcDao implements DataEtcDaoInf {
 	@Override
 	public int deleteStation() {
 		return template.delete("dataEtc.deleteStation");
+	}
+
+	//시설
+	@Override
+	public int insertInsti(InstiVo instiVo) {
+		return template.insert("dataEtc.insertInsti",instiVo);
+	}
+
+	@Override
+	public List<InstiVo> selectInsti() {
+		return template.selectList("dataEtc.selectInstiList");
+	}
+
+	@Override
+	public List<InstiAttrVo> selectInstiAttr(int iattr_insti) {
+		return template.selectList("dataEtc.slelectInstiAttrList", iattr_insti);
+	}
+
+	/**
+	* Method : selectInsti_attr
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @param iattr_insti
+	* @return
+	* Method 설명 :시설테이블 중 제목부분리스트(중복제거)
+	*/
+	@Override
+	public List<InstiAttrVo> selectInsti_attr(int iattr_insti) {
+		return template.selectList("dataEtc.selectInsti_attr", iattr_insti);
+	}
+
+	@Override
+	public int insertInstiattr(InstiAttrVo instiAttrVo) {
+		return template.insert("dataEtc.insertIattr", instiAttrVo);
 	}
 
 }

@@ -73,9 +73,13 @@ public class DetailService implements DetailServiceInf{
 		//electDealListByArea : 해당 평수의 모든 거래 내역
 		List<DealVo> dealListByArea = detailDao.selectDealListByArea(dealVo);
 		
+		//montylyAvf : 월별 평균 거래가
+		List<DealVo> monthlyAvg = detailDao.selectMonthlyAng(dealVo);
+		
 		tradeInfoMap.put("avgTradeVo",avgTradeVo);
 		tradeInfoMap.put("recentTradeVo", recentTradeVo);
 		tradeInfoMap.put("dealListByArea", dealListByArea);
+		tradeInfoMap.put("monthlyAvg", monthlyAvg);
 		
 		return tradeInfoMap;
 	}

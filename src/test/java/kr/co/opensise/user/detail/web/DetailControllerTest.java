@@ -64,7 +64,7 @@ public class DetailControllerTest extends ControllerSetup{
 		String artcl_rd  = "청사로";
 		
 		String dl_ty = "매매";
-		String dl_excv_area = "51.03";
+		String dl_excv_area = "59.76";
 		
 		/***when***/
 		MvcResult mvcResult = mockMvc.perform(post("/detail/tradeInfoAjax").param("artcl_gu", artcl_gu).param("artcl_dong",artcl_dong)
@@ -74,13 +74,17 @@ public class DetailControllerTest extends ControllerSetup{
 		AvgTradeVo avgTradeVo = (AvgTradeVo) mav.getModel().get("avgTradeVo");
 		List<DealVo> recentTradeList = (List<DealVo>) mav.getModel().get("recentTradeList");
 		List<DealVo> dealListByArea = (List<DealVo>) mav.getModel().get("dealListByArea");
+		List<DealVo> monthlyAvg = (List<DealVo>) mav.getModel().get("monthlyAvg");
 		String dl_tyRes = (String) mav.getModel().get("dl_ty");
-
+		
+		log.info("최근 거래가 {}", recentTradeList.get(0).getDl_price());
+		
 		/***then***/
-		assertEquals(15150.0, avgTradeVo.getAvg_price() , 1e-8);
-		assertEquals(1, recentTradeList.size());
-		assertEquals(76, dealListByArea.size());
+		assertEquals(16914.0, avgTradeVo.getAvg_price() , 1e-8);
+		assertEquals(4, recentTradeList.size());
+		assertEquals(863, dealListByArea.size());
 		assertEquals("매매", dl_tyRes);
+		assertEquals(131, monthlyAvg.size());
 		
 		
 	}

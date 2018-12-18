@@ -37,8 +37,8 @@
 <script>
  	$(document).ready(function(){
  		
- 		if($("#building").val() == "multi"){
- 			var multi = document.getElementById("multi");
+ 		if($("#building").val() == "house"){
+ 			var multi = document.getElementById("house");
  			multi.style.color = "white";
  		}else if ($("#building").val() == "apt"){
  			var apt = document.getElementById("apt");
@@ -87,13 +87,14 @@
 	<div class="collapse navbar-collapse bc-select-div">
 		<ul class="navbar-nav mr-auto bc-select">
 			<!-- 선택되어 있는 BC에게 active 클래스를 추가합니다 -->
-			<li class="nav-item" id="multi" onclick="switchPage(this)">단/다세대 주택</li>
+			<li class="nav-item" id="house" onclick="switchPage(this)">단/다세대 주택</li>
 			<li class="nav-item" id="apt" onclick="switchPage(this)">아파트</li>
 			<li class="nav-item" id="office" onclick="switchPage(this)">오피스텔</li>
 			<li class="nav-item" id="store" onclick="switchPage(this)">상가</li>
 			<li class="nav-item" id="auction" onclick="switchPage(this)">법원경매</li>
 		</ul>
 	</div>
+	
 	<!-- 오른쪽 상단 배치// 예: 로그인, 회원가입등 -->
 	<div class="navC">
 	<div class="nav_right">
@@ -106,8 +107,8 @@
 			
 			<!-- 관리자일 경우에 생기는 a tag -->
  				<li><c:if test="${nowLogin.mem_mngr!= null}">
-					${nowLogin.mem_nm} 님 안녕하세요  &emsp;
-					<a href="/manage/dataTrade/dataTrade" style="display: inline-block;">관리자</a>&emsp;
+					${nowLogin.mem_nm} 관리자님 안녕하세요  &emsp;
+					<a href="/manage/dataTrade/dataTrade" style="display: inline-block;">관리정보</a>&emsp;
 					<a href="/login/logout" style="display: inline-block;">로그아웃</a>
 				</c:if></li>
 			

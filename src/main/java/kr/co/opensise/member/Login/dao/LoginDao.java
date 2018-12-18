@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.opensise.member.Login.model.MemberVo;
+import kr.co.opensise.member.Login.model.SteamVo;
 
 @Repository
 public class LoginDao implements LoginDaoInf{
@@ -71,6 +72,7 @@ public class LoginDao implements LoginDaoInf{
 		return memberJob;
 	}
 	
+	
 	/**  
 	* Method   : interestLiset 
 	* 작성자 :  김주연
@@ -85,7 +87,6 @@ public class LoginDao implements LoginDaoInf{
 		return interestLiset;
 	}
 
-	
 	
 	@Override
 	public int delete() {
@@ -125,9 +126,36 @@ public class LoginDao implements LoginDaoInf{
 		
 		return updateMemCnt;
 	}
+
 	
+	/**  
+	* Method   : interestLiset 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  찜 리스트 출력
+	*/
+	@Override
+	public List<SteamVo> steamList(int favor_mem) {
+		List<SteamVo> steam = template.selectList("member.steam", favor_mem);
+		return steam;
+	}
+
 	
-	
+	/**  
+	* Method   : steamListUpdate 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  찜 리스트 삭제
+	*/
+	@Override
+	public int steamListUpdate(int favor_no) {
+		int steamUpdate = template.delete("member.favorDelete", favor_no);
+		return steamUpdate;
+	}
 	
 	
 	
