@@ -94,6 +94,7 @@
 			<li class="nav-item" id="auction" onclick="switchPage(this)">법원경매</li>
 		</ul>
 	</div>
+	
 	<!-- 오른쪽 상단 배치// 예: 로그인, 회원가입등 -->
 	<div class="navC">
 	<div class="nav_right">
