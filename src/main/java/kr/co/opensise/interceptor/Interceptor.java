@@ -46,15 +46,15 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		Cookie[] getCookies = request.getCookies();
 		// 방문용 쿠키만 빼오기
 		for(Cookie cookie : getCookies) {
-			//log.info("어떤 쿠키들이 있나요? {} {}",cookie.getName(),cookie.getValue());
+			log.info("어떤 쿠키들이 있나요? {} {}",cookie.getName(),cookie.getValue());
 			if(cookie.getName().equals("visitTime")) 
 				visitTime = cookie;
 			if(cookie.getName().equals("visitorChk")) 
 				visitorChk = cookie;
 		}
-		// 방문용 쿠키명도 값도 없다면 생성해줍니다. 또 visitorChk가 Y이면 생성해줍니다.
-		if((visitTime == null || visitTime.getValue() == null) && 
-				(visitorChk == null || visitorChk.getValue().equals("Y"))) {
+		// 방문용 쿠키명도 값도 없다면, 또 시간 체크를 안했을 경우 생성해줍니다.
+		if((visitTime == null || visitTime.getValue() == null) || 
+				(visitorChk == null || visitorChk.getValue() == null)) {
 			//log.info("방문용 쿠키가 없습니다. 새로 생성할게요");
 			visitTime = new Cookie("visitTime", ""+System.currentTimeMillis());
 			visitTime.setMaxAge(60*30);
@@ -73,7 +73,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 				//log.info("stayTime 확인 {}",stayTime);
 				// 그 시간이 5초 이상 머물렀다면
 				if(stayTime > 5000) {
-					//log.info("stayTime 5초 이상이다 {}",stayTime);
+					log.info("stayTime 5초 이상이다 {}",stayTime);
 					// 방문자 데이터 insert
 					statisService.insertVisitor();
 					visitorChk.setValue("N");
