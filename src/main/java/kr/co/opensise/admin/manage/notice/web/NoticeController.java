@@ -33,5 +33,9 @@ public class NoticeController {
 		return "manage/notice";
 	}
 	
+	@RequestMapping("/insertView")
+	public String insertView() {
+		return "";
+	}
 
 }

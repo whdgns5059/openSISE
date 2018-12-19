@@ -17,8 +17,12 @@ public class NoticeDao implements NoticeDaoInf {
 	
 	@Override
 	public List<PostVo> selectNoticeList() {
-		// TODO Auto-generated method stub
 		return template.selectList("notice.selectPosts");
+	}
+
+	@Override
+	public int insertNotice(PostVo noticeVo) {
+		return template.insert("notice.insertPost", noticeVo);
 	}
 
 }

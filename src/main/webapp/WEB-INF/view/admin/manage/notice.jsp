@@ -18,7 +18,7 @@
 			</form>
 		</div>
 		<div style="display: inline;">
-			<form action="">
+			<form action="/manage/notice/insertView">
 				<input type="submit" value="공지등록">
 			</form>
 		</div>

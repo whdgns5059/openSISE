@@ -5,7 +5,7 @@
 <mapper namespace="notice">
 	<!--게시글 list 가져오기 -->
 	<select id="selectPosts" resultType="postVo" parameterType="int">
-		select * from post where posts_brd=2
+		select * from post where post_brd=2
 	</select>
 	
 	<select id="getPostCnt" resultType="int">
@@ -29,9 +29,17 @@
 	<!-- insertPost -->
 	<insert id="insertPost">
 		insert into post(post_no,post_brd,post_mem,post_ttl,post_cntnt,post_date)
-	values (seq_post_no.nextval,2,1,#{post_ttl},#{post_cntnt},'20181219')
+	values (seq_post_no.nextval,2,1,#{post_ttl},#{post_cntnt},sysdate)
 	</insert>
-	
+<!--  	<insert id="insertPost" parameterType="postVo"> -->
+<!--  		<selectKey keyProperty="post_no" resultType="int" order="BEFORE"> -->
+<!--  			select seq_post_no.nextval from dual -->
+<!--  		</selectKey> -->
+<!--  		insert into posts(post_no, post_brd, post_mem, posts_ttl, post_cntnt,  -->
+<!--  							post_date) -->
+<!-- 			values (#{post_no},2,#{post_mem},#{posts_ttl},#{post_cntnt}, -->
+<!-- 							sysdate) -->
+<!--  	</insert>	 -->
 
   	
 <!-- 	<select id="selectPostsPageList" resultType="postsVo" parameterType="psPageVo"> -->
@@ -49,15 +57,7 @@
 <!-- 		#{page}*#{pageSize} -->
 <!-- 	</select> -->
  
-<!--  	<insert id="insertPost" parameterType="postsVo"> -->
-<!--  		<selectKey keyProperty="posts_id" resultType="int" order="BEFORE"> -->
-<!--  			select seq_postsno.nextval from dual -->
-<!--  		</selectKey> -->
-<!--  		insert into posts(posts_id, notice_id, posts_title, posts_ctn,  -->
-<!--  							posts_time, pst_userid,posts_group) -->
-<!-- 			values (#{posts_id},#{notice_id},#{posts_title},#{posts_ctn}, -->
-<!-- 							sysdate,#{pst_userid},#{posts_id}) -->
-<!--  	</insert> -->
+
  	
 <!--  	<update id="updatePosts" parameterType="postsVo" > -->
 <!--  		update posts set <if test="posts_title!=null">posts_title=#{posts_title}</if>, -->

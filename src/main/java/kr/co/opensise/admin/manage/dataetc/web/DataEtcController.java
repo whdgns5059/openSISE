@@ -457,12 +457,13 @@ public class DataEtcController {
 			
 			Set<RouteVo> routeSet = new HashSet<RouteVo>();
 			
+			//dBNLwu8%2BaX3uGBpD%2FtOpZAI2tJl9bMq5x3MKWtrr8HWmZCdq5pSfKWP4LYXCyJCssITHaCHvkux7SHCv7v8H7A%3D%3D : 다영
 			//Gtm3470Ghm%2BbyAlbB3JGPbzbRpLu6l74x%2Fa1qprKSiQL6nrZaIF7UC0wPVPUgS7L4qnhGv0KTESkdKG4jQ57cQ%3D%3D :종훈
 			//RT1lHlWUhjho%2FbTmTxIJL4vFER1%2BRzgKGsI1dLvVMCspNNUpTxjfzvhfjSEZ75nE9AHoSPUN3fdIJQ3cZzwAOw%3D%3D:나
 			//openApi 호출(전체노선 기본정보 조회)
 			String urlAll = "http://openapitraffic.daejeon.go.kr/"
 						+"api/rest/busRouteInfo/getRouteInfoAll"
-						+"?serviceKey=Gtm3470Ghm%2BbyAlbB3JGPbzbRpLu6l74x%2Fa1qprKSiQL6nrZaIF7UC0wPVPUgS7L4qnhGv0KTESkdKG4jQ57cQ%3D%3D&reqPage=1";
+						+"?serviceKey=dBNLwu8%2BaX3uGBpD%2FtOpZAI2tJl9bMq5x3MKWtrr8HWmZCdq5pSfKWP4LYXCyJCssITHaCHvkux7SHCv7v8H7A%3D%3D&reqPage=1";
 			
 			URL urlA= new URL(urlAll);
 			HttpURLConnection httpUrlConnectionA = (HttpURLConnection) urlA.openConnection();
@@ -545,7 +546,7 @@ public class DataEtcController {
 					//openApi 호출(노선별 경유 정류소 정보)
 					String urlRoute = "http://openapitraffic.daejeon.go.kr/"
 									+"api/rest/busRouteInfo/getStaionByRoute"
-									+"?busRouteId="+route_cd+"&serviceKey=Gtm3470Ghm%2BbyAlbB3JGPbzbRpLu6l74x%2Fa1qprKSiQL6nrZaIF7UC0wPVPUgS7L4qnhGv0KTESkdKG4jQ57cQ%3D%3D";
+									+"?busRouteId="+route_cd+"&serviceKey=dBNLwu8%2BaX3uGBpD%2FtOpZAI2tJl9bMq5x3MKWtrr8HWmZCdq5pSfKWP4LYXCyJCssITHaCHvkux7SHCv7v8H7A%3D%3D";
 					
 					URL urlR = new URL(urlRoute);
 					HttpURLConnection httpUrlConnection = (HttpURLConnection) urlR.openConnection();

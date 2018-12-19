@@ -20,4 +20,9 @@ public class NoticeService implements NoticeServiceInf {
 		return noticeDao.selectNoticeList();
 	}
 
+	@Override
+	public int insertNotice(PostVo noticeVo) {
+		return noticeDao.insertNotice(noticeVo);
+	}
+
 }
