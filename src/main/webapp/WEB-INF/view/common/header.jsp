@@ -76,6 +76,7 @@
 	<form action="/main/main" id="fmi">
 		<input type="hidden" id="building" name="building" value="${building}"> 
 		<input type="hidden" id="searchName" name="searchName">
+		<input type="hidden" id="dl_t" name="dl_ty" value="${dlType}">
 	</form>
 	<!-- openSISE아이콘 -->
 	<a class="navbar-brand logo-tag" href="/index/openPage"> <img

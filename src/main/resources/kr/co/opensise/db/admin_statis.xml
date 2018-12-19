@@ -148,12 +148,38 @@
 		From   INTEREST I
 	</select>
 	
+<!-- 방문자 통계 -->
+	<!-- 사이트 방문 데이터 입력 -->
 	<insert id="insertVisitor" >
-		Insert Into visitor Values (sysdate, 1)
+		Insert Into visitor Values (sysdate)
 	</insert>
 	
+	<select id="visitDate" resultType="visitVo">
+		Select * From visitor
+	</select>
 	
+	<select id="visitDay" resultType="visitVo">
+		Select * From visitor
+	</select>
 	
+	<select id="visitHour" resultType="visitVo">
+		Select * From visitor
+	</select>
+	
+<!-- 페이지 통계 -->
+	<!-- 페이지 방문 데이터 입력 -->
+	<insert id="insertPS" parameterType="map">
+		Insert All 
+		<foreach collection="_parameter.entrySet()" item="vo" separator=" ">
+			Into page_statistic (ps_date, ps_pg, ps_pg_addr, ps_vstr)
+			Values (sysdate, #{vo.ps_pg}, #{vo.ps_pg_addr}, #{vo.ps_vstr})
+		</foreach>
+		select * from dual
+	</insert>
+	
+	<select id="psDate" resultType="psVo">
+		Select * From page_statistic
+	</select>
 	
 	
 	

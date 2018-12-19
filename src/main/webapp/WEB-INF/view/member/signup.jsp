@@ -210,12 +210,12 @@ ul {
 </head>
 
 <body class="text-center">
-	<div class="logo">
+	<div class="logo" align="center">
 		<img src="/img/openSise_signin.png" alt="오픈시세 회원가입" title="오픈시세 회원가입" />
 	</div>
 
 	<!-- 전체 contents div -->
-	<div class="row" id="main">
+	<div class="row" id="main" >
 		<form action="/login/signUpSelection" method="post" id="frm">
 			<div class="logoInputCenter">
 				<div class="logoInputDiv">

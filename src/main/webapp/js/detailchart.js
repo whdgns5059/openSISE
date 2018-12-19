@@ -76,6 +76,7 @@ var myConfig = {
 		        },
 		        "scale-y":{
 		            "progression":"demical",
+		            "min-value" : 4000,
 		            "decimals":0,
 		            "auto-fit":true,
 		            "item":{

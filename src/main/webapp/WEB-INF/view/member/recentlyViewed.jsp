@@ -29,16 +29,6 @@
 		
 		</div>
 </div>
-	<form action="/board/myInfoUpdate" method="post">
-			<div class="form-group">
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<!--  <input type="hidden" name="userId" value="${userVo.userId}">-->
-						<button type="submit" class="btn btn-default">저장</button>
-					</div>
-				</div>
-				<div class="col-sm-10"></div>
-			</div>
-		</form>
+	
 </body>
 </html>

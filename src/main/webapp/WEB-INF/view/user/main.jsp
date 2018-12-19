@@ -163,6 +163,15 @@
 	margin-top: 10px;
 	margin-left: -20px;
 }
+.divHeight{
+	width:400px;
+	height: 100px;
+}
+
+#mapWrap {width:100%; height:95%; position: relative;}
+#map {width:100%; height:100%;}
+.toLocal {position: absolute; top: 740px; left: 1150px; z-index: 10; width:150px; height: 150px;}
+
 
 </style>
  <link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet">
@@ -205,15 +214,18 @@
 				orientation : "horizontal",
 				animate: "slow",
 			});
+		}
+		
+		function sliderRangeRnt(minimum, maximum){
 			$("#slider-rnt").slider({
 				range: "max",
 				min : minimum,
 				max : maximum,
 				value :0,
-				step : 100,
+				step : 50,
 				orientation : "horizontal",
 				animate: "slow",
-			});	
+			});
 		}
 		/*---------- 슬라이더 생성 코드 끝 --------------*/
 		
@@ -226,6 +238,9 @@
 		
 		/*---------- 슬라이더 값 변화 function -------*/
 		$("#slider-bar").on("change",function(){
+			priceTitle();
+		});
+		$("#slider-rnt").on("change",function(){
 			priceTitle();
 		});
 		
@@ -266,9 +281,9 @@
 				
 				var price2 = $("#slider-rnt").val();
 				if(price2[1] == 400){
-					span = "<span id='priceRnt'>" + price[0] + " 만원  ~ " + " 무제한</span>";
+					span = "<span id='priceRnt'>" + price2[0] + " 만원  ~ " + " 무제한</span>";
 				}else{
-					span = "<span id='priceRnt'>" + price[0] + " 만원  ~ " + price[1] + "만원</span>";
+					span = "<span id='priceRnt'>" + price2[0] + " 만원  ~ " + price[1] + "만원</span>";
 				}
 				$("#priceRnt").html("");
 				$("#priceRnt").html(span);
@@ -283,14 +298,32 @@
 			$("#buildT").html(dl_Type);
 			$("#ty").val(dl_Type);
 			$("#dl_ty").val(dl_Type);
+			$("#dl_t").val(dl_Type);
+			if($("#dl_ty").val() =="월세"){
+				$(".divHeight").css("height", 300);
+				priceRnt();
+			}else{
+				$(".divHeight").css("height", 100);
+			}
 			
 			dlTypeInnerHtml();
 			sliderMaker();
 			getArticleList();
 		}); 
 		
+		/*---------- 월세 가격 설정 -------------*/
+		function priceRnt(){
+			var html;
+			html += "<h4>월세</h4>";
+			html += "<div id='slider-rnt'></div>&nbsp&nbsp&nbsp";
+			html += "<span id='priceRnt'>무제한</span>";
+			
+			$(".divHeight").append(html);
+			
+		}
+		/*---------- 월세 가격 설정 끝 -----------*/
 		
-		/*---------- 매매 형태에 따른 탭 기본값 고정 --------- */
+		/*---------- 매매 형태에 따른 가격 기본값 고정 --------- */
 		function dlTypeInnerHtml(){
 			if($("#dl_ty").val() == '매매'){
 				$("#dlTypePrice").html("매매가");
@@ -301,7 +334,7 @@
 				$("#dlRntPrice").html("월세");
 			}
 		}
-		/*---------- 매매 형태에 따른 탭 기본값 고정 끝 --------- */
+		/*---------- 매매 형태에 따른 가격 탭 기본값 고정 끝 --------- */
 		
 		/*---------- 매매 형태에 따른 슬라이더 생성 -----------*/
 		function sliderMaker(){
@@ -311,7 +344,7 @@
 				sliderRangeDepos(0,100000);
 			}else{
 				sliderRangeDepos(0,10000);
-				sliderRangeDepos(0,400);
+				sliderRangeRnt(0,400);
 			}
 		}
 		/*---------- 매매 형태에 따른 슬라이더 생성 끝 -----------*/
@@ -380,6 +413,7 @@
 			settingMap(x,y);
 		});
 		/*------------- 해당 매물 mouseover시 중심 좌표 이동 끝---------*/
+		
 		
 		/*------------- 해당 매물 클릭 시 상세정보로 이동 ---------------*/
 		$(".main-right").on("click",".article",function(){
@@ -451,6 +485,35 @@
 			//마커가 지도 위에 표시되도록 설정합니다
 			marker.setMap(map);
 		}
+		
+		
+		//toLocal 클릭시 좌표읽어서 이동
+		$('.toLocal').on('click', function(){
+			
+			var geocoder = new daum.maps.services.Geocoder();
+
+			var center = map.getCenter();
+
+			var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
+			var callback = function(result, status) {
+				if (status === daum.maps.services.Status.OK) {
+					
+					var gu = result[0].address.region_2depth_name;
+					var dong = result[0].address.region_3depth_name;
+
+
+					location.href="/local/local?gu="+gu+"&dong="+dong;
+					
+				}
+			};
+
+			geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+			
+				
+		});
+		
+		
+		
 	}
 	
 	/*검색한 좌표들을 배열에 담아준다*/
@@ -553,12 +616,12 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">가격</a>
-					<div class="dropdown-menu" style="width:400px; height: 100px;">
+					<div class="dropdown-menu divHeight">
 						<h4 id="dlTypePrice">매매가</h4>
   						<div id="slider-bar"></div>&nbsp&nbsp&nbsp
   						<span id="price">무제한</span>
   						<hr>
-					</div>	
+					</div>
 					</li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
@@ -641,8 +704,12 @@
 		</div>
 	</div>
 	<!-- 지도 -->
-	<div id="map" style="width: 100%; height: 95%;"></div>
-
+	<div id="mapWrap">
+		<div id="map"></div>
+		<div class="toLocal">
+			<img src="https://via.placeholder.com/100x100/fd7e14?text=TO_LOCAL" />
+		</div>
+	</div>
 </div>
 
 <!-- right contents -->

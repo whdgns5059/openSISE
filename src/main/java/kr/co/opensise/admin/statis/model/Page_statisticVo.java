@@ -1,18 +1,25 @@
 package kr.co.opensise.admin.statis.model;
 
+import java.util.Date;
+
 public class Page_statisticVo {
 
-	private String ps_date;
+	private Date ps_date;
 	private String ps_pg;
 	private String ps_pg_addr;
 	private int ps_vstr;
 	
 	public Page_statisticVo() {
 	}
-	public String getPs_date() {
+	public Page_statisticVo(String ps_pg, String ps_pg_addr, int ps_vstr) {
+		this.ps_pg = ps_pg;
+		this.ps_pg_addr = ps_pg_addr;
+		this.ps_vstr = ps_vstr;
+	}
+	public Date getPs_date() {
 		return ps_date;
 	}
-	public void setPs_date(String ps_date) {
+	public void setPs_date(Date ps_date) {
 		this.ps_date = ps_date;
 	}
 	public String getPs_pg() {

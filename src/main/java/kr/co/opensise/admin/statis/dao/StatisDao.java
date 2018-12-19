@@ -1,6 +1,7 @@
 package kr.co.opensise.admin.statis.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
+import kr.co.opensise.admin.statis.model.Page_statisticVo;
 
 
 @Repository
@@ -105,6 +107,12 @@ public class StatisDao implements StatisDaoInf {
 	@Override
 	public int insertVisitor() {
 		int insertCnt = template.insert("admin_statis.insertVisitor");
+		return insertCnt;
+	}
+
+	@Override
+	public int insertPS(Map<String, Page_statisticVo> uriCounts) {
+		int insertCnt = template.insert("admin_statis.insertPS", uriCounts);
 		return insertCnt;
 	}
 

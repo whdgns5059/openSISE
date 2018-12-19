@@ -3,7 +3,9 @@ package kr.co.opensise.admin.statis.dao;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
+import kr.co.opensise.admin.statis.model.Page_statisticVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.util.CommonUtilTest;
 
@@ -131,6 +134,19 @@ public class StatisDaoTest extends RootSetup{
 		assertEquals(1, insertCnt);
 	}
 	
+	@Test
+	public void insertPS() {
+		/***Given***/
+		Map<String, Page_statisticVo> uriCounts = new HashMap<String, Page_statisticVo>();
+		uriCounts.put("/main/main", new Page_statisticVo("메인페이지", "/main/main", 2));
+		uriCounts.put("/detail/info", new Page_statisticVo("건물상세", "/detail/info", 3));
+
+		/***When***/
+		int insertCnt = statisDao.insertPS(uriCounts);
+
+		/***Then***/
+		assertEquals(2, insertCnt);
+	}
 	
 	
 	
@@ -166,7 +182,7 @@ public class StatisDaoTest extends RootSetup{
 		
 		
 		
-	}
+}
 	
 
 	
