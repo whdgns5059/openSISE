@@ -48,6 +48,10 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	<listener>
+		<listener-class>kr.co.opensise.sessionListener.SessionListener</listener-class>
+	</listener>
+	
 	<!-- ERROR 페이지 설정 -->
 	<error-page>
 		<error-code>404</error-code>
