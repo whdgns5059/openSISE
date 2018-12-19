@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 
@@ -39,4 +40,8 @@ public interface DetailDaoInf {
 	int deleteReview(String post_no);
 	
 	int deleteReviewChild(String post_no);
+
+	int insertPicture(PictureVo pictureVo);
+
+	List<PictureVo> selectReviewPic(PostVo postVo);
 }

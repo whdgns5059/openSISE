@@ -14,7 +14,7 @@
 		<div id="map"></div>
 		<!-- 지도 오버레이(지역분석으로 이동) -->
 		<div class="toLocal">
-			<img src="https://via.placeholder.com/100x100?text=toLocal" />
+			<img src="https://via.placeholder.com/100x100/fd7e14?text=TO_LOCAL" />
 		</div>
 	</div>	
 	<div class="detailcontainer">
@@ -75,7 +75,7 @@
 			<div>	
 				<button type="button" class="btn openMask" >리뷰 작성</button>
 				<div class="window reviewWindow" id="reviewWindow">
-					<form id="reviewFrm" action="/detail/insertReview" method="post">
+					<form id="reviewFrm" action="/detail/insertReview" method="post" enctype="multipart/form-data">
 						<div class="notice-pop">
 							<div>
 								<h2>리뷰 작성</h2>
@@ -97,6 +97,14 @@
 							<div class="form-group">
 								<label>내용</label>
 								<textarea class="form-control" rows="10"  id="post_contnt" name="post_cntnt" ></textarea>
+							</div>
+							<div>
+								<label>파일 첨부</label>
+								<input type="button" class="plusfile" value="+"/>
+								<input type="button" class="minusfile" value="-"/>
+								<div class="inputDiv">
+									<input type="file" class="post_img" name="post_img" id="post_img1" />
+								</div>
 							</div>
 							<div class="row">
 								<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;리뷰 별점 &nbsp;&nbsp;&nbsp;</label>
@@ -140,8 +148,6 @@
 									<div class="reportDiv"><img src="https://via.placeholder.com/30"/></div>
 								</div>
 								<div class="photo">
-									<img src="https://via.placeholder.com/200" />
-									<img src="https://via.placeholder.com/200" />
 								</div>
 								<div class="reviewText">
 									<p>${postVo.post_cntnt }
