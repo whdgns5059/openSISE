@@ -105,9 +105,12 @@
 		and mem_email = #{mem_email}
 	</update>
 	
-	
-	
-	
+	<!-- 비밀번호 찾기 -->
+	<update id="mailFinsh" parameterType="memberVo">
+		UPDATE member
+		SET mem_pass = #{mem_pass}
+		WHERE mem_email = #{mem_email}
+	</update>
 </mapper>
 
 

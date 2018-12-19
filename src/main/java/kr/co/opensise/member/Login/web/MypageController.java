@@ -236,6 +236,7 @@ public class MypageController {
 		memberVo.setMem_pass(encrypt);
 		String encryptPass = KISA_SHA256.encrypt(memberVo.getMem_new_pass());
 		memberVo.setMem_new_pass(encryptPass);
+		
 		int user = loginService.passChange(memberVo);
 		MemberVo users = (MemberVo) session.getAttribute("nowLogin");
 		model.addAttribute("memberVo", users);

@@ -70,10 +70,10 @@
 					<hr>
 				</div>
 				<div class="form-group">
-					 <!-- <label><input type="email" class="form-control" id="mem_email" name="mem_email" value="${memberVo.mem_email}" /> </label></br> -->
+					 <label><input type="hidden" class="form-control" id="mem_email" name="mem_email" value="${memberVo.mem_email}" /> </label></br>
 				</div>
 				<div class="form-group">
-					<label><input type="password" class="form-control" id="mem_new_pass" name="mem_new_pass" placeholder="새 비밀번호 입력" /> </br>
+					<label><input type="password" class="form-control" id="mem_pass" name="mem_pass" placeholder="새 비밀번호 입력" /> </br>
 					<input type="password" class="form-control" id="memPass" name="memPass" placeholder="비밀번호 재확인" /> </label>
 				</div>
 				</br>
