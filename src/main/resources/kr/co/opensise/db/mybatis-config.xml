@@ -18,6 +18,8 @@
 		<typeAlias type="kr.co.opensise.admin.statis.model.MemberVo" alias="memVo"/>
 		<typeAlias type="kr.co.opensise.admin.statis.model.FavoriteVo" alias="favorVo"/>
 		<typeAlias type="kr.co.opensise.admin.statis.model.InterestVo" alias="intrstVo"/>
+		<typeAlias type="kr.co.opensise.admin.statis.model.VisitorVo" alias="visitVo"/>
+		<typeAlias type="kr.co.opensise.admin.statis.model.Page_statisticVo" alias="psVo"/>
 		<!-- admin : statis END-->
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.InstiVo" alias="instiVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo" alias="instiAttrVo"/>
@@ -34,6 +36,7 @@
 		<!-- 리뷰 -->
 		<typeAlias type="kr.co.opensise.user.detail.model.PostVo" alias="postVo"/>
 		<typeAlias type="kr.co.opensise.user.detail.model.ReplyVo" alias="replyVo"/>
+		<typeAlias type="kr.co.opensise.user.detail.model.PictureVo" alias="pictureVo"/>
 		
 	</typeAliases>
 

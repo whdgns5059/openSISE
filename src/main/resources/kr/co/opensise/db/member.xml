@@ -19,6 +19,10 @@
   		where mem_email = #{mem_email}
   	</select>
   	
+  	
+  	
+  	
+  	
   	<!-- 회원수정 -->
   	<update  id="updateUser" parameterType="memberVo">
 		update member

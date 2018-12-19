@@ -16,6 +16,7 @@ import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 
@@ -268,6 +269,21 @@ public class DetailDaoTest extends RootSetup{
 
 		/***then***/
 		assertEquals(5, result.getPost_no());
+	}
+
+	@Test
+	public void selectReviewPicTest() {
+		
+		/***given***/
+		PostVo postVo = new PostVo();
+		postVo.setPost_no(30);
+		/***when***/
+		List<PictureVo> picList = detailDao.selectReviewPic(postVo);
+
+		/***then***/
+		assertEquals(3, picList.size());
+		
+		
 	}
 	
 }
