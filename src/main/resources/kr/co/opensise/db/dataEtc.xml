@@ -116,83 +116,94 @@
 	order by iattr_no
 	</select>
 	<select id="slelectInstiAttrList" parameterType="Integer" resultType="instiAttrVo">
-		SELECT iattr_no, iattr_insti, 
-       		LPAD(' ', 4*(LEVEL-1)) || iattr_key as iattr_key,
-      		iattr_val,
-      		iattr_pare,
-      		level 
-		FROM insti_attr
-		where iattr_insti=#{iattr_insti}
-		START WITH iattr_pare IS NULL 
-	CONNECT BY PRIOR iattr_no = iattr_pare
-	order siblings by iattr_insti
-<!-- 		SELECT -->
-<!--     a.iattr_key, -->
-<!--     b.iattr_key, -->
-<!--     b.iattr_val -->
-<!-- FROM -->
-<!--     ( -->
-<!--         SELECT -->
-<!--             b.groupno, -->
-<!--             a.* -->
-<!--         FROM -->
-<!--             ( -->
-<!--                 SELECT -->
-<!--                     a.iattr_key, -->
-<!--                     a.iattr_no -->
-<!--                 FROM -->
-<!--                     insti_attr a -->
-<!--                 WHERE -->
-<!--                     ROWID IN ( -->
-<!--                         SELECT -->
-<!--                             MAX(ROWID) -->
-<!--                         FROM -->
-<!--                             insti_attr -->
-<!--                         GROUP BY -->
-<!--                             iattr_key -->
-<!--                     ) -->
-<!--                     AND   a.iattr_insti = #{iattr_insti} -->
-<!--             ) a, -->
-<!--             ( -->
-<!--                 SELECT -->
-<!--                     iattr_no groupno -->
-<!--                 FROM -->
-<!--                     insti_attr -->
-<!--                 WHERE -->
-<!--                     iattr_insti = #{iattr_insti} -->
-<!--                     AND   iattr_pare IS NULL        -->
-<!--             ) b -->
-<!--         ORDER BY -->
-<!--             b.groupno, -->
-<!--             a.iattr_no -->
-<!--     ) a, -->
-<!--     ( -->
-<!--         SELECT b.* -->
-<!--         FROM -->
-<!--             ( -->
-<!--                 SELECT -->
-<!--                     iattr_key, -->
-<!--                     iattr_val, -->
-<!--                     connect_by_root iattr_no groupno, -->
-<!--                     ROWNUM rn -->
-<!--                 FROM -->
-<!--                     insti_attr -->
-<!--                 WHERE -->
-<!--                     iattr_insti = #{iattr_insti} -->
-<!--                 START WITH -->
-<!--                     iattr_pare IS NULL -->
-<!--                 CONNECT BY -->
-<!--                     PRIOR iattr_no = iattr_pare -->
-<!--             ) b -->
-<!--     ) b -->
-<!-- WHERE -->
-<!--     a.iattr_key = b.iattr_key (+) -->
-<!--     AND   a.groupno = b.groupno (+) -->
-<!-- ORDER BY -->
-<!--     a.groupno, -->
-<!--             a.iattr_no -->
+<!-- 		SELECT iattr_no, iattr_insti,  -->
+<!--        		LPAD(' ', 4*(LEVEL-1)) || iattr_key as iattr_key, -->
+<!--       		iattr_val, -->
+<!--       		iattr_pare, -->
+<!--       		level  -->
+<!-- 		FROM insti_attr -->
+<!-- 		where iattr_insti=#{iattr_insti} -->
+<!-- 		START WITH iattr_pare IS NULL  -->
+<!-- 	CONNECT BY PRIOR iattr_no = iattr_pare -->
+<!-- 	order siblings by iattr_insti -->
+		SELECT
+	a.groupno,
+    a.iattr_key,
+    b.iattr_key,
+    b.iattr_val
+FROM
+    (
+        SELECT
+            b.groupno,
+            a.*
+        FROM
+            (
+                SELECT
+                    a.iattr_key,
+                    a.iattr_no
+                FROM
+                    insti_attr a
+                WHERE
+                    ROWID IN (
+                        SELECT
+                            MAX(ROWID)
+                        FROM
+                            insti_attr
+                        GROUP BY
+                            iattr_key
+                    )
+                    AND   a.iattr_insti = #{iattr_insti}
+            ) a,
+            (
+                SELECT
+                    iattr_no groupno
+                FROM
+                    insti_attr
+                WHERE
+                    iattr_insti = #{iattr_insti}
+                    AND   iattr_pare IS NULL       
+            ) b
+        ORDER BY
+            b.groupno,
+            a.iattr_no
+    ) a,
+    (
+        SELECT b.*
+        FROM
+            (
+                SELECT
+                    iattr_key,
+                    iattr_val,
+                    connect_by_root iattr_no groupno,
+                    ROWNUM rn
+                FROM
+                    insti_attr
+                WHERE
+                    iattr_insti = #{iattr_insti}
+                START WITH
+                    iattr_pare IS NULL
+                CONNECT BY
+                    PRIOR iattr_no = iattr_pare
+            ) b
+    ) b
+WHERE
+    a.iattr_key = b.iattr_key (+)
+    AND   a.groupno = b.groupno (+)
+ORDER BY
+    a.groupno,
+            a.iattr_no
     
 	</select>
+	
+	<delete id="deleteInsti" parameterType="map">
+		<foreach collection="list" item="dvo" separator=" " >
+			delete from insti_attr where iattr_no=#{iattr_no}
+		</foreach>
+
+
+
+		
+	</delete>
 </mapper>
 
 

@@ -340,7 +340,7 @@ public class DataEtcController {
 //							log.info(cells + " mk_price :{}", mk_priceCell.getNumericCellValue());
 //							log.info("=======================");
 							mkd_price = (int) mk_priceCell.getNumericCellValue();
-//							log.info("mkd_price : {}", mkd_price);
+							log.info("mkd_price : {}", mkd_price);
 						}
 						
 						
@@ -713,6 +713,24 @@ public class DataEtcController {
 		model.addAttribute("instiList", instiList);
 		model.addAttribute("iattr_insti", iattr_insti);
 		
+		return "manage/dataEtc";
+	}
+	
+	@RequestMapping("/deletInstiAttr")
+	public String deletInstiAttr(@RequestParam("checked") String checked,Model model,
+			@RequestParam("instiHere") Integer iattr_insti) {
+		
+		List<List<InstiAttrVo>> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
+		
+		String[] checkedDelete = checked.split(",");
+		
+		for(String delNo : checkedDelete ) {
+			log.info("del {}", delNo);
+			
+		}
+		
+		List<InstiVo> instiList = dataEtcService.selectInsti();
+		model.addAttribute("instiList", instiList);
 		return "manage/dataEtc";
 	}
 }

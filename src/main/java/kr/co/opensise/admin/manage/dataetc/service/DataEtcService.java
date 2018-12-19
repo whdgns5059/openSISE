@@ -102,15 +102,21 @@ public class DataEtcService implements DataEtcServiceInf {
 		//시설물 구별을 위해 시설물이름을 모아놓은 SmallList
 		List<InstiAttrVo> sList = null;
 		
+//		for(int i=0;i<instiAttrList.size();i++) {
+//			if(instiAttrList.get(i).getLevel()==1) {
+//				if(sList !=null) {
+//					bList.add(sList);
+//				}
+//				sList = new ArrayList<InstiAttrVo>();
+//			}
+//			
+//			sList.add(instiAttrList.get(i));
+//		}
+		
 		for(int i=0;i<instiAttrList.size();i++) {
-			if(instiAttrList.get(i).getLevel()==1) {
-				if(sList !=null) {
-					bList.add(sList);
-				}
-				sList = new ArrayList<InstiAttrVo>();
+			if(instiAttrList.get(i).getGroupno()==instiAttrList.get(i+1).getGroupno()) {
+				
 			}
-			
-			sList.add(instiAttrList.get(i));
 		}
 		
 		bList.add(sList);
