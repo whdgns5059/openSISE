@@ -51,7 +51,7 @@
 .window{
     left: 50%;
     width: 1000px;
-    height: 600px;
+    height: 800px;
     background-color: #FFF;
     z-index: 10000;
     border-radius: 20px;
@@ -75,7 +75,7 @@
  	margin: 0 auto;
  	margin-top: 30px;
     width: 850px;
-    height: 566px;
+    height: 750px;
 	overflow:scroll;
 	overflow-x:hidden; 
 	overflow-y:auto;

@@ -1,19 +1,25 @@
 package kr.co.opensise.user.detail.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
+import kr.co.opensise.util.CommonUtil;
 
 @Service
 public class DetailService implements DetailServiceInf{
@@ -86,8 +92,48 @@ public class DetailService implements DetailServiceInf{
 	}
 
 	@Override
-	public int insertReview(PostVo postVo) {
-		return detailDao.insertReview(postVo);
+	public int insertReview(PostVo postVo, List<MultipartFile> parts, String path) {
+
+		int insertResult = detailDao.insertReview(postVo);
+		
+		int post_no = postVo.getPost_no();
+		
+		for(MultipartFile part : parts) {
+			
+			String uuidName = UUID.randomUUID().toString();
+			String originalName = part.getOriginalFilename();
+			String fileExt = CommonUtil.getFileExt(originalName);
+			
+			if(!(part.getSize() == 0 || part.isEmpty() || part.getOriginalFilename().equals(""))) {
+				
+				PictureVo pictureVo = new PictureVo();
+				pictureVo.setPic_file_path("/reviewImg/"+uuidName+fileExt);
+				pictureVo.setPic_file_nm(originalName);
+				pictureVo.setPic_post(post_no);
+				pictureVo.setPic_uuid(uuidName);
+				
+				File file = new File(path + File.separator + uuidName + fileExt);
+				
+				try {
+					part.transferTo(file);
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+			
+				int picInsert = detailDao.insertPicture(pictureVo);
+				
+				
+			}
+			
+			
+			
+			
+			
+		}
+		
+		
+		return insertResult;
+		
 	}
 
 	@Override
@@ -114,6 +160,11 @@ public class DetailService implements DetailServiceInf{
 	public int deleteReview(String post_no) {
 		detailDao.deleteReviewChild(post_no);
 		return detailDao.deleteReview(post_no);
+	}
+
+	@Override
+	public List<PictureVo> selectReviewPic(PostVo postVo) {
+		return detailDao.selectReviewPic(postVo);
 	}
 
 	

@@ -168,6 +168,11 @@
 	height: 100px;
 }
 
+#mapWrap {width:100%; height:95%; position: relative;}
+#map {width:100%; height:100%;}
+.toLocal {position: absolute; top: 740px; left: 1150px; z-index: 10; width:150px; height: 150px;}
+
+
 </style>
  <link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet">
 <script type="text/javascript" src="/css/boostratp_slider_css_js/js/bootstrap-slider.js"></script>
@@ -480,6 +485,35 @@
 			//마커가 지도 위에 표시되도록 설정합니다
 			marker.setMap(map);
 		}
+		
+		
+		//toLocal 클릭시 좌표읽어서 이동
+		$('.toLocal').on('click', function(){
+			
+			var geocoder = new daum.maps.services.Geocoder();
+
+			var center = map.getCenter();
+
+			var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
+			var callback = function(result, status) {
+				if (status === daum.maps.services.Status.OK) {
+					
+					var gu = result[0].address.region_2depth_name;
+					var dong = result[0].address.region_3depth_name;
+
+
+					location.href="/local/local?gu="+gu+"&dong="+dong;
+					
+				}
+			};
+
+			geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+			
+				
+		});
+		
+		
+		
 	}
 	
 	/*검색한 좌표들을 배열에 담아준다*/
@@ -670,8 +704,12 @@
 		</div>
 	</div>
 	<!-- 지도 -->
-	<div id="map" style="width: 100%; height: 95%;"></div>
-
+	<div id="mapWrap">
+		<div id="map"></div>
+		<div class="toLocal">
+			<img src="https://via.placeholder.com/100x100/fd7e14?text=TO_LOCAL" />
+		</div>
+	</div>
 </div>
 
 <!-- right contents -->

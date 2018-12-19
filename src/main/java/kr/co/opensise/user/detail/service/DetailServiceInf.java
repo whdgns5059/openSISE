@@ -3,7 +3,10 @@ package kr.co.opensise.user.detail.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
+import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 
@@ -43,7 +46,7 @@ public interface DetailServiceInf {
 	**************************************************/
 	Map<String, Object> getDetailTradeInfo(ArticleVo articleVo, String dl_ty, float dl_excv_area );
 	
-	int insertReview(PostVo postVo);
+	int insertReview(PostVo postVo, List<MultipartFile> parts, String path);
 	
 	
 	int insertReply(ReplyVo replyVo);
@@ -64,6 +67,17 @@ public interface DetailServiceInf {
 	* 자식 댓글까지 다 삭제한다
 	**************************************************/
 	int deleteReview(String post_no);
+
+
+	/*************************************************  
+	* Method   : selectReviewPic 
+	* 작성자 :  whdgn
+	* 변경이력 :  2018. 12. 19.
+	* @param pictureVo
+	* @return  
+	* Method 설명 : 해당 리뷰의 사진 정보를 가져온다
+	**************************************************/
+	List<PictureVo> selectReviewPic(PostVo postVo);
 	
 	
 	

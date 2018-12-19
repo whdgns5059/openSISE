@@ -4,17 +4,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 import kr.co.opensise.user.detail.service.DetailServiceInf;
@@ -70,9 +75,12 @@ public class DetailController {
 	}
 	
 	@RequestMapping("/insertReview")
-	public String insertReview(PostVo postVo, @RequestParam("dl_ty") String dl_ty, Model model) {
+	public String insertReview(PostVo postVo, @RequestParam("dl_ty") String dl_ty, Model model
+								, @RequestPart("post_img") List<MultipartFile> parts, HttpServletRequest request) {
 	
-		detailService.insertReview(postVo);
+		String path = request.getServletContext().getRealPath("/reviewImg");
+		
+		detailService.insertReview(postVo, parts, path);
 		
 		
 		model.addAttribute("artcl_gu", postVo.getPost_gu());
@@ -141,6 +149,19 @@ public class DetailController {
 		return "redirect:/detail/info";
 	}
 
+	
+	@RequestMapping("/selectReviewPic")
+	public String selectReviewPic(PostVo postVo, Model model) {
+		
+		List<PictureVo> pictureList = detailService.selectReviewPic(postVo);
+	
+		model.addAttribute("pictureList", pictureList);
+		
+		return "user/detailAjax/picture";
+	}
+	
+	
+	
 }
 
 

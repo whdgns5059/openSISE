@@ -13,6 +13,7 @@ import kr.co.opensise.admin.statis.dao.StatisDaoInf;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
+import kr.co.opensise.admin.statis.model.Page_statisticVo;
 
 @Service
 public class StatisService implements StatisServiceInf {
@@ -114,6 +115,12 @@ public class StatisService implements StatisServiceInf {
 	public int insertVisitor() {
 		return statisDao.insertVisitor();
 	}
+
+	@Override
+	public int insertPS(Map<String, Page_statisticVo> uriCounts) {
+		return statisDao.insertPS(uriCounts);
+	}
+
 
 
 

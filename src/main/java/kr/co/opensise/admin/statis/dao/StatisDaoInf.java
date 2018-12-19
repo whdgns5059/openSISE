@@ -2,10 +2,12 @@ package kr.co.opensise.admin.statis.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
+import kr.co.opensise.admin.statis.model.Page_statisticVo;
 
 /**
 * StatisDaoInf.java
@@ -157,9 +159,19 @@ public interface StatisDaoInf {
 	* 작성자 : Bella
 	* 변경이력 :
 	* @return
-	* Method 설명 : 방문자 데이터 입력
+	* Method 설명 : 사이트 방문 데이터 입력
 	*/
 	public int insertVisitor();
+	
+	/**
+	* Method : insertPS
+	* 작성자 : Bella
+	* 변경이력 :
+	* @param uriCounts
+	* @return
+	* Method 설명 : 페이지 방문 데이터 입력
+	*/
+	public int insertPS(Map<String, Page_statisticVo> uriCounts);
 	
 	
 	
