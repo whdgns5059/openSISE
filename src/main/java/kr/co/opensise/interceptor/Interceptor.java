@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import kr.co.opensise.admin.statis.model.Page_statisticVo;
 import kr.co.opensise.admin.statis.service.StatisServiceInf;
 
 
@@ -30,9 +31,6 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		
 		request.setCharacterEncoding("utf-8");
 		
-		// 컨트롤러 호출 전 시각
-		request.setAttribute("start_time", System.currentTimeMillis());
-		
 		return true;
 	}
 	
@@ -40,47 +38,94 @@ public class Interceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		
-		/* 페이지 방문 */
+		/* 페이지 방문 통계 */
 		uri = request.getRequestURI();
 		log.info("페이지명 : {}",uri);
 		
 		// 페이지 통계용 세션 가져오기
 		HttpSession session =  request.getSession();
-		Map<String, Integer> uriCounts = (HashMap<String, Integer>)session.getAttribute("uriCounts");
+		Map<String, Page_statisticVo> uriCounts = (HashMap<String, Page_statisticVo>)session.getAttribute("uriCounts");
 		// 페이지별 카운트 수 올리기
 		if(uriCounts != null) {
 			switch(uri){
-				// 회원 내정보
+				//* 회원 내정보
 		        case "/mypage/myInfo" : 
-		        	uriCounts.put(uri, uriCounts.get(uri) == null ? 1: uriCounts.get(uri)+ 1);
+		        	if(uriCounts.get(uri) == null) 
+		        		new Page_statisticVo("회원_내정보", uri, 1);
+		        	else 
+		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
+		        	
+		        	uriCounts.put(uri, uriCounts.get(uri));
 		            break;
 		        // 회원 찜목록
 		        case "/mypage/steamList" : 
-		        	uriCounts.put(uri, uriCounts.get(uri) == null ? 1: uriCounts.get(uri)+ 1);
+		        	if(uriCounts.get(uri) == null) 
+		        		new Page_statisticVo("회원_찜목록", uri, 1);
+		        	else 
+		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
+		        	
+		        	uriCounts.put(uri, uriCounts.get(uri));
 		        	break;
 		        // 회원 최근 본 매물
 		        case "/mypage/recentlyviewed" : 
-		        	uriCounts.put(uri, uriCounts.get(uri) == null ? 1: uriCounts.get(uri)+ 1);
+		        	if(uriCounts.get(uri) == null) 
+		        		new Page_statisticVo("회원_최근_본_매물", uri, 1);
+		        	else 
+		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
+		        	
+		        	uriCounts.put(uri, uriCounts.get(uri));
 		        	break;
 		        // 회원 가입 마지막 절차
-		        case "/mypage/" : 
-		        	uriCounts.put(uri, uriCounts.get(uri) == null ? 1: uriCounts.get(uri)+ 1);
+		        case "??" : 
+		        	if(uriCounts.get(uri) == null) 
+		        		new Page_statisticVo("회원_가입", uri, 1);
+		        	else 
+		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
+		        	
+		        	uriCounts.put(uri, uriCounts.get(uri));
 		        	break;
-		        // 회원 내정보
-		        case "/mypage" : 
-		        	uriCounts.put(uri, uriCounts.get(uri) == null ? 1: uriCounts.get(uri)+ 1);
-		        	break;
-		        // 메인 페이지
+		        //* 메인페이지
 		        case "/main/main" : 
-		        	uriCounts.put(uri, uriCounts.get(uri) == null ? 1: uriCounts.get(uri)+ 1);
-		        	log.info("메인 페이지{} {}" , uri, uriCounts.get(uri));
+		        	if(uriCounts.get(uri) == null) 
+		        		new Page_statisticVo("메인페이지", uri, 1);
+		        	else 
+		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
+		        	
+		        	uriCounts.put(uri, uriCounts.get(uri));
 		            break;
+		        // 건물상세
+		        case "/detail/info" : 
+		        	if(uriCounts.get(uri) == null) 
+		        		new Page_statisticVo("건물상세", uri, 1);
+		        	else 
+		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
+		        	
+		        	uriCounts.put(uri, uriCounts.get(uri));
+		        	break;
+		        // 지역분석
+		        case "/local/local" : 
+		        	if(uriCounts.get(uri) == null) 
+		        		new Page_statisticVo("지역분석", uri, 1);
+		        	else 
+		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
+		        	
+		        	uriCounts.put(uri, uriCounts.get(uri));
+		        	break;
+		        // 법원경매
+		        case "/main/auction" : 
+		        	if(uriCounts.get(uri) == null) 
+		        		new Page_statisticVo("법원경매", uri, 1);
+		        	else 
+		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
+		        	
+		        	uriCounts.put(uri, uriCounts.get(uri));
+		        	break;
 		        default :
 		        	break;
 			}
 		// 만약 페이지 통계용 세션이 없다면
 		}else {
-			uriCounts = new HashMap<String, Integer>();
+			uriCounts = new HashMap<String, Page_statisticVo>();
 			session.setAttribute("uriCounts", uriCounts);
 		}
 			
