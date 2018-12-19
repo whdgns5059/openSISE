@@ -65,6 +65,15 @@
 	position: relative;
 }
 
+#sensor{
+	width: 30%;
+	height: 100%;
+	float: left;
+	border-left: 1px solid #e0e0e0;
+	background: #f5f3f0;
+	position: relative;
+}
+
 .filters-div {
 	float: left;
 }
@@ -104,6 +113,7 @@
 	font-size: 15px;
 	font-family: 'Nanum Gothic Coding', monospace;
 	background: white;
+	cursor: pointer;
 }
 
 .article h4 {
@@ -183,7 +193,7 @@
 				animate: "slow",
 			});
 		}
-		/*----------- 슬라이드 생성 코드(전세, 월세)*/
+		/*----------- 슬라이드 생성 코드(전세, 월세) -------------*/
 		function sliderRangeDepos(minimum, maximum){
 			
 			$("#slider-bar").slider({
@@ -195,7 +205,6 @@
 				orientation : "horizontal",
 				animate: "slow",
 			});
-			
 			$("#slider-rnt").slider({
 				range: "max",
 				min : minimum,
@@ -204,13 +213,18 @@
 				step : 100,
 				orientation : "horizontal",
 				animate: "slow",
-			});
+			});	
 		}
+		/*---------- 슬라이더 생성 코드 끝 --------------*/
+		
+		/*---------- 초기에 무제한이라고 초기값 설정 -------*/
 		var price = $("#slider-bar").val();	
 		var span = "<span id='price'> 무제한 </span>";
 		$("#price").html("");
 		$("#price").html(span);
+		/*---------- 초기에 무제한이라고 초기값 설정 끝  -------*/
 		
+		/*---------- 슬라이더 값 변화 function -------*/
 		$("#slider-bar").on("change",function(){
 			priceTitle();
 		});
@@ -222,9 +236,9 @@
 				
 				price = $("#slider-bar").val();	
 				if(price[1] == 30){
-					span = "<span id='price'>" + price[0] + "  ~ " + " 무제한</span>";
+					span = "<span id='price'>" + price[0] + " 억 ~ " + " 무제한</span>";
 				}else{
-					span = "<span id='price'>" + price[0] + "  ~ " + price[1]+ " 억</span>";
+					span = "<span id='price'>" + price[0] + " 억 ~ " + price[1]+ " 억</span>";
 				}
 				$("#price").html("");
 				$("#price").html(span);
@@ -233,7 +247,7 @@
 				
 				price = $("#slider-bar").val();	
 				if(price[1] == 100000){
-					span = "<span id='price'>" + price[0] + "  ~ " + " 무제한</span>";
+					span = "<span id='price'>" + price[0] + " 만원 ~ " + " 무제한</span>";
 				}else{
 					span = "<span id='price'>" + price[0] + " 만원  ~ " + price[1]+ " 만원</span>";
 				}
@@ -260,7 +274,7 @@
 				$("#priceRnt").html(span);
 			}
 		}
-		
+		/*------------------- 슬라이더 onChange 끝 -------------------------*/
 		
 
 		/*전/월/매 ajax 처리*/
@@ -270,21 +284,37 @@
 			$("#ty").val(dl_Type);
 			$("#dl_ty").val(dl_Type);
 			
-			if($("#dl_ty").val() == '매매'){
-				$("#dlTypePrice").html("매매가");
-				sliderRange(0,30);
-			}else if ($("#dl_ty").val() == '전세'){
-				$("#dlTypePrice").html("보증금");
-				sliderRangeDepos(0,100000);
-			}else{
-				$("#dlTypePrice").html("보증금");
-				sliderRangeDepos(0,10000);
-				$("#dlRntPrice").html("월세");
-				sliderRangeDepos(0,400);
-			}
-			
+			dlTypeInnerHtml();
+			sliderMaker();
 			getArticleList();
 		}); 
+		
+		
+		/*---------- 매매 형태에 따른 탭 기본값 고정 --------- */
+		function dlTypeInnerHtml(){
+			if($("#dl_ty").val() == '매매'){
+				$("#dlTypePrice").html("매매가");
+			}else if($("#dl_ty").val() == '전세'){
+				$("#dlTypePrice").html("보증금");
+			}else{
+				$("#dlTypePrice").html("보증금");
+				$("#dlRntPrice").html("월세");
+			}
+		}
+		/*---------- 매매 형태에 따른 탭 기본값 고정 끝 --------- */
+		
+		/*---------- 매매 형태에 따른 슬라이더 생성 -----------*/
+		function sliderMaker(){
+			if($("#dl_ty").val() == '매매'){
+				sliderRange(0,30);
+			}else if($("#dl_ty").val() == '전세'){
+				sliderRangeDepos(0,100000);
+			}else{
+				sliderRangeDepos(0,10000);
+				sliderRangeDepos(0,400);
+			}
+		}
+		/*---------- 매매 형태에 따른 슬라이더 생성 끝 -----------*/
 		
 		/*단/다세대 ajax 처리*/
 		$(".houseSelector").on("click", function(){
@@ -337,36 +367,29 @@
 		$("#search").on("click",function(){
 			dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
 			$("#buildT").html(dl_Type);
-			
 			$("#dl_ty").val(dl_Type);
-			/* if($("#dl_ty").val() == '매매'){
-				$("#dlTypePrice").html("매매가");
-			}else if ($("#dl_ty").val() == '전세'){
-				$("#dlTypePrice").html("보증금");
-			}else{
-				$("#dlTypePrice").html("월세");
-			} */
+
 			getArticleList();
-			console.log($("#dl_ty").val());
 		});
 		
-		$(".article").hover(
-			function(){
-				var x = this.getElementsByClassName("lat")[0].value;	// mouseOver가 된 해당 매물의 위도
-				var y = this.getElementsByClassName("lng")[0].value;	// mouseOver가 된 해당 매물의 경도
-				settingMap(x,y);
-			}
-		);
 		
-		$(".article").on("click",function(){
+		/*------------- 해당 매물 mouseover시 중심 좌표 이동---------*/
+		$(".main-right").on("mouseover",".article",function(){
+			var x = this.getElementsByClassName("lat")[0].value;	// mouseOver가 된 해당 매물의 위도
+			var y = this.getElementsByClassName("lng")[0].value;	// mouseOver가 된 해당 매물의 경도
+			settingMap(x,y);
+		});
+		/*------------- 해당 매물 mouseover시 중심 좌표 이동 끝---------*/
+		
+		/*------------- 해당 매물 클릭 시 상세정보로 이동 ---------------*/
+		$(".main-right").on("click",".article",function(){
 			$("#artcl_gu").val(this.getElementsByTagName("input")[2].value);
 			$("#artcl_dong").val(this.getElementsByTagName("input")[3].value);
 			$("#artcl_zip").val(this.getElementsByTagName("input")[4].value);
 			$("#artcl_rd").val(this.getElementsByTagName("input")[5].value);
 			$("#frmDetail").submit();
 		});
-		
-		
+		/*------------- 해당 매물 클릭 시 상세정보로 이동 끝 ---------------*/
 	});
 	
 	function getArticleList(){
@@ -388,7 +411,7 @@
 	function settingMap(x,y){
 		var lat;
 		var lng;
-		if ($("#loc").val() == "" || $("#listSize").val() == 0) {
+		if ($("#loc").val() == "") {
 			// 검색값이 없을 때 시청으로 기본 좌표값 설정
 			lat = 36.3505393936125;
 			lnt = 127.38483389033713;
@@ -456,11 +479,11 @@
 		<div class="search">
 			<input type="hidden" id="dl_type" name="dl_type" value="${dlType}"> 
 			<form method="get" name="frm">
-					<input type="text" class="search-box" placeholder="지역명, 지하철역명, 아파트명" name="searchName" id="loc" value="${searchName}"> 
-					<input type="hidden" id="buildings" name="building" value="${building}">
-					<input type="hidden" id="dl_ty" name="dl_ty" value ="${dlType}"> 
-					<input type="hidden" id="dl_excv_area" name="dl_excv_area"> 
-					<input type="hidden" id="artcl_const_y" name="artcl_const_y"> 
+				<input type="text" class="search-box" placeholder="지역명, 지하철역명, 아파트명" name="searchName" id="loc" value="${searchName}"> 
+				<input type="hidden" id="buildings" name="building" value="${building}">
+				<input type="hidden" id="dl_ty" name="dl_ty" value ="${dlType}"> 
+				<input type="hidden" id="dl_excv_area" name="dl_excv_area"> 
+				<input type="hidden" id="artcl_const_y" name="artcl_const_y"> 
 				<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">검색</button>
 			</form>
 		</div>
@@ -487,6 +510,7 @@
 									<label class="custom-control-label" for="multi">&nbsp&nbsp다세대</label>
 								</a>
 							</div>
+							
 							<div class="custom-control custom-checkbox">
 								<a class="dropdown-item" href="#"> 
 									<input type="radio" class="custom-control-input houseSelector" id="multip" name="house" value="multip"/> 
@@ -529,27 +553,12 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">가격</a>
-					<c:choose>
-						<c:when test="${dlType == '월세'}">
-							<div class="dropdown-menu" style="width:600px; height: 100px;">
-								<h4 id="dlTypePrice">매매가</h4>
-		  						<div id="slider-bar"></div>&nbsp&nbsp&nbsp
-		  						<span id="price">무제한</span>
-		  						<hr>
-		  						<h4 id="dlRntPrice"></h4>
-		  						<div id="slider-rnt"></div>&nbsp&nbsp&nbsp
-		  						<span id="priceRnt"></span>
-							</div>						
-						</c:when>
-						<c:when test="${dlType != '월세'}">
-							<div class="dropdown-menu" style="width:400px; height: 100px;">
-								<h4 id="dlTypePrice">매매가</h4>
-		  						<div id="slider-bar"></div>&nbsp&nbsp&nbsp
-		  						<span id="price">무제한</span>
-		  						<hr>
-							</div>						
-						</c:when>
-					</c:choose>
+					<div class="dropdown-menu" style="width:400px; height: 100px;">
+						<h4 id="dlTypePrice">매매가</h4>
+  						<div id="slider-bar"></div>&nbsp&nbsp&nbsp
+  						<span id="price">무제한</span>
+  						<hr>
+					</div>	
 					</li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
@@ -637,15 +646,12 @@
 </div>
 
 <!-- right contents -->
+<!-- <div id="sensor">  -->
 <div class="main-right">
 	<!-- 매물리스트 들어가는 자리 -->
 	
 	<div id="lngLat">
-	<input type="hidden" id="listSize" value="${buildingSaleListSize}" />
-<%-- 	<c:forEach items="${buildingSaleList}" var="build">
-		<input type="hidden" class="lat" value="${build.artcl_lat}">
-		<input type="hidden" class="lng" value="${build.artcl_lng}">
-	</c:forEach> --%>
+		<input type="hidden" id="listSize" value="${buildingSaleListSize}" />
 	</div>
 <!-- 매물리스트  -->
 	<div class="articles">
@@ -716,8 +722,9 @@
 	<!-- <div class="area-analysis">
 		2
 	</div> -->
-</div>
-
+	</div>
+<!-- </div> 
+ -->
 
 
 

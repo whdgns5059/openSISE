@@ -3,17 +3,26 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <div id="lngLat">
 	<input type="hidden" id="listSize" value="${buildingSaleListSize}" />
-	<c:forEach items="${buildingSaleList}" var="build">
-		<input type="hidden" class="lat" value="${build.artcl_lat}">
-		<input type="hidden" class="lng" value="${build.artcl_lng}">
-	</c:forEach>
-	</div>
+ </div>
 <!-- 매물리스트  -->
 	<div class="articles">
+		<form action="/detail/info" id="frmDetail">
+			<input type="hidden" id="artcl_gu" name="artcl_gu">
+			<input type="hidden" id="artcl_dong" name="artcl_dong">
+			<input type="hidden" id="artcl_zip" name="artcl_zip">
+			<input type="hidden" id="artcl_rd" name="artcl_rd">
+			<input type="hidden" id="ty" name="dl_ty" value ="${dlType}">
+		</form>
 		<c:choose>
 			<c:when test="${buildingSaleListSize != 0}">
 				<c:forEach items="${buildingSaleList}" var="build">
 					<div class="article">
+					<input type="hidden" class="lat" value="${build.artcl_lat}">
+					<input type="hidden" class="lng" value="${build.artcl_lng}">
+					<input type="hidden" id="gu" value="${build.artcl_gu}">
+					<input type="hidden" id="dong" value="${build.artcl_dong}">
+					<input type="hidden" id="zip" value="${build.artcl_zip}">
+					<input type="hidden" id="rd" value="${build.artcl_rd}">
 						<c:choose>
 							<c:when test="${build.artcl_bc == 'apt'}">
 								<h4>${build.artcl_complx}</h4>
