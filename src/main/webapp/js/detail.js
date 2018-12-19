@@ -93,6 +93,7 @@ function reviewControl(){
 	$('.titleWrapper').on('click',  function(){
 		
 		var post = this.nextElementSibling.getElementsByClassName('reply')[0];
+		var photo = this.nextElementSibling.getElementsByClassName('photo')[0];
 		
 		if($(this.nextElementSibling).is(':visible')){
 			$(this.nextElementSibling).hide("slow");
@@ -107,13 +108,27 @@ function reviewControl(){
 				url : '/detail/selectReplyAjax',
 				data : post_data,
 				success : function(data){
-					replySucces(data);
+					replySuccess(data);
+				}
+			});
+			
+			$.ajax({
+				type: 'POST',
+				url : '/detail/selectReviewPic',
+				data : post_data,
+				success : function(data){
+					picSuccess(data);
 				}
 			});
 			
 			//성공후 post에 데이터를 넣는 함수
-			function replySucces(data){
+			function replySuccess(data){
 				$(post).html(data);
+			}
+			
+			//사진가져오기 성공후 데이터 넣기
+			function picSuccess(data){
+				$(photo).html(data);
 			}
 			
 		}
@@ -221,10 +236,68 @@ $('#insertReview').click(function(event){
 		return;
 	}
 	
-	$('#reviewFrm').submit();	
+	var fileInput = document.getElementsByClassName('post_img');
+
+	var extFlag = true;
+
+	for(var i = 0; i < fileInput.length; i++) {
+		
+		var file_path = fileInput[i].value;
+		var dot_index = file_path.lastIndexOf('.');
+		var ext = file_path.substr(dot_index).toLowerCase();
+		
+		if(!(ext == '.jpg' || ext == '.bmp' || ext == '.png' || ext == '.gif')){
+			alert('jpg, bmp, png, gif 이미지만 업로드 가능합니다');
+			return;
+		}
+	}
 	
+	$('#reviewFrm').submit();	
+		
+		
 	
 });
+
+
+//리뷰 작성시 파일 첨부 갯수 변화
+$('.plusfile').on('click', function(){
+	
+	var post_img = $('.post_img');
+	
+	
+	if(post_img.length == 3){
+		alert('이미지는 최대 3장까지 입니다.');
+		return;
+	}
+	
+	var nowlength = post_img.length;
+	var nextlength = nowlength + 1;
+	
+	$('.inputDiv').append('<input type="file" class="post_img" name="post_img" id="post_img'+nextlength+'" />');
+	
+	
+})
+
+//리뷰 작성시 파일 첨부 갯수 변화
+$('.minusfile').on('click', function(){
+	
+	var post_img = document.getElementsByClassName('post_img');
+	
+	
+	if(post_img.length == 1){
+		alert('이미지는 최소 1장 입니다.');
+		return;
+	}
+	
+	var nowlength = post_img.length;
+	var nextlength = nowlength + 1;
+	
+	$('#post_img'+nowlength).remove();
+	
+	
+})
+
+
 
 function getPost_no(rpl_post){
 	

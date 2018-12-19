@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 
@@ -93,6 +94,16 @@ public class DetailDao implements DetailDaoInf{
 	@Override
 	public int deleteReviewChild(String post_no) {
 		return template.delete("detail.deleteReviewChild", post_no);
+	}
+
+	@Override
+	public int insertPicture(PictureVo pictureVo) {
+		return template.insert("detail.insertPicture", pictureVo);
+	}
+
+	@Override
+	public List<PictureVo> selectReviewPic(PostVo postVo) {
+		return template.selectList("detail.selectReviewPic", postVo);
 	}
 	
 	

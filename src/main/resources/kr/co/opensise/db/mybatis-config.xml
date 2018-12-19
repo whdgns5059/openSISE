@@ -34,6 +34,7 @@
 		<!-- 리뷰 -->
 		<typeAlias type="kr.co.opensise.user.detail.model.PostVo" alias="postVo"/>
 		<typeAlias type="kr.co.opensise.user.detail.model.ReplyVo" alias="replyVo"/>
+		<typeAlias type="kr.co.opensise.user.detail.model.PictureVo" alias="pictureVo"/>
 		
 	</typeAliases>
 
