@@ -229,9 +229,11 @@ public class LoginController {
 		// 메일 내용 
 		String recipient = memEmail; //받는 사람의 메일주소
 		String subject = "회원인증"; //메일 제목 입력해주세요.
-		String body = "OpenSise 회원인증 "
-				+ "아래 링크 클릭시 회원인증 처리가 완료 됩니다! "
+		String body = "<h2>OpenSise 회원인증</h2></br> "
+				+ "아래 링크 클릭시 회원인증 처리가 완료 됩니다!</br> "
+				+ "<img src=\"/img/openSise_login.png\"  alt=\"오픈시세 로그인\" title=\"오픈시세 로그인 \" />"
 				+ "http://localhost:8081/login/passCertification?OpenSise"+seedEncrypt; //메일 내용
+		//<img src="/img/openSise_login.png"  alt="오픈시세 로그인" title="오픈시세 로그인 " />
 		
 		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
 
@@ -260,7 +262,7 @@ public class LoginController {
 		mimeMessage.setText(body); //내용셋팅
 		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
 
-		return "login";
+		return "passMailOk";
 	}	
 	 
 	/** Method   : passWordChange 
