@@ -38,6 +38,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 			ModelAndView modelAndView) throws Exception {
 		
 		uri = request.getRequestURI();
+		log.info("페이지명 : {}",uri);
 		
 		/* 일일 방문자 카운트 하기 */
 		long stayTime = 0;
