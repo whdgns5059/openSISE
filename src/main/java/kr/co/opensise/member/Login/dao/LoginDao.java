@@ -156,10 +156,23 @@ public class LoginDao implements LoginDaoInf{
 		int steamUpdate = template.delete("member.favorDelete", favor_no);
 		return steamUpdate;
 	}
+
 	
 	
 	
-	
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원탈퇴
+	*/
+	@Override
+	public int memDelete(MemberVo memberVo) {
+		int memberDelete = template.update("member.memDelete", memberVo);
+		return memberDelete;
+	}
 		
 		
 		

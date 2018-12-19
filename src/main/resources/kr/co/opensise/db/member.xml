@@ -94,7 +94,13 @@
 	<!-- 보안설정 (비밀변호 변경)-->
 	
 	
-	
+	<!-- 회원탈퇴 -->
+	<update id="memDelete" parameterType="memberVo">
+		UPDATE member
+		set mem_exdate = sysdate
+		where mem_pass = #{mem_pass}
+		and mem_email = #{mem_email}
+	</update>
 	
 	
 </mapper>

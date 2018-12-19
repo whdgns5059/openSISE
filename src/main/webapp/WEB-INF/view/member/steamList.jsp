@@ -71,16 +71,5 @@ $(document).ready(function(){
 			</table>
 		</div>
 </div>
-	<form action="/mypage/steamListUpdate" method="post">
-			<div class="form-group">
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<!--  <input type="hidden" src="../img/heart-outline.png" name="favor_no" class="img" value="${steam.favor_no }">-->
-						<button type="submit" class="btn btn-default">저장</button>
-					</div>
-				</div>
-				<div class="col-sm-10"></div>
-			</div>
-		</form>
 </body>
 </html>

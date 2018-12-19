@@ -112,4 +112,17 @@ public interface LoginServiceInf {
 		* Method 설명 :  찜리스트 삭제
 		*/
 		public int steamListUpdate(int favor_no); 
+		
+		
+		/**  
+		* Method   :  
+		* 작성자 : 김주연 
+		* 변경이력 :  
+		* @param 
+		* @return  
+		* Method 설명 :  회원탈퇴
+		* */
+		public int memDelete(MemberVo memberVo);
+		
+		
 }

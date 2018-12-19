@@ -107,4 +107,16 @@ public interface LoginDaoInf {
 	*/
 	public int myInfoUpdate(MemberVo memberVo);
 	
+	
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원탈퇴
+	*/
+	public int memDelete(MemberVo memberVo);
+	
+	
 }

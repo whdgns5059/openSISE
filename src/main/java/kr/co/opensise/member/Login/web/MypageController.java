@@ -1,14 +1,26 @@
 package kr.co.opensise.member.Login.web;
 
 import java.util.List;
+import java.util.Properties;
 
 import javax.annotation.Resource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +29,7 @@ import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.member.Login.model.SteamVo;
 import kr.co.opensise.member.Login.service.LoginServiceInf;
+import kr.co.opensise.member.encrypt.sha.KISA_SHA256;
 
 @Controller
 @RequestMapping("/mypage")
@@ -55,6 +68,7 @@ public class MypageController {
 	public String InfoUpdate(Model model, @RequestParam("mem_email")String mem_email) {
 		MemberVo memberVo = loginService.searchUser(mem_email);
 		List<MemberVo> memberJobLiset = loginService.jobList();
+		
 		model.addAttribute("memberVo", memberVo);
 		model.addAttribute("JobList",memberJobLiset);
 		
@@ -133,6 +147,52 @@ public class MypageController {
 		return "steamList";
 	}
 	
+	
+	/**  
+	* Method   :  selectMypage
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 : 탈퇴시 해당회원 이메일 조회
+	*/
+	@RequestMapping("/memWithdrawal")
+	public String withdrawal(Model model, HttpSession session) {
+		MemberVo user = (MemberVo) session.getAttribute("nowLogin");
+		MemberVo member = loginService.searchUser(user.getMem_email());
+		
+		model.addAttribute("memberVo", member);
+		
+		return "withdrawal";
+	}
+	
+	/**  
+	* Method   :  selectMypage
+	* 작성자 :  김주연
+	* 변경이력 :  memberVo
+	* @return  
+	* Method 설명 : 탈퇴 처리
+	*/
+	@RequestMapping(value="/Withdrawal", method = {RequestMethod.POST})
+	public String memwithdrawal(MemberVo memberVo, @RequestParam("mem_pass") String mem_pass, HttpServletRequest request, Model model) {
+		
+		String encryptPass = KISA_SHA256.encrypt(mem_pass);
+		memberVo.setMem_pass(encryptPass);
+		int user = loginService.memDelete(memberVo);
+		
+		model.addAttribute("memberVo", user);
+		
+		if (user != 0 ) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			
+			return "openPage";
+		} else {
+			return "openPage";
+	}
+	}
+	
+	
+	
 	/** Method   : recentlyViewed 
 	* 작성자 :  김주연
 	* 변경이력 :  
@@ -156,18 +216,6 @@ public class MypageController {
 		return "passWordChange";
 	}
 	
-	
-	/** Method   : withdrawal 
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @return  
-	* Method 설명 :  회원탈퇴
-	*/
-	@RequestMapping("/withdrawall")
-	public String withdrawal(Model model) {
-		return "withdrawal";
-	}
-	
-	
+
 }
-	
+

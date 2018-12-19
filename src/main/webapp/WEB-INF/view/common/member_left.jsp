@@ -52,7 +52,7 @@ ul { list-style : none; }
 	</ul>
 	<hr/>
 	<ul class="left-menu">
-		<li><a href="/mypage/withdrawall">회원탈퇴</a></li>
+		<li><a href="/mypage/memWithdrawal">회원탈퇴</a></li>
 	</ul>
 </div>
 
