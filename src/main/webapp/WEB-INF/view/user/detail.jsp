@@ -72,7 +72,7 @@
 			<hr/>
 		</div>
 		<div id="review">
-			<div>	
+			<div>
 				<button type="button" class="btn openMask" >리뷰 작성</button>
 				<div class="window reviewWindow" id="reviewWindow">
 					<form id="reviewFrm" action="/detail/insertReview" method="post" enctype="multipart/form-data">
