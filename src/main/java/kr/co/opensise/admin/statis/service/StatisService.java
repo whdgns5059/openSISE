@@ -103,7 +103,16 @@ public class StatisService implements StatisServiceInf {
 	
 	@Override
 	public List<InterestVo> intrstAge(String mem_age) {
+		// 전연령대일 경우 처리
+		if(mem_age.equals("allAge"))
+			mem_age = null;
+		
 		return statisDao.intrstAge(mem_age);
+	}
+
+	@Override
+	public int insertVisitor() {
+		return statisDao.insertVisitor();
 	}
 
 

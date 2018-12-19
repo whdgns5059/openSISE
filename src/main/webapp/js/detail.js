@@ -91,27 +91,58 @@ function reviewControl(){
 	$('.reviewDetailWrapper').hide();
 	
 	$('.titleWrapper').on('click',  function(){
+		
+		var post = this.nextElementSibling.getElementsByClassName('reply')[0];
+		
 		if($(this.nextElementSibling).is(':visible')){
 			$(this.nextElementSibling).hide("slow");
 		}else{
 			$(this.nextElementSibling).show("slow");
+			
+			var post_no = this.getElementsByClassName('reviewNo')[0].innerHTML;
+			var post_data = {post_no}
+			
+			$.ajax({
+				type : 'POST',
+				url : '/detail/selectReplyAjax',
+				data : post_data,
+				success : function(data){
+					replySucces(data);
+				}
+			});
+			
+			//성공후 post에 데이터를 넣는 함수
+			function replySucces(data){
+				$(post).html(data);
+			}
+			
 		}
 	});
 }
 
 
-//리뷰 별
+//리뷰 읽기 별
 $(function() {
     $('.starReview').raty({
         score: 3
         ,path : "/img"
         ,width : 200
+    });
+});
+
+//리뷰 글작성 별
+$(function() {
+    $('#star').raty({
+        score: 3
+        ,path : "/img"
+        ,width : 600
         ,click: function(score, evt) {
             $("#starRating").val(score);
             $("#displayStarRating").html(score);
         }
     });
 });
+
 
 //모달 페이지
 function wrapWindowByMask(){
@@ -152,7 +183,7 @@ $('.area').on('click', '.areatab', function(){
 
 $("#reviewWindow").hide();
 
-
+//mask  띄우기!
 //검은 막 띄우기
 $(".openMask").click(function(e) {
 	e.preventDefault();
@@ -172,4 +203,179 @@ $("#mask").click(function() {
 	$(".window").hide();
 
 });
+
+
+//리뷰 작성
+$('#insertReview').click(function(event){
+	
+	var post_ttl = document.getElementById('post_ttl');
+
+	if(post_ttl.value == null || post_ttl.value == ''){
+		alert("제목을 입력해 주세요");
+		return;
+	}
+	
+	var post_contnt = document.getElementById('post_contnt');
+	if(post_contnt.value == null || post_contnt.value == ''){
+		alert("내용을 입력해 주세요");
+		return;
+	}
+	
+	$('#reviewFrm').submit();	
+	
+	
+});
+
+function getPost_no(rpl_post){
+	
+	var post_noArr = $('.post_noChk');
+	
+	for(var i = 0; i < post_noArr.length; i++){
+		if(post_noArr[i].value == rpl_post){
+			return post_noArr[i];
+		}
+	}
+	
+}
+
+//댓글 작성
+$('.writeReply').on('click', '.insertReply', function(){
+ 
+	var rpl_cntnt = this.previousElementSibling.getElementsByClassName('replyInput')[0].value;
+	var rpl_post= this.previousElementSibling.getElementsByClassName('post_no')[0].value;
+	
+	if(rpl_cntnt == null || rpl_cntnt == ''){
+		alert('댓글 내용을 입력해 주세요');
+		return;
+	}
+	
+	$.ajax({
+		
+		type:'POST',
+		url : '/detail/insertReply',
+		data : {
+			rpl_cntnt : rpl_cntnt,
+			rpl_post : rpl_post
+		},
+		success : function(data){
+			var post_no = getPost_no(rpl_post);
+			$(post_no.nextElementSibling).html(data);
+		}
+	});
+	
+	
+	//리뷰 클래스중에서 포스트와같은 div 가져오기
+	//리플이 담겨야 하는 div 위에 chk용 postID가 존재..
+	function getPost_no_insert(){
+		
+		var post_noArr = $('.post_noChk');
+		
+		for(var i = 0; i < post_noArr.length; i++){
+			if(post_noArr[i].value == rpl_post){
+				return post_noArr[i];
+			}
+		}
+		
+	}
+	
+	
+});
+
+
+
+//댓글 삭제
+$('.reply').on('click', '.deleteReply',  function(e){
+	
+	e.preventDefault();
+	
+	var rpl_no = this.getElementsByClassName('rpl_no')[0].value;
+	var rpl_post = this.getElementsByClassName('rpl_post')[0].value;
+
+	$.ajax({
+		
+		type : 'POST',
+		url : '/detail/deleteReply',
+		data : {
+			rpl_no : rpl_no,
+			rpl_post : rpl_post
+		},
+		success : function(data){
+			var post_no = getPost_no(rpl_post);
+			$(post_no.nextElementSibling).html(data);	
+		}
+		
+	});
+	
+	//리뷰 클래스중에서 포스트와같은 div 가져오기
+	//리플이 담겨야 하는 div 위에 chk용 postID가 존재..
+
+	
+	
+});
+
+
+//리뷰 삭제
+$('.deleteReview').on('click', function(){
+	
+	var post_no = this.getElementsByClassName('post_no')[0].value;
+	var dl_ty = this.getElementsByClassName('dl_ty')[0].value;
+	location.href = '/detail/deleteReview?post_no='+post_no+'&dl_ty='+dl_ty;
+	
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,12 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript">
+		function chkCaptcha() {
+		    if (typeof(grecaptcha) != 'undefined') {
+		       if (grecaptcha.getResponse() == "") {
+		           alert("스팸방지코드를 확인해 주세요.");
+		           return false;
+		       }
+		    }
+		    else {
+		         return false;
+		    }
+		}
 		
 		$(document).ready(function(){
 			var message = '${msg}'; 
+			for(message=0; message >= msg; i++){
 			alert(message); 
+			}
+			
 			});	
 
 		function getCookie(cookieName){
@@ -77,6 +93,10 @@
 			
 				<label> <input type="button" id="optionModifyBtn" class="form-control" value="비밀번호 찾기" onclick="showPopup();">
 				</label><br/>
+				
+					<div class="g-recaptcha" data-sitekey="6Lcq0IIUAAAAADmbjoiH0hCkrpV164fgqe8G-H7Y"></div>
+				
+				
 			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
 			</div>
 			</div>

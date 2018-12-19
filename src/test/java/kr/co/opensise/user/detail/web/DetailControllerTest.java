@@ -16,11 +16,13 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.setup.ControllerSetup;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.ReplyVo;
 
 public class DetailControllerTest extends ControllerSetup{
 
 	private Logger log = LoggerFactory.getLogger(DetailController.class);
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void detailTest() throws Exception {
 		/***given***/
@@ -54,6 +56,7 @@ public class DetailControllerTest extends ControllerSetup{
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void detailTradeInfoAjaxTest() throws Exception {
 		
@@ -88,7 +91,23 @@ public class DetailControllerTest extends ControllerSetup{
 		
 		
 	}
+	
+	@Test
+	public void insertReplyTest() throws Exception {
+		
+		/***given***/
+		
+		MvcResult mvcResult = mockMvc.perform(post("/detail/insertReply").param("rpl_cntnt", "컨트롤러테스트").param("rpl_post", "5")).andReturn();
+		ModelAndView mav = mvcResult.getModelAndView();
+		
+		/***when***/
+		String post_no = (String) mav.getModel().get("post_no");
 
+		/***then***/
+		assertEquals("5", post_no);
+		
+	}
+	
 }
 
 

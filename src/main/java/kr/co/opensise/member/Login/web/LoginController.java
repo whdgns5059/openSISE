@@ -69,10 +69,10 @@ public class LoginController {
 			model.addAttribute("memberVo",user);
 			return "openPage";
 		} else if(user == null ){
-			model.addAttribute("msg","존재하지 않는 회원입니다! 가입후 이용바랍니다");
+			model.addAttribute("msg","존재하지 않는 회원입니다! 가입후 이용바랍니다 ");
 			return "loginErr";
 		}else {
-			model.addAttribute("msg","ID와 PW를 다시 확인해 주세요");
+			model.addAttribute("msg","ID와 PW를 다시 확인해 주세요" );
 			return "loginErr";
 		}
 	}

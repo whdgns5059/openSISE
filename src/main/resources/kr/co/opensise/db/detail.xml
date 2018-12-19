@@ -21,6 +21,7 @@
 		select distinct dl_excv_area from deal
 		where dl_gu = #{artcl_gu} and dl_dong=#{artcl_dong} 
 		and dl_zip=#{artcl_zip} and dl_rd=#{artcl_rd}
+		order by dl_excv_area
 	</select>
 	
 	<select id="selectDealListByArea" parameterType="dealVo" resultType="dealVo">
@@ -62,6 +63,7 @@
 	<select id="selectReview" parameterType="articleVo" resultType="postVo">
 		select * from post
 		where post_brd = 1 and post_gu = #{artcl_gu} and post_dong= #{artcl_dong} and post_zip= #{artcl_zip} and post_rd= #{artcl_rd}
+		order by post_no desc
 	</select>
 	
 	<select id="selectMonthlyAvg" parameterType="dealVo" resultType="dealVo">
@@ -82,8 +84,43 @@
 		where a.dl_cont_ym(+) = b.dl_cont_ym2
 		ORDER BY B.dl_cont_ym2
 	</select>
+
+	<insert id="insertReply" parameterType="replyVo">
+		insert into reply (rpl_no, rpl_cntnt, rpl_date, rpl_exst, rpl_post, rpl_mem)
+		values (seq_rpl_no.nextval, #{rpl_cntnt}, sysdate, 'N', #{rpl_post}, #{rpl_mem})
+	</insert>		
+	
+	<select id="selectReply" parameterType="int" resultType="replyVo">
+	    select rpl_no, rpl_cntnt, to_char(rpl_date, 'yyyy-MM-dd') as rlp_date, rpl_exst, rpl_post, rpl_mem, mem_email from 
+		(select * from post
+			where post_no = #{int}), reply b, member
+		where post_no = rpl_post
+		and rpl_mem = mem_no
+	</select>
+	
+	<delete id="deleteReply" parameterType="int">
+		delete reply
+		where rpl_no = #{int}
+	</delete>
 		
-		
+	<delete id="deleteReview" parameterType="String">
+		delete post
+		where post_no = #{post_no}
+	</delete>
+	
+	<delete id="deleteReviewChild" parameterType="String">
+		delete from reply
+		where rpl_no in (
+			select rpl_no from reply
+			where rpl_post = #{String}
+		)
+	</delete>		
+	<select id="selectReviewByNo" parameterType="string" resultType="postVo">
+		select * from post
+		where post_no = #{string}
+	</select>		
+	
+	
 </mapper>
 
 

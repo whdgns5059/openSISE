@@ -17,6 +17,7 @@ import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PostVo;
+import kr.co.opensise.user.detail.model.ReplyVo;
 
 public class DetailDaoTest extends RootSetup{
 
@@ -212,6 +213,62 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 
+	
+	@Test
+	public void insertReplyTest() {
+		/***given***/
+		ReplyVo replyVo = new ReplyVo();
+		replyVo.setRpl_cntnt("test케이스 리플");
+		replyVo.setRpl_post(5);
+		replyVo.setRpl_mem(10);
+		
+		/***when***/
+		int result = detailDao.insertReply(replyVo);
+		
+
+		/***then***/
+		assertEquals(1, result);
+	}
+	
+	@Test
+	public void selectReply() {
+		
+		/***given***/
+		int post_no = 5;
+		/***when***/
+		List<ReplyVo> result = detailDao.selectReply(post_no);
+
+		/***then***/
+		assertEquals(2, result.size());
+		
+		
+	}
+	
+	
+	@Test
+	public void deleteReply() {
+		
+		/***given***/
+		int rpl_no = 4;
+		/***when***/
+		int result = detailDao.deleteReply(rpl_no);
+
+		/***then***/
+		assertEquals(1, result);
+		
+	}
+	
+	@Test
+	public void selectReviewByNo() {
+		
+		/***given***/
+		String post_no = "5";
+		/***when***/
+		PostVo result = detailDao.selectReviewByNo(post_no);
+
+		/***then***/
+		assertEquals(5, result.getPost_no());
+	}
 	
 }
 

@@ -136,6 +136,16 @@ public interface StatisServiceInf {
 	public List<InterestVo> intrstAge(String mem_age);
 	
 	
+	/**
+	* Method : insertVisitor
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 방문자 데이터 입력
+	*/
+	public int insertVisitor();
+	
+	
 	
 	
 	

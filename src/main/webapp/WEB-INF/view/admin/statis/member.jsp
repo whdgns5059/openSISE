@@ -84,7 +84,7 @@ $(document).ready(function(){
             "minor-ticks": 0 },
         /* 세로축 */
         "scale-y": {
-            "values": "0:"+allCnt+":"+(allCnt/10), /* 시작 : 끝 : 단계 */
+            "values": "0:"+allCnt+":"+Math.ceil(allCnt/10), /* 시작 : 끝 : 단계 */
             "line-color": "#f6f7f8",
             "shadow": 0,
             "guide": { "line-style": "dashed" },

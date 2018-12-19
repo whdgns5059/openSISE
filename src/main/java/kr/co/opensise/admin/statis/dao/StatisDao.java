@@ -102,6 +102,12 @@ public class StatisDao implements StatisDaoInf {
 		return intrstVo;
 	}
 
+	@Override
+	public int insertVisitor() {
+		int insertCnt = template.insert("admin_statis.insertVisitor");
+		return insertCnt;
+	}
+
 
 	
 	

@@ -1,9 +1,11 @@
 package kr.co.opensise.user.detail.service;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.user.detail.model.PostVo;
+import kr.co.opensise.user.detail.model.ReplyVo;
 
 public interface DetailServiceInf {
 	
@@ -43,6 +45,25 @@ public interface DetailServiceInf {
 	
 	int insertReview(PostVo postVo);
 	
+	
+	int insertReply(ReplyVo replyVo);
+	
+	List<ReplyVo> selectReply(int post_no);
+	
+	int deleteReply(int rpl_no);
+	
+	PostVo selectReviewByNo(String post_no);
+
+	/*************************************************  
+	* Method   : deleteReview 
+	* 작성자 :  whdgn
+	* 변경이력 :  2018. 12. 19.
+	* @param post_no
+	* @return  
+	* Method 설명 : 삭제시 해당 리뷰를 부모로 하는
+	* 자식 댓글까지 다 삭제한다
+	**************************************************/
+	int deleteReview(String post_no);
 	
 	
 	
