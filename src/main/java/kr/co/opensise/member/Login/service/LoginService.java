@@ -161,6 +161,19 @@ public class LoginService implements LoginServiceInf{
 	}
 
 	
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  보안설정(비밀번호 변경)
+	* */
+	@Override
+	public int passChange(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		return loginDao.passChange(memberVo);
+	}	
 	
 	/**  
 	* Method   :  
@@ -174,7 +187,10 @@ public class LoginService implements LoginServiceInf{
 	public int memDelete(MemberVo memverVo) {
 		// TODO Auto-generated method stub
 		return loginDao.memDelete(memverVo);
-	}	
+	}
+
+	
+	
 	
 	
 	

@@ -56,13 +56,6 @@
 		where mem_nm = #{mem_nm}
 	</select> 
 	
-	<!-- 비밀번호 찾기 
-	<update id="update_pw" parameterType="memberVo">
-		update member 
-		set mem_pass = #{mem_pass} 
-		where mem_email = #{mem_email}
-	</update>-->
-	 
 	<delete id="delete" >
 		Delete From member
 	</delete>
@@ -92,6 +85,12 @@
 	</delete>
 	
 	<!-- 보안설정 (비밀변호 변경)-->
+	<update id="passChange" parameterType="memberVo">
+		update member 
+		set mem_pass = #{mem_new_pass} 
+		where mem_email = #{mem_email}
+		  and mem_pass = #{mem_pass}
+	</update>
 	
 	
 	<!-- 회원탈퇴 -->
@@ -101,6 +100,8 @@
 		where mem_pass = #{mem_pass}
 		and mem_email = #{mem_email}
 	</update>
+	
+	
 	
 	
 </mapper>
