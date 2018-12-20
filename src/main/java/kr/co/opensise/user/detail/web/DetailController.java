@@ -147,6 +147,7 @@ public class DetailController {
 		model.addAttribute("dl_ty", dl_ty);
 		
 		return "redirect:/detail/info";
+		
 	}
 
 	

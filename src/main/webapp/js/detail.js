@@ -44,7 +44,6 @@ function settingMap(){
 				var gu = result[0].address.region_2depth_name;
 				var dong = result[0].address.region_3depth_name;
 
-
 				location.href="/local/local?gu="+gu+"&dong="+dong;
 				
 			}
