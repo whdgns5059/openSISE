@@ -164,7 +164,7 @@
 	margin-left: -20px;
 }
 .divHeight{
-	width:400px;
+	width:500px;
 	height: 100px;
 }
 
@@ -179,6 +179,11 @@
 <script type="text/javascript">
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
+		
+
+		
+		
+		
 		/* var dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
 		$("#buildT").html(dl_Type); */
 		dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
@@ -237,14 +242,33 @@
 		/*---------- 초기에 무제한이라고 초기값 설정 끝  -------*/
 		
 		/*---------- 슬라이더 값 변화 function -------*/
-		$("#slider-bar").on("change",function(){
+	/* 	$("#slider-bar").on("change",function(){
 			priceTitle();
 		});
 		$("#slider-rnt").on("change",function(){
 			priceTitle();
+		}); */
+		/* $(".divHeight").on("change","#slider-bar",function(){
+			priceTitle();
+			getArticleList();
 		});
+		$(".divHeight").on("change","#slider-rnt",function(){
+			priceTitle();
+			getArticleList();
+		}); */
 		
 		
+		
+		
+		
+		/*------- 가격 ajax --------*/
+		$(".divHeight").on("mousedown","#slider-bar",function(){
+			alert("mouseOut");
+		}); 
+		/* $("#slider-bar").mouseleave(function(){
+			console.log($("#slider-bar").val());
+		}); */
+		/*------- 가격 ajax 끝 ------*/
 		function priceTitle(){
 			
 			if($("#dl_ty").val()=="매매"){
@@ -257,17 +281,20 @@
 				}
 				$("#price").html("");
 				$("#price").html(span);
-				
+				$("#dl_price1").val($("#slider-bar").val()[0]);
+				$("#dl_price2").val($("#slider-bar").val()[1]);
 			}else if($("#dl_ty").val()=="전세"){
 				
 				price = $("#slider-bar").val();	
-				if(price[1] == 100000){
+				if(price[1] == 30000){
 					span = "<span id='price'>" + price[0] + " 만원 ~ " + " 무제한</span>";
 				}else{
 					span = "<span id='price'>" + price[0] + " 만원  ~ " + price[1]+ " 만원</span>";
 				}
 				$("#price").html("");
 				$("#price").html(span);
+				$("#dl_price1").val($("#slider-bar").val()[0]);
+				$("#dl_price2").val($("#slider-bar").val()[1]);
 			}else{
 				
 				price = $("#slider-bar").val();
@@ -283,10 +310,14 @@
 				if(price2[1] == 400){
 					span = "<span id='priceRnt'>" + price2[0] + " 만원  ~ " + " 무제한</span>";
 				}else{
-					span = "<span id='priceRnt'>" + price2[0] + " 만원  ~ " + price[1] + "만원</span>";
+					span = "<span id='priceRnt'>" + price2[0] + " 만원  ~ " + price2[1] + "만원</span>";
 				}
 				$("#priceRnt").html("");
 				$("#priceRnt").html(span);
+				$("#dl_price1").val($("#slider-bar").val()[0]);
+				$("#dl_price2").val($("#slider-bar").val()[1]);
+				$("#dl_rnt1").val($("#slider-rnt").val()[0]);
+				$("#dl_rnt2").val($("#slider-rnt").val()[1]);
 			}
 		}
 		/*------------------- 슬라이더 onChange 끝 -------------------------*/
@@ -299,11 +330,23 @@
 			$("#ty").val(dl_Type);
 			$("#dl_ty").val(dl_Type);
 			$("#dl_t").val(dl_Type);
+			
+			console.log($("#dl_ty").val());
+			console.log($("#buildings").val());
+			console.log($("#searchName").val());
+			
 			if($("#dl_ty").val() =="월세"){
-				$(".divHeight").css("height", 300);
+				$(".divHeight").css("height", 200);
 				priceRnt();
 			}else{
+				$(".divHeight").html("");
 				$(".divHeight").css("height", 100);
+				var html ;
+				html += "<h4 id='dlTypePrice'>매매가</h4>";
+				html +=	"<div id='slider-bar'></div>&nbsp&nbsp&nbsp";
+				html +=	"<span id='price'>무제한</span>";
+				html +=	"<hr>";
+				$(".divHeight").html(html);
 			}
 			
 			dlTypeInnerHtml();
@@ -341,7 +384,7 @@
 			if($("#dl_ty").val() == '매매'){
 				sliderRange(0,30);
 			}else if($("#dl_ty").val() == '전세'){
-				sliderRangeDepos(0,100000);
+				sliderRangeDepos(0,30000);
 			}else{
 				sliderRangeDepos(0,10000);
 				sliderRangeRnt(0,400);
@@ -429,11 +472,20 @@
 	function getArticleList(){
 		console.log($("#buildings").val());
 	 	var param = $("form[name=frm]").serialize();
+	 	var building = document.getElementById("buildings").value;
+	 	var searchName = document.getElementById("loc").value;
+	 	var dl_ty = document.getElementById("dl_ty").value;
+	 	var dl_excv_area = document.getElementById("dl_excv_area").value;
+	 	var artcl_const_y = document.getElementById("artcl_const_y").value;
+	 	var dl_price1 = document.getElementById("dl_price1").value;
+	 	var dl_price2 = document.getElementById("dl_price2").value;
+	 	var dl_rnt1 = document.getElementById("dl_rnt1").value;
+	 	var dl_rnt2 = document.getElementById("dl_rnt2").value;
 	 	
 		$.ajax({
 			type : "POST",
 			url : "/main/mainAjax",
-			data : param,
+			data : {building : building, searchName : searchName, dl_ty : dl_ty, dl_excv_area : dl_excv_area, artcl_const_y : artcl_const_y, dl_price1 : dl_price1, dl_price2 : dl_price2, dl_rnt1 :dl_rnt1 ,dl_rnt2 : dl_rnt2},
 			success : function(data){
 				$(".main-right").html("");
 				$(".main-right").html(data);
@@ -448,7 +500,10 @@
 		if ($("#loc").val() == "") {
 			// 검색값이 없을 때 시청으로 기본 좌표값 설정
 			lat = 36.3505393936125;
-			lnt = 127.38483389033713;
+			lng = 127.38483389033713;
+		}else if($("#listSize").val() == "0"){
+			lat = $("#latX").val();
+			lng = $("#lngY").val();
 		}else if(x == 0 && y == 0) {
 			// 해당 주소에 대한 좌표값을 담을 변수
 			lat = $(".lat").val(); //위도
@@ -529,24 +584,31 @@
 		return position;
 	}
 	
+
+	
 	
 </script>
 
 
 <!-- left contents -->
 <div class="main-left">
-	
+	<input type="hidden" id ="latX" value="${buildingSaleList[0].artcl_lat}">
+	<input type="hidden" id ="lngY" value="${buildingSaleList[0].artcl_lng}">
 	<!-- 검색 조건 -->
 	<div class="search-filt">
 		<!-- 검색어 -->
 		<div class="search">
 			<input type="hidden" id="dl_type" name="dl_type" value="${dlType}"> 
-			<form method="get" name="frm">
+			<form method="post" name="frm">
 				<input type="text" class="search-box" placeholder="지역명, 지하철역명, 아파트명" name="searchName" id="loc" value="${searchName}"> 
 				<input type="hidden" id="buildings" name="building" value="${building}">
 				<input type="hidden" id="dl_ty" name="dl_ty" value ="${dlType}"> 
 				<input type="hidden" id="dl_excv_area" name="dl_excv_area"> 
 				<input type="hidden" id="artcl_const_y" name="artcl_const_y"> 
+				<input type="hidden" id="dl_price1" name="dl_price1"/>
+				<input type="hidden" id="dl_price2" name="dl_price2"/>
+				<input type="hidden" id="dl_rnt1" name="dl_rnt1"/>
+				<input type="hidden" id="dl_rnt2" name="dl_rnt2"/> 
 				<button type="button" class="btn btn-primary searchBtn btn-lg" id="search">검색</button>
 			</form>
 		</div>
