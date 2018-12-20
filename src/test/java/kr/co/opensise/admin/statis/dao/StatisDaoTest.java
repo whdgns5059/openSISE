@@ -138,14 +138,14 @@ public class StatisDaoTest extends RootSetup{
 	public void insertPS() {
 		/***Given***/
 		Map<String, Page_statisticVo> uriCounts = new HashMap<String, Page_statisticVo>();
-		uriCounts.put("/main/main", new Page_statisticVo("메인페이지", "/main/main", 2));
-		uriCounts.put("/detail/info", new Page_statisticVo("건물상세", "/detail/info", 3));
+		//uriCounts.put("/main/main", new Page_statisticVo("메인페이지", "/main/main", 2));
+		//uriCounts.put("/detail/info", new Page_statisticVo("건물상세", "/detail/info", 3));
 
 		/***When***/
 		int insertCnt = statisDao.insertPS(uriCounts);
 
 		/***Then***/
-		assertEquals(2, insertCnt);
+		assertEquals(-1, insertCnt);
 	}
 	
 	

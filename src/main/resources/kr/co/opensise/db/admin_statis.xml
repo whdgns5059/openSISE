@@ -106,7 +106,7 @@
 <!-- 관심사 통계 -->
 	<!-- 관심사 수 최대치 -->
 	<select id="countAllIntrst" resultType="int">
-		Select Max(counts) From (Select Count(intrst_no) as counts, intrst_no From mem_inter Group by intrst_no)
+		Select NVL(Max(counts),0) From (Select Count(intrst_no) as counts, intrst_no From mem_inter Group by intrst_no)
 	</select>
 	
 	<!-- 관심사별 선택 수 -->
@@ -154,8 +154,20 @@
 		Insert Into visitor Values (sysdate)
 	</insert>
 	
+	<!-- 가장 많이 방문한 수 -->
+	<select id="maxVisit" resultType="int">
+		Select NVL(Max(counts),0) From (Select Count(vstr_date) as counts From visitor Group by to_char(vstr_date, 'YYYY/MM/dd'))
+	</select>
+	
 	<select id="visitDate" resultType="visitVo">
-		Select * From visitor
+		Select count(vstr_date) as counts , a.ymd as ymd
+		From visitor right join (
+		    Select to_date('20181206', 'yyyyMMdd')+(level-1) as ymd
+		    From dual
+		    Connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181206', 'yyyyMMdd'))+1) a
+		On  (to_char(vstr_date, 'YYYY/MM/dd') = a.ymd)
+		Group by  a.ymd
+		Order by a.ymd
 	</select>
 	
 	<select id="visitDay" resultType="visitVo">
@@ -174,7 +186,7 @@
 			Into page_statistic (ps_date, ps_pg, ps_pg_addr, ps_vstr)
 			Values (sysdate, #{vo.ps_pg}, #{vo.ps_pg_addr}, #{vo.ps_vstr})
 		</foreach>
-		select * from dual
+		Select * From Dual
 	</insert>
 	
 	<select id="psDate" resultType="psVo">

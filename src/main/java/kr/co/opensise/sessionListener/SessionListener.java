@@ -18,11 +18,9 @@ import kr.co.opensise.interceptor.Interceptor;
 
 public class SessionListener implements HttpSessionListener{
 	
-//	@Resource(name="statisService")
-//	private StatisServiceInf statisService;
-	Map<String, Page_statisticVo> uriCounts;
-	XmlWebApplicationContext context;
-	StatisServiceInf statisService;
+	private Map<String, Page_statisticVo> uriCounts;
+	private XmlWebApplicationContext context;
+	private StatisServiceInf statisService;
 	
 	private Logger log = LoggerFactory.getLogger(Interceptor.class);
 	
@@ -58,8 +56,15 @@ public class SessionListener implements HttpSessionListener{
 		HttpSession session = se.getSession();
 		uriCounts = (HashMap<String, Page_statisticVo>)session.getAttribute("uriCounts");
 		
-		// 페이지 counts insert 하기
-		statisService.insertPS(uriCounts);
+		// 다른 페이지 방문이 없었을 시 페이지 방문 데이터는 입력하지 않습니다.
+		if(uriCounts == null || uriCounts.isEmpty() ) {
+			log.info("map은 정보가 없습니다");
+		}else {
+			// 페이지 counts insert 하기
+			statisService.insertPS(uriCounts);
+			log.info("map의 정보는 {}",uriCounts.toString());
+		}
+		
 		
 	}
 

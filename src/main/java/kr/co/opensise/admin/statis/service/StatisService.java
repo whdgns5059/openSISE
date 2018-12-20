@@ -118,7 +118,10 @@ public class StatisService implements StatisServiceInf {
 
 	@Override
 	public int insertPS(Map<String, Page_statisticVo> uriCounts) {
-		return statisDao.insertPS(uriCounts);
+		if(uriCounts.isEmpty())
+			return 0;
+		else
+			return statisDao.insertPS(uriCounts);
 	}
 
 

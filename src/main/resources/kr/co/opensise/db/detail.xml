@@ -135,7 +135,56 @@
 		where PIC_POST = #{post_no}
 	</select>
 			
+	<select id="selectPriceStat" parameterType="dealVo" resultType="_float">
+		select 
+		round(round((
+		(select round(avg(dl_price/dl_excv_area),0) as dl_price_avg from article, deal
+		where dl_ty = #{dl_ty}
+		and artcl_gu = dl_gu and artcl_dong = dl_dong and artcl_zip = dl_zip and artcl_rd = dl_rd
+		and artcl_bc = 'apt'
+		and dl_cont_ym >= to_char(add_months(sysdate, -12), 'yyyyMM'))
+		-
+		(select round(avg(dl_price /dl_excv_area),0) as dl_price_avg from article, deal
+		where dl_ty = #{dl_ty}
+		and artcl_gu = dl_gu and artcl_dong = dl_dong and artcl_zip = dl_zip and artcl_rd = dl_rd
+		and dl_gu = #{dl_gu} and dl_dong= #{dl_dong} and dl_zip= #{dl_zip} and dl_rd= #{dl_rd}
+		and artcl_bc = 'apt'
+		and dl_cont_ym >= to_char(add_months(sysdate, -12), 'yyyyMM'))
+		 ) , 0) / 30 , 1)
+		as price
+		from dual
+	</select>
+
+	<select id="selectMarketStat" parameterType="String" resultType="_float">
+		
+		select 
+		round(((select round(avg(mkd_price)) from market, market_detail
+		where mk_nm = mkd_mk
+		and  mk_dong = mkd_mk_dong
+		and mkd_price &lt;&gt; 0)
+		-
+		(select round(avg(mkd_price), 1) from market, market_detail
+		where mk_nm = mkd_mk
+		and  mk_dong = mkd_mk_dong
+		and mk_dong like #{string} || '%'
+		and mkd_price &lt;&gt; 0)) / 100, 0)
+		as price
+		from dual
+	</select>
 	
+	<select id="selectHumanStat" parameterType="String" resultType="_float">
+		select 
+		round(((select round(avg(hm_num), 0) from 
+		(select substr(hs_dong,1,2) as hs_dong,  hs_date,sum(hs_hm_no) as hm_num from HUMAN_STATISTIC
+		where hs_date = '201806'
+		group by substr(hs_dong,1,2), hs_date))
+		-
+		(select sum(HS_HM_NO) from HUMAN_STATISTIC
+		where hs_dong like '월평' || '%'
+		and hs_date = '201806')) / 5000, 1) as humanavg
+		from dual
+	</select>
+
 	
 </mapper>
 

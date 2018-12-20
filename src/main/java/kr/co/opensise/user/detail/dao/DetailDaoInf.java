@@ -44,4 +44,10 @@ public interface DetailDaoInf {
 	int insertPicture(PictureVo pictureVo);
 
 	List<PictureVo> selectReviewPic(PostVo postVo);
+
+	float selectPriceStat(DealVo dealVo);
+
+	float selectMarketStat(String dong);
+
+	float selectHumanStat(String dong);
 }

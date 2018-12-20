@@ -129,4 +129,14 @@ public interface LoginDaoInf {
 	public int memDelete(MemberVo memberVo);
 	
 	
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  비밀번호 찾기
+	* */
+	public int mailFinsh(MemberVo memberVo);
+	
 }

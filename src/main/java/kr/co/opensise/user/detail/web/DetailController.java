@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -147,6 +146,7 @@ public class DetailController {
 		model.addAttribute("dl_ty", dl_ty);
 		
 		return "redirect:/detail/info";
+		
 	}
 
 	
@@ -158,6 +158,24 @@ public class DetailController {
 		model.addAttribute("pictureList", pictureList);
 		
 		return "user/detailAjax/picture";
+	}
+	
+	@RequestMapping("/selectStat")
+	public String selectStat(DealVo dealVo, Model model) {
+	
+		
+		Map<String, Float> statMap = detailService.selectStat(dealVo);
+
+		/***then***/
+		Float priceStat = statMap.get("priceStat");
+		Float marketStat = statMap.get("marketStat");
+		Float humanStat = statMap.get("humanStat");
+		
+		model.addAttribute("priceStat", priceStat);
+		model.addAttribute("marketStat", marketStat);
+		model.addAttribute("humanStat", humanStat);
+		
+		return "user/detailAjax/radar";
 	}
 	
 	

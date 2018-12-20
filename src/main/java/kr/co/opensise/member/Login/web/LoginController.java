@@ -180,29 +180,6 @@ public class LoginController {
 		
 	}
 	
-
-	/** Method   : recentlyViewed 
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @return  
-	* Method 설명 :  최근 본 매물
-	*/
-	@RequestMapping("/recentlyviewed")
-	public String recentlyViewed(Model model) {
-		return "recentlyViewed";
-	}
-	
-	
-	/** Method   : passWordChange 
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @return  
-	* Method 설명 :  보안설정(비밀번호 변경)
-	*/
-	@RequestMapping("/passwordChange")
-	public String passWordChange(Model model) {
-		return "passWordChange";
-	}
 	
 	/** Method   : passWordChange 
 	* 작성자 :  김주연
@@ -211,19 +188,26 @@ public class LoginController {
 	* Method 설명 :  비밀번호 찾기 메일발송 처리
 	*/
 	@RequestMapping(value = "/mailSender") 
-	public String mailSender(@RequestParam("memEmail") String memEmail, HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
-
+	public String mailSender(Model model,@RequestParam("memEmail") String memEmail, HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
+		MemberVo user = loginService.selectMember(memEmail);
+		List<MemberVo> memberJobLiset = loginService.jobList();
+		
+		if (user == null ) {
+			//타입이 맞지않아 에러발생 재확인
+			//model.addAttribute("msg","존재하지 않는 회원입니다!");
+			model.addAttribute("JobList",memberJobLiset);
+			return "signup";
+		} else {
+		
 		// 암호화 처리
 		String seedEncrypt = KISA_SEED_CBC.Encrypt(memEmail);
-		
-		
 		
 		// 네이버일 경우 smtp.naver.com 
 		// Google일 경우 smtp.gmail.com 
 		String host = "smtp.naver.com";
 
-		final String username = "openSise"; //네이버 아이디
-		final String password = "nikfdcsobtusygbi"; //네이버 이메일 비밀번호
+		final String username = "openSise"; 
+		final String password = "nikfdcsobtusygbi"; 
 		int port=465; //포트번호
 
 		// 메일 내용 
@@ -232,7 +216,7 @@ public class LoginController {
 		String body = "<h2>OpenSise 회원인증</h2></br> "
 				+ "아래 링크 클릭시 회원인증 처리가 완료 됩니다!</br> "
 				+ "<img src=\"/img/openSise_login.png\"  alt=\"오픈시세 로그인\" title=\"오픈시세 로그인 \" />"
-				+ "http://localhost:8081/login/passCertification?OpenSise"+seedEncrypt; //메일 내용
+				+ "http://localhost:8081/login/passCertification?OpenSise="+seedEncrypt; //메일 내용
 		//<img src="/img/openSise_login.png"  alt="오픈시세 로그인" title="오픈시세 로그인 " />
 		
 		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
@@ -264,6 +248,7 @@ public class LoginController {
 
 		return "passMailOk";
 	}	
+	}
 	 
 	/** Method   : passWordChange 
 	* 작성자 :  김주연
@@ -272,7 +257,10 @@ public class LoginController {
 	* Method 설명 :  비밀번호 찾기 메일로 인증링크 전송 클릭시 변경 사이트로 이동
 	*/
 	@RequestMapping("/passCertification")
-	public String passCertification(Model model) {
+	public String passCertification(Model model, @RequestParam("OpenSise") String OpenSise, MemberVo memberVo) {
+		// email복호화 jsp처리
+		String decrypt = KISA_SEED_CBC.Decrypt(OpenSise);
+		memberVo.setMem_email(decrypt);
 		return "passCertification";
 	}
 	
@@ -283,9 +271,23 @@ public class LoginController {
 	* @return  
 	* Method 설명 :  비밀번호 찾기 로그인인증완료/ 비밀번호 변경완료 메인화면으로 이동
 	*/
-	@RequestMapping("/passFinsh")
-	public String passFinsh(Model model) {
-		return "openPage";
+	@RequestMapping(value="/passFinsh", method={RequestMethod.POST})
+	public String passFinsh(Model model, MemberVo memberVo) {
+		// 비밀번호 암호화
+		String encrypt = KISA_SHA256.encrypt(memberVo.getMem_pass());
+		memberVo.setMem_pass(encrypt);
+		
+		int mail = loginService.mailFinsh(memberVo);
+		model.addAttribute("memberVo", mail);
+		
+		if (mail != 0 ) {
+			model.addAttribute("msg","변경완료 되었습니다! 변경된 비밀번호로 로그인을 해주세요");
+			return "openPage";
+		} else {
+			model.addAttribute("msg","::서버문제발생:: 비밀번호 찾기를 다시 실행해 주세요");
+			return "passCertification";
+	}
+		
 	}
 	
 }
