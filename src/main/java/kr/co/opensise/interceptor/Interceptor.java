@@ -24,6 +24,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 	
 	private Logger log = LoggerFactory.getLogger(Interceptor.class);
 	private String uri;
+	private Page_statisticVo psVo;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -50,21 +51,21 @@ public class Interceptor extends HandlerInterceptorAdapter{
 			switch(uri){
 				//* 회원 내정보
 		        case "/mypage/myInfo" : 
-		        	if(uriCounts.get(uri) == null) 
-		        		new Page_statisticVo("회원_내정보", uri, 1);
-		        	else 
+		        	if(uriCounts.get(uri) == null) {
+		        		uriCounts.put(uri, new Page_statisticVo("회원_내정보", uri, 1));
+		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
-		        	
-		        	uriCounts.put(uri, uriCounts.get(uri));
+		        		uriCounts.put(uri, uriCounts.get(uri));
+		        	}
 		            break;
 		        // 회원 찜목록
 		        case "/mypage/steamList" : 
-		        	if(uriCounts.get(uri) == null) 
-		        		new Page_statisticVo("회원_찜목록", uri, 1);
-		        	else 
+		        	if(uriCounts.get(uri) == null) {
+		        		uriCounts.put(uri, new Page_statisticVo("회원_찜목록", uri, 1));
+		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
-		        	
-		        	uriCounts.put(uri, uriCounts.get(uri));
+		        		uriCounts.put(uri, uriCounts.get(uri));
+		        	}
 		        	break;
 		        // 회원 최근 본 매물
 		        case "/mypage/recentlyviewed" : 
@@ -77,48 +78,52 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		        	break;
 		        // 회원 가입 마지막 절차
 		        case "??" : 
-		        	if(uriCounts.get(uri) == null) 
-		        		new Page_statisticVo("회원_가입", uri, 1);
-		        	else 
+		        	if(uriCounts.get(uri) == null) {
+		        		uriCounts.put(uri, new Page_statisticVo("회원_가입", uri, 1));
+		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
-		        	
-		        	uriCounts.put(uri, uriCounts.get(uri));
+		        		uriCounts.put(uri, uriCounts.get(uri));
+		        	}
 		        	break;
 		        //* 메인페이지
 		        case "/main/main" : 
-		        	if(uriCounts.get(uri) == null) 
-		        		new Page_statisticVo("메인페이지", uri, 1);
-		        	else 
+		        	if(uriCounts.get(uri) == null) {
+		        		uriCounts.put(uri, new Page_statisticVo("메인페이지", uri, 1));
+		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
+		        		uriCounts.put(uri, uriCounts.get(uri));
+		        	}
 		        	
-		        	uriCounts.put(uri, uriCounts.get(uri));
+//////////// 정보 확인하기  	
+		        	log.info("정보 확인하기 {}",uriCounts.toString());
+////////////		        	
 		            break;
 		        // 건물상세
 		        case "/detail/info" : 
-		        	if(uriCounts.get(uri) == null) 
-		        		new Page_statisticVo("건물상세", uri, 1);
-		        	else 
+		        	if(uriCounts.get(uri) == null) {
+		        		uriCounts.put(uri, new Page_statisticVo("건물상세", uri, 1));
+		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
-		        	
-		        	uriCounts.put(uri, uriCounts.get(uri));
+		        		uriCounts.put(uri, uriCounts.get(uri));
+		        	}
 		        	break;
 		        // 지역분석
 		        case "/local/local" : 
-		        	if(uriCounts.get(uri) == null) 
-		        		new Page_statisticVo("지역분석", uri, 1);
-		        	else 
+		        	if(uriCounts.get(uri) == null) {
+		        		uriCounts.put(uri, new Page_statisticVo("지역분석", uri, 1));
+		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
-		        	
-		        	uriCounts.put(uri, uriCounts.get(uri));
+		        		uriCounts.put(uri, uriCounts.get(uri));
+		        	}
 		        	break;
 		        // 법원경매
 		        case "/main/auction" : 
-		        	if(uriCounts.get(uri) == null) 
-		        		new Page_statisticVo("법원경매", uri, 1);
-		        	else 
+		        	if(uriCounts.get(uri) == null) {
+		        		uriCounts.put(uri, new Page_statisticVo("법원경매", uri, 1));
+		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
-		        	
-		        	uriCounts.put(uri, uriCounts.get(uri));
+		        		uriCounts.put(uri, uriCounts.get(uri));
+		        	}
 		        	break;
 		        default :
 		        	break;
