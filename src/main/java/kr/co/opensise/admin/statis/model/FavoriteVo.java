@@ -8,6 +8,8 @@ public class FavoriteVo {
 	private String favor_dong;
 	private String favor_zip;
 	private String favor_rd;
+	private String favor_ty;
+
 	private String bc_nm;
 	private int rank;
 	private int counts;
@@ -15,6 +17,12 @@ public class FavoriteVo {
 	public FavoriteVo() {
 	}
 	
+	public String getFavor_ty() {
+		return favor_ty;
+	}
+	public void setFavor_ty(String favor_ty) {
+		this.favor_ty = favor_ty;
+	}
 	public String getBc_nm() {
 		return bc_nm;
 	}

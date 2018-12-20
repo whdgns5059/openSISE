@@ -184,7 +184,12 @@
 		and hs_date = '201806')) / 5000, 1) as humanavg
 		from dual
 	</select>
-
+	
+	
+	<insert id="insertFavor" parameterType="favorVo">
+		insert into favorite (favor_no, favor_mem, favor_gu, favor_dong, favor_zip, favor_rd, favor_ty)
+		values (seq_favor_no.nextval, #{favor_mem}, #{favor_gu}, #{favor_dong} , #{favor_zip}, #{favor_rd}, #{favor_ty})
+	</insert>
 	
 </mapper>
 

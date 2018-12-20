@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
+import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
@@ -95,6 +96,7 @@ public interface DetailServiceInf {
 	Map<String, Float> selectStat(DealVo dealVo);
 	
 	
+	int insertFavor(FavoriteVo favorVo);
 	
 }
 

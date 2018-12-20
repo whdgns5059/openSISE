@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
+import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
@@ -96,14 +97,14 @@ public class DetailDaoTest extends RootSetup{
 		dealVo.setDl_dong("월평동");
 		dealVo.setDl_zip("311-1");
 		dealVo.setDl_rd("청사로");
-		dealVo.setDl_ty("매매");
+		dealVo.setDl_ty("전세");
 		dealVo.setDl_excv_area(59.76f);
 		
 		/***when***/
 		AvgTradeVo avgTrade = detailDao.selectAvgPrice(dealVo);
 
 		/***then***/
-		assertEquals(16914.0, avgTrade.getAvg_price() , 1e-8);
+		assertEquals(16914.0, avgTrade.getAvg_depos() , 1e-8);
 		
 	}
 	
@@ -330,6 +331,27 @@ public class DetailDaoTest extends RootSetup{
 
 		/***then***/
 		assertEquals(-5.4, result, 1e-1);
+		
+	}
+	
+	@Test
+	public void insertFavorTest() {
+		
+		/***given***/
+		FavoriteVo favorVo = new FavoriteVo();
+		favorVo.setFavor_mem(10);
+		favorVo.setFavor_gu("서구");
+		favorVo.setFavor_dong("월평동");
+		favorVo.setFavor_zip("311-1");
+		favorVo.setFavor_rd("청사로");
+		favorVo.setFavor_ty("매매");
+		
+		/***when***/
+		int result = detailDao.insertFavor(favorVo);
+		
+		
+		/***then***/
+		assertEquals(1, result);
 		
 	}
 	

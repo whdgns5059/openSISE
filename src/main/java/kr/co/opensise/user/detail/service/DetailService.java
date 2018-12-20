@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
+import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
@@ -74,7 +75,7 @@ public class DetailService implements DetailServiceInf{
 		//selectAvgPrice : 1년간 해당 평수의 거래 평균 
 		AvgTradeVo avgTradeVo = detailDao.selectAvgPrice(dealVo);
 		
-		//selectRecentTrade : 가장 최근 거래 내역 s
+		//selectRecentTrade : 가장 최근 거래 내역 
 		List<DealVo> recentTradeVo = detailDao.selectRecentTrade(dealVo);
 		
 		//electDealListByArea : 해당 평수의 모든 거래 내역
@@ -182,7 +183,10 @@ public class DetailService implements DetailServiceInf{
 		String dl_dong = dealVo.getDl_dong();
 		String dong = dl_dong.substring(0, 2);
 		
-		float marketStat = detailDao.selectMarketStat(dong);
+		Float marketStat = detailDao.selectMarketStat(dong);
+		if(marketStat == null) {
+			marketStat = 0f;
+		}
 		if(marketStat > 5f) {
 			marketStat = 5f;
 		}
@@ -204,6 +208,11 @@ public class DetailService implements DetailServiceInf{
 		statMap.put("humanStat", humanStat);
 		
 		return statMap;
+	}
+
+	@Override
+	public int insertFavor(FavoriteVo favorVo) {
+		return detailDao.insertFavor(favorVo);
 	}
 
 	
