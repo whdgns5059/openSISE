@@ -51,6 +51,14 @@
 	<definition name="loginErr" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/member/loginErr.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="passCertification" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/passCertification.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="passMailOk" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/passMailOk.jsp"></put-attribute>
+	</definition>
 
 	<!--***************** memberLayout ******************* -->
 	<definition name="myinfo" extends="memberLayout">

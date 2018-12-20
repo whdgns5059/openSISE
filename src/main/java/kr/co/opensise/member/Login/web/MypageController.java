@@ -177,8 +177,8 @@ public class MypageController {
 		
 		String encryptPass = KISA_SHA256.encrypt(mem_pass);
 		memberVo.setMem_pass(encryptPass);
-		int user = loginService.memDelete(memberVo);
 		
+		int user = loginService.memDelete(memberVo);
 		model.addAttribute("memberVo", user);
 		
 		if (user != 0 ) {
@@ -188,7 +188,7 @@ public class MypageController {
 			return "openPage";
 		} else {
 			return "openPage";
-	}
+		}
 	}
 	
 	
@@ -205,15 +205,54 @@ public class MypageController {
 	}
 	
 	
+	
+	/** Method   : passWordChange 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  보안설정으로 이동
+	*/
+	@RequestMapping("/passwordChange")
+	public String passwordChange(Model model, HttpSession session) {
+		MemberVo user = (MemberVo) session.getAttribute("nowLogin");
+		MemberVo member = loginService.searchUser(user.getMem_email());
+		logger.info("mem_email {}", user.getMem_email());
+		model.addAttribute("memberVo", member);
+		
+		return "passWordChange";
+	}
+	
+	
+	
 	/** Method   : passWordChange 
 	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
 	* Method 설명 :  보안설정(비밀번호 변경)
 	*/
-	@RequestMapping("/passwordChange")
-	public String passWordChange(Model model) {
-		return "passWordChange";
+	@RequestMapping(value="/passChange", method = {RequestMethod.POST})
+	public String passChange(MemberVo memberVo, HttpServletRequest request, Model model, HttpSession session) {
+		String encrypt = KISA_SHA256.encrypt(memberVo.getMem_pass());
+		memberVo.setMem_pass(encrypt);
+		String encryptPass = KISA_SHA256.encrypt(memberVo.getMem_new_pass());
+		memberVo.setMem_new_pass(encryptPass);
+		
+		int user = loginService.passChange(memberVo);
+		MemberVo users = (MemberVo) session.getAttribute("nowLogin");
+		model.addAttribute("memberVo", users);
+		
+		if (user != 0 ) {
+			model.addAttribute("msg","변경완료 되었습니다!");
+			return "openPage";
+		} else {
+			model.addAttribute("msg","비밀번호 오입력!");
+			return "passWordChange";
+	}
+		
+		
+		
+		
+		
 	}
 	
 

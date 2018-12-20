@@ -13,34 +13,28 @@
 		<div class="row" align="center" style="margin: 50px;">
 			<%-- left --%>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<form action="/mypage/passChange" method="post">
 				<div class="blog-header">
 					<h3>비밀번호 변경</h3>
 					<hr>
 				</div>
 				<div class="form-group">
-					<label><input type="text" class="form-control" id="name" name="name" placeholder="현재 비밀번호 입력" /> </label> 
+					 <label><input type="email" class="form-control" id="mem_email" name="mem_email" value="${memberVo.mem_email}" /> </label></br>
+					<label><input type="password" class="form-control" id="mem_pass" name="mem_pass" placeholder="현재 비밀번호 입력" /> </label> 
 				</div>
 				<div class="form-group">
-					<label><input type="text" class="form-control" id="name" name="name" placeholder="새 비밀번호 입력" /> 
-					<input type="text" class="form-control" id="name" name="name" placeholder="새 비밀번호 확인" /> </label>
+					<label><input type="password" class="form-control" id="mem_new_pass" name="mem_new_pass" placeholder="새 비밀번호 입력" /> 
+					<input type="password" class="form-control" id="memPass" name="memPass" placeholder="새 비밀번호 확인" /> </label>
 				</div>
 				</br>
 				
+				<div class="col-sm-offset-2 col-sm-10">
+	     			<button type="submit" class="btn btn-default">변경</button>
+				</div>
 				
-				
+				</form>
 			</div>
 		</div>
 	</div>
-	<form action="/board/myInfoUpdate" method="post">
-	<div class="form-group"  align="center">
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				 <!-- <input type="hidden" name="userId" value="${userVo.userId}"> -->
-     			<button type="submit" class="btn btn-default">변경</button>
-			</div>
-		</div>
-		<div class="col-sm-10"></div>
-	</div>
-</form>
 </body>
 </html>

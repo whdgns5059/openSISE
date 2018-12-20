@@ -35,8 +35,7 @@ public class MainController {
 	*/
 	@RequestMapping("/main")
 	public String main(Model model, FilterVo filterVo) {
-		//검색어와 건물 형태를 Map에 저장
-		
+		logger.info("dl_ty : "+filterVo.getDl_ty());
 		//매물리스트 검색 결과를 담을 리스트 
 		List<BuildingSaleVo> buildSaleList = null;
 		if(filterVo.getBuilding().equals("house")) {

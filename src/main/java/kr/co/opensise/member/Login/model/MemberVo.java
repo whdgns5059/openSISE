@@ -22,6 +22,7 @@ public class MemberVo {
 	private int approval_key;
 	private String mem_mngr;
 	private String mem_age;
+	private String mem_new_pass;
 	
 	
 	
@@ -144,7 +145,15 @@ public class MemberVo {
 	public void setMem_date(Date mem_date) {
 		this.mem_date = mem_date;
 	}
+	public String getMem_new_pass() {
+		return mem_new_pass;
+	}
 
+	public void setMem_new_pass(String mem_new_pass) {
+		this.mem_new_pass = mem_new_pass;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "memberVo [mem_email=" + mem_email + ", mem_nm=" + mem_nm +  "]";

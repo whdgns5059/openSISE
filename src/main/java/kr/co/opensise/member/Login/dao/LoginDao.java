@@ -173,9 +173,35 @@ public class LoginDao implements LoginDaoInf{
 		int memberDelete = template.update("member.memDelete", memberVo);
 		return memberDelete;
 	}
+
+	
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  보안설정(비밀번호 변경)
+	* */
+	@Override
+	public int passChange(MemberVo memberVo) {
+		int passChange = template.update("member.passChange", memberVo);
+		return passChange;
+	}
 		
 		
-		
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  비밀번호 찾기
+	* */
+	public int mailFinsh(MemberVo memberVo) {
+		int mailFinsh = template.update("member.mailFinsh", memberVo);
+		return mailFinsh;
+	}
 		
 }
 
