@@ -106,7 +106,7 @@
 <!-- 관심사 통계 -->
 	<!-- 관심사 수 최대치 -->
 	<select id="countAllIntrst" resultType="int">
-		Select Max(counts) From (Select Count(intrst_no) as counts, intrst_no From mem_inter Group by intrst_no)
+		Select NVL(Max(counts),0) From (Select Count(intrst_no) as counts, intrst_no From mem_inter Group by intrst_no)
 	</select>
 	
 	<!-- 관심사별 선택 수 -->
@@ -176,7 +176,7 @@
 			Values (sysdate, #{vo.ps_pg}, #{vo.ps_pg_addr}, #{vo.ps_vstr})
 		</foreach>
 		</if>
-		select * from dual
+		Select * From Dual
 	</insert>
 	
 	<select id="psDate" resultType="psVo">

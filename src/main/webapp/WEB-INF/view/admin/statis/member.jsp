@@ -84,7 +84,7 @@ $(document).ready(function(){
             "minor-ticks": 0 },
         /* 세로축 */
         "scale-y": {
-            "values": "0:"+allCnt+":"+Math.ceil(allCnt/10), /* 시작 : 끝 : 단계 */
+            "values": "0:"+allCnt+":"+(Math.ceil(allCnt/10)+10), /* 시작 : 끝 : 단계 */
             "line-color": "#f6f7f8",
             "shadow": 0,
             "guide": { "line-style": "dashed" },
@@ -96,6 +96,7 @@ $(document).ready(function(){
                 "font-color": "#808080"},
             "minor-ticks": 0,
             "thousands-separator": "," },
+        // 커서를 올렸을 때 나타나는 정보
         "crosshair-x": {
             "line-color": "#efefef",
             "plot-label": {
@@ -267,7 +268,7 @@ $(document).ready(function(){
                 "legend-item":{
                   "background-color": "#f7cc06",
                   "borderRadius":5,
-                   "font-color":"white" },
+                  "font-color":"white" },
                 "legend-marker": {"visible":false},
                 "marker": {
                     "background-color": "#f7cc06",
@@ -317,6 +318,20 @@ $(document).ready(function(){
 	            "series":[
 	                {
 	                	"text": "여성",
+		                "line-color": "#f7cc06",
+			            "legend-item":{
+			                "background-color": "#f7cc06",
+			                "padding": "5 7",
+			                "borderRadius":5,
+			                "font-color":"white",
+			                "cursor":"pointer"
+			                },
+			            "legend-marker": {"visible":false},
+			            "marker": {
+			                "border-width": 1,
+			                "shadow": 0,
+			                "border-color": "#f7cc06"
+			                },
 	                    "data-side":1,
 	                    "background-color":"#f7cc06",
 	                    "values": [
@@ -329,6 +344,20 @@ $(document).ready(function(){
 	            	
 	                {
 	                	"text": "남성",
+		                "line-color": "#f38b72",
+			            "legend-item":{
+			                "background-color": "#f38b72",
+			                "padding": "5 7",
+			                "borderRadius":5,
+			                "font-color":"white",
+			                "cursor":"pointer"
+			                },
+			            "legend-marker": {"visible":false},
+			            "marker": {
+			                "border-width": 1,
+			                "shadow": 0,
+			                "border-color": "#f38b72"
+			                },
 	                    "data-side":2,
 	                    "background-color":"#f38b72",
 	                    "values": [

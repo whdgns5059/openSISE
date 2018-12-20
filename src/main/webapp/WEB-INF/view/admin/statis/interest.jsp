@@ -225,7 +225,7 @@ $(document).ready(function(){
 					<select id="selBox" >
 					  	<option value="allAge" selected>전연령</option>
 						<c:forEach items="${ageList }" var="age">
-					  	<option value="${age }">${age }</option>
+					  		<option value="${age }">${age }</option>
 						</c:forEach>
 					</select>
 				</p>
