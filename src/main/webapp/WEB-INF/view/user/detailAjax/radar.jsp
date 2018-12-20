@@ -31,7 +31,7 @@ var radarConfig =
             "border-color": "black",
             "border-size": "5",
             "title": {
-                "text": "City Hospital Performance",
+                "text": "openSISE 점수표",
                 "background-color": "none",
                 "font-color": "000",
                 "font-size": "22px"
@@ -44,7 +44,7 @@ var radarConfig =
             "scale-k": {
                 "background-color": "none",
                 "values": [
-                  "평당가", "물가", "인구수"
+                  "평당가<br/>1점: 평당 30만원 ", "물가<br/>1점 : 100원", "인구수<br/>1점 : 3000명"
                 ],
                 "item": {
                     "font-size": "14px",
@@ -67,7 +67,7 @@ var radarConfig =
             },
             "scale-v": {
                 "values": [
-                   -5,-4,-3,-2,-1,0,1,2,3,4,5
+                  -6,-5,-4,-3,-2,-1,0,1,2,3,4,5,
                 ],
                 "ref-line": {
                     "line-width": "1px",

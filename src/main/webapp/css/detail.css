@@ -17,6 +17,8 @@
 .info div {width: 40%; float:left;}
 .info .like {padding-top: 40px;}
 
+#radarChartDiv {padding : 0px !important; margin:0px !important;}
+#radarChartDiv div {padding : 0px !important; margin:0px !important;}
 
 
 #review {min-height: 300px;}
