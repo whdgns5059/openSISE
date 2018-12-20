@@ -77,7 +77,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		        	uriCounts.put(uri, uriCounts.get(uri));
 		        	break;
 		        // 회원 가입 마지막 절차
-		        case "??" : 
+		        case "/login/signupDetail" : 
 		        	if(uriCounts.get(uri) == null) {
 		        		uriCounts.put(uri, new Page_statisticVo("회원_가입", uri, 1));
 		        	}else {
@@ -93,10 +93,6 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
 		        		uriCounts.put(uri, uriCounts.get(uri));
 		        	}
-		        	
-//////////// 정보 확인하기  	
-		        	log.info("정보 확인하기 {}",uriCounts.toString());
-////////////		        	
 		            break;
 		        // 건물상세
 		        case "/detail/info" : 
