@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
+import kr.co.opensise.admin.manage.datatrade.model.DealVo;
+import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
@@ -78,8 +80,23 @@ public interface DetailServiceInf {
 	* Method 설명 : 해당 리뷰의 사진 정보를 가져온다
 	**************************************************/
 	List<PictureVo> selectReviewPic(PostVo postVo);
+
+
+	/*************************************************  
+	* Method   : selectStat 
+	* 작성자 :  whdgn
+	* 변경이력 :  2018. 12. 20.
+	* @param dealVo
+	* @return  
+	* Method 설명 : 통계 데이터 가져오기
+	* priceStat
+	* humanStat
+	* marketStat
+	**************************************************/
+	Map<String, Float> selectStat(DealVo dealVo);
 	
 	
+	int insertFavor(FavoriteVo favorVo);
 	
 }
 

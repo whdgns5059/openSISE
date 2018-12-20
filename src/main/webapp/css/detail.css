@@ -6,6 +6,7 @@
 .detailcontainer { width:1100px; height:900px; overflow-y: scroll; overflow-x:hidden;}
 .detailcontainer div {padding-left :20px; padding-top : 10px;}
 
+.heartimg {margin-left: 5px; margin-bottom : 5px;}
 
 .chartajax {padding: 0px !important;}
 .chartajax div {padding: 0px !important; margin: 0px !important;}
@@ -17,6 +18,8 @@
 .info div {width: 40%; float:left;}
 .info .like {padding-top: 40px;}
 
+#radarChartDiv {padding : 0px !important; margin:0px !important;}
+#radarChartDiv div {padding : 0px !important; margin:0px !important;}
 
 
 #review {min-height: 300px;}

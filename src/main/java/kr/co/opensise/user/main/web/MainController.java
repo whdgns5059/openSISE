@@ -35,7 +35,6 @@ public class MainController {
 	*/
 	@RequestMapping("/main")
 	public String main(Model model, FilterVo filterVo) {
-		logger.info("dl_ty : "+filterVo.getDl_ty());
 		//매물리스트 검색 결과를 담을 리스트 
 		List<BuildingSaleVo> buildSaleList = null;
 		if(filterVo.getBuilding().equals("house")) {
@@ -54,8 +53,6 @@ public class MainController {
 	
 	@RequestMapping("/mainAjax")
 	public String mainAjax(Model model, FilterVo filterVo) {
-		logger.info("houseType:" + filterVo.getBuilding());
-		logger.info("searchName:" + filterVo.getSearchName());
 		List<BuildingSaleVo> buildFilterList = null;
 		if(filterVo.getBuilding().equals("all")) {
 			buildFilterList = mainService.buildingSingleFilterList(filterVo);
@@ -66,7 +63,6 @@ public class MainController {
 		model.addAttribute("buildingSaleList", buildFilterList);
 		model.addAttribute("buildingSaleListSize", buildFilterList.size());
 		model.addAttribute("building",filterVo.getBuilding());
-		logger.info("dl_ty :" + filterVo.getDl_ty());
 		model.addAttribute("dlType",filterVo.getDl_ty());
 		return "user/mainAjax/rightList";
 	}

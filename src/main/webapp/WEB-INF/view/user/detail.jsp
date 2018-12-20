@@ -7,6 +7,7 @@
 <link href="/css/detail.css" rel="stylesheet">
 <script type="text/javascript" src="/js/jquery.raty.js"></script>
 
+
 <div id="mask"></div>	
 <div class="row">
 	<div id="mapWrap">
@@ -35,9 +36,11 @@
 				<input type="hidden" id="lng" value="${selectArticleVo.artcl_lng}"/>
 			</div>
 			<div class="like">
-				<span>찜하기</span> <img src="/img/heart.png" width="25px" height="25px"/>
-				<br/>
-				<h4>최근 x명이 해당 매물을 찜 했습니다.</h4>
+				<span>찜하기</span> 
+				<img src="/img/heart.png" class="heartimg" width="20px" height="20px"/>
+				<div>
+					<h4>최근 x명이 해당 매물을 찜 했습니다.</h4>
+				</div>
 			</div>
 		</div>
 		<div>
@@ -63,10 +66,8 @@
 			<img src="https://via.placeholder.com/1100x200"/>
 		</div>
 		<div>
-			<img src="https://via.placeholder.com/1100x200"/>
-		</div>
-		<div>
-			<img src="https://via.placeholder.com/1100x200"/>
+			<div id="radarChartDiv">
+			</div>	
 		</div>
 		<div>
 			<hr/>
@@ -127,7 +128,7 @@
 					<c:when test="${fn:length(selectReview) == 0 }">
 						<div class="noreivew">
 							<h3>리뷰가 없습니다.</h3>
-							<h4>새 리뷰를 작성하여 정보를 공유하세요</h4>
+							<h4>새 리뷰를 작성하여 정보를 공유하세요!</h4>
 						</div>	
 					</c:when>
 				<c:otherwise>
