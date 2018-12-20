@@ -169,11 +169,13 @@
 <!-- 페이지 통계 -->
 	<!-- 페이지 방문 데이터 입력 -->
 	<insert id="insertPS" parameterType="map">
+		<if test="map != null">
 		Insert All 
 		<foreach collection="_parameter.entrySet()" item="vo" separator=" ">
 			Into page_statistic (ps_date, ps_pg, ps_pg_addr, ps_vstr)
 			Values (sysdate, #{vo.ps_pg}, #{vo.ps_pg_addr}, #{vo.ps_vstr})
 		</foreach>
+		</if>
 		select * from dual
 	</insert>
 	
