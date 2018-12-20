@@ -6,7 +6,7 @@ public class InstiAttrVo {
 	private int iattr_pare;
 	private String iattr_key;
 	private String iattr_val;
-	private int level;
+	private int groupno;
 	
 	public int getIattr_no() {
 		return iattr_no;
@@ -39,16 +39,17 @@ public class InstiAttrVo {
 		this.iattr_val = iattr_val;
 	}
 	
-	public int getLevel() {
-		return level;
+	public int getGroupno() {
+		return groupno;
 	}
-	public void setLevel(int level) {
-		this.level = level;
+	public void setGroupno(int groupno) {
+		this.groupno = groupno;
 	}
+
 	@Override
 	public String toString() {
 		return "InstiAttrVo [iattr_no=" + iattr_no + ", iattr_insti=" + iattr_insti + ", iattr_pare=" + iattr_pare
-				+ ", iattr_key=" + iattr_key + ", iattr_val=" + iattr_val + ", level=" + level + "]";
+				+ ", iattr_key=" + iattr_key + ", iattr_val=" + iattr_val + ", groupno=" + groupno + "]";
 	}
 	
 	

@@ -47,5 +47,6 @@
 		<mapper resource="kr/co/opensise/db/member.xml" />
 		<mapper resource="kr/co/opensise/db/detail.xml" />
 		<mapper resource="kr/co/opensise/db/admin_statis.xml" />
+		<mapper resource="kr/co/opensise/db/notice.xml" />
 	</mappers>
 </configuration>
