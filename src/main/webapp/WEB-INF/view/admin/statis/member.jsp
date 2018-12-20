@@ -90,8 +90,6 @@ $(document).ready(function(){
             "guide": { "line-style": "dashed" },
             "label": {
                 "text": "회원 수",
-                "font-family": "'Noto Sans KR', sans-serif",
-                "font-weight": "400",
                 "font-size": "15px",
                 "font-color": "#808080"},
             "minor-ticks": 0,
@@ -135,7 +133,7 @@ $(document).ready(function(){
                 "legend-item":{
                   "background-color": "#da534d",
                   "borderRadius":5,
-                   "font-color":"white"},
+                  "font-color":"white"},
                 "legend-marker": {"visible":false },
                 "marker": {
                     "background-color": "#da534d",

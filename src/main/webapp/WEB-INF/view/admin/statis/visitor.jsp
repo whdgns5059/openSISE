@@ -56,7 +56,6 @@ $(document).ready(function(){
 		{
 		"type":"line",
 	    "globals":{
-	        "font-family":"'Noto Sans KR', sans-serif",
 	        "fontColor": "#808080"
 	    },
 	    "plot": {
@@ -79,7 +78,7 @@ $(document).ready(function(){
               "id":"view_all",
               "height":"20px",
               "width":"75px",
-              "border-color":"#777",
+              "border-color":"#3a589e",
               "border-width":"1px",
               "x":"86%",
               "y":"7%",
@@ -89,7 +88,8 @@ $(document).ready(function(){
               "label":{
                 "text":"View All",
                 "font-size":12,
-                "bold":true
+                "font-color":"#3a589e",
+                "bold":true 
               }
         }],
 	  // 커서를 올렸을 때 나타나는 정보
@@ -126,19 +126,19 @@ $(document).ready(function(){
 	      "background-color":"#3a589e"}
 	    },
 	    "scale-x" : {
-	      "step": "day",
-	        "transform": {
-	                "type": "date",
-	                "all": "%Y<br/>%M %d. %D",
-	                "guide": {"visible": false},
-	                "item": {"visible": false} 
-	        },
+	    	/* "min-value": 1543968000000, */
+            "shadow": 0,
+	      	"step": "day",
+	      	"transform": {
+	            "type": "date",
+	            "all": "%Y<br/>%M %d. %D",
+	            "guide": {"visible": false},
+	            "item": {"visible": false} },
 	        "label": { "visible": false},
-	        "item" : {
-	            "font-size" : 10
-	        },
+	        "minor-ticks": 0 ,
 	        "zooming" : true
 	    },
+	    /* 세로축 */
 	    "scale-y":{
 	      "values": "0:100000000:1000000", /* 시작 : 끝 : 단계 */ // 0:달별 max 방문수 : 나누기 10
 	      "line-color": "#f6f7f8",
@@ -146,16 +146,32 @@ $(document).ready(function(){
 	      "guide": { "line-style": "dashed" },
 	      "label": {
 	        "text": "회원 수",
-	        "font-family": "'Noto Sans KR', sans-serif",
-	        "font-weight": "400",
-	        "font-size": "15px",
-	        "font-color": "#808080"},
+            "font-size": "15px",
+            "font-color": "#808080"},
 	      "minor-ticks": 0,
 	      "thousands-separator": ","
 	    },
 		"series":[
-			{"marker": {"border-color": "none", "size":1 },
-				"values":[[1171584000000,14287487],
+			{
+				/* "marker": {"border-color": "none", "size":1 }, */
+				"text": "가입 회원",
+                "line-color": "#f7cc06",
+                "legend-item":{
+                  "background-color": "#f7cc06",
+                  "borderRadius":5,
+                  "font-color":"white"},
+                "legend-marker": {"visible":false },
+                "marker": {
+                    "background-color": "#f7cc06",
+                    "border-width": 1,
+                    "shadow": 0,
+                    "border-color": "#f7cc06" },
+				"values":[
+					/* <c:forEach items="${memVoOutList }" var="visitVo">
+	        			[${visitVo.ymd},${visitVo.counts}],
+	        		</c:forEach> */
+	        			
+					[1171584000000,14287487],
 	                [1171929600000,22070251],
 	                [1172016000000,41287170],
 	                [1172102400000,29958756],
@@ -629,8 +645,8 @@ $(document).ready(function(){
 	                [1230249600000,11043071],
 	                [1230508800000,24567225],
 	                [1230595200000,34579620],
-	                [1230681600000,21715763],
-	                ]
+	                [1230681600000,21715763]
+	            ]
 			}
 		]
 	}]
