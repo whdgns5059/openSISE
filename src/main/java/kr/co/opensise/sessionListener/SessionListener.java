@@ -57,11 +57,13 @@ public class SessionListener implements HttpSessionListener{
 		uriCounts = (HashMap<String, Page_statisticVo>)session.getAttribute("uriCounts");
 		
 		// 다른 페이지 방문이 없었을 시 페이지 방문 데이터는 입력하지 않습니다.
-		if(uriCounts.isEmpty()) {
+		if(uriCounts.isEmpty() || uriCounts == null) {
 			log.info("map은 정보가 없습니다");
 		}else {
 			// 페이지 counts insert 하기
-			statisService.insertPS(uriCounts);
+			//statisService.insertPS(uriCounts);
+			
+			
 		}
 		
 		
