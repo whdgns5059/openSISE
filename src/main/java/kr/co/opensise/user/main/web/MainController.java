@@ -56,6 +56,12 @@ public class MainController {
 	public String mainAjax(Model model, FilterVo filterVo) {
 		logger.info("houseType:" + filterVo.getBuilding());
 		logger.info("searchName:" + filterVo.getSearchName());
+		logger.info("getBuilding : "+filterVo.getBuilding());
+		logger.info("getDl_price1 : "+filterVo.getDl_price1());
+		logger.info("getDl_price2 : "+filterVo.getDl_price2());
+		logger.info("getDl_rnt1 : "+filterVo.getDl_rnt1());
+		logger.info("getDl_rnt2 : "+filterVo.getDl_rnt2());
+		logger.info("getArtcl_const_y"+ filterVo.getArtcl_const_y());
 		List<BuildingSaleVo> buildFilterList = null;
 		if(filterVo.getBuilding().equals("all")) {
 			buildFilterList = mainService.buildingSingleFilterList(filterVo);
