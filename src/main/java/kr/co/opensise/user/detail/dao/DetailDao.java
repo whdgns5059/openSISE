@@ -105,6 +105,21 @@ public class DetailDao implements DetailDaoInf{
 	public List<PictureVo> selectReviewPic(PostVo postVo) {
 		return template.selectList("detail.selectReviewPic", postVo);
 	}
+
+	@Override
+	public float selectPriceStat(DealVo dealVo) {
+		return template.selectOne("detail.selectPriceStat", dealVo);
+	}
+
+	@Override
+	public float selectMarketStat(String dong) {
+		return template.selectOne("detail.selectMarketStat", dong);
+	}
+
+	@Override
+	public float selectHumanStat(String dong) {
+		return template.selectOne("detail.selectHumanStat", dong);
+	}
 	
 	
 

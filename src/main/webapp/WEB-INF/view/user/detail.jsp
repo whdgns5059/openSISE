@@ -7,6 +7,7 @@
 <link href="/css/detail.css" rel="stylesheet">
 <script type="text/javascript" src="/js/jquery.raty.js"></script>
 
+
 <div id="mask"></div>	
 <div class="row">
 	<div id="mapWrap">
@@ -63,7 +64,8 @@
 			<img src="https://via.placeholder.com/1100x200"/>
 		</div>
 		<div>
-			<img src="https://via.placeholder.com/1100x200"/>
+			<div id="radarChartDiv">
+			</div>	
 		</div>
 		<div>
 			<img src="https://via.placeholder.com/1100x200"/>
@@ -127,7 +129,7 @@
 					<c:when test="${fn:length(selectReview) == 0 }">
 						<div class="noreivew">
 							<h3>리뷰가 없습니다.</h3>
-							<h4>새 리뷰를 작성하여 정보를 공유하세요</h4>
+							<h4>새 리뷰를 작성하여 정보를 공유하세요!</h4>
 						</div>	
 					</c:when>
 				<c:otherwise>

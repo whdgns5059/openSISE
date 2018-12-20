@@ -161,6 +161,24 @@ public class DetailController {
 		return "user/detailAjax/picture";
 	}
 	
+	@RequestMapping("/selectStat")
+	public String selectStat(DealVo dealVo, Model model) {
+	
+		
+		Map<String, Float> statMap = detailService.selectStat(dealVo);
+
+		/***then***/
+		Float priceStat = statMap.get("priceStat");
+		Float marketStat = statMap.get("marketStat");
+		Float humanStat = statMap.get("humanStat");
+		
+		model.addAttribute("priceStat", priceStat);
+		model.addAttribute("marketStat", marketStat);
+		model.addAttribute("humanStat", humanStat);
+		
+		return "user/detailAjax/radar";
+	}
+	
 	
 	
 }

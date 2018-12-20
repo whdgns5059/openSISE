@@ -177,14 +177,40 @@ function wrapWindowByMask(){
 
 }
 
-
-settingMap();
-reviewControl();
-
+function setRadarChart(){
+	
+	var dealVo = {
+		dl_gu : document.getElementById('artcl_gu').value,
+		dl_dong : document.getElementById('artcl_dong').value,
+		dl_zip : document.getElementById('artcl_zip').value,
+		dl_rd : document.getElementById('artcl_rd').value,
+		dl_ty : document.getElementById('dl_ty').value
+	}
+	console.log('here!');
+	
+	$.ajax({
+		type : 'POST',
+		url : '/detail/selectStat',
+		data : dealVo,
+		success : function(data){
+			$('#radarChartDiv').html(data);
+		}
+		
+		
+	});
+	
+}
 
 //최초 로딩시 ajax 호출
 var defaultarea = document.getElementsByClassName('areatab')[0].innerHTML;
+
+settingMap();
 detailInfoAjax(defaultarea);
+setRadarChart();
+reviewControl();
+
+
+
 
 
 $('.area').on('click', '.areatab', function(){

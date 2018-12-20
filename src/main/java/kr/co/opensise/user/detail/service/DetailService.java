@@ -167,6 +167,45 @@ public class DetailService implements DetailServiceInf{
 		return detailDao.selectReviewPic(postVo);
 	}
 
+	@Override
+	public Map<String, Float> selectStat(DealVo dealVo) {
+
+		float priceStat = detailDao.selectPriceStat(dealVo);
+		
+		if(priceStat > 5f) {
+			priceStat = 5f;
+		}
+		if(priceStat < -5f) {
+			priceStat = -5f;
+		}
+		
+		String dl_dong = dealVo.getDl_dong();
+		String dong = dl_dong.substring(0, 2);
+		
+		float marketStat = detailDao.selectMarketStat(dong);
+		if(marketStat > 5f) {
+			marketStat = 5f;
+		}
+		if(marketStat < -5f) {
+			marketStat = -5f;
+		}
+		float humanStat = detailDao.selectHumanStat(dong);
+		if(humanStat > 5f) {
+			humanStat = 5f;
+		}
+		if(humanStat < -5f) {
+			humanStat = -5f;
+		}
+	
+		Map<String, Float> statMap = new HashMap<>();
+
+		statMap.put("priceStat", priceStat);
+		statMap.put("marketStat", marketStat);
+		statMap.put("humanStat", humanStat);
+		
+		return statMap;
+	}
+
 	
 	
 

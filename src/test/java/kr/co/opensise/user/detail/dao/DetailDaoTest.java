@@ -286,6 +286,53 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 	
+	
+	@Test
+	public void selectPriceStatTest() {
+	
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("서구");
+		dealVo.setDl_dong("월평동");
+		dealVo.setDl_zip("311-1");
+		dealVo.setDl_rd("청사로");
+		dealVo.setDl_ty("매매");
+		
+		/***when***/
+		float result = detailDao.selectPriceStat(dealVo);
+
+		/***then***/
+		assertEquals(0.3, result, 1e-1);
+		
+		
+	}
+	
+	@Test
+	public void selectMarketStatTest() {
+		
+		/***given***/
+		String dong = "월평";
+		/***when***/
+		float result = detailDao.selectMarketStat(dong);
+
+		/***then***/
+		assertEquals(3, result, 1e-1);
+	}
+	
+	@Test
+	public void selectHumanStatTest() {
+		
+		/***given***/
+		String dong = "월평";
+		
+		/***when***/
+		float result = detailDao.selectHumanStat(dong);
+
+		/***then***/
+		assertEquals(-5.4, result, 1e-1);
+		
+	}
+	
 }
 
 
