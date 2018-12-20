@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>openSISE</title>
 <%@ include file="/WEB-INF/view/common/basicLib.jsp" %> 
 
 <style type="text/css">

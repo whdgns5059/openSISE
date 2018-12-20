@@ -53,7 +53,8 @@ var intrstAgeG = {
                 "item": {
                     "font-color": "#7e7e7e"
                 },
-                "values": "0:"+allCnt+":"+Math.ceil(allCnt/10),
+                "min-value": 0,
+            	"max-value": allCnt+10,
                 "guide": {
                     "visible": true,
                     "line-style": "dashed"

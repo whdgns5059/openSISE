@@ -146,6 +146,7 @@
 		     	</if>
 		     	) counts
 		From   INTEREST I
+		Order by intrst_no
 	</select>
 	
 <!-- 방문자 통계 -->
@@ -159,21 +160,24 @@
 		Select NVL(Max(counts),0) From (Select Count(vstr_date) as counts From visitor Group by to_char(vstr_date, 'YYYY/MM/dd'))
 	</select>
 	
+	<!-- 날짜별 방문 수 -->
 	<select id="visitDate" resultType="visitVo">
-		Select count(vstr_date) as counts , a.ymd as ymd
-		From visitor right join (
-		    Select to_date('20181206', 'yyyyMMdd')+(level-1) as ymd
+		Select count(vstr_date) as counts , (Select Round(date_to_unix_ts(a.ymd)) From dual) as ymd
+		From visitor Right Join (
+		    Select to_date('20181205', 'yyyyMMdd')+(level-1) as ymd
 		    From dual
-		    Connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181206', 'yyyyMMdd'))+1) a
+		    Connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181205', 'yyyyMMdd'))+1) a
 		On  (to_char(vstr_date, 'YYYY/MM/dd') = a.ymd)
 		Group by  a.ymd
 		Order by a.ymd
 	</select>
 	
+	<!-- 요일별 방문 수 -->
 	<select id="visitDay" resultType="visitVo">
 		Select * From visitor
 	</select>
 	
+	<!-- 시간별 방문 수 -->
 	<select id="visitHour" resultType="visitVo">
 		Select * From visitor
 	</select>
@@ -189,7 +193,13 @@
 		Select * From Dual
 	</insert>
 	
+	<!-- 일별 페이지 방문 수 -->
 	<select id="psDate" resultType="psVo">
+		Select * From page_statistic
+	</select>
+	
+	<!-- 페이지별 페이지 방문 수 -->
+	<select id="psPage" resultType="psVo">
 		Select * From page_statistic
 	</select>
 	

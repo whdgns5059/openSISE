@@ -28,8 +28,9 @@ public class VisitorVo {
 	}
 	@Override
 	public String toString() {
-		return "VisitVo [vstr_date=" + vstr_date+ "]";
+		return "VisitorVo [vstr_date=" + vstr_date + ", counts=" + counts + ", ymd=" + ymd + "]";
 	}
+	
 	
 	
 
