@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcServiceInf;
 import kr.co.opensise.admin.manage.dataetc.web.DataEtcController;
-import kr.co.opensise.admin.manage.notice.model.PostVo;
 import kr.co.opensise.admin.manage.notice.service.NoticeService;
 import kr.co.opensise.admin.manage.notice.service.NoticeServiceInf;
+import kr.co.opensise.user.detail.model.PostVo;
 
 @Controller
 @RequestMapping("/manage/notice")

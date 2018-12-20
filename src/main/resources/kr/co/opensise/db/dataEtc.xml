@@ -65,7 +65,7 @@
               rt_cd,rt_id) 
             values  (
                 #{rdvo.rt_cd},#{rdvo.rt_id}
-               ) 
+               ) LOG ERRORS REJECT LIMIT UNLIMITED
 		</foreach>
 		select * from dual 
 	</insert>

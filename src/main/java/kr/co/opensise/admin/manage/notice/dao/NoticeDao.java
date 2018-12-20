@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.co.opensise.admin.manage.notice.model.PostVo;
+import kr.co.opensise.user.detail.model.PostVo;
+
 
 @Repository
 public class NoticeDao implements NoticeDaoInf {

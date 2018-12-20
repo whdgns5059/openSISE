@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.opensise.admin.manage.notice.dao.NoticeDaoInf;
-import kr.co.opensise.admin.manage.notice.model.PostVo;
+import kr.co.opensise.user.detail.model.PostVo;
 
 @Service
 public class NoticeService implements NoticeServiceInf {
