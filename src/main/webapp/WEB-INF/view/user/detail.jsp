@@ -23,6 +23,7 @@
 		<div class="info">
 			<div>
 				<%-- 매물 디테일 정보 --%>
+				<input type="hidden" id="mem_no" value="${nowLogin.mem_no }"/>
 				<input type="hidden" id="artcl_gu" value="${selectArticleVo.artcl_gu }"/>
 				<input type="hidden" id="artcl_dong" value="${selectArticleVo.artcl_dong }"/>
 				<input type="hidden" id="artcl_zip" value="${selectArticleVo.artcl_zip }"/>
@@ -37,8 +38,9 @@
 				<input type="hidden" id="lng" value="${selectArticleVo.artcl_lng}"/>
 			</div>
 			<div class="like">
+				<input type="hidden" id="favor_no" value="${selFavor.favor_no }" />
 				<span>찜하기</span> 
-				<img src="/img/heart.png" class="heartimg" width="20px" height="20px"/>
+				<img src="/img/heart-outline.png" class="heartimg" width="20px" height="20px"/>
 				<div>
 					<h4>최근 x명이 해당 매물을 찜 했습니다.</h4>
 				</div>

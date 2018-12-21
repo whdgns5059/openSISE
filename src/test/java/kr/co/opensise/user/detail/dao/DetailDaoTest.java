@@ -436,6 +436,27 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 	
+	@Test
+	public void selectFavor() {
+		
+		/***given***/
+		FavoriteVo favorVo = new FavoriteVo();
+		favorVo.setFavor_mem(9);
+		favorVo.setFavor_gu("서구");
+		favorVo.setFavor_dong("월평동");
+		favorVo.setFavor_zip("311-1");
+		favorVo.setFavor_rd("청사로");
+		favorVo.setFavor_ty("매매");
+		
+		/***when***/
+		FavoriteVo result = detailDao.selectFavor(favorVo);
+		
+
+		/***then***/
+		assertEquals(21, result.getFavor_no());
+		
+	}
+	
 }
 
 

@@ -98,6 +98,11 @@ public interface DetailServiceInf {
 	
 	int insertFavor(FavoriteVo favorVo);
 	
+	int deleteFavor(int favor_no);
+	
+	FavoriteVo selectFavor(FavoriteVo favorVo);
+	
+	
 }
 
 

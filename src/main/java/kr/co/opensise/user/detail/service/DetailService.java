@@ -80,6 +80,7 @@ public class DetailService implements DetailServiceInf{
 		//montylyAvf : 월별 평균 거래가
 		List<DealVo> monthlyAvg = detailDao.selectMonthlyAng(dealVo);
 		
+		
 		tradeInfoMap.put("avgTradeVo",avgTradeVo);
 		tradeInfoMap.put("recentTradeVo", recentTradeVo);
 		tradeInfoMap.put("dealListByArea", dealListByArea);
@@ -237,6 +238,16 @@ public class DetailService implements DetailServiceInf{
 	@Override
 	public int insertFavor(FavoriteVo favorVo) {
 		return detailDao.insertFavor(favorVo);
+	}
+
+	@Override
+	public int deleteFavor(int favor_no) {
+		return detailDao.deleteFavor(favor_no);
+	}
+
+	@Override
+	public FavoriteVo selectFavor(FavoriteVo favorVo) {
+		return detailDao.selectFavor(favorVo);
 	}
 
 	

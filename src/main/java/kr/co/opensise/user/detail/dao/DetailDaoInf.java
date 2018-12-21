@@ -54,4 +54,10 @@ public interface DetailDaoInf {
 	Float selectHumanStat(String dong);
 
 	int insertFavor(FavoriteVo favorVo);
+	
+	int deleteFavor(int favor_no);
+	
+	FavoriteVo selectFavor(FavoriteVo favorVo);
+	
+	
 }
