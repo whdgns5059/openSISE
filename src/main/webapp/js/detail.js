@@ -477,6 +477,10 @@ $('.like').on('click', '.heartimg', function(){
 		alert("찜목록에 넣었습니다");
 		$('.heartimg').attr({ src : "/img/heart.png"});
 		
+		var num = document.getElementById('favorCount').innerHTML;
+		var plusNum = parseInt(num) + 1;
+		$('#favorCount').html(plusNum);
+		
 		
 	}else {
 		
@@ -484,7 +488,7 @@ $('.like').on('click', '.heartimg', function(){
 		
 		$.ajax({
 			type : 'POST',
-			url : '/detail/deletaFavor',
+			url : '/detail/deleteFavor',
 			data : {
 				favor_no : favor_no
 			},
@@ -492,6 +496,10 @@ $('.like').on('click', '.heartimg', function(){
 		});
 		alert("찜목록에서 제거하였습니다");
 		$(this).attr({ src : "/img/heart-outline.png"});
+		
+		var num = document.getElementById('favorCount').innerHTML;
+		var minusNum = parseInt(num) -1;
+		$('#favorCount').html(minusNum);
 		
 	}
 	

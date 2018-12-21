@@ -137,6 +137,11 @@ public class DetailDao implements DetailDaoInf{
 	public int deleteFavor(int favor_no) {
 		return template.delete("detail.deleteFavor", favor_no);
 	}
+
+	@Override
+	public int selectFavorCount(FavoriteVo favorVo) {
+		return template.selectOne("selectFavorCount", favorVo);
+	}
 	
 	
 

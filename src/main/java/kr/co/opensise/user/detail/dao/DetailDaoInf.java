@@ -59,5 +59,5 @@ public interface DetailDaoInf {
 	
 	FavoriteVo selectFavor(FavoriteVo favorVo);
 	
-	
+	int selectFavorCount(FavoriteVo favorVo);
 }

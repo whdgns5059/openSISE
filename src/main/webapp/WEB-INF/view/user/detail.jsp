@@ -41,9 +41,7 @@
 				<input type="hidden" id="favor_no" value="${selFavor.favor_no }" />
 				<span>찜하기</span> 
 				<img src="/img/heart-outline.png" class="heartimg" width="20px" height="20px"/>
-				<div>
-					<h4>최근 x명이 해당 매물을 찜 했습니다.</h4>
-				</div>
+				<h4><span id="favorCount">${favorCount }</span>명이 해당 매물을 찜 했습니다.</h4>
 			</div>
 		</div>
 		<div>

@@ -30,6 +30,7 @@ public interface DetailServiceInf {
 	Map<String, Object> getDetailInfo(ArticleVo articleVo, String dl_ty);
 	
 	
+	
 	ArticleVo selectArticleVo(ArticleVo articleVo);
 	
 	
@@ -102,6 +103,7 @@ public interface DetailServiceInf {
 	
 	FavoriteVo selectFavor(FavoriteVo favorVo);
 	
+	int selectFavorCount(FavoriteVo favorVo);
 	
 }
 

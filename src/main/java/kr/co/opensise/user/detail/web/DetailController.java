@@ -47,20 +47,21 @@ public class DetailController {
 	
 		
 		MemberVo nowLogin = (MemberVo) session.getAttribute("nowLogin");
+
+		FavoriteVo favorVo = new FavoriteVo();
+		favorVo.setFavor_gu(articleVo.getArtcl_gu());
+		favorVo.setFavor_dong(articleVo.getArtcl_dong());
+		favorVo.setFavor_zip(articleVo.getArtcl_zip());
+		favorVo.setFavor_rd(articleVo.getArtcl_rd());
+		favorVo.setFavor_ty(dl_ty);
+
+		int favorCount = detailService.selectFavorCount(favorVo);
+		
 		FavoriteVo selFavor = null;
 		if(nowLogin !=null) {
-
-			FavoriteVo favorVo = new FavoriteVo();
 			favorVo.setFavor_mem(nowLogin.getMem_no());
-			favorVo.setFavor_gu(articleVo.getArtcl_gu());
-			favorVo.setFavor_dong(articleVo.getArtcl_dong());
-			favorVo.setFavor_zip(articleVo.getArtcl_zip());
-			favorVo.setFavor_rd(articleVo.getArtcl_rd());
-			favorVo.setFavor_ty(dl_ty);
-			
 			selFavor = detailService.selectFavor(favorVo);
 		}
-		
 		
 		
 		model.addAttribute("selectArticleVo", selectArticleVo);
@@ -68,6 +69,7 @@ public class DetailController {
 		model.addAttribute("dl_ty", dl_ty);
 		model.addAttribute("selectReview", selectReview);
 		model.addAttribute("selFavor", selFavor);
+		model.addAttribute("favorCount", favorCount);
 		
 		return "detail";
 	}
@@ -201,14 +203,13 @@ public class DetailController {
 	}
 	
 	@RequestMapping("/insertFavor")
-	public boolean insertFavor(FavoriteVo favorVo) {
-		int result = detailService.insertFavor(favorVo);
-		return true;
+	public void insertFavor(FavoriteVo favorVo) {
+		detailService.insertFavor(favorVo);
 	}
 	
 	@RequestMapping("/deleteFavor")
 	public void deleteFavor(FavoriteVo favorVo) {
-		int result = detailService.deleteFavor(favorVo.getFavor_no());
+		detailService.deleteFavor(favorVo.getFavor_no());
 	}
 	
 	
