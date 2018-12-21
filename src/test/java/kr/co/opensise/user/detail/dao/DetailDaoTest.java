@@ -16,6 +16,7 @@ import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
+import kr.co.opensise.user.detail.model.AvgStatVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
@@ -300,10 +301,10 @@ public class DetailDaoTest extends RootSetup{
 		dealVo.setDl_ty("매매");
 		dealVo.setArtcl_bc("apt");
 		/***when***/
-		float result = detailDao.selectPriceStat(dealVo);
+		AvgStatVo result = detailDao.selectPriceStat(dealVo);
 
 		/***then***/
-		assertEquals(0.3, result, 1e-1);
+		assertEquals(10, result.getPrice_stat(), 1e-1);
 		
 		
 	}
@@ -320,10 +321,55 @@ public class DetailDaoTest extends RootSetup{
 		dealVo.setDl_ty("매매");
 		dealVo.setArtcl_bc("office");
 		/***when***/
-		float result = detailDao.selectPriceStat(dealVo);
+		AvgStatVo result = detailDao.selectPriceStat(dealVo);
 
 		/***then***/
-		assertEquals(2.6, result, 1e-1);
+		assertEquals(77, result.getPrice_stat(), 1e-1);
+		
+		
+	}
+	
+	@Test
+	public void selectPriceStatOfficeTest2() {
+	
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("유성구");
+		dealVo.setDl_dong("궁동");
+		dealVo.setDl_zip("451-6");
+		dealVo.setDl_rd("대학로81번길");
+		dealVo.setDl_ty("매매");
+		dealVo.setArtcl_bc("office");
+		
+		/***when***/
+		AvgStatVo result = detailDao.selectPriceStat(dealVo);
+		
+		/***then***/
+		assertEquals(null, result);
+		
+		
+	}
+	
+	
+	@Test
+	public void selectPriceStatOfficeTest3() {
+	
+		
+		
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("유성구");
+		dealVo.setDl_dong("봉명동");
+		dealVo.setDl_zip("535-6");
+		dealVo.setDl_rd("대학로");
+		dealVo.setDl_ty("월세");
+		dealVo.setArtcl_bc("office");
+		/***when***/
+		AvgStatVo result = detailDao.selectPriceStat(dealVo);
+
+		/***then***/
+		assertEquals(0.3, result.getRnt_stat(), 1e-1);
+		assertEquals(30, result.getDepos_stat(), 1e-1);
 		
 		
 	}

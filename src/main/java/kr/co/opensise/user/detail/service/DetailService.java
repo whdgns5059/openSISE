@@ -16,6 +16,7 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
+import kr.co.opensise.user.detail.model.AvgStatVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
@@ -181,14 +182,29 @@ public class DetailService implements DetailServiceInf{
 		ArticleVo selArticleVo = detailDao.selectArticle(articleVo);
 		dealVo.setArtcl_bc(selArticleVo.getArtcl_bc());
 		
-		float priceStat = detailDao.selectPriceStat(dealVo);
+		AvgStatVo priceStatVo= detailDao.selectPriceStat(dealVo);
 		
-		if(priceStat > 5f) {
-			priceStat = 5f;
+		if(priceStatVo == null) {
+			priceStatVo = new AvgStatVo(0f,0f,0f);
 		}
-		if(priceStat < -5f) {
-			priceStat = -5f;
+		
+		Float priceStat = 0f;
+
+		if(dealVo.getDl_ty().equals("매매")) {
+			priceStat = priceStatVo.getPrice_stat();
+			priceStat /= 30;
+
+		}else if(dealVo.getDl_ty().equals("전세")) {
+			priceStat = priceStatVo.getDepos_stat();
+			priceStat /= 30;
+
+		}else if(dealVo.getDl_ty().equals("월세")) {
+			priceStat = priceStatVo.getRnt_stat();
+
 		}
+		
+		
+		
 		
 		String dl_dong = dealVo.getDl_dong();
 		String dong = dl_dong.substring(0, 2);

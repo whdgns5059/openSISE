@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
+import kr.co.opensise.user.detail.model.AvgStatVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
@@ -46,7 +47,7 @@ public interface DetailDaoInf {
 
 	List<PictureVo> selectReviewPic(PostVo postVo);
 
-	float selectPriceStat(DealVo dealVo);
+	AvgStatVo selectPriceStat(DealVo dealVo);
 
 	Float selectMarketStat(String dong);
 

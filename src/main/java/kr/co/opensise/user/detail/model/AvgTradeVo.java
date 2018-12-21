@@ -6,6 +6,7 @@ public class AvgTradeVo {
 	private double avg_depos;
 	private double avg_rnt;
 	
+	
 	public double getAvg_price() {
 		return avg_price;
 	}

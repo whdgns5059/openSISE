@@ -32,6 +32,7 @@
 		
 		<!-- 거래 평균 -->
 		<typeAlias type="kr.co.opensise.user.detail.model.AvgTradeVo" alias="avgTradeVo"/>
+		<typeAlias type="kr.co.opensise.user.detail.model.AvgStatVo" alias="avgStatVo"/>
 		
 		<!-- 리뷰 -->
 		<typeAlias type="kr.co.opensise.user.detail.model.PostVo" alias="postVo"/>

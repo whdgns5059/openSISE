@@ -132,6 +132,4 @@ public class CommonUtil {
 			return fileName.substring(dotIndex);
 		}	
 	}
-	
-	
 }
