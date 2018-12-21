@@ -70,7 +70,7 @@ public class DataEtcServiceTest extends RootSetup{
 		/***Given***/
 		int iattr_insti=1;
 		/***When***/
-		List<List<InstiAttrVo>> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
+		List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
 		/***Then***/
 		assertEquals(6, instiAttrList.size());
 	}

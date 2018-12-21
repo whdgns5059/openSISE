@@ -683,6 +683,19 @@ public class DataEtcController {
 	@RequestMapping("/insertIattr")
 	public String insertIattr(InstiAttrVo instiAttrVo) {
 		log.info("여기");
+//		List<InstiAttrVo> instiattrList =  dataEtcService.selectInsti_attr(iattr_insti);
+//		int cnt=0;
+//		for(int i=0;i<instiattrList.size();i++) {
+//			if(instiAttrVo.getIattr_key()==instiattrList.get(i).getIattr_key()) {
+//				cnt++;
+//			}
+//		}
+//		if(cnt<1) {
+//			int insertIattr = dataEtcService.insertInstiattr(instiAttrVo);
+//			return "redirect:/manage/dataEtc/dataEtc";
+//		}else {
+//			log.info("아하...");
+//		}
 		int insertIattr = dataEtcService.insertInstiattr(instiAttrVo);
 		
 		return "redirect:/manage/dataEtc/dataEtc";
