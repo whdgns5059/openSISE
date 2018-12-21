@@ -153,7 +153,7 @@ public class StatisController {
 	public String pageCount(Model model) {
 		
 		// 방문 수 최대치
-				VisitorVo maxCnt = statisService.maxVisit();
+		VisitorVo maxCnt = statisService.maxVisit();
 				model.addAttribute("maxCnt", maxCnt);
 
 				// 방문이 많은 요일 순위별

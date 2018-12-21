@@ -70,7 +70,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		        // 회원 최근 본 매물
 		        case "/mypage/recentlyviewed" : 
 		        	if(uriCounts.get(uri) == null) 
-		        		new Page_statisticVo("회원_최근_본_매물", uri, 1);
+		        		uriCounts.put(uri, new Page_statisticVo("회원_최근_본_매물", uri, 1));
 		        	else 
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
 		        	

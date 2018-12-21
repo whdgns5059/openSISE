@@ -364,7 +364,6 @@ $(document).ready(function(){
 		modules : 'zoom-buttons'
 	});
 	
-	
 });
 </script>
 
