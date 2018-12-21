@@ -170,7 +170,17 @@ public class DetailService implements DetailServiceInf{
 
 	@Override
 	public Map<String, Float> selectStat(DealVo dealVo) {
-
+		
+		ArticleVo articleVo = new ArticleVo();
+		articleVo.setArtcl_gu(dealVo.getDl_gu());
+		articleVo.setArtcl_dong(dealVo.getDl_dong());
+		articleVo.setArtcl_zip(dealVo.getDl_zip());
+		articleVo.setArtcl_rd(dealVo.getDl_rd());
+		
+		
+		ArticleVo selArticleVo = detailDao.selectArticle(articleVo);
+		dealVo.setArtcl_bc(selArticleVo.getArtcl_bc());
+		
 		float priceStat = detailDao.selectPriceStat(dealVo);
 		
 		if(priceStat > 5f) {
@@ -193,7 +203,10 @@ public class DetailService implements DetailServiceInf{
 		if(marketStat < -5f) {
 			marketStat = -5f;
 		}
-		float humanStat = detailDao.selectHumanStat(dong);
+		Float humanStat = detailDao.selectHumanStat(dong);
+		if(humanStat == null) {
+			humanStat = 0f;
+		}
 		if(humanStat > 5f) {
 			humanStat = 5f;
 		}

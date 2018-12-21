@@ -289,7 +289,7 @@ public class DetailDaoTest extends RootSetup{
 	
 	
 	@Test
-	public void selectPriceStatTest() {
+	public void selectPriceStatAptTest() {
 	
 		/***given***/
 		DealVo dealVo = new DealVo();
@@ -298,7 +298,7 @@ public class DetailDaoTest extends RootSetup{
 		dealVo.setDl_zip("311-1");
 		dealVo.setDl_rd("청사로");
 		dealVo.setDl_ty("매매");
-		
+		dealVo.setArtcl_bc("apt");
 		/***when***/
 		float result = detailDao.selectPriceStat(dealVo);
 
@@ -307,6 +307,28 @@ public class DetailDaoTest extends RootSetup{
 		
 		
 	}
+	
+	@Test
+	public void selectPriceStatOfficeTest() {
+	
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("유성구");
+		dealVo.setDl_dong("봉명동");
+		dealVo.setDl_zip("535-6");
+		dealVo.setDl_rd("대학로");
+		dealVo.setDl_ty("매매");
+		dealVo.setArtcl_bc("office");
+		/***when***/
+		float result = detailDao.selectPriceStat(dealVo);
+
+		/***then***/
+		assertEquals(2.6, result, 1e-1);
+		
+		
+	}
+	
+	
 	
 	@Test
 	public void selectMarketStatTest() {
@@ -327,12 +349,25 @@ public class DetailDaoTest extends RootSetup{
 		String dong = "월평";
 		
 		/***when***/
-		float result = detailDao.selectHumanStat(dong);
+		Float result = detailDao.selectHumanStat(dong);
 
 		/***then***/
 		assertEquals(-5.4, result, 1e-1);
 		
 	}
+	@Test
+	public void selectHumanStatBongTest() {
+		
+		/***given***/
+		String dong = "봉명";
+		
+		/***when***/
+		Float result = detailDao.selectHumanStat(dong);
+
+		/***then***/
+		assertEquals(null, result);
+	}
+	
 	
 	@Test
 	public void insertFavorTest() {

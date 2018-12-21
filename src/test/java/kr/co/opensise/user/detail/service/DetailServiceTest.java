@@ -89,7 +89,7 @@ public class DetailServiceTest extends RootSetup{
 	}
 	
 	@Test
-	public void selectStatTest() {
+	public void selectStatAptTest() {
 		
 		/***given***/
 		DealVo dealVo = new DealVo();
@@ -107,11 +107,37 @@ public class DetailServiceTest extends RootSetup{
 		Float marketStat = statMap.get("marketStat");
 		Float humanStat = statMap.get("humanStat");
 		
-		assertEquals(-5.4, humanStat, 1e-1);
+		assertEquals(-5.0, humanStat, 1e-1);
 		assertEquals(3, marketStat, 1e-1);
 		assertEquals(0.3, priceStat, 1e-1);
 	
 	}
+	
+	@Test
+	public void selectStatOfficeTest() {
+		
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("유성구");
+		dealVo.setDl_dong("봉명동");
+		dealVo.setDl_zip("535-6");
+		dealVo.setDl_rd("대학로");
+		dealVo.setDl_ty("매매");
+		
+		/***when***/
+		Map<String, Float> statMap = detailService.selectStat(dealVo);
+
+		/***then***/
+		Float priceStat = statMap.get("priceStat");
+		Float marketStat = statMap.get("marketStat");
+		Float humanStat = statMap.get("humanStat");
+		
+		assertEquals(0, humanStat, 1e-1);
+		assertEquals(0, marketStat, 1e-1);
+		assertEquals(2.6, priceStat, 1e-1);
+	
+	}
+	
 	
 
 }

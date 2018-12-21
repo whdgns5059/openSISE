@@ -118,7 +118,7 @@ public class DetailDao implements DetailDaoInf{
 	}
 
 	@Override
-	public float selectHumanStat(String dong) {
+	public Float selectHumanStat(String dong) {
 		return template.selectOne("detail.selectHumanStat", dong);
 	}
 

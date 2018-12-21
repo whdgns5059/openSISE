@@ -141,14 +141,14 @@
 		(select round(avg(dl_price/dl_excv_area),0) as dl_price_avg from article, deal
 		where dl_ty = #{dl_ty}
 		and artcl_gu = dl_gu and artcl_dong = dl_dong and artcl_zip = dl_zip and artcl_rd = dl_rd
-		and artcl_bc = 'apt'
+		and artcl_bc = #{artcl_bc} 
 		and dl_cont_ym >= to_char(add_months(sysdate, -12), 'yyyyMM'))
 		-
 		(select round(avg(dl_price /dl_excv_area),0) as dl_price_avg from article, deal
 		where dl_ty = #{dl_ty}
 		and artcl_gu = dl_gu and artcl_dong = dl_dong and artcl_zip = dl_zip and artcl_rd = dl_rd
 		and dl_gu = #{dl_gu} and dl_dong= #{dl_dong} and dl_zip= #{dl_zip} and dl_rd= #{dl_rd}
-		and artcl_bc = 'apt'
+		and artcl_bc = #{artcl_bc} 
 		and dl_cont_ym >= to_char(add_months(sysdate, -12), 'yyyyMM'))
 		 ) , 0) / 30 , 1)
 		as price
@@ -180,7 +180,7 @@
 		group by substr(hs_dong,1,2), hs_date))
 		-
 		(select sum(HS_HM_NO) from HUMAN_STATISTIC
-		where hs_dong like '월평' || '%'
+		where hs_dong like #{String} || '%'
 		and hs_date = '201806')) / 5000, 1) as humanavg
 		from dual
 	</select>

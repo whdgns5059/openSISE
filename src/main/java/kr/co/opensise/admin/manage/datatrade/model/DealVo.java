@@ -15,8 +15,15 @@ public class DealVo {
 	private String dl_dong;
 	private String dl_zip;
 	private String dl_rd;
+	private String artcl_bc;
 	
 	
+	public String getArtcl_bc() {
+		return artcl_bc;
+	}
+	public void setArtcl_bc(String artcl_bc) {
+		this.artcl_bc = artcl_bc;
+	}
 	public String getDl_rd() {
 		return dl_rd;
 	}

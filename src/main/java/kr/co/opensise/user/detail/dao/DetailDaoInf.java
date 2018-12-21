@@ -50,7 +50,7 @@ public interface DetailDaoInf {
 
 	Float selectMarketStat(String dong);
 
-	float selectHumanStat(String dong);
+	Float selectHumanStat(String dong);
 
 	int insertFavor(FavoriteVo favorVo);
 }
