@@ -139,7 +139,7 @@ var intrstAgeG = {
 	zingchart.render({ 
 		id : 'intrstAgeG', 
 	 	data: intrstAgeG,
-		height: '100%', 
+		height: '400px', 
 		width: '100%' 
 	});
 });
