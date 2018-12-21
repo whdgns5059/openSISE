@@ -193,8 +193,7 @@ public class LoginController {
 		List<MemberVo> memberJobLiset = loginService.jobList();
 		
 		if (user == null ) {
-			//타입이 맞지않아 에러발생 재확인
-			//model.addAttribute("msg","존재하지 않는 회원입니다!");
+			
 			model.addAttribute("JobList",memberJobLiset);
 			return "signup";
 		} else {
@@ -213,11 +212,10 @@ public class LoginController {
 		// 메일 내용 
 		String recipient = memEmail; //받는 사람의 메일주소
 		String subject = "회원인증"; //메일 제목 입력해주세요.
-		String body = "<h2>OpenSise 회원인증</h2></br> "
-				+ "아래 링크 클릭시 회원인증 처리가 완료 됩니다!</br> "
-				+ "<img src=\"/img/openSise_login.png\"  alt=\"오픈시세 로그인\" title=\"오픈시세 로그인 \" />"
-				+ "http://localhost:8081/login/passCertification?OpenSise="+seedEncrypt; //메일 내용
-		//<img src="/img/openSise_login.png"  alt="오픈시세 로그인" title="오픈시세 로그인 " />
+		String body = "<html><h2>OpenSise 회원인증</h2></br> "
+				+ "<h5>아래 이미지 클릭시 회원인증 처리가 완료 됩니다!</h5></br> "
+				+ "<a href=\"http://localhost:8081/login/passCertification?OpenSise="+seedEncrypt + "\"> <img src=\"http://www.mictmyeongin.co.kr/img/openSise.PNG\"  border=\"0\"></a>\r\n"
+				+ "</html>";
 		
 		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
 
@@ -237,13 +235,13 @@ public class LoginController {
 
 		session.setDebug(true); //for debug
 		
-		Message mimeMessage = new MimeMessage(session); //MimeMessage 생성
+		MimeMessage mimeMessage = new MimeMessage(session); //MimeMessage 생성
 		mimeMessage.setFrom(new InternetAddress("openSise@gmail.com")); //발신자 셋팅 , 보내는 사람의 이메일주소
 
 		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
 
 		mimeMessage.setSubject(subject); //제목셋팅 
-		mimeMessage.setText(body); //내용셋팅
+		mimeMessage.setText(body, "utf-8", "html"); //내용셋팅
 		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
 
 		return "passMailOk";
