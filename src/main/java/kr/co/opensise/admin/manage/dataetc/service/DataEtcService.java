@@ -90,7 +90,7 @@ public class DataEtcService implements DataEtcServiceInf {
 	* @return
 	* Method 설명 :시설물별로 list를 만들어 화면에 보여주기 위해 map에 담기
 	*/
-	@Override
+/*	@Override
 	public List<List<InstiAttrVo>> selectInstiAttr(int iattr_insti) {
 		
 		//시설물 리스트 가지고 오기
@@ -123,9 +123,14 @@ public class DataEtcService implements DataEtcServiceInf {
 		
 		return bList;
 	}
-
+*/
 	@Override
 	public int insertInstiattr(InstiAttrVo instiAttrVo) {
 		return dataEtcDao.insertInstiattr(instiAttrVo);
+	}
+
+	@Override
+	public List<InstiAttrVo> selectInstiAttr(int iattr_insti) {
+		return dataEtcDao.selectInstiAttr(iattr_insti);
 	}
 }
