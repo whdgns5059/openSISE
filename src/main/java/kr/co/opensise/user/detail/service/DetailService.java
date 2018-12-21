@@ -33,14 +33,8 @@ public class DetailService implements DetailServiceInf{
 	public Map<String, Object> getDetailInfo(ArticleVo articleVo, String dl_ty) {
 		
 		Map<String, Object> detailMap = new HashMap<String, Object>();
-		
-		//select를 위한 articleVo는 그대로 가면 됨.., DealVo 생성
-		DealVo dealVo = new DealVo();
-		dealVo.setDl_gu(articleVo.getArtcl_gu());
-		dealVo.setDl_dong(articleVo.getArtcl_dong());
-		dealVo.setDl_zip(articleVo.getArtcl_zip());
-		dealVo.setDl_rd(articleVo.getArtcl_rd());
-		dealVo.setDl_ty(dl_ty);
+	
+		articleVo.setArtcl_dl_ty(dl_ty);
 		
 		ArticleVo selectArticleVo = detailDao.selectArticle(articleVo);
 		detailMap.put("selectArticleVo", selectArticleVo);
@@ -84,6 +78,7 @@ public class DetailService implements DetailServiceInf{
 		
 		//montylyAvf : 월별 평균 거래가
 		List<DealVo> monthlyAvg = detailDao.selectMonthlyAng(dealVo);
+		
 		
 		tradeInfoMap.put("avgTradeVo",avgTradeVo);
 		tradeInfoMap.put("recentTradeVo", recentTradeVo);
@@ -242,6 +237,21 @@ public class DetailService implements DetailServiceInf{
 	@Override
 	public int insertFavor(FavoriteVo favorVo) {
 		return detailDao.insertFavor(favorVo);
+	}
+
+	@Override
+	public int deleteFavor(int favor_no) {
+		return detailDao.deleteFavor(favor_no);
+	}
+
+	@Override
+	public FavoriteVo selectFavor(FavoriteVo favorVo) {
+		return detailDao.selectFavor(favorVo);
+	}
+
+	@Override
+	public int selectFavorCount(FavoriteVo favorVo) {
+		return detailDao.selectFavorCount(favorVo);
 	}
 
 	

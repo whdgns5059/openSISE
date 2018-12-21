@@ -62,7 +62,10 @@ function detailInfoAjax(area){
 	var artcl_zip = document.getElementById('artcl_zip').value;
 	var artcl_rd = document.getElementById('artcl_rd').value;
 	var dl_ty = document.getElementById('dl_ty').value;
-	var dl_excv_area = area;
+	
+	var brIndex = area.indexOf('<br>')
+	
+	var dl_excv_area = area.substr(0, brIndex);
 	
 	var ajaxData = {
 		artcl_gu : artcl_gu,
@@ -208,6 +211,7 @@ settingMap();
 detailInfoAjax(defaultarea);
 setRadarChart();
 reviewControl();
+setHeart();
 
 
 
@@ -421,18 +425,81 @@ $('.deleteReview').on('click', function(){
 	
 });
 
-//찜하기
+//찜하기 하트 상태
+function setHeart(){
+	
+	var favor_no = $('#favor_no').val();
+	
+	if(favor_no != ""){
+		$('.heartimg').attr({ src : "/img/heart.png"});
+	}else{
+		$('.heartimg').attr({ src : "/img/heart-outline.png"});
+	}
+	
+}
+
+
+
+//클릭시 상태에 따라서 인서트/딜리트
 $('.like').on('click', '.heartimg', function(){
 	
 	var img_src = this.getAttribute('src');
 	
-	if(img_src == "/img/heart.png"){
-		//TODO : favor 인서트
-		$(this).attr({ src : "/img/heart-outline.png"});
+	if(img_src == "/img/heart-outline.png"){
+	
+		var favor_mem  = document.getElementById('mem_no').value;
+		var favor_gu   = document.getElementById('artcl_gu').value;
+		var favor_dong = document.getElementById('artcl_dong').value;
+		var favor_zip  = document.getElementById('artcl_zip').value;
+		var favor_rd   = document.getElementById('artcl_rd').value;
+		var favor_ty   = document.getElementById('dl_ty').value;
+		
+		if(favor_mem == ""){
+			alert("로그인을 하셔야 합니다");
+			return;
+		}
+		
+		var favorVo = {
+			favor_mem  : favor_mem,
+			favor_gu   : favor_gu,
+			favor_dong : favor_dong,
+			favor_zip  : favor_zip,
+			favor_rd   : favor_rd,
+			favor_ty   : favor_ty
+		}
+	
+		$.ajax({
+			type : 'POST',
+			url : '/detail/insertFavor',
+			data : favorVo,
+			success: function(){ }
+		});
+		alert("찜목록에 넣었습니다");
+		$('.heartimg').attr({ src : "/img/heart.png"});
+		
+		var num = document.getElementById('favorCount').innerHTML;
+		var plusNum = parseInt(num) + 1;
+		$('#favorCount').html(plusNum);
+		
 		
 	}else {
-		//TODO : favor 삭제
-		$(this).attr({ src : "/img/heart.png"});
+		
+		var favor_no = document.getElementById('favor_no').value;
+		
+		$.ajax({
+			type : 'POST',
+			url : '/detail/deleteFavor',
+			data : {
+				favor_no : favor_no
+			},
+			success : function(){ }
+		});
+		alert("찜목록에서 제거하였습니다");
+		$(this).attr({ src : "/img/heart-outline.png"});
+		
+		var num = document.getElementById('favorCount').innerHTML;
+		var minusNum = parseInt(num) -1;
+		$('#favorCount').html(minusNum);
 		
 	}
 	

@@ -1,3 +1,22 @@
+::-webkit-scrollbar {
+   width: 16px;
+}
+
+::-webkit-scrollbar-track {
+   background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+   background-color: #ffae24;
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+   background: #4159a9;
+}
+
+
+
 .floatclear {clear:left; clear:right;}
 
 .orangetext {color : #f29c3e; font-weight: bold; font-size: x-large;}
@@ -9,7 +28,10 @@
 .heartimg {margin-left: 5px; margin-bottom : 5px;}
 
 .chartajax {padding: 0px !important;}
-.chartajax div {padding: 0px !important; margin: 0px !important;}
+.chartajax div {padding: 0px; margin: 0px;}
+.chartajax .info {margin:30px;}
+
+
 #mapWrap {position: relative;}
 #map {width : 700px; height:900px;}
 .toLocal {position: absolute; top: 740px; left: 540px; z-index: 10; width:150px; height: 150px;}

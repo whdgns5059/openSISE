@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <link href="/css/detail.css" rel="stylesheet">
@@ -22,6 +23,7 @@
 		<div class="info">
 			<div>
 				<%-- 매물 디테일 정보 --%>
+				<input type="hidden" id="mem_no" value="${nowLogin.mem_no }"/>
 				<input type="hidden" id="artcl_gu" value="${selectArticleVo.artcl_gu }"/>
 				<input type="hidden" id="artcl_dong" value="${selectArticleVo.artcl_dong }"/>
 				<input type="hidden" id="artcl_zip" value="${selectArticleVo.artcl_zip }"/>
@@ -36,11 +38,10 @@
 				<input type="hidden" id="lng" value="${selectArticleVo.artcl_lng}"/>
 			</div>
 			<div class="like">
+				<input type="hidden" id="favor_no" value="${selFavor.favor_no }" />
 				<span>찜하기</span> 
-				<img src="/img/heart.png" class="heartimg" width="20px" height="20px"/>
-				<div>
-					<h4>최근 x명이 해당 매물을 찜 했습니다.</h4>
-				</div>
+				<img src="/img/heart-outline.png" class="heartimg" width="20px" height="20px"/>
+				<h4><span id="favorCount">${favorCount }</span>명이 해당 매물을 찜 했습니다.</h4>
 			</div>
 		</div>
 		<div>
@@ -51,7 +52,7 @@
 				<ul class="nav nav-tabs tab-yellow">
 					<c:forEach items="${selectAreas }" var="sel">
 						<li role="presentation" class="active">
-						<a class="nav-link tag-yellow areatab" data-toggle="tab" aira-expanded="true" href="#">${sel }</a>
+						<a class="nav-link tag-yellow areatab" data-toggle="tab" aira-expanded="true" href="#">${sel }<br/><fmt:formatNumber value="${sel/3.3 }" pattern=".0"/>평</a>
 						</li>
 					</c:forEach>
 				</ul>

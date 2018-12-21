@@ -23,6 +23,7 @@ import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
+import kr.co.opensise.user.detail.service.DetailService;
 import kr.co.opensise.user.detail.service.DetailServiceInf;
 
 @Controller
@@ -34,19 +35,41 @@ public class DetailController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/info")
-	public String detail(ArticleVo articleVo, @RequestParam("dl_ty") String dl_ty, Model model) {
+	public String detail(ArticleVo articleVo, @RequestParam("dl_ty") String dl_ty, Model model, HttpSession session) {
+
+		
 		
 		Map<String, Object> detailMap = detailService.getDetailInfo(articleVo, dl_ty);
 		
 		ArticleVo selectArticleVo = (ArticleVo) detailMap.get("selectArticleVo");
 		List<String> selectAreas = (List<String>) detailMap.get("selectAreas");
 		List<PostVo> selectReview  = (List<PostVo>) detailMap.get("selectReview");
+	
+		
+		MemberVo nowLogin = (MemberVo) session.getAttribute("nowLogin");
 
+		FavoriteVo favorVo = new FavoriteVo();
+		favorVo.setFavor_gu(articleVo.getArtcl_gu());
+		favorVo.setFavor_dong(articleVo.getArtcl_dong());
+		favorVo.setFavor_zip(articleVo.getArtcl_zip());
+		favorVo.setFavor_rd(articleVo.getArtcl_rd());
+		favorVo.setFavor_ty(dl_ty);
+
+		int favorCount = detailService.selectFavorCount(favorVo);
+		
+		FavoriteVo selFavor = null;
+		if(nowLogin !=null) {
+			favorVo.setFavor_mem(nowLogin.getMem_no());
+			selFavor = detailService.selectFavor(favorVo);
+		}
+		
 		
 		model.addAttribute("selectArticleVo", selectArticleVo);
 		model.addAttribute("selectAreas", selectAreas);
 		model.addAttribute("dl_ty", dl_ty);
 		model.addAttribute("selectReview", selectReview);
+		model.addAttribute("selFavor", selFavor);
+		model.addAttribute("favorCount", favorCount);
 		
 		return "detail";
 	}
@@ -180,11 +203,13 @@ public class DetailController {
 	}
 	
 	@RequestMapping("/insertFavor")
-	public @ResponseBody Integer insertFavor(FavoriteVo favorVo) {
-		
-		int result = detailService.insertFavor(favorVo);
-		
-		return result;
+	public void insertFavor(FavoriteVo favorVo) {
+		detailService.insertFavor(favorVo);
+	}
+	
+	@RequestMapping("/deleteFavor")
+	public void deleteFavor(FavoriteVo favorVo) {
+		detailService.deleteFavor(favorVo.getFavor_no());
 	}
 	
 	

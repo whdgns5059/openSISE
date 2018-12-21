@@ -21,6 +21,7 @@
 		select distinct dl_excv_area from deal
 		where dl_gu = #{artcl_gu} and dl_dong=#{artcl_dong} 
 		and dl_zip=#{artcl_zip} and dl_rd=#{artcl_rd}
+		and dl_ty = #{artcl_dl_ty}
 		order by dl_excv_area
 	</select>
 	
@@ -210,6 +211,24 @@
 		insert into favorite (favor_no, favor_mem, favor_gu, favor_dong, favor_zip, favor_rd, favor_ty)
 		values (seq_favor_no.nextval, #{favor_mem}, #{favor_gu}, #{favor_dong} , #{favor_zip}, #{favor_rd}, #{favor_ty})
 	</insert>
+	
+	<select id="selectFavorCount" parameterType="favorVo" resultType="int">
+		select count(*) from favorite
+		where favor_gu = #{favor_gu} and favor_dong = #{favor_dong} 
+		and favor_zip = #{favor_zip} and favor_rd = #{favor_rd} and favor_ty = #{favor_ty}
+	</select>
+	
+	<select id="selectFavor" parameterType="favorVo" resultType="favorVo">
+		select * from favorite
+		where favor_mem = #{favor_mem} 
+		and favor_gu = #{favor_gu} and favor_dong = #{favor_dong} 
+		and favor_zip = #{favor_zip} and favor_rd = #{favor_rd} and favor_ty = #{favor_ty}
+	</select>	
+
+	<delete id="deleteFavor" parameterType="int">
+		delete favorite
+		where favor_no = #{int}
+	</delete>
 	
 </mapper>
 
