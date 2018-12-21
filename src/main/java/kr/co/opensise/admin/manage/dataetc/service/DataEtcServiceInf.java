@@ -34,8 +34,8 @@ public interface DataEtcServiceInf {
 	* Method 설명 :시설테이블 중 제목부분리스트(중복제거)
 	*/
 	public List<InstiAttrVo> selectInsti_attr(int iattr_insti);
-//	public List<InstiAttrVo> selectInstiAttr(int iattr_insti);
-	public List<List<InstiAttrVo>> selectInstiAttr(int iattr_insti);
+	public List<InstiAttrVo> selectInstiAttr(int iattr_insti);
+//	public List<List<InstiAttrVo>> selectInstiAttr(int iattr_insti);
 	public int insertInstiattr(InstiAttrVo instiAttrVo);
 	
 }

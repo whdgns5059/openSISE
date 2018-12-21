@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
+import kr.co.opensise.user.detail.model.AvgStatVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
@@ -108,7 +109,7 @@ public class DetailDao implements DetailDaoInf{
 	}
 
 	@Override
-	public float selectPriceStat(DealVo dealVo) {
+	public AvgStatVo selectPriceStat(DealVo dealVo) {
 		return template.selectOne("detail.selectPriceStat", dealVo);
 	}
 
@@ -118,7 +119,7 @@ public class DetailDao implements DetailDaoInf{
 	}
 
 	@Override
-	public float selectHumanStat(String dong) {
+	public Float selectHumanStat(String dong) {
 		return template.selectOne("detail.selectHumanStat", dong);
 	}
 

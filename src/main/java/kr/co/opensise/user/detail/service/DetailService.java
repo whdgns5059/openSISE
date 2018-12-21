@@ -16,6 +16,7 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.user.detail.dao.DetailDaoInf;
+import kr.co.opensise.user.detail.model.AvgStatVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
@@ -170,15 +171,40 @@ public class DetailService implements DetailServiceInf{
 
 	@Override
 	public Map<String, Float> selectStat(DealVo dealVo) {
-
-		float priceStat = detailDao.selectPriceStat(dealVo);
 		
-		if(priceStat > 5f) {
-			priceStat = 5f;
+		ArticleVo articleVo = new ArticleVo();
+		articleVo.setArtcl_gu(dealVo.getDl_gu());
+		articleVo.setArtcl_dong(dealVo.getDl_dong());
+		articleVo.setArtcl_zip(dealVo.getDl_zip());
+		articleVo.setArtcl_rd(dealVo.getDl_rd());
+		
+		
+		ArticleVo selArticleVo = detailDao.selectArticle(articleVo);
+		dealVo.setArtcl_bc(selArticleVo.getArtcl_bc());
+		
+		AvgStatVo priceStatVo= detailDao.selectPriceStat(dealVo);
+		
+		if(priceStatVo == null) {
+			priceStatVo = new AvgStatVo(0f,0f,0f);
 		}
-		if(priceStat < -5f) {
-			priceStat = -5f;
+		
+		Float priceStat = 0f;
+
+		if(dealVo.getDl_ty().equals("매매")) {
+			priceStat = priceStatVo.getPrice_stat();
+			priceStat /= 30;
+
+		}else if(dealVo.getDl_ty().equals("전세")) {
+			priceStat = priceStatVo.getDepos_stat();
+			priceStat /= 30;
+
+		}else if(dealVo.getDl_ty().equals("월세")) {
+			priceStat = priceStatVo.getRnt_stat();
+
 		}
+		
+		
+		
 		
 		String dl_dong = dealVo.getDl_dong();
 		String dong = dl_dong.substring(0, 2);
@@ -193,7 +219,10 @@ public class DetailService implements DetailServiceInf{
 		if(marketStat < -5f) {
 			marketStat = -5f;
 		}
-		float humanStat = detailDao.selectHumanStat(dong);
+		Float humanStat = detailDao.selectHumanStat(dong);
+		if(humanStat == null) {
+			humanStat = 0f;
+		}
 		if(humanStat > 5f) {
 			humanStat = 5f;
 		}
