@@ -179,11 +179,6 @@
 <script type="text/javascript">
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
-		
-
-		
-		
-		
 		/* var dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
 		$("#buildT").html(dl_Type); */
 		dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
@@ -248,6 +243,8 @@
 		$("#slider-rnt").on("change",function(){
 			priceTitle();
 		}); */
+		
+		/*------------- 가격 ajax 설정(지금 이거 막아놨어 사용할거면 이거 풀어) -------------------*/
 		/* $(".divHeight").on("change","#slider-bar",function(){
 			priceTitle();
 			getArticleList();
@@ -256,8 +253,7 @@
 			priceTitle();
 			getArticleList();
 		}); */
-		
-		
+		/*-----------------------------------------------------------------------*/
 		
 		
 		
@@ -532,44 +528,44 @@
 
 		//마커가 표시될 위치입니다 
 		var markerPosition = new daum.maps.LatLng(lat, lng);
+		var marker;
 		for(var i =0; i<positions.length; i++){
 			//마커를 생성합니다
-			var marker = new daum.maps.Marker({
+				marker = new daum.maps.Marker({
 				position : positions[i]
 			});
 			//마커가 지도 위에 표시되도록 설정합니다
 			marker.setMap(map);
 		}
-		
-		
-		//toLocal 클릭시 좌표읽어서 이동
-		$('.toLocal').on('click', function(){
-			
-			var geocoder = new daum.maps.services.Geocoder();
-
-			var center = map.getCenter();
-
-			var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
-			var callback = function(result, status) {
-				if (status === daum.maps.services.Status.OK) {
-					
-					var gu = result[0].address.region_2depth_name;
-					var dong = result[0].address.region_3depth_name;
-
-
-					location.href="/local/local?gu="+gu+"&dong="+dong;
-					
-				}
-			};
-
-			geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-			
-				
-		});
-		
-		
+		/*--------------마커 생성 코드 끝--------------*/
 		
 	}
+	
+	//toLocal 클릭시 좌표읽어서 이동
+	$('.toLocal').on('click', function(){
+		
+		var geocoder = new daum.maps.services.Geocoder();
+
+		var center = map.getCenter();
+
+		var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
+		var callback = function(result, status) {
+			if (status === daum.maps.services.Status.OK) {
+				
+				var gu = result[0].address.region_2depth_name;
+				var dong = result[0].address.region_3depth_name;
+
+
+				location.href="/local/local?gu="+gu+"&dong="+dong;
+				
+			}
+		};
+
+		geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+		
+			
+	});
+	
 	
 	/*검색한 좌표들을 배열에 담아준다*/
 	function setLatlngArr() {
