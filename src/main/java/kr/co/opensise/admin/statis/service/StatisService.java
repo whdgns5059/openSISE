@@ -14,6 +14,7 @@ import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.admin.statis.model.Page_statisticVo;
+import kr.co.opensise.admin.statis.model.VisitorVo;
 
 @Service
 public class StatisService implements StatisServiceInf {
@@ -115,6 +116,26 @@ public class StatisService implements StatisServiceInf {
 	public int insertVisitor() {
 		return statisDao.insertVisitor();
 	}
+	
+	@Override
+	public int maxVisit() {
+		return statisDao.maxVisit();
+	}
+	
+	@Override
+	public List<VisitorVo> visitDate() {
+		return statisDao.visitDate();
+	}
+	
+	@Override
+	public List<VisitorVo> visitDay() {
+		return statisDao.visitDay();
+	}
+	
+	@Override
+	public List<VisitorVo> visitHour() {
+		return statisDao.visitHour();
+	}
 
 	@Override
 	public int insertPS(Map<String, Page_statisticVo> uriCounts) {
@@ -124,6 +145,17 @@ public class StatisService implements StatisServiceInf {
 			return statisDao.insertPS(uriCounts);
 	}
 
+	@Override
+	public List<Page_statisticVo> psDate() {
+		return statisDao.psDate();
+	}
+
+	@Override
+	public List<Page_statisticVo> psPage() {
+		return statisDao.psPage();
+	}
+
+	
 
 
 

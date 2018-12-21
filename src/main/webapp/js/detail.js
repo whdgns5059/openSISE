@@ -421,7 +421,24 @@ $('.deleteReview').on('click', function(){
 	
 });
 
-
+//찜하기
+$('.like').on('click', '.heartimg', function(){
+	
+	var img_src = this.getAttribute('src');
+	
+	if(img_src == "/img/heart.png"){
+		//TODO : favor 인서트
+		$(this).attr({ src : "/img/heart-outline.png"});
+		
+	}else {
+		//TODO : favor 삭제
+		$(this).attr({ src : "/img/heart.png"});
+		
+	}
+	
+	
+	
+});
 
 
 

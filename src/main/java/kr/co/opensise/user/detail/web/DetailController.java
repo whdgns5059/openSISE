@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
+import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
@@ -166,7 +168,6 @@ public class DetailController {
 		
 		Map<String, Float> statMap = detailService.selectStat(dealVo);
 
-		/***then***/
 		Float priceStat = statMap.get("priceStat");
 		Float marketStat = statMap.get("marketStat");
 		Float humanStat = statMap.get("humanStat");
@@ -176,6 +177,14 @@ public class DetailController {
 		model.addAttribute("humanStat", humanStat);
 		
 		return "user/detailAjax/radar";
+	}
+	
+	@RequestMapping("/insertFavor")
+	public @ResponseBody Integer insertFavor(FavoriteVo favorVo) {
+		
+		int result = detailService.insertFavor(favorVo);
+		
+		return result;
 	}
 	
 	

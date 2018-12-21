@@ -17,6 +17,7 @@ import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.admin.statis.model.Page_statisticVo;
+import kr.co.opensise.admin.statis.model.VisitorVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.util.CommonUtilTest;
 
@@ -147,6 +148,20 @@ public class StatisDaoTest extends RootSetup{
 		/***Then***/
 		assertEquals(-1, insertCnt);
 	}
+	
+	@Test
+	public void visitDate() {
+		/***Given***/
+		
+		/***When***/
+		List<VisitorVo> visitDate = statisDao.visitDate();
+
+		/***Then***/
+		log.info("날짜별 방문 수 {}", visitDate);
+		
+		
+	}
+	
 	
 	
 	

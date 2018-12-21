@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.admin.statis.model.Page_statisticVo;
+import kr.co.opensise.admin.statis.model.VisitorVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.util.CommonUtilTest;
 
@@ -47,6 +48,7 @@ public class StatisServiceTest extends RootSetup{
 		assertEquals(0, insertCnt);
 		
 	}
+	
 	
 	
 	

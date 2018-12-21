@@ -19,7 +19,6 @@ var humanStat = document.getElementById('humanStat').value;
 var statArr = [parseFloat(priceStat), parseFloat(marketStat), parseFloat(humanStat)];
 
 
-zingchart.THEME="classic";
 var radarConfig = 
         {
             "type": "radar",

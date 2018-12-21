@@ -8,6 +8,7 @@ import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.admin.statis.model.Page_statisticVo;
+import kr.co.opensise.admin.statis.model.VisitorVo;
 
 /**
 * StatisDaoInf.java
@@ -164,6 +165,42 @@ public interface StatisDaoInf {
 	public int insertVisitor();
 	
 	/**
+	* Method : maxVisit
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 가장 많이 방문한 수
+	*/
+	public int maxVisit();
+	
+	/**
+	* Method : visitDate
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 날짜별 방문 수
+	*/
+	public List<VisitorVo> visitDate();
+	
+	/**
+	* Method : visitDay
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 요일별 방문 수
+	*/
+	public List<VisitorVo> visitDay();
+	
+	/**
+	* Method : visitHour
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 시간별 방문 수
+	*/
+	public List<VisitorVo> visitHour();
+	
+	/**
 	* Method : insertPS
 	* 작성자 : Bella
 	* 변경이력 :
@@ -172,6 +209,24 @@ public interface StatisDaoInf {
 	* Method 설명 : 페이지 방문 데이터 입력
 	*/
 	public int insertPS(Map<String, Page_statisticVo> uriCounts);
+	
+	/**
+	* Method : psDate
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 일별 페이지 방문 수
+	*/
+	public List<Page_statisticVo> psDate();
+	
+	/**
+	* Method : psPage
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 페이지별 페이지 방문 수
+	*/
+	public List<Page_statisticVo> psPage();
 	
 	
 	

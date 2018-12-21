@@ -84,13 +84,16 @@ $(document).ready(function(){
             "minor-ticks": 0 },
         /* 세로축 */
         "scale-y": {
-            "values": "0:"+allCnt+":"+(Math.ceil(allCnt/10)+10), /* 시작 : 끝 : 단계 */
+        	"min-value": 0,
+        	"max-value": allCnt+10,
             "line-color": "#f6f7f8",
             "shadow": 0,
             "guide": { "line-style": "dashed" },
             "label": {
                 "text": "회원 수",
                 "font-size": "15px",
+                "font-family":"'Noto Sans KR', sans-serif",
+                "font-weight": "400",
                 "font-color": "#808080"},
             "minor-ticks": 0,
             "thousands-separator": "," },
@@ -196,7 +199,9 @@ $(document).ready(function(){
         },
         /* 세로축 */
         "scale-y": {
-            "values": "0:"+allCnt+":"+(allCnt/10) , /* "0:1000:100" 시작 : 끝 : 단계 */
+            //"values": "0:"+allCnt+":"+Math.ceil(allCnt/10) , /* "0:1000:100" 시작 : 끝 : 단계 */
+            "min-value": 0,
+        	"max-value": allCnt+10,
             "line-color": "#f6f7f8",
             "shadow": 0,
             "guide": { "line-style": "dashed" },
@@ -293,7 +298,8 @@ $(document).ready(function(){
 	            "scale-x":{
 	                "values":["10대","20대","30대","40대", "50대","60대"] },
 	            "scale-y":{ 
-	            	"values": "0:"+allCnt+":"+(allCnt/10)},
+	            	"min-value": 0,
+	            	"max-value": allCnt+10 },
 	            // 작은 컨트롤러
 	            "legend" : {
 	            	"overflow": "none",
@@ -339,7 +345,6 @@ $(document).ready(function(){
 			            		0
 			            ]
 	                },
-	            	
 	                {
 	                	"text": "남성",
 		                "line-color": "#f38b72",
@@ -393,13 +398,13 @@ $(document).ready(function(){
 		<div id="myTabContent" class="tab-content tab-content-size">
 			<div class="tab-pane fade show active" id="signDaily">
 				<p>누적 회원 수: <c:out value="${countAllMembers}"/><br/>
-					현재 가입 회원 수: <c:out value="${countSignIn}"/>
+					현재 가입된 회원 수: <c:out value="${countSignIn}"/>
 				</p>
 				<div id='signDailyG'></div>
 			</div>
 			<div class="tab-pane fade show" id="signMonthly">
 				<p>누적 회원 수: <c:out value="${countAllMembers}"/><br/>
-					현재 가입 회원 수: <c:out value="${countSignIn}"/>
+					현재 가입된 회원 수: <c:out value="${countSignIn}"/>
 					
             		
 				</p>

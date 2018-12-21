@@ -12,6 +12,7 @@ import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
 import kr.co.opensise.admin.statis.model.Page_statisticVo;
+import kr.co.opensise.admin.statis.model.VisitorVo;
 
 
 @Repository
@@ -111,11 +112,48 @@ public class StatisDao implements StatisDaoInf {
 	}
 
 	@Override
+	public int maxVisit() {
+		int maxCnt = template.selectOne("admin_statis.maxVisit");
+		return maxCnt;
+	}
+	
+	@Override
+	public List<VisitorVo> visitDate() {
+		List<VisitorVo> visitVo = template.selectList("admin_statis.visitDate");
+		return visitVo;
+	}
+	
+	@Override
+	public List<VisitorVo> visitDay() {
+		List<VisitorVo> visitVo = template.selectList("admin_statis.visitDay");
+		return visitVo;
+	}
+	
+	@Override
+	public List<VisitorVo> visitHour() {
+		List<VisitorVo> visitVo = template.selectList("admin_statis.visitHour");
+		return visitVo;
+	}
+
+	@Override
 	public int insertPS(Map<String, Page_statisticVo> uriCounts) {
 		int insertCnt = template.insert("admin_statis.insertPS", uriCounts);
 		return insertCnt;
 	}
 
+	@Override
+	public List<Page_statisticVo> psDate() {
+		List<Page_statisticVo> psVo = template.selectList("admin_statis.psDate");
+		return psVo;
+	}
+
+	@Override
+	public List<Page_statisticVo> psPage() {
+		List<Page_statisticVo> psVo = template.selectList("admin_statis.psPage");
+		return psVo;
+	}
+
+	
 
 	
 	

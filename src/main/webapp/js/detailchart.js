@@ -1,20 +1,66 @@
 var dl_priceArr = document.getElementsByClassName('avg_dl_price');
+var dl_deposArr = document.getElementsByClassName('avg_dl_depos');
+var dl_rntArr = document.getElementsByClassName('avg_dl_rnt');
 var dl_cont_ymArr = document.getElementsByClassName('avg_dl_cont_ym');
+var dl_ty = document.getElementById('dl_ty').value;
 
 var priceVal = new Array();
+var deposVal = new Array();
+var rntVal = new Array();
 var contYmVal = new Array();
+console.log("charthere!");
 
-for(var valIndex = 0 ; valIndex < dl_priceArr.length; valIndex++){
-	
-	if(dl_priceArr[valIndex].value == 0){
+var maxVal = 0;
+var minVal = 10000000;
+
+if(dl_ty == '매매'){
+
+	for(var i= 0 ; i< dl_priceArr.length; i++){
 		
-		if(valIndex == 0){ continue; }
+		if(dl_priceArr[i].value == 0){
+			
+			if(i== 0){ continue; }
+			
+			dl_priceArr[i].value = dl_priceArr[i- 1].value;
+		}
+		priceVal[i] = parseInt(dl_priceArr[i].value);
+		maxVal = maxVal < priceVal[i] ? priceVal[i] : maxVal;
+		minVal = minVal > priceVal[i] ? priceVal[i] : minVal;
+		contYmVal[i] = dl_cont_ymArr[i].value;
+	}
+
+}else if(dl_ty == '전세'){
+
+	for(var i= 0 ; i< dl_deposArr.length; i++){
 		
-		dl_priceArr[valIndex].value = dl_priceArr[valIndex - 1].value;
+		if(dl_deposArr[i].value == 0){
+			
+			if(i== 0){ continue; }
+			
+			dl_deposArr[i].value = dl_deposArr[i- 1].value;
+		}
+		deposVal[i] = parseInt(dl_deposArr[i].value);
+		maxVal = maxVal < deposVal[i] ? deposVal[i] : maxVal;
+		minVal = minVal > deposVal[i] ? deposVal[i] : minVal;
+		contYmVal[i] = dl_cont_ymArr[i].value;
 	}
 	
-	priceVal[valIndex] = parseInt(dl_priceArr[valIndex].value);
-	contYmVal[valIndex] = dl_cont_ymArr[valIndex].value;
+}else if(dl_ty == '월세'){
+
+	for(var i= 0 ; i< dl_rntArr.length; i++){
+		
+		if(dl_rntArr[i].value == 0){
+			
+			if(i== 0){ continue; }
+			
+			dl_rntArr[i].value = dl_rntArr[i- 1].value;
+		}
+		rntVal[i] = parseInt(dl_rntArr[i].value);
+		maxVal = maxVal < rntVal[i] ? rntVal[i] : maxVal;
+		minVal = minVal > rntVal[i] ? rntVal[i] : minVal;
+		contYmVal[i] = dl_cont_ymArr[i].value;
+	}
+	
 }
 
 
@@ -76,7 +122,7 @@ var myConfig = {
 		        },
 		        "scale-y":{
 		            "progression":"demical",
-		            "min-value" : 4000,
+		            "min-value" : minVal,
 		            "decimals":0,
 		            "auto-fit":true,
 		            "item":{
@@ -120,8 +166,16 @@ var myConfig = {
 		        },
 		        "series":[
 		            {
-		                "text":"Series 1 Data",
+		                "text":"매매가",
 		                "values": priceVal
+		            },
+		            {
+		                "text":"전세가",
+		                "values": deposVal
+		            },
+		            {
+		                "text":"월세가",
+		                "values": rntVal
 		            }
 		        ]
 		    }

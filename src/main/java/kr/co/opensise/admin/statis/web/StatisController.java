@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
+import kr.co.opensise.admin.statis.model.VisitorVo;
 import kr.co.opensise.admin.statis.service.StatisServiceInf;
 
 @Controller
@@ -121,7 +122,15 @@ public class StatisController {
 	* Method 설명 : 방문자수
 	*/
 	@RequestMapping(value="/visitor", method=RequestMethod.GET)
-	public String visitor() {
+	public String visitor(Model model) {
+		// 방문 수 최대치
+		int maxCnt = statisService.maxVisit();
+		model.addAttribute("maxCnt", maxCnt);
+		
+		// 날짜별 방문 수
+		List<VisitorVo> visitDate = statisService.visitDate();
+		model.addAttribute("visitDate",visitDate);
+		
 		return "statis/visitor";
 	}
 	
