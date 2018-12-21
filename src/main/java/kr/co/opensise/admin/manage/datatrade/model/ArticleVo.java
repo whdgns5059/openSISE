@@ -16,8 +16,15 @@ public class ArticleVo {
 	private String artcl_rd_detail;
 	private String artcl_lat;
 	private String artcl_lng;
+	private String artcl_dl_ty;
 	
 	
+	public String getArtcl_dl_ty() {
+		return artcl_dl_ty;
+	}
+	public void setArtcl_dl_ty(String artcl_dl_ty) {
+		this.artcl_dl_ty = artcl_dl_ty;
+	}
 	public String getArtcl_gu() {
 		return artcl_gu;
 	}

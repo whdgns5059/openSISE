@@ -62,7 +62,10 @@ function detailInfoAjax(area){
 	var artcl_zip = document.getElementById('artcl_zip').value;
 	var artcl_rd = document.getElementById('artcl_rd').value;
 	var dl_ty = document.getElementById('dl_ty').value;
-	var dl_excv_area = area;
+	
+	var brIndex = area.indexOf('<br>')
+	
+	var dl_excv_area = area.substr(0, brIndex);
 	
 	var ajaxData = {
 		artcl_gu : artcl_gu,

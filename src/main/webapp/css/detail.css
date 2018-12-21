@@ -9,7 +9,10 @@
 .heartimg {margin-left: 5px; margin-bottom : 5px;}
 
 .chartajax {padding: 0px !important;}
-.chartajax div {padding: 0px !important; margin: 0px !important;}
+.chartajax div {padding: 0px; margin: 0px;}
+.chartajax .info {margin:30px;}
+
+
 #mapWrap {position: relative;}
 #map {width : 700px; height:900px;}
 .toLocal {position: absolute; top: 740px; left: 540px; z-index: 10; width:150px; height: 150px;}

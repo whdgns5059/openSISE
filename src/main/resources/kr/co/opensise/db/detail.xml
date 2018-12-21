@@ -21,6 +21,7 @@
 		select distinct dl_excv_area from deal
 		where dl_gu = #{artcl_gu} and dl_dong=#{artcl_dong} 
 		and dl_zip=#{artcl_zip} and dl_rd=#{artcl_rd}
+		and dl_ty = #{artcl_dl_ty}
 		order by dl_excv_area
 	</select>
 	

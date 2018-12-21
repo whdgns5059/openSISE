@@ -1,13 +1,11 @@
 var dl_priceArr = document.getElementsByClassName('avg_dl_price');
 var dl_deposArr = document.getElementsByClassName('avg_dl_depos');
 var dl_rntArr = document.getElementsByClassName('avg_dl_rnt');
-var dl_cont_ymArr = document.getElementsByClassName('avg_dl_cont_ym');
 var dl_ty = document.getElementById('dl_ty').value;
 
 var priceVal = new Array();
 var deposVal = new Array();
 var rntVal = new Array();
-var contYmVal = new Array();
 console.log("charthere!");
 
 var maxVal = 0;
@@ -26,7 +24,6 @@ if(dl_ty == '매매'){
 		priceVal[i] = parseInt(dl_priceArr[i].value);
 		maxVal = maxVal < priceVal[i] ? priceVal[i] : maxVal;
 		minVal = minVal > priceVal[i] ? priceVal[i] : minVal;
-		contYmVal[i] = dl_cont_ymArr[i].value;
 	}
 
 }else if(dl_ty == '전세'){
@@ -42,7 +39,6 @@ if(dl_ty == '매매'){
 		deposVal[i] = parseInt(dl_deposArr[i].value);
 		maxVal = maxVal < deposVal[i] ? deposVal[i] : maxVal;
 		minVal = minVal > deposVal[i] ? deposVal[i] : minVal;
-		contYmVal[i] = dl_cont_ymArr[i].value;
 	}
 	
 }else if(dl_ty == '월세'){
@@ -58,7 +54,6 @@ if(dl_ty == '매매'){
 		rntVal[i] = parseInt(dl_rntArr[i].value);
 		maxVal = maxVal < rntVal[i] ? rntVal[i] : maxVal;
 		minVal = minVal > rntVal[i] ? rntVal[i] : minVal;
-		contYmVal[i] = dl_cont_ymArr[i].value;
 	}
 	
 }
@@ -101,19 +96,18 @@ var myConfig = {
 		              }
 		            ],
 		        "scale-x":{
-		            "min-value":1273266300000,
-		            "step":"minute",
+		            "min-value":1199145600000,
+		            "step":"month",
 		            "itemsOverlap": true,
 		            "tick":{
 		 
 		            },
-		            "minor-ticks":4,
 		            "minor-tick":{
 		 
 		            },
 		            "transform":{
 		                "type":"date",
-		                "all":"%D, %d %M<br>%h:%i %A"
+		                "all":"%Y<br/>%M"
 		            },
 		            "zooming":true
 		        },

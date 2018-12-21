@@ -33,20 +33,15 @@ public class DetailService implements DetailServiceInf{
 	public Map<String, Object> getDetailInfo(ArticleVo articleVo, String dl_ty) {
 		
 		Map<String, Object> detailMap = new HashMap<String, Object>();
-		
-		//select를 위한 articleVo는 그대로 가면 됨.., DealVo 생성
-		DealVo dealVo = new DealVo();
-		dealVo.setDl_gu(articleVo.getArtcl_gu());
-		dealVo.setDl_dong(articleVo.getArtcl_dong());
-		dealVo.setDl_zip(articleVo.getArtcl_zip());
-		dealVo.setDl_rd(articleVo.getArtcl_rd());
-		dealVo.setDl_ty(dl_ty);
+	
+		articleVo.setArtcl_dl_ty(dl_ty);
 		
 		ArticleVo selectArticleVo = detailDao.selectArticle(articleVo);
 		detailMap.put("selectArticleVo", selectArticleVo);
 		
 		List<String> selectAreas = detailDao.selectAreas(articleVo);
 		detailMap.put("selectAreas", selectAreas);
+		
 		
 		List<PostVo> selectReview = detailDao.selectReview(articleVo);
 		detailMap.put("selectReview", selectReview);

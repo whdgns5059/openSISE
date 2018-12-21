@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <link href="/css/detail.css" rel="stylesheet">
@@ -51,7 +52,7 @@
 				<ul class="nav nav-tabs tab-yellow">
 					<c:forEach items="${selectAreas }" var="sel">
 						<li role="presentation" class="active">
-						<a class="nav-link tag-yellow areatab" data-toggle="tab" aira-expanded="true" href="#">${sel }</a>
+						<a class="nav-link tag-yellow areatab" data-toggle="tab" aira-expanded="true" href="#">${sel }<br/><fmt:formatNumber value="${sel/3.3 }" pattern=".0"/>평</a>
 						</li>
 					</c:forEach>
 				</ul>
