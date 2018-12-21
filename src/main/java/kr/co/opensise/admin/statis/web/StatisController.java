@@ -124,12 +124,20 @@ public class StatisController {
 	@RequestMapping(value="/visitor", method=RequestMethod.GET)
 	public String visitor(Model model) {
 		// 방문 수 최대치
-		int maxCnt = statisService.maxVisit();
+		VisitorVo maxCnt = statisService.maxVisit();
 		model.addAttribute("maxCnt", maxCnt);
+
+		// 방문이 많은 요일 순위별
+		List<VisitorVo> maxVisitDay = statisService.maxVisitDay();
+		model.addAttribute("maxVisitDay", maxVisitDay);
 		
 		// 날짜별 방문 수
 		List<VisitorVo> visitDate = statisService.visitDate();
 		model.addAttribute("visitDate",visitDate);
+		
+		// 요일별/시간별 방문 수
+		List<VisitorVo> visitDay = statisService.visitDay();
+		model.addAttribute("visitDay",visitDay);
 		
 		return "statis/visitor";
 	}
@@ -142,7 +150,24 @@ public class StatisController {
 	* Method 설명 : 페이지사용량
 	*/
 	@RequestMapping(value="/pageCount", method=RequestMethod.GET)
-	public String pageCount() {
+	public String pageCount(Model model) {
+		
+		// 방문 수 최대치
+				VisitorVo maxCnt = statisService.maxVisit();
+				model.addAttribute("maxCnt", maxCnt);
+
+				// 방문이 많은 요일 순위별
+				List<VisitorVo> maxVisitDay = statisService.maxVisitDay();
+				model.addAttribute("maxVisitDay", maxVisitDay);
+				
+				// 날짜별 방문 수
+				List<VisitorVo> visitDate = statisService.visitDate();
+				model.addAttribute("visitDate",visitDate);
+				
+				// 요일별/시간별 방문 수
+				List<VisitorVo> visitDay = statisService.visitDay();
+				model.addAttribute("visitDay",visitDay);
+		
 		return "statis/pageCount";
 	}
 	

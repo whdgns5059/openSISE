@@ -118,7 +118,7 @@ public class StatisService implements StatisServiceInf {
 	}
 	
 	@Override
-	public int maxVisit() {
+	public VisitorVo maxVisit() {
 		return statisDao.maxVisit();
 	}
 	
@@ -130,6 +130,11 @@ public class StatisService implements StatisServiceInf {
 	@Override
 	public List<VisitorVo> visitDay() {
 		return statisDao.visitDay();
+	}
+	
+	@Override
+	public List<VisitorVo> maxVisitDay() {
+		return statisDao.maxVisitDay();
 	}
 	
 	@Override
@@ -154,6 +159,8 @@ public class StatisService implements StatisServiceInf {
 	public List<Page_statisticVo> psPage() {
 		return statisDao.psPage();
 	}
+
+	
 
 	
 

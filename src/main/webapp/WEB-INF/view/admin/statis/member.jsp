@@ -68,7 +68,14 @@ $(document).ready(function(){
             "item":{
               "padding": 7,
               "marginRight": 17,
-              "cursor":"hand" }
+              "cursor":"hand" },
+            "marker": {
+               "type": "square",
+               "border-radius": "5",
+               "border-color": "none",
+               "size": "10px",
+               "cursor": "pointer"
+            },
         },
         /* 가로축 */
         "scale-x": {
@@ -90,7 +97,7 @@ $(document).ready(function(){
             "shadow": 0,
             "guide": { "line-style": "dashed" },
             "label": {
-                "text": "회원 수",
+                "text": "회원 수(명)",
                 "font-size": "15px",
                 "font-family":"'Noto Sans KR', sans-serif",
                 "font-weight": "400",
@@ -132,17 +139,15 @@ $(document).ready(function(){
             		</c:forEach>
                 ],
                 "text": "가입 회원",
+                "background-color":"#da534d",
                 "line-color": "#da534d",
-                "legend-item":{
-                  "background-color": "#da534d",
-                  "borderRadius":5,
-                  "font-color":"white"},
-                "legend-marker": {"visible":false },
+                "legend-item":{ "cursor":"pointer"},
+                "legend-marker": {"visible":true},
                 "marker": {
                     "background-color": "#da534d",
                     "border-width": 1,
                     "shadow": 0,
-                    "border-color": "#da534d" }},
+                    "border-color": "#da534d" } },
             {// 탈퇴 회원
                 "values": [
                 	<c:forEach items="${memVoOutList }" var="memVo">
@@ -150,17 +155,15 @@ $(document).ready(function(){
             		</c:forEach>
                 ],
                 "text": "탈퇴한 회원",
+                "background-color":"#f7cc06",
                 "line-color": "#f7cc06",
-                "legend-item":{
-                  "background-color": "#f7cc06",
-                  "borderRadius":5,
-                   "font-color":"white" },
-                "legend-marker": {"visible":false},
+                "legend-item":{ "cursor":"pointer"},
+                "legend-marker": {"visible":true},
                 "marker": {
                     "background-color": "#f7cc06",
                     "border-width": 1,
                     "shadow": 0,
-                    "border-color": "#f7cc06" } 
+                    "border-color": "#f7cc06" }
             }
         ]
     };
@@ -186,7 +189,14 @@ $(document).ready(function(){
             "item":{
               "padding": 7,
               "marginRight": 17,
-              "cursor":"hand" }
+              "cursor":"hand" },
+            "marker": {
+               "type": "square",
+               "border-radius": "5",
+               "border-color": "none",
+               "size": "10px",
+               "cursor": "pointer"
+            },
         },
         /* 가로축 */
         "scale-x": {
@@ -206,7 +216,7 @@ $(document).ready(function(){
             "shadow": 0,
             "guide": { "line-style": "dashed" },
             "label": {
-                "text": "회원 수",
+                "text": "회원 수(명)",
                 "font-family": "'Noto Sans KR', sans-serif",
                 "font-weight": "400",
                 "font-size": "15px",
@@ -248,12 +258,10 @@ $(document).ready(function(){
             		</c:forEach>
                 ],
                 "text": "가입 회원",
+                "background-color":"#da534d",
                 "line-color": "#da534d",
-                "legend-item":{
-                  "background-color": "#da534d",
-                  "borderRadius":5,
-                   "font-color":"white"},
-                "legend-marker": {"visible":false },
+                "legend-item":{ "cursor":"pointer"},
+                "legend-marker": {"visible":true},
                 "marker": {
                     "background-color": "#da534d",
                     "border-width": 1,
@@ -267,17 +275,15 @@ $(document).ready(function(){
             		</c:forEach>
                 ],
                 "text": "탈퇴한 회원",
+                "background-color":"#f7cc06",
                 "line-color": "#f7cc06",
-                "legend-item":{
-                  "background-color": "#f7cc06",
-                  "borderRadius":5,
-                  "font-color":"white" },
-                "legend-marker": {"visible":false},
+                "legend-item":{ "cursor":"pointer"},
+                "legend-marker": {"visible":true},
                 "marker": {
                     "background-color": "#f7cc06",
                     "border-width": 1,
                     "shadow": 0,
-                    "border-color": "#f7cc06"}
+                    "border-color": "#f7cc06" }
             }
         ]
     };
@@ -316,28 +322,16 @@ $(document).ready(function(){
 	                },
 	                "border-width": 0,
 	                "maxItems": 3,
-	                "toggle-action": "hide"
-	            	
+	                "toggle-action": "hide" 
 	            },
 	            "series":[
 	                {
 	                	"text": "여성",
 		                "line-color": "#f7cc06",
-			            "legend-item":{
-			                "background-color": "#f7cc06",
-			                "padding": "5 7",
-			                "borderRadius":5,
-			                "font-color":"white",
-			                "cursor":"pointer"
-			                },
-			            "legend-marker": {"visible":false},
-			            "marker": {
-			                "border-width": 1,
-			                "shadow": 0,
-			                "border-color": "#f7cc06"
-			                },
-	                    "data-side":1,
+			            "legend-item":{ "cursor":"pointer"},
+			            "legend-marker": {"visible":true},
 	                    "background-color":"#f7cc06",
+	                    "data-side":1,
 	                    "values": [
 	                    	<c:forEach items="${memVoF }" var="memVo">
 			            		${memVo.counts},
@@ -347,22 +341,11 @@ $(document).ready(function(){
 	                },
 	                {
 	                	"text": "남성",
-		                "line-color": "#f38b72",
-			            "legend-item":{
-			                "background-color": "#f38b72",
-			                "padding": "5 7",
-			                "borderRadius":5,
-			                "font-color":"white",
-			                "cursor":"pointer"
-			                },
-			            "legend-marker": {"visible":false},
-			            "marker": {
-			                "border-width": 1,
-			                "shadow": 0,
-			                "border-color": "#f38b72"
-			                },
+	                	"line-color": "#f38b72",
+				        "legend-item":{ "cursor":"pointer"},
+				        "legend-marker": {"visible":true},
+		                "background-color":"#f38b72",
 	                    "data-side":2,
-	                    "background-color":"#f38b72",
 	                    "values": [
 	                    	<c:forEach items="${memVoM }" var="memVo">
 			            		${memVo.counts},

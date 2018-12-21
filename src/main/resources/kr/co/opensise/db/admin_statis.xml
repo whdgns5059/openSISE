@@ -156,8 +156,15 @@
 	</insert>
 	
 	<!-- 가장 많이 방문한 수 -->
-	<select id="maxVisit" resultType="int">
-		Select NVL(Max(counts),0) From (Select Count(vstr_date) as counts From visitor Group by to_char(vstr_date, 'YYYY/MM/dd'))
+	<select id="maxVisit" resultType="visitVo">
+		SELECT counts, ymd
+		FROM (
+		        SELECT COUNT(vstr_date) AS counts, TO_CHAR(vstr_date,'YYYY/MM/dd') ymd
+		        FROM visitor
+		        GROUP BY TO_CHAR(vstr_date,'YYYY/MM/dd')
+		        ORDER BY counts desc
+		    )
+		WHERE ROWNUM = 1
 	</select>
 	
 	<!-- 날짜별 방문 수 -->
@@ -172,9 +179,24 @@
 		Order by a.ymd
 	</select>
 	
-	<!-- 요일별 방문 수 -->
+	<!-- 요일별/시간별 방문 수 -->
 	<select id="visitDay" resultType="visitVo">
-		Select * From visitor
+		SELECT * FROM VW_VISITOR_DY
+		<!-- Select count(vstr_date) as counts, a.dy dy
+		From visitor Right Join (
+		    Select to_date('20181206', 'yyyyMMdd')+(level-1) as ymd,
+		           to_char(to_date('20181206', 'yyyyMMdd')+(level-1), 'D') d,
+		           to_char(to_date('20181206', 'yyyyMMdd')+(level-1), 'DY') dy
+		    From dual
+		    Connect by level <![CDATA[ < ]]>= sysdate - (to_date('20181206', 'yyyyMMdd'))+1) a
+		On  (to_char(vstr_date, 'YYYY/MM/dd') = a.ymd)
+		Group by a.d, a.dy
+		Order by a.d -->
+	</select>
+	
+	<!-- 방문이 많은 요일 순위별 -->
+	<select id="maxVisitDay" resultType="visitVo">
+		SELECT Sum(counts) counts, dy FROM VW_VISITOR_DY Group by dy Order by counts desc
 	</select>
 	
 	<!-- 시간별 방문 수 -->

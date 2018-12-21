@@ -112,8 +112,8 @@ public class StatisDao implements StatisDaoInf {
 	}
 
 	@Override
-	public int maxVisit() {
-		int maxCnt = template.selectOne("admin_statis.maxVisit");
+	public VisitorVo maxVisit() {
+		VisitorVo maxCnt = template.selectOne("admin_statis.maxVisit");
 		return maxCnt;
 	}
 	
@@ -126,6 +126,12 @@ public class StatisDao implements StatisDaoInf {
 	@Override
 	public List<VisitorVo> visitDay() {
 		List<VisitorVo> visitVo = template.selectList("admin_statis.visitDay");
+		return visitVo;
+	}
+	
+	@Override
+	public List<VisitorVo> maxVisitDay() {
+		List<VisitorVo> visitVo = template.selectList("admin_statis.maxVisitDay");
 		return visitVo;
 	}
 	
@@ -152,6 +158,8 @@ public class StatisDao implements StatisDaoInf {
 		List<Page_statisticVo> psVo = template.selectList("admin_statis.psPage");
 		return psVo;
 	}
+
+	
 
 	
 

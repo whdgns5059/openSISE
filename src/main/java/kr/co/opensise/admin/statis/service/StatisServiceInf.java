@@ -154,7 +154,7 @@ public interface StatisServiceInf {
 	* @return
 	* Method 설명 : 가장 많이 방문한 수
 	*/
-	public int maxVisit();
+	public VisitorVo maxVisit();
 	
 	/**
 	* Method : visitDate
@@ -173,6 +173,15 @@ public interface StatisServiceInf {
 	* Method 설명 : 요일별 방문 수
 	*/
 	public List<VisitorVo> visitDay();
+	
+	/**
+	 * Method : maxVisitDay
+	 * 작성자 : Bella
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 방문이 많은 요일 순위별
+	 */
+	public List<VisitorVo> maxVisitDay();
 	
 	/**
 	* Method : visitHour

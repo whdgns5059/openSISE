@@ -60,7 +60,7 @@ var intrstAgeG = {
                     "line-style": "dashed"
                 },
                 "label": {
-                  "text": "관심 수",
+                  "text": "관심 수(개수)",
                   "font-family": "'Noto Sans KR', sans-serif",
 			            "font-weight": "400",
 			            "font-size": "15px",
