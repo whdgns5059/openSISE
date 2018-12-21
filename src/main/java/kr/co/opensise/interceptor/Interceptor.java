@@ -51,7 +51,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 				//* 회원 내정보
 		        case "/mypage/myInfo" : 
 		        	if(uriCounts.get(uri) == null) {
-		        		uriCounts.put(uri, new Page_statisticVo("회원_내정보", uri, 1));
+		        		uriCounts.put(uri, new Page_statisticVo("회원 내정보", uri, 1));
 		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
 		        		uriCounts.put(uri, uriCounts.get(uri));
@@ -60,7 +60,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		        // 회원 찜목록
 		        case "/mypage/steamList" : 
 		        	if(uriCounts.get(uri) == null) {
-		        		uriCounts.put(uri, new Page_statisticVo("회원_찜목록", uri, 1));
+		        		uriCounts.put(uri, new Page_statisticVo("회원 찜목록", uri, 1));
 		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
 		        		uriCounts.put(uri, uriCounts.get(uri));
@@ -69,7 +69,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		        // 회원 최근 본 매물
 		        case "/mypage/recentlyviewed" : 
 		        	if(uriCounts.get(uri) == null) 
-		        		uriCounts.put(uri, new Page_statisticVo("회원_최근_본_매물", uri, 1));
+		        		uriCounts.put(uri, new Page_statisticVo("회원 최근 본 매물", uri, 1));
 		        	else 
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
 		        	
@@ -78,7 +78,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		        // 회원 가입 마지막 절차
 		        case "/login/signupDetail" : 
 		        	if(uriCounts.get(uri) == null) {
-		        		uriCounts.put(uri, new Page_statisticVo("회원_가입", uri, 1));
+		        		uriCounts.put(uri, new Page_statisticVo("회원 가입", uri, 1));
 		        	}else {
 		        		uriCounts.get(uri).setPs_vstr(uriCounts.get(uri).getPs_vstr() + 1);
 		        		uriCounts.put(uri, uriCounts.get(uri));
@@ -131,7 +131,6 @@ public class Interceptor extends HandlerInterceptorAdapter{
 			
 		// 다시 session에 넣기
 		session.setAttribute("uriCounts", uriCounts);
-		
 		
 		/* 일일 방문자 카운트 하기 */
 //		long stayTime = 0;
