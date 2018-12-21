@@ -166,7 +166,7 @@ $(document).ready(function(){
 	 	data: {
 	    graphset: [intrstAllG]
 	  },
-		height: '499', 
+		height: '100%', 
 		width: '99%' 
 	});
 	

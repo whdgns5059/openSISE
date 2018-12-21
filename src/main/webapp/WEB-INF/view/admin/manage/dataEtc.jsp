@@ -68,7 +68,7 @@ label{
 
 		$("#insti_nm").on("change",function(){
 			var iattr_insti = $("#insti_nm option:selected").val();
-// 			alert(iattr_insti)
+			alert(iattr_insti)
 // 			alert($("#test").text());
 		$("#here").val(iattr_insti);
 		$("#frm").submit();
@@ -178,7 +178,7 @@ label{
 						</c:forEach>
 						
 					  </select>
-					  <input id="here" type="hidden" name="instiHere" value="" >
+					  <input id="here" type="text" name="instiHere" value="" >
 			</form>
 			<form action="/manage/dataEtc/insertInsti" method="post">
 				시설명추가 : <input type="text" name="insti" placeholder="예:도서관"><button type="submit">추가</button>
@@ -205,25 +205,25 @@ label{
 									<tr>
 										<td><input type="checkbox"  name="chk" value="${instiAttrListList[0].iattr_no }" class="instiattr"/>&nbsp;${status.count }</td>
 										<td style="display: none;">${instiAttrListList[0].iattr_no }</td>
-										<c:set var="loop_flag" value="false" />
-										<c:forEach items="${instiAttrListList }" var="instiAttrVo2" varStatus="statusAt">
+<%-- 										<c:set var="loop_flag" value="false" /> --%>
+<%-- 										<c:forEach items="${instiAttrListList }" var="instiAttrVo2" varStatus="statusAt"> --%>
 											<!-- 중복제거한 컬럼명 -->
 													<c:forEach items="${insti_attrList }" var="instiAttrVo" varStatus="status">
-														<c:if test="${fn:trim(instiAttrVo2.iattr_key) == instiAttrVo.iattr_key}">
-																<c:set var="loop_flag" value="true" />
+<%-- 														<c:if test="${fn:trim(instiAttrVo2.iattr_key) == instiAttrVo.iattr_key}"> --%>
+<%-- 																<c:set var="loop_flag" value="true" /> --%>
 																<td>${instiAttrVo2.iattr_key} == ${instiAttrVo.iattr_key} / ${instiAttrVo2.iattr_val}</td>
-														</c:if>
+<%-- 														</c:if> --%>
 													</c:forEach>
 													
 													<%--컬럼 메타 데이터에 일치하는 속성명이 없는 시설물 속성 공백 출력 --%>
-													<c:if test="${not loop_flag }">
-														<td>&nbsp;</td>
-													</c:if>
+<%-- 													<c:if test="${not loop_flag }"> --%>
+<!-- 														<td>&nbsp;</td> -->
+<%-- 													</c:if> --%>
 													
-													<c:set var="loop_flag" value="false" />
+<%-- 													<c:set var="loop_flag" value="false" /> --%>
 										</c:forEach>
 									</tr>
-									</c:forEach>
+<%-- 									</c:forEach> --%>
 								</c:if>
 							</tr>
 						</tbody>

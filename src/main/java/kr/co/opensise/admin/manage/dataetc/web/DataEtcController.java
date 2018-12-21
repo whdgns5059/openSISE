@@ -699,7 +699,7 @@ public class DataEtcController {
 			//시설 속성 테이블에서 제목부분리트스(중복제거)
 			List<InstiAttrVo> insti_attrList = dataEtcService.selectInsti_attr(iattr_insti);
 			//시설 속성 테이블에서 body부분 리스트
-			List<List<InstiAttrVo>> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
+			List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
 			//
 //			for(int i=0;i<instiAttrList.size();i++) {
 //				log.info("level : {} ", instiAttrList.get(i).get(i).getLevel());
@@ -721,7 +721,7 @@ public class DataEtcController {
 	public String deletInstiAttr(@RequestParam("checked") String checked,Model model,
 			@RequestParam("instiHere") Integer iattr_insti) {
 		
-		List<List<InstiAttrVo>> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
+		List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
 		
 		String[] checkedDelete = checked.split(",");
 		
