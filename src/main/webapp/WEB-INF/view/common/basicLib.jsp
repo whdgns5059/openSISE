@@ -4,6 +4,7 @@
  <!-- daum 지도 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=caa07714ce07e9a1979c7eda8f6bd258&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=caa07714ce07e9a1979c7eda8f6bd258&libraries=clusterer"></script>
 	
 <!-- JQuery -->
 <script src="/js/jquery_3.3.1.js"></script>
