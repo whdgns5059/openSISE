@@ -24,7 +24,6 @@ public class Interceptor extends HandlerInterceptorAdapter{
 	
 	private Logger log = LoggerFactory.getLogger(Interceptor.class);
 	private String uri;
-	private Page_statisticVo psVo;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
