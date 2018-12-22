@@ -195,7 +195,8 @@
 	
 	<select id="selectHumanStat" parameterType="String" resultType="_float">
 		select 
-		round(((select round(avg(hm_num), 0) from 
+		round((
+		(select round(avg(hm_num), 0) from 
 		(select substr(hs_dong,1,2) as hs_dong,  hs_date,sum(hs_hm_no) as hm_num from HUMAN_STATISTIC
 		where hs_date = '201806'
 		group by substr(hs_dong,1,2), hs_date))
