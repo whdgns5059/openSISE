@@ -1,3 +1,26 @@
+
+
+
+$('#calcul').on('change', function(){
+
+	var calval = $('#calcul').val();
+	var calDefault = parseInt(document.getElementById('calDefault').innerHTML);
+	
+	if(calval >= 20){
+		var calResult = calDefault / 100 * calval;
+		var inter = Math.round((calDefault - calResult) * 0.03);
+		$('#clacResult').html(calResult +'만원');
+		$('#inter').html('연' + inter + '만원');
+	}else{
+		$('#clacResult').html('최소 20%의 보유금이 필요합니다');
+	}
+	
+	
+});
+
+
+
+
 var dl_priceArr = document.getElementsByClassName('avg_dl_price');
 var dl_deposArr = document.getElementsByClassName('avg_dl_depos');
 var dl_rntArr = document.getElementsByClassName('avg_dl_rnt');
@@ -186,4 +209,6 @@ var myConfig = {
 		    zingchart.exec(p.id,'viewall');
 		  }
 		}
+
+	
 	 
