@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="local">
+
+	<!-- 월별 전체 인구 통계 -->
+	<select id="allHumanStatis" parameterType="String" resultType="humanStatisVo">
+		select 
+			hs_date,
+			hs_dong,
+			sum(hs_hm_no) as hs_hm_no
+		from human_statistic
+		where hs_dong = #{hs_dong}
+		group by hs_date, hs_dong
+		order by hs_date
+	</select>
+	
+	<!-- 월별, 성별 인구 통계 -->
+	<select id="gndrHumanStatis" parameterType="String" resultType="humanStatisVo">
+		select
+			hs_date,
+			hs_dong,
+			decode(hs_gndr,0,'남자','여자') as hs_gndr,
+			sum(hs_hm_no) as hs_hm_no
+		from human_statistic
+		where hs_dong = #{hs_dong}
+		group by 
+			hs_date,
+			hs_dong,
+			decode(hs_gndr,0,'남자','여자') as hs_gndr
+		order by
+		 	hs_date
+	</select>
+
+	<!-- 월별, 연령별 인구 통계 -->
+	<select id="ageHumanStatis" parameterType="String" resultType="humanStatisVo">
+		select
+			hs_date,
+			hs_dong,
+			hs_age_grp,
+			sum(hs_hm_no)
+		from human_statistic
+		where hs_dong = #{hs_dong}
+		group by
+			hs_date,
+			hs_dong,
+			hs_age_grp
+		order by
+			hs_date
+	</select>
+
+</mapper>

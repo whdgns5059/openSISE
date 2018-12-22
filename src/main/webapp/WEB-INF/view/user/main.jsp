@@ -463,6 +463,31 @@
 			$("#frmDetail").submit();
 		});
 		/*------------- 해당 매물 클릭 시 상세정보로 이동 끝 ---------------*/
+		
+		//toLocal 클릭시 좌표읽어서 이동
+		$('.toLocal').on('click',function(){
+			console.log("클림됨");
+			var geocoder = new daum.maps.services.Geocoder();
+
+			var center = map.getCenter();
+
+			var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
+			var callback = function(result, status) {
+				if (status === daum.maps.services.Status.OK) {
+					
+					var gu = result[0].address.region_2depth_name;
+					var dong = result[0].address.region_3depth_name;
+
+
+					location.href="/local/local?gu="+gu+"&dong="+dong;
+					
+				}
+			};
+
+			geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+		});
+		
+		
 	});
 	
 	function getArticleList(){
@@ -541,30 +566,7 @@
 		
 	}
 	
-	//toLocal 클릭시 좌표읽어서 이동
-	$('.toLocal').on('click', function(){
-		
-		var geocoder = new daum.maps.services.Geocoder();
-
-		var center = map.getCenter();
-
-		var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
-		var callback = function(result, status) {
-			if (status === daum.maps.services.Status.OK) {
-				
-				var gu = result[0].address.region_2depth_name;
-				var dong = result[0].address.region_3depth_name;
-
-
-				location.href="/local/local?gu="+gu+"&dong="+dong;
-				
-			}
-		};
-
-		geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-		
-			
-	});
+	
 	
 	
 	/*검색한 좌표들을 배열에 담아준다*/

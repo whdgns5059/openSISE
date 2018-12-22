@@ -1,16 +1,18 @@
 package kr.co.opensise.user.local.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/local")
 public class LocalController {
 	
 	@RequestMapping("/local")
-	public String local() {
+	public String local(@RequestParam("gu") String gu , @RequestParam("dong") String dong, Model model) {
+		model.addAttribute("gu", gu);
+		model.addAttribute("dong",dong);
 		return "local";
 	}
 	
@@ -18,6 +20,8 @@ public class LocalController {
 	//상단 분류
 	@RequestMapping("/popStatis")
 	public String popStatis() {
+		
+		
 		return "user/localAjax/popStatis";
 	}
 	
