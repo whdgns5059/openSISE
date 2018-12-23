@@ -43,6 +43,7 @@
 	
 	function setContentDivByAjax(id){
 		var dong = "${dong}";
+		console.log("dong :" + dong);
 		$.ajax({
 			type: 'POST',
 			data : {dong : dong},

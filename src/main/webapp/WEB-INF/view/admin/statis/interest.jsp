@@ -199,7 +199,6 @@ $(document).ready(function(){
 		});
 	});
 	
-	
 });
 </script>
 <form id="ageF" action="/statis/intrstAgeAjax" method="post">
@@ -234,7 +233,6 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>	
-	
 </div>
 
 

@@ -8,11 +8,19 @@
 	<select id="allHumanStatis" parameterType="String" resultType="humanStatisVo">
 		select 
 			hs_date,
-			hs_dong,
 			sum(hs_hm_no) as hs_hm_no
 		from human_statistic
-		where hs_dong = #{hs_dong}
-		group by hs_date, hs_dong
+		where hs_dong like #{hs_dong} ||'%'
+		group by hs_date
+		order by hs_date
+	</select>
+	
+	<!-- 월별 전체 인구 최댓값 -->
+	<select id="allHumanStatisMaxValue" parameterType="String" resultType="int">
+		select max(sum(hs_hm_no)) as maxCnt
+		from human_statistic
+		where hs_dong like #{hs_dong} || '%'
+		group by hs_date
 		order by hs_date
 	</select>
 	
@@ -20,15 +28,25 @@
 	<select id="gndrHumanStatis" parameterType="String" resultType="humanStatisVo">
 		select
 			hs_date,
-			hs_dong,
 			decode(hs_gndr,0,'남자','여자') as hs_gndr,
 			sum(hs_hm_no) as hs_hm_no
 		from human_statistic
-		where hs_dong = #{hs_dong}
+		where hs_dong like #{hs_dong} || '%'
 		group by 
 			hs_date,
-			hs_dong,
-			decode(hs_gndr,0,'남자','여자') as hs_gndr
+			decode(hs_gndr,0,'남자','여자')
+		order by
+		 	hs_date
+	</select>
+	
+	<!-- 성별 인구 최댓값 -->
+	<select id="gndrHumanStatisMaxValue" parameterType="String" resultType="int">
+		select max(sum(hs_hm_no)) as hs_hm_no
+		from human_statistic
+		where hs_dong like #{hs_dong} || '%'
+		group by 
+			hs_date,
+			decode(hs_gndr,0,'남자','여자')
 		order by
 		 	hs_date
 	</select>
@@ -37,14 +55,24 @@
 	<select id="ageHumanStatis" parameterType="String" resultType="humanStatisVo">
 		select
 			hs_date,
-			hs_dong,
 			hs_age_grp,
 			sum(hs_hm_no)
 		from human_statistic
-		where hs_dong = #{hs_dong}
+		where hs_dong like #{hs_dong} || '%'
 		group by
 			hs_date,
-			hs_dong,
+			hs_age_grp
+		order by
+			hs_date
+	</select>
+	
+	<!-- 연령별 인구통계 최댓값 -->
+	<select id="ageHumanStatisMaxValue" parameterType="String" resultType="int">
+		select max(sum(hs_hm_no))
+		from human_statistic
+		where hs_dong like #{hs_dong} || '%'
+		group by
+			hs_date,
 			hs_age_grp
 		order by
 			hs_date

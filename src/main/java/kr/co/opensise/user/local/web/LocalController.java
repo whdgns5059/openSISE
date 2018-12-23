@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
-import kr.co.opensise.user.market.service.MarketService;
 import kr.co.opensise.user.market.service.MarketServiceInf;
 import kr.co.opensise.user.local.model.HumanStatisVo;
 import kr.co.opensise.user.local.service.LocalServiceInf;
@@ -37,12 +36,14 @@ public class LocalController {
 	@RequestMapping("/popStatis")
 	public String popStatis(@RequestParam("dong")String dong, Model model) {
 		
+		String changeDong = dong.substring(0,1);
+		
 		//전체 인구 통계
-		List<HumanStatisVo>allHumanStatisList = localService.humanAllStatistic(dong);
+		List<HumanStatisVo>allHumanStatisList = localService.humanAllStatistic(changeDong);
 		model.addAttribute("allHumanStatis",allHumanStatisList);
 		
 		//전체 인구 통계 최댓값
-		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(dong);
+		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(changeDong);
 		model.addAttribute("allHumanMaxValue", allHumanStatisMaxValue);
 		
 		model.addAttribute("dong", dong);
@@ -81,12 +82,14 @@ public class LocalController {
 	@RequestMapping("/totalPop")
 	public String totalPop(@RequestParam("dong") String dong, Model model) {
 		
+		String changeDong = dong.substring(0,1);
+		
 		//전체 인구 통계
-		List<HumanStatisVo>allHumanStatisList = localService.humanAllStatistic(dong);
+		List<HumanStatisVo>allHumanStatisList = localService.humanAllStatistic(changeDong);
 		model.addAttribute("allHumanStatis",allHumanStatisList);
 		
 		//전체 인구 통계 최댓값
-		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(dong);
+		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(changeDong);
 		model.addAttribute("allHumanMaxValue", allHumanStatisMaxValue);
 		
 		model.addAttribute("dong", dong);
@@ -97,12 +100,14 @@ public class LocalController {
 	@RequestMapping("/genderPop")
 	public String genderPop(@RequestParam("dong") String dong, Model model) {
 		
+		String changeDong = dong.substring(0,1);
+		
 		// 성별 인구 통계 
-		List<HumanStatisVo> genderHumanStatisList = localService.humanGndrStatistic(dong);
+		List<HumanStatisVo> genderHumanStatisList = localService.humanGndrStatistic(changeDong);
 		model.addAttribute("gndrHumanStatis", genderHumanStatisList);
 		
 		// 성별 인구 통계 최댓값
-		int genderHumanStatisMaxValue = localService.humanGndrStatisMaxValue(dong);
+		int genderHumanStatisMaxValue = localService.humanGndrStatisMaxValue(changeDong);
 		model.addAttribute("gndrHumanStatisMaxValue", genderHumanStatisMaxValue);
 		
 		model.addAttribute("dong", dong);
@@ -113,12 +118,14 @@ public class LocalController {
 	@RequestMapping("/agePop")
 	public String agePop(@RequestParam("dong") String dong, Model model) {
 		
+		String changeDong = dong.substring(0,1);
+		
 		//연령별 인구 통계
-		List<HumanStatisVo> ageHumanStatisList = localService.humanAgeStatistic(dong);
+		List<HumanStatisVo> ageHumanStatisList = localService.humanAgeStatistic(changeDong);
 		model.addAttribute("ageHumanStatisList", ageHumanStatisList);
 		
 		//연령별 인구 통계 최댓값
-		int ageHumanStatisMaxValue = localService.humanAgeStatisMaxValue(dong);
+		int ageHumanStatisMaxValue = localService.humanAgeStatisMaxValue(changeDong);
 		model.addAttribute("ageHumanStatisMaxValue", ageHumanStatisMaxValue);
 		
 		model.addAttribute("dong", dong);

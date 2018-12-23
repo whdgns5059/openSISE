@@ -5,19 +5,18 @@
 setContentByAjax('totalPop');
 
 
-$('.middleCategory').on('click', 'button', function(){
-	
+$('.middleCategory').on('click',function(){
 	setContentByAjax(this.id);
-	
 });
 
 //차트 설정
-setChart();
+//setChart();
 	
 function setContentByAjax(id){
-	
+	var dong = "${dong}";
 	$.ajax({
 		type : 'POST',
+		data : {dong : dong},
 		url : '/local/'+id,
 		success : function(data){
 			$('.content').html(data);
@@ -28,7 +27,7 @@ function setContentByAjax(id){
 	
 }
 
-function setChart(){
+/* function setChart(){
 	
 	var tradeChartData = {
 			type: 'line',  
@@ -45,7 +44,7 @@ function setChart(){
 			  data: tradeChartData,
 			});
 	
-}
+} */
 
 	
 </script>
@@ -73,9 +72,9 @@ function setChart(){
 </style>
 <div class="middleCategory">
 	<ul class="nav nav-tabs tab-yellow">
-			<li class="nav-item"><a class="nav-link tab-yellow show" data-toggle="tab" href="#signDaily">전체 인구 통계</a></li>
-			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#signMonthly">성별 인구 통계</a></li>
-			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#signAgeGndr">연령별 인구 통계</a></li>
+			<li class="nav-item"><a class="nav-link tab-yellow show middleCategory" data-toggle="tab" href="#signDaily" id="totalPop">전체 인구 통계</a></li>
+			<li class="nav-item"><a class="nav-link tab-yellow middleCategory" data-toggle="tab" href="#signMonthly" id="genderPop">성별 인구 통계</a></li>
+			<li class="nav-item"><a class="nav-link tab-yellow middleCategory" data-toggle="tab" href="#signAgeGndr" id="agePop">연령별 인구 통계</a></li>
 	</ul>
 </div>
 <div class="content">
