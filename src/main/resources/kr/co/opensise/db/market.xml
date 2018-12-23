@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="local">
+
+	<select id="selectAvgMkd" parameterType="String" resultType="marketDetailVo">
+		select round(avg(mkd_price), 1) as mkd_price, mkd_date from market_detail
+		where mkd_mk_dong like #{String} || '%'
+		and mkd_price  &lt;&gt; 0
+		group by mkd_date
+ 	</select>
+ 	
+ 	<select id="selectMkd" parameterType="String" resultType="marketDetailVo">
+		select round(avg(mkd_price), 1) as mkd_price, mkd_prod, mkd_prod_detail from market_detail
+		where mkd_mk_dong like #{String} || '%'
+		and mkd_price &lt;&gt; 0
+		group by mkd_prod, mkd_prod_detail
+ 	</select>
+
+
+</mapper>

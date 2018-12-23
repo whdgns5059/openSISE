@@ -55,5 +55,6 @@
 		<mapper resource="kr/co/opensise/db/admin_statis.xml" />
 		<mapper resource="kr/co/opensise/db/notice.xml" />
 		<mapper resource="kr/co/opensise/db/local.xml" />
+		<mapper resource="kr/co/opensise/db/market.xml" />
 	</mappers>
 </configuration>
