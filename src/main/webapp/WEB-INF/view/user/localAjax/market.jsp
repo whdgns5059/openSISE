@@ -95,20 +95,11 @@ var myConfig = {
 		              }
 		            ],
 		        "scale-x":{
-		            "min-value":1199145600000,
-		            "step":"month",
-		            "itemsOverlap": true,
-		            "tick":{
-		 
-		            },
-		            "minor-tick":{
-		 
-		            },
-		            "transform":{
-		                "type":"date",
-		                "all":"%Y<br/>%M"
-		            },
-		            "zooming":true
+		        	"values" : [
+		        	<c:forEach items="${avgMkdList}" var="avgMkd">
+		        		${avgMkd.mkd_date},	
+		        	</c:forEach>
+		        	]
 		        },
 		        "tooltip":{
 		            "visible":false
