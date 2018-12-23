@@ -42,9 +42,10 @@
 	});
 	
 	function setContentDivByAjax(id){
-		
+		var dong = "${dong}";
 		$.ajax({
 			type: 'POST',
+			data : {dong : dong},
 			url : '/local/'+id,
 			success : function(data){
 				$('.contentDiv').html(data);
