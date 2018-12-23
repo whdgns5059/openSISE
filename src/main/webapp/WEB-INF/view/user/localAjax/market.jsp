@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <style>
 .tab-yellow .nav-link, .tab-yellow .nav-link.disabled, .tab-yellow .nav-link.disabled:hover, 
 .tab-yellow .nav-link.disabled:focus{
@@ -34,7 +35,24 @@
 	</div>	
 	
 	<div>
-		물가표
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<td>품목</td>
+					<td>제품명</td>
+					<td>가격</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${mkdList }" var="mkd">
+					<tr>
+						<td>${mkd.mkd_prod }</td>
+						<td>${mkd.mkd_prod_detail }</td>
+						<td>${mkd.mkd_price }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 </div>
 
