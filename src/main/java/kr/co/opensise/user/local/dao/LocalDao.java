@@ -57,4 +57,46 @@ public class LocalDao implements LocalDaoInf {
 		return template.selectList("local.ageHumanStatis", dong);
 	}
 
+	/**  
+	* Method   : humanAllStatisMaxValue 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @param dong
+	* @return  
+	* Method 설명 :  전체 인구 통계 최댓값
+	*/
+	@Override
+	public int humanAllStatisMaxValue(String dong) {
+		// TODO Auto-generated method stub
+		return template.selectOne("local.allHumanStatisMaxValue", dong);
+	}
+
+	/**  
+	* Method   : humanGndrStatisMaxValue 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @param dong
+	* @return  
+	* Method 설명 :  성별 인구 통계 최댓값
+	*/
+	@Override
+	public int humanGndrStatisMaxValue(String dong) {
+		// TODO Auto-generated method stub
+		return template.selectOne("local.gndrHumanStatisMaxValue", dong);
+	}
+
+	/**  
+	* Method   : humanAgeStatisMaxValue 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @param dong
+	* @return  
+	* Method 설명 :  연령별 인구 통계 최댓값
+	*/
+	@Override
+	public int humanAgeStatisMaxValue(String dong) {
+		// TODO Auto-generated method stub
+		return template.selectOne("local.ageHumanStatisMaxValue", dong);
+	}
+
 }
