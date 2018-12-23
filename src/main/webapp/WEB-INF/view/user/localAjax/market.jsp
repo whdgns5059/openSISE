@@ -21,7 +21,21 @@
 .tab-green .nav-link:hover, .tab-green .nav-link:focus {
 	background: #aad035;
 }
+
+.marketHead {padding: 20px;}
 </style>
 <div>
-	<img src="https://via.placeholder.com/1000x800?text=market"/>
+	<div class="marketHead">
+		<h4>xx동 물가정보</h4>
+		<hr/>
+	</div>
+	
+	<div id="marketChart">
+	</div>	
+	
+	<div>
+		물가표
+	</div>
 </div>
+
+<script src="/js/market.js"> </script>
