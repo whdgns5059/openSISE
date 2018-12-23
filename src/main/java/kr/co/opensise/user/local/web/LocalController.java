@@ -65,6 +65,7 @@ public class LocalController {
 	
 		model.addAttribute("avgMkdList", avgMkdList);
 		model.addAttribute("mkdList", mkdList);
+		model.addAttribute("dong", dong);
 		
 		return "user/localAjax/market";
 	}
