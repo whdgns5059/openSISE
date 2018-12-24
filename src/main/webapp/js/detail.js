@@ -232,6 +232,13 @@ $("#reviewWindow").hide();
 //검은 막 띄우기
 $(".openMask").click(function(e) {
 	
+	var mem_no = $('#mem_no').val();
+	
+	if(mem_no == "" || mem_no == null){
+		alert("로그인을 먼저 해주세요");
+		return;
+	}
+	
 	e.preventDefault();
 	wrapWindowByMask();
 });
@@ -345,6 +352,15 @@ function getPost_no(rpl_post){
 //댓글 작성
 $('.writeReply').on('click', '.insertReply', function(){
  
+	var mem_no = $('#mem_no').val();
+	
+	if(mem_no == "" || mem_no == null){
+		alert("로그인을 먼저 해주세요");
+		return;
+	}
+	
+	
+	
 	var rpl_cntnt = this.previousElementSibling.getElementsByClassName('replyInput')[0].value;
 	var rpl_post= this.previousElementSibling.getElementsByClassName('post_no')[0].value;
 	

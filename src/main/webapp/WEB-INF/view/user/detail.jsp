@@ -156,18 +156,20 @@
 									<p>${postVo.post_cntnt }
 									</p>
 								</div>
-								<div class="reviewModify row">
-									<div class="updateReview">
-										<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
-										<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
-										<button class="btn">수정</button>
+								<c:if test="${postVo.post_mem eq nowLogin.mem_no}" >
+									<div class="reviewModify row">
+										<div class="updateReview">
+											<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
+											<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
+											<button class="btn">수정</button>
+										</div>
+										<div class="deleteReview">
+											<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
+											<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
+											<button class="btn">삭제</button>
+										</div>
 									</div>
-									<div class="deleteReview">
-										<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
-										<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
-										<button class="btn">삭제</button>
-									</div>
-								</div>
+								</c:if>
 								<div class="floatclear"></div>
 								<div>
 									<hr/>
