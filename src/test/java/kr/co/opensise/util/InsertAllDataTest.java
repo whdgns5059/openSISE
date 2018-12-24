@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ public class InsertAllDataTest extends RootSetup{
 	 * 해당경로 밑의 모든 실거래 데이터 엑셀 파일을 읽어 입력합니다.
 	 ******************************************/
 	@Test
+	@Ignore
 	public void insertAllDataTest() throws IOException {
 		
 		/***given***/

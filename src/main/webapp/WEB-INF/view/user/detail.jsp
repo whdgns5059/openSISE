@@ -64,7 +64,7 @@
 			<hr/>
 		</div>
 		<div>
-			<img src="https://via.placeholder.com/1100x200"/>
+
 		</div>
 		<div>
 			<div id="radarChartDiv">

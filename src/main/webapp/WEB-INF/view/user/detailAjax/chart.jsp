@@ -164,4 +164,30 @@
 	</table>	
 </div>
 
-<script src="/js/detailchart.js"></script>
+<c:choose>
+	<c:when test="${dl_ty == '매매' }">
+		<div>
+			<h4>대출금 계산기</h4>
+		</div>
+		<div>
+			<input type="range" id="calcul" value="0"/>
+		</div>
+		<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult"></span><br/>
+		<span class="orangetext">1년 평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_price }</span><span  class="orangetext">만원</span><br/>
+		<span class="orangetext">이자 : </span><span class="orangetext" id="inter"></span><br/>
+	</c:when>
+	<c:when test="${dl_ty == '전세' }">
+		<div>
+			<h4>대출금 계산기</h4>
+		</div>
+		<div>
+			<input type="range" id="calcul" value="0"/>
+		</div>
+		<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult"></span><br/>
+		<span class="orangetext">1년 평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_depos}</span><span>만원</span><br/>
+		<span class="orangetext">이자 : </span><span class="orangetext" id="inter"></span><br/>
+	</c:when>
+</c:choose>
+
+
+<script src="/js/chart.js"></script>

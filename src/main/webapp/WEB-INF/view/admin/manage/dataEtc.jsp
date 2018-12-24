@@ -68,17 +68,21 @@ label{
 
 		$("#insti_nm").on("change",function(){
 			var iattr_insti = $("#insti_nm option:selected").val();
-			alert(iattr_insti)
-// 			alert($("#test").text());
-		$("#here").val(iattr_insti);
+// 			alert("시설ID:"+iattr_insti)
+		$(".here").val(iattr_insti);
+// 		alert("here값 : " +$(".here").val());
 		$("#frm").submit();
 		});
 		
 		$("#tbody tr").on("click",function(){
+			 $( this ).css( "background-color", "#f4f4f4" ); 
+			 $( this).children("td").css( "cursor", "pointer" ); 
+			 $(this).siblings().css("background-color", "white");
 			var tr = $(this);
 			var td = $(tr.children()[1]).text();
 // 			alert(td.text());
 			$("#iattr_pare").val(td);
+			
 		});
 		
 		 //최상단 체크박스 클릭
@@ -111,6 +115,9 @@ label{
 	   });
 
 	});
+	
+
+
 </script>
  
 <div class="admin-title">
@@ -164,7 +171,7 @@ label{
 		<form id="delInsti" action="/manage/dataEtc/deletInstiAttr" method="post">
 			<div style="float: right;margin-right: 130px;margin-top: 25px;">
 				<input type="text" id="checked" name="checked" value=""/>
-				<input id="here" type="hidden" name="instiHere" value="" >
+				<input class="here" type="hidden" name="instiHere" value="${iattr_insti }" >
 				<button type="button" id="del" name="del">삭제</button>
 			</div>
 		</form>
@@ -178,7 +185,7 @@ label{
 						</c:forEach>
 						
 					  </select>
-					  <input id="here" type="text" name="instiHere" value="" >
+					  <input class="here" type="hidden" name="instiHere" value="" >
 			</form>
 			<form action="/manage/dataEtc/insertInsti" method="post">
 				시설명추가 : <input type="text" name="insti" placeholder="예:도서관"><button type="submit">추가</button>
@@ -187,10 +194,10 @@ label{
 		<form action="/manage/dataEtc/insertIattr" method="post">
 			<div id="insti">
 				<div id="instiT" style="overflow: auto;width:800px;height:350px;">
-					<table class="info">
+					<table class="info" >
 						<thead>
 							<tr>
-								<td>번호<input type="checkbox" id="checkAll"/></td>
+								<td><input type="checkbox" id="checkAll"/></td>
 								<!-- 중복제거한 컬럼명 -->
 								<c:forEach items="${insti_attrList }" var="instiAttrVo" varStatus="status">
 									<td>${instiAttrVo.iattr_key }</td>
@@ -198,34 +205,24 @@ label{
 							</tr>
 						</thead>
 						<tbody id="tbody">
-							<tr>
 								<c:if test="${instiAttrList !=null }">
 									<!-- 값을 가져오는 반복문 -->
-									<c:forEach items="${instiAttrList }" var="instiAttrListList" varStatus="status">
-									<tr>
-										<td><input type="checkbox"  name="chk" value="${instiAttrListList[0].iattr_no }" class="instiattr"/>&nbsp;${status.count }</td>
-										<td style="display: none;">${instiAttrListList[0].iattr_no }</td>
-<%-- 										<c:set var="loop_flag" value="false" /> --%>
-<%-- 										<c:forEach items="${instiAttrListList }" var="instiAttrVo2" varStatus="statusAt"> --%>
-											<!-- 중복제거한 컬럼명 -->
-													<c:forEach items="${insti_attrList }" var="instiAttrVo" varStatus="status">
-<%-- 														<c:if test="${fn:trim(instiAttrVo2.iattr_key) == instiAttrVo.iattr_key}"> --%>
-<%-- 																<c:set var="loop_flag" value="true" /> --%>
-																<td>${instiAttrVo2.iattr_key} == ${instiAttrVo.iattr_key} / ${instiAttrVo2.iattr_val}</td>
-<%-- 														</c:if> --%>
-													</c:forEach>
-													
-													<%--컬럼 메타 데이터에 일치하는 속성명이 없는 시설물 속성 공백 출력 --%>
-<%-- 													<c:if test="${not loop_flag }"> --%>
-<!-- 														<td>&nbsp;</td> -->
-<%-- 													</c:if> --%>
-													
-<%-- 													<c:set var="loop_flag" value="false" /> --%>
-										</c:forEach>
-									</tr>
-<%-- 									</c:forEach> --%>
+									<c:forEach items="${instiAttrList }" var="instiAttr_List" varStatus="status">
+										<c:choose>
+											<c:when test="${instiAttrList[status.index].groupno != instiAttrList[status.index-1].groupno}">
+												<tr>
+													<td><input type="checkbox"  name="chk" value="${instiAttr_List.groupno }" class="instiattr"/></td>
+													<td style="display: none;">${instiAttr_List.groupno }</td>
+													<td>${instiAttr_List.iattr_val}</td>
+													<!-- </tr>태그가 없어도 되나요?? -->
+											</c:when>
+											<c:when test="${instiAttrList[status.index].groupno == instiAttrList[status.index-1].groupno}">
+												<td>${instiAttr_List.iattr_val}</td>
+												<td style="display: none;">${instiAttr_List.groupno }</td>
+											</c:when>
+										</c:choose>
+									</c:forEach>
 								</c:if>
-							</tr>
 						</tbody>
 					</table>
 				</div>

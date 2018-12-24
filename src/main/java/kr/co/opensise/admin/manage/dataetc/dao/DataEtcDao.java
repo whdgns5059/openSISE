@@ -105,4 +105,9 @@ public class DataEtcDao implements DataEtcDaoInf {
 		return template.insert("dataEtc.insertIattr", instiAttrVo);
 	}
 
+	@Override
+	public int deleteInstiattr(int groupno) {
+		return template.delete("dataEtc.deleteInsti", groupno);
+	}
+
 }

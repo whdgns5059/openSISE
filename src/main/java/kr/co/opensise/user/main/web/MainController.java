@@ -37,7 +37,9 @@ public class MainController {
 	public String main(Model model, FilterVo filterVo) {
 		//매물리스트 검색 결과를 담을 리스트 
 		List<BuildingSaleVo> buildSaleList = null;
+		logger.info("buildng : "+ filterVo.getBuilding());
 		if(filterVo.getBuilding().equals("house")) {
+			logger.info("house input");
 			buildSaleList = mainService.buildingSingleSaleList(filterVo);
 		}else {
 			buildSaleList = mainService.buildingSaleList(filterVo);

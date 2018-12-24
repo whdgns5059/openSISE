@@ -339,7 +339,7 @@ $(document).ready(function(){
 			            		0
 			            ]
 	                },
-	                {
+	                { 
 	                	"text": "남성",
 	                	"line-color": "#f38b72",
 				        "legend-item":{ "cursor":"pointer"},

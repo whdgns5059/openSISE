@@ -6,7 +6,7 @@
 	<!-- 건물 형태와 검색어 검색 리스트 -->
 	<!-- 처음 검색 쿼리로 기준은 매매로 정해놓는다. -->
 	<select id="searchList" parameterType="filterVo" resultType="buildingSaleVo">
-		select  artcl_zip, artcl_gu, artcl_dong, artcl_complx, artcl_nm, artcl_rd, dl_ty,  artcl_rd_detail,
+		select  artcl_zip, artcl_gu, artcl_dong, artcl_complx, artcl_nm, artcl_rd, dl_ty,  artcl_rd_detail,artcl_bc,
         round(avg(dl_price/round(dl_excv_area/3.3,0)),0) as avg_dl, artcl_lat, artcl_lng
 		from (
 	        select * from article  
@@ -21,12 +21,12 @@
                     and a.artcl_dong = d.dl_dong 
                     and a.artcl_zip = d.dl_zip 
                     and a.artcl_rd = d.dl_rd)
-		group by artcl_zip, artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty
+		group by artcl_zip, artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty, artcl_bc
 	</select>
 	
 	<!-- 단/다세대일 경우의 검색 질의 쿼리문 -->
 	<select id="searchSingleList" parameterType="filterVo" resultType="buildingSaleVo">
-		select  artcl_zip, artcl_gu, artcl_dong, artcl_complx, artcl_nm, artcl_rd, dl_ty,  artcl_rd_detail,
+		select  artcl_zip, artcl_gu, artcl_dong, artcl_complx, artcl_nm, artcl_rd, dl_ty,  artcl_rd_detail, artcl_bc,
         round(avg(dl_price/round(dl_excv_area/3.3,0)),0) as avg_dl, artcl_lat, artcl_lng
 		from (
 	        select * from article  
@@ -41,7 +41,7 @@
                     and a.artcl_dong = d.dl_dong 
                     and a.artcl_zip = d.dl_zip 
                     and a.artcl_rd = d.dl_rd)
-		group by artcl_zip, artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty
+		group by artcl_zip, artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty, artcl_bc
 	</select>
 	
 	<!-- 필터를 이용한 매물 리스트 출력 -->
@@ -118,7 +118,7 @@
 	<!-- 단/다세대일 경우 필터를 이용한 매물 리스트 출력 -->
 	<select id="searchSingleFilterList" parameterType="filterVo" resultType="buildingSaleVo">
 		select  artcl_zip, artcl_gu, artcl_dong, artcl_complx, artcl_nm, artcl_rd, dl_ty,  artcl_rd_detail,artcl_bc,
-        round(avg(dl_price/round(dl_excv_area/3.3,0)),0) as avg_dl, artcl_lat, artcl_lng,, artcl_lng,round(avg(dl_depos),0)as dl_depos,round(avg(dl_rnt),0)as dl_rnt 
+        round(avg(dl_price/round(dl_excv_area/3.3,0)),0) as avg_dl, artcl_lat, artcl_lng, artcl_lng,round(avg(dl_depos),0)as dl_depos,round(avg(dl_rnt),0)as dl_rnt 
 		from (
 	        select * from article  
 	        where artcl_bc in ('single','multi','multip')

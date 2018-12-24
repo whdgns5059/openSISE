@@ -6,14 +6,13 @@
 <!doctype html>
 <html lang="en">
 <head>
+
 <!-- 약관동의  -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-
-
 // 회원동의 아코디언 
 	$(function() {
 		$("#accordion").accordion({
@@ -57,25 +56,11 @@
 
 		}); 
 		
-	// 동의버튼1 클릭시 색상처리
+	// 동의버튼 클릭시 색상처리
 	$("#U_checkAgreement1").on("click",function(){
+		console.log(this)
 		$("#firstH3").removeClass("bgColor");
 		$("#firstH3").addClass("bgColorChange");
-	});
-	// 동의버튼2 클릭시 색상처리
-	$("#U_checkAgreement2").on("click",function(){
-		$("#firstH4").removeClass("bgColor");
-		$("#firstH4").addClass("bgColorChange");
-	});
-	// 동의버튼3 클릭시 색상처리
-	$("#U_checkAgreement3").on("click",function(){
-		$("#firstH5").removeClass("bgColor");
-		$("#firstH5").addClass("bgColorChange");
-	});
-	// 동의버튼4 클릭시 색상처리
-	$("#U_checkAgreement4").on("click",function(){
-		$("#firstH6").removeClass("bgColor");
-		$("#firstH6").addClass("bgColorChange");
 	});
 		
 	// 약관 미동의시 가입처리 불가
@@ -90,6 +75,38 @@
 		}
 	});
 
+		/*$("#duplication").on("click",function(){
+		    var memberNm = $("#userNm").val();
+		    $.ajax({
+		       contentType : "application/json; charset=utf-8",
+		       url:"/login/duplication",
+		       type: "GET",
+		       //파라미터 보낼 값
+		       data : "memNm="+memberNm,
+		       //요청이 성공했을 때(controller에서 돌아왔을 때)
+		       // dt: controller 에서 보내는 값 (ex: model.addAttribute(key,value))
+		       // dt -> {mem_nm : 늘보, mem_email:brown}
+		       success: function(dt){
+		          var html="";
+		          /* html += "<c:if test='${msg == 0}'>";
+		          html += "<span id='y'>:: 사용가능한 닉네임 입니다.</span>";
+		          html += "</c:if>";
+		          html += "<c:if test='${msg >= 1}'>";
+		          html += "<span id='n'>:: 중복된 닉네임 입니다.</span>";
+		          html += "</c:if>"; 
+		          
+		          if(dt.msg ==0){
+		        	  html += "<span id='y'>:: 사용가능한 닉네임 입니다.</span>";
+		          }else{
+		        	  html += "<span id='n'>:: 중복된 닉네임 입니다.</span>";	  
+		          }
+		          $("#duplicate").html("");
+		          $("#duplicate").html(html);
+		       }
+		    });
+		 });
+		
+		 */
 	});
 	
 </script>
@@ -99,6 +116,77 @@
 
 
 
+
+<script type="text/javascript">
+$(document).ready(function () {
+	  //rotation speed and timer
+	  var speed = 5000;
+	//  var run = setInterval(rotate, speed);
+	  var slides = $('.slide');
+	  var container = $('#slides ul');
+	  var elm = container.find(':first-child').prop("tagName");	//ul 안의 첫번째 자식 태그 이름
+	  console.log("elm : "+elm);
+	  var item_width = container.width();	//컨테이너 사이즈
+	  console.log("item_width : " + item_width);
+	 // var previous = 'prev'; //id of previous button
+	  var next = 'next'; //id of next button
+	  //li의 넓이를 ul의 사이즈로 셋팅
+	  slides.width(item_width); //set the slides to the correct pixel width
+	  container.parent().width(item_width);
+	  container.width(slides.length * item_width); //set the slides container to the correct total width
+	  container.find(elm + ':first').before(container.find(elm + ':last'));
+	  resetSlides();
+	  //if user clicked on prev button
+	  $('#buttons a').click(function (e) {
+	    //slide the item
+	     console.log("e :" + e);
+	    if (container.is(':animated')) {
+	      return false;
+	    }
+	    /*if (e.target.id == previous) {
+	      container.stop().animate({
+	        'left': 0
+	      }, 1500, function () {
+	        container.find(elm + ':first').before(container.find(elm + ':last'));
+	        resetSlides();
+	      });
+	    }*/
+	  
+	    if (e.target.id == next) {
+	      container.stop().animate({
+	        'left': item_width * -2
+	      }, 1500, function () {
+	        container.find(elm + ':last').after(container.find(elm + ':first'));
+	        resetSlides();
+	      });
+	    }
+	    //cancel the link behavior     
+	    return false;
+	     
+	  });
+	  //if mouse hover, pause the auto rotation, otherwise rotate it 
+	  /* container.parent().mouseenter(function () {
+	    clearInterval(run);
+	  }).mouseleave(function () {
+	    run = setInterval(rotate, speed);
+	  }); */
+	  function resetSlides() {
+	    //and adjust the container so current is in the frame
+	    container.css({
+	      'left': -1 * item_width
+	    });
+	  }
+	   
+	});
+	//a simple function to click next link
+	//a timer will call this function, and the rotation will begin
+	 
+	function rotate() {
+	  $('#next').click();
+	}
+
+
+</script>
 
 <style type="text/css">
 ul {
@@ -146,28 +234,6 @@ ul {
 
 #duplication {
 	margin: 0 0 14px 0;
-	padding : 3px 5px;
-	width: 65px;
-    border: 1px solid #ffe1af;
-    border-width: 1px;
-    border-bottom: 4px solid #e8a93f;
-    color: #e8a93f;
-    font-size : 10pt;
-    text-transform: uppercase;
-    background-color: white;
-}
-
-#duplication2 {
-	margin: 0 0 14px 0;
-	padding : 3px 5px;
-	width: 65px;
-    border: 1px solid #ffe1af;
-    border-width: 1px;
-    border-bottom: 4px solid #e8a93f;
-    color: #e8a93f;
-    font-size : 10pt;
-    text-transform: uppercase;
-    background-color: white;
 }
 
 #duplicate {
@@ -223,6 +289,72 @@ ul {
 
 
 
+#slides {
+  overflow: hidden;
+  position: relative;
+  width: 60%;
+  height: 200px;
+}
+ 
+#slides ul {
+  list-style: none;
+  width: 60%;
+  height: 200px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+ 
+#slides li {
+  width: 60%;
+  height: 200px;
+  float: left;
+  text-align: center;
+  position: relative;
+  font-family: lato, sans-serif;
+}
+
+
+.btn-bar {
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  top: 40px;
+}
+ 
+#buttons {
+  padding: 0 0 5px 500px;
+  float: none;
+}
+ 
+#buttons a {
+  text-align: center;
+  display: block;
+  font-size: 20px;
+  float: left;
+  outline: 0;
+  margin: 0 60px;
+  color: #b14943;
+  text-decoration: none;
+  display: block;
+  padding: 9px;
+  width: 71px;
+}
+ 
+<!--a#prev:hover,-->
+a#next:hover {
+  color: #FFF;
+  text-shadow: .5px 0px #b14943;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -254,7 +386,7 @@ ul {
 									<c:if test="${msg == 0}">
 										<span id="y"> 사용가능한 닉네임 입니다.</span>
 									</c:if>
-									<c:if test="${msg == 1}">
+									<c:if test="${msg >= 1}">
 										<span id="n">* 중복된 닉네임 입니다.</span>
 									</c:if>
 								</div>
@@ -299,7 +431,7 @@ ul {
 				<div class="logoInputBtn">
 					<ul>
 						<li><input type="submit" id="duplication" class="form-control" value="중복확인" /></li>
-						<li><input type="button" id="duplication2" class="form-control" value="인증" /></li>
+						<li><input type="button" class="form-control" value="인증" /></li>
 					</ul>
 				</div>
 				<div class="submitBtnDiv">
@@ -370,7 +502,7 @@ ul {
 				</div>
 				
 				
-				<h3 class="bgColor" id="firstH4">개인정보 수집 및 이용에 대한 안내(필수)</h3>
+				<h3 class="bgColor">개인정보 수집 및 이용에 대한 안내(필수)</h3>
 				<div>
 					<p>정보통신망법 규정에 따라 오픈시세에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및
 						이용목적, 개인정보의 보유 및 이용기간을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다. 1. 수집하는
@@ -413,7 +545,7 @@ ul {
 						<input type="checkbox" name="U_checkAgreement2" id="U_checkAgreement2" value="" /> 약관동의
 				</div>
 
-				<h3 class="bgColor" id="firstH5">위치정보 이용약관 동의(선택)</h3>
+				<h3 class="bgColor">위치정보 이용약관 동의(선택)</h3>
 				<div>
 					<p>위치정보 이용약관에 동의하시면, 위치를 활용한 광고 정보 수신 등을 포함하는 오픈시세 위치기반 서비스를
 						이용할 수 있습니다. 제 1 조 (목적) 이 약관은 오픈시세 주식회사 (이하 “회사”)가 제공하는 위치정보사업 또는
@@ -453,15 +585,11 @@ ul {
 						203호 전화번호: 010-6351-4419 이메일 주소: openSise@naver.com 부칙 제1조 시행일
 						2015년 6월 2일부터 시행되던 종전의 약관은 본 약관으로 대체하며, 본 약관은 2015년 11월 26일부터
 						적용됩니다.</p>
-						<input type="checkbox" name="U_checkAgreement3" id="U_checkAgreement3" value="" /> 약관동의
-				
 				</div>
 				
-				<h3 class="bgColor" id="firstH6">이벤트 등 프로모션 알림 메일 수신(선택)</h3>
+				<h3 class="bgColor">이벤트 등 프로모션 알림 메일 수신(선택)</h3>
 				<div>
 					<p>에붸붸</p>
-					<input type="checkbox" name="U_checkAgreement4" id="U_checkAgreement4" value="" /> 약관동의
-				
 				</div>
 			</div>
 		</div>
@@ -474,6 +602,29 @@ ul {
 
 
 
+
+<div id="slides">
+  <ul>
+    <li class="slide">
+      안녕하세오?? 되나여?
+    </li>
+    <li class="slide">
+      먹히나여??
+    </li>
+    <li class="slide">
+      	???????????????
+    </li>
+  </ul>
+</div>
+
+
+
+<div class="btn-bar">
+  <div id="buttons">
+    <!-- <a id="prev" href="#">&lt;</a> -->
+    <a id="next" href="#">다음</a>
+  </div>
+</div>
 
 	<form action="/login/duplication" id="fm" method="post">
 		<input type="hidden" id="memNm" name="memNm">
