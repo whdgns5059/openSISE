@@ -36,14 +36,14 @@ var radarConfig =
                 "font-size": "22px"
             },
             "tooltip": {
-                "text": "%t<br>%k Is %v",
+                "text": "%v",
                 "shadow": 0,
                 "border-radius": 3
             },
             "scale-k": {
                 "background-color": "none",
                 "values": [
-                  "평당가<br/>1점: 평당 30만원 ", "물가<br/>1점 : 100원", "인구수<br/>1점 : 3000명"
+                  "평당가<br/>1점: 평당 30만원 ", "물가<br/>1점 : 100원", "인구수<br/>1점 : 5000명"
                 ],
                 "item": {
                     "font-size": "14px",

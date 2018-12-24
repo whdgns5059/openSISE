@@ -195,15 +195,14 @@
 	
 	<select id="selectHumanStat" parameterType="String" resultType="_float">
 		select 
-		round((
+		round(((select sum(HS_HM_NO) from HUMAN_STATISTIC
+		where hs_dong like #{String} || '%'
+		and hs_date = '201806')
+		-
 		(select round(avg(hm_num), 0) from 
 		(select substr(hs_dong,1,2) as hs_dong,  hs_date,sum(hs_hm_no) as hm_num from HUMAN_STATISTIC
 		where hs_date = '201806'
-		group by substr(hs_dong,1,2), hs_date))
-		-
-		(select sum(HS_HM_NO) from HUMAN_STATISTIC
-		where hs_dong like #{String} || '%'
-		and hs_date = '201806')) / 5000, 1) as humanavg
+		group by substr(hs_dong,1,2), hs_date))) / 3000, 1) as humanavg
 		from dual
 	</select>
 	
