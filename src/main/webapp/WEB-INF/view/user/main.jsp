@@ -464,28 +464,83 @@
 		});
 		/*------------- 해당 매물 클릭 시 상세정보로 이동 끝 ---------------*/
 		
-		//toLocal 클릭시 좌표읽어서 이동
-		$('.toLocal').on('click',function(){
-			console.log("클림됨");
-			var geocoder = new daum.maps.services.Geocoder();
+		
+		
+		function settingMap(x,y){
+			var lat;
+			var lng;
+			if ($("#loc").val() == "") {
+				// 검색값이 없을 때 시청으로 기본 좌표값 설정
+				lat = 36.3505393936125;
+				lng = 127.38483389033713;
+			}else if($("#listSize").val() == "0"){
+				lat = $("#latX").val();
+				lng = $("#lngY").val();
+			}else if(x == 0 && y == 0) {
+				// 해당 주소에 대한 좌표값을 담을 변수
+				lat = $(".lat").val(); //위도
+				lng = $(".lng").val(); //경도
+			}else{
+				lat = x;
+				lng = y;
+			}
 
-			var center = map.getCenter();
+			// 해당 주소를 담을 값
+			var addr;
 
-			var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
-			var callback = function(result, status) {
-				if (status === daum.maps.services.Status.OK) {
-					
-					var gu = result[0].address.region_2depth_name;
-					var dong = result[0].address.region_3depth_name;
-
-
-					location.href="/local/local?gu="+gu+"&dong="+dong;
-					
-				}
+			/*------------ 지도생성 코드 ----------------*/
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			mapOption = {
+				center : new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
+				level : 3
+			// 지도의 확대 레벨
 			};
+			var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+			/*------------- 지도 생성 코드 끝 ----------------*/
 
-			geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-		});
+			/*------------- 마커 생성 코드 ----------------*/
+
+			var positions = setLatlngArr();
+
+			//마커가 표시될 위치입니다 
+			var markerPosition = new daum.maps.LatLng(lat, lng);
+			var marker;
+			for(var i =0; i<positions.length; i++){
+				//마커를 생성합니다
+					marker = new daum.maps.Marker({
+					position : positions[i]
+				});
+				//마커가 지도 위에 표시되도록 설정합니다
+				marker.setMap(map);
+			}
+			/*--------------마커 생성 코드 끝--------------*/
+			
+			//toLocal 클릭시 좌표읽어서 이동
+			$('.toLocal').on('click',function(){
+				console.log("클림됨");
+				var geocoder = new daum.maps.services.Geocoder();
+
+				var center = map.getCenter();
+
+				var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
+				var callback = function(result, status) {
+					if (status === daum.maps.services.Status.OK) {
+						
+						var gu = result[0].address.region_2depth_name;
+						var dong = result[0].address.region_3depth_name;
+
+
+						location.href="/local/local?gu="+gu+"&dong="+dong;
+						
+					}
+				};
+
+				geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+			});
+			
+		}
+
+		
 		
 		
 	});
@@ -506,7 +561,10 @@
 		$.ajax({
 			type : "POST",
 			url : "/main/mainAjax",
-			data : {building : building, searchName : searchName, dl_ty : dl_ty, dl_excv_area : dl_excv_area, artcl_const_y : artcl_const_y, dl_price1 : dl_price1, dl_price2 : dl_price2, dl_rnt1 :dl_rnt1 ,dl_rnt2 : dl_rnt2},
+			data : {building : building, searchName : searchName, 
+					dl_ty : dl_ty, dl_excv_area : dl_excv_area, 
+					artcl_const_y : artcl_const_y, dl_price1 : dl_price1, 
+					dl_price2 : dl_price2, dl_rnt1 :dl_rnt1 ,dl_rnt2 : dl_rnt2},
 			success : function(data){
 				$(".main-right").html("");
 				$(".main-right").html(data);
@@ -514,59 +572,6 @@
 			}
 		});
 	}
-	
-	function settingMap(x,y){
-		var lat;
-		var lng;
-		if ($("#loc").val() == "") {
-			// 검색값이 없을 때 시청으로 기본 좌표값 설정
-			lat = 36.3505393936125;
-			lng = 127.38483389033713;
-		}else if($("#listSize").val() == "0"){
-			lat = $("#latX").val();
-			lng = $("#lngY").val();
-		}else if(x == 0 && y == 0) {
-			// 해당 주소에 대한 좌표값을 담을 변수
-			lat = $(".lat").val(); //위도
-			lng = $(".lng").val(); //경도
-		}else{
-			lat = x;
-			lng = y;
-		}
-
-		// 해당 주소를 담을 값
-		var addr;
-
-		/*------------ 지도생성 코드 ----------------*/
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center : new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
-			level : 3
-		// 지도의 확대 레벨
-		};
-		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-		/*------------- 지도 생성 코드 끝 ----------------*/
-
-		/*------------- 마커 생성 코드 ----------------*/
-
-		var positions = setLatlngArr();
-
-		//마커가 표시될 위치입니다 
-		var markerPosition = new daum.maps.LatLng(lat, lng);
-		var marker;
-		for(var i =0; i<positions.length; i++){
-			//마커를 생성합니다
-				marker = new daum.maps.Marker({
-				position : positions[i]
-			});
-			//마커가 지도 위에 표시되도록 설정합니다
-			marker.setMap(map);
-		}
-		/*--------------마커 생성 코드 끝--------------*/
-		
-	}
-	
-	
 	
 	
 	/*검색한 좌표들을 배열에 담아준다*/

@@ -46,6 +46,10 @@ public class LocalController {
 		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(changeDong);
 		model.addAttribute("allHumanMaxValue", allHumanStatisMaxValue);
 		
+		//날짜 검색
+		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
+		model.addAttribute("hsDate", hsDateSearch);
+		
 		model.addAttribute("dong", dong);
 		
 		return "user/localAjax/popStatis";
@@ -77,8 +81,6 @@ public class LocalController {
 	}
 	
 	
-	
-	
 	//인구분석 
 	@RequestMapping("/totalPop")
 	public String totalPop(@RequestParam("dong") String dong, Model model) {
@@ -92,6 +94,10 @@ public class LocalController {
 		//전체 인구 통계 최댓값
 		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(changeDong);
 		model.addAttribute("allHumanMaxValue", allHumanStatisMaxValue);
+		
+		//날짜 검색
+		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
+		model.addAttribute("hsDate", hsDateSearch);
 		
 		model.addAttribute("dong", dong);
 		
@@ -111,6 +117,10 @@ public class LocalController {
 		int genderHumanStatisMaxValue = localService.humanGndrStatisMaxValue(changeDong);
 		model.addAttribute("gndrHumanStatisMaxValue", genderHumanStatisMaxValue);
 		
+		//날짜 검색
+		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
+		model.addAttribute("hsDate", hsDateSearch);
+		
 		model.addAttribute("dong", dong);
 		
 		return "user/localAjax/pop/genderPop";
@@ -128,6 +138,10 @@ public class LocalController {
 		//연령별 인구 통계 최댓값
 		int ageHumanStatisMaxValue = localService.humanAgeStatisMaxValue(changeDong);
 		model.addAttribute("ageHumanStatisMaxValue", ageHumanStatisMaxValue);
+		
+		//날짜 검색
+		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
+		model.addAttribute("hsDate", hsDateSearch);
 		
 		model.addAttribute("dong", dong);
 		

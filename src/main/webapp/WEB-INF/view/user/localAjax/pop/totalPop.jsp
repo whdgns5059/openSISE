@@ -68,7 +68,7 @@ var totalPopChart = {
             "scaleX":{
                // x축
                 "values": [
-                   <c:forEach items="${allHumanStatis}" var= "ahs">
+                   <c:forEach items="${hsDate}" var= "ahs">
                    		${ahs.hs_date},
                    </c:forEach>
                 ],

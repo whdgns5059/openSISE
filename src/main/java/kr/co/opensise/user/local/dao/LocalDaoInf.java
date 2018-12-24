@@ -5,6 +5,15 @@ import java.util.List;
 import kr.co.opensise.user.local.model.HumanStatisVo;
 
 public interface LocalDaoInf {
+	
+	/**  
+	* Method   : hsDateSearch 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  날짜 출력
+	*/
+	public List<HumanStatisVo> hsDateSearch();
 
 	/**  
 	* Method   : humanAllStatistic 

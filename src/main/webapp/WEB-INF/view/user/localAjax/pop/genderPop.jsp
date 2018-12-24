@@ -68,10 +68,8 @@ function setChart(){
 		            "scaleX":{
 		               // x축
 		                "values": [
-		                   <c:forEach items="${gndrHumanStatis}" var= "ghs" varStatus="status">
-		                   	<c:if test="${status.index %2 == 0}">
+		                   <c:forEach items="${hsDate}" var= "ghs">
 		                   		${ghs.hs_date},
-		                   	</c:if>
 		                   </c:forEach>
 		                ],
 		                "placement":"default",
@@ -145,7 +143,7 @@ setChart();
 <div>
 	<div id="siseTableDiv">
 		<span class="subTitle">성별 인구표</span>
-		<table id="siseTable">
+		<table id="siseTable" class="table">
 			<thead>
 				<tr>
 					<td>조사일</td>

@@ -148,9 +148,9 @@ public class StatisDao implements StatisDaoInf {
 	}
 
 	@Override
-	public List<Page_statisticVo> psDate() {
-		List<Page_statisticVo> psVo = template.selectList("admin_statis.psDate");
-		return psVo;
+	public List<Page_statisticVo> psDate(Page_statisticVo psVo) {
+		List<Page_statisticVo> psVoList = template.selectList("admin_statis.psDate", psVo);
+		return psVoList;
 	}
 
 	@Override
