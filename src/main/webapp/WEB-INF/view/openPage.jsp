@@ -260,7 +260,7 @@ input:disabled {
     function getBC(bc){
     	$('#searchText').attr("readonly",false);
     	
-    	$('#searchText').attr("placeholder","지역명, 지하철역명, 아파트명을 입력하세요.");
+    	$('#searchText').attr("placeholder","지역명, 아파트명을 입력하세요.");
     	var house = document.getElementById("house");
     	var apt = document.getElementById("apt");
     	var office = document.getElementById("office");

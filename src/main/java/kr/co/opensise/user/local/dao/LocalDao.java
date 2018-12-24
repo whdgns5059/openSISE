@@ -14,6 +14,19 @@ public class LocalDao implements LocalDaoInf {
 	
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
+	
+	/**  
+	* Method   : hsDateSearch 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  날짜 출력
+	*/
+	@Override
+	public List<HumanStatisVo> hsDateSearch() {
+		// TODO Auto-generated method stub
+		return template.selectList("local.hsDateSearch");
+	}
 
 	/**  
 	* Method   : humanAllStatistic 
@@ -98,5 +111,7 @@ public class LocalDao implements LocalDaoInf {
 		// TODO Auto-generated method stub
 		return template.selectOne("local.ageHumanStatisMaxValue", dong);
 	}
+
+	
 
 }

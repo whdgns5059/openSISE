@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="local">
+	<!-- 통계 날짜 -->
+	<select id="hsDateSearch" resultType="humanStatisVo">
+		select DISTINCT hs_date
+		from human_statistic
+	</select>
+
 
 	<!-- 월별 전체 인구 통계 -->
 	<select id="allHumanStatis" parameterType="String" resultType="humanStatisVo">
