@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 import kr.co.opensise.setup.ControllerSetup;
 
-public class LocalController extends ControllerSetup{
+public class LocalControllerTest extends ControllerSetup{
 
 	@SuppressWarnings("unchecked")
 	@Test

@@ -14,12 +14,12 @@ import kr.co.opensise.user.market.service.MarketServiceInf;
 import kr.co.opensise.user.local.model.HumanStatisVo;
 import kr.co.opensise.user.local.service.LocalServiceInf;
 
-@Controller
 @RequestMapping("/local")
+@Controller
 public class LocalController {
-	@Resource
-	private LocalServiceInf localService;
 	
+	@Resource(name="localService")
+	private LocalServiceInf localService;
 	
 	@Resource(name="marketService")
 	private MarketServiceInf MarketService;

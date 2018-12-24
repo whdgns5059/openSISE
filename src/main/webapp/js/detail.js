@@ -231,6 +231,7 @@ $("#reviewWindow").hide();
 //mask  띄우기!
 //검은 막 띄우기
 $(".openMask").click(function(e) {
+	
 	e.preventDefault();
 	wrapWindowByMask();
 });
