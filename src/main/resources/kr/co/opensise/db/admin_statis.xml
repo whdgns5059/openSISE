@@ -216,13 +216,20 @@
 	</insert>
 	
 	<!-- 일별 페이지 방문 수 -->
-	<select id="psDate" resultType="psVo">
-		Select * From page_statistic
+	<select id="psDate" parameterType="psVo" resultType="psVo">
+		Select Distinct fn_psDate(to_char(ps_date,'YY/MM/DD') ) ps_pgList 
+		     , to_date(ps_date,'YYYY-MM-DD') ps_date
+		From   page_statistic
+		Where  to_char(ps_date,'YYYY-MM-DD') Between #{psVo.from} And #{psVo.to}
+		Order by 2
 	</select>
 	
 	<!-- 페이지별 페이지 방문 수 -->
 	<select id="psPage" resultType="psVo">
-		Select * From page_statistic
+		Select ps_pg, ps_pg_addr, Sum(ps_vstr) ps_vstr
+		From page_statistic
+		Group by  ps_pg, ps_pg_addr
+		Order by ps_pg
 	</select>
 	
 	

@@ -70,6 +70,8 @@ public class DetailController {
 		model.addAttribute("selectReview", selectReview);
 		model.addAttribute("selFavor", selFavor);
 		model.addAttribute("favorCount", favorCount);
+		model.addAttribute("building", selectArticleVo.getArtcl_bc());
+		model.addAttribute("dlType", "매매");
 		
 		return "detail";
 	}

@@ -28,6 +28,7 @@
 				<input type="hidden" id="artcl_dong" value="${selectArticleVo.artcl_dong }"/>
 				<input type="hidden" id="artcl_zip" value="${selectArticleVo.artcl_zip }"/>
 				<input type="hidden" id="artcl_rd" value="${selectArticleVo.artcl_rd }"/>
+				<input type="hidden" id="loc" value="${selectArticleVo.artcl_dong}"/>
 				<input type="hidden" id="dl_ty" value="${dl_ty}"/>
 				
 				<h1>${selectArticleVo.artcl_complx }</h1>  

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
+import kr.co.opensise.admin.statis.model.Page_statisticVo;
 import kr.co.opensise.admin.statis.model.VisitorVo;
 import kr.co.opensise.admin.statis.service.StatisServiceInf;
 
@@ -154,19 +155,14 @@ public class StatisController {
 		
 		// 방문 수 최대치
 		VisitorVo maxCnt = statisService.maxVisit();
-				model.addAttribute("maxCnt", maxCnt);
+		model.addAttribute("maxCnt", maxCnt);
 
-				// 방문이 많은 요일 순위별
-				List<VisitorVo> maxVisitDay = statisService.maxVisitDay();
-				model.addAttribute("maxVisitDay", maxVisitDay);
+		// 일별 페이지 방문 수
+		
 				
-				// 날짜별 방문 수
-				List<VisitorVo> visitDate = statisService.visitDate();
-				model.addAttribute("visitDate",visitDate);
-				
-				// 요일별/시간별 방문 수
-				List<VisitorVo> visitDay = statisService.visitDay();
-				model.addAttribute("visitDay",visitDay);
+		// 페이지별 페이지 방문 수
+		List<Page_statisticVo> psPage = statisService.psPage();
+		model.addAttribute("psPage", psPage);
 		
 		return "statis/pageCount";
 	}

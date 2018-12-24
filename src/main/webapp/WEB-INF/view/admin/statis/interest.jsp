@@ -69,7 +69,6 @@ $(document).ready(function(){
 	colorList.push("#3ea6c8");
 	colorList.push("#f4b344");
 	colorList.push("#f29c3e");
-	colorList.push("#f29c3e");
 	colorList.push("#4385cd");
 	colorList.push("#61c773");
 	colorList.push("#b07748");
@@ -199,6 +198,7 @@ $(document).ready(function(){
 		});
 	});
 	
+	
 });
 </script>
 <form id="ageF" action="/statis/intrstAgeAjax" method="post">
@@ -233,6 +233,7 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>	
+	
 </div>
 
 

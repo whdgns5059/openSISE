@@ -1,3 +1,5 @@
+
+
 //지도 함수 
 function settingMap(){
 
@@ -216,7 +218,6 @@ setHeart();
 
 
 
-
 $('.area').on('click', '.areatab', function(){
 	
 	var area = this.innerHTML;
@@ -230,6 +231,7 @@ $("#reviewWindow").hide();
 //mask  띄우기!
 //검은 막 띄우기
 $(".openMask").click(function(e) {
+	
 	e.preventDefault();
 	wrapWindowByMask();
 });

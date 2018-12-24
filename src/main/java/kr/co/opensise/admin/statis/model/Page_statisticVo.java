@@ -6,8 +6,11 @@ public class Page_statisticVo {
 
 	private Date ps_date;
 	private String ps_pg;
+	private String ps_pgList;
 	private String ps_pg_addr;
 	private int ps_vstr;
+	private String from;
+	private String to;
 	
 	public Page_statisticVo() {
 	}
@@ -40,13 +43,29 @@ public class Page_statisticVo {
 	public void setPs_vstr(int ps_vstr) {
 		this.ps_vstr = ps_vstr;
 	}
-	
+	public String getFrom() {
+		return from;
+	}
+	public void setFrom(String from) {
+		this.from = from;
+	}
+	public String getTo() {
+		return to;
+	}
+	public void setTo(String to) {
+		this.to = to;
+	}
+	public String getPs_pgList() {
+		return ps_pgList;
+	}
+	public void setPs_pgList(String ps_pgList) {
+		this.ps_pgList = ps_pgList;
+	}
 	@Override
 	public String toString() {
 		return "Page_statisticVo [ps_date=" + ps_date + ", ps_pg=" + ps_pg + ", ps_pg_addr=" + ps_pg_addr + ", ps_vstr="
-				+ ps_vstr + "]";
+				+ ps_vstr + ", from=" + from + ", to=" + to + "]";
 	}
-	
 	
 	
 	
