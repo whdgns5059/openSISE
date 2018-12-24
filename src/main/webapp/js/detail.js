@@ -1,3 +1,5 @@
+
+
 //지도 함수 
 function settingMap(){
 
@@ -212,7 +214,6 @@ detailInfoAjax(defaultarea);
 setRadarChart();
 reviewControl();
 setHeart();
-
 
 
 
