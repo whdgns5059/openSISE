@@ -37,8 +37,9 @@ ul { list-style : none; }
 <div class="adminLeft">
 	<br/>	
 	<ul class="left-menu">
-		<li><b>회원관리</b></li>
-		<li><a href="/manage/member/member">회원수정</a></li>
+		<li><b>회원 관리</b></li>
+		<li><a href="/manage/member/member">회원 상세</a></li>
+		<li><a href="/manage/member/interest">관심사</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">

@@ -159,10 +159,32 @@ public class StatisDaoTest extends RootSetup{
 		/***Then***/
 		log.info("날짜별 방문 수 {}", visitDate);
 		
-		
 	}
 	
+	@Test
+	public void psDate() {
+		/***Given***/
+		Page_statisticVo psVo = new Page_statisticVo();
+		psVo.setFrom("2018-12-20");
+		psVo.setTo("2018-12-21");
+
+		/***When***/
+		List<Page_statisticVo> psVoListRaw = statisDao.psDate(psVo);
+		for (Page_statisticVo psVoRaw : psVoListRaw) {
+			for(String splitStr : psVoRaw.getPs_pgList().split(",")) {
+				for(String str : splitStr.split("_")) {
+					if(!str.equals("")) {
+						log.info("결과는: {}입니다",str);
+						
+					}
+				}
+			}
+				
+		}
+
+		/***Then***/
 	
+	}
 	
 	
 	

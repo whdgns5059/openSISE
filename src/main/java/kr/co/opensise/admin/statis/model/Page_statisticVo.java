@@ -6,6 +6,7 @@ public class Page_statisticVo {
 
 	private Date ps_date;
 	private String ps_pg;
+	private String ps_pgList;
 	private String ps_pg_addr;
 	private int ps_vstr;
 	private String from;
@@ -53,6 +54,12 @@ public class Page_statisticVo {
 	}
 	public void setTo(String to) {
 		this.to = to;
+	}
+	public String getPs_pgList() {
+		return ps_pgList;
+	}
+	public void setPs_pgList(String ps_pgList) {
+		this.ps_pgList = ps_pgList;
 	}
 	@Override
 	public String toString() {

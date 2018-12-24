@@ -226,7 +226,7 @@ public interface StatisDaoInf {
 	* @return
 	* Method 설명 : 일별 페이지 방문 수
 	*/
-	public List<Page_statisticVo> psDate();
+	public List<Page_statisticVo> psDate(Page_statisticVo psVo);
 	
 	/**
 	* Method : psPage

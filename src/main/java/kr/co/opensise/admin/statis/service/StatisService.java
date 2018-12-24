@@ -151,8 +151,11 @@ public class StatisService implements StatisServiceInf {
 	}
 
 	@Override
-	public List<Page_statisticVo> psDate() {
-		return statisDao.psDate();
+	public List<Page_statisticVo> psDate(Page_statisticVo psVo) {
+		List<Page_statisticVo> psVoRaw = statisDao.psDate(psVo);
+		
+		
+		return statisDao.psDate(psVo);
 	}
 
 	@Override
