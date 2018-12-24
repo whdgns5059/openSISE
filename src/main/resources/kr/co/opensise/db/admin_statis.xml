@@ -222,7 +222,10 @@
 	
 	<!-- 페이지별 페이지 방문 수 -->
 	<select id="psPage" resultType="psVo">
-		Select * From page_statistic
+		Select ps_pg, ps_pg_addr, Sum(ps_vstr) ps_vstr
+		From page_statistic
+		Group by  ps_pg, ps_pg_addr
+		Order by ps_pg
 	</select>
 	
 	
