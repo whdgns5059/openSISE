@@ -146,7 +146,7 @@
 								<div class="starDivWrapper">
 									<div class="starReview"></div>
 									<div class="starDiv">
-										<input class="reviewStarInput" id="reviewStarRating" type="text" value="${postVo.post_star }"/>
+										<input class="reviewStarInput" id="reviewStarRating" type="hidden" value="${postVo.post_star }"/>
 									</div>
 									<div class="reportDiv"><img src="https://via.placeholder.com/30"/></div>
 								</div>
