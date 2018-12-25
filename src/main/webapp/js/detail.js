@@ -531,13 +531,30 @@ function setReviewStar(starReview){
 		$(starReview[i]).raty({
 			score : starReview[i].nextElementSibling.getElementsByClassName('reviewStarInput')[0].value
 			,path : "/img"
-			,width : 200
+			,width : 400
+			,readOnly: true
 		});
 		
 	}
 	
 	
 }
+
+$('.reportDiv').on('click', function(e){
+	
+	var mem_no = $('#mem_no').val();
+	
+	if(mem_no == "" || mem_no == null){
+		alert("로그인을 먼저 해주세요");
+		return;
+	}
+	
+	//TODO : 신고기능 추가..
+	//어떻게 추가해야하지....??????????
+	//팝업을 이용하면 될듯 ? 
+	 var newWindow = window.open("", "new window", "width=500, height=800");
+	
+});
 
 
 

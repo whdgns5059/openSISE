@@ -44,6 +44,8 @@ public class DetailService implements DetailServiceInf{
 		
 		List<PostVo> selectReview = detailDao.selectReview(articleVo);
 		detailMap.put("selectReview", selectReview);
+		
+		
 
 		return detailMap;
 	}

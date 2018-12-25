@@ -140,7 +140,7 @@
 								<div class="reviewNo">${postVo.post_no }</div>
 								<div class="reviewDate">${postVo.post_date }</div>
 								<div class="reviewTitle">${postVo.post_ttl}</div>
-								<div class="reviewWriter">${postVo.post_mem } </div>
+								<div class="reviewWriter">${postVo.mem_email} </div>
 							</div>
 							<div class="reviewDetailWrapper">
 								<div class="starDivWrapper">
@@ -148,7 +148,10 @@
 									<div class="starDiv">
 										<input class="reviewStarInput" id="reviewStarRating" type="hidden" value="${postVo.post_star }"/>
 									</div>
-									<div class="reportDiv"><img src="https://via.placeholder.com/30"/></div>
+									<div class="reportDiv">
+										<img src="https://via.placeholder.com/30"/>
+										<input class="rpt_post" value="${postVo.post_no }" type="hidden" />
+									</div>
 								</div>
 								<div class="photo">
 								</div>

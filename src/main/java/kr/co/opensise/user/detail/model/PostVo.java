@@ -14,7 +14,14 @@ public class PostVo {
 	private String post_dong;
 	private String post_zip;
 	private String post_rd;
+	private String mem_email;
 	
+	public String getMem_email() {
+		return mem_email;
+	}
+	public void setMem_email(String mem_email) {
+		this.mem_email = mem_email;
+	}
 	public int getPost_no() {
 		return post_no;
 	}
