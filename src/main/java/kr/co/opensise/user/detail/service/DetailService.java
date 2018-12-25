@@ -254,6 +254,11 @@ public class DetailService implements DetailServiceInf{
 		return detailDao.selectFavorCount(favorVo);
 	}
 
+	@Override
+	public List<DealVo> selectTotalDealList(DealVo dealVo) {
+		return detailDao.selectDealListByArea(dealVo);
+	}
+
 	
 	
 

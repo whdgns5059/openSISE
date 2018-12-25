@@ -102,6 +102,8 @@
 	<hr/>
 </div>
 <div>
+	<input type="hidden" name="excv_area" id="excv_area" value="${excv_area }"/>
+	<button class="btn" id="totalDeal">전체 거래 내역</button>
 	<table class="table table-striped">
 		<thead>
 			<c:choose>

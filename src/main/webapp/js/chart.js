@@ -1,5 +1,41 @@
 
 
+$('#totalDeal').on('click',function(){
+	
+	console.log('확인');
+	
+	var dl_excv_area = document.getElementById('excv_area').value;
+	var artcl_gu = document.getElementById('artcl_gu').value;
+	var artcl_dong = document.getElementById('artcl_dong').value;
+	var artcl_zip = document.getElementById('artcl_zip').value;
+	var artcl_rd = document.getElementById('artcl_rd').value;
+	var dl_ty = document.getElementById('dl_ty').value;
+	
+	var data = {
+		dl_gu : artcl_gu,
+		dl_dong : artcl_dong,
+		dl_zip : artcl_zip,
+		dl_rd : artcl_rd,
+		dl_excv_area : dl_excv_area,
+		dl_ty : dl_ty
+	}
+	
+	$.ajax({
+		
+		type:'POST',
+		url : '/detail/totalDeal',
+		data : data,
+		success : function(data){
+			 var newWindow = window.open("", "new window", "width=800, height=800");
+			 newWindow.document.write(data);
+		}
+		
+	});
+
+	
+	
+	
+})
 
 $('#calcul').on('change', function(){
 
