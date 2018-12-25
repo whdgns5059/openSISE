@@ -140,14 +140,6 @@ function reviewControl(){
 }
 
 
-//리뷰 읽기 별
-$(function() {
-    $('.starReview').raty({
-        score: 3
-        ,path : "/img"
-        ,width : 200
-    });
-});
 
 //리뷰 글작성 별
 $(function() {
@@ -526,6 +518,26 @@ $('.like').on('click', '.heartimg', function(){
 });
 
 
+
+//리뷰 별점
+
+var starReview = document.getElementsByClassName('starReview');
+setReviewStar(starReview);
+
+function setReviewStar(starReview){
+	
+	for(var i = 0;  i < starReview.length ; i++){
+		
+		$(starReview[i]).raty({
+			score : starReview[i].nextElementSibling.getElementsByClassName('reviewStarInput')[0].value
+			,path : "/img"
+			,width : 200
+		});
+		
+	}
+	
+	
+}
 
 
 
