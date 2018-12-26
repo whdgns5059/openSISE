@@ -185,6 +185,11 @@ $('#insertReview').click(function(event){
 	
 });
 
+$('.close').click(function(){
+	
+	window.close();	
+	
+});
 
 
 </script>

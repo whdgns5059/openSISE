@@ -567,9 +567,21 @@ $('.updateReview').on('click', function(){
 	
 	var post_no = this.getElementsByClassName('post_no')[0].value;
 	
-	var newWindow = window.open("/detail/updateReviewForm?post_no="+post_no, "new window", "width=600, height=800");
+	var newWindow = window.open("/detail/updateReviewForm?post_no="+post_no, "new window", "width=600, height=800, location=no");
 	
+	var timer = setInterval(checkPopup, 500);
 	
+	function checkPopup(){
+		
+		if(newWindow.closed){
+			
+			clearInterval(timer);
+			location.reload();
+			
+		}
+		
+		
+	}
 	
 
 	

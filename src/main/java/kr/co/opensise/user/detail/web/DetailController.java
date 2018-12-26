@@ -277,11 +277,13 @@ public class DetailController {
 	}
 	
 	@RequestMapping("/updateReview")
-	public void updateReview(PostVo postVo, @RequestPart("post_img") List<MultipartFile> parts, HttpServletRequest request) {
+	public String updateReview(PostVo postVo, @RequestPart("post_img") List<MultipartFile> parts, HttpServletRequest request) {
 		
 		String path = request.getServletContext().getRealPath("/reviewImg");
 		
 		int result = detailService.updateReview(postVo, parts, path);
+		
+		return "user/detailAjax/updateResult";
 	}
 	
 }
