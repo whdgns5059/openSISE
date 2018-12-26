@@ -15,6 +15,7 @@ import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
+import kr.co.opensise.user.detail.model.ReportVo;
 
 @Repository
 public class DetailDao implements DetailDaoInf{
@@ -140,7 +141,12 @@ public class DetailDao implements DetailDaoInf{
 
 	@Override
 	public int selectFavorCount(FavoriteVo favorVo) {
-		return template.selectOne("selectFavorCount", favorVo);
+		return template.selectOne("detail.selectFavorCount", favorVo);
+	}
+
+	@Override
+	public int insertReport(ReportVo rptVo) {
+		return template.insert("detail.insertReport", rptVo);
 	}
 	
 	

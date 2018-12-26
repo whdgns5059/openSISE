@@ -14,6 +14,7 @@ import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.setup.RootSetup;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PostVo;
+import kr.co.opensise.user.detail.model.ReportVo;
 
 public class DetailServiceTest extends RootSetup{
 
@@ -188,7 +189,27 @@ public class DetailServiceTest extends RootSetup{
 		assertEquals(4.4, priceStat, 1e-1);
 	
 	}
+
 	
+	
+	@Test
+	public void insertReportTest() {
+		
+		/***given***/
+		ReportVo rptVo = new ReportVo();
+		rptVo.setRpt_cntnt("테스트내용");
+		rptVo.setRpt_ttl("테스트 제목");
+		rptVo.setRpt_post(34);
+		rptVo.setRpt_mem(1048);
+		
+		/***when***/
+		int result = detailService.insertReport(rptVo);
+
+		/***then***/
+		assertEquals(1, result);
+		
+		
+	}
 	
 
 }

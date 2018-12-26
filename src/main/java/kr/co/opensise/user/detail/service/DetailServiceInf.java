@@ -11,6 +11,7 @@ import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
+import kr.co.opensise.user.detail.model.ReportVo;
 
 public interface DetailServiceInf {
 	
@@ -106,6 +107,8 @@ public interface DetailServiceInf {
 	int selectFavorCount(FavoriteVo favorVo);
 
 	List<DealVo> selectTotalDealList(DealVo dealVo);
+
+	int insertReport(ReportVo rptVo);
 	
 }
 

@@ -549,10 +549,12 @@ $('.reportDiv').on('click', function(e){
 		return;
 	}
 	
+	var rpt_post = this.getElementsByClassName('rpt_post')[0].value;
+	
 	//TODO : 신고기능 추가..
 	//어떻게 추가해야하지....??????????
 	//팝업을 이용하면 될듯 ? 
-	 var newWindow = window.open("", "new window", "width=500, height=800");
+	 var newWindow = window.open("/detail/reportForm?rpt_post="+rpt_post, "new window", "width=500, height=800");
 	
 });
 
