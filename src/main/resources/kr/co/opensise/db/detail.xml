@@ -230,6 +230,11 @@
 		delete favorite
 		where favor_no = #{int}
 	</delete>
+
+	<insert id="insertReport" parameterType="reportVo">
+		insert into report (rpt_no, rpt_post, rpt_cntnt, rpt_date, rpt_classf, rpt_mem, rpt_ttl)	
+		values (seq_rpt_no.nextval, #{rpt_post}, #{rpt_cntnt}, sysdate, null, #{rpt_mem}, #{rpt_ttl})
+	</insert>
 	
 </mapper>
 
