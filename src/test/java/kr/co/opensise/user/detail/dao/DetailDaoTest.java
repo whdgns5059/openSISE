@@ -478,6 +478,20 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 	
+	@Test 
+	public void deletePicTest() {
+		
+		/***given***/
+		String pic_no = "5";
+		/***when***/
+		int result = detailDao.deletePic(pic_no);
+
+		/***then***/
+		assertEquals(1, result);
+		
+		
+	}
+	
 }
 
 

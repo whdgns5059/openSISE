@@ -261,6 +261,7 @@ $('#insertReview').click(function(event){
 	}
 	
 	var post_contnt = document.getElementById('post_contnt');
+	
 	if(post_contnt.value == null || post_contnt.value == ''){
 		alert("내용을 입력해 주세요");
 		return;
@@ -559,6 +560,20 @@ $('.reportDiv').on('click', function(e){
 });
 
 
+//리뷰 수정
+
+$('.updateReview').on('click', function(){
+	
+	
+	var post_no = this.getElementsByClassName('post_no')[0].value;
+	
+	var newWindow = window.open("/detail/updateReviewForm?post_no="+post_no, "new window", "width=600, height=800");
+	
+	
+	
+
+	
+});
 
 
 

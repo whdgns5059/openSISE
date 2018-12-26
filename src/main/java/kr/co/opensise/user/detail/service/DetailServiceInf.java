@@ -109,6 +109,13 @@ public interface DetailServiceInf {
 	List<DealVo> selectTotalDealList(DealVo dealVo);
 
 	int insertReport(ReportVo rptVo);
+
+
+
+	int deletePic(String pic_no);
+
+
+	int updateReview(PostVo postVo, List<MultipartFile> parts, String path);
 	
 }
 

@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -250,6 +252,36 @@ public class DetailController {
 		int result = detailService.insertReport(rptVo);
 		
 		return result; 
+	}
+
+	
+	@RequestMapping("/updateReviewForm")
+	public String updateReviewForm(@RequestParam("post_no") String post_no, Model model) {
+		
+		PostVo postVo = detailService.selectReviewByNo(post_no);
+		List<PictureVo> picList = detailService.selectReviewPic(postVo);
+		
+		model.addAttribute("postVo", postVo);
+		model.addAttribute("picList", picList);
+		
+		return "user/detailAjax/updateForm";
+	}
+	
+	@RequestMapping("/deletePic")
+	@ResponseBody
+	public int deletePic(@RequestParam("pic_no") String pic_no) {
+		
+		int delResult = detailService.deletePic(pic_no);
+		
+		return delResult;
+	}
+	
+	@RequestMapping("/updateReview")
+	public void updateReview(PostVo postVo, @RequestPart("post_img") List<MultipartFile> parts, HttpServletRequest request) {
+		
+		String path = request.getServletContext().getRealPath("/reviewImg");
+		
+		int result = detailService.updateReview(postVo, parts, path);
 	}
 	
 }
