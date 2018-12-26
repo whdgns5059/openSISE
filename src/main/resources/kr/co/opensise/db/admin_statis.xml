@@ -215,12 +215,26 @@
 		Select * From Dual
 	</insert>
 	
+	<!-- 모든 페이지 종류 -->
+	<select id="pageCount" resultType="string">
+		Select Distinct ps_pg From page_statistic Order by ps_pg
+	</select>
+	
+	<!-- 가장 많은 페이지 방문 수  -->
+	<select id="pageMax" resultType="psVo">
+		Select a.ps_vstr ps_vstr, a.ps_pg ps_pg
+		From (Select Sum(ps_vstr) ps_vstr, ps_pg From page_statistic Group by ps_pg Order by 1 desc) a
+		Where Rownum = 1
+	</select>
+	
 	<!-- 일별 페이지 방문 수 -->
 	<select id="psDate" parameterType="psVo" resultType="psVo">
 		Select Distinct fn_psDate(to_char(ps_date,'YY/MM/DD') ) ps_pgList 
-		     , to_date(ps_date,'YYYY-MM-DD') ps_date
+		     , Round(date_to_unix_ts(to_char(ps_date,'YYYYMMDD'))) ps_dateStr
 		From   page_statistic
-		Where  to_char(ps_date,'YYYY-MM-DD') Between #{psVo.from} And #{psVo.to}
+		<if test="from != null and to != null">
+		Where  to_char(ps_date,'YYYY-MM-DD') Between #{from} And #{to}
+		</if>
 		Order by 2
 	</select>
 	

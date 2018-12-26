@@ -115,5 +115,33 @@ public class LocalService implements LocalServiceInf {
 	}
 
 
+	@Override
+	public int humanAllStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanAllStatisMinValue(dong);
+	}
+
+
+	@Override
+	public int humanGndrStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanGndrStatisMinValue(dong);
+	}
+
+
+	@Override
+	public int humanAgeStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanAgeStatisMinValue(dong);
+	}
+
+
+	@Override
+	public List<HumanStatisVo> humanGndrStatisCricle(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanGndrStatisCricle(dong);
+	}
+
+
 
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 public class Page_statisticVo {
 
 	private Date ps_date;
+	private String ps_dateStr;
 	private String ps_pg;
 	private String ps_pgList;
 	private String ps_pg_addr;
@@ -24,6 +25,12 @@ public class Page_statisticVo {
 	}
 	public void setPs_date(Date ps_date) {
 		this.ps_date = ps_date;
+	}
+	public String getPs_dateStr() {
+		return ps_dateStr;
+	}
+	public void setPs_dateStr(String ps_dateStr) {
+		this.ps_dateStr = ps_dateStr;
 	}
 	public String getPs_pg() {
 		return ps_pg;
@@ -63,8 +70,9 @@ public class Page_statisticVo {
 	}
 	@Override
 	public String toString() {
-		return "Page_statisticVo [ps_date=" + ps_date + ", ps_pg=" + ps_pg + ", ps_pg_addr=" + ps_pg_addr + ", ps_vstr="
-				+ ps_vstr + ", from=" + from + ", to=" + to + "]";
+		return "Page_statisticVo [ps_date=" + ps_date + ", ps_dateStr=" + ps_dateStr + ", ps_pg=" + ps_pg
+				+ ", ps_pgList=" + ps_pgList + ", ps_pg_addr=" + ps_pg_addr + ", ps_vstr=" + ps_vstr + ", from=" + from
+				+ ", to=" + to + "]";
 	}
 	
 	

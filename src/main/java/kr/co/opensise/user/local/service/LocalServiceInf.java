@@ -14,7 +14,7 @@ public interface LocalServiceInf {
 	* Method 설명 :  날짜 출력
 	*/
 	public List<HumanStatisVo> hsDateSearch();
-	
+
 	/**  
 	* Method   : humanAllStatistic 
 	* 작성자 : 1003yd 
@@ -36,6 +36,16 @@ public interface LocalServiceInf {
 	public int humanAllStatisMaxValue(String dong);
 	
 	/**  
+	* Method   : humanAllStatisMinValue 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @param dong
+	* @return  
+	* Method 설명 :  전체 인구 통계 최솟값
+	*/
+	public int humanAllStatisMinValue(String dong);
+	
+	/**  
 	* Method   : humanGndrStatistic 
 	* 작성자 : 1003yd 
 	* 변경이력 :  
@@ -44,6 +54,16 @@ public interface LocalServiceInf {
 	* Method 설명 :  동별, 성별 인구 통계
 	*/
 	public List<HumanStatisVo> humanGndrStatistic(String dong);
+	
+	/**  
+	* Method   : humanGndrStatisCricle 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @param dong
+	* @return  
+	* Method 설명 : 남여 성비
+	*/
+	public List<HumanStatisVo> humanGndrStatisCricle(String dong);
 	
 	
 	/**  
@@ -55,6 +75,16 @@ public interface LocalServiceInf {
 	* Method 설명 :  성별 인구 통계 최댓값
 	*/
 	public int humanGndrStatisMaxValue(String dong);
+	
+	/**  
+	* Method   : humanGndrStatisMinValue 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @param dong
+	* @return  
+	* Method 설명 :  성별 인구 통계 최솟값
+	*/
+	public int humanGndrStatisMinValue(String dong);
 	
 	/**  
 	* Method   : humanAgeStatistic 
@@ -75,4 +105,16 @@ public interface LocalServiceInf {
 	* Method 설명 :  연령별 인구 통계 최댓값
 	*/
 	public int humanAgeStatisMaxValue(String dong);
+	
+	
+	/**  
+	* Method   : humanAgeStatisMinValue 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @param dong
+	* @return  
+	* Method 설명 : 연령별 인구 통계 최댓값
+	*/
+	public int humanAgeStatisMinValue(String dong);
+	
 }

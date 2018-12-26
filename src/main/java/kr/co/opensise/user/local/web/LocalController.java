@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,8 @@ import kr.co.opensise.user.local.service.LocalServiceInf;
 @RequestMapping("/local")
 @Controller
 public class LocalController {
+	
+	Logger logger = LoggerFactory.getLogger(LocalController.class);
 	
 	@Resource(name="localService")
 	private LocalServiceInf localService;
@@ -45,6 +49,14 @@ public class LocalController {
 		//전체 인구 통계 최댓값
 		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(changeDong);
 		model.addAttribute("allHumanMaxValue", allHumanStatisMaxValue);
+		
+		//전체 인구 통계 최솟값
+		int allHumanStatisMinValue = localService.humanAllStatisMinValue(changeDong);
+		model.addAttribute("allHumanMinValue", allHumanStatisMinValue);
+		
+		logger.info("minValue : " + allHumanStatisMinValue);
+		
+	
 		
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
@@ -95,6 +107,10 @@ public class LocalController {
 		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(changeDong);
 		model.addAttribute("allHumanMaxValue", allHumanStatisMaxValue);
 		
+		//전체 인구 통계 최솟값
+		int allHumanStatisMinValue = localService.humanAllStatisMinValue(changeDong);
+		model.addAttribute("allHumanMinValue", allHumanStatisMinValue);
+		
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
 		model.addAttribute("hsDate", hsDateSearch);
@@ -117,6 +133,16 @@ public class LocalController {
 		int genderHumanStatisMaxValue = localService.humanGndrStatisMaxValue(changeDong);
 		model.addAttribute("gndrHumanStatisMaxValue", genderHumanStatisMaxValue);
 		
+		// 성별 인구 통계 최솟값
+		int genderHumanStatisMinValue = localService.humanGndrStatisMinValue(changeDong);
+		model.addAttribute("gndrHumanStatisMinValue", genderHumanStatisMinValue);
+		
+		//남녀 총 성비
+		List<HumanStatisVo> gndrHumanStatisCircle = localService.humanGndrStatisCricle(changeDong);
+		model.addAttribute("gndrHumanStatisCircle",gndrHumanStatisCircle);
+		
+		logger.info("genderMinValue : " + genderHumanStatisMinValue);
+		
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
 		model.addAttribute("hsDate", hsDateSearch);
@@ -138,6 +164,10 @@ public class LocalController {
 		//연령별 인구 통계 최댓값
 		int ageHumanStatisMaxValue = localService.humanAgeStatisMaxValue(changeDong);
 		model.addAttribute("ageHumanStatisMaxValue", ageHumanStatisMaxValue);
+		
+		//연령별 인구 통계 최솟값
+		int ageHumanStatisMinValue = localService.humanAgeStatisMinValue(changeDong);
+		model.addAttribute("ageHumanStatisMinValue", ageHumanStatisMinValue);
 		
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();

@@ -169,21 +169,43 @@ public class StatisDaoTest extends RootSetup{
 		psVo.setTo("2018-12-21");
 
 		/***When***/
+		List<Page_statisticVo> psVoList = new ArrayList<Page_statisticVo>();
 		List<Page_statisticVo> psVoListRaw = statisDao.psDate(psVo);
 		for (Page_statisticVo psVoRaw : psVoListRaw) {
 			for(String splitStr : psVoRaw.getPs_pgList().split(",")) {
-				for(String str : splitStr.split("_")) {
-					if(!str.equals("")) {
-						log.info("결과는: {}입니다",str);
-						
-					}
+				// 새로운 페이지Vo를 만들어
+				Page_statisticVo pageVo = new Page_statisticVo();
+				// 날짜 담기
+				pageVo.setPs_date(psVoRaw.getPs_date());
+				log.info("splitStr {} " , splitStr);
+				if(!splitStr.equals("")) {
+					String[] str = splitStr.split("_");
+					// 페이지명 담기
+					pageVo.setPs_pg(str[0]);
+					// 페이지 방문 수 담기
+					pageVo.setPs_vstr(Integer.parseInt(str[1]));
+					// Unix 날짜 담기
+					pageVo.setPs_dateStr(psVoRaw.getPs_dateStr());
+
+					psVoList.add(pageVo);
 				}
 			}
-				
+
 		}
 
 		/***Then***/
+		for(Page_statisticVo pp : psVoList) {
+			log.info("결과값 {}" ,pp);
+		}
 	
+	}
+	
+	@Test
+	public void pageCount() {
+		
+		List<String> psList = statisDao.pageCount();
+		log.info("페이지는? {}",psList);
+		assertEquals(7, psList.size());
 	}
 	
 	

@@ -112,6 +112,30 @@ public class LocalDao implements LocalDaoInf {
 		return template.selectOne("local.ageHumanStatisMaxValue", dong);
 	}
 
+	@Override
+	public int humanAllStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return template.selectOne("local.allHumanStatisMinValue", dong);
+	}
+
+	@Override
+	public int humanGndrStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return template.selectOne("local.gndrHumanStatisMinValue", dong);
+	}
+
+	@Override
+	public int humanAgeStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return template.selectOne("local.ageHumanStatisMinValue", dong);
+	}
+
+	@Override
+	public List<HumanStatisVo> humanGndrStatisCricle(String dong) {
+		// TODO Auto-generated method stub
+		return template.selectList("local.gndrHumanStatisCricle", dong);
+	}
+
 	
 
 }
