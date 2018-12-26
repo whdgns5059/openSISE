@@ -25,6 +25,17 @@
 }
 
 </style>
+<script src="/js/jquery_3.3.1.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var array;
+		$("#chk2").on("change",function(){
+			if($('input:checkbox[id="chk2"]').is(":checked") == true){
+				array +=  this.value;
+			}
+		});
+	});
+</script>
 </head>
 
 <body class="text-center">
@@ -33,12 +44,11 @@
 	
 		<form action="/login/signupDetail" method="post">
 			<h3 class="logo">관심사 정보 입력</h3>
-			
 			<div class="button">
 				<div class="buttons">
 					<label for="inputEmail" id="chk1">
 						<c:forEach items="${intrstList}" var="mem">
-							<input type="checkbox" id="chk1" name="intrst_nm" value="${mem.intrst_no }"	 required autofocus>${mem.intrst_nm }
+							<input type="checkbox" id="chk2" name="intrst_nm" value="${mem.intrst_no }"	 required autofocus>${mem.intrst_nm}
 						</c:forEach>
 				 	</label>
 				 </div>

@@ -59,6 +59,24 @@ public class LoginService implements LoginServiceInf{
 		// TODO Auto-generated method stub
 		return loginDao.check_nm(mem_nm);
 	}
+	
+	
+	/**
+	 * Method : check_mail 
+	 * 작성자 : 김주연
+	 * 변경이력 :
+	 * 
+	 * @param mem_email
+	 * @return 
+	 * Method 설명 : 회원가입(이메일 중복검사)
+	 */
+	@Override
+	public int check_mail(String mem_email) {
+		// TODO Auto-generated method stub
+		return loginDao.check_mail(mem_email);
+	}
+	
+	
 
 	/**  
 	* Method   : jobList 
@@ -79,32 +97,28 @@ public class LoginService implements LoginServiceInf{
 	* 변경이력 :  
 	* @param 
 	* @return  
-	* Method 설명 :  관심사 리스트 출력
+	* Method 설명 : 회원가입시 관심사 리스트 출력
 	*/
 	@Override
 	public List<MemberVo> interestLiset() {
 		// TODO Auto-generated method stub
 		return loginDao.interestLiset();
 	}
-
+	
 	/**  
-	* Method   : create_key 
+	* Method   : interestInsert 
 	* 작성자 :  김주연
 	* 변경이력 :  
 	* @param 
 	* @return  
-	* Method 설명 :  회원가입 메일인증키 
-	*/
+	* Method 설명 : 회원가입시 관심사 등록
+	
 	@Override
-	public String create_key() {
-		String key = "";
-		Random rd = new Random();
-
-		for (int i = 0; i < 8; i++) {
-			key += rd.nextInt(10);
-		}
-		return key;
+	public List<MemberVo> interestInsert(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		return loginDao.interestInsert(memberVo);
 	}
+	*/
 
 	/**  
 	* Method   : searchUser 
@@ -201,6 +215,9 @@ public class LoginService implements LoginServiceInf{
 	public int mailFinsh(MemberVo memberVo) {
 		return loginDao.mailFinsh(memberVo);
 	}
+
+	
+
 	
 	
 	
