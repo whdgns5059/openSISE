@@ -232,7 +232,7 @@ function setGenderCircle(){
 		 <c:forEach items="${gndrHumanStatisCircle}" var="ghsc">
 			{
 			 	text: '${ghsc.hs_gndr}',
-				values : [${ghsc.hs_hm_no}],
+				values : [${ghsc.hs_hm_no}], 
 				backgroundColor: colorList[i++], 
 				lineWidth: 1,
 				marker: {
