@@ -95,6 +95,7 @@ public class DetailController {
 		model.addAttribute("dealListByArea", dealListByArea);
 		model.addAttribute("monthlyAvg", monthlyAvg);
 		model.addAttribute("dl_ty", dealVo.getDl_ty());
+		model.addAttribute("excv_area", dealVo.getDl_excv_area());
 
 		
 		return "user/detailAjax/chart";
@@ -214,6 +215,19 @@ public class DetailController {
 		detailService.deleteFavor(favorVo.getFavor_no());
 	}
 	
+	
+	@RequestMapping("/totalDeal")
+	public String totalDeal(DealVo dealVo, Model model) {
+
+		List<DealVo> totalDealList = detailService.selectTotalDealList(dealVo);
+	
+		model.addAttribute("dealListByArea", totalDealList);
+		model.addAttribute("dl_ty", dealVo.getDl_ty());
+		
+		return "user/detailAjax/totalDealList";
+		
+		
+	}
 	
 	
 }

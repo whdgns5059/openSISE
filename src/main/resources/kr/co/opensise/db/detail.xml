@@ -65,8 +65,9 @@
 	</insert>		
 	
 	<select id="selectReview" parameterType="articleVo" resultType="postVo">
-		select * from post
+		select post.*, substr(mem_email, 0, 6) || '**********' as mem_email from post, member
 		where post_brd = 1 and post_gu = #{artcl_gu} and post_dong= #{artcl_dong} and post_zip= #{artcl_zip} and post_rd= #{artcl_rd}
+		and post_mem = mem_no
 		order by post_no desc
 	</select>
 	

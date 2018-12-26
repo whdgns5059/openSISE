@@ -51,7 +51,7 @@ var totalPopChart = {
                 "item": {
                     "font-color": "#7e7e7e"
                 },
-                "min-value": 0,
+                "min-value": ${allHumanMinValue}-3000,
             	"max-value": allCnt + 10,
                 "guide": {
                     "visible": true,
@@ -68,7 +68,7 @@ var totalPopChart = {
             "scaleX":{
                // x축
                 "values": [
-                   <c:forEach items="${allHumanStatis}" var= "ahs">
+                   <c:forEach items="${hsDate}" var= "ahs">
                    		${ahs.hs_date},
                    </c:forEach>
                 ],
@@ -103,7 +103,7 @@ var totalPopChart = {
                     "alpha": 0.95,
                     "borderRadiusTopLeft": 7,
                     "background-color": colorList[i++],
-                    "text": "6월",
+                    "text": "총 인구수(명)",
                 }/* ,
                 {
                   // 실제 값

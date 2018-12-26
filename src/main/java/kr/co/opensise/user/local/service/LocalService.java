@@ -12,8 +12,23 @@ import kr.co.opensise.user.local.model.HumanStatisVo;
 @Service
 public class LocalService implements LocalServiceInf {
 	
+	
 	@Resource
 	private LocalDaoInf localDao;
+	
+	/**  
+	* Method   : hsDateSearch 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  날짜 출력
+	*/
+	@Override
+	public List<HumanStatisVo> hsDateSearch() {
+		// TODO Auto-generated method stub
+		return localDao.hsDateSearch();
+	}
+	
 
 	/**  
 	* Method   : humanAllStatistic 
@@ -98,5 +113,35 @@ public class LocalService implements LocalServiceInf {
 		// TODO Auto-generated method stub
 		return localDao.humanAgeStatisMaxValue(dong);
 	}
+
+
+	@Override
+	public int humanAllStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanAllStatisMinValue(dong);
+	}
+
+
+	@Override
+	public int humanGndrStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanGndrStatisMinValue(dong);
+	}
+
+
+	@Override
+	public int humanAgeStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanAgeStatisMinValue(dong);
+	}
+
+
+	@Override
+	public List<HumanStatisVo> humanGndrStatisCricle(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanGndrStatisCricle(dong);
+	}
+
+
 
 }

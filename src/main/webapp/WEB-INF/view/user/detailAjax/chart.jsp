@@ -102,6 +102,8 @@
 	<hr/>
 </div>
 <div>
+	<input type="hidden" name="excv_area" id="excv_area" value="${excv_area }"/>
+	<button class="btn" id="totalDeal">전체 거래 내역</button>
 	<table class="table table-striped">
 		<thead>
 			<c:choose>
@@ -172,9 +174,9 @@
 		<div>
 			<input type="range" id="calcul" value="0"/>
 		</div>
-		<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult"></span><br/>
+		<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
 		<span class="orangetext">1년 평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_price }</span><span  class="orangetext">만원</span><br/>
-		<span class="orangetext">이자 : </span><span class="orangetext" id="inter"></span><br/>
+		<span class="orangetext">이자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
 	</c:when>
 	<c:when test="${dl_ty == '전세' }">
 		<div>
@@ -183,9 +185,9 @@
 		<div>
 			<input type="range" id="calcul" value="0"/>
 		</div>
-		<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult"></span><br/>
+		<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
 		<span class="orangetext">1년 평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_depos}</span><span>만원</span><br/>
-		<span class="orangetext">이자 : </span><span class="orangetext" id="inter"></span><br/>
+		<span class="orangetext">이자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
 	</c:when>
 </c:choose>
 
