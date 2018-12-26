@@ -21,6 +21,7 @@ import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
+import kr.co.opensise.user.detail.model.ReportVo;
 
 public class DetailDaoTest extends RootSetup{
 
@@ -454,6 +455,40 @@ public class DetailDaoTest extends RootSetup{
 
 		/***then***/
 		assertEquals(21, result.getFavor_no());
+		
+	}
+	
+	
+	@Test
+	public void insertReportTest() {
+		
+		/***given***/
+		ReportVo rptVo = new ReportVo();
+		rptVo.setRpt_cntnt("테스트내용");
+		rptVo.setRpt_ttl("테스트 제목");
+		rptVo.setRpt_post(34);
+		rptVo.setRpt_mem(1048);
+		
+		/***when***/
+		int result = detailDao.insertReport(rptVo);
+
+		/***then***/
+		assertEquals(1, result);
+		
+		
+	}
+	
+	@Test 
+	public void deletePicTest() {
+		
+		/***given***/
+		String pic_no = "5";
+		/***when***/
+		int result = detailDao.deletePic(pic_no);
+
+		/***then***/
+		assertEquals(1, result);
+		
 		
 	}
 	
