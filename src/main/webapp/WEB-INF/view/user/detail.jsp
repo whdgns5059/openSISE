@@ -140,15 +140,18 @@
 								<div class="reviewNo">${postVo.post_no }</div>
 								<div class="reviewDate">${postVo.post_date }</div>
 								<div class="reviewTitle">${postVo.post_ttl}</div>
-								<div class="reviewWriter">${postVo.post_mem } </div>
+								<div class="reviewWriter">${postVo.mem_email} </div>
 							</div>
 							<div class="reviewDetailWrapper">
 								<div class="starDivWrapper">
 									<div class="starReview"></div>
 									<div class="starDiv">
-										<input class="reviewStarInput" id="reviewStarRating" type="text" value="${postVo.post_star }"/>
+										<input class="reviewStarInput" id="reviewStarRating" type="hidden" value="${postVo.post_star }"/>
 									</div>
-									<div class="reportDiv"><img src="https://via.placeholder.com/30"/></div>
+									<div class="reportDiv">
+										<img src="https://via.placeholder.com/30"/>
+										<input class="rpt_post" value="${postVo.post_no }" type="hidden" />
+									</div>
 								</div>
 								<div class="photo">
 								</div>
@@ -156,18 +159,20 @@
 									<p>${postVo.post_cntnt }
 									</p>
 								</div>
-								<div class="reviewModify row">
-									<div class="updateReview">
-										<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
-										<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
-										<button class="btn">수정</button>
+								<c:if test="${postVo.post_mem eq nowLogin.mem_no}" >
+									<div class="reviewModify row">
+										<div class="updateReview">
+											<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
+											<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
+											<button class="btn">수정</button>
+										</div>
+										<div class="deleteReview">
+											<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
+											<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
+											<button class="btn">삭제</button>
+										</div>
 									</div>
-									<div class="deleteReview">
-										<input type="hidden" class="post_no" name="post_no" value="${postVo.post_no }"/>
-										<input type="hidden" class="dl_ty" name="dl_ty" value="${dl_ty }"/>
-										<button class="btn">삭제</button>
-									</div>
-								</div>
+								</c:if>
 								<div class="floatclear"></div>
 								<div>
 									<hr/>

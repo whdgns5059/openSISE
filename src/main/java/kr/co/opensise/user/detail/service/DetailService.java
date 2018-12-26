@@ -44,6 +44,8 @@ public class DetailService implements DetailServiceInf{
 		
 		List<PostVo> selectReview = detailDao.selectReview(articleVo);
 		detailMap.put("selectReview", selectReview);
+		
+		
 
 		return detailMap;
 	}
@@ -252,6 +254,11 @@ public class DetailService implements DetailServiceInf{
 	@Override
 	public int selectFavorCount(FavoriteVo favorVo) {
 		return detailDao.selectFavorCount(favorVo);
+	}
+
+	@Override
+	public List<DealVo> selectTotalDealList(DealVo dealVo) {
+		return detailDao.selectDealListByArea(dealVo);
 	}
 
 	

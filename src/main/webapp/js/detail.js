@@ -140,14 +140,6 @@ function reviewControl(){
 }
 
 
-//리뷰 읽기 별
-$(function() {
-    $('.starReview').raty({
-        score: 3
-        ,path : "/img"
-        ,width : 200
-    });
-});
 
 //리뷰 글작성 별
 $(function() {
@@ -231,6 +223,13 @@ $("#reviewWindow").hide();
 //mask  띄우기!
 //검은 막 띄우기
 $(".openMask").click(function(e) {
+	
+	var mem_no = $('#mem_no').val();
+	
+	if(mem_no == "" || mem_no == null){
+		alert("로그인을 먼저 해주세요");
+		return;
+	}
 	
 	e.preventDefault();
 	wrapWindowByMask();
@@ -345,6 +344,15 @@ function getPost_no(rpl_post){
 //댓글 작성
 $('.writeReply').on('click', '.insertReply', function(){
  
+	var mem_no = $('#mem_no').val();
+	
+	if(mem_no == "" || mem_no == null){
+		alert("로그인을 먼저 해주세요");
+		return;
+	}
+	
+	
+	
 	var rpl_cntnt = this.previousElementSibling.getElementsByClassName('replyInput')[0].value;
 	var rpl_post= this.previousElementSibling.getElementsByClassName('post_no')[0].value;
 	
@@ -510,6 +518,43 @@ $('.like').on('click', '.heartimg', function(){
 });
 
 
+
+//리뷰 별점
+
+var starReview = document.getElementsByClassName('starReview');
+setReviewStar(starReview);
+
+function setReviewStar(starReview){
+	
+	for(var i = 0;  i < starReview.length ; i++){
+		
+		$(starReview[i]).raty({
+			score : starReview[i].nextElementSibling.getElementsByClassName('reviewStarInput')[0].value
+			,path : "/img"
+			,width : 400
+			,readOnly: true
+		});
+		
+	}
+	
+	
+}
+
+$('.reportDiv').on('click', function(e){
+	
+	var mem_no = $('#mem_no').val();
+	
+	if(mem_no == "" || mem_no == null){
+		alert("로그인을 먼저 해주세요");
+		return;
+	}
+	
+	//TODO : 신고기능 추가..
+	//어떻게 추가해야하지....??????????
+	//팝업을 이용하면 될듯 ? 
+	 var newWindow = window.open("", "new window", "width=500, height=800");
+	
+});
 
 
 

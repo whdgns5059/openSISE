@@ -104,6 +104,8 @@ public interface DetailServiceInf {
 	FavoriteVo selectFavor(FavoriteVo favorVo);
 	
 	int selectFavorCount(FavoriteVo favorVo);
+
+	List<DealVo> selectTotalDealList(DealVo dealVo);
 	
 }
 
