@@ -20,6 +20,7 @@
 				<th>${management.mem_nm}</th>
 				<th>${management.mem_email}</th>
 				<th>${management.mem_date}</th>
+				
 			</tr>
 		</c:forEach>
 		
