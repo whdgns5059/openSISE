@@ -176,22 +176,13 @@ input:disabled {
 }
 
 
-/* 마스크 띄우기 */
-#mask {  
-    position:absolute;  
-    z-index:9000;  
-    background-color:#000;  
-    display:none;  
-    left:0;
-    top:0;
-} 
 /* 팝업으로 뜨는 윈도우 css  */ 
 .window{
     left: 50%;
     width: 1000px;
     height: 700px;
     background-color: #FFF;
-    z-index: 10000;
+    z-index: 10;
     border-radius: 20px;
     position: fixed;
     margin-left: -25%;

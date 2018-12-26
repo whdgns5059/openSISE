@@ -145,6 +145,7 @@ $(document).ready(function(){
 	},
 	// 작은 컨트롤러
 	legend : {
+		layout: 'float',
 	    toggleAction:'remove',
 	    borderWidth:0,
 	    adjustLayout:true,
@@ -155,7 +156,7 @@ $(document).ready(function(){
 	        type:'circle',
 	        cursor:'pointer',
 	        borderWidth:0,
-	        size:8
+	        size:7
 	    },
 	    item: {
 	        fontColor: "#777",

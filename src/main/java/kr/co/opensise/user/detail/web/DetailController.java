@@ -7,8 +7,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -23,6 +26,7 @@ import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
+import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.service.DetailService;
 import kr.co.opensise.user.detail.service.DetailServiceInf;
 
@@ -229,6 +233,58 @@ public class DetailController {
 		
 	}
 	
+	@RequestMapping("/reportForm")
+	public String reportForm(@RequestParam("rpt_post") String rpt_post, Model model) {
+	
+		model.addAttribute("rpt_post", rpt_post);
+		
+		return "user/detailAjax/reportForm";
+	}
+	
+	
+	@RequestMapping("/reportInsert")
+	@ResponseBody
+	public int reportInsert(ReportVo rptVo, HttpSession session) {
+
+		MemberVo memberVo = (MemberVo) session.getAttribute("nowLogin");
+		rptVo.setRpt_mem(memberVo.getMem_no());
+		
+		int result = detailService.insertReport(rptVo);
+		
+		return result; 
+	}
+
+	
+	@RequestMapping("/updateReviewForm")
+	public String updateReviewForm(@RequestParam("post_no") String post_no, Model model) {
+		
+		PostVo postVo = detailService.selectReviewByNo(post_no);
+		List<PictureVo> picList = detailService.selectReviewPic(postVo);
+		
+		model.addAttribute("postVo", postVo);
+		model.addAttribute("picList", picList);
+		
+		return "user/detailAjax/updateForm";
+	}
+	
+	@RequestMapping("/deletePic")
+	@ResponseBody
+	public int deletePic(@RequestParam("pic_no") String pic_no) {
+		
+		int delResult = detailService.deletePic(pic_no);
+		
+		return delResult;
+	}
+	
+	@RequestMapping("/updateReview")
+	public String updateReview(PostVo postVo, @RequestPart("post_img") List<MultipartFile> parts, HttpServletRequest request) {
+		
+		String path = request.getServletContext().getRealPath("/reviewImg");
+		
+		int result = detailService.updateReview(postVo, parts, path);
+		
+		return "user/detailAjax/updateResult";
+	}
 	
 }
 

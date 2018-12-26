@@ -10,6 +10,7 @@ import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
+import kr.co.opensise.user.detail.model.ReportVo;
 
 public interface DetailDaoInf {
 	
@@ -60,4 +61,10 @@ public interface DetailDaoInf {
 	FavoriteVo selectFavor(FavoriteVo favorVo);
 	
 	int selectFavorCount(FavoriteVo favorVo);
+
+	int insertReport(ReportVo rptVo);
+
+	int deletePic(String pic_no);
+
+	int updateReview(PostVo postVo);
 }

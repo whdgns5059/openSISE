@@ -159,6 +159,18 @@ public class StatisDao implements StatisDaoInf {
 		return psVo;
 	}
 
+	@Override
+	public List<String> pageCount() {
+		List<String> ps_pgList = template.selectList("admin_statis.pageCount");
+		return ps_pgList;
+	}
+
+	@Override
+	public Page_statisticVo pageMax() {
+		Page_statisticVo psVo = template.selectOne("admin_statis.pageMax");
+		return psVo;
+	}
+
 	
 
 	

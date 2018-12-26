@@ -220,6 +220,24 @@ public interface StatisDaoInf {
 	public int insertPS(Map<String, Page_statisticVo> uriCounts);
 	
 	/**
+	* Method : pageCount
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 모든 페이지 종류
+	*/
+	public List<String> pageCount();
+	
+	/**
+	* Method : pageMax
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 가장 많은 페이지 방문 수
+	*/
+	public Page_statisticVo pageMax();
+	
+	/**
 	* Method : psDate
 	* 작성자 : Bella
 	* 변경이력 :
