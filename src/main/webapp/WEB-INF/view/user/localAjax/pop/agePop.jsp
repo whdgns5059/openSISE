@@ -15,7 +15,7 @@ function setChart(){
 var totalPopChart = {
     "graphset": [
         {
-            "type": "bar",
+            "type": "line",
             "background-color": "white",
             "plotarea": {
                 "margin": "dynamic"
@@ -51,8 +51,9 @@ var totalPopChart = {
                 "item": {
                     "font-color": "#7e7e7e"
                 },
-                "min-value": 0,
+                "min-value": 3000,
             	"max-value": allCnt + 10,
+            	"values" : "${ageHumanStatisMinValue}-100 : " + (allCnt+10) + ": 500" , 
                 "guide": {
                     "visible": true,
                     "line-style": "dashed"
@@ -68,10 +69,8 @@ var totalPopChart = {
             "scaleX":{
                // x축
                 "values": [
-                   <c:forEach items="${ageHumanStatisList}" var= "ehs" varStatus="status">
-                   	<c:if test="status % 3 == 0">
+                   <c:forEach items="${hsDate}" var= "ehs">
                    		${ehs.hs_date},
-                   	</c:if>
                    </c:forEach>
                 ],
                 "placement":"default",
@@ -99,25 +98,129 @@ var totalPopChart = {
                   // 실제 값
                     "values": [
                     	
-                    	<c:forEach items="${ageHumanStatisList}" var= "ehs">
-                    		${ehs.hs_hm_no},
+                    	<c:forEach items="${ageHumanStatisList}" var= "ahs">
+                    		<c:if test="${ahs.hs_age_grp == '0~4세'}">
+                    			${ahs.hs_hm_no},
+                    		</c:if>
                     	</c:forEach>
                     ],
                     "alpha": 0.95,
                     "borderRadiusTopLeft": 7,
                     "background-color": colorList[i++],
-                    "text": "6월",
-                }/* ,
+                    "text": "0~4세",
+                } ,
                 {
                   // 실제 값
                     "values": [
-                    	 4,8,5,2,9,2
+                    	<c:forEach items="${ageHumanStatisList}" var= "ahs">
+                		<c:if test="${ahs.hs_age_grp == '5~9세'}">
+                			${ahs.hs_hm_no},
+                		</c:if>
+                	</c:forEach>
                     ],
                     "alpha": 0.95,
                     "borderRadiusTopLeft": 7,
                     "background-color": colorList[i++],
-                    "text": "12월",
-                } */
+                    "text": "5세~9세",
+                },
+                {
+                    // 실제 값
+                      "values": [
+                      	<c:forEach items="${ageHumanStatisList}" var= "ahs">
+                  		<c:if test="${ahs.hs_age_grp == '10~14세'}">
+                  			${ahs.hs_hm_no},
+                  		</c:if>
+                  	</c:forEach>
+                      ],
+                      "alpha": 0.95,
+                      "borderRadiusTopLeft": 7,
+                      "background-color": colorList[i++],
+                      "text": "10~14세",
+                  },
+                  {
+                      // 실제 값
+                        "values": [
+                        	<c:forEach items="${ageHumanStatisList}" var= "ahs">
+                    		<c:if test="${ahs.hs_age_grp == '15~19세'}">
+                    			${ahs.hs_hm_no},
+                    		</c:if>
+                    	</c:forEach>
+                        ],
+                        "alpha": 0.95,
+                        "borderRadiusTopLeft": 7,
+                        "background-color": colorList[i++],
+                        "text": "15~19세",
+                  },
+                  {
+                      // 실제 값
+                        "values": [
+                        	<c:forEach items="${ageHumanStatisList}" var= "ahs">
+                    		<c:if test="${ahs.hs_age_grp == '20~24세'}">
+                    			${ahs.hs_hm_no},
+                    		</c:if>
+                    	</c:forEach>
+                        ],
+                        "alpha": 0.95,
+                        "borderRadiusTopLeft": 7,
+                        "background-color": colorList[i++],
+                        "text": "20~24세",
+                   },
+                   {
+                       // 실제 값
+                         "values": [
+                         	<c:forEach items="${ageHumanStatisList}" var= "ahs">
+                     		<c:if test="${ahs.hs_age_grp == '25~29세'}">
+                     			${ahs.hs_hm_no},
+                     		</c:if>
+                     	</c:forEach>
+                         ],
+                         "alpha": 0.95,
+                         "borderRadiusTopLeft": 7,
+                         "background-color": colorList[i++],
+                         "text": "25~29세",
+                    },
+                    {
+                        // 실제 값
+                          "values": [
+                          	<c:forEach items="${ageHumanStatisList}" var= "ahs">
+                      		<c:if test="${ahs.hs_age_grp == '30~34세'}">
+                      			${ahs.hs_hm_no},
+                      		</c:if>
+                      	</c:forEach>
+                          ],
+                          "alpha": 0.95,
+                          "borderRadiusTopLeft": 7,
+                          "background-color": colorList[i++],
+                          "text": "30~34세",
+                     },
+                     {
+                         // 실제 값
+                           "values": [
+                           	<c:forEach items="${ageHumanStatisList}" var= "ahs">
+                       		<c:if test="${ahs.hs_age_grp == '35~39세'}">
+                       			${ahs.hs_hm_no},
+                       		</c:if>
+                       	</c:forEach>
+                           ],
+                           "alpha": 0.95,
+                           "borderRadiusTopLeft": 7,
+                           "background-color": colorList[i++],
+                           "text": "35~39세",
+                      },
+                      {
+                          // 실제 값
+                            "values": [
+                            	<c:forEach items="${ageHumanStatisList}" var= "ahs">
+                        		<c:if test="${ahs.hs_age_grp == '40~44세'}">
+                        			${ahs.hs_hm_no},
+                        		</c:if>
+                        	</c:forEach>
+                            ],
+                            "alpha": 0.95,
+                            "borderRadiusTopLeft": 7,
+                            "background-color": colorList[i++],
+                            "text": "40~44세",
+                        } 
             ]
         }
     ]
@@ -137,25 +240,23 @@ setChart();
 <div id="myChart"></div>
 <div>
 	<div id="siseTableDiv">
-		<span class="subTitle">나이별 인구표</span>
-		<table id="siseTable">
+		<span class="subTitle">2018년 연령별 인구 표</span>
+		<table id="siseTable" class="table">
 			<thead>
 				<tr>
-					<td>조사일</td>
-					<td>총인구</td>
-					<td>남</td>
-					<td>여</td>
+					<th>연령대</th>
+					<th>인구 수</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach begin="1" end="5">
-					<tr>
-						<td>2018년 10월</td>
-						<td>1000</td>
-						<td>5000</td>
-						<td>5000</td>
-					</tr>
-				</c:forEach>
+			<c:forEach items="${ageHumanStatisList}" var= "ahs">
+				<c:if test="${ahs.hs_date == '201801'}">
+				<tr>
+					<td>${ahs.hs_age_grp}</td>
+					<td>${ahs.hs_hm_no}명</td>
+				</tr>
+				</c:if>
+			</c:forEach>
 			</tbody>
 		</table>
 	</div>
