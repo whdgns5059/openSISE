@@ -46,9 +46,12 @@
  		}else if ($("#building").val() == "office"){
  			var office= document.getElementById("office");
  			office.style.color = "white";
- 		}else{
+ 		}else if($("#building").val() == "store"){
  			var store = document.getElementById("store");
  			store.style.color = "white";
+ 		}else{
+ 			var auction = document.getElementById("auction");
+ 			auction.style.color = "white";
  		}
  		
  		
@@ -98,33 +101,40 @@
 	
 	<!-- 오른쪽 상단 배치// 예: 로그인, 회원가입등 -->
 	<div class="navC">
-	<div class="nav_right">
-		<ul class="top-menu">
-			<!-- memVo가 null인 경우 -->
-			<li><c:if test="${nowLogin == null}">
-					<a href="/login/selectLogin" style="display: inline-block;">로그인</a>&emsp;
-					<a href="/login/signup" style="display: inline-block;" >회원가입</a>
-					</c:if></li>
-			
-			<!-- 관리자일 경우에 생기는 a tag -->
- 				<li><c:if test="${nowLogin.mem_mngr!= null}">
-					${nowLogin.mem_nm} 관리자님 안녕하세요  &emsp;
-					<a href="/manage/dataTrade/dataTrade" style="display: inline-block;">관리정보</a>&emsp;
-					<a href="/login/logout" style="display: inline-block;">로그아웃</a>
-				</c:if></li>
-			
-			<!-- 로그인 한 경우에 생기는 a tag  -->
-				<li><c:if test="${nowLogin.mem_nm!= null && nowLogin.mem_mngr == null}">
-					${nowLogin.mem_nm} 님 안녕하세요  &emsp;
-					<a href="/mypage/myInfo" style="display: inline-block;">나의 정보</a>&emsp;
-					<a href="/login/logout" style="display: inline-block;">로그아웃</a>
-				</c:if></li>
-		</ul>
-	</div>
+		<div class="nav_right">
+			<ul class="top-menu">
+				<!-- memVo가 null인 경우 -->
+				<li>
+					<c:if test="${nowLogin == null}">
+						<a href="/login/selectLogin" style="display: inline-block;">로그인</a>&emsp;
+						<a href="/login/signup" style="display: inline-block;" >회원가입</a>
+					</c:if>
+				</li>
+				
+				<!-- 관리자일 경우에 생기는 a tag -->
+	 			<li>
+					<c:if test="${nowLogin.mem_mngr!= null}">
+						${nowLogin.mem_nm} 관리자님 안녕하세요  &emsp;
+						<a href="/manage/dataTrade/dataTrade" style="display: inline-block;">관리정보</a>&emsp;
+						<a href="/login/logout" style="display: inline-block;">로그아웃</a>
+					</c:if>
+				</li>
+				
+				<!-- 로그인 한 경우에 생기는 a tag  -->
+				<li>
+					<c:if test="${nowLogin.mem_nm!= null && nowLogin.mem_mngr == null}">
+						${nowLogin.mem_nm} 님 안녕하세요  &emsp;
+						<a href="/mypage/myInfo" style="display: inline-block;">나의 정보</a>&emsp;
+						<a href="/login/logout" style="display: inline-block;">로그아웃</a>
+					</c:if>
+				</li>
+			</ul>
+		</div>
 	</div>
 </nav>
 
 <!-- 데코 라인 -->
 <div class="navline"></div>
 <!-- navbar끝 -->
+
 
