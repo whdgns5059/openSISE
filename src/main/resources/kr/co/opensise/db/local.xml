@@ -202,5 +202,32 @@
 		group by '70세 이상'
 		order by 1
 	</select>
+	
+	<select id="allHumanTableList" parameterType="humanStatisVo" resultType="humanStatisVo">
+		select substr(h1.hs_date,0,4) ||'년 ' || substr(h1.hs_date,5) || '월' as hs_date, 
+				a.female as hs_gndrf , 
+				b.male hs_gndrm, 
+				sum(hs_hm_no)as hs_hm_no
+		from human_statistic h1 inner join (select hs_date, sum(hs_hm_no)as female 
+		                                    from human_statistic h2 
+		                                    where hs_gndr = '1'
+		                                    and hs_dong like #{dong}||'%'
+		                                    and hs_date >= '201706'
+		                                    group by hs_date
+		                                    order by hs_date)a
+								on(h1.hs_date = a.hs_date)
+								inner join (select h3.hs_date, sum(hs_hm_no)as male 
+								        from human_statistic h3 
+								        where hs_gndr = '0'
+								        and hs_dong like #{dong}||'%'
+								        and hs_date >= '201706'
+								        group by hs_date
+								        order by hs_date) b
+								on (h1.hs_date = b.hs_date)
+		where h1.hs_dong like #{dong}||'%'
+		and h1.hs_date >= '201706'
+		group by h1.hs_date, a.female, b.male
+		order by h1.hs_date      
+	</select>
 
 </mapper>

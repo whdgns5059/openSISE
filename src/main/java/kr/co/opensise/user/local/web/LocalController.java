@@ -103,6 +103,9 @@ public class LocalController {
 	public String totalPop(@RequestParam("dong") String dong, Model model) {
 		
 		String changeDong = dong.substring(0,1);
+		//전체 인구 표
+		List<HumanStatisVo> humanTableList = localService.humanAllTableList(changeDong);
+		model.addAttribute("allTalbeList",humanTableList);
 		
 		//전체 인구 통계
 		List<HumanStatisVo>allHumanStatisList = localService.humanAllStatistic(changeDong);
