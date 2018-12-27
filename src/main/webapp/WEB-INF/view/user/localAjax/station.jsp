@@ -4,7 +4,8 @@
    
 <div>
 	
-교통정보...
+<div class="stationDiv">
+</div>
 
 
 </div>
@@ -12,6 +13,43 @@
 
 <script>
 
-	console.log("스테이션!");
+	
+	function getCenterLatLng(){
+		
+		
+		var center = map.getCenter();
+		
+		var lat = center.getLat();
+		var lng = center.getLng();
+		
+		getList(lat,lng);
+		
+	}
+	
+	function getList(lat, lng){
+		
+		$.ajax({
+			
+			type : 'POST',
+			url : '/localStation/selectStationList',
+			data : {
+				sttn_lat : lat,
+				sttn_lng : lng
+			},
+			success : function(data){
+				setList(data);
+			}
+			
+		});	
+		
+	}
+	
+	function setList(data){
+		
+		$('.stationDiv').html(data);
+			
+	}
+
+	getCenterLatLng();
 
 </script>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="station">
+	
+	<select id="selectStationList" parameterType="stationVo" resultType="stationVo">
+		 select sttn_id, sttn_nm, bus_no, bus_tp, sttn_lat, sttn_lng from station, route, bus
+		where sttn_id = rt_id 
+		and rt_cd = bus_cd
+		and sttn_lat between #{sttn_lat} - 0.005 and #{sttn_lat} + 0.005
+		and sttn_lng between #{sttn_lng} - 0.005 and #{sttn_lng} + 0.005
+		order by sttn_id
+	</select>	
+
+
+</mapper>
