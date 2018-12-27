@@ -25,4 +25,9 @@ public class NoticeService implements NoticeServiceInf {
 		return noticeDao.insertNotice(noticeVo);
 	}
 
+	@Override
+	public PostVo selectNotice(Integer post_no) {
+		return noticeDao.selectNotice(post_no);
+	}
+
 }
