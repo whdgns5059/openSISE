@@ -92,6 +92,11 @@ public class LocalController {
 		return "user/localAjax/etc";
 	}
 	
+	@RequestMapping("/station")
+	public String station( @RequestParam("dong") String dong, Model model) {
+		return "user/localAjax/station";
+	}
+	
 	
 	//인구분석 
 	@RequestMapping("/totalPop")
