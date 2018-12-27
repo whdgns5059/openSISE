@@ -1,5 +1,6 @@
 package kr.co.opensise.user.detail.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,10 +41,21 @@ public class DetailController {
 	@Resource(name="detailService")
 	private DetailServiceInf detailService;
 	
+	List<ArticleVo> searchList = null;
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/info")
 	public String detail(ArticleVo articleVo, @RequestParam("dl_ty") String dl_ty, Model model, HttpSession session) {
-
+		//최근 본 매물 저장
+		if(searchList == null) {
+			searchList= new ArrayList<>();
+			searchList.add(articleVo);
+		}else {
+			searchList.add(articleVo);
+		}
+		//최근 본 매물 session에 저장
+		session.setAttribute("searchList", searchList);
+		
 		
 		
 		Map<String, Object> detailMap = detailService.getDetailInfo(articleVo, dl_ty);
