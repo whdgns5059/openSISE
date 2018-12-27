@@ -39,15 +39,16 @@ public interface LoginServiceInf {
 	 */
 	public int check_nm(String mem_nm);
 	
-	/**  
-	* Method   : create_key 
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @param 
-	* @return  
-	* Method 설명 :  회원가입 메일인증키 
-	*/
-	public String create_key();
+	
+	/**
+	 * Method : check_mail 
+	 * 작성자 : 김주연
+	 * 변경이력 :
+	 * @param mem_email
+	 * @return Method 설명 : 회원가입(이메일 중복검사)
+	 */
+	public int check_mail(String mem_email);
+	
 	
 	
 	/**  
@@ -70,6 +71,17 @@ public interface LoginServiceInf {
 		* Method 설명 :  회원가입시 관심사 리스트 출력
 		*/
 		public List<MemberVo> interestLiset();
+		
+		/**  
+		* Method   : interestInsert 
+		* 작성자 :  김주연
+		* 변경이력 :  
+		* @param 
+		* @return  
+		* Method 설명 :  회원가입시 관심사 등록
+		
+		public List<MemberVo> interestInsert(MemberVo memberVo);
+		*/	
 		
 		/**  
 		* Method   : searchUser 

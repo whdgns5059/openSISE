@@ -30,7 +30,7 @@
 	});
 </script>
 
-<script type="text/javascript">
+<script>
 	function getCookie(cookieName) {
 		//cookieString = > document.cookie
 		var cookies = document.cookie.split("; ");
@@ -54,6 +54,39 @@
 			$("#memNm").val(memberNm);
 			//form 실행
 			$("#fm").submit();
+
+		}); 
+		
+	}); 
+	
+	
+		
+		// 이메일 인증  
+	$(document).ready(function() {
+		$("#duplication2").on("click", function() {
+			// 사용자가 입력한 email을 memEmail 변수에 저장
+			var memberEmail = $("#userId").val();
+			// 파라미터로 보낼 form 태그 안 input(hidden)에 value 값 저장
+			$("#memEmail").val(memberEmail);
+			
+			var memberNm = $("#userNm").val();
+			$("#memNm2").val(memberNm);
+			
+			$.ajax({
+				type : "POST",
+				url : "/login/duplication2",
+				data : {memEmail : memberEmail, memNm : memberNm},
+				success : function(){
+					var html;
+					html += "<span>인증되었습니다.</span>";
+					
+					$("#test").html("");
+					$("#test").html(html);
+					
+				}
+			});
+			//form 실행
+			//$("#fmm").submit();
 
 		}); 
 		
@@ -91,8 +124,8 @@
 	});
 
 	});
-	
-</script>
+
+	</script>
 
 
 
@@ -218,18 +251,6 @@ ul {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 </style>
 </head>
 
@@ -254,16 +275,16 @@ ul {
 									<c:if test="${msg == 0}">
 										<span id="y"> 사용가능한 닉네임 입니다.</span>
 									</c:if>
-									<c:if test="${msg == 1}">
+									<c:if test="${msg >= 1}">
 										<span id="n">* 중복된 닉네임 입니다.</span>
 									</c:if>
 								</div>
 						</label>
 						</li>
 						<li><label for="inputEmail" id="necessary"> <span>*</span>
-								<input type="email" id="userId" name="mem_email"
+								<input type="email" id="userId" name="mem_email" value="${param.memEmail}"
 								class="form-control" placeholder="이메일을 입력하세요" required autofocus>
-
+								<div id="test"></div>
 						</label></li>
 						<li><label for="inputEmail" id="necessary"> <span>*</span>
 								<input type="password" id="inputPassword" name="mem_pass"
@@ -299,7 +320,7 @@ ul {
 				<div class="logoInputBtn">
 					<ul>
 						<li><input type="submit" id="duplication" class="form-control" value="중복확인" /></li>
-						<li><input type="button" id="duplication2" class="form-control" value="인증" /></li>
+						<li><input type="submit" id="duplication2" class="form-control" value="인증" /></li>
 					</ul>
 				</div>
 				<div class="submitBtnDiv">
@@ -468,16 +489,15 @@ ul {
 
 	</div>
 
-
-
-
-
-
-
-
 	<form action="/login/duplication" id="fm" method="post">
 		<input type="hidden" id="memNm" name="memNm">
 	</form>
+	
+	<form id="fmm" method="post">
+		<input type="hidden" id="memEmail" name="memEmail">
+		<input type="hidden" id="memNm2" name="memNm">
+	</form>
+	
 
 
 </body>

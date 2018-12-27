@@ -4,6 +4,6 @@
 
 <c:forEach items="${pictureList }" var="pVo">
 	<div>
-		<img src="${pVo.pic_file_path }"/>
+		<img src="${pVo.pic_file_path }" width="300" height="auto"/>
 	</div>
 </c:forEach>

@@ -65,9 +65,9 @@ public class LocalDao implements LocalDaoInf {
 	* Method 설명 :  월별, 연령별 인구 통계
 	*/
 	@Override
-	public List<HumanStatisVo> humanAgeStatistic(String dong) {
+	public List<HumanStatisVo> humanAgeStatistic(HumanStatisVo humanVo) {
 		// TODO Auto-generated method stub
-		return template.selectList("local.ageHumanStatis", dong);
+		return template.selectList("local.ageHumanStatis", humanVo);
 	}
 
 	/**  
@@ -107,9 +107,9 @@ public class LocalDao implements LocalDaoInf {
 	* Method 설명 :  연령별 인구 통계 최댓값
 	*/
 	@Override
-	public int humanAgeStatisMaxValue(String dong) {
+	public int humanAgeStatisMaxValue(HumanStatisVo humanVo) {
 		// TODO Auto-generated method stub
-		return template.selectOne("local.ageHumanStatisMaxValue", dong);
+		return template.selectOne("local.ageHumanStatisMaxValue", humanVo);
 	}
 
 	@Override
@@ -125,15 +125,27 @@ public class LocalDao implements LocalDaoInf {
 	}
 
 	@Override
-	public int humanAgeStatisMinValue(String dong) {
+	public int humanAgeStatisMinValue(HumanStatisVo humanVo) {
 		// TODO Auto-generated method stub
-		return template.selectOne("local.ageHumanStatisMinValue", dong);
+		return template.selectOne("local.ageHumanStatisMinValue", humanVo);
 	}
 
 	@Override
 	public List<HumanStatisVo> humanGndrStatisCricle(String dong) {
 		// TODO Auto-generated method stub
 		return template.selectList("local.gndrHumanStatisCricle", dong);
+	}
+
+	@Override
+	public List<HumanStatisVo> ageList() {
+		// TODO Auto-generated method stub
+		return template.selectList("local.ageList");
+	}
+
+	@Override
+	public List<HumanStatisVo> ageCircle(HumanStatisVo humanVo) {
+		// TODO Auto-generated method stub
+		return template.selectList("local.ageCircle", humanVo);
 	}
 
 	

@@ -82,48 +82,6 @@ public class DataEtcService implements DataEtcServiceInf {
 	}
 
 
-	/**
-	* Method : selectInstiAttr
-	* 작성자 : ASUS
-	* 변경이력 :
-	* @param iattr_insti
-	* @return
-	* Method 설명 :시설물별로 list를 만들어 화면에 보여주기 위해 map에 담기
-	*/
-/*	@Override
-	public List<List<InstiAttrVo>> selectInstiAttr(int iattr_insti) {
-		
-		//시설물 리스트 가지고 오기
-		List<InstiAttrVo> instiAttrList = dataEtcDao.selectInstiAttr(iattr_insti);
-		
-		//시설물별로 저장할 리스트들을 담을 BigList
-		List<List<InstiAttrVo>> bList = new ArrayList<List<InstiAttrVo>>();
-		
-		//시설물 구별을 위해 시설물이름을 모아놓은 SmallList
-		List<InstiAttrVo> sList = null;
-		
-//		for(int i=0;i<instiAttrList.size();i++) {
-//			if(instiAttrList.get(i).getLevel()==1) {
-//				if(sList !=null) {
-//					bList.add(sList);
-//				}
-//				sList = new ArrayList<InstiAttrVo>();
-//			}
-//			
-//			sList.add(instiAttrList.get(i));
-//		}
-		
-		for(int i=0;i<instiAttrList.size();i++) {
-			if(instiAttrList.get(i).getGroupno()==instiAttrList.get(i+1).getGroupno()) {
-				
-			}
-		}
-		
-		bList.add(sList);
-		
-		return bList;
-	}
-*/
 	@Override
 	public int insertInstiattr(InstiAttrVo instiAttrVo) {
 		return dataEtcDao.insertInstiattr(instiAttrVo);

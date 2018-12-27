@@ -63,4 +63,8 @@ public interface DetailDaoInf {
 	int selectFavorCount(FavoriteVo favorVo);
 
 	int insertReport(ReportVo rptVo);
+
+	int deletePic(String pic_no);
+
+	int updateReview(PostVo postVo);
 }

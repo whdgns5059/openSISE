@@ -57,6 +57,22 @@ public class LoginDao implements LoginDaoInf{
 			return chk_nm;
 		}
 		
+		
+		
+		/**
+		 * Method : check_mail 
+		 * 작성자 : 김주연
+		 * 변경이력 :
+		 * 
+		 * @param mem_email
+		 * @return 
+		 * Method 설명 : 회원가입(이메일 중복검사)
+		 */
+		@Override
+		public int check_mail(String mem_email) {
+			int chk_email = template.selectOne("member.check_mail", mem_email);
+			return chk_email;
+		}
 				
 	/**  
 	* Method   : jobList 
@@ -79,13 +95,15 @@ public class LoginDao implements LoginDaoInf{
 	* 변경이력 :  
 	* @param 
 	* @return  
-	* Method 설명 :  관심사 리스트 출력
+	* Method 설명 : 회원가입시 관심사 리스트 출력
 	*/
 	@Override
 	public List<MemberVo> interestLiset() {
 		List<MemberVo> interestLiset = template.selectList("member.interest");		
 		return interestLiset;
 	}
+	
+	
 
 	
 	@Override
@@ -202,6 +220,9 @@ public class LoginDao implements LoginDaoInf{
 		int mailFinsh = template.update("member.mailFinsh", memberVo);
 		return mailFinsh;
 	}
+
+	
+	
 		
 }
 

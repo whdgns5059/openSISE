@@ -38,7 +38,7 @@
 		</div>		
 		<div>
 			<input type="button" class="btn" id="rpt_ok" value="확인"/>
-			<input type="button" class="btn" id="cancel" value="취소"/>
+			<input type="button" class="btn close" id="cancel" value="취소"/>
 		</div>	
 	</form>
 </div>	

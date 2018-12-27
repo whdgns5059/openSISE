@@ -148,6 +148,16 @@ public class DetailDao implements DetailDaoInf{
 	public int insertReport(ReportVo rptVo) {
 		return template.insert("detail.insertReport", rptVo);
 	}
+
+	@Override
+	public int deletePic(String pic_no) {
+		return template.delete("detail.deletePic", pic_no);
+	}
+
+	@Override
+	public int updateReview(PostVo postVo) {
+		return template.update("detail.updateReview", postVo);
+	}
 	
 	
 

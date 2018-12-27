@@ -16,6 +16,8 @@ import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.manage.datatrade.model.DealVo;
 import kr.co.opensise.setup.ControllerSetup;
 import kr.co.opensise.user.detail.model.AvgTradeVo;
+import kr.co.opensise.user.detail.model.PictureVo;
+import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 
 public class DetailControllerTest extends ControllerSetup{
@@ -107,7 +109,34 @@ public class DetailControllerTest extends ControllerSetup{
 		assertEquals("5", post_no);
 		
 	}
-	
+
+	@Test
+	public void reviewUpdateTest() throws Exception {
+		
+		
+		/***given***/
+		MvcResult mvcResult = mockMvc.perform(post("/detail/updateReview").param("post_no", "43")).andReturn();
+		ModelAndView mav = mvcResult.getModelAndView();
+		
+		/***when***/
+		PostVo postVo = (PostVo) mav.getModel().get("postVo");
+		List<PictureVo> picList = (List<PictureVo>) mav.getModel().get("picList");
+
+		/***then***/
+		log.info("postVo : {}", postVo);
+		for(PictureVo picVo : picList) {
+			
+			log.info("picVo : {}", picVo);
+			
+		}
+		
+		assertEquals(3, picList.size());
+				
+		
+		
+		
+		
+	}
 	
 	
 	

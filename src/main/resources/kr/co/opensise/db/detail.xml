@@ -235,6 +235,18 @@
 		insert into report (rpt_no, rpt_post, rpt_cntnt, rpt_date, rpt_classf, rpt_mem, rpt_ttl)	
 		values (seq_rpt_no.nextval, #{rpt_post}, #{rpt_cntnt}, sysdate, null, #{rpt_mem}, #{rpt_ttl})
 	</insert>
+
+	<delete id="deletePic" parameterType="String">
+		delete picture
+		where pic_no = #{string}	
+	</delete>
+	
+	<update id="updateReview" parameterType="postVo">
+		update post
+		set post_ttl = #{post_ttl}, post_cntnt = #{post_cntnt}
+		where post_no = #{post_no}
+	</update>	
+	
 	
 </mapper>
 

@@ -6,6 +6,7 @@ public class HumanStatisVo {
 	private String hs_age_grp;
 	private String hs_date;
 	private int hs_hm_no;
+	private String dong;
 	
 	
 	public String getHs_dong() {
@@ -38,5 +39,12 @@ public class HumanStatisVo {
 	public void setHs_hm_no(int hs_hm_no) {
 		this.hs_hm_no = hs_hm_no;
 	}
+	public String getDong() {
+		return dong;
+	}
+	public void setDong(String dong) {
+		this.dong = dong;
+	}
+	
 
 }
