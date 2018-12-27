@@ -27,6 +27,7 @@ import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 import kr.co.opensise.user.detail.model.ReportVo;
+import kr.co.opensise.user.detail.model.Report_classfVo;
 import kr.co.opensise.user.detail.service.DetailService;
 import kr.co.opensise.user.detail.service.DetailServiceInf;
 
@@ -237,8 +238,12 @@ public class DetailController {
 	
 	@RequestMapping("/reportForm")
 	public String reportForm(@RequestParam("rpt_post") String rpt_post, Model model) {
-	
+		// 게시글 번호
 		model.addAttribute("rpt_post", rpt_post);
+		
+		// 신고 분류
+		List<Report_classfVo> rpt_cfList = detailService.getRpt_classf();
+		model.addAttribute("rpt_cfList", rpt_cfList);
 		
 		return "user/detailAjax/reportForm";
 	}

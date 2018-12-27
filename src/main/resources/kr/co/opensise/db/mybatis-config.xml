@@ -46,6 +46,7 @@
 		<typeAlias type="kr.co.opensise.user.detail.model.ReplyVo" alias="replyVo"/>
 		<typeAlias type="kr.co.opensise.user.detail.model.PictureVo" alias="pictureVo"/>
 		<typeAlias type="kr.co.opensise.user.detail.model.ReportVo" alias="reportVo"/>
+		<typeAlias type="kr.co.opensise.user.detail.model.Report_classfVo" alias="rpt_cfVo"/>
 
 		
 	</typeAliases>

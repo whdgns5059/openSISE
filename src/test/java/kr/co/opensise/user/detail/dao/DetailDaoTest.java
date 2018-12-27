@@ -22,6 +22,7 @@ import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 import kr.co.opensise.user.detail.model.ReportVo;
+import kr.co.opensise.user.detail.model.Report_classfVo;
 
 public class DetailDaoTest extends RootSetup{
 
@@ -511,6 +512,20 @@ public class DetailDaoTest extends RootSetup{
 		assertEquals(4.2f, result, 1e-1);
 		
 	}
+	
+	@Test
+	public void getRpt_classf() {
+		/***Given***/
+
+		/***When***/
+		List<Report_classfVo> rpt_cfList = detailDao.getRpt_classf();
+		
+		/***Then***/
+		for(Report_classfVo rptVo : rpt_cfList)
+			log.info("신고 분류 {}",rptVo);
+		
+	}
+		
 	
 }
 

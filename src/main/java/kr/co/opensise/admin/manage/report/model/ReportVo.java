@@ -9,6 +9,7 @@ public class ReportVo {
 	private String rpt_classf;
 	private int rpt_mem;
 	private String rpt_ttl;
+	private String rpt_exst;
 	
 	public ReportVo() {
 	}
@@ -54,11 +55,19 @@ public class ReportVo {
 	public void setRpt_no(int rpt_no) {
 		this.rpt_no = rpt_no;
 	}
+	public String getRpt_exst() {
+		return rpt_exst;
+	}
+	public void setRpt_exst(String rpt_exst) {
+		this.rpt_exst = rpt_exst;
+	}
 	@Override
 	public String toString() {
-		return "ReportVo [rpt_ttl=" + rpt_ttl + ", rpt_mem=" + rpt_mem + ", rpt_classf=" + rpt_classf + ", rpt_date="
-				+ rpt_date + ", rpt_cntnt=" + rpt_cntnt + ", rpt_post=" + rpt_post + ", rpt_no=" + rpt_no + "]";
+		return "ReportVo [rpt_no=" + rpt_no + ", rpt_post=" + rpt_post + ", rpt_cntnt=" + rpt_cntnt + ", rpt_date="
+				+ rpt_date + ", rpt_classf=" + rpt_classf + ", rpt_mem=" + rpt_mem + ", rpt_ttl=" + rpt_ttl
+				+ ", rpt_exst=" + rpt_exst + "]";
 	}
+	
 	
 	
 

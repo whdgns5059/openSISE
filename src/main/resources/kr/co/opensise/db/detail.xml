@@ -230,10 +230,15 @@
 		delete favorite
 		where favor_no = #{int}
 	</delete>
+	
+	<!-- 신고 분류 리스트 가져오기 -->
+	<select id="getRpt_classf" resultType="rpt_cfVo">
+		Select rpt_classf, rpt_cf_nm From report_classf
+	</select>
 
 	<insert id="insertReport" parameterType="reportVo">
-		insert into report (rpt_no, rpt_post, rpt_cntnt, rpt_date, rpt_classf, rpt_mem, rpt_ttl)	
-		values (seq_rpt_no.nextval, #{rpt_post}, #{rpt_cntnt}, sysdate, null, #{rpt_mem}, #{rpt_ttl})
+		insert into report (rpt_no, rpt_post, rpt_cntnt, rpt_date, rpt_classf, rpt_mem, rpt_ttl, rpt_exst)	
+		values (seq_rpt_no.nextval, #{rpt_post}, #{rpt_cntnt}, sysdate, #{rpt_classf}, #{rpt_mem}, #{rpt_ttl}, 'N')
 	</insert>
 
 	<delete id="deletePic" parameterType="String">

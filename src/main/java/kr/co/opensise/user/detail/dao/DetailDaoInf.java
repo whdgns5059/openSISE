@@ -11,6 +11,7 @@ import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 import kr.co.opensise.user.detail.model.ReportVo;
+import kr.co.opensise.user.detail.model.Report_classfVo;
 
 public interface DetailDaoInf {
 	
@@ -62,6 +63,15 @@ public interface DetailDaoInf {
 	
 	int selectFavorCount(FavoriteVo favorVo);
 
+	/**
+	* Method : getRpt_classf
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 신고 분류 리스트 가져오기
+	*/
+	List<Report_classfVo> getRpt_classf();
+	
 	int insertReport(ReportVo rptVo);
 
 	int deletePic(String pic_no);

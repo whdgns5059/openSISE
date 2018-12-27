@@ -22,6 +22,7 @@ import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 import kr.co.opensise.user.detail.model.ReportVo;
+import kr.co.opensise.user.detail.model.Report_classfVo;
 import kr.co.opensise.util.CommonUtil;
 
 @Service
@@ -252,7 +253,12 @@ public class DetailService implements DetailServiceInf{
 	public List<DealVo> selectTotalDealList(DealVo dealVo) {
 		return detailDao.selectDealListByArea(dealVo);
 	}
-
+	
+	@Override
+	public List<Report_classfVo> getRpt_classf() {
+		return detailDao.getRpt_classf();
+	}
+	
 	@Override
 	public int insertReport(ReportVo rptVo) {
 		return detailDao.insertReport(rptVo);
@@ -315,6 +321,7 @@ public class DetailService implements DetailServiceInf{
 		}
 	}
 
+	
 
 }
 

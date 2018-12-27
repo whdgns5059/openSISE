@@ -7,5 +7,9 @@
 	<div class="hr2">
 	</div>
 	
+	<div>
+		<button class="btn" >신고 분류 관리</button>
+	</div>
+	
 	
 </div>
