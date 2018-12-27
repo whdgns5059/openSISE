@@ -203,7 +203,7 @@ function setGenderCircle(){
 	},
 	// 작은 컨트롤러
 	legend : {
-		layout: 'x8',
+		layout: 'float',
 	    toggleAction:'remove',
 	    borderWidth:0,
 	    adjustLayout:true,
@@ -259,6 +259,6 @@ setGenderCircle();
 <div>
 	<div id="siseTableDiv">
 		<span class="subTitle">남여 비율 그래프</span>
-		<div id="genderCircle" style="height: 500px;"></div>
+		<div id="genderCircle" style="height: 600px;"></div>
 	</div>
 </div>

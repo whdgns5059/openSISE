@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+
+
+	<!-- 삭제 되지 않은 모든 리뷰 검색 -->
+	<select id="searchAllReview" resultType="reviewVo">
+		select rownum, 
+			   rpl_no,
+		       rpl_cntnt, 
+		       rpl_date, 
+		       mem_email
+		from reply inner join member on(rpl_mem = mem_no)
+		where rpl_exst = 'N'
+	</select>
+
+	<!-- 개별 회원이 작성한 리뷰 검색 -->
+	<!-- <select id="searchMemberReview" parameterType="reviewVo"
+		resultType="reviewVo">
+
+	</select> -->
+	
+	<!-- 검색 항목 별 리뷰 검색 -->
+	<select id="cateSearchList" parameterType="map" resultType="reviewVo">
+		select rownum, 
+			   rpl_no,
+		       rpl_cntnt, 
+		       rpl_date, 
+		       mem_email
+		from reply inner join member on(rpl_mem = mem_no)
+		where rpl_exst = 'N'
+		<if test="selBox == 'email'">
+			and mem_email like #{searchNm} || '%'
+		</if>
+		<if test="selBox == 'date'">
+			and rpl_date = #{searchNm} 
+		</if>
+	</select>
+</mapper>

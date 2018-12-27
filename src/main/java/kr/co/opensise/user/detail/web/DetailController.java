@@ -41,7 +41,8 @@ public class DetailController {
 	@Resource(name="detailService")
 	private DetailServiceInf detailService;
 	
-	List<ArticleVo> searchList = null;
+	//최근 본 매물 저장 리스트
+	private List<ArticleVo> searchList = null;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/info")
