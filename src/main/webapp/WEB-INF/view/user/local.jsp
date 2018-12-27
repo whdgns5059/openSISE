@@ -14,6 +14,9 @@
 		var addr;
 		
 		var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+	    mapContainer.style.width = '650px';
+	    mapContainer.style.height = '1000px'; 
+	    
 		mapOption = {
 			center : new daum.maps.LatLng(36.3505393936125,127.38483389033713), // 지도의 중심좌표
 			level : 3
