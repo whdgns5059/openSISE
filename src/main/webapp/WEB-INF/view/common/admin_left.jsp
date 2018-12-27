@@ -52,7 +52,7 @@ ul { list-style : none; }
 		<li><b>사이트 관리</b></li>
 		<li><a href="/manage/notice/notice">공지사항</a></li>
 		<li><a href="/manage/review/review">리뷰관리</a></li>
-		<li><a href="/manage/report/report">신고관리</a></li>
+		<li><a href="/manage/report">신고관리</a></li>
 		<li><a href="/manage/ban/ban">금지어 관리</a></li>
 	</ul>
 	<hr/>
