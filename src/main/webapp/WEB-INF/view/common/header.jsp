@@ -49,7 +49,7 @@
  		}else if($("#building").val() == "store"){
  			var store = document.getElementById("store");
  			store.style.color = "white";
- 		}else{
+ 		}else if($("#building").val() == "auction"){
  			var auction = document.getElementById("auction");
  			auction.style.color = "white";
  		}
@@ -59,19 +59,23 @@
  	
 	function switchPage(bc) {
 		var building = bc.id;
-		var searchName = document.getElementById('loc').value;
-		//document.getElementById("loc").value = "";
-
-		$("#building").val(building);
-		$("#searchName").val(searchName);
-
-		$("#fmi").submit();
-
+		
+		/* 시세 페이지와 경매 페이지 구분하기 */
+		if(building == 'auction'){
+			location.href = "/auction/auction";
+		}else{
+			var searchName = document.getElementById('loc').value;
+	
+			$("#building").val(building);
+			$("#searchName").val(searchName);
+	
+			$("#fmi").submit();
+		}
 	}
 </script>
 
 <script type="text/javascript">
-	var test = "${nowLogin.mem_nm}"
+	var test = "${nowLogin.mem_nm}";
 </script>
 
 <!-- navbar시작 -->

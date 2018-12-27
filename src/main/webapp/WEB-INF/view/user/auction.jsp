@@ -161,25 +161,14 @@
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
 		
+		settingMap(0.0);
+		
 		function settingMap(x,y){
 			var lat;
 			var lng;
-			if ($("#loc").val() == "") {
-				// 검색값이 없을 때 시청으로 기본 좌표값 설정
-				lat = 36.3505393936125;
-				lng = 127.38483389033713;
-			}else if($("#listSize").val() == "0"){
-				lat = $("#latX").val();
-				lng = $("#lngY").val();
-			}else if(x == 0 && y == 0) {
-				// 해당 주소에 대한 좌표값을 담을 변수
-				lat = $(".lat").val(); //위도
-				lng = $(".lng").val(); //경도
-			}else{
-				lat = x;
-				lng = y;
-			}
-
+			lat = 36.3505393936125;
+			lng = 127.38483389033713;
+			
 			// 해당 주소를 담을 값
 			var addr;
 
@@ -296,14 +285,10 @@
 	<!-- 지도 -->
 	<div id="mapWrap">
 		<div id="map"></div>
-		<div class="toLocal">
-			<img src="https://via.placeholder.com/100x100/fd7e14?text=TO_LOCAL" />
-		</div>
 	</div>
 </div>
 
 <!-- right contents -->
-<!-- <div id="sensor">  -->
 <div class="main-right">
 	<!-- 매물리스트 들어가는 자리 -->
 	
@@ -313,10 +298,7 @@
 <!-- 매물리스트  -->
 	<div class="articles">
 	<form action="/detail/info" id="frmDetail">
-		<input type="hidden" id="artcl_gu" name="artcl_gu">
-		<input type="hidden" id="artcl_dong" name="artcl_dong">
-		<input type="hidden" id="artcl_zip" name="artcl_zip">
-		<input type="hidden" id="artcl_rd" name="artcl_rd">
+		
 		<input type="hidden" id="ty" name="dl_ty" value ="${dlType}">
 	</form>
 		<c:choose>
@@ -375,13 +357,7 @@
 		</c:otherwise>
 		</c:choose>
 	</div>
-	<!-- 지역분석 버튼 -->
-	<!-- <div class="area-analysis">
-		2
-	</div> -->
-	</div>
-<!-- </div> 
- -->
+</div>
 
 
 
