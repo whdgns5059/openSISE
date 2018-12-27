@@ -21,6 +21,7 @@ import kr.co.opensise.user.detail.model.AvgTradeVo;
 import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
+import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.util.CommonUtil;
 
 @Service
@@ -97,43 +98,14 @@ public class DetailService implements DetailServiceInf{
 		
 		int post_no = postVo.getPost_no();
 		
-		for(MultipartFile part : parts) {
-			
-			String uuidName = UUID.randomUUID().toString();
-			String originalName = part.getOriginalFilename();
-			String fileExt = CommonUtil.getFileExt(originalName);
-			
-			if(!(part.getSize() == 0 || part.isEmpty() || part.getOriginalFilename().equals(""))) {
-				
-				PictureVo pictureVo = new PictureVo();
-				pictureVo.setPic_file_path("/reviewImg/"+uuidName+fileExt);
-				pictureVo.setPic_file_nm(originalName);
-				pictureVo.setPic_post(post_no);
-				pictureVo.setPic_uuid(uuidName);
-				
-				File file = new File(path + File.separator + uuidName + fileExt);
-				
-				try {
-					part.transferTo(file);
-				} catch (IllegalStateException | IOException e) {
-					e.printStackTrace();
-				}
-			
-				int picInsert = detailDao.insertPicture(pictureVo);
-				
-				
-			}
-			
-			
-			
-			
-			
-		}
+		insertFile(parts, path, post_no);
 		
 		
 		return insertResult;
 		
 	}
+
+
 
 	@Override
 	public int insertReply(ReplyVo replyVo) {
@@ -261,9 +233,67 @@ public class DetailService implements DetailServiceInf{
 		return detailDao.selectDealListByArea(dealVo);
 	}
 
+	@Override
+	public int insertReport(ReportVo rptVo) {
+		return detailDao.insertReport(rptVo);
+	}
+
+	@Override
+	public int deletePic(String pic_no) {
+		return detailDao.deletePic(pic_no);
+	}
+
+	@Override
+	public int updateReview(PostVo postVo, List<MultipartFile> parts, String path) { 
+		
+		int result = detailDao.updateReview(postVo);
+		
+		if(!(parts.size() == 0 || parts == null || parts.isEmpty())) {
+			insertFile(parts, path, postVo.getPost_no());
+		}
+		
+		return result;
+	}
+
 	
 	
 
+	
+	
+	
+	
+	
+	
+	//파일 인서트 메소드...
+	private void insertFile(List<MultipartFile> parts, String path, int post_no) {
+		for(MultipartFile part : parts) {
+			
+			String uuidName = UUID.randomUUID().toString();
+			String originalName = part.getOriginalFilename();
+			String fileExt = CommonUtil.getFileExt(originalName);
+			
+			if(!(part.getSize() == 0 || part.isEmpty() || part.getOriginalFilename().equals(""))) {
+				
+				PictureVo pictureVo = new PictureVo();
+				pictureVo.setPic_file_path("/reviewImg/"+uuidName+fileExt);
+				pictureVo.setPic_file_nm(originalName);
+				pictureVo.setPic_post(post_no);
+				pictureVo.setPic_uuid(uuidName);
+				
+				File file = new File(path + File.separator + uuidName + fileExt);
+				
+				try {
+					part.transferTo(file);
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+			
+				int picInsert = detailDao.insertPicture(pictureVo);
+				
+				
+			}
+		}
+	}
 
 
 }

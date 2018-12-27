@@ -1,5 +1,10 @@
 package kr.co.opensise.admin.statis.web;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -153,13 +158,10 @@ public class StatisController {
 	@RequestMapping(value="/pageCount", method=RequestMethod.GET)
 	public String pageCount(Model model) {
 		
-		// 방문 수 최대치
-		VisitorVo maxCnt = statisService.maxVisit();
-		model.addAttribute("maxCnt", maxCnt);
+		// 가장 많은 페이지 방문 수
+		Page_statisticVo pageMax = statisService.pageMax();
+		model.addAttribute("pageMax", pageMax);
 
-		// 일별 페이지 방문 수
-		
-				
 		// 페이지별 페이지 방문 수
 		List<Page_statisticVo> psPage = statisService.psPage();
 		model.addAttribute("psPage", psPage);
@@ -167,8 +169,53 @@ public class StatisController {
 		return "statis/pageCount";
 	}
 	
+	@RequestMapping(value="/pageCountAjax", method=RequestMethod.POST)
+	public String pageCountAjax(Model model, @RequestParam("from") Date from,  @RequestParam("to") Date to){
+		
+		// 모든 페이지 종류
+		List<String> pageCount = statisService.pageCount();
+		model.addAttribute("pageCount", pageCount);
+		
+		// 가장 많은 페이지 방문 수
+		Page_statisticVo pageMax = statisService.pageMax();
+		model.addAttribute("pageMax", pageMax);
+		
+		Page_statisticVo psVo = new Page_statisticVo();
+		if(from != null && to != null) {
+			// 날짜를 DB 접속 전에 원하는 format으로 바꿔주기
+			String strFrom = convertDateToString(from);
+			String strTo = convertDateToString(to);
+			psVo.setFrom(strFrom);
+			psVo.setTo(strTo);
+			System.out.println("날짜 문자열로 바꾸기 "+psVo);
+		}else if(from == null || to == null) {
+			// 날짜가 하나라도 null값이면 아예 null로 바꾸어 쿼리의 조건절 발동 재제
+			psVo = null;
+		}
+		
+		// 일별 페이지 방문 수
+		List<Page_statisticVo> psDate = statisService.psDate(psVo);
+		System.out.println("DB 결과값 psDate는 "+psDate);
+		
+		model.addAttribute("psDate", psDate);
+		
+		return "/admin/statis/ajax/pageCountAjax";
+	}
 	
-	
+	/**
+	* Method : convertDateToString
+	* 작성자 : Bella
+	* 변경이력 :
+	* @param date
+	* @return
+	* Method 설명 : 날짜를 문자열로 변환하는 메서드
+	*/
+	public String convertDateToString(Date date) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String strDate = dateFormat.format(date);
+		
+		return strDate;
+	}
 	
 	
 	

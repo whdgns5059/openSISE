@@ -11,6 +11,7 @@
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketVo" alias="marketVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo" alias="marketDetailVo"/>
 		<typeAlias type="kr.co.opensise.user.main.model.BuildingSaleVo" alias="buildingSaleVo"/>
+		<typeAlias type="kr.co.opensise.admin.manage.member.model.ManagementVo" alias="managementVo"/>
 		
 		<!-- local(지역분석) 관련 alias setting -->
 		<typeAlias type="kr.co.opensise.user.local.model.HumanStatisVo" alias="humanStatisVo"/>
@@ -43,6 +44,8 @@
 		<typeAlias type="kr.co.opensise.user.detail.model.PostVo" alias="postVo"/>
 		<typeAlias type="kr.co.opensise.user.detail.model.ReplyVo" alias="replyVo"/>
 		<typeAlias type="kr.co.opensise.user.detail.model.PictureVo" alias="pictureVo"/>
+		<typeAlias type="kr.co.opensise.user.detail.model.ReportVo" alias="reportVo"/>
+
 		
 	</typeAliases>
 
@@ -56,5 +59,6 @@
 		<mapper resource="kr/co/opensise/db/notice.xml" />
 		<mapper resource="kr/co/opensise/db/local.xml" />
 		<mapper resource="kr/co/opensise/db/market.xml" />
+		<mapper resource="kr/co/opensise/db/admin_management.xml" />
 	</mappers>
 </configuration>

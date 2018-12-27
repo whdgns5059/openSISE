@@ -40,6 +40,16 @@ public interface LoginDaoInf {
 	public int check_nm(String mem_nm);
 	
 	
+	/**
+	 * Method : check_mail 
+	 * 작성자 : 김주연
+	 * 변경이력 :
+	 * @param mem_email
+	 * @return Method 설명 : 회원가입(이메일 중복검사)
+	 */
+	public int check_mail(String mem_email);
+	
+	
 	/**  
 	* Method   : jobList 
 	* 작성자 :  
@@ -77,11 +87,21 @@ public interface LoginDaoInf {
 	* 변경이력 :  
 	* @param memberVo
 	* @return  
-	* Method 설명 :  관심사 리스트 출력
+	* Method 설명 :  회원가입시 관심사 리스트 출력
 	*/
 	public List<MemberVo> interestLiset();
 	
 	
+	/**  
+	* Method   : interestInsert 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원가입시 관심사 등록
+	
+	public List<MemberVo> interestInsert(MemberVo memberVo);
+	*/	
 	
 	public int delete();
 	

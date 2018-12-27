@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -134,7 +136,7 @@ public class LoginController {
 	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
-	* Method 설명 :  회원가입 필수정보입력
+	* Method 설명 :  회원가입 기본정보입력
 	*/
 	@RequestMapping(value="/signUpSelection", method= {RequestMethod.POST})
 	public String signUpSelection(Model model, MemberVo memberVo) {
@@ -154,7 +156,7 @@ public class LoginController {
 	* 작성자 :  김주연
 	* 변경이력 :  
 	* @return  
-	* Method 설명 :  회원가입 선택정보입력후 저장 
+	* Method 설명 :  회원가입 관심사정보입력후 저장 
 	*/
 	@RequestMapping(value="/signupDetail", method= {RequestMethod.POST})
 	public String signupDetail(Model model, MemberVo memberVo) {
@@ -180,6 +182,81 @@ public class LoginController {
 		
 	}
 	
+	/** Method   : duplication2
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  회원가입시 이메일 중복체크
+	*/
+	@RequestMapping(value="/duplication2", method={RequestMethod.POST})
+	public String duplication2(Model model,@RequestParam("memNm") String mem_nm,@RequestParam("memEmail") String memEmail, HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
+		MemberVo user = loginService.selectMember(memEmail);
+		if (user == null ) {
+			return "signup";
+		} else {
+		
+		// 암호화 처리
+		String seedEncrypt = KISA_SEED_CBC.Encrypt(memEmail);
+		
+		// 네이버일 경우 smtp.naver.com 
+		// Google일 경우 smtp.gmail.com 
+		String host = "smtp.naver.com";
+
+		final String username = "openSise"; 
+		final String password = "nikfdcsobtusygbi"; 
+		int port=465; //포트번호
+
+		// 메일 내용 
+		String recipient = memEmail; //받는 사람의 메일주소
+		String subject = "이메일 인증"; //메일 제목 입력해주세요.
+		String body = "<html><h2>OpenSise 회원가입 이메일 인증</h2></br> "
+				+ "<h5>아래 이미지 클릭시 회원인증 처리가 완료 됩니다!</h5></br>"
+				+ "<form action=\"http://localhost:8081/login/test\"  id=\"frm\">"
+				+ "<input type=\"submit\" id=\"duplication2\" class=\"form-control\" value=\"인증\"/> "
+				+ "</form>"
+				+ "</html>";
+		
+		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
+
+		// SMTP 서버 정보 설정
+		props.put("mail.smtp.host", "smtp.gmail.com"); 
+		props.put("mail.smtp.port", 465); 
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.ssl.enable", "true");
+		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+		//Session 생성 
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
+		String un=username; 
+		String pw=password; 
+		protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+		return new javax.mail.PasswordAuthentication(un, pw); } });
+
+		session.setDebug(true); //for debug
+		
+		MimeMessage mimeMessage = new MimeMessage(session); //MimeMessage 생성
+		mimeMessage.setFrom(new InternetAddress("openSise@gmail.com")); //발신자 셋팅 , 보내는 사람의 이메일주소
+
+		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
+
+		mimeMessage.setSubject(subject); //제목셋팅 
+		mimeMessage.setText(body, "utf-8", "html"); //내용셋팅
+		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
+
+		return "signup";
+	}	
+		
+		
+	}
+	
+	@RequestMapping(value="/test")
+	public String test() {
+		Logger logger = LoggerFactory.getLogger(LoginController.class);
+		logger.info("test : 컨트롤러 들어옴" );
+		return "signup";
+	}
+	
+	
 	
 	/** Method   : passWordChange 
 	* 작성자 :  김주연
@@ -193,7 +270,6 @@ public class LoginController {
 		List<MemberVo> memberJobLiset = loginService.jobList();
 		
 		if (user == null ) {
-			
 			model.addAttribute("JobList",memberJobLiset);
 			return "signup";
 		} else {

@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
-	
 function setChart(){
 	var colorList = new Array();
 	colorList.push("#f7cc06");
@@ -10,7 +9,7 @@ function setChart(){
 	colorList.push("#aad035");
 	var i = 0;
 	// 전체 인구수 최대치
-	var allCnt = ${allHumanMaxValue} +1;
+	var allCnt = ${ageHumanStatisMaxValue} +1;
 	
 var totalPopChart = {
     "graphset": [
@@ -51,7 +50,7 @@ var totalPopChart = {
                 "item": {
                     "font-color": "#7e7e7e"
                 },
-                "min-value": ${allHumanMinValue}-3000,
+                "min-value": ${ageHumanStatisMinValue},
             	"max-value": allCnt + 10,
                 "guide": {
                     "visible": true,
@@ -96,7 +95,7 @@ var totalPopChart = {
                 {
                   // 실제 값
                     "values": [
-                    	<c:forEach items="${allHumanStatis}" var= "ahs">
+                    	<c:forEach items="${ageHumanStatisList}" var= "ahs">
                     		${ahs.hs_hm_no},
                     	</c:forEach>
                     ],
@@ -104,17 +103,7 @@ var totalPopChart = {
                     "borderRadiusTopLeft": 7,
                     "background-color": colorList[i++],
                     "text": "총 인구수(명)",
-                }/* ,
-                {
-                  // 실제 값
-                    "values": [
-                    	 4,8,5,2,9,2
-                    ],
-                    "alpha": 0.95,
-                    "borderRadiusTopLeft": 7,
-                    "background-color": colorList[i++],
-                    "text": "12월",
-                } */
+                }
             ]
         }
     ]
@@ -129,31 +118,4 @@ var totalPopChart = {
 }
 
 setChart();
-	
 </script>
-<div id="myChart"></div>
-<div>
-	<div id="siseTableDiv">
-		<span class="subTitle">전체 인구표</span>
-		<table id="siseTable">
-			<thead>
-				<tr>
-					<td>조사일</td>
-					<td>총인구</td>
-					<td>남</td>
-					<td>여</td>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach begin="1" end="5">
-					<tr>
-						<td>2018년 10월</td>
-						<td>1000</td>
-						<td>5000</td>
-						<td>5000</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-</div>

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,8 @@ import kr.co.opensise.user.local.service.LocalServiceInf;
 @RequestMapping("/local")
 @Controller
 public class LocalController {
+	
+	Logger logger = LoggerFactory.getLogger(LocalController.class);
 	
 	@Resource(name="localService")
 	private LocalServiceInf localService;
@@ -45,6 +49,14 @@ public class LocalController {
 		//전체 인구 통계 최댓값
 		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(changeDong);
 		model.addAttribute("allHumanMaxValue", allHumanStatisMaxValue);
+		
+		//전체 인구 통계 최솟값
+		int allHumanStatisMinValue = localService.humanAllStatisMinValue(changeDong);
+		model.addAttribute("allHumanMinValue", allHumanStatisMinValue);
+		
+		logger.info("minValue : " + allHumanStatisMinValue);
+		
+	
 		
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
@@ -95,6 +107,10 @@ public class LocalController {
 		int allHumanStatisMaxValue = localService.humanAllStatisMaxValue(changeDong);
 		model.addAttribute("allHumanMaxValue", allHumanStatisMaxValue);
 		
+		//전체 인구 통계 최솟값
+		int allHumanStatisMinValue = localService.humanAllStatisMinValue(changeDong);
+		model.addAttribute("allHumanMinValue", allHumanStatisMinValue);
+		
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
 		model.addAttribute("hsDate", hsDateSearch);
@@ -117,6 +133,16 @@ public class LocalController {
 		int genderHumanStatisMaxValue = localService.humanGndrStatisMaxValue(changeDong);
 		model.addAttribute("gndrHumanStatisMaxValue", genderHumanStatisMaxValue);
 		
+		// 성별 인구 통계 최솟값
+		int genderHumanStatisMinValue = localService.humanGndrStatisMinValue(changeDong);
+		model.addAttribute("gndrHumanStatisMinValue", genderHumanStatisMinValue);
+		
+		//남녀 총 성비
+		List<HumanStatisVo> gndrHumanStatisCircle = localService.humanGndrStatisCricle(changeDong);
+		model.addAttribute("gndrHumanStatisCircle",gndrHumanStatisCircle);
+		
+		logger.info("genderMinValue : " + genderHumanStatisMinValue);
+		
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
 		model.addAttribute("hsDate", hsDateSearch);
@@ -127,25 +153,80 @@ public class LocalController {
 	}
 
 	@RequestMapping("/agePop")
-	public String agePop(@RequestParam("dong") String dong, Model model) {
+	public String agePop(HumanStatisVo humanVo, Model model) {
 		
-		String changeDong = dong.substring(0,1);
+		logger.info("dong : " + humanVo.getDong());
+		String changeDong = (humanVo.getDong()).substring(0,2);
+		logger.info("changeDong : " + changeDong);
+		humanVo.setDong(changeDong);
+		
+		//연령 리스트
+		List<HumanStatisVo> ageList = localService.ageList();
+		model.addAttribute("ageList", ageList);
+		
 		
 		//연령별 인구 통계
-		List<HumanStatisVo> ageHumanStatisList = localService.humanAgeStatistic(changeDong);
+		List<HumanStatisVo> ageHumanStatisList = localService.humanAgeStatistic(humanVo);
 		model.addAttribute("ageHumanStatisList", ageHumanStatisList);
 		
 		//연령별 인구 통계 최댓값
-		int ageHumanStatisMaxValue = localService.humanAgeStatisMaxValue(changeDong);
+		int ageHumanStatisMaxValue = localService.humanAgeStatisMaxValue(humanVo);
 		model.addAttribute("ageHumanStatisMaxValue", ageHumanStatisMaxValue);
+		logger.info("ageHumanSatisMaxValue : " + ageHumanStatisMaxValue);
+		
+		//연령별 인구 통계 최솟값
+		int ageHumanStatisMinValue = localService.humanAgeStatisMinValue(humanVo);
+		model.addAttribute("ageHumanStatisMinValue", ageHumanStatisMinValue);
+		logger.info("ageHumanSatisMinValue : " + ageHumanStatisMinValue );
 		
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
 		model.addAttribute("hsDate", hsDateSearch);
 		
-		model.addAttribute("dong", dong);
+		model.addAttribute("dong", humanVo.getDong());
 		
 		return "user/localAjax/pop/agePop";
+	}
+	
+	@RequestMapping("ageAjaxPop")
+	public String ageAjaxPop(HumanStatisVo humanVo, Model model) {
+		
+		logger.info("dong : " + humanVo.getDong());
+		String changeDong = (humanVo.getDong()).substring(0,2);
+		logger.info("changeDong : " + changeDong);
+		humanVo.setDong(changeDong);
+		
+		//연령 리스트
+		List<HumanStatisVo> ageList = localService.ageList();
+		model.addAttribute("ageList", ageList);
+		
+		
+		//연령별 인구 통계
+		List<HumanStatisVo> ageHumanStatisList = localService.humanAgeStatistic(humanVo);
+		model.addAttribute("ageHumanStatisList", ageHumanStatisList);
+		
+		//연령별 인구 통계 최댓값
+		int ageHumanStatisMaxValue = localService.humanAgeStatisMaxValue(humanVo);
+		model.addAttribute("ageHumanStatisMaxValue", ageHumanStatisMaxValue);
+		logger.info("ageHumanSatisMaxValue : " + ageHumanStatisMaxValue);
+		
+		//연령별 인구 통계 최솟값
+		int ageHumanStatisMinValue = localService.humanAgeStatisMinValue(humanVo);
+		model.addAttribute("ageHumanStatisMinValue", ageHumanStatisMinValue);
+		logger.info("ageHumanSatisMinValue : " + ageHumanStatisMinValue );
+		
+		//날짜 검색
+		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
+		model.addAttribute("hsDate", hsDateSearch);
+		
+		//연령별 비율 그래프
+		List<HumanStatisVo> ageCircle = localService.ageCircle(humanVo);
+		model.addAttribute("ageCircle", ageCircle);
+		
+		model.addAttribute("dong", humanVo.getDong());
+		
+		
+		return "user/localAjax/pop/ageAjaxPop";
 	}
 	
 	

@@ -67,9 +67,9 @@ public class LocalService implements LocalServiceInf {
 	* Method 설명 :  연령별 인구 통계
 	*/
 	@Override
-	public List<HumanStatisVo> humanAgeStatistic(String dong) {
+	public List<HumanStatisVo> humanAgeStatistic(HumanStatisVo humanVo) {
 		// TODO Auto-generated method stub
-		return localDao.humanAgeStatistic(dong);
+		return localDao.humanAgeStatistic(humanVo);
 	}
 
 	/**  
@@ -109,9 +109,51 @@ public class LocalService implements LocalServiceInf {
 	* Method 설명 :  연령별 인구 통계 최댓값
 	*/
 	@Override
-	public int humanAgeStatisMaxValue(String dong) {
+	public int humanAgeStatisMaxValue(HumanStatisVo humanVo) {
 		// TODO Auto-generated method stub
-		return localDao.humanAgeStatisMaxValue(dong);
+		return localDao.humanAgeStatisMaxValue(humanVo);
+	}
+
+
+	@Override
+	public int humanAllStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanAllStatisMinValue(dong);
+	}
+
+
+	@Override
+	public int humanGndrStatisMinValue(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanGndrStatisMinValue(dong);
+	}
+
+
+	@Override
+	public int humanAgeStatisMinValue(HumanStatisVo humanVo) {
+		// TODO Auto-generated method stub
+		return localDao.humanAgeStatisMinValue(humanVo);
+	}
+
+
+	@Override
+	public List<HumanStatisVo> humanGndrStatisCricle(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanGndrStatisCricle(dong);
+	}
+
+
+	@Override
+	public List<HumanStatisVo> ageList() {
+		// TODO Auto-generated method stub
+		return localDao.ageList();
+	}
+
+
+	@Override
+	public List<HumanStatisVo> ageCircle(HumanStatisVo humanVo) {
+		// TODO Auto-generated method stub
+		return localDao.ageCircle(humanVo);
 	}
 
 

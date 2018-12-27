@@ -23,6 +23,10 @@
 	<definition name="main" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/main.jsp"></put-attribute>
 	</definition>
+
+	<definition name="auction" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/user/auction.jsp"></put-attribute>
+	</definition>
 	
 	<definition name="detail" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/detail.jsp"></put-attribute>
@@ -96,7 +100,7 @@
 		<put-attribute name="content" value="/WEB-INF/view/adminM.jsp"></put-attribute>
 	</definition>
 
-	<definition name="manage/member" extends="adminLayout">
+	<definition name="memberList" extends="adminLayout">
 		<put-attribute name="content" value="/WEB-INF/view/admin/manage/member.jsp"></put-attribute>
 	</definition>
 	

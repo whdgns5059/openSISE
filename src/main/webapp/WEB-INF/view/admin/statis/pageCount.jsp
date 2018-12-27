@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -42,13 +43,10 @@
     margin-left: 12px;
     margin-bottom: 0;
 }
-#visitDateG, #psPageG{
+#psDateG, #psPageG{
 	height:450px;
 	width:100%;
 	min-height:150px;
-}
-.zc-ref {
-  display: none;
 }
 #from, #to, #searchDate{
 	width: 100px;
@@ -63,12 +61,65 @@
 	width: 50px;
 	cursor: pointer;
 }
+#modal {
+    display: none;
+    width: 400px;
+    height: 250px;
+    background-color: #FFFFFF;
+    position: absolute;
+    margin: 0 auto;
+    top: 300px;
+    left: 500px;
+    z-Index: 11;
+    border-radius: 25px;
+}
+.modalTop{
+    width: 100%;
+    height: 41px;
+    background: #f1ebe0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+.modalCont{
+    width: 100%;
+    height: 200px;
+    padding-top: 10px;
+    color: black;
+    text-align: center;
+}
+.modalCont h3{
+	padding-top: 11px;
+}
+.modalCont p{
+	padding-top: 31px;
+}
+#modalOk{
+    margin-top: 11px;
+    border: 1px solid #d8d8d8;
+    background: #f5f3f0;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
 </style> 
 <script>
+/* 알림창 */
+function wrapWindowByMask(){
+    //화면의 높이와 너비를 구한다.
+    var maskHeight = $(document).height();  
+    var maskWidth = $(window).width();  
+	
+    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+    $("#mask").css({"width":maskWidth,"height":maskHeight});  
+	 
+    //애니메이션 효과 - 일단 0초동안 까맣게 됐다가 60% 불투명도로 간다.
+    $("#mask").fadeTo("fast", 0.6);    
+	 
+    //모달창을 띄운다.
+    $("#modal").show();
+};
+
 $(document).ready(function(){
-	// 방문 수 최대치 : 그래프 range설정을 위함
-	var allCnt = <c:out value="${maxCnt.counts}"/>;
 	
 	var colorList = new Array();
 	colorList.push("#f7cc06");
@@ -81,175 +132,61 @@ $(document).ready(function(){
 	colorList.push("#4385cd");
 	var i = 0;
 	
-	/* 일별 페이지 열람 수 */
-	var visitDayG = {
-	"graphset":[
-		{
-			"type":"line",
-		    "globals":{
-		        "fontColor": "#808080"
-		    },
-		    "plot": {
-	            "highlight":true,
-	            "tooltip-text": "%t views: %v<br>%k",
-	            "shadow": 0,
-	            "line-width": "2px",
-	            "marker": {
-	                "type": "circle",
-	                "size": 3},
-	            "highlight-state": { "line-width":3},
-		    },
-		    "tooltip": {"visible":false},
-		    "plotarea" : {
-		        "margin":"50 40 40 80"
-		    },
-		 	// 작은 컨트롤러
-            "legend": {
-	            "layout": "float",
-	            "background-color": "none",
-	            "border-width": 0,
-	            "shadow": 0,
-	            "align":"center",
-	            "adjust-layout":true,
-	            "item":{
-	              "padding": 7,
-	              "marginRight": 17,
-	              "cursor":"hand" },
-	            "marker": {
-	               "type": "square",
-	               "border-radius": "5",
-	               "border-color": "none",
-	               "size": "10px",
-	               "cursor": "pointer"
-	            },
-	        },
-		    "shapes":[{
-	              "type":"rectangle",
-	              "id":"view_all",
-	              "height":"20px",
-	              "width":"75px",
-	              "border-color":"#f29c3e",
-	              "border-width":"1px",
-	              "x":"86%",
-	              "y":"7%",
-	              "background-color":"white",
-	              "alpha":0.6,
-	              "cursor":"hand",
-	              "label":{
-	                "text":"View All",
-	                "font-size":12,
-	                "font-color":"#f29c3e",
-	                "bold":true 
-	              }
-	        }],
-		// 커서를 올렸을 때 나타나는 정보
-		"crosshair-x": {
-            "line-color": "#efefef",
-            "plot-label": {
-                "border-radius": "5px",
-                "border-width": "1px",
-                "border-color": "#f6f7f8",
-                "padding": "10px",
-                "font-weight": "bold"},
-            "scale-label": {
-                "font-color": "#000",
-                "background-color": "#f6f7f8",
-                "border-radius": "5px"} 
-        },
-		// 하위 전체 표
-		"preview":{
-		        "border-width":1,
-		        "handle":{
-		            "line-width":0,
-		            "height":20
-		        },
-		        "adjust-layout":true
-		    },
-		// zoom 했을 때 스크롤바
-		"scroll-x":{ 
-		      "handle":{
-		      "background-color":"#f29c3e"}
-		    },
-	    // 날짜
-	    "scale-x" : {
-            "shadow": 0,
-	      	"step": "day",
-	      	"transform": {
-	            "type": "date",
-	            "all": "%Y<br/>%M %d. %D",
-	            "guide": {"visible": false},
-	            "item": {"visible": false} },
-	        "label": { "visible": false},
-	        "minor-ticks": 0 ,
-	        "zooming" : true
-	    },
-	    /* 세로축 */
-	    "scale-y":{
-	    	"autoFit":true,
-	        "min-value":0,
-        	"max-value": "auto",
-        	"short":true,
-	      	"line-color": "#f6f7f8",
-	      	"shadow": 0,
-	      	"guide": { "line-style": "dashed" },
-	      	"label": {
-		        "text": "방문 수(명)",
-	            "font-size": "15px",
-	            "font-family":"'Noto Sans KR', sans-serif",
-                "font-weight": "400",
-	            "font-color": "#808080"},
-		      	"minor-ticks": 0,
-	      	"thousands-separator": ","
-	    },
-		"series":[
-				<c:forEach items="${psDate}" var="ps_pgList" >
-				{
-					"text": "${ps_pgList.ps_pg}",
-	                "line-color": colorList[++i],
-	                "legend-item":{ "cursor": "pointer"},
-	                "legend-marker": {"visible":true },
-	                "marker": {
-	                    "background-color":  colorList[i],
-	                    "border-width": 1,
-	                    "shadow": 0,
-	                    "border-color":  colorList[i] },
-					"values":[
-							<c:forEach items="${psDate }" var="psVo">
-								<c:if test="${psVo.dy eq item}">
-				        			${visitVo.counts},
-								</c:if>
-			        		</c:forEach>
-		        ]},
-		        </c:forEach>
-		]
-	}]
-	};
-	
-	zingchart.render({ 
-		id: 'visitDayG', 
-		data: visitDayG, 
-		height: "100%", 
-		width: '100%',
-		modules : 'zoom-buttons'
-	});
-	
-	zingchart.shape_click = function(p){
-		if(p.shapeid == "view_all"){
-		    zingchart.exec(p.id,'viewall');
+	/* 달력 */
+    $( "#from" ).datepicker({
+	    dateFormat: "yy-mm-dd",
+	    changeMonth: true,
+	    changeYear: true
+    });
+    $( "#to" ).datepicker({
+	    dateFormat: "yy-mm-dd",
+	    changeMonth: true,
+	    changeYear: true
+    });
+    
+    /* 일별 페이지 열람 수 AJAX */
+    // 기본 첫 그래프
+    var from = new Date('2018/12/20');
+	var to = new Date();
+    var dateData = {from : from, to : to};
+    $.ajax({
+		type : 'POST',
+		url : '/statis/pageCountAjax',
+		data : dateData,
+		success : function(data){
+			// 일별 페이지 통계 그래프
+			$('#psDateG').html(data);
 		}
-	};
-	
-	var colorList = new Array();
-	colorList.push("#f7cc06");
-	colorList.push("#f38b72");
-	colorList.push("#aad035");
-	colorList.push("#71afdd");
-	colorList.push("#bc80d2");
-	colorList.push("#3ea6c8");
-	colorList.push("#f29c3e");
-	colorList.push("#4385cd");
-	i = 0;
-	
+	});
+    
+    // 날짜를 지정했을 시
+    $("#searchDate").on("click", function(){
+	    from = $( "#from" ).datepicker( "getDate" );
+	    to = $( "#to" ).datepicker( "getDate" );
+	    if(from > to){
+	    	// TODO : 알림창 띄우기
+	    	//검은 막 띄우기
+			wrapWindowByMask();
+			//닫기 버튼을 눌렀을 때
+	    	$("#modalOk").on("click", function(){
+				$("#mask, #modal").hide();
+	    	})
+	    }else{
+	    	
+		   	dateData = {from : from, to : to};
+		    
+			$.ajax({
+				type : 'POST',
+				url : '/statis/pageCountAjax',
+				data : dateData,
+				success : function(data){
+					// 일별 페이지 통계 그래프
+					$('#psDateG').html(data);
+				}
+			});
+	    }
+	});
+    	
 	/* 페이지별 방문 수 그래프 */
 	var psPageG = {
 	 	type: "ring",
@@ -283,7 +220,7 @@ $(document).ready(function(){
 	 	backgroundColor:'none',
 	 	borderWidth:0,
 	 	thousandsSeparator:',',
-	 	text:'<span style="color:%color"> %t</span><br><span style="color:%color">방문 수: %v</span>',
+	 	text:'<span style="color:%color"> %t</span><br><span style="color:%color">횟수: %v</span>',
 	    mediaRules:[ { maxWidth:500, y:'54%' }]
 	},
 	plotarea: {
@@ -294,7 +231,7 @@ $(document).ready(function(){
 	},
 	// 작은 컨트롤러
 	legend : {
-		layout: 'x5',
+		layout: 'float',
 	    toggleAction:'remove',
 	    borderWidth:0,
 	    adjustLayout:true,
@@ -305,7 +242,7 @@ $(document).ready(function(){
 	        type:'circle',
 	        cursor:'pointer',
 	        borderWidth:0,
-	        size:5
+	        size:7
 	    },
 	    item: {
 	        fontColor: "#777",
@@ -341,26 +278,6 @@ $(document).ready(function(){
 		width: '99%' 
 	});
 	
-	/* 달력 */
-    $( "#from" ).datepicker({
-	    dateFormat: "yy-mm-dd",
-	    changeMonth: true,
-	    changeYear: true
-    });
-    $( "#to" ).datepicker({
-	    dateFormat: "yy-mm-dd",
-	    changeMonth: true,
-	    changeYear: true
-    });
-    
-    $("#searchDate").on("click", function(){
-	    var from = $( "#from" ).datepicker( "getDate" );
-	    var to = $( "#to" ).datepicker( "getDate" );
-	    alert(from+"에서 "+to);
-    	
-    });
-    
-  
 });
 </script>
 
@@ -372,26 +289,36 @@ $(document).ready(function(){
 	<div class="admin-statis">
 		<div class="square yellow"></div><h5>페이지 조회 통계 그래프</h5>
 		<ul class="nav nav-tabs tab-yellow">
-			<li class="nav-item"><a class="nav-link tab-yellow show" data-toggle="tab" href="#visitDate">날짜별-date</a></li>
+			<li class="nav-item"><a class="nav-link tab-yellow show" data-toggle="tab" href="#psDate">날짜별-date</a></li>
 			<li class="nav-item"><a class="nav-link tab-yellow" data-toggle="tab" href="#psPage">페이지별-page</a></li>
 		</ul>
 		<div id="myTabContent" class="tab-content tab-content-size">
-			<div class="tab-pane fade show active" id="visitDate">
+			<div class="tab-pane fade show active" id="psDate">
 				<p>
-					페이지 방문 일시는 3~40분 전후 정보입니다.<br/>
-					날짜&nbsp:&nbsp <input type="text" id="from">&nbsp ~ &nbsp<input type="text" id="to">&nbsp&nbsp
-					<button id="searchDate">찾기</button>
+					날짜&nbsp:&nbsp 
+					<input type="text" id="from"/>&nbsp ~ &nbsp<input type="text" id="to"/>&nbsp&nbsp
+					<button id="searchDate" >찾기</button>
 				</p>
-				<div id="visitDateG"></div>
+				<div id="psDateG"></div>
 			</div>
 			<div class="tab-pane fade show" id="psPage">
 				<p>
-					페이지별 그래프
+					사용량이 가장 많은 페이지&nbsp:&nbsp<c:out value="${pageMax.ps_pg}"/>&nbsp&nbsp<c:out value="${pageMax.ps_vstr}"/>번
 				</p>
 				<div id="psPageG"></div>
 			</div>
 		</div>
-	</div>	
+	</div>
+	
+	<div id="mask"></div>	
+	<div id="modal">
+		<div class="modalTop"></div>
+		<div class="modalCont">
+			<h3>날짜 오류</h3>
+			<p>날짜를 다시 설정해 주세요.</p>
+			<button id="modalOk">확인</button>
+		</div>
+	</div>
 	
 </div>   
     
