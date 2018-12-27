@@ -112,6 +112,12 @@
 		<put-attribute name="content" value="/WEB-INF/view/admin/manage/notice.jsp"></put-attribute>
 	</definition>
 	
+	<!-- 12.26추가 -->
+	<definition name="manage/noticeInsert" extends="adminLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/manage/noticeInsert.jsp"></put-attribute>
+	</definition>
+	<!-- 12.26추가끝 -->
+	
 	<definition name="manage/report" extends="adminLayout">
 		<put-attribute name="content" value="/WEB-INF/view/admin/manage/report.jsp"></put-attribute>
 	</definition>

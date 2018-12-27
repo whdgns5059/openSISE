@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
-	<!--게시글 list 가져오기 -->
-	<select id="selectPosts" resultType="postVo" parameterType="int">
+	<!--공지사항 list 가져오기 -->
+	<select id="selectPosts" resultType="postVo">
 		select * from post where post_brd=2
 	</select>
 	
@@ -12,6 +12,16 @@
     	select count(*) from post 
   	</select>
   	
+  	<!-- 공지사항 가져오기 -->
+	<select id="selectPost" resultType="postVo" parameterType="int">
+		select * from post where post_no=#{post_no}
+	</select>
+	
+	<!-- 공지사항 등록 -->
+	<insert id="insertPost">
+		insert into post(post_no,post_brd,post_mem,post_ttl,post_cntnt,post_date)
+	values (seq_post_no.nextval,2,1,#{post_ttl},#{post_cntnt},sysdate)
+	</insert>
 <!-- 	<select id="selectPostsPageList" resultType="postVo" parameterType="psPageVo"> -->
 <!-- 		select * -->
 <!-- 		from -->
@@ -27,10 +37,6 @@
 <!-- 		#{page}*#{pageSize} -->
 <!-- 	</select> -->
 	<!-- insertPost -->
-	<insert id="insertPost">
-		insert into post(post_no,post_brd,post_mem,post_ttl,post_cntnt,post_date)
-	values (seq_post_no.nextval,2,1,#{post_ttl},#{post_cntnt},sysdate)
-	</insert>
 <!--  	<insert id="insertPost" parameterType="postVo"> -->
 <!--  		<selectKey keyProperty="post_no" resultType="int" order="BEFORE"> -->
 <!--  			select seq_post_no.nextval from dual -->
