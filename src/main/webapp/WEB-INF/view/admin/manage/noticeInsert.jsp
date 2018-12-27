@@ -49,7 +49,7 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 	//필수값 Check
 	function validation(){
 		var contents = $.trim(oEditors[0].getContents());
-		if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
+		if(contents === '&nbsp;' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
 			alert("내용을 입력하세요.");
 			oEditors.getById['smarteditor'].exec('FOCUS');
 			return false;
@@ -65,30 +65,26 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 	<div class="hr2">
 	</div>
 	<div>
-		<table border="1" style="width: 800px;">
-			<thead>
-				<tr>
-					<td>번호</td>
-					<td>제목</td>
-					<td>작성일</td>
-				</tr>
-			</thead>
-			<tbody>
-					<tr >
-						<td></td>
-						<td><input type="text" name=""></td>
-						<td></td>
-					</tr>
+		<form action="/manage/notice/insertPost" id="insert" method="post">
+			<table border="1" style="width: 800px;">
+				<thead>
 					<tr>
-						<td colspan="3">
-							<textarea name="smarteditor" id="smarteditor" rows="10"
-									cols="100" style="width: 766px; height: 412px;"></textarea>
-						</td>
+						<td colspan="1">제목</td>
+						<td colspan="2"><input type="text" name="post_ttl"></td>
 					</tr>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+						<tr>
+							<td colspan="3">
+								<textarea name="POST_CNTNT" id="smarteditor" rows="10"
+										cols="100" style="width: 766px; height: 412px;"></textarea>
+							</td>
+						</tr>
+				</tbody>
+			</table>
+		</form>
 		<div>
-			<button>등록</button>
+			<button type="button" id="savebutton">등록</button>
 		</div>
 	</div>
 	

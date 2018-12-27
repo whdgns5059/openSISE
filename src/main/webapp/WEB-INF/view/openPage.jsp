@@ -418,28 +418,17 @@ input:disabled {
 								</tr>
 								
 			<!-- 공지사항 반복될 구간 START -->					
-								<tr>
-									<td style="width: 30px;">100</td>
-									<td onclick="noticeFade('notice_no')">공지사항</td>
-									<td>2018.11.30</td>
-								</tr>
-								<tr>
-									<td colspan="3" id="notice_no" class="notice-content" style="display: none;" >100번 공지사항 내용 입니다.</td>
-								</tr>
+								<c:forEach items="${noticeList }" var="noticeVo" varStatus="status">
+									<tr>
+										<td style="width: 30px;">${status.count }</td>
+										<td onclick="noticeFade('${noticeVo.post_no}')">${noticeVo.post_ttl }</td>
+										<td>${noticeVo.post_date }</td>
+									</tr>
+									<tr>
+										<td colspan="3" id="${noticeVo.post_no}" class="notice-content" style="display: none;" >${noticeVo.post_cntnt }</td>
+									</tr>
+								</c:forEach>
 			<!-- 공지사항 반복될 구간 END -->	
-								
-								<!-- DUMMY DATA -->
-								<%for(int i=0 ; i<20 ; i++){
-									%>
-								<tr class>
-									<td style="width: 30px;"><%=i %></td>
-									<td>공지사항</td>
-									<td>2018.11.30</td>
-								</tr>
-								<%
-								}
-								%>
-								
 							</thead>
 						</table>
 					</div>
@@ -451,19 +440,12 @@ input:disabled {
 					</div>
 					<div class="notice-cont word-over">
 			<!-- 공지사항 제목만 나열 -->
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
-						title만 나열합니다.<br/>
+						<c:forEach items="${noticeList }" var="noticeVo" varStatus="status">
+							<tr>
+								<td>${status.count }</td>
+								<td>${noticeVo.post_ttl }</td><br/>
+							</tr>
+						</c:forEach>
 					</div>
 				</div>
 

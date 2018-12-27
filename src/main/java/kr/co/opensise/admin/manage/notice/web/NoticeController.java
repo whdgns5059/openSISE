@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,6 +47,22 @@ public class NoticeController {
 	@RequestMapping("/insertView")
 	public String insertView() {
 		return "manage/noticeInsert";
+	}
+	
+	@RequestMapping("/insertPost")
+	public String insertPost(@RequestParam("post_ttl") String post_ttl,
+					@RequestParam("POST_CNTNT") String POST_CNTNT, Model model) {
+		PostVo noticeVo = new PostVo();
+		noticeVo.setPost_ttl(post_ttl);
+		noticeVo.setPost_cntnt(POST_CNTNT);
+		
+		noticeService.insertNotice(noticeVo);
+		
+		List<PostVo> noticeList =  noticeService.selectNoticeList();
+		
+		model.addAttribute("noticeList", noticeList);
+		
+		return "manage/notice";
 	}
 
 }

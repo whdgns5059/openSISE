@@ -181,26 +181,27 @@
 			<hr />
 			<div class="notice-pop">
 				<table class="table table-striped notice-tbl">
-					<thead>
-						<tr>
-							<td style="width: 30px;">no.</td>
-							<td>제목</td>
-							<td>작성일</td>
-						</tr>
-						<tr>
-							<c:forEach items="${postVo }" var="pVo">
-								<td>${pVo.post_no }</td>
-								<td>${pVo.post_ttl }</td>
-								<td>${pVo.post_date }</td>
-							</c:forEach>
-						</tr>
-						<tr>
-							<c:forEach items="${postVo }" var="pVo">
-								<td>${pVo.post_cntnt }</td>
-							</c:forEach>
-						</tr>
-					</thead>
-				</table>
+							<thead>
+								<tr>
+									<td style="width: 30px;">no.</td>
+									<td>제목</td>
+									<td>작성일</td>
+								</tr>
+								
+			<!-- 공지사항 반복될 구간 START -->					
+								<c:forEach items="${noticeList }" var="noticeVo" varStatus="status">
+									<tr>
+										<td style="width: 30px;">${status.count }</td>
+										<td onclick="noticeFade('${noticeVo.post_no}')">${noticeVo.post_ttl }</td>
+										<td>${noticeVo.post_date }</td>
+									</tr>
+									<tr>
+										<td colspan="3" id="${noticeVo.post_no}" class="notice-content" style="display: none;" >${noticeVo.post_cntnt }</td>
+									</tr>
+								</c:forEach>
+			<!-- 공지사항 반복될 구간 END -->	
+							</thead>
+						</table>
 				<button>수정</button>
 				<button>삭제</button>
 			</div>
