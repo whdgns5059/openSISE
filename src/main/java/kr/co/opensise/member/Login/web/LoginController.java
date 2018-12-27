@@ -224,6 +224,7 @@ public class LoginController {
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.ssl.enable", "true");
 		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		
 
 		//Session 생성 
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
