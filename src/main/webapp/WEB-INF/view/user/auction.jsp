@@ -356,6 +356,7 @@
 			검색 결과가 없습니다.(돋보기 그림 추가 + 글씨크기 키우고 색은 옅은 회색)
 		</c:otherwise>
 		</c:choose>
+		<div style="width:100px; height:100px; background:black;"></div>
 	</div>
 </div>
 

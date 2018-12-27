@@ -62,7 +62,7 @@
 		
 		/* 시세 페이지와 경매 페이지 구분하기 */
 		if(building == 'auction'){
-			location.href = "/auction/auction";
+			location.href = "https://www.courtauction.go.kr/";
 		}else{
 			var searchName = document.getElementById('loc').value;
 	
