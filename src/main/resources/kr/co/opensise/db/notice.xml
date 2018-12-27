@@ -5,7 +5,7 @@
 <mapper namespace="notice">
 	<!--공지사항 list 가져오기 -->
 	<select id="selectPosts" resultType="postVo">
-		select * from post where post_brd=2
+		select * from post where post_brd=2 order by post_date desc
 	</select>
 	
 	<select id="getPostCnt" resultType="int">
