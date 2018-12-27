@@ -492,6 +492,26 @@ public class DetailDaoTest extends RootSetup{
 		
 	}
 	
+	@Test
+	public void selectTrafficStatTest() {
+		
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("유성구");
+		dealVo.setDl_dong("봉명동");
+		dealVo.setDl_zip("535-6");
+		dealVo.setDl_rd("대학로");
+		dealVo.setDl_ty("월세");
+		dealVo.setArtcl_bc("office");
+		
+		/***when***/
+		Float result = detailDao.selectTrafficStat(dealVo);
+
+		/***then***/
+		assertEquals(4.2f, result, 1e-1);
+		
+	}
+	
 }
 
 

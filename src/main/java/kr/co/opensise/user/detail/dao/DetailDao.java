@@ -158,6 +158,11 @@ public class DetailDao implements DetailDaoInf{
 	public int updateReview(PostVo postVo) {
 		return template.update("detail.updateReview", postVo);
 	}
+
+	@Override
+	public Float selectTrafficStat(DealVo dealVo) {
+		return template.selectOne("detail.selectTrafficStat", dealVo);
+	}
 	
 	
 

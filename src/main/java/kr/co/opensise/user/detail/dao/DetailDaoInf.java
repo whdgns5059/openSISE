@@ -67,4 +67,6 @@ public interface DetailDaoInf {
 	int deletePic(String pic_no);
 
 	int updateReview(PostVo postVo);
+
+	Float selectTrafficStat(DealVo dealVo);
 }

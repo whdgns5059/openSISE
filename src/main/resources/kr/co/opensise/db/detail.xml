@@ -233,7 +233,7 @@
 
 	<insert id="insertReport" parameterType="reportVo">
 		insert into report (rpt_no, rpt_post, rpt_cntnt, rpt_date, rpt_classf, rpt_mem, rpt_ttl)	
-		values (seq_rpt_no.nextval, #{rpt_post}, #{rpt_cntnt}, sysdate, #{rpt_classf}, #{rpt_mem}, #{rpt_ttl})
+		values (seq_rpt_no.nextval, #{rpt_post}, #{rpt_cntnt}, sysdate, null, #{rpt_mem}, #{rpt_ttl})
 	</insert>
 
 	<delete id="deletePic" parameterType="String">
@@ -246,6 +246,24 @@
 		set post_ttl = #{post_ttl}, post_cntnt = #{post_cntnt}
 		where post_no = #{post_no}
 	</update>	
+	
+	<select id="selectTrafficStat" parameterType="dealVo" resultType="_float">
+		select 
+		round(
+		(select count(*) from station, route, bus
+		where sttn_id = rt_id 
+		and rt_cd = bus_cd
+		and sttn_lat between (select artcl_lat from article
+		where artcl_gu = #{dl_gu} and artcl_dong=#{dl_dong} and artcl_zip=#{dl_zip} and artcl_rd=#{dl_rd})
+		- 0.007 and (select artcl_lat from article
+		where artcl_gu = #{dl_gu} and artcl_dong=#{dl_dong} and artcl_zip=#{dl_zip} and artcl_rd=#{dl_rd}) + 0.007
+		and sttn_lng between (select artcl_lng from article
+		where artcl_gu = #{dl_gu} and artcl_dong=#{dl_dong} and artcl_zip=#{dl_zip} and artcl_rd=#{dl_rd}
+		) - 0.007 and (select artcl_lng from article
+		where artcl_gu = #{dl_gu} and artcl_dong=#{dl_dong} and artcl_zip=#{dl_zip} and artcl_rd=#{dl_rd}
+		) + 0.007)
+		 / 50 , 1) as avg_traffic from dual
+	</select>
 	
 	
 </mapper>

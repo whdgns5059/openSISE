@@ -201,10 +201,12 @@ public class DetailController {
 		Float priceStat = statMap.get("priceStat");
 		Float marketStat = statMap.get("marketStat");
 		Float humanStat = statMap.get("humanStat");
+		Float trafficStat = statMap.get("trafficStat");
 		
 		model.addAttribute("priceStat", priceStat);
 		model.addAttribute("marketStat", marketStat);
 		model.addAttribute("humanStat", humanStat);
+		model.addAttribute("trafficStat", trafficStat);
 		
 		return "user/detailAjax/radar";
 	}

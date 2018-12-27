@@ -5,6 +5,7 @@
 	<input type="hidden" id="priceStat" value="${priceStat }"/>
 	<input type="hidden" id="marketStat" value="${marketStat}"/>
 	<input type="hidden" id="humanStat" value="${humanStat }"/>
+	<input type="hidden" id="trafficStat" value="${trafficStat}"/>
 	<div id="radarChart"> 
 	</div>		
 </div>
@@ -15,9 +16,10 @@
 var priceStat = document.getElementById('priceStat').value;
 var marketStat = document.getElementById('marketStat').value;
 var humanStat = document.getElementById('humanStat').value;
+var trafficStat = document.getElementById('trafficStat').value;
 
-var statArr = [parseFloat(priceStat), parseFloat(marketStat), parseFloat(humanStat)];
-
+var statArr = [parseFloat(priceStat), parseFloat(marketStat), parseFloat(humanStat), parseFloat(trafficStat)];
+console.log("레이더!");
 
 var radarConfig = 
         {
@@ -43,7 +45,7 @@ var radarConfig =
             "scale-k": {
                 "background-color": "none",
                 "values": [
-                  "평당가<br/>1점: 평당 30만원 ", "물가<br/>1점 : 100원", "인구수<br/>1점 : 5000명"
+                  "평당가<br/>1점: 평당 30만원 ", "물가<br/>1점 : 100원", "인구수<br/>1점 : 5000명", "교통<br>1점당 버스 50개"
                 ],
                 "item": {
                     "font-size": "14px",

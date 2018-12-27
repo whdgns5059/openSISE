@@ -199,13 +199,33 @@ public class DetailService implements DetailServiceInf{
 			humanStat = -5f;
 		}
 	
+		Float trafficStat = detailDao.selectTrafficStat(dealVo);
+		if(trafficStat == null) {
+			trafficStat= 0f;
+		}
+		if(trafficStat> 5f) {
+			trafficStat= 5f;
+		}
+		if(trafficStat< -5f) {
+			trafficStat= -5f;
+		}
+		
+		
+		
 		Map<String, Float> statMap = new HashMap<>();
 
 		statMap.put("priceStat", priceStat);
 		statMap.put("marketStat", marketStat);
 		statMap.put("humanStat", humanStat);
+		statMap.put("trafficStat", trafficStat);
+		
+		
+		
 		
 		return statMap;
+		
+		
+		
 	}
 
 	@Override
