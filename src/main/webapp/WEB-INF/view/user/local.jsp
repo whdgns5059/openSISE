@@ -72,7 +72,9 @@
 		
 	
 	function setContentDivByAjax(id){
+		
 		var dong = "${dong}";
+	
 		
 		$.ajax({
 			type: 'POST',
@@ -80,10 +82,15 @@
 			url : '/local/'+id,
 			success : function(data){
 				$('.contentDiv').html(data);
+			},
+			complete : function(){
+				
 			}
 		});
 		
 	}
+	
+	
 	
 
 
