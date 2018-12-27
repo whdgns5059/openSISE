@@ -539,53 +539,55 @@
 			});
 			
 		}
+		
+		function getArticleList(){
+			console.log($("#buildings").val());
+		 	var param = $("form[name=frm]").serialize();
+		 	var building = document.getElementById("buildings").value;
+		 	var searchName = document.getElementById("loc").value;
+		 	var dl_ty = document.getElementById("dl_ty").value;
+		 	var dl_excv_area = document.getElementById("dl_excv_area").value;
+		 	var artcl_const_y = document.getElementById("artcl_const_y").value;
+		 	var dl_price1 = document.getElementById("dl_price1").value;
+		 	var dl_price2 = document.getElementById("dl_price2").value;
+		 	var dl_rnt1 = document.getElementById("dl_rnt1").value;
+		 	var dl_rnt2 = document.getElementById("dl_rnt2").value;
+		 	
+			$.ajax({
+				type : "POST",
+				url : "/main/mainAjax",
+				data : {building : building, searchName : searchName, 
+						dl_ty : dl_ty, dl_excv_area : dl_excv_area, 
+						artcl_const_y : artcl_const_y, dl_price1 : dl_price1, 
+						dl_price2 : dl_price2, dl_rnt1 :dl_rnt1 ,dl_rnt2 : dl_rnt2},
+				success : function(data){
+					$(".main-right").html("");
+					$(".main-right").html(data);
+					settingMap(0,0);
+				}
+			});
+		}
+		
+		
+		/*검색한 좌표들을 배열에 담아준다*/
+		function setLatlngArr() {
+			/* console.log(lat[0]);
+			console.log(lng[0]); */
+			var lat = document.getElementsByClassName("lat");
+			var lng = document.getElementsByClassName("lng");
+			var position = [];
+			for (var i = 0; i < lat.length; i++) {
+				position[i] = new daum.maps.LatLng(lat[i].value, lng[i].value);
+			}
+			return position;
+		}
 
 		
 		
 		
 	});
 	
-	function getArticleList(){
-		console.log($("#buildings").val());
-	 	var param = $("form[name=frm]").serialize();
-	 	var building = document.getElementById("buildings").value;
-	 	var searchName = document.getElementById("loc").value;
-	 	var dl_ty = document.getElementById("dl_ty").value;
-	 	var dl_excv_area = document.getElementById("dl_excv_area").value;
-	 	var artcl_const_y = document.getElementById("artcl_const_y").value;
-	 	var dl_price1 = document.getElementById("dl_price1").value;
-	 	var dl_price2 = document.getElementById("dl_price2").value;
-	 	var dl_rnt1 = document.getElementById("dl_rnt1").value;
-	 	var dl_rnt2 = document.getElementById("dl_rnt2").value;
-	 	
-		$.ajax({
-			type : "POST",
-			url : "/main/mainAjax",
-			data : {building : building, searchName : searchName, 
-					dl_ty : dl_ty, dl_excv_area : dl_excv_area, 
-					artcl_const_y : artcl_const_y, dl_price1 : dl_price1, 
-					dl_price2 : dl_price2, dl_rnt1 :dl_rnt1 ,dl_rnt2 : dl_rnt2},
-			success : function(data){
-				$(".main-right").html("");
-				$(".main-right").html(data);
-				settingMap(0,0);
-			}
-		});
-	}
 	
-	
-	/*검색한 좌표들을 배열에 담아준다*/
-	function setLatlngArr() {
-		/* console.log(lat[0]);
-		console.log(lng[0]); */
-		var lat = document.getElementsByClassName("lat");
-		var lng = document.getElementsByClassName("lng");
-		var position = [];
-		for (var i = 0; i < lat.length; i++) {
-			position[i] = new daum.maps.LatLng(lat[i].value, lng[i].value);
-		}
-		return position;
-	}
 	
 
 	
