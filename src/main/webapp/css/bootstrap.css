@@ -133,6 +133,14 @@ body {
     border-top: 1px solid #e2e2e2;
     margin: 16px 0 30px -20px;
 }
+.selBox{
+	width: 100px;
+    height: 25px;
+	border: 1px solid #d8d8d8;
+	border-radius: 5px;
+	color: #808080;
+	font-family: 'Noto Sans KR', sans-serif;
+}
 .square{
     width: 2px;
     height: 18px;

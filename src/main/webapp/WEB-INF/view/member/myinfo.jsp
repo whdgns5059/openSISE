@@ -3,7 +3,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-   
+
+
 <div class="admin-title">
 	<h1>나의 정보</h1>
 	<div class="hr2">

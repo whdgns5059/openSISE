@@ -22,6 +22,7 @@ import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 import kr.co.opensise.user.detail.model.ReportVo;
+import kr.co.opensise.user.detail.model.Report_classfVo;
 
 public class DetailDaoTest extends RootSetup{
 
@@ -491,6 +492,40 @@ public class DetailDaoTest extends RootSetup{
 		
 		
 	}
+	
+	@Test
+	public void selectTrafficStatTest() {
+		
+		/***given***/
+		DealVo dealVo = new DealVo();
+		dealVo.setDl_gu("유성구");
+		dealVo.setDl_dong("봉명동");
+		dealVo.setDl_zip("535-6");
+		dealVo.setDl_rd("대학로");
+		dealVo.setDl_ty("월세");
+		dealVo.setArtcl_bc("office");
+		
+		/***when***/
+		Float result = detailDao.selectTrafficStat(dealVo);
+
+		/***then***/
+		assertEquals(4.2f, result, 1e-1);
+		
+	}
+	
+	@Test
+	public void getRpt_classf() {
+		/***Given***/
+
+		/***When***/
+		List<Report_classfVo> rpt_cfList = detailDao.getRpt_classf();
+		
+		/***Then***/
+		for(Report_classfVo rptVo : rpt_cfList)
+			log.info("신고 분류 {}",rptVo);
+		
+	}
+		
 	
 }
 
