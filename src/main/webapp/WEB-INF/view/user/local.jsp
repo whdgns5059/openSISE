@@ -13,6 +13,7 @@
 		<div id="rightContent">
 			<div id = "localNameDiv">
 				<span id="localNameSpan">${gu } ${dong} 지역 분석</span>
+				<input type="hiddn" id="addr" value="대전광역시 ${gu } ${dong}"/>
 				<hr/>
 			</div>
 			<div class="categoryDiv">
@@ -58,12 +59,64 @@
 		position : markerPosition
 	});
 	
+	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+	var mapTypeControl = new daum.maps.MapTypeControl();
+	//지도 확대 축소 컨트롤
+	var zoomControl = new daum.maps.ZoomControl();
+	
+	map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+	map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
 	
 	//마커가 지도 위에 표시되도록 설정합니다
 	marker.setMap(map);
 	
-	setContentDivByAjax('popStatis');
 	
+	var geocoder = new daum.maps.services.Geocoder();
+
+	var addr = document.getElementById('addr').value;
+	//주소로 좌표검색
+	geocoder.addressSearch(addr, function(result, status){
+		
+		//TODO : 주소로 좌표 검색...
+		if(status === daum.maps.services.Status.OK){
+			
+			var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+			
+			var marker = new daum.maps.Marker({
+				map : map,
+				position : coords
+			});
+			
+			map.setCenter(coords);
+				
+		}
+		
+		
+			
+		
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//*************지도 끝 ******************
+	
+	setContentDivByAjax('popStatis');
+		
 	$('.categoryDiv').on('click', '.category', function(){
 		
 		setContentDivByAjax(this.id);
@@ -74,7 +127,6 @@
 	function setContentDivByAjax(id){
 		
 		var dong = "${dong}";
-	
 		
 		$.ajax({
 			type: 'POST',
