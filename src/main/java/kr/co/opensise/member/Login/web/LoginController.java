@@ -216,6 +216,8 @@ public class LoginController {
 				+ "</form>"
 				+ "</html>";
 		
+		
+		
 		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
 
 		// SMTP 서버 정보 설정
