@@ -14,6 +14,9 @@
 		var addr;
 		
 		var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+	    mapContainer.style.width = '650px';
+	    mapContainer.style.height = '1000px'; 
+	    
 		mapOption = {
 			center : new daum.maps.LatLng(36.3505393936125,127.38483389033713), // 지도의 중심좌표
 			level : 3
@@ -78,7 +81,7 @@
 					<li class="nav-item"><a class="nav-link tab-yellow show category" data-toggle="tab" href="#signDaily" id="popStatis">인구 통계</a></li>
 					<li class="nav-item"><a class="nav-link tab-yellow category" data-toggle="tab" href="#signAgeGndr" id="nearFaci">근린 시설</a></li>
 					<li class="nav-item"><a class="nav-link tab-yellow category" data-toggle="tab" href="#signMonthly" id="market">물가 정보</a></li>
-					<li class="nav-item"><a class="nav-link tab-yellow category" data-toggle="tab" href="#signAgeGndr" id="">교통 정보</a></li>
+					<li class="nav-item"><a class="nav-link tab-yellow category" data-toggle="tab" href="#signAgeGndr" id="station">교통 정보</a></li>
 					<li class="nav-item"><a class="nav-link tab-yellow category" data-toggle="tab" href="#signAgeGndr" id="etc">기타 정보</a></li>
 				</ul>
 			</div>

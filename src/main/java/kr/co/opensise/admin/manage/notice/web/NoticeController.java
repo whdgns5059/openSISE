@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcServiceInf;
 import kr.co.opensise.admin.manage.dataetc.web.DataEtcController;
@@ -33,9 +34,18 @@ public class NoticeController {
 		return "manage/notice";
 	}
 	
+//	@RequestMapping("/postDetail")
+//	public String postDetail(@RequestParam("post_no") String post_noS,Model model) {
+//		int post_no =Integer.parseInt(post_noS);
+//		PostVo postVo = noticeService.selectNotice(post_no);
+//		
+//		model.addAttribute("postVo", postVo);
+//		return "manage/notice";
+//	}
+	
 	@RequestMapping("/insertView")
 	public String insertView() {
-		return "";
+		return "manage/noticeInsert";
 	}
 
 }
