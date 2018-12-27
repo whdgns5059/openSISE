@@ -135,22 +135,22 @@ setChart();
 <div>
 	<div id="siseTableDiv">
 		<span class="subTitle">전체 인구표</span>
-		<table id="siseTable">
+		<table id="siseTable" class="table">
 			<thead>
 				<tr>
-					<td>조사일</td>
-					<td>총인구</td>
+					<td>날짜</td>
 					<td>남</td>
 					<td>여</td>
+					<td>합계</td>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach begin="1" end="5">
+				<c:forEach items="${allTalbeList}" var="at">
 					<tr>
-						<td>2018년 10월</td>
-						<td>1000</td>
-						<td>5000</td>
-						<td>5000</td>
+						<td>${at.hs_date}</td>
+						<td>${at.hs_gndrm}</td>
+						<td>${at.hs_gndrf}</td>
+						<td>${at.hs_hm_no}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

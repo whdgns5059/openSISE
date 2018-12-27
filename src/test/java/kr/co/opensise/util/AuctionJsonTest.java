@@ -1,0 +1,104 @@
+package kr.co.opensise.util;
+
+import static org.junit.Assert.*;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
+
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import kr.co.opensise.user.main.model.AuctionVo;
+
+public class AuctionJsonTest {
+	
+	private Logger log = LoggerFactory.getLogger(AuctionJsonTest.class);
+	
+	@Test
+	public void getJSONDataTest() throws UnsupportedEncodingException, IOException {
+		/***Given***/
+		String url = null;
+		String startdt = "2018-12-26";
+		try {
+			url = "http://api.work6.kr/courtauction?court="+ URLEncoder.encode("대전지방법원", "UTF-8") + "&startdt="+startdt;
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		
+		/***When***/
+		String jsonString = null;
+		try {
+			jsonString = AuctionJson.getJSONData(url);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		/***Then***/
+		log.info("json 결과값 {}",jsonString);
+		
+	}
+	
+	@Test
+	public void getDataVoTest() {
+		/***Given***/
+		String url = null;
+		String startdt = "2018-12-26";
+		try {
+			url = "http://api.work6.kr/courtauction?court="+ URLEncoder.encode("대전지방법원", "UTF-8") + "&startdt="+startdt;
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String jsonString = null;
+		try {
+			jsonString = AuctionJson.getJSONData(url);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		/***When***/
+		List<AuctionVo> aucVoList = AuctionJson.getDataVo(jsonString);
+		
+		/***Then***/
+		for(AuctionVo aucVo : aucVoList) {
+			
+			log.info(aucVo.getCaseNum());
+		}
+		 
+	}
+	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

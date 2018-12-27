@@ -26,6 +26,16 @@ public interface LocalDaoInf {
 	public List<HumanStatisVo> humanAllStatistic(String dong);
 	
 	/**  
+	* Method   : humanAllTableList 
+	* 작성자 : 1003yd 
+	* 변경이력 :  
+	* @param humanVo
+	* @return  
+	* Method 설명 :  전체 인구 표 
+	*/
+	public List<HumanStatisVo> humanAllTableList(String dong);
+	
+	/**  
 	* Method   : humanAllStatisList 
 	* 작성자 : 1003yd 
 	* 변경이력 :  

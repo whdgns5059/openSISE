@@ -26,7 +26,8 @@
 	</select>
 
 	<!-- 월별 전체 인구 최댓값 -->
-	<select id="allHumanStatisMaxValue" parameterType="String" resultType="int">
+	<select id="allHumanStatisMaxValue" parameterType="String"
+		resultType="int">
 		select max(sum(hs_hm_no)) as maxCnt
 		from human_statistic
 		where hs_dong like #{hs_dong} || '%'
@@ -37,7 +38,8 @@
 	</select>
 
 	<!-- 월별 전체 인구 최솟값 -->
-	<select id="allHumanStatisMinValue" parameterType="String" resultType="int">
+	<select id="allHumanStatisMinValue" parameterType="String"
+		resultType="int">
 		select min(sum(hs_hm_no)) as minCnt
 		from human_statistic
 		where hs_dong like #{hs_dong} || '%'
@@ -48,7 +50,8 @@
 	</select>
 
 	<!-- 월별, 성별 인구 통계 -->
-	<select id="gndrHumanStatis" parameterType="String" resultType="humanStatisVo">
+	<select id="gndrHumanStatis" parameterType="String"
+		resultType="humanStatisVo">
 		select
 		hs_date,
 		decode(hs_gndr,0,'남자','여자') as hs_gndr,
@@ -65,7 +68,8 @@
 	</select>
 
 	<!-- 남여 총 성비 -->
-	<select id="gndrHumanStatisCricle" parameterType="String" resultType="humanStatisVo">
+	<select id="gndrHumanStatisCricle" parameterType="String"
+		resultType="humanStatisVo">
 		select
 		decode(hs_gndr, '0','남자','여자') as hs_gndr,
 		sum(hs_hm_no) as hs_hm_no
@@ -92,7 +96,8 @@
 	</select>
 
 	<!-- 성별 인구 최솟값 -->
-	<select id="gndrHumanStatisMinValue" parameterType="String" resultType="int">
+	<select id="gndrHumanStatisMinValue" parameterType="String"
+		resultType="int">
 		select min(sum(hs_hm_no)) as hs_hm_no
 		from human_statistic
 		where hs_dong like #{hs_dong} || '%'
@@ -105,123 +110,124 @@
 	</select>
 
 	<!-- 월별, 연령별 인구 통계 -->
-	<select id="ageHumanStatis" parameterType="humanStatisVo" resultType="humanStatisVo">
-		     select hs_date,hs_age_grp, sum(hs_hm_no) as hs_hm_no
-            from
-            HUMAN_STATISTIC 
-            where hs_dong like #{dong}||'%'
-            and hs_date >= '201706'
-           <choose>
-           	<when test="hs_age_grp != '70세 이상'">
-           		and substr(hs_age_grp, 0,1) between '0' and '6'
-            	and length(hs_age_grp) <![CDATA[ <= ]]> 6
-            	<if test="hs_age_grp != null">
-            		and hs_age_grp = #{hs_age_grp}
-            	</if>
-           	</when>
-           	<when test="hs_age_grp == '70세 이상'">
-           		and substr(hs_age_grp,0,1) between '7' and '9'
-           	</when>
-           </choose>
-            group by hs_date, hs_age_grp
-            order by hs_date
+	<select id="ageHumanStatis" parameterType="humanStatisVo"
+		resultType="humanStatisVo">
+		select substr(date_to_unix_ts(to_date(hs_date, 'YYYY-MM')),1,10) as hs_date,hs_age_grp, sum(hs_hm_no) as hs_hm_no
+		from
+		HUMAN_STATISTIC
+		where hs_dong like #{dong}||'%'
+		and hs_date >= '201706'
+		and hs_age_grp = #{hs_age_grp}
+		group by hs_date, hs_age_grp
+		order by
+		hs_date
 	</select>
 
 
 	<!-- 연령별 인구통계 최댓값 -->
-	<select id="ageHumanStatisMaxValue" parameterType="humanStatisVo" resultType="int">
+	<select id="ageHumanStatisMaxValue"
+		parameterType="humanStatisVo" resultType="int">
 		select a.hs_hm_no
 		from
 		(
 		select *
 		from
 		(
-		  select hs_date,hs_age_grp, sum(hs_hm_no) as hs_hm_no
-            from
-            HUMAN_STATISTIC 
-            where hs_dong like #{dong}||'%'
-            and hs_date >= '201706'
-           <choose>
-           	<when test="hs_age_grp != '70세 이상'">
-           		and substr(hs_age_grp, 0,1) between '0' and '6'
-            	and length(hs_age_grp) <![CDATA[ <= ]]> 6
-            	<if test="hs_age_grp != null">
-            		and hs_age_grp = #{hs_age_grp}
-            	</if>
-           	</when>
-           	<when test="hs_age_grp == '70세 이상'">
-           		and substr(hs_age_grp,0,1) between '7' and '9'
-           	</when>
-           </choose>
-            group by hs_date, hs_age_grp
+		select hs_date,hs_age_grp,
+		sum(hs_hm_no) as hs_hm_no
+		from
+		HUMAN_STATISTIC
+		where hs_dong like
+		#{dong}||'%'
+		and hs_date >= '201706'
+		and hs_age_grp = #{hs_age_grp}
+		group by hs_date, hs_age_grp
+		order by hs_date
 		)
 		order by 3 desc
 		) a
-		where rownum <![CDATA[ <= ]]> 1
+		where
+		rownum <![CDATA[ <= ]]>
+		1
 	</select>
 
 	<!-- 연령별 인구통계 최솟값 -->
-	<select id="ageHumanStatisMinValue" parameterType="humanStatisVo" resultType="int">
+	<select id="ageHumanStatisMinValue"
+		parameterType="humanStatisVo" resultType="int">
 		select a.hs_hm_no
 		from
 		(
 		select *
 		from
 		(
-		 select hs_date,hs_age_grp, sum(hs_hm_no) as hs_hm_no
-            from
-            HUMAN_STATISTIC 
-            where hs_dong like #{dong}||'%'
-            and hs_date >= '201706'
-           <choose>
-           	<when test="hs_age_grp != '70세 이상'">
-           		and substr(hs_age_grp, 0,1) between '0' and '6'
-            	and length(hs_age_grp) <![CDATA[ <= ]]> 6
-            	<if test="hs_age_grp != null">
-            		and hs_age_grp = #{hs_age_grp}
-            	</if>
-           	</when>
-           	<when test="hs_age_grp == '70세 이상'">
-           		and substr(hs_age_grp,0,1) between '7' and '9'
-           	</when>
-           </choose>
-            group by hs_date, hs_age_grp
+		select hs_date,hs_age_grp,
+		sum(hs_hm_no) as hs_hm_no
+		from
+		HUMAN_STATISTIC
+		where hs_dong like
+		#{dong}||'%'
+		and hs_date >= '201706'
+		and hs_age_grp = #{hs_age_grp}
+		group by hs_date, hs_age_grp
+		order by hs_date
 		)
 		order by 3
 		) a
 		where rownum <![CDATA[ <= ]]> 1
 	</select>
-	
+
 	<!-- 연령대 출력 -->
 	<select id="ageList" resultType="humanStatisVo">
-		SELECT DISTINCT
-		    hs_age_grp,
-		    length(hs_age_grp)
-		FROM
-		    human_statistic
-		WHERE
-		    substr(hs_age_grp,0,1) BETWEEN '0' AND '6'
-		    AND   length(hs_age_grp) <![CDATA[ <= ]]> 6
-		UNION
-		SELECT DISTINCT
-		    '70세 이상' AS hs_age_grp,
-		    length(hs_age_grp)
-		FROM
-		    human_statistic
-		WHERE
-		    substr(hs_age_grp,0,1) BETWEEN '7' AND '9'
-		ORDER BY
-		    2,
-		    1
+		select distinct hs_age_grp
+		from
+		human_statistic
+		order by length(hs_age_grp),hs_age_grp
+	</select>
+
+	<select id="ageCircle" parameterType="humanStatisVo" resultType="humanStatisVo">
+		select hs_age_grp, sum(hs_hm_no) as hs_hm_no
+		from human_statistic
+		where hs_dong like #{dong}||'%'
+		and hs_date >= '201706'
+		and substr(hs_age_grp,0,1) between '0' and '6'
+		and length(hs_age_grp) <![CDATA[ <= ]]> 6
+		group by hs_age_grp
+		union
+		select '70세 이상' as hs_age_grp, sum(hs_hm_no) as hs_hm_no
+		from human_statistic
+		where hs_dong like #{dong}||'%'
+		and hs_date >= '201706'
+		and substr(hs_age_grp,0,1) between '7' and '9'
+		or hs_age_grp = '100세 이상'
+		group by '70세 이상'
+		order by 1
 	</select>
 	
-	<select id="ageCircle" parameterType="humanStatisVo" resultType="humanStatisVo">
-	select hs_age_grp, sum(hs_hm_no) as hs_hm_no
-	from human_statistic
-	where hs_dong like  #{dong}||'%'
-	    and hs_date >= '201706'
-	group by hs_age_grp
-	order by length(hs_age_grp), hs_age_grp
+	<select id="allHumanTableList" parameterType="humanStatisVo" resultType="humanStatisVo">
+		select substr(h1.hs_date,0,4) ||'년 ' || substr(h1.hs_date,5) || '월' as hs_date, 
+				a.female as hs_gndrf , 
+				b.male hs_gndrm, 
+				sum(hs_hm_no)as hs_hm_no
+		from human_statistic h1 inner join (select hs_date, sum(hs_hm_no)as female 
+		                                    from human_statistic h2 
+		                                    where hs_gndr = '1'
+		                                    and hs_dong like #{dong}||'%'
+		                                    and hs_date >= '201706'
+		                                    group by hs_date
+		                                    order by hs_date)a
+								on(h1.hs_date = a.hs_date)
+								inner join (select h3.hs_date, sum(hs_hm_no)as male 
+								        from human_statistic h3 
+								        where hs_gndr = '0'
+								        and hs_dong like #{dong}||'%'
+								        and hs_date >= '201706'
+								        group by hs_date
+								        order by hs_date) b
+								on (h1.hs_date = b.hs_date)
+		where h1.hs_dong like #{dong}||'%'
+		and h1.hs_date >= '201706'
+		group by h1.hs_date, a.female, b.male
+		order by h1.hs_date      
 	</select>
 
 </mapper>
