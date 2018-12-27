@@ -12,6 +12,7 @@
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo" alias="marketDetailVo"/>
 		<typeAlias type="kr.co.opensise.user.main.model.BuildingSaleVo" alias="buildingSaleVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.member.model.ManagementVo" alias="managementVo"/>
+		<typeAlias type="kr.co.opensise.admin.manage.member.model.PageVO" alias="pageVo"/>
 		
 		<!-- local(지역분석) 관련 alias setting -->
 		<typeAlias type="kr.co.opensise.user.local.model.HumanStatisVo" alias="humanStatisVo"/>
