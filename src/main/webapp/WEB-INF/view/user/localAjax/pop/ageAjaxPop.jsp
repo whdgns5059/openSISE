@@ -68,7 +68,7 @@ var totalPopChart = {
                // x축
                 "values": [
                    <c:forEach items="${hsDate}" var= "ahs">
-                   		${ahs.hs_date},
+                   		'${ahs.hs_date}',
                    </c:forEach>
                 ],
                 "placement":"default",

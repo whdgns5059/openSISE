@@ -12,6 +12,7 @@ import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 import kr.co.opensise.user.detail.model.ReportVo;
+import kr.co.opensise.user.detail.model.Report_classfVo;
 
 public interface DetailServiceInf {
 	
@@ -51,7 +52,6 @@ public interface DetailServiceInf {
 	Map<String, Object> getDetailTradeInfo(ArticleVo articleVo, String dl_ty, float dl_excv_area );
 	
 	int insertReview(PostVo postVo, List<MultipartFile> parts, String path);
-	
 	
 	int insertReply(ReplyVo replyVo);
 	
@@ -108,9 +108,16 @@ public interface DetailServiceInf {
 
 	List<DealVo> selectTotalDealList(DealVo dealVo);
 
+	/**
+	* Method : getRpt_classf
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 신고 분류 리스트 가져오기
+	*/
+	List<Report_classfVo> getRpt_classf();
+	
 	int insertReport(ReportVo rptVo);
-
-
 
 	int deletePic(String pic_no);
 

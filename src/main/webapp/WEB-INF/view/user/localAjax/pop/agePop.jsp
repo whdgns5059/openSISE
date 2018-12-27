@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+#selBox{
+   width: 100px;
+    height: 25px;
+   border: 1px solid #d8d8d8;
+   border-radius: 5px;
+   color: #808080;
+   font-family: 'Noto Sans KR', sans-serif;
+}
+</style>
 <script>
 $(document).ready(function(){
 	// 연령 선택
@@ -27,6 +37,8 @@ $(document).ready(function(){
 			var i = 0;
 			// 전체 인구수 최대치
 			var allCnt = ${ageHumanStatisMaxValue} +1;
+			
+			console.log("bar차트");
 			
 		var totalPopChart = {
 		    "graphset": [
@@ -90,13 +102,13 @@ $(document).ready(function(){
 		                ],
 		                "placement":"default",
 		                "tick":{
-		                    "size":58,
+		                    "size":60,
 		                    "placement":"cross"
 		                },
 		                "itemsOverlap":true,
 		                "item":{
 		                    "offsetY":-55
-		                }
+		                },
 		            },
 		            "tooltip": {
 		              "visible": false
@@ -154,11 +166,17 @@ $(document).ready(function(){
 			colorList.push("#9d8cc1");
 			var i = 0;
 			// 관심사 수 최대치
-			var allCnt = ${gndrHumanStatisMaxValue} +1;
+			var allCnt = ${ageHumanStatisMaxValue} +1;
 			
 			/* 관심사별 선택 그래프 */
 			var ageCircle = {
 			 	type: "ring",
+			 	title : {
+			 		text: "연령 별 인구 비율 차트",
+			 		fontFamily : 'Lato',
+			 		fontSize :20,
+			 		fontColor : "#1E5D9E",
+			 	},
 			 	plot: {
 			 	  slice:'50%',
 			 	  borderWidth:0,
@@ -257,7 +275,6 @@ $(document).ready(function(){
 <div class="tab-pane fade show" id="intrstAge">
 	<p>연령&nbsp:&nbsp
 		<select id="selBox" >
-		  	<option value="allAge" selected>0~4세</option>
 			<c:forEach items="${ageList}" var="age">
 		  		<option value="${age.hs_age_grp}">${age.hs_age_grp}</option>
 			</c:forEach>
@@ -268,7 +285,7 @@ $(document).ready(function(){
 
 <div>
 	<div id="siseTableDiv">
-		<span class="subTitle"> 연령별 인구 비율 그래프</span>
-		<div id="ageCircle" style="height: 500px;"></div>
+		<!-- <span class="subTitle"> 연령별 인구 비율 그래프</span> -->
+		<div id="ageCircle" style="height: 800px;"></div>
 	</div>
 </div>

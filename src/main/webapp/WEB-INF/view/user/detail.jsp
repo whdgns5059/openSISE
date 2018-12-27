@@ -148,10 +148,12 @@
 									<div class="starDiv">
 										<input class="reviewStarInput" id="reviewStarRating" type="hidden" value="${postVo.post_star }"/>
 									</div>
+									<!-- REPORT 신고 START -->
 									<div class="reportDiv">
 										<img src="/img/report.jpg" width="30" height="30"/>
 										<input class="rpt_post" value="${postVo.post_no }" type="hidden" />
 									</div>
+									<!-- REPORT 신고 END -->
 								</div>
 								<div class="photo">
 								</div>

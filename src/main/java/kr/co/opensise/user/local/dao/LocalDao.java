@@ -148,6 +148,12 @@ public class LocalDao implements LocalDaoInf {
 		return template.selectList("local.ageCircle", humanVo);
 	}
 
+	@Override
+	public List<HumanStatisVo> humanAllTableList(String dong) {
+		// TODO Auto-generated method stub
+		return template.selectList("local.allHumanTableList", dong);
+	}
+
 	
 
 }

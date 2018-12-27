@@ -22,6 +22,7 @@ import kr.co.opensise.user.detail.model.PictureVo;
 import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReplyVo;
 import kr.co.opensise.user.detail.model.ReportVo;
+import kr.co.opensise.user.detail.model.Report_classfVo;
 import kr.co.opensise.util.CommonUtil;
 
 @Service
@@ -199,13 +200,33 @@ public class DetailService implements DetailServiceInf{
 			humanStat = -5f;
 		}
 	
+		Float trafficStat = detailDao.selectTrafficStat(dealVo);
+		if(trafficStat == null) {
+			trafficStat= 0f;
+		}
+		if(trafficStat> 5f) {
+			trafficStat= 5f;
+		}
+		if(trafficStat< -5f) {
+			trafficStat= -5f;
+		}
+		
+		
+		
 		Map<String, Float> statMap = new HashMap<>();
 
 		statMap.put("priceStat", priceStat);
 		statMap.put("marketStat", marketStat);
 		statMap.put("humanStat", humanStat);
+		statMap.put("trafficStat", trafficStat);
+		
+		
+		
 		
 		return statMap;
+		
+		
+		
 	}
 
 	@Override
@@ -232,7 +253,12 @@ public class DetailService implements DetailServiceInf{
 	public List<DealVo> selectTotalDealList(DealVo dealVo) {
 		return detailDao.selectDealListByArea(dealVo);
 	}
-
+	
+	@Override
+	public List<Report_classfVo> getRpt_classf() {
+		return detailDao.getRpt_classf();
+	}
+	
 	@Override
 	public int insertReport(ReportVo rptVo) {
 		return detailDao.insertReport(rptVo);
@@ -295,6 +321,7 @@ public class DetailService implements DetailServiceInf{
 		}
 	}
 
+	
 
 }
 

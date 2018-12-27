@@ -7,6 +7,8 @@ public class HumanStatisVo {
 	private String hs_date;
 	private int hs_hm_no;
 	private String dong;
+	private String hs_gndrf;
+	private String hs_gndrm;
 	
 	
 	public String getHs_dong() {
@@ -45,6 +47,19 @@ public class HumanStatisVo {
 	public void setDong(String dong) {
 		this.dong = dong;
 	}
+	public String getHs_gndrf() {
+		return hs_gndrf;
+	}
+	public void setHs_gndrf(String hs_gndrf) {
+		this.hs_gndrf = hs_gndrf;
+	}
+	public String getHs_gndrm() {
+		return hs_gndrm;
+	}
+	public void setHs_gndrm(String hs_gndrm) {
+		this.hs_gndrm = hs_gndrm;
+	}
+	
 	
 
 }

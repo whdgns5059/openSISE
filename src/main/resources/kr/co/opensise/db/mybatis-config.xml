@@ -10,6 +10,7 @@
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo" alias="human_statisticVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketVo" alias="marketVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo" alias="marketDetailVo"/>
+		<typeAlias type="kr.co.opensise.admin.manage.dataetc.model.StationVo" alias="stationVo"/>
 		<typeAlias type="kr.co.opensise.user.main.model.BuildingSaleVo" alias="buildingSaleVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.member.model.ManagementVo" alias="managementVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.member.model.PageVO" alias="pageVo"/>
@@ -46,6 +47,7 @@
 		<typeAlias type="kr.co.opensise.user.detail.model.ReplyVo" alias="replyVo"/>
 		<typeAlias type="kr.co.opensise.user.detail.model.PictureVo" alias="pictureVo"/>
 		<typeAlias type="kr.co.opensise.user.detail.model.ReportVo" alias="reportVo"/>
+		<typeAlias type="kr.co.opensise.user.detail.model.Report_classfVo" alias="rpt_cfVo"/>
 
 		
 	</typeAliases>
@@ -61,5 +63,6 @@
 		<mapper resource="kr/co/opensise/db/local.xml" />
 		<mapper resource="kr/co/opensise/db/market.xml" />
 		<mapper resource="kr/co/opensise/db/admin_management.xml" />
+		<mapper resource="kr/co/opensise/db/station.xml" />
 	</mappers>
 </configuration>

@@ -92,12 +92,20 @@ public class LocalController {
 		return "user/localAjax/etc";
 	}
 	
+	@RequestMapping("/station")
+	public String station( @RequestParam("dong") String dong, Model model) {
+		return "user/localAjax/station";
+	}
+	
 	
 	//인구분석 
 	@RequestMapping("/totalPop")
 	public String totalPop(@RequestParam("dong") String dong, Model model) {
 		
 		String changeDong = dong.substring(0,1);
+		//전체 인구 표
+		List<HumanStatisVo> humanTableList = localService.humanAllTableList(changeDong);
+		model.addAttribute("allTalbeList",humanTableList);
 		
 		//전체 인구 통계
 		List<HumanStatisVo>allHumanStatisList = localService.humanAllStatistic(changeDong);
@@ -159,6 +167,7 @@ public class LocalController {
 		String changeDong = (humanVo.getDong()).substring(0,2);
 		logger.info("changeDong : " + changeDong);
 		humanVo.setDong(changeDong);
+		humanVo.setHs_age_grp("0~4세");
 		
 		//연령 리스트
 		List<HumanStatisVo> ageList = localService.ageList();
@@ -182,6 +191,10 @@ public class LocalController {
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
 		model.addAttribute("hsDate", hsDateSearch);
+		
+		//연령별 비율 그래프
+		List<HumanStatisVo> ageCircle = localService.ageCircle(humanVo);
+		model.addAttribute("ageCircle", ageCircle);
 		
 		model.addAttribute("dong", humanVo.getDong());
 		
@@ -218,13 +231,6 @@ public class LocalController {
 		//날짜 검색
 		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
 		model.addAttribute("hsDate", hsDateSearch);
-		
-		//연령별 비율 그래프
-		List<HumanStatisVo> ageCircle = localService.ageCircle(humanVo);
-		model.addAttribute("ageCircle", ageCircle);
-		
-		model.addAttribute("dong", humanVo.getDong());
-		
 		
 		return "user/localAjax/pop/ageAjaxPop";
 	}

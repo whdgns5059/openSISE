@@ -157,5 +157,12 @@ public class LocalService implements LocalServiceInf {
 	}
 
 
+	@Override
+	public List<HumanStatisVo> humanAllTableList(String dong) {
+		// TODO Auto-generated method stub
+		return localDao.humanAllTableList(dong);
+	}
+
+
 
 }

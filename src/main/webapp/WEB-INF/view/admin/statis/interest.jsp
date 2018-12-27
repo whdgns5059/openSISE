@@ -39,15 +39,6 @@
     margin-top: 12px;
     margin-left: 12px;
 }
-#selBox{
-	width: 100px;
-    height: 25px;
-	border: 1px solid #d8d8d8;
-	border-radius: 5px;
-	color: #808080;
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
 #intrstAllG, #intrstAgeG{
 	height:500px;
 	width:100%;
@@ -222,7 +213,7 @@ $(document).ready(function(){
 			</div>
 			<div class="tab-pane fade show" id="intrstAge">
 				<p>연령&nbsp:&nbsp
-					<select id="selBox" >
+					<select id="selBox" class="selBox" >
 					  	<option value="allAge" selected>전연령</option>
 						<c:forEach items="${ageList }" var="age">
 					  		<option value="${age }">${age }</option>

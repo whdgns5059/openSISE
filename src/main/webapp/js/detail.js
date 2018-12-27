@@ -541,6 +541,7 @@ function setReviewStar(starReview){
 	
 }
 
+/* REPORT 신고 */
 $('.reportDiv').on('click', function(e){
 	
 	var mem_no = $('#mem_no').val();
