@@ -33,6 +33,21 @@ $(document).ready(function(){
 	};
 
 	});
+		
+	$('.artcl_nm').click(function(){
+		
+		var artcl_gu   = this.parentElement.getElementsByClassName('artcl_gu')[0].value
+		var artcl_dong = this.parentElement.getElementsByClassName('artcl_dong')[0].value;
+		var artcl_zip  = this.parentElement.getElementsByClassName('artcl_zip')[0].value;
+		var artcl_rd   = this.parentElement.getElementsByClassName('artcl_rd')[0].value;
+		var favor_ty   = this.parentElement.getElementsByClassName('favor_ty')[0].value;
+		
+		location.href = '/detail/info?artcl_gu='+artcl_gu+'&artcl_dong='+artcl_dong+'&artcl_zip='+artcl_zip+'&artcl_rd='+artcl_rd+'&dl_ty='+favor_ty;
+		
+	});
+		
+		
+		
 });
 </script>
 </head>
@@ -50,7 +65,14 @@ $(document).ready(function(){
 				</tr>
 				<c:forEach items="${steamVo}" var="steam">
 						<tr>
-							<td>${steam.artcl_nm}</td>
+							<td>
+								<a class="artcl_nm">${steam.artcl_nm}</a>
+								<input type="hidden" class="artcl_gu" value="${steam.artcl_gu }"/>
+								<input type="hidden" class="artcl_dong" value="${steam.artcl_dong }"/>
+								<input type="hidden" class="artcl_zip" value="${steam.artcl_zip }"/>
+								<input type="hidden" class="artcl_rd" value="${steam.artcl_rd }"/>
+								<input type="hidden" class="favor_ty" value="${steam.favor_ty }"/>
+							</td>
 							<td>${steam.artcl_gu}${steam.artcl_dong}${steam.artcl_zip}${steam.artcl_rd}</br>
 								<c:choose>
 									<c:when test="${steam.dl_rnt!= 0}">
