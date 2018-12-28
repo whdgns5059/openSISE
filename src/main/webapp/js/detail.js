@@ -24,7 +24,7 @@ function settingMap(){
 	//마커이미지 주소
 	var imageSrc = '/img/placePicker.png',
 	 imageSize = new daum.maps.Size(34, 50),
-	 imageOption = {offset : new daum.maps.Point(0, 100)};
+	 imageOption = {offset : new daum.maps.Point(17, 63)};
 
 	var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
 	
