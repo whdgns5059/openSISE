@@ -170,7 +170,7 @@
 
 #mapWrap {width:100%; height:95%; position: relative;}
 #map {width:100%; height:100%;}
-.toLocal {position: absolute; top: 640px; left: 1050px; z-index: 10; width:150px; height: 150px;}
+.toLocal {position: absolute; top: 640px; left: 1055px; z-index: 10; width:150px; height: 150px;}
 
 
 </style>
@@ -179,6 +179,9 @@
 <script type="text/javascript">
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
+		
+		var map;
+		
 		/* var dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
 		$("#buildT").html(dl_Type); */
 		dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
@@ -449,7 +452,11 @@
 		$(".main-right").on("mouseover",".article",function(){
 			var x = this.getElementsByClassName("lat")[0].value;	// mouseOver가 된 해당 매물의 위도
 			var y = this.getElementsByClassName("lng")[0].value;	// mouseOver가 된 해당 매물의 경도
-			settingMap(x,y);
+			
+			var moveLatLng = new daum.maps.LatLng(x, y);
+			map.panTo(moveLatLng);
+			
+			//settingMap(x,y);
 		});
 		/*------------- 해당 매물 mouseover시 중심 좌표 이동 끝---------*/
 		
@@ -495,7 +502,7 @@
 				level : 3
 			// 지도의 확대 레벨
 			};
-			var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+			map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 			/*------------- 지도 생성 코드 끝 ----------------*/
 
 			/*------------- 마커 생성 코드 ----------------*/
