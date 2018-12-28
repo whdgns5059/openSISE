@@ -182,7 +182,7 @@ input:disabled {
     width: 1000px;
     height: 700px;
     background-color: #FFF;
-    z-index: 10;
+    z-index: 10000;
     border-radius: 20px;
     position: fixed;
     margin-left: -25%;
