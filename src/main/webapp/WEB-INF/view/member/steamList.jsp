@@ -55,11 +55,14 @@ $(document).ready(function(){
 <body>
 <div class="admin-title">
 	<h1>찜 목록 <img src="../img/heart.png" width="45px" height="45px" /></h1>
+		<p>매물명을 클릭하면 상세보기로 이동합니다</p>
 		<div class="hr2">
-			<table border="1">
+			<table class="table">
 				<tr>
 					<th>매물명</th>
 					<th>매물정보</th>
+					<th>매매구분</th>
+					<th>가격</th>
 					<th>찜 <img src="../img/heart.png" width="18px" height="18px" />
 					</th>
 				</tr>
@@ -73,7 +76,9 @@ $(document).ready(function(){
 								<input type="hidden" class="artcl_rd" value="${steam.artcl_rd }"/>
 								<input type="hidden" class="favor_ty" value="${steam.favor_ty }"/>
 							</td>
-							<td>${steam.artcl_gu}${steam.artcl_dong}${steam.artcl_zip}${steam.artcl_rd}</br>
+							<td>${steam.artcl_gu}${steam.artcl_dong}${steam.artcl_zip}${steam.artcl_rd}</td>
+							<td>${steam.favor_ty }</td>
+							<td>
 								<c:choose>
 									<c:when test="${steam.dl_rnt!= 0}">
 									${steam.dl_rnt} 원
