@@ -68,8 +68,8 @@ $(document).ready(function(){
 				</tr>
 				<c:forEach items="${steamVo}" var="steam">
 						<tr>
-							<td>
-								<a class="artcl_nm">${steam.artcl_nm}</a>
+							<td class="artcl_nm">
+								${steam.artcl_nm}
 								<input type="hidden" class="artcl_gu" value="${steam.artcl_gu }"/>
 								<input type="hidden" class="artcl_dong" value="${steam.artcl_dong }"/>
 								<input type="hidden" class="artcl_zip" value="${steam.artcl_zip }"/>

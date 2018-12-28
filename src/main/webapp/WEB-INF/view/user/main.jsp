@@ -170,7 +170,7 @@
 
 #mapWrap {width:100%; height:95%; position: relative;}
 #map {width:100%; height:100%;}
-.toLocal {position: absolute; top: 740px; left: 1150px; z-index: 10; width:150px; height: 150px;}
+.toLocal {position: absolute; top: 640px; left: 1050px; z-index: 10; width:150px; height: 150px;}
 
 
 </style>
@@ -502,13 +502,32 @@
 
 			var positions = setLatlngArr();
 
+			var mapTypeControl = new daum.maps.MapTypeControl();
+
+			// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+			// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+			map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+			// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+			var zoomControl = new daum.maps.ZoomControl();
+			map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+			
+			
 			//마커가 표시될 위치입니다 
 			var markerPosition = new daum.maps.LatLng(lat, lng);
 			var marker;
 			for(var i =0; i<positions.length; i++){
 				//마커를 생성합니다
+					//마커이미지 주소
+					var imageSrc = '/img/placePicker.png',
+					 imageSize = new daum.maps.Size(34, 50),
+					 imageOption = {offset : new daum.maps.Point(27, 80)};
+
+					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+				
 					marker = new daum.maps.Marker({
-					position : positions[i]
+					position : positions[i],
+					image : markerImage
 				});
 				//마커가 지도 위에 표시되도록 설정합니다
 				marker.setMap(map);
@@ -774,7 +793,7 @@
 	<div id="mapWrap">
 		<div id="map"></div>
 		<div class="toLocal">
-			<img src="https://via.placeholder.com/100x100/fd7e14?text=TO_LOCAL" />
+			<img src="/img/to_local.png" width="280" height="200"/>
 		</div>
 	</div>
 </div>

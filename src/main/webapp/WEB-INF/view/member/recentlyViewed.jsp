@@ -17,6 +17,11 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:if test="${searchList == null }" >
+						<tr>
+							<td><h3>최근 본 매물이 없습니다.</h3></td>
+						</tr>
+					</c:if>	
 					<c:forEach items="${searchList }" var="sel">
 						<tr>	
 							<td class="artcl_nm">

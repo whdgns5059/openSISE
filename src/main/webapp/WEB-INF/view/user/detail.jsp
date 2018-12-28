@@ -16,7 +16,7 @@
 		<div id="map"></div>
 		<!-- 지도 오버레이(지역분석으로 이동) -->
 		<div class="toLocal">
-			<img src="https://via.placeholder.com/100x100/fd7e14?text=TO_LOCAL" />
+			<img src="/img/to_local.png" width="280" height="200"/>
 		</div>
 	</div>	
 	<div class="detailcontainer">
