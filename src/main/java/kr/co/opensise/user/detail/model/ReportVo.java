@@ -6,7 +6,7 @@ public class ReportVo {
 	private int rpt_post;
 	private String rpt_cntnt;
 	private String rpt_date;
-	private String rpt_classf;
+	private int rpt_classf;
 	private int rpt_mem;
 	private String rpt_ttl;
 	private String rpt_exst;
@@ -42,10 +42,10 @@ public class ReportVo {
 	public void setRpt_date(String rpt_date) {
 		this.rpt_date = rpt_date;
 	}
-	public String getRpt_classf() {
+	public int getRpt_classf() {
 		return rpt_classf;
 	}
-	public void setRpt_classf(String rpt_classf) {
+	public void setRpt_classf(int rpt_classf) {
 		this.rpt_classf = rpt_classf;
 	}
 	public int getRpt_mem() {

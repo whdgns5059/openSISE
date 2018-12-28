@@ -94,10 +94,13 @@
 	padding-top: 31px;
 }
 #modalOk{
+    width: 58px;
+    height: 32px;
     margin-top: 11px;
     border: 1px solid #d8d8d8;
     background: #f5f3f0;
     border-radius: 4px;
+    font-size: 13px;
     cursor: pointer;
 }
 
@@ -164,7 +167,6 @@ $(document).ready(function(){
 	    from = $( "#from" ).datepicker( "getDate" );
 	    to = $( "#to" ).datepicker( "getDate" );
 	    if(from > to){
-	    	// TODO : 알림창 띄우기
 	    	//검은 막 띄우기
 			wrapWindowByMask();
 			//닫기 버튼을 눌렀을 때
@@ -310,6 +312,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 	
+	<!-- 알림창 모달창  --> 
 	<div id="mask"></div>	
 	<div id="modal">
 		<div class="modalTop"></div>
