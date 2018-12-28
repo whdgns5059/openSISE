@@ -477,7 +477,20 @@
 		<div class="filters-div">
 			<ul class="nav nav-tabs">
 				<li id="cameraDiv">
-					<img  src="../img/camera.png" id="camera"/>
+					<form action="/main/searchCam" method="post" id="cam_form" enctype="multipart/form-data">
+						<img  src="../img/pictures.png" id="camera" />
+						<input type="file" id="search_cam" name="search_cam" />
+						<input type="hidden" id="cam_buildings" name="building" value="${building}">
+						<input type="hidden" id="cam_dl_ty" name="dl_ty" value ="${dlType}"> 
+						<input type="hidden" id="cam_dl_excv_area" name="dl_excv_area"> 
+						<input type="hidden" id="cam_artcl_const_y" name="artcl_const_y"> 
+						<input type="hidden" id="cam_dl_price1" name="dl_price1"/>
+						<input type="hidden" id="cam_dl_price2" name="dl_price2"/>
+						<input type="hidden" id="cam_dl_rnt1" name="dl_rnt1"/>
+						<input type="hidden" id="cam_dl_rnt2" name="dl_rnt2"/> 
+						
+						<input type="submit" id="cam_submit" class="btn" value="사진검색"/>
+					</form>
 				</li>
 				<c:if test="${building == 'house'}">
 					<li class="nav-item dropdown">
@@ -721,7 +734,16 @@
 
 
 
-
+<script>
+	
+	//마우스 커서
+	$('#cameraDiv').hover(function(){
+		this.style.cursor = 'pointer';
+	});
+	
+	
+	
+</script>
 
 
 

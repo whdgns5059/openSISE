@@ -46,12 +46,26 @@ public class CommonUtil {
 		}
         Map<String, String> addr = null;
         
-           addr = getRegionAddress(getJSONData(url));
+           addr = getLatLng(getJSONData(url));
         return addr;
 
 
 		
 	}
+	
+	
+	public static String coord2Addr(Map<String, Double> latLng) throws IOException {
+		
+		Double x = latLng.get("lng");
+		Double y = latLng.get("lat");
+		
+		String url = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x="+x+"&y="+y+"&input_coord=WGS84";
+		
+		String dong = getAddr(getJSONData(url));
+		
+		return dong; 
+	}
+
 	
 	public static String getJSONData(String apiUrl) throws IOException {
 		String jsonString = new String();
@@ -71,7 +85,7 @@ public class CommonUtil {
 		return jsonString;
 	}
 
-	private static Map<String, String> getRegionAddress(String jsonString) throws IndexOutOfBoundsException, NullPointerException{
+	private static Map<String, String> getLatLng(String jsonString) throws IndexOutOfBoundsException, NullPointerException{
 		  
 		  	JsonParser jsonParser = new JsonParser();
 		  	
@@ -97,6 +111,27 @@ public class CommonUtil {
 		  	
 	        return resultMap;
 	    }
+	
+	private static String getAddr(String jsonString) {
+		
+		JsonParser jsonParser = new JsonParser();
+		
+		JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonString);
+		
+		JsonArray documents = (JsonArray) jsonObject.get("documents");
+		
+		if(documents== null) {
+			throw new NullPointerException();
+		}
+		  
+		if(documents.size() < 1) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		String dong = documents.get(0).getAsJsonObject().get("address").getAsJsonObject().get("region_3depth_name").toString();
+		
+		return dong;
+	}
 	
 	
 	
