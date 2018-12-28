@@ -116,7 +116,7 @@ public class MainController {
 		latlng.put("lng", lng);
 	
 		String dong = CommonUtil.coord2Addr(latlng);
-		dong.substring(1, dong.length()-1);
+		String subDong = dong.substring(1, dong.length()-1);
 		
 		return "redirect:/main/mainAjax";
 	}
