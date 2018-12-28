@@ -14,9 +14,9 @@
 	<table class="table table-hover table-stripe table-condensed">
 		<thead>
 			<tr>
-				<td colspan="3" class="orange">
+				<th colspan="3" class="orange">
 					<strong>버스 정보</strong>
-				</td>
+				</th>
 			</tr>
 		</thead>
 		<tbody>

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.opensise.admin.manage.datatrade.model.ArticleVo;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.member.Login.model.SteamVo;
@@ -199,8 +200,10 @@ public class MypageController {
 	* @return  
 	* Method 설명 :  최근 본 매물
 	*/
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/recentlyviewed")
-	public String recentlyViewed(Model model) {
+	public String recentlyViewed() {
+		
 		return "recentlyViewed";
 	}
 	

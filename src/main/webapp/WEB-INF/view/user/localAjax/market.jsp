@@ -41,9 +41,9 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<td>품목</td>
-					<td>제품명</td>
-					<td>가격</td>
+					<th>품목</th>
+					<th>제품명</th>
+					<th>가격</th>
 				</tr>
 			</thead>
 			<tbody>
