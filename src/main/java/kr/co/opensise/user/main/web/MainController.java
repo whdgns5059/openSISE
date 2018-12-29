@@ -2,6 +2,7 @@ package kr.co.opensise.user.main.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,8 +83,21 @@ public class MainController {
 	}
 	
 	
+	/*************************************************  
+	* Method   : searchCam 
+	* 작성자 :  whdgn
+	* 변경이력 :  2018. 12. 29.
+	* @param part
+	* @param filterVo
+	* @param request
+	* @return
+	* @throws IOException  
+	* Method 설명 :  사진으로 검색
+	* 사진에서 좌표를 추출, 해당 좌표로 동명을 찾고
+	* 그 값을 파라미터로 하여 main으로 리다이렉트 한다
+	**************************************************/
 	@RequestMapping("/searchCam")
-	public String searchCam(@RequestPart("search_cam") MultipartFile part, FilterVo filterVo, HttpServletRequest request) throws IOException {
+	public String searchCam(@RequestPart("search_cam") MultipartFile part, FilterVo filterVo, HttpServletRequest request, Model model) throws IOException {
 		
 		String path = request.getServletContext().getRealPath("/reviewImg");
 			
@@ -116,9 +130,16 @@ public class MainController {
 		latlng.put("lng", lng);
 	
 		String dong = CommonUtil.coord2Addr(latlng);
-		String subDong = dong.substring(1, dong.length()-1);
+		String searchName = dong.substring(1, dong.length()-1);
 		
-		return "redirect:/main/mainAjax";
+		
+		//main/main 으로 보내야 하는 파라미터
+		//searchName,  building, dl_ty = 매매
+		
+		String building = filterVo.getBuilding();
+		String dl_ty = filterVo.getDl_ty();
+		
+		return "redirect:/main/main?searchName="+URLEncoder.encode(searchName, "UTF-8")+"&building="+building+"&dl_ty="+URLEncoder.encode(dl_ty, "UTF-8");
 	}
 	
 
