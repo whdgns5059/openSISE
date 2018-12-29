@@ -14,6 +14,9 @@
 
 <script>
 
+	map.addOverlayMapTypeId(daum.maps.MapTypeId.TRAFFIC);    
+
+	
 	
 	function getCenterLatLng(){
 		
