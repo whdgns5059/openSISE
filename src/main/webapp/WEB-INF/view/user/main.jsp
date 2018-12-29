@@ -479,7 +479,7 @@
 				<li id="cameraDiv">
 					<form action="/main/searchCam" method="post" id="cam_form" enctype="multipart/form-data">
 						<img  src="../img/pictures.png" id="camera" />
-						<input type="file" id="search_cam" name="search_cam" />
+						<input type="hidden" id="search_cam" name="search_cam" />
 						<input type="hidden" id="cam_buildings" name="building" value="${building}">
 						<input type="hidden" id="cam_dl_ty" name="dl_ty" value ="${dlType}"> 
 						<input type="hidden" id="cam_dl_excv_area" name="dl_excv_area"> 
@@ -489,7 +489,7 @@
 						<input type="hidden" id="cam_dl_rnt1" name="dl_rnt1"/>
 						<input type="hidden" id="cam_dl_rnt2" name="dl_rnt2"/> 
 						
-						<input type="submit" id="cam_submit" class="btn" value="사진검색"/>
+						<input type="hidden" id="cam_submit" class="btn search_cam" value="사진검색"/>
 					</form>
 				</li>
 				<c:if test="${building == 'house'}">
@@ -741,6 +741,22 @@
 		this.style.cursor = 'pointer';
 	});
 	
+	
+	//이미지 클릭시 인풋 보이게..
+	$('#camera').click(function(){
+		
+		var type = $('#search_cam').attr('type');
+	
+		if(type == 'hidden'){
+			$('#search_cam').attr('type', 'file');
+			$('#cam_submit').attr('type', 'submit');
+		}else {
+			$('#search_cam').attr('type', 'hidden');
+			$('#cam_submit').attr('type', 'hidden');
+		}
+		
+		
+	});
 	
 	
 </script>

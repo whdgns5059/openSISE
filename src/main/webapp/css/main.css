@@ -167,3 +167,5 @@
 #mapWrap {width:100%; height:95%; position: relative;}
 #map {width:100%; height:100%;}
 .toLocal {position: absolute; top: 640px; left: 1055px; z-index: 10; width:150px; height: 150px;}
+
+.search_cam {width: 100px;}
