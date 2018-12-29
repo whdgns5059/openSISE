@@ -119,28 +119,41 @@ public class MainController {
 		}
 		
 		GpsDirectory gpsDirec = metadata.getFirstDirectoryOfType(GpsDirectory.class);
-		
-		GeoLocation geoLoc = gpsDirec.getGeoLocation();
 	
-		double lat = geoLoc.getLatitude();
-		double lng = geoLoc.getLongitude();
+		if(gpsDirec != null) {
+
+			GeoLocation geoLoc = gpsDirec.getGeoLocation();
 		
-		Map<String, Double> latlng = new HashMap<String, Double>();
-		latlng.put("lat", lat);
-		latlng.put("lng", lng);
-	
-		String dong = CommonUtil.coord2Addr(latlng);
-		String searchName = dong.substring(1, dong.length()-1);
+			double lat = geoLoc.getLatitude();
+			double lng = geoLoc.getLongitude();
+			
+			Map<String, Double> latlng = new HashMap<String, Double>();
+			latlng.put("lat", lat);
+			latlng.put("lng", lng);
+		
+			String dong = CommonUtil.coord2Addr(latlng);
+			String searchName = dong.substring(1, dong.length()-1);
+			
+			
+			//main/main 으로 보내야 하는 파라미터
+			//searchName,  building, dl_ty = 매매
+			
+			String building = filterVo.getBuilding();
+			String dl_ty = filterVo.getDl_ty();
+			
+			return "redirect:/main/main?searchName="+URLEncoder.encode(searchName, "UTF-8")+"&building="+building+"&dl_ty="+URLEncoder.encode(dl_ty, "UTF-8");
+			
+		}else {
+			
+			return  "user/mainAjax/wrong_request";
+			
+		}
 		
 		
-		//main/main 으로 보내야 하는 파라미터
-		//searchName,  building, dl_ty = 매매
-		
-		String building = filterVo.getBuilding();
-		String dl_ty = filterVo.getDl_ty();
-		
-		return "redirect:/main/main?searchName="+URLEncoder.encode(searchName, "UTF-8")+"&building="+building+"&dl_ty="+URLEncoder.encode(dl_ty, "UTF-8");
 	}
+	
+	
+	
 	
 
 }
