@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mng_report">
+
+<!-- ** 신고 분류 ** -->
+	<!-- 신고분류 리스트 -->
+	<select id="getRptCf" resultType="rpt_cfVo">
+		Select rpt_classf, rpt_cf_nm From report_classf
+	</select>
+	
+	<!-- 신고분류 생성 -->
+	<insert id="insertRptCf" parameterType="string">
+		Insert Into report_classf (rpt_classf, rpt_cf_nm) 
+		Values (seq_rpt_cf_no.nextval, #{rpt_cf_nm})
+	</insert>
+	
+	<!-- 신고분류 수정 -->
+	<update id="updateRptCf" parameterType="rpt_cfVo">
+		Update report_classf Set rpt_cf_nm = #{rpt_cf_nm} Where rpt_classf =#{rpt_classf}
+	</update>
+	
+	<!-- 신고분류 삭제 -->
+	<delete id="deleteRptCf" parameterType="int">
+		Delete From report_classf Where rpt_classf =#{rpt_classf}
+	</delete>
+
+<!-- ** 신고 ** -->
+	<!-- 신고 리스트 -->
+	<select id="getReport" resultType="reportVo">
+		SELECT rpt_no, rpt_post, rpt_classf, rpt_ttl, rpt_cntnt, rpt_date, rpt_mem, rpt_exst 
+		FROM report 
+		Order by rpt_no
+	</select>
+	
+	<!-- 신고 처리여부 수정 -->
+	<update id="updateReport" parameterType="reportVo">
+		Update report Set rpt_exst = Upper(#{rpt_exst}) Where rpt_no =#{rpt_no}
+	</update>
+	
+	
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

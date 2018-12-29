@@ -68,5 +68,6 @@
 		<mapper resource="kr/co/opensise/db/admin_management.xml" />
 		<mapper resource="kr/co/opensise/db/station.xml" />
 		<mapper resource="kr/co/opensise/db/review.xml" />
+		<mapper resource="kr/co/opensise/db/mng_report.xml" />
 	</mappers>
 </configuration>

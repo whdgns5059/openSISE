@@ -20,7 +20,7 @@ public class Report_classfVo {
 	}
 	@Override
 	public String toString() {
-		return "Report_classfVo [rpt_cf_nm=" + rpt_cf_nm + ", rpt_classf=" + rpt_classf + "]";
+		return "Report_classfVo [rpt_classf=" + rpt_classf + ", rpt_cf_nm=" + rpt_cf_nm + "]";
 	}
 	
 }

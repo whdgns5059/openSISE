@@ -103,7 +103,7 @@
 		From (Select count(*) as counts, favor_gu From favorite Group by favor_gu)
 	</select>
 	
-<!-- 관심사 통계 -->
+<!-- ** 관심사 통계 ** -->
 	<!-- 관심사 수 최대치 -->
 	<select id="countAllIntrst" resultType="int">
 		Select NVL(Max(counts),0) From (Select Count(intrst_no) as counts, intrst_no From mem_inter Group by intrst_no)
@@ -149,7 +149,7 @@
 		Order by intrst_no
 	</select>
 	
-<!-- 방문자 통계 -->
+<!-- ** 방문자 통계 ** -->
 	<!-- 사이트 방문 데이터 입력 -->
 	<insert id="insertVisitor" >
 		Insert Into visitor Values (sysdate)
@@ -204,7 +204,7 @@
 		Select * From visitor
 	</select>
 	
-<!-- 페이지 통계 -->
+<!-- ** 페이지 통계 ** -->
 	<!-- 페이지 방문 데이터 입력 -->
 	<insert id="insertPS" parameterType="map">
 		Insert All 
@@ -245,8 +245,6 @@
 		Group by  ps_pg, ps_pg_addr
 		Order by ps_pg
 	</select>
-	
-	
 	
 	
 	
