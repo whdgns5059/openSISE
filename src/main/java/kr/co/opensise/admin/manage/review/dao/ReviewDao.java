@@ -23,7 +23,7 @@ public class ReviewDao implements ReviewDaoInf {
 	}
 
 	@Override
-	public List<ReviewVo> cateReviewList(Map<String, String> searchMap) {
+	public List<ReviewVo> cateReviewList(Map<String, Object> searchMap) {
 		// TODO Auto-generated method stub
 		return template.selectList("review.cateSearchList", searchMap);
 	}

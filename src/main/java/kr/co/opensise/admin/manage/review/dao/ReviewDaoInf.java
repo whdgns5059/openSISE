@@ -24,6 +24,6 @@ public interface ReviewDaoInf {
 	* @return  
 	* Method 설명 :  분류별 리뷰 검색
 	*/
-	public List<ReviewVo> cateReviewList(Map<String, String> searchMap);
+	public List<ReviewVo> cateReviewList(Map<String, Object> searchMap);
 
 }

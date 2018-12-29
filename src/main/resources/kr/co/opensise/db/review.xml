@@ -32,10 +32,14 @@
 		from reply inner join member on(rpl_mem = mem_no)
 		where rpl_exst = 'N'
 		<if test="selBox == 'email'">
-			and mem_email like #{searchNm} || '%'
+			and mem_email like '%' || #{searchNm} || '%'
 		</if>
 		<if test="selBox == 'date'">
 			and rpl_date = #{searchNm} 
+		</if>
+		<if test="selBox == 'all'">
+			and mem_email like '%' || #{searchNm} || '%'
+			or rpl_cntnt like '%' || #{searchNm} || '%'
 		</if>
 	</select>
 </mapper>

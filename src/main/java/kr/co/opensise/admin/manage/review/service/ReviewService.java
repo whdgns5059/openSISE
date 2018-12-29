@@ -22,7 +22,7 @@ public class ReviewService implements ReviewServiceInf {
 	}
 
 	@Override
-	public List<ReviewVo> cateReviewList(Map<String, String> searchMap) {
+	public List<ReviewVo> cateReviewList(Map<String, Object> searchMap) {
 		// TODO Auto-generated method stub
 		return reviewDao.cateReviewList(searchMap);
 	}

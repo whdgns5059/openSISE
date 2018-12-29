@@ -1,5 +1,8 @@
 package kr.co.opensise.admin.manage.review.web;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,19 +35,33 @@ public class ReviewController {
 		// 모든 회원의 삭제하지 않은 리뷰 출력
 		List<ReviewVo> reviewAllList = reviewService.allReviewList();
 		model.addAttribute("reviewAllList", reviewAllList);
+		model.addAttribute("reviewSize", reviewAllList.size());
 
 		return "manage/review";
 	}
 
 	@RequestMapping(value="/search", method = {RequestMethod.POST})
-	public String searchList(@RequestParam("searchNm") String searchNm, @RequestParam("selBox") String selBox,
-			Model model) {
-		Map<String, String> searchMap = new HashMap<>();
-		searchMap.put("searchNm", searchNm);
-		searchMap.put("selBox", selBox);
-
+	public String searchList(@RequestParam("searchNm") String searchNm, @RequestParam("selBox") String selBox, Model model) {
+		Map<String, Object> searchMap = new HashMap<>();
+		if(selBox.equals("all") || selBox.equals("email")) {
+			searchMap.put("searchNm", searchNm);
+			searchMap.put("selBox", selBox);
+		}else {
+			try {
+				SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date ud = fmt.parse(searchNm);
+		        java.sql.Date sd = new java.sql.Date(ud.getTime());
+		        String formattedSqlDate = fmt.format(sd);
+				searchMap.put("searchNm", formattedSqlDate);
+				searchMap.put("selBox", selBox);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		List<ReviewVo> cateSearchList = reviewService.cateReviewList(searchMap);
 		model.addAttribute("cateList", cateSearchList);
+		model.addAttribute("cateSize", cateSearchList.size());
 
 		return "admin/manage/reviewAjax/cateReviewAjax";
 	}
