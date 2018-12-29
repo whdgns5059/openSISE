@@ -2,183 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<style>
-.main-left {
-	width: 70%;
-	height: 100%;
-	float: left;
-	z-index: 9000;
-}
-
-.search-filt {
-	width: 100%;
-	height: 5%;
-}
-
-.search {
-	margin: 10px 24px 0 40px;
-	width: 280px;
-	height: 37px;
-	float: left;
-}
-
-.search-box {
-	width: 210px;
-	height: 36px;
-	align-self: center;
-	margin: 0;
-	padding: 0;
-	border: none;
-	border-bottom: 2px solid #4159a9;
-}
-
-.search-box::placeholder {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 15px;
-	font-weight: 400;
-	color: #cacaca;
-}
-
-.searchBtn {
-	width: 57px;
-	padding: 0;
-	margin: 0;
-	height: 35px;
-	color: white;
-	font-size: 14px;
-	font-weight: 400;
-	text-align: center;
-	background-color: #ffae24;
-	border-bottom: 5px solid #4159a9;
-}
-
-.searchBtn:hover {
-	border-bottom: 4px solid #626f9c;
-}
-
-.main-right {
-	width: 30%;
-	height: 100%;
-	float: left;
-	border-left: 1px solid #e0e0e0;
-	background: #f5f3f0;
-	position: relative;
-}
-
-#sensor{
-	width: 30%;
-	height: 100%;
-	float: left;
-	border-left: 1px solid #e0e0e0;
-	background: #f5f3f0;
-	position: relative;
-}
-
-.filters-div {
-	float: left;
-}
-
-.articles {
-	width: 95%;
-	height: 100%;
-	float: right;
-	overflow: scroll;
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
-::-webkit-scrollbar {
-	width: 16px;
-}
-
-::-webkit-scrollbar-track {
-	background-color: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-	background-color: #ffae24;
-	border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background: #4159a9;
-}
-
-.article {
-	width: 500px;
-	height: 140px;
-	margin: 15px 0;
-	padding: 20px;
-	border: 1px solid #e0e0e0;
-	font-size: 15px;
-	font-family: 'Nanum Gothic Coding', monospace;
-	background: white;
-	cursor: pointer;
-}
-
-.article h4 {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 600;
-	color: #4159a9;
-	font-size: 24px;
-}
-
-.address {
-	margin-top: 8px;
-}
-
-.avg-price {
-	
-}
-
-.area-analysis {
-	z-index: 10000;
-	position: absolute;
-	width: 100px;
-	height: 100px;
-	background: black;
-	left: -100px;
-	bottom: 0;
-}
-
-#slider-vertical{
-	margin-left: 20px;
-}
-
-#mini{
-	margin-left: 50px;
-}
-#dlTypePrice{
-	margin-left : 10px;
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
-#camera{
-	width: 40px; 
-	height:40px; 
-}
-
-#cameraDiv{
-	margin-right: 25px;
-	margin-top: 10px;
-	margin-left: -20px;
-}
-.divHeight{
-	width:500px;
-	height: 100px;
-}
-
-#mapWrap {width:100%; height:95%; position: relative;}
-#map {width:100%; height:100%;}
-.toLocal {position: absolute; top: 740px; left: 1150px; z-index: 10; width:150px; height: 150px;}
-
-
-</style>
- <link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet">
+<link href="/css/main.css" rel="stylesheet" />
+<link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet" />
 <script type="text/javascript" src="/css/boostratp_slider_css_js/js/bootstrap-slider.js"></script>
 <script type="text/javascript">
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
+		
+		var map;
+		
 		/* var dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
 		$("#buildT").html(dl_Type); */
 		dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
@@ -449,7 +281,11 @@
 		$(".main-right").on("mouseover",".article",function(){
 			var x = this.getElementsByClassName("lat")[0].value;	// mouseOver가 된 해당 매물의 위도
 			var y = this.getElementsByClassName("lng")[0].value;	// mouseOver가 된 해당 매물의 경도
-			settingMap(x,y);
+			
+			var moveLatLng = new daum.maps.LatLng(x, y);
+			map.panTo(moveLatLng);
+			
+			//settingMap(x,y);
 		});
 		/*------------- 해당 매물 mouseover시 중심 좌표 이동 끝---------*/
 		
@@ -495,20 +331,39 @@
 				level : 3
 			// 지도의 확대 레벨
 			};
-			var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+			map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 			/*------------- 지도 생성 코드 끝 ----------------*/
 
 			/*------------- 마커 생성 코드 ----------------*/
 
 			var positions = setLatlngArr();
 
+			var mapTypeControl = new daum.maps.MapTypeControl();
+
+			// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+			// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+			map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+			// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+			var zoomControl = new daum.maps.ZoomControl();
+			map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+			
+			
 			//마커가 표시될 위치입니다 
 			var markerPosition = new daum.maps.LatLng(lat, lng);
 			var marker;
 			for(var i =0; i<positions.length; i++){
 				//마커를 생성합니다
+					//마커이미지 주소
+					var imageSrc = '/img/placePicker.png',
+					 imageSize = new daum.maps.Size(34, 50),
+					 imageOption = {offset : new daum.maps.Point(27, 80)};
+
+					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+				
 					marker = new daum.maps.Marker({
-					position : positions[i]
+					position : positions[i],
+					image : markerImage
 				});
 				//마커가 지도 위에 표시되도록 설정합니다
 				marker.setMap(map);
@@ -622,7 +477,20 @@
 		<div class="filters-div">
 			<ul class="nav nav-tabs">
 				<li id="cameraDiv">
-					<img  src="../img/camera.png" id="camera"/>
+					<form action="/main/searchCam" method="post" id="cam_form" enctype="multipart/form-data">
+						<img  src="../img/pictures.png" id="camera" />
+						<input type="file" id="search_cam" name="search_cam" />
+						<input type="hidden" id="cam_buildings" name="building" value="${building}">
+						<input type="hidden" id="cam_dl_ty" name="dl_ty" value ="${dlType}"> 
+						<input type="hidden" id="cam_dl_excv_area" name="dl_excv_area"> 
+						<input type="hidden" id="cam_artcl_const_y" name="artcl_const_y"> 
+						<input type="hidden" id="cam_dl_price1" name="dl_price1"/>
+						<input type="hidden" id="cam_dl_price2" name="dl_price2"/>
+						<input type="hidden" id="cam_dl_rnt1" name="dl_rnt1"/>
+						<input type="hidden" id="cam_dl_rnt2" name="dl_rnt2"/> 
+						
+						<input type="submit" id="cam_submit" class="btn" value="사진검색"/>
+					</form>
 				</li>
 				<c:if test="${building == 'house'}">
 					<li class="nav-item dropdown">
@@ -774,7 +642,7 @@
 	<div id="mapWrap">
 		<div id="map"></div>
 		<div class="toLocal">
-			<img src="https://via.placeholder.com/100x100/fd7e14?text=TO_LOCAL" />
+			<img src="/img/to_local.png" width="280" height="200"/>
 		</div>
 	</div>
 </div>
@@ -866,7 +734,16 @@
 
 
 
-
+<script>
+	
+	//마우스 커서
+	$('#cameraDiv').hover(function(){
+		this.style.cursor = 'pointer';
+	});
+	
+	
+	
+</script>
 
 
 

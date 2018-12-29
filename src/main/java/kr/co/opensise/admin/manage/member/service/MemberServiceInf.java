@@ -30,4 +30,14 @@ public interface MemberServiceInf {
 	public Map<String, Object> selectUserPageList(PageVO page);
 	
 	
+	/**  
+	* Method   : selectUser 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원 상세조회
+	*/
+	public ManagementVo selectUser(String mem_email);
+	
 }

@@ -3,7 +3,8 @@
     
    
 <div>
-	
+
+<h4>교통 정보</h4>	
 <div class="stationDiv">
 </div>
 
@@ -26,8 +27,8 @@
 		
 	}
 	
+	
 	function getList(lat, lng){
-		
 		
 		var ajaxFlag = true;
 		
@@ -93,7 +94,6 @@
 	//지도 중앙 위치 변경 이벤트 리스너
 	daum.maps.event.addListener(map, 'dragend', function(){
 		
-		delMarkers();
 		
 		getCenterLatLng();	
 						

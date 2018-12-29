@@ -140,6 +140,7 @@ body {
 	border-radius: 5px;
 	color: #808080;
 	font-family: 'Noto Sans KR', sans-serif;
+	cursor: pointer;
 }
 .square{
     width: 2px;

@@ -16,7 +16,7 @@
 		<div id="map"></div>
 		<!-- 지도 오버레이(지역분석으로 이동) -->
 		<div class="toLocal">
-			<img src="https://via.placeholder.com/100x100/fd7e14?text=TO_LOCAL" />
+			<img src="/img/to_local.png" width="280" height="200"/>
 		</div>
 	</div>	
 	<div class="detailcontainer">
@@ -150,7 +150,7 @@
 									</div>
 									<!-- REPORT 신고 START -->
 									<div class="reportDiv">
-										<img src="/img/report.jpg" width="30" height="30"/>
+										<img src="/img/alert.png" width="40" height="40"/>
 										<input class="rpt_post" value="${postVo.post_no }" type="hidden" />
 									</div>
 									<!-- REPORT 신고 END -->

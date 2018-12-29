@@ -33,6 +33,21 @@ $(document).ready(function(){
 	};
 
 	});
+		
+	$('.artcl_nm').click(function(){
+		
+		var artcl_gu   = this.parentElement.getElementsByClassName('artcl_gu')[0].value
+		var artcl_dong = this.parentElement.getElementsByClassName('artcl_dong')[0].value;
+		var artcl_zip  = this.parentElement.getElementsByClassName('artcl_zip')[0].value;
+		var artcl_rd   = this.parentElement.getElementsByClassName('artcl_rd')[0].value;
+		var favor_ty   = this.parentElement.getElementsByClassName('favor_ty')[0].value;
+		
+		location.href = '/detail/info?artcl_gu='+artcl_gu+'&artcl_dong='+artcl_dong+'&artcl_zip='+artcl_zip+'&artcl_rd='+artcl_rd+'&dl_ty='+favor_ty;
+		
+	});
+		
+		
+		
 });
 </script>
 </head>
@@ -40,18 +55,30 @@ $(document).ready(function(){
 <body>
 <div class="admin-title">
 	<h1>찜 목록 <img src="../img/heart.png" width="45px" height="45px" /></h1>
+		<p>매물명을 클릭하면 상세보기로 이동합니다</p>
 		<div class="hr2">
-			<table border="1">
+			<table class="table">
 				<tr>
 					<th>매물명</th>
 					<th>매물정보</th>
+					<th>매매구분</th>
+					<th>가격</th>
 					<th>찜 <img src="../img/heart.png" width="18px" height="18px" />
 					</th>
 				</tr>
 				<c:forEach items="${steamVo}" var="steam">
 						<tr>
-							<td>${steam.artcl_nm}</td>
-							<td>${steam.artcl_gu}${steam.artcl_dong}${steam.artcl_zip}${steam.artcl_rd}</br>
+							<td class="artcl_nm">
+								${steam.artcl_nm}
+								<input type="hidden" class="artcl_gu" value="${steam.artcl_gu }"/>
+								<input type="hidden" class="artcl_dong" value="${steam.artcl_dong }"/>
+								<input type="hidden" class="artcl_zip" value="${steam.artcl_zip }"/>
+								<input type="hidden" class="artcl_rd" value="${steam.artcl_rd }"/>
+								<input type="hidden" class="favor_ty" value="${steam.favor_ty }"/>
+							</td>
+							<td>${steam.artcl_gu}${steam.artcl_dong}${steam.artcl_zip}${steam.artcl_rd}</td>
+							<td>${steam.favor_ty }</td>
+							<td>
 								<c:choose>
 									<c:when test="${steam.dl_rnt!= 0}">
 									${steam.dl_rnt} 원

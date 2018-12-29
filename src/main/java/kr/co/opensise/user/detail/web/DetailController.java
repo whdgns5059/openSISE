@@ -41,21 +41,21 @@ public class DetailController {
 	@Resource(name="detailService")
 	private DetailServiceInf detailService;
 	
-	//최근 본 매물 저장 리스트
-	private List<ArticleVo> searchList = null;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/info")
 	public String detail(ArticleVo articleVo, @RequestParam("dl_ty") String dl_ty, Model model, HttpSession session) {
-		//최근 본 매물 저장
+
+		
+		//최근 본 매물 저장 리스트
+		List<ArticleVo> searchList = (List<ArticleVo>) session.getAttribute("searchList");
+
 		if(searchList == null) {
-			searchList= new ArrayList<>();
-			searchList.add(articleVo);
-		}else {
-			searchList.add(articleVo);
+			searchList = new ArrayList<>();
+			session.setAttribute("searchList", searchList);
 		}
-		//최근 본 매물 session에 저장
-		session.setAttribute("searchList", searchList);
+		
+		articleVo.setArtcl_dl_ty(dl_ty);
 		
 		
 		
@@ -64,7 +64,9 @@ public class DetailController {
 		ArticleVo selectArticleVo = (ArticleVo) detailMap.get("selectArticleVo");
 		List<String> selectAreas = (List<String>) detailMap.get("selectAreas");
 		List<PostVo> selectReview  = (List<PostVo>) detailMap.get("selectReview");
-	
+
+		selectArticleVo.setArtcl_dl_ty(dl_ty);
+		searchList.add(selectArticleVo);
 		
 		MemberVo nowLogin = (MemberVo) session.getAttribute("nowLogin");
 
