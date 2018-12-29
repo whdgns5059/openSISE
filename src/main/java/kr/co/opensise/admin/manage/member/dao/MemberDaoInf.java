@@ -36,4 +36,15 @@ public interface MemberDaoInf {
 	* Method 설명 : 사용자 전체 건수 조회 
 	*/
 	int getUserCnt();
+	
+	
+	/**  
+	* Method   : selectUser 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원 상세조회
+	*/
+	public ManagementVo selectUser(String mem_email);
 }

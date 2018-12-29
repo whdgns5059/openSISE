@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.admin.manage.member.model.ManagementVo;
 import kr.co.opensise.admin.manage.member.model.PageVO;
@@ -34,21 +35,23 @@ public class MemberManageController {
 	*/
 	@RequestMapping("/member")
 	public String memberList(Model model, ManagementVo managementVo) {
-		List<ManagementVo> mamagement = memberService.memberList(managementVo);
-		model.addAttribute("memberList", mamagement);
 		
 		PageVO pageVo = new PageVO();
 		pageVo.setPage(1);
 		pageVo.setPageSize(10);
 		Map<String, Object> resultMap = memberService.selectUserPageList(pageVo);
-		logger.info("map-userPageList : " + resultMap.get("pageUserList"));
-		logger.info("map-pageCnt : " + resultMap.get("pageCnt"));
 		model.addAllAttributes(resultMap);
 		
 		return "memberList";
 	}
 	
-	
+	/**  
+	* Method   :  userPageListAjax
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 : 회원 목록 페이징처리
+	*/
 	@RequestMapping("/userPageListAjax")
 	public String userPageListAjax(Model model, PageVO pageVo) {
 		
@@ -57,10 +60,9 @@ public class MemberManageController {
 		logger.info("map-pageCnt : " + resultMap.get("pageCnt"));
 		model.addAllAttributes(resultMap);
 		
-
-		//servlet-context.xml에 json resolve로 매핑
 		return "jsonView";
 	}
+	
 	
 	
 

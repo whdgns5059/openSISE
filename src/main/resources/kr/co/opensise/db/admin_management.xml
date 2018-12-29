@@ -5,7 +5,9 @@
 <mapper namespace="admin">
 	<!-- 회원 리스트 출력 -->
 	<select id="memberList" resultType="managementVo" >
-		select * from member
+		select m.mem_no, m.mem_nm, m.mem_email, m.mem_date, m.mem_age, m.mem_exdate, m.mem_gndr, j.job_nm, m.mem_lvl
+		from member m join job j on(m.mem_job = j.job_no)
+		
 	</select>
 	
 	<!-- 회원리스트 페이징처리 -->
@@ -13,8 +15,8 @@
 		select * from(
 		select rownum rnum ,a.*
 		from
-		(select member.*
-		from member
+		(select m.mem_no, m.mem_nm, m.mem_email, m.mem_date, m.mem_age, m.mem_exdate, m.mem_gndr, j.job_nm, m.mem_lvl
+		from member m join job j on(m.mem_job = j.job_no)
 		order by mem_nm) a)
 		where rnum between #{page}*#{pageSize}-(#{pageSize}-1) 
         and #{page}*#{pageSize}
@@ -24,6 +26,8 @@
 	<select id="getUserCnt" resultType="int">
 		select count(*) from member
 	</select>
+	
+	
 	
 </mapper>
 

@@ -13,8 +13,38 @@ public class ManagementVo {
 	private Date mem_exdate;
 	private int mem_lvl;
 	private String mem_age;
+	private int intrst_no;
+	private String intrst_nm;
+	private int job_no;
+	private String job_nm;
 	
 	
+	
+	
+	public int getIntrst_no() {
+		return intrst_no;
+	}
+	public void setIntrst_no(int intrst_no) {
+		this.intrst_no = intrst_no;
+	}
+	public String getIntrst_nm() {
+		return intrst_nm;
+	}
+	public void setIntrst_nm(String intrst_nm) {
+		this.intrst_nm = intrst_nm;
+	}
+	public int getJob_no() {
+		return job_no;
+	}
+	public void setJob_no(int job_no) {
+		this.job_no = job_no;
+	}
+	public String getJob_nm() {
+		return job_nm;
+	}
+	public void setJob_nm(String job_nm) {
+		this.job_nm = job_nm;
+	}
 	public int getMem_no() {
 		return mem_no;
 	}

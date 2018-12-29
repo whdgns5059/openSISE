@@ -50,4 +50,19 @@ public class MemberService implements MemberServiceInf{
 
 		return resultMap;
 	}
+	
+	
+	
+	/**  
+	* Method   : selectUser 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원 상세조회
+	*/
+	@Override
+	public ManagementVo selectUser(String mem_email) {
+		return memberDao.selectUser(mem_email);
+	}
 }
