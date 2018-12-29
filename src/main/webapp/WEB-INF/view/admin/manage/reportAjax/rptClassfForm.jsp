@@ -25,9 +25,10 @@ h3{
 	height: 30px;
 }
 .classf_r{
-    padding: 5px 10px;
+    padding: 12px 10px;
+    margin-bottom: 15px;
     width: 560px;
-    height: 400px;
+    height: 345px;
     border: 1px solid #d8d8d8;
     border-radius: 12px;
 }
@@ -40,7 +41,7 @@ h3{
 	overflow-x: hidden;
 	overflow-y: auto;
 }
-.classf_rVo:nth-child(1){
+.classf_rVo:last-child{
 	padding-top: 7px;
     background: #ffe8bc;
     border-radius: 12px;
@@ -110,6 +111,7 @@ h3{
 }
 .backYellow{
 	background-color: #ffe8bc;
+	width: 45px;
 }
 .hr2{
 	width: 100%;
@@ -172,13 +174,6 @@ $(document).ready(function(){
 		<b class="bTag nm mrgn-l">신고분류명</b>
 	</div>
 	<div class="classf_r">
-		<!-- C 추가 -->
-		<div class="classf_rVo">
-			<input type="text" class="inputBox no backYellow" value=" "/>
-			<input type="text" id="rpt_cf_nm" class="inputBox" name="rpt_cf_nm"/>
-			<button id="classfAdd">추가</button>
-		</div>
-		<br/>
 		<!-- RUD 나열/수정/삭제 -->
 		<c:forEach items="${rpt_cfVoList }" var="vo">
 			<div class="classf_rVo">
@@ -188,7 +183,14 @@ $(document).ready(function(){
 				<button id="classfDel">삭제</button>
 			</div>
 		</c:forEach>
+		<br/>
 	</div>
+		<!-- C 추가 -->
+		<div class="classf_rVo">
+			<input type="text" class="inputBox no backYellow" value=" " disabled />
+			<input type="text" id="rpt_cf_nm" class="inputBox" name="rpt_cf_nm"/>
+			<button id="classfAdd">추가</button>
+		</div>
 
 </div>
 
