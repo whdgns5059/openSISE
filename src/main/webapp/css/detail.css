@@ -15,7 +15,9 @@
    background: #4159a9;
 }
 
-
+#likely{
+	cursor: pointer;
+}
 
 .floatclear {clear:left; clear:right;}
 
