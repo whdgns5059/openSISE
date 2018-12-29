@@ -11,8 +11,10 @@
 	<div id="rightContentWrapper">
 		<div id="rightContent">
 			<div id="localNameDiv">
-				<span id="localNameSpan">${gu } ${dong} 지역 분석</span> <input
-					type="hiddn" id="addr" value="대전광역시 ${gu } ${dong}" />
+				<span id="localNameSpan">${gu } ${dong} 지역 분석</span> 
+				<input type="hiddn" id="addr" value="대전광역시 ${gu } ${dong}" />
+				<input type="hidden" id="loc" value="${dong}"/>
+				<input type="hidden" id="dl_ty" value="매매"/>
 				<hr />
 			</div>
 			<div class="categoryDiv">
