@@ -290,15 +290,18 @@ $('#insertReview').click(function(event){
 
 	var extFlag = true;
 
-	for(var i = 0; i < fileInput.length; i++) {
+	if(fileInput[0].value != ""){
 		
-		var file_path = fileInput[i].value;
-		var dot_index = file_path.lastIndexOf('.');
-		var ext = file_path.substr(dot_index).toLowerCase();
-		
-		if(!(ext == '.jpg' || ext == '.bmp' || ext == '.png' || ext == '.gif')){
-			alert('jpg, bmp, png, gif 이미지만 업로드 가능합니다');
-			return;
+		for(var i = 0; i < fileInput.length; i++) {
+			
+			var file_path = fileInput[i].value;
+			var dot_index = file_path.lastIndexOf('.');
+			var ext = file_path.substr(dot_index).toLowerCase();
+			
+			if(!(ext == '.jpg' || ext == '.bmp' || ext == '.png' || ext == '.gif')){
+				alert('jpg, bmp, png, gif 이미지만 업로드 가능합니다');
+				return;
+			}
 		}
 	}
 	
