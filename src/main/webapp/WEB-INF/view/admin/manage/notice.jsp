@@ -60,13 +60,13 @@
 
 	$(document).ready(function(){
 		
-		$(".postClick").on("click",function(){
-			var post_no = $(this).children()[3].innerText;
+// 		$(".postClick").on("click",function(){
+// 			var post_no = $(this).children()[3].innerText;
 // 			alert(post_no);
-			$("#posts_no").val(posts_id);
-			// .submit();
-			$("#psDetail").submit();
-		});
+// 			$("#posts_no").val(post_no);
+// 			// .submit();
+// 			$("#psDetail").submit();
+// 		});
 		$(".insertPost").on("click",function(){
 			$("#insertPost").submit();
 		});
@@ -96,6 +96,43 @@
 		});
 
 
+		$(".test").click(function(){
+			var noticeList = '${noticeList}';
+// 	  		alert(noticeList);
+	  		
+	  		var post_ttl=this.innerHTML;
+	  		alert(post_ttl);
+			var post_no = this.parentElement.children[3].innerText;
+			alert(post_no);
+			var post_cntnt = this.parentElement.nextElementSibling.innerText;
+			alert(post_cntnt)
+			
+			var click = $(this);
+			var post_content = $(this).parent().siblings()[1].firstElementChild.innerText;
+// 			alert(click);
+			$("#up").click(function(){
+				click.addClass("pick");
+				$(".post_cntnt").addClass("pickcnt");
+				$(".pick").html("<input type='text' value=post_ttl />");
+				$(".pickcnt").html("<input type='text' value=post_content />");
+				
+				$.ajax({
+					type : "POST",
+					url : "/notice/updateNotice",
+					data : "post_no="+post_no+"&post_ttl="+post_ttl+"&post_cntnt="+post_cntnt,
+					success : function(data){
+						var html = data;
+						// 지우는 작업
+						$("#noticeList").html("");
+						// 다시 입히는 방법 
+						$("#noticeList").html(html);
+						
+					}
+					
+				});
+				
+			});
+		})
    
 	});
 	
@@ -166,9 +203,6 @@
 			</tbody>
 		</table>
 	</div>
-	<form id="psDetail" action="/manage/notice/postDetail" method="get">
-		<input type="hidden" id="post_no" name="post_no"/>
-	</form>
 	
 	
 	<div class="notice">
@@ -185,24 +219,25 @@
 								<tr>
 									<td style="width: 30px;">no.</td>
 									<td>제목</td>
-									<td>작성일</td>
+									<td colspan="2">작성일</td>
 								</tr>
 								
 			<!-- 공지사항 반복될 구간 START -->					
 								<c:forEach items="${noticeList }" var="noticeVo" varStatus="status">
 									<tr>
 										<td style="width: 30px;">${status.count }</td>
-										<td onclick="noticeFade('${noticeVo.post_no}')">${noticeVo.post_ttl }</td>
+										<td  class="test"  onclick="noticeFade('${noticeVo.post_no}')">${noticeVo.post_ttl }</td>
 										<td>${noticeVo.post_date }</td>
+										<td style="display: none;">${noticeVo.post_no }</td>
 									</tr>
 									<tr>
-										<td colspan="3" id="${noticeVo.post_no}" class="notice-content" style="display: none;" >${noticeVo.post_cntnt }</td>
+										<td colspan="3" id="${noticeVo.post_no}" class="notice-content post_cntnt" style="display: none;" >${noticeVo.post_cntnt }</td>
 									</tr>
 								</c:forEach>
 			<!-- 공지사항 반복될 구간 END -->	
 							</thead>
 						</table>
-				<button>수정</button>
+				<button id="up" >수정</button>
 				<button>삭제</button>
 			</div>
 		</div>
