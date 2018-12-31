@@ -89,6 +89,22 @@
 		});
 
 	});
+	
+	//검색 버튼 클릭시 분류 별 검색
+	$("#search").on("click", function() {
+		var searchNm = $("#searchNm").val();
+		var selBox = $("#selBox").val();
+		
+		$.ajax({
+			type : "POST",
+			url : "/admin/search",
+			date : {searchNm : searchNm, selBox : selBox},
+			success : function(data){
+				$("#yd").html("");
+				$("#yd").html(data);
+			}
+		});
+	});
 </script>
 
 <style type="text/css">
@@ -124,7 +140,7 @@
 	<select id="selBox" name="selBox" class="btn">
             <option value="all">전체</option>
             <option value="email">회원 번호</option>
-            <option value="email">회원 닉네임</option>
+            <option value="nm">회원 닉네임</option>
             <option value="date">회원 이메일</option>
     </select> 
     <input type="text" id="searchNm" name="searchNm" class="btn" />
@@ -150,7 +166,7 @@
 				<th><fmt:formatDate value="${page.mem_date}" pattern="yyyy-MM-dd"/></th>
 				<th class="hidden">
 				<c:choose>
-						<c:when test="${page.mem_gndr == null}">
+						<c:when test="${page.mem_gndr 3== null}">
 							<label for="memGndr" class="control-label" >선택안함</label>
 						</c:when>
 						<c:when test="${page.mem_gndr != null}">

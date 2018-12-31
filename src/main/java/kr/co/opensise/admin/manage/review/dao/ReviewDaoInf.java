@@ -3,6 +3,7 @@ package kr.co.opensise.admin.manage.review.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.opensise.admin.manage.review.model.PageVo;
 import kr.co.opensise.admin.manage.review.model.ReviewVo;
 
 public interface ReviewDaoInf {
@@ -14,7 +15,7 @@ public interface ReviewDaoInf {
 	* @return  
 	* Method 설명 :  삭제되지 않은 모든 리뷰 출력
 	*/
-	public List<ReviewVo> allReviewList();
+	public List<ReviewVo> allReviewList(PageVo pageVo);
 	
 	/**  
 	* Method   : cateReviewList 
@@ -24,6 +25,15 @@ public interface ReviewDaoInf {
 	* @return  
 	* Method 설명 :  분류별 리뷰 검색
 	*/
-	public List<ReviewVo> cateReviewList(Map<String, Object> searchMap);
+	public int cateReviewCnt(PageVo pageVo);
+	
+	/**  
+	* Method   : reviewCnt
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @return 
+	* Method 설명 : reivew 갯수 count 
+	*/
+	public int reviewCnt();
 
 }

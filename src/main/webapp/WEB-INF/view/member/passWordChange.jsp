@@ -19,7 +19,7 @@
 					<hr>
 				</div>
 				<div class="form-group">
-					 <label><input type="email" class="form-control" id="mem_email" name="mem_email" value="${memberVo.mem_email}" /> </label></br>
+					 <label><input type="hidden" class="form-control" id="mem_email" name="mem_email" value="${memberVo.mem_email}" /> </label></br>
 					<label><input type="password" class="form-control" id="mem_pass" name="mem_pass" placeholder="현재 비밀번호 입력" /> </label> 
 				</div>
 				<div class="form-group">

@@ -28,7 +28,13 @@
 	</select>
 	
 	
-	
+	<!-- 회원 검색조건 -->
+	<select id="selectMember" parameterType="map" resultType="managementVo">
+		select * from member
+		where mem_no = #{mem_no}
+		or mem_email = #{mem_email}
+		or mem_nm = #{mem_nm}
+	</select>
 </mapper>
 
 

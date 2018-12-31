@@ -3,6 +3,7 @@ package kr.co.opensise.admin.manage.review.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.opensise.admin.manage.review.model.PageVo;
 import kr.co.opensise.admin.manage.review.model.ReviewVo;
 
 public interface ReviewServiceInf {
@@ -14,7 +15,7 @@ public interface ReviewServiceInf {
 	* @return  
 	* Method 설명 :  삭제되지 않은 모든 리뷰 출력
 	*/
-	public List<ReviewVo> allReviewList();
+	public Map<String, Object> allReviewList(PageVo pageVo);
 	
 	
 	/**  
@@ -25,7 +26,7 @@ public interface ReviewServiceInf {
 	* @return  
 	* Method 설명 :  분류별 리뷰 검색
 	*/
-	public List<ReviewVo> cateReviewList(Map<String, Object> searchMap);
+	public int cateReviewCnt(PageVo pageVo);
 	
 
 }

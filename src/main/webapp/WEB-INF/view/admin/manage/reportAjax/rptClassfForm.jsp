@@ -30,21 +30,10 @@ h3{
     width: 560px;
     height: 345px;
     border: 1px solid #d8d8d8;
-    border-radius: 12px;
-}
-.classf_rVo{
-    padding: 5px 0;
-    width: 100%;
-    height: 40px;
-    display: flex;
+    border-radius: 12px 0 0 12px;
     overflow: scroll;
 	overflow-x: hidden;
 	overflow-y: auto;
-}
-.classf_rVo:last-child{
-	padding-top: 7px;
-    background: #ffe8bc;
-    border-radius: 12px;
 }
 ::-webkit-scrollbar {
 	width: 16px;
@@ -61,6 +50,17 @@ h3{
 
 ::-webkit-scrollbar-thumb:hover {
 	background: #4159a9;
+}
+.classf_rVo{
+    padding: 5px 0;
+    width: 100%;
+    height: 40px;
+    display: flex;
+}
+.lastVo{
+	padding-top: 7px;
+    background: #ffe8bc;
+    border-radius: 12px;
 }
 .classf_rTtl{
     margin-top: 30px;
@@ -83,7 +83,7 @@ h3{
     font-size: 15px;
     color: #808080;
 }
-#classfAdd, #classfUpdate, #classfDel{
+#classfAdd, .classfUpdate, .classfDel{
     margin-left: 10px;
 	width: 50px;
     height: 25px;
@@ -120,12 +120,38 @@ h3{
 }
 </style>
 <script type="text/javascript">
+
+// 리스트 뿌리기
+function rpt_cfList(){
+	$.ajax({
+		type : 'GET',
+		url : '/manage/rpt_cfVoList',
+		success : function(data){
+			var html = "";
+			
+			for(var i = 0; i<data.rpt_cfVoList.length ; i++){
+				html += '<div class="classf_rVo">';
+				html += '<input type="hidden" value="'+data.rpt_cfVoList[i].rpt_classf+'"/>';
+				html += '<input type="text" class="inputBox no" value="'+(i+1) +'"/>';
+				html += '<input type="text" class="inputBox nm" value="'+data.rpt_cfVoList[i].rpt_cf_nm+'"/>';
+				html += '<button class="classfUpdate">수정</button>';
+				html += '<button class="classfDel">삭제</button>';
+				html += '</div>';
+			}
+			// html에 적용
+			$('#rpt_cfList').html(html);
+		}
+	});
+};
+
+// 먼저 리스트 뿌리는 함수 실행
+rpt_cfList();
+
 $(document).ready(function(){
 	
 	/* 신고 분류 추가하기 */
 	$('#classfAdd').on('click',function(){
-		
-		var rpt_cf_nm = $('#rpt_cf_nm').value;
+		var rpt_cf_nm = document.getElementById('rpt_cf_nm').value;
 		var data = {rpt_cf_nm : rpt_cf_nm};
 		
 		$.ajax({
@@ -133,33 +159,62 @@ $(document).ready(function(){
 			url : '/manage/insertAjax',
 			data : data,
 			success : function(data){
-				if(data < 1){
+				if(data.insertCnt < 1){
 					// insert 실패
 					alert("insert 실패");
 				}else{
-				// 리스트 다시 뿌리기
-					
+					// 리스트 다시 뿌리기
+					rpt_cfList();
+					document.getElementById('rpt_cf_nm').value = '';
 				}
 			}
 		});
 	});
-	
-	/* 신고 분류 삭제하기 */
-	$('#classfDel').on('click',function(){
+	/* 신고 분류 수정하기 */
+	$('#rpt_cfList').on('click','.classfUpdate',function(){
 		
-		var rpt_cf_nm = "";
-		<%--var ageData = {rpt_cf_nm : rpt_cf_nm};
+		var rpt_classf = this.parentNode.childNodes[0].value;
+		var rpt_cf_nm = this.parentNode.childNodes[2].value;
+		var data = {rpt_classf : rpt_classf, rpt_cf_nm : rpt_cf_nm};
 		
 		$.ajax({
 			type : 'POST',
-			url : '/statis/intrstAgeAjax',
-			data : ageData,
+			url : '/manage/updateAjax',
+			data : data,
 			success : function(data){
-				// 연령별 관심사 그래프
-				$('#intrstAgeG').html(data);
+				if(data.updateCnt < 1){
+					// update 실패
+					alert("update 실패");
+				}else{
+					// 리스트 다시 뿌리기
+					rpt_cfList();
+				}
 			}
-		});--%>
+		});
 	});
+
+	/* 신고 분류 삭제하기 */
+	$('#rpt_cfList').on('click','.classfDel',function(){
+		
+		var rpt_classf = this.parentNode.childNodes[0].value;
+		var data = {rpt_classf : rpt_classf};
+		
+		$.ajax({
+			type : 'GET',
+			url : '/manage/deleteAjax',
+			data : data,
+			success : function(data){
+				if(data.deleteCnt < 1){
+					// delete 실패
+					alert("delete 실패");
+				}else{
+					// 리스트 다시 뿌리기
+					rpt_cfList();
+				}
+			}
+		});
+	});
+
 	
 });
 </script>
@@ -173,20 +228,20 @@ $(document).ready(function(){
 		<b class="bTag no">no.</b>
 		<b class="bTag nm mrgn-l">신고분류명</b>
 	</div>
-	<div class="classf_r">
+	<div class="classf_r" id="rpt_cfList">
 		<!-- RUD 나열/수정/삭제 -->
-		<c:forEach items="${rpt_cfVoList }" var="vo">
+		<%-- <c:forEach items="${rpt_cfVoList }" var="vo">
 			<div class="classf_rVo">
 				<input type="text" class="inputBox no" value="${vo.rpt_classf }"/>
 				<input type="text" class="inputBox nm" value="${vo.rpt_cf_nm }"/>
 				<button id="classfUpdate">수정</button>
 				<button id="classfDel">삭제</button>
 			</div>
-		</c:forEach>
-		<br/>
+		</c:forEach> --%>
+		
 	</div>
 		<!-- C 추가 -->
-		<div class="classf_rVo">
+		<div class="classf_rVo lastVo">
 			<input type="text" class="inputBox no backYellow" value=" " disabled />
 			<input type="text" id="rpt_cf_nm" class="inputBox" name="rpt_cf_nm"/>
 			<button id="classfAdd">추가</button>
