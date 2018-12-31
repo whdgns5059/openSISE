@@ -1,5 +1,6 @@
 package kr.co.opensise.admin.manage.member.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.admin.manage.member.model.ManagementVo;
 import kr.co.opensise.admin.manage.member.model.PageVO;
 import kr.co.opensise.admin.manage.member.service.MemberServiceInf;
+import kr.co.opensise.admin.manage.review.model.ReviewVo;
 
 @Controller
 @RequestMapping("/admin")
@@ -64,6 +67,17 @@ public class MemberManageController {
 	}
 	
 	
-	
+	@RequestMapping(value="/search", method = {RequestMethod.POST})
+	public String searchList(@RequestParam("searchNm") String searchNm, @RequestParam("selBox") String selBox,
+			Model model) {
+		Map<String, String> searchMap = new HashMap<>();
+		searchMap.put("searchNm", searchNm);
+		searchMap.put("selBox", selBox);
+
+		List<ManagementVo> cateSearchList = memberService.memberList(searchMap);
+		model.addAttribute("cateList", cateSearchList);
+
+		return "jsonView";
+	}
 
 }

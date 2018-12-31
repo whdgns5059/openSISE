@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import kr.co.opensise.admin.manage.member.dao.MemberDaoInf;
 import kr.co.opensise.admin.manage.member.model.ManagementVo;
 import kr.co.opensise.admin.manage.member.model.PageVO;
+import kr.co.opensise.admin.manage.review.model.ReviewVo;
 
 @Service
 public class MemberService implements MemberServiceInf{
@@ -65,4 +66,25 @@ public class MemberService implements MemberServiceInf{
 	public ManagementVo selectUser(String mem_email) {
 		return memberDao.selectUser(mem_email);
 	}
+
+
+	/**  
+	* Method   : memberList 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원 분류 검색
+	*/
+	@Override
+	public List<ManagementVo> memberList(Map<String, String> member) {
+		// TODO Auto-generated method stub
+		return memberDao.memberList(member);
+	}
+	
+	//@Override
+	//public List<ReviewVo> cateReviewList(Map<String, String> searchMap) {
+	//	// TODO Auto-generated method stub
+	//	return reviewDao.cateReviewList(searchMap);
+	//}
 }

@@ -26,6 +26,12 @@
 			return cookieValue;
 		}
 		
+		$(document).ready(function(){
+			$("#modified_N").on("click",function(){
+				$.modal("close");
+			});
+		});
+		
 	</script>
 	
 	

@@ -1,6 +1,7 @@
 package kr.co.opensise.admin.manage.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.opensise.admin.manage.member.model.ManagementVo;
 import kr.co.opensise.admin.manage.member.model.PageVO;
+import kr.co.opensise.admin.manage.review.model.ReviewVo;
 
 @Repository
 public class MemberDao implements MemberDaoInf{
@@ -71,6 +73,28 @@ public class MemberDao implements MemberDaoInf{
 		ManagementVo member = (ManagementVo)template.selectOne("admin.selectUser", mem_email);
 		return member;
 	}
+	
+	/**  
+	* Method   : selectUser 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  회원 분류검색
+	*/
+	@Override
+	public List<ManagementVo> memberList(Map<String, String> member) {
+		// TODO Auto-generated method stub
+		return template.selectList("admin.selectMember", member);
+	}
+	
+	//@Override
+	//public List<ReviewVo> cateReviewList(Map<String, String> searchMap) {
+		// TODO Auto-generated method stub
+	//	return template.selectList("review.cateSearchList", searchMap);
+	//}
+
+	
 	
 	
 	

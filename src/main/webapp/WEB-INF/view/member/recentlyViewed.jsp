@@ -14,6 +14,7 @@
 						<th>매물명</th>
 						<th>매물주소</th>
 						<th>매매종류</th>
+						<th>삭제</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,10 +32,12 @@
 								<input type="hidden" class="artcl_zip" value="${sel.artcl_zip }"/>
 								<input type="hidden" class="artcl_rd" value="${sel.artcl_rd }"/>
 								<input type="hidden" class="favor_ty" value="${sel.artcl_dl_ty}"/>
-							
 							</td>
 							<td>${sel.artcl_gu }, ${sel.artcl_dong}, ${sel.artcl_zip }, ${sel.artcl_rd }</td>
 							<td>${sel.artcl_dl_ty }</td>
+							<td >
+								<input type="image" src="../img/closeBtn.png" width="15" height="15" class="img" value="">						
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
