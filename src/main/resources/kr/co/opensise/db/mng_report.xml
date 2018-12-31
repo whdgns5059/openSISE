@@ -7,7 +7,7 @@
 <!-- ** 신고 분류 ** -->
 	<!-- 신고분류 리스트 -->
 	<select id="getRptCf" resultType="rpt_cfVo">
-		Select rpt_classf, rpt_cf_nm From report_classf
+		Select rpt_classf, rpt_cf_nm From report_classf Order by rpt_classf
 	</select>
 	
 	<!-- 신고분류 생성 -->
