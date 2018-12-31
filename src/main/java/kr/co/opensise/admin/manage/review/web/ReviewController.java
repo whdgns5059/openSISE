@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.opensise.admin.manage.review.model.PageVo;
 import kr.co.opensise.admin.manage.review.model.ReviewVo;
 import kr.co.opensise.admin.manage.review.service.ReviewServiceInf;
 
@@ -29,21 +30,35 @@ public class ReviewController {
 	@Resource
 	private ReviewServiceInf reviewService;
 
+	/**  
+	* Method   : review
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param model
+	* @return 
+	* Method 설명 : review 첫 리스트 출력
+	*/
 	@RequestMapping("/review")
 	public String review(Model model) {
-
-		// 모든 회원의 삭제하지 않은 리뷰 출력
-		List<ReviewVo> reviewAllList = reviewService.allReviewList();
-		model.addAttribute("reviewAllList", reviewAllList);
-		model.addAttribute("reviewSize", reviewAllList.size());
+		PageVo pageVo = new PageVo();
+		pageVo.setPage(1);
+		pageVo.setPageSize(10);
+		
+		Map<String, Object> reviewAllList = reviewService.allReviewList(pageVo);
+		List<ReviewVo> reviewList = (List<ReviewVo>) reviewAllList.get("pageReviewList");
+		model.addAllAttributes(reviewAllList);
+		model.addAttribute("reviewSize", reviewList.size());
+		
+		logger.info("reviewSize : "+ reviewList.size());
+		logger.info("pageCnt : " + reviewAllList.get("pageCnt"));
 
 		return "manage/review";
 	}
 
 	@RequestMapping(value="/search", method = {RequestMethod.POST})
-	public String searchList(@RequestParam("searchNm") String searchNm, @RequestParam("selBox") String selBox, Model model) {
+	public String searchList(PageVo pageVo, Model model) {
 		Map<String, Object> searchMap = new HashMap<>();
-		if(selBox.equals("all") || selBox.equals("email")) {
+		/*if(pageVo.getSelBox().equals("all") || pageVo.getSelBox().equals("email")) {
 			searchMap.put("searchNm", searchNm);
 			searchMap.put("selBox", selBox);
 		}else {
@@ -58,11 +73,24 @@ public class ReviewController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		List<ReviewVo> cateSearchList = reviewService.cateReviewList(searchMap);
+		}*/
+		
+		logger.info("page :" + pageVo.getPage());
+		logger.info("pageSize : " + pageVo.getPageSize());
+		logger.info("searchNm : " + pageVo.getSearchNm());
+		logger.info("selBox : " + pageVo.getSelBox());
+		Map<String, Object> reviewAllList = reviewService.allReviewList(pageVo);
+		List<ReviewVo> reviewList = (List<ReviewVo>) reviewAllList.get("pageReviewList");
+		model.addAllAttributes(reviewAllList);
+		model.addAttribute("reviewSize", reviewList.size());
+		
+		//페이징 처리 Cnt 검색
+		int cateCnt = reviewService.cateReviewCnt(pageVo);
+		model.addAttribute("cateCnt",cateCnt);
+		
+	/*	List<ReviewVo> cateSearchList = reviewService.cateReviewList(pageVo);
 		model.addAttribute("cateList", cateSearchList);
-		model.addAttribute("cateSize", cateSearchList.size());
-
+		model.addAttribute("cateSize", cateSearchList.size());*/
 		return "admin/manage/reviewAjax/cateReviewAjax";
 	}
 

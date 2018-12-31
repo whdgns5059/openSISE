@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.opensise.admin.manage.review.model.PageVo;
 import kr.co.opensise.admin.manage.review.model.ReviewVo;
 
 @Repository
@@ -17,15 +18,21 @@ public class ReviewDao implements ReviewDaoInf {
 	private SqlSessionTemplate template;
 
 	@Override
-	public List<ReviewVo> allReviewList() {
+	public List<ReviewVo> allReviewList(PageVo pageVo) {
 		// TODO Auto-generated method stub
-		return template.selectList("review.searchAllReview");
+		return template.selectList("review.searchAllReview", pageVo);
 	}
 
 	@Override
-	public List<ReviewVo> cateReviewList(Map<String, Object> searchMap) {
+	public int cateReviewCnt(PageVo pageVo) {
 		// TODO Auto-generated method stub
-		return template.selectList("review.cateSearchList", searchMap);
+		return template.selectOne("review.cateSearchCnt", pageVo);
+	}
+
+	@Override
+	public int reviewCnt() {
+		// TODO Auto-generated method stub
+		return template.selectOne("review.reviewCnt");
 	}
 
 }
