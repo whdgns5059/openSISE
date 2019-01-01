@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.admin.manage.review.model.PageVo;
+import kr.co.opensise.admin.manage.review.model.ReportHistoryVo;
 import kr.co.opensise.admin.manage.review.model.ReviewVo;
 import kr.co.opensise.admin.manage.review.service.ReviewServiceInf;
 
@@ -46,11 +47,10 @@ public class ReviewController {
 		
 		Map<String, Object> reviewAllList = reviewService.allReviewList(pageVo);
 		List<ReviewVo> reviewList = (List<ReviewVo>) reviewAllList.get("pageReviewList");
+		
 		model.addAllAttributes(reviewAllList);
 		model.addAttribute("reviewSize", reviewList.size());
 		
-		logger.info("reviewSize : "+ reviewList.size());
-		logger.info("pageCnt : " + reviewAllList.get("pageCnt"));
 
 		return "manage/review";
 	}
@@ -75,10 +75,6 @@ public class ReviewController {
 			}
 		}*/
 		
-		logger.info("page :" + pageVo.getPage());
-		logger.info("pageSize : " + pageVo.getPageSize());
-		logger.info("searchNm : " + pageVo.getSearchNm());
-		logger.info("selBox : " + pageVo.getSelBox());
 		Map<String, Object> reviewAllList = reviewService.allReviewList(pageVo);
 		List<ReviewVo> reviewList = (List<ReviewVo>) reviewAllList.get("pageReviewList");
 		model.addAllAttributes(reviewAllList);
@@ -93,5 +89,42 @@ public class ReviewController {
 		model.addAttribute("cateSize", cateSearchList.size());*/
 		return "admin/manage/reviewAjax/cateReviewAjax";
 	}
+	
+	/**  
+	* Method   : reviewHistory
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param reviewVo
+	* @param model
+	* @return 
+	* Method 설명 : 해당 리뷰의 신고 이력 검색
+	*/
+	@RequestMapping(value="/reviewReportHistory" , method = {RequestMethod.POST})
+	public String reviewHistory(ReviewVo reviewVo, Model model) {
+		
+		List<ReportHistoryVo> reportList = reviewService.reportList(reviewVo);
+		model.addAttribute("reportList", reportList);
+		model.addAttribute("reportSize", reportList.size());
+		
+		return "admin/manage/reviewReportHistory";
+	}
+	
+	/**  
+	* Method   : deleteReview
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param reviewVo
+	* @param model
+	* @return 
+	* Method 설명 : 관리자 리뷰 강제 삭제 
+	*/
+	@RequestMapping(value="/deleteReivew", method = {RequestMethod.POST})
+	public String deleteReview(ReviewVo reviewVo, Model model) {
+		logger.info("들어왔냥:" + reviewVo.getPost_no());
+		int reviewDelete = reviewService.deleteReivew(reviewVo);
+		model.addAttribute("reviewDelete", reviewDelete);
+		return "jsonView";
+	}
+	
 
 }

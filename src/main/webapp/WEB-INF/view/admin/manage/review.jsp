@@ -36,8 +36,9 @@
 			$("#mem_email").html(mem_email);
 			$("#post_ttl").html(post_ttl);
 			$("#post_no").html(post_no);
+			$("#postNo").val(post_no);
 			
-			$(".modal").modal("show");
+			$("#ex1").modal("show");
 		});
 
 		$("#selBox").on("change", function() {
@@ -56,6 +57,47 @@
 			var selBox = $("#selBox").val();
 			ajaxCall(1);
 		});
+		
+		
+		//신고 이력 버튼을 클릭했을 때
+		$("#reportHistory").on("click",function(){
+			var post_no = $("#postNo").val();
+			
+			 $.ajax({
+				type : "POST",
+				url : "/manage/review/reviewReportHistory",
+				data : {post_no : post_no},
+				success : function(data){
+					$("#ex2").html("");
+					$("#ex2").html(data);
+					 $('#ex2').modal("show"); 
+				}
+			}); 
+		});
+		
+		
+		//강제 삭제 버튼을 클릭했을 때
+		$("#compulsionDelete").on("click",function(){
+			var post_no = $("#postNo").val();
+			
+			$.ajax({
+				type : "POST",
+				url : "/manage/review/deleteReivew",
+				data : {post_no : post_no},
+				success : function(data){
+					if(data.reviewDelete > 0){
+						alert("삭제되었습니다");
+						$.modal("close");
+						location.href = "/manage/review/review";
+					}
+				}
+			});
+		});
+		
+		$("#ex2").on("click","#pre", function(){
+			$("#ex1").modal("show");	
+		});
+		
 		
 		
 
@@ -116,6 +158,30 @@
     background-repeat: no-repeat;
     background-position: center center;
  }
+ 
+ .modal{
+ 	max-width: 610px;
+ }
+ 
+.btn {
+    width: 130px;
+    border: 1px solid #f7c97b;
+    border-width: 1px;
+    border-bottom: 4px solid #dc8c07;
+    color: white;
+    text-transform: uppercase;
+    background-color: #e8a93f;
+}
+
+.bt {
+    margin-left: 85px;
+    margin-top: 35px;
+}
+
+#ex2{
+	width: 630px;
+    height: 646px;
+}
 </style>
 
 <div class="admin-title">
@@ -169,7 +235,6 @@
 					</tr>
 				</c:forEach>
 			</table>
-			
 			<c:if test="${reviewSize == '0'}">
 				<div id="noList">
 					<span id="noSearch">검색 결과가 없습니다</span>
@@ -192,7 +257,8 @@
 	</div>
 </div>
 
-<div id="ex1" class="modal">
+<div id="ex1" class="modal">	
+	<br>
 	<h3 align="center" >리뷰 상세 정보</h3></br>
   	<div class="form-group">
 		<label for="post_no" >리뷰 번호</label>
@@ -226,4 +292,12 @@
 		<label for="post_star" >별점</label>
 		<label for="post_star" class="control-label" id="post_star"></label>
 	</div>
+	<div class="form-group bt">
+		<button class="btn" id="compulsionDelete">강제 삭제</button>
+		<button class="btn" id="reportHistory">신고 이력 확인</button>
+		<input type="hidden" id="postNo" name="post_no">
+	</div>
+</div>
+<div id="ex2" class="modal">
+
 </div>
