@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.opensise.admin.manage.review.model.PageVo;
+import kr.co.opensise.admin.manage.review.model.PictureVo;
 import kr.co.opensise.admin.manage.review.model.ReportHistoryVo;
 import kr.co.opensise.admin.manage.review.model.ReviewVo;
 
@@ -48,6 +49,17 @@ public interface ReviewServiceInf {
 	* Method 설명 : 해당 리뷰의 신고이력 검색 
 	*/
 	public List<ReportHistoryVo> reportList(ReviewVo reviewVo);
+	
+	/**  
+	* Method   : pictureList
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param reviewVo
+	* @return 
+	* Method 설명 : 해당 리뷰의 첨부파일 검색
+	*/
+	public List<PictureVo> pictureList(ReviewVo reviewVo);
+
 	
 
 }

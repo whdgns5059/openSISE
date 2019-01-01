@@ -52,6 +52,7 @@
 		<!-- 관리자 리뷰 -->
 		<typeAlias type="kr.co.opensise.admin.manage.review.model.ReviewVo" alias="reviewVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.review.model.ReportHistoryVo" alias="reportHistoryVo"/>
+		<typeAlias type="kr.co.opensise.admin.manage.review.model.PictureVo" alias="picturesVo"/>
 		
 		
 	</typeAliases>

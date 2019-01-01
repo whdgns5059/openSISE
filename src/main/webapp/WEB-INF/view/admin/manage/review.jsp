@@ -38,7 +38,26 @@
 			$("#post_no").html(post_no);
 			$("#postNo").val(post_no);
 			
-			$("#ex1").modal("show");
+			//post_no 를 파라미터로 보낸 후 첨부파일을 불러온다 
+			// 모달 div 쪽에 첨부파일 셋팅
+			// 그 후에 모달창 띄운다.
+			$.ajax({
+				type : "POST",
+				data : {post_no : post_no},
+				url : "/manage/review/searchPicture",
+				success : function(data){
+					html = "";
+					html += "<label for='pic_file_nm'> 이미지 파일 <label>";
+					html += "<br>";
+					$.each(data.pictureList, function(index, pic){
+						html += "<img src='"+pic.pic_file_path +"'>";
+					});
+					
+					$("#img").html(html);
+					$("#ex1").modal("show");
+				}
+			}); 
+			
 		});
 
 		$("#selBox").on("change", function() {
@@ -87,8 +106,10 @@
 				success : function(data){
 					if(data.reviewDelete > 0){
 						alert("삭제되었습니다");
-						$.modal("close");
-						location.href = "/manage/review/review";
+						ajaxCall(1);
+						 $('#ex1').modal({
+						        show: 'false'
+						 }); 
 					}
 				}
 			});
@@ -282,6 +303,9 @@
 	<div class="form-group">
 		<label for="post_date" >작성 날짜</label> 
 		<label for="post_date" class="control-label" id="post_date"></label>
+	</div>
+	<div class="form-group" id="img">
+		
 	</div>
 	<div class="form-group">
 		<label for="post_cntnt" >내용</label>
