@@ -35,15 +35,6 @@ public class NoticeController {
 		return "manage/notice";
 	}
 	
-//	@RequestMapping("/postDetail")
-//	public String postDetail(@RequestParam("post_no") String post_noS,Model model) {
-//		int post_no =Integer.parseInt(post_noS);
-//		PostVo postVo = noticeService.selectNotice(post_no);
-//		
-//		model.addAttribute("postVo", postVo);
-//		return "manage/notice";
-//	}
-	
 	@RequestMapping("/insertView")
 	public String insertView() {
 		return "manage/noticeInsert";
@@ -63,6 +54,11 @@ public class NoticeController {
 		model.addAttribute("noticeList", noticeList);
 		
 		return "manage/notice";
+	}
+	
+	@RequestMapping("/updateNotice")
+	public String updateNotice() {
+		return "";
 	}
 
 }

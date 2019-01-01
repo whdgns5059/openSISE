@@ -9,5 +9,5 @@ public interface NoticeDaoInf {
 	public List<PostVo> selectNoticeList();
 	public int insertNotice(PostVo noticeVo);
 	public PostVo selectNotice(Integer post_no);
-	
+	public int updateNotice(PostVo noticeVo);
 }

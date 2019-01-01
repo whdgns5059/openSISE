@@ -106,7 +106,7 @@ td {
 }
 .notice-top{
 	width: 518px;
-    height: 70px;
+    height: 70px; 
     display: block;
 }
 .notice-top h6{
@@ -315,7 +315,21 @@ input:disabled {
 			pager : true,
 			slideWidth : 600
 		});
-
+		
+		$.ajax({
+			type : "POST",
+			url : "/index/noticeList",
+			success : function(data){
+				var html = data;
+				// 지우는 작업
+				$("#noticeList").html("");
+				// 다시 입히는 방법 
+				$("#noticeList").html(html);
+				
+			}
+			
+		});
+		
 	});
 
 	//]]>
@@ -438,7 +452,7 @@ input:disabled {
 					<div class="notice-top">
 						<h6>공지사항</h6><button type="button" class="see-more openMask">더보기</button>
 					</div>
-					<div class="notice-cont word-over">
+					<div class="notice-cont word-over" id="noticeList">
 			<!-- 공지사항 제목만 나열 -->
 						<c:forEach items="${noticeList }" var="noticeVo" varStatus="status">
 							<tr>

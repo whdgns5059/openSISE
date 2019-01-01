@@ -31,4 +31,9 @@ public class NoticeDao implements NoticeDaoInf {
 		return template.selectOne("notice.selectPost", post_no);
 	}
 
+	@Override
+	public int updateNotice(PostVo noticeVo) {
+		return template.update("notice.updateNotice",noticeVo);
+	}
+
 }

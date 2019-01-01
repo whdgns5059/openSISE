@@ -36,5 +36,14 @@ public class IndexController {
 		return "openPage";
 	}
 	
+	@RequestMapping("/noticeList")
+	public String noticeList(Model model) {
+		//공지사항 타이틀 나열
+				List<PostVo> noticeList =  noticeService.selectNoticeList();
+				
+				model.addAttribute("noticeList", noticeList);
+		
+		return "noticeListAjax";
+	}
 	
 }
