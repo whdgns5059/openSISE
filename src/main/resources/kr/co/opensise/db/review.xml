@@ -30,12 +30,15 @@
                post_dong,
                post_zip,
                post_rd,
-		       mem_email
+		       mem_email,
+		       pic_no,
+               pic_file_nm
 		from post inner join member on(post_mem = mem_no)
                  inner join article on(post_gu = artcl_gu 
                                         and post_dong = artcl_dong
                                         and post_zip = artcl_zip
                                         and post_rd = artcl_rd)
+                 inner join picture on(post_no = pic_post)
 		where post_exst = 'N'
 			 and post_brd = 1
 		<if test="selBox != null and searchNm != null">
@@ -79,5 +82,24 @@
 				or post_ttl like '%' || #{searchNm} || '%'
 			</if>
 		</if>
+	</select>
+	
+	<!-- 리뷰 삭제 -->
+	<update id="deleteReview" parameterType="reviewVo">
+		update post
+		set post_exst = 'Y'
+		where post_no = #{post_no}
+	</update>
+	
+	<select id="reviewReportHistory" parameterType="reviewVo" resultType="reportHistoryVo">
+		select rpt_no,
+		       rpt_date,
+		       rpt_cntnt,
+		       rpt_cf_nm,
+		       rpt_exst
+		from post inner join report r on (post_no = rpt_post)
+		          inner join report_classf rf on (r.rpt_classf = rf.rpt_classf)
+		where post_no = #{post_no}
+		order by rpt_date
 	</select>
 </mapper>
