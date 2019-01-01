@@ -53,12 +53,31 @@ public class NoticeController {
 		
 		model.addAttribute("noticeList", noticeList);
 		
-		return "manage/notice";
+		return "redirect:/manage/notice/notice";
 	}
 	
 	@RequestMapping("/updateNotice")
-	public String updateNotice() {
-		return "";
+	public String updateNotice(@RequestParam("post_no") String post_noS, @RequestParam("post_ttl") String post_ttl,
+							@RequestParam("post_cntnt") String post_cntnt,Model model) {
+//		log.info("여기로 오는가?");
+		
+		int post_no = Integer.parseInt(post_noS);
+		
+		PostVo noticeVo = noticeService.selectNotice(post_no);
+		
+		noticeVo.setPost_ttl(post_ttl);
+		noticeVo.setPost_cntnt(post_cntnt);
+		
+		noticeService.updateNotice(noticeVo);
+		
+//		log.info("수정된 vo : {}",noticeVo);
+		
+		List<PostVo> noticeList =  noticeService.selectNoticeList();
+		
+		model.addAttribute("noticeList", noticeList);
+		
+		
+		return "jsonView";
 	}
 
 }
