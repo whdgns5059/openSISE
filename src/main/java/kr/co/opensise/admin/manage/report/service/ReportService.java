@@ -1,6 +1,8 @@
 package kr.co.opensise.admin.manage.report.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -43,8 +45,19 @@ public class ReportService implements ReportServiceInf {
 	}
 	
 	@Override
-	public List<ReportVo> searchReport(PageVo pageVo) {
-		return reportDao.searchReport(pageVo);
+	public Map<String, Object> searchReport(PageVo pageVo) {
+		// 신고 리스트 검색 결과
+		List<ReportVo> reportVoList = reportDao.searchReport(pageVo);
+		
+		// 전체 신고 리스트 개수
+		int reportCnt = reportDao.reportCnt();
+		
+		// 신고 리스트와 페이징 갯수 넣기
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("reportVoList", reportVoList);
+		resultMap.put("pageCnt", (int) Math.ceil((double) reportCnt / pageVo.getPageSize()));
+		
+		return resultMap;
 	}
 
 	@Override

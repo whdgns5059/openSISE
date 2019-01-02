@@ -101,7 +101,7 @@ public class ReportDaoTest extends RootSetup{
 
 		/***Then***/
 		for(ReportVo reportVo : reportVoList)
-		log.info("결과값 {}",reportVo);
+			log.info("결과값 {}",reportVo);
 	}
 	
 	@Test

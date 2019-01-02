@@ -73,6 +73,15 @@ public interface ReportDaoInf {
 	List<ReportVo> getReport();
 
 	/**
+	* Method : reportCnt
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 전체 신고 리스트 개수
+	*/
+	int reportCnt();
+	
+	/**
 	* Method : searchReport
 	* 작성자 : Bella
 	* 변경이력 :

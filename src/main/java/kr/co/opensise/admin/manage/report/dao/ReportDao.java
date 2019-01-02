@@ -48,6 +48,12 @@ public class ReportDao implements ReportDaoInf {
 	}
 	
 	@Override
+	public int reportCnt() {
+		int reportCnt = template.selectOne("mng_report.reportCnt");
+		return reportCnt;
+	}
+	
+	@Override
 	public List<ReportVo> searchReport(PageVo pageVo) {
 		List<ReportVo> reportVoList = template.selectList("mng_report.searchReport", pageVo);
 		return reportVoList;
@@ -59,4 +65,5 @@ public class ReportDao implements ReportDaoInf {
 		return updateCnt;
 	}
 
+	
 }

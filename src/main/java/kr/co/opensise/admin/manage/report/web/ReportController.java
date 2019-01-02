@@ -1,6 +1,7 @@
 package kr.co.opensise.admin.manage.report.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -134,8 +135,11 @@ public class ReportController {
 	@PostMapping(value="/reportListAjax")
 	public String reportListAjax(Model model, PageVo pageVo) {
 		
+		// 신고 리스트 검색 결과
+		Map<String, Object> resultMap = reportService.searchReport(pageVo);
 		
-		log.info("확인합시다 {}", pageVo);
+		model.addAllAttributes(resultMap);
+		log.info("신고리스트 검색 결과 {}",resultMap);
 		
 		return "admin/manage/reportAjax/reportListAjax";
 	}

@@ -1,11 +1,13 @@
 package kr.co.opensise.user.detail.model;
 
+import java.util.Date;
+
 public class ReportVo {
 
 	private int rpt_no;
 	private int rpt_post;
 	private String rpt_cntnt;
-	private String rpt_date;
+	private Date rpt_date;
 	private int rpt_classf;
 	private String rpt_cf_nm;
 	private int rpt_mem;
@@ -38,10 +40,10 @@ public class ReportVo {
 	public void setRpt_cntnt(String rpt_cntnt) {
 		this.rpt_cntnt = rpt_cntnt;
 	}
-	public String getRpt_date() {
+	public Date getRpt_date() {
 		return rpt_date;
 	}
-	public void setRpt_date(String rpt_date) {
+	public void setRpt_date(Date rpt_date) {
 		this.rpt_date = rpt_date;
 	}
 	public int getRpt_classf() {

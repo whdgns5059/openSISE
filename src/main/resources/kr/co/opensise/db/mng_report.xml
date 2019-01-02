@@ -34,41 +34,49 @@
 		Order by rpt_no
 	</select>
 	
+	<!-- 전체 신고 리스트 개수 -->
+	<select id="reportCnt" resultType="int">
+		Select count(*) From report
+	</select>
+	
 	<!-- 신고 리스트 검색 결과 -->
-	<select id="searchReport" parameterType="pageVo" resultType="reportVo">
+	<select id="searchReport" parameterType="pgVo" resultType="reportVo">
 		Select * From(
 			Select Rownum rnum ,a.*
 			From
 			(Select b.rpt_no, b.rpt_post, c.rpt_cf_nm, b.rpt_ttl, b.rpt_cntnt, b.rpt_date, b.rpt_mem, b.rpt_exst
-			From report b Inner Join report_classf c on(b.rpt_cf_nm = c.rpt_cf_nm)
+			From report b Inner Join report_classf c on(b.rpt_classf = c.rpt_classf)
 	        Where rpt_no > 0
 			<if test="selBox != null and searchNm != null">
 				<if test="selBox == 'rpt_no'">
-					and rpt_no like '%' || #{searchNm} || '%'
+					and rpt_no 		like '%' || #{searchNm} || '%'
 				</if>
 				<if test="selBox == 'rpt_post'">
-					and rpt_post = #{searchNm} 
+					and rpt_post 	like '%' || #{searchNm} || '%' 
 				</if>
 	            <if test="selBox == 'rpt_cf_nm'">
-					and rpt_cf_nm = #{searchNm} 
+					and rpt_cf_nm 	like '%' || #{searchNm} || '%' 
 				</if>
 	            <if test="selBox == 'rpt_ttl'">
-					and rpt_ttl = #{searchNm} 
+					and rpt_ttl 	like '%' || #{searchNm} || '%' 
 				</if>
 	            <if test="selBox == 'rpt_cntnt'">
-					and rpt_cntnt = #{searchNm} 
+					and rpt_cntnt 	like '%' || #{searchNm} || '%' 
 				</if>
 	             <if test="selBox == 'rpt_mem'">
-					and rpt_mem = #{searchNm} 
+					and rpt_mem 	like '%' || #{searchNm} || '%' 
+				</if>
+	             <if test="selBox == 'rpt_exst'">
+					and rpt_exst 	= Upper(#{searchNm})
 				</if>
 				<if test="selBox == 'all'">
-					and rpt_no like '%' || #{searchNm} || '%'
-					or rpt_post like '%' || #{searchNm} || '%'
-					or rpt_cf_nm like '%' || #{searchNm} || '%'
-	                or rpt_ttl like '%' || #{searchNm} || '%'
-	                or rpt_ttl like '%' || #{searchNm} || '%'
-	                or rpt_cntnt like '%' || #{searchNm} || '%'
-	                or rpt_mem like '%' || #{searchNm} || '%'
+					and rpt_no 		like '%' || #{searchNm} || '%'
+					or rpt_post 	like '%' || #{searchNm} || '%'
+					or rpt_cf_nm 	like '%' || #{searchNm} || '%'
+	                or rpt_ttl 		like '%' || #{searchNm} || '%'
+	                or rpt_cntnt 	like '%' || #{searchNm} || '%'
+	                or rpt_mem 		like '%' || #{searchNm} || '%'
+	                or rpt_exst 	like '%' || #{searchNm} || '%'
 				</if>
 			</if>
 			Order by rpt_no desc) a)
