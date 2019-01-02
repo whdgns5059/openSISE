@@ -36,21 +36,23 @@
                                         and post_dong = artcl_dong
                                         and post_zip = artcl_zip
                                         and post_rd = artcl_rd)
-		where post_exst = 'N'
-			 and post_brd = 1
+		where post_brd = 1
 		<if test="selBox != null and searchNm != null">
 			<if test="selBox == 'email'">
-				and mem_email like '%' || #{searchNm} || '%'
+				and (mem_email like '%' || #{searchNm} || '%'
 			</if>
 			<if test="selBox == 'date'">
-				and post_date = #{searchNm} 
+				and (post_date = #{searchNm} 
 			</if>
 			<if test="selBox == 'all'">
-				and mem_email like '%' || #{searchNm} || '%'
+				and (mem_email like '%' || #{searchNm} || '%'
 				or post_cntnt like '%' || #{searchNm} || '%'
 				or post_ttl like '%' || #{searchNm} || '%'
 			</if>
-		</if>) a)
+			)
+		</if>
+			 and post_exst = 'N'
+			) a)
 		where rnum between #{page}*#{pageSize}-(#{pageSize}-1) 
         and #{page}*#{pageSize}
 	</select>
@@ -64,20 +66,50 @@
                                         and post_dong = artcl_dong
                                         and post_zip = artcl_zip
                                         and post_rd = artcl_rd)
-		where post_exst = 'N'
-			 and post_brd = 1
+		where post_brd = 1
 		 <if test="selBox != null and searchNm != null">
 			<if test="selBox == 'email'">
-				and mem_email like '%' || #{searchNm} || '%'
+				and (mem_email like '%' || #{searchNm} || '%'
 			</if>
 			<if test="selBox == 'date'">
-				and post_date = #{searchNm} 
+				and (post_date = #{searchNm} 
 			</if>
 			<if test="selBox == 'all'">
-				and mem_email like '%' || #{searchNm} || '%'
+				and (mem_email like '%' || #{searchNm} || '%'
 				or post_cntnt like '%' || #{searchNm} || '%'
 				or post_ttl like '%' || #{searchNm} || '%'
 			</if>
+			)
 		</if>
+			and post_exst = 'N'
 	</select>
+	
+	<!-- 리뷰 삭제 -->
+	<update id="deleteReview" parameterType="reviewVo">
+		update post
+		set post_exst = 'Y'
+		where post_no = #{post_no}
+	</update>
+	
+	<select id="reviewReportHistory" parameterType="reviewVo" resultType="reportHistoryVo">
+		select rpt_no,
+		       rpt_date,
+		       rpt_cntnt,
+		       rpt_cf_nm,
+		       rpt_exst
+		from post inner join report r on (post_no = rpt_post)
+		          inner join report_classf rf on (r.rpt_classf = rf.rpt_classf)
+		where post_no = #{post_no}
+		order by rpt_date
+	</select>
+	
+	<!-- 해당 리뷰글에 대한 첨부파일 -->
+	<select id="reviewPicture" parameterType="reviewVo" resultType="picturesVo">
+		select picture.* 
+		from picture inner join post on(pic_post = post_no)
+		where post_no = #{post_no}
+	</select>
+	
+	
+	
 </mapper>

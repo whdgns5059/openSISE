@@ -13,7 +13,7 @@
     top:0;
 } 
 /* 팝업으로 뜨는 윈도우 css  */ 
-.window{
+.window {
     left: 50%;
     width: 1000px;
     height: 700px;
@@ -28,6 +28,21 @@
     padding: 30px 20px 20px 20px;
     display: none;
 }
+.modify { 
+    left: 50%; 
+    width: 700px; 
+    height: 650px; 
+    background-color: #FFF; 
+    z-index: 10000; 
+    border-radius: 20px; 
+    position: fixed; 
+    margin-left: -25%; 
+    top: 50%; 
+    margin-top: -350px; 
+    overflow: auto; 
+    padding: 30px 20px 20px 20px; 
+    display: none; 
+} 
 .window h2{
     float: left;
     display: contents;
@@ -60,13 +75,13 @@
 
 	$(document).ready(function(){
 		
-		$(".postClick").on("click",function(){
-			var post_no = $(this).children()[3].innerText;
+// 		$(".postClick").on("click",function(){
+// 			var post_no = $(this).children()[3].innerText;
 // 			alert(post_no);
-			$("#posts_no").val(posts_id);
-			// .submit();
-			$("#psDetail").submit();
-		});
+// 			$("#posts_no").val(post_no);
+// 			// .submit();
+// 			$("#psDetail").submit();
+// 		});
 		$(".insertPost").on("click",function(){
 			$("#insertPost").submit();
 		});
@@ -77,6 +92,8 @@
 		
 		//검은 막 띄우기
 		$(".openMask").click(function(e) {
+			action='listView';
+			
 			e.preventDefault();
 			wrapWindowByMask();
 		});
@@ -87,15 +104,83 @@
 			e.preventDefault();
 			$("#mask, .window").hide();
 		});
+		
+		$("#myModal .close").click(function(e) {
+			//링크 기본동작은 작동하지 않도록 한다.
+			e.preventDefault();
+			$("#mask, #myModal").hide();
+		});
 
 		//검은 막을 눌렀을 때
 		$("#mask").click(function() {
 			$(this).hide();
 			$(".window").hide();
+			$("#myModal").hide();
 
 		});
 
 
+		//수정하기 버튼 클릭
+		$("button[name='modify']").click(function(e){
+			action='modify';
+// 			type='PUT';
+// 			bno=this.value;
+			
+			//content 담기
+			var row=$(this).parent().parent().parent();
+			var tr = row.children();
+			
+			var post_no = tr.eq(3).text();
+			var title = tr.eq(1).text();
+			var contents = tr.eq(5).text();
+			
+			$("#modal-title").text("수정하기");
+			
+			$("#title").val(title);
+			$("#contents").val(contents);
+			
+			e.preventDefault();
+			wrapWindowByMask();
+			
+			
+			$("#modalSubmit").click(function(){
+// 				alert("수정");
+				
+				//수정된 값 담기
+				if(title !=null){
+					title = $("#title").val();
+				}
+				
+				if(contents != null){
+					contents = $("#contents").val();
+				}
+				
+				$.ajax({
+						type : "POST",
+						url : "/manage/notice/updateNotice",
+						data : "post_no="+post_no+"&post_ttl="+title+"&post_cntnt="+contents,
+						success : function(data){
+							var html = "";
+							$.each(data.noticeList , function(idx , noticeVo){
+								html += "<tr class='noticeList'>";
+								html += "<td>"+(idx+1)+"</td>";
+								html += "<td class='openMask'>"+noticeVo.post_ttl +"</td>";
+								html +=	"<td>"+noticeVo.post_date +"</td>";
+								html +=	"<td style='display: none;'>"+noticeVo.post_no+"</td>";
+								html += "</tr>";
+							});
+							// 지우는 작업
+							$("#noticeModify").html("");
+							// 다시 입히는 방법 
+							$("#noticeModify").html(html);
+						
+						}
+					
+				});
+			});
+			
+		});
+		
    
 	});
 	
@@ -115,7 +200,13 @@
         $("#mask").fadeTo("slow",0.6);    
  
         //윈도우(팝업창) 띄운다.
-        $(".window").show();
+        if(action == 'listView'){
+	        $(".window").show();
+	        $("#myModal").hide();
+        }else if(action=='modify'){
+        	$("#myModal").show();
+        	$(".window").hide();
+        }
         
     }
     
@@ -154,9 +245,9 @@
 					<td>작성일</td>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="noticeModify">
 				<c:forEach items="${noticeList }" var="noticeVo" varStatus="status">
-					<tr class="postClick">
+					<tr class="noticeList">
 						<td>${status.count }</td>
 						<td class="openMask">${noticeVo.post_ttl }</td>
 						<td>${noticeVo.post_date }</td>
@@ -166,9 +257,6 @@
 			</tbody>
 		</table>
 	</div>
-	<form id="psDetail" action="/manage/notice/postDetail" method="get">
-		<input type="hidden" id="post_no" name="post_no"/>
-	</form>
 	
 	
 	<div class="notice">
@@ -185,25 +273,59 @@
 								<tr>
 									<td style="width: 30px;">no.</td>
 									<td>제목</td>
-									<td>작성일</td>
+									<td colspan="2">작성일</td>
 								</tr>
 								
 			<!-- 공지사항 반복될 구간 START -->					
 								<c:forEach items="${noticeList }" var="noticeVo" varStatus="status">
 									<tr>
 										<td style="width: 30px;">${status.count }</td>
-										<td onclick="noticeFade('${noticeVo.post_no}')">${noticeVo.post_ttl }</td>
+										<td  class="test"  onclick="noticeFade('${noticeVo.post_no}')">${noticeVo.post_ttl }</td>
 										<td>${noticeVo.post_date }</td>
+										<td style="display: none;">${noticeVo.post_no }</td>
+										<td>
+											<div class="btn-group">
+												<button name="modify" value="${noticeVo.post_no }" class="btn" style="width: 70px;">수정</button>
+												<button name="delete" value="${noticeVo.post_no }" class="btn" style="width: 70px;">삭제</button>
+											</div>
+										</td>
+										<td style="display: none;">${noticeVo.post_cntnt }</td>
 									</tr>
 									<tr>
-										<td colspan="3" id="${noticeVo.post_no}" class="notice-content" style="display: none;" >${noticeVo.post_cntnt }</td>
+										<td colspan="4" id="${noticeVo.post_no}" class="notice-content post_cntnt" style="display: none;" >${noticeVo.post_cntnt }</td>
 									</tr>
 								</c:forEach>
 			<!-- 공지사항 반복될 구간 END -->	
 							</thead>
 						</table>
-				<button>수정</button>
-				<button>삭제</button>
+			</div>
+		</div>
+		<!-- 공지사항 수정 팝업용 -->
+		<div class="modify" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				
+				<!-- content -->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 id="modal-title" class="modal-title"></h4>
+						<button type="button" class="close" >닫기&times;</button>
+					</div>
+					<div class="modal-body">
+						<table class="table">
+							<tr>
+								<td>제목</td>
+								<td><input class="form-control" id="title" type="text"></td>
+							</tr>
+							<tr>
+								<td>내용</td>
+								<td><textarea class="form-control" id="contents" rows="10"></textarea></td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button id="modalSubmit" type="button" class="btn">수정</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -38,6 +38,27 @@
 			<td>${cate.post_ttl}</td>
 			<td>${cate.mem_email}</td>
 			<td><fmt:formatDate value="${cate.post_date}" pattern="yyyy-MM-dd" /></td>
+			<td class ="hidden" >
+				<label for="post_gu">${cate.post_gu}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_dong">${cate.post_dong}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_zip">${cate.post_zip}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_rd">${cate.post_rd}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_cntnt">${cate.post_cntnt}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_star">${cate.post_star}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_no">${cate.post_no}</label>
+			</td>
 		</tr>
 	</c:forEach>
 </table>
