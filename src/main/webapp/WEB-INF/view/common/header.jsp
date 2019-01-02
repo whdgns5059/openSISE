@@ -66,7 +66,8 @@
  					mem_no : ${nowLogin.mem_no}
  				},
  				success : function(data){
-					var chatPopup = window.open("/chat/chatroom", "new window", "width=600, height=800, location=no");
+					var chatPopup = window.open("", "new window", "width=600, height=800, location=no");
+					chatPopup.document.write(data);
  				}
  			});	
  			
@@ -79,12 +80,13 @@
  			
  			$.ajax({
  				type : 'POST',
- 				url : '/chat/chatroom',
+ 				url : '/chat/lobby',
  				data : {
  					mem_no : ${nowLogin.mem_no}
  				},
  				success : function(data){
-					var chatPopup = window.open("/chat/chatlobby", "new window", "width=600, height=800, location=no");
+					var chatPopup = window.open("", "new window", "width=600, height=800, location=no");
+					chatPopup.document.write(data);
  				}
  			});	
  			
