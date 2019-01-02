@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.opensise.admin.manage.notice.model.PageVo;
 import kr.co.opensise.user.detail.model.PostVo;
 
 
@@ -17,8 +18,8 @@ public class NoticeDao implements NoticeDaoInf {
 	private SqlSessionTemplate template;
 	
 	@Override
-	public List<PostVo> selectNoticeList() {
-		return template.selectList("notice.selectPosts");
+	public List<PostVo> selectNoticeList(PageVo pageVo) {
+		return template.selectList("notice.selectPosts", pageVo);
 	}
 
 	@Override
@@ -34,6 +35,21 @@ public class NoticeDao implements NoticeDaoInf {
 	@Override
 	public int updateNotice(PostVo noticeVo) {
 		return template.update("notice.updateNotice",noticeVo);
+	}
+
+	@Override
+	public int deleteNotice(int post_no) {
+		return template.delete("notice.deleteNotice", post_no);
+	}
+
+	@Override
+	public int noticeCnt() {
+		return template.selectOne("notice.getPostCnt");
+	}
+
+	@Override
+	public List<PostVo> selectNoticeView() {
+		return template.selectList("notice.selectNotice");
 	}
 
 }
