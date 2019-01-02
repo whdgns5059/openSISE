@@ -32,6 +32,13 @@ public class PageVo {
 	public void setSelBox(String selBox) {
 		this.selBox = selBox;
 	}
+	@Override
+	public String toString() {
+		return "PageVo [page=" + page + ", pageSize=" + pageSize + ", searchNm=" + searchNm + ", selBox=" + selBox
+				+ "]";
+	}
+	
+	
 	
 	
 	

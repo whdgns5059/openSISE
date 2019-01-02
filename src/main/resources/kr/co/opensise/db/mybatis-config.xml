@@ -72,5 +72,6 @@
 		<mapper resource="kr/co/opensise/db/station.xml" />
 		<mapper resource="kr/co/opensise/db/review.xml" />
 		<mapper resource="kr/co/opensise/db/mng_report.xml" />
+		<mapper resource="kr/co/opensise/db/chat.xml" />
 	</mappers>
 </configuration>

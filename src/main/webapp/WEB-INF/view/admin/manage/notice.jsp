@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<!-- pagination -->
+<link href="/css/pagination.css" rel="stylesheet">
 
 <style type="text/css">
 /* 마스크 띄우기 */
@@ -62,10 +64,59 @@
 .notice-tbl{
     margin: 0 auto;
     width: 830px;
-    height: 566px;
+    height: 20px;
 }
 .notice-content{
 	padding: 8px 90px !important;
+}
+#search {
+    width: 60px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    color: #808080;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    float:left;
+}
+#submit {
+	width: 80px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    color: #808080;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    cursor: pointer;
+    float:right;
+}
+#selBox {
+	margin-right: 10px;
+	width: 100px;
+	height: 30px;
+	border: 1px solid #d8d8d8;
+	border-radius: 5px;
+	color: #808080;
+	font-family: 'Noto Sans KR', sans-serif;
+	float:left;
+}
+#searchNm{
+	margin-right: 10px;
+	width: 300px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    float:left;
+}
+.rptCfBtn{
+	width: 70px;
+	background: white;
+	margin-right: 5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 13px;
+	font-weight: 500;
 }
 </style>
 
@@ -91,7 +142,7 @@
 		});
 		
 		//검은 막 띄우기
-		$(".openMask").click(function(e) {
+		$(".table").on('click', '.openMask', function(e) {
 			action='listView';
 			
 			e.preventDefault();
@@ -120,6 +171,37 @@
 		});
 
 
+		//삭제하기 버튼 클릭
+		$("button[name='delete']").click(function(e){
+// 			alert("delete");
+			alert("삭제하시겠습니까?");
+			action='delete';
+			
+			var row=$(this).parent().parent().parent();
+			var tr = row.children();
+			
+			var post_no = tr.eq(3).text();
+			
+			$.ajax({
+				type : "POST",
+				url : "/manage/notice/deleteNotice",
+				data : "post_no="+post_no,
+				success : function(data){
+// 					//공지사항리스트
+// 					var html = data;
+					
+// 					// 지우는 작업
+// 					$(".table").html("");
+// 					// 다시 입히는 방법 
+// 					$(".table").html(html);
+				}
+
+			});
+			
+			
+		location.reload();
+		});
+		
 		//수정하기 버튼 클릭
 		$("button[name='modify']").click(function(e){
 			action='modify';
@@ -160,19 +242,46 @@
 						url : "/manage/notice/updateNotice",
 						data : "post_no="+post_no+"&post_ttl="+title+"&post_cntnt="+contents,
 						success : function(data){
-							var html = "";
-							$.each(data.noticeList , function(idx , noticeVo){
-								html += "<tr class='noticeList'>";
-								html += "<td>"+(idx+1)+"</td>";
-								html += "<td class='openMask'>"+noticeVo.post_ttl +"</td>";
-								html +=	"<td>"+noticeVo.post_date +"</td>";
-								html +=	"<td style='display: none;'>"+noticeVo.post_no+"</td>";
-								html += "</tr>";
+							//공지사항리스트
+// 							var html = "";
+// 							$.each(data.pageNoticeList , function(idx , noticeVo,pageVo){
+// 								html += "<tr class='noticeList'>";
+// 								html += "<td>"+pageVo.rnum+"</td>";
+// 								html += "<td class='openMask'>"+noticeVo.post_ttl +"</td>";
+// 								html +=	"<td>"+noticeVo.post_date +"</td>";
+// 								html +=	"<td style='display: none;'>"+noticeVo.post_no+"</td>";
+// 								html += "</tr>";
+// 							});
+// 							// 지우는 작업
+// 							$("#noticeModify").html("");
+// 							// 다시 입히는 방법 
+// 							$("#noticeModify").html(html);
+							location.reload();
+							
+							//모달창으로 공지사항 상세보기
+							var modalView = "";
+							$.each(data.pageNoticeList , function(idx , noticeVo){
+								modalView += "<tr>";
+								modalView += "	<td style='width: 30px;'>"+noticeVo.rnum+"</td>";
+								modalView += "	<td  class='test'  onclick='noticeFade("+noticeVo.post_no+")'>"+noticeVo.post_ttl +"</td>";
+								modalView += "	<td>"+noticeVo.post_date +"</td>";
+								modalView += "	<td style='display: none;'>"+noticeVo.post_no +"</td>";
+								modalView += "	<td>";
+								modalView += "		<div class='btn-group'>";
+								modalView += "			<button name='modify' value='"+noticeVo.post_no+"' class='btn' style='width: 70px;'>수정</button>";
+								modalView += "			<button name='delete' value='"+noticeVo.post_no+"' class='btn' style='width: 70px;'>삭제</button>";
+								modalView += "		</div>";
+								modalView += "	</td>";
+								modalView += "	<td style='display: none;'>"+noticeVo.post_cntnt+"</td>";
+								modalView += "</tr>";
+								modalView += "<tr>";
+								modalView += "	<td colspan='4' id='"+noticeVo.post_no+"' class='notice-content post_cntnt' style='display: none;' >"+noticeVo.post_cntnt+"</td>";
+								modalView += "</tr>";
 							});
 							// 지우는 작업
-							$("#noticeModify").html("");
+							$("#ListView").html("");
 							// 다시 입히는 방법 
-							$("#noticeModify").html(html);
+							$("#ListView").html(modalView);
 						
 						}
 					
@@ -211,6 +320,10 @@
     }
     
     // 공지사항 window 내용 fade 효과
+    $(".notice-tbl").on('click', '.test', function(id){
+    	noticeFade(id);
+    });
+    
     function noticeFade(id){
 		var the = "#" + id;
 		$(the).fadeToggle("fast");
@@ -223,21 +336,19 @@
 	</div>
 	<div>
 		<div style="display: inline;">
-			<form action="">
-				<select>
+			<form action="" style="width: 100%;">
+				<select id="selBox">
 					<option>제목</option>
 					<option>내용</option>
 				</select>
-				<input type="text"/>
+				<input type="text" id="searchNm"/>
 				<input type="submit" name="search" id="search" value="검색">
 			</form>
-		</div>
-		<div>
 			<form action="/manage/notice/insertView">
-				<input type="submit" value="공지등록">
+				<input id="submit" type="submit" value="공지등록">
 			</form>
 		</div>
-		<table border="1" style="width: 800px;">
+		<table class="table" >
 			<thead>
 				<tr class="openMask">
 					<td>번호</td>
@@ -246,9 +357,9 @@
 				</tr>
 			</thead>
 			<tbody id="noticeModify">
-				<c:forEach items="${noticeList }" var="noticeVo" varStatus="status">
+				<c:forEach items="${pageNoticeList }" var="noticeVo" varStatus="status">
 					<tr class="noticeList">
-						<td>${status.count }</td>
+						<td>${noticeVo.rnum }</td>
 						<td class="openMask">${noticeVo.post_ttl }</td>
 						<td>${noticeVo.post_date }</td>
 						<td style="display: none;">${noticeVo.post_no}</td>
@@ -257,8 +368,59 @@
 			</tbody>
 		</table>
 	</div>
-	
-	
+	<!-- 페이징 -->
+	<div class="text-center">
+		<ul class="pagination">
+			<c:choose>
+				<c:when test="${page==1 }">
+					<li class="disabled"><a href="#" aria-label="Previous"
+						tabindex="-1"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+					<li class="page-item disabled"><a class="page-link" href="#"
+						tabindex="-1">Previous</a></li>
+
+				</c:when>
+				<c:when test="${page!=1 }">
+					<li><a
+						href="/manage/notice/notice?page=1&pageSize=10"
+						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+					<li class="page-item"><a class="page-link"
+						href="/manage/notice/notice?page=${page-1 }&pageSize=10">Previous</a>
+					</li>
+				</c:when>
+			</c:choose>
+
+
+			<c:set var="pageCnt" value="${pageCnt }" />
+			<c:forEach begin="1" end="${pageCnt }" var="p">
+
+				<li><a
+					href="/manage/notice/notice?page=${p}&pageSize=10">${p }</a></li>
+			</c:forEach>
+			<li class="page-item">
+				<c:choose>
+					<c:when test="${page==pageCnt }">
+						<li class="page-item disabled"><a class="page-link" href="#"
+							tabindex="-1">Next</a></li>
+						<li class="disabled"><a href="#" aria-label="Next"
+							tabindex="-1"> <span aria-hidden="true">&laquo;</span>
+						</a></li>
+					</c:when>
+					<c:when test="${page!=pageCnt }">
+						<li class="page-item"><a class="page-link"
+							href="/manage/notice/notice?page=${page+1 }&pageSize=10">Next</a>
+						</li>
+						<li><a
+							href="/manage/notice/notice?page=${pageCnt }&pageSize=10"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</c:when>
+				</c:choose></li>
+
+		</ul>
+	</div>
+
 	<div class="notice">
 
 		<!-- 공지사항 팝업용  -->
@@ -268,7 +430,7 @@
 			<a href="#" class="close">닫기X</a>
 			<hr />
 			<div class="notice-pop">
-				<table class="table table-striped notice-tbl">
+				<table class="table notice-tbl">
 							<thead>
 								<tr>
 									<td style="width: 30px;">no.</td>
@@ -276,8 +438,9 @@
 									<td colspan="2">작성일</td>
 								</tr>
 								
-			<!-- 공지사항 반복될 구간 START -->					
-								<c:forEach items="${noticeList }" var="noticeVo" varStatus="status">
+			<!-- 공지사항 반복될 구간 START -->		
+							<tbody id="ListView">		
+								<c:forEach items="${pageNoticeList }" var="noticeVo" varStatus="status">
 									<tr>
 										<td style="width: 30px;">${status.count }</td>
 										<td  class="test"  onclick="noticeFade('${noticeVo.post_no}')">${noticeVo.post_ttl }</td>
@@ -285,8 +448,8 @@
 										<td style="display: none;">${noticeVo.post_no }</td>
 										<td>
 											<div class="btn-group">
-												<button name="modify" value="${noticeVo.post_no }" class="btn" style="width: 70px;">수정</button>
-												<button name="delete" value="${noticeVo.post_no }" class="btn" style="width: 70px;">삭제</button>
+												<button name="modify" value="${noticeVo.post_no }" class="btn rptCfBtn" >수정</button>
+												<button name="delete" value="${noticeVo.post_no }" class="btn rptCfBtn" >삭제</button>
 											</div>
 										</td>
 										<td style="display: none;">${noticeVo.post_cntnt }</td>
@@ -295,6 +458,7 @@
 										<td colspan="4" id="${noticeVo.post_no}" class="notice-content post_cntnt" style="display: none;" >${noticeVo.post_cntnt }</td>
 									</tr>
 								</c:forEach>
+							</tbody>	
 			<!-- 공지사항 반복될 구간 END -->	
 							</thead>
 						</table>
@@ -323,7 +487,7 @@
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button id="modalSubmit" type="button" class="btn">수정</button>
+						<button id="modalSubmit" type="button" class="btn" style="background-color: white;">수정</button>
 					</div>
 				</div>
 			</div>
