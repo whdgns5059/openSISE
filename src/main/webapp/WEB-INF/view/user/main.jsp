@@ -7,41 +7,8 @@
 <script type="text/javascript" src="/css/boostratp_slider_css_js/js/bootstrap-slider.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=caa07714ce07e9a1979c7eda8f6bd258&libraries=clusterer"></script>
 <script type="text/javascript">
-
-/*------------ 슬라이드 생성 코드(매매) ---------------*/
-function sliderRange(minimum, maximum){
-	
-	$("#slider-bar2").slider({
-		range: "max",
-		min : minimum,
-		max : maximum,
-		value :0,
-		step : 5,
-		orientation : "horizontal",
-		animate: "slow",
-		stop : function(event, ui){
-			 console.log("slider-bar stop");
-		},
-		slide: function( event, ui ) {
-			console.log("slider-bar slide");
-		},
-		change: function( event, ui ) {
-			console.log("slider-bar change");
-		}
-		
-	});
-}
-
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
-		
-		
-		$( "#test" ).slider({
-			  change: function( event, ui ) {
-				  console.log("slider-bar change");
-			  }
-		
-			});
 		
 		var map;
 		
@@ -55,19 +22,31 @@ function sliderRange(minimum, maximum){
 		settingMap(0,0);
 		sliderRange(0,30);
 		
-		
+		/*------------ 슬라이드 생성 코드(매매) ---------------*/
+		function sliderRange(minimum, maximum){
+			
+			$("#slider-bar").slider({
+				range: "max",
+				min : minimum,
+				max : maximum,
+				value :0,
+				step : 5,
+				orientation : "horizontal",
+				animate: "slow",
+			});
+		}
 		/*----------- 슬라이드 생성 코드(전세, 월세) -------------*/
 		function sliderRangeDepos(minimum, maximum){
 			
-// 			$("#slider-bar").slider({
-// 				range: "max",
-// 				min : minimum,
-// 				max : maximum,
-// 				value :0,
-// 				step : 100,
-// 				orientation : "horizontal",
-// 				animate: "slow",
-// 			});
+			$("#slider-bar").slider({
+				range: "max",
+				min : minimum,
+				max : maximum,
+				value :0,
+				step : 100,
+				orientation : "horizontal",
+				animate: "slow",
+			});
 		}
 		
 		function sliderRangeRnt(minimum, maximum){
@@ -91,38 +70,30 @@ function sliderRange(minimum, maximum){
 		/*---------- 초기에 무제한이라고 초기값 설정 끝  -------*/
 		
 		/*---------- 슬라이더 값 변화 function -------*/
-	 	//$("#slider-bar").on("change",function(){
-	 	//$("#slider-bar").on("mouseup",function(){
-// 	 	$("#slider-bar").mouseup(function(){
-// 	 		console.log("slider-bar mouseup");
-// 			priceTitle();
-// 			getArticleList();
-// 		});
+	 	$("#slider-bar").on("change",function(){
+			priceTitle();
+		});
 		$("#slider-rnt").on("change",function(){
-			console.log("slider-rnt change");
 			priceTitle();
 		}); 
 		
 		/*------------- 가격 ajax 설정(지금 이거 막아놨어 사용할거면 이거 풀어) -------------------*/
-// 		 $(".divHeight").on("mouseup","#slider-bar",function(){
-// 			 console.log("divHeight slider-bar mouseup");
-// 			//priceTitle();
-// 			//getArticleList();
-// 		});
-		$(".divHeight").on("mouseup","#slider-rnt",function(){
-			 console.log("divHeight slider-rnt mouseup");
-			//priceTitle();
-			//getArticleList();
+		 $(".divHeight").on("slideStop","#slider-bar",function(){
+			priceTitle();
+			getArticleList();
+		});
+		$(".divHeight").on("slideStop","#slider-rnt",function(){
+			priceTitle();
+			getArticleList();
 		}); 
 		/*-----------------------------------------------------------------------*/
 		
 		
 		
 		/*------- 가격 ajax --------*/
-// 		$(".divHeight").on("mousedown","#slider-bar",function(){
-// 			console.log("divHeight slider-bar mousedown");
-// 			//alert("mouseOut");
-// 		}); 
+		$(".divHeight").on("mousedown","#slider-bar",function(){
+			alert("mouseOut");
+		}); 
 		/* $("#slider-bar").mouseleave(function(){
 			console.log($("#slider-bar").val());
 		}); */
@@ -677,16 +648,15 @@ function sliderRange(minimum, maximum){
 						settingMap(0,0);
 					},
 					complete : function(){
-						ajaxFlag = true;
-						//setAjaxFlagChange();
+						setAjaxFlagChange();
 					}
 				});	
 		 	}
-			function setAjaxFlagChange(){
-				ajaxFlag = true;
-			}
 		}
 		
+		function setAjaxFlagChange(){
+			ajaxFlag = true;
+		}
 		
 		
 		/*검색한 좌표들을 배열에 담아준다*/
@@ -816,10 +786,9 @@ function sliderRange(minimum, maximum){
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">가격</a>
-					
 					<div class="dropdown-menu divHeight">
 						<h4 id="dlTypePrice">매매가</h4>
-  						<div id="test"></div>&nbsp&nbsp&nbsp
+  						<div id="slider-bar"></div>&nbsp&nbsp&nbsp
   						<span id="price">무제한</span>
   						<hr>
 					</div>
@@ -1063,7 +1032,6 @@ function sliderRange(minimum, maximum){
 		
 	
 </script>
-
 
 
 
