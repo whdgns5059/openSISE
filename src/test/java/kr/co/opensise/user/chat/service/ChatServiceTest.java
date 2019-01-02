@@ -1,4 +1,4 @@
-package kr.co.opensise.user.chat;
+package kr.co.opensise.user.chat.service;
 
 import static org.junit.Assert.*;
 
@@ -8,24 +8,22 @@ import org.junit.Test;
 
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.setup.RootSetup;
-import kr.co.opensise.user.chat.dao.ChatDaoInf;
 
-public class ChatDaoTest extends RootSetup{
+public class ChatServiceTest extends RootSetup{
 
-	@Resource(name="chatDao")
-	private ChatDaoInf chatDao;
-	
+	@Resource(name="chatService")
+	private ChatServiceInf chatService;
+
 	@Test
 	public void selectMemberByNoTest() {
 		/***given***/
 		int mem_no = 1;
 		
 		/***when***/
-		MemberVo memberVo = chatDao.selectMember(mem_no);
+		MemberVo memberVo = chatService.selectMember(mem_no);
 		
 
 		/***then***/
 		assertEquals(1, memberVo.getMem_no());
 	}
-
 }
