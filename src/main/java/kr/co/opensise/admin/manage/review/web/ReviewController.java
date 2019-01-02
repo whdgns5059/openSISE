@@ -76,6 +76,7 @@ public class ReviewController {
 			}
 		}*/
 		
+		
 		Map<String, Object> reviewAllList = reviewService.allReviewList(pageVo);
 		List<ReviewVo> reviewList = (List<ReviewVo>) reviewAllList.get("pageReviewList");
 		model.addAllAttributes(reviewAllList);
