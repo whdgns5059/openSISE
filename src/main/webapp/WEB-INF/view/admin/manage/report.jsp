@@ -31,6 +31,7 @@
 	border-radius: 5px;
 	color: #808080;
 	font-family: 'Noto Sans KR', sans-serif;
+	float: left;
 }
 #searchNm{
 	margin-right: 10px;
@@ -38,6 +39,7 @@
     height: 30px;
     border: 1px solid #d8d8d8;
     border-radius: 5px;
+    float: left;
 }
 #search {
     width: 60px;
@@ -89,40 +91,57 @@ td{
  	width: 100%;
  	height: 25px;
  }
- .rpt_date{
- 	float: left;
- }
-.selBox{
-	float: right;
-}
-#rpt_no{
-    display: block;
-    border: none;
-    background: none;
-    width: 22px;
-    height: 28px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    float: left;
-}
 .rpt_noLabel{
-    width: 70px;
-    height: 28px;
+    width: 7%;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
     font-weight: 400;
     line-height: 30px;
     color: #808080;
+    float: left;
+}
+#rpt_no{
+    display: block;
+    border: none;
+    background: none;
+    width: 23%;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    float: left;
+}
+#rpt_date{
+    float: left;
+    width: 35%;
+    text-align: center;
+}
+.selBox{
+    width: 25%;
+    float: right;
 }
 #rpt_cf_nm{
     float: right;
     width: 120px;
     border: none;
     background: none;
+    text-align: center;
+}
+.postNoLabel{
+	width: 108px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	color: #808080;
+}
+.lbl{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 15px;
+	font-weight: 500;
+	color: #808080;
 }
 .btnClass{
 	text-align: center;
+	margin-top: 40px;
 }
 .btnY{
 	width: 100px;
@@ -146,8 +165,10 @@ $(document).ready(function(){
 	/* 신고분류 관리 */
 	$('#rptCfBtn').on('click',function(){
 		window.open("/manage/rptClassfForm", "new window", "width=600, height=550");
-		
 	});
+	
+	// 페이지가 열리면 모든 신고 리스트 띄우기
+	reportListPage(1);
 	
 	// 해당 글 modal창 띄우기
 	$("#reportList").on("click",".content", function() {
@@ -166,7 +187,7 @@ $(document).ready(function(){
 		$("#rpt_date").html(rpt_date);
 		$("#rpt_cf_nm").html(rpt_cf_nm);
 		$("#rpt_mem").html(rpt_mem);
-		$("#rpt_ttl").html(rpt_ttl);
+		document.getElementById("rpt_ttl").value = rpt_ttl;
 		// 처리여부 
 		if(rpt_exst == 'Y'){
 			$('#rpt_exst').val('Y').prop("selected", true);
@@ -179,8 +200,6 @@ $(document).ready(function(){
 	
 	// 검색 버튼 클릭시 분류 별 검색
 	$("#search").on("click", function() {
-		/* var searchNm = $("#searchNm").val();
-		var selBox = $("#selBox").val(); */
 		reportListPage(1);
 	});
 	
@@ -188,7 +207,7 @@ $(document).ready(function(){
 		// 선택한 페이지 번호
 	 	$("#page").val(pageNum);
 		// form 전체 보내기
-	 	 var param = $("form[name=frm]").serialize();
+	 	var param = $("form[name=frm]").serialize();
 		
 		$.ajax({
 			type : "POST",
@@ -202,6 +221,35 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
+	// 신고 처리여부 수정
+	$('#rpt_ok').on('click',function(){
+		// 숨겨진 input에 rpt_no 값 넣기
+		var rpt_no = document.getElementById('rpt_no').innerHTML;
+		document.getElementById("rpt_noInput").value = rpt_no;
+		
+		var param = $("form[name=rpt_frm]").serialize();
+		
+		$.ajax({
+			type : "POST",
+			url : "/manage/reportUpdateAjax",
+			data : param,
+			success : function(data) {
+				// 성공
+				if(data.updateCnt > 0){
+					// 리스트 다시 뿌리기
+					reportListPage(1);
+					// 모달 닫기
+					$('.modal').hide();
+					$('.blocker').hide();
+					
+				// 실패
+				}else{
+					alert("실패");
+				}
+			}
+		});
+	});
 	
 	// 모달 닫기
 	$('#cancel').on('click',function(){
@@ -305,34 +353,37 @@ $(document).ready(function(){
 	<!-- 모달창 -->
 	<!-- 신고글 상세 보기 -->
 	<div id="ex1" class="modal report_container">
-		<div class="modalTop">
-			<p class="rpt_date">신고한 날짜</p>
-			<select id="rpt_exst" class="selBox" >
-				<option value="Y" >처리완료</option>
-				<option value="N" >미처리</option>
-			</select>
-		</div>	
-		<hr/>
-		<form action="/detail/reportInsert" method="post" id="rpt_frm">
-			<div class="form-horizontal">
-				<div class="form-group rpt_post">
-					<input type="text" id="rpt_no" name="rpt_no" value="${rpt_no }" readonly disabled/>
-					<label for="rpt_post" class="rpt_noLabel"></label>
-					<input type="text" id="rpt_cf_nm" name="rpt_cf_nm" value="${rpt_cf_nm }" readonly disabled/>
-				</div>
+		<form method="post" id="rpt_frm" name="rpt_frm">
+			<div class="modalTop">
+				<label class="rpt_noLabel">no.</label>
+				<label id="rpt_no" ></label>
+				<input type="hidden" id="rpt_noInput" name="rpt_no"/>
+				<p id="rpt_date"></p>
+				<select id="rpt_exst" class="selBox" name="rpt_exst">
+					<option value="Y" >처리완료</option>
+					<option value="N" >미처리</option>
+				</select>
 			</div>
+		</form>	
+		<hr/>
+		<div class="form-horizontal">
 			<div class="form-group">
-				<label class="lbl">제목</label>
-				<input type="text" class="form-control" id="rpt_ttl" name="rpt_ttl"/>
-				<br/>
-				<label class="lbl">사유</label>
-				<textarea class="form-control" id="rpt_cntnt" name="rpt_cntnt" rows="10"></textarea>
-			</div>		
-			<div class="btnClass">
-				<input type="button" class="btn btnY" id="rpt_ok" value="확인"/>
-				<input type="button" class="btn btnN" id="cancel" value="취소"/>
-			</div>	
-		</form>
+				<label class="rpt_noLabel postNoLabel">신고받은 게시글 :</label>
+				<label id="rpt_post"></label>
+				<label id="rpt_cf_nm"></label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="lbl">제목</label>
+			<input type="text" class="form-control" id="rpt_ttl" readonly disabled/>
+			<br/>
+			<label class="lbl">사유</label>
+			<textarea class="form-control" id="rpt_cntnt" rows="10" readonly disabled></textarea>
+		</div>		
+		<div class="btnClass">
+			<input type="button" class="btn btnY" id="rpt_ok" value="확인"/>
+			<input type="button" class="btn btnN" id="cancel" value="취소"/>
+		</div>	
 	</div>	
 	
 </div>

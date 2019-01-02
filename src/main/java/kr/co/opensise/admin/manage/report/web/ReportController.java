@@ -139,10 +139,25 @@ public class ReportController {
 		Map<String, Object> resultMap = reportService.searchReport(pageVo);
 		
 		model.addAllAttributes(resultMap);
-		log.info("신고리스트 검색 결과 {}",resultMap);
 		
 		return "admin/manage/reportAjax/reportListAjax";
 	}
+	
+	@PostMapping(value="/reportUpdateAjax")
+	public String reportUpdateAjax(Model model, ReportVo reportVo/*@RequestParam("rpt_no") int rpt_no, @RequestParam("rpt_exst") String rpt_exst*/) {
+		
+		log.info("수정 값 {}",reportVo );
+		
+		/*ReportVo reportVo = new ReportVo();
+		reportVo.setRpt_post(rpt_no);
+		reportVo.setRpt_exst(rpt_exst);*/
+		
+		int updateCnt = reportService.updateReport(reportVo);
+		model.addAttribute("updateCnt",updateCnt);
+		
+		return "jsonView";
+	}
+	
 	
 	
 	
