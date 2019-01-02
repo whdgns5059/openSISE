@@ -16,7 +16,7 @@
 	</select>
 
 	<!-- 삭제 되지 않은 모든 리뷰 검색 + 페이징 처리 -->
-	<select id="searchAllReview" parameterType="pageVo" resultType="reviewVo">
+	<select id="searchAllReview" parameterType="pgVo" resultType="reviewVo">
 	select * from(
 		select rownum rnum ,a.*
 		from
@@ -59,7 +59,7 @@
 
 	
 	<!-- 검색 항목 별 리뷰 검색 -->
-	<select id="cateSearchCnt" parameterType="pageVo" resultType="int">
+	<select id="cateSearchCnt" parameterType="pgVo" resultType="int">
 		select count(*) 
 		from post inner join member on(post_mem = mem_no)
                  inner join article on(post_gu = artcl_gu 
