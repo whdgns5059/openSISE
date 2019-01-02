@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.co.opensise.admin.manage.review.model.PageVo;
 import kr.co.opensise.admin.statis.model.FavoriteVo;
 import kr.co.opensise.admin.statis.model.InterestVo;
 import kr.co.opensise.admin.statis.model.MemberVo;
@@ -84,6 +85,23 @@ public class ReportDaoTest extends RootSetup{
 		
 		for(ReportVo reportVo : reportVoList)
 			log.info("신고 리스트 {} ",reportVo);
+	}
+	
+	@Test
+	public void searchReportTest() {
+		/***Given***/
+		PageVo pageVo = new PageVo();
+		pageVo.setPage(1);
+		pageVo.setPageSize(10);
+		pageVo.setSelBox("rpt_ttl");
+		pageVo.setSearchNm("소형");
+
+		/***When***/
+		List<ReportVo> reportVoList = reportDao.searchReport(pageVo);
+
+		/***Then***/
+		for(ReportVo reportVo : reportVoList)
+		log.info("결과값 {}",reportVo);
 	}
 	
 	@Test

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.opensise.admin.manage.report.dao.ReportDaoInf;
+import kr.co.opensise.admin.manage.review.model.PageVo;
 import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.model.Report_classfVo;
 
@@ -40,11 +41,17 @@ public class ReportService implements ReportServiceInf {
 	public List<ReportVo> getReport() {
 		return reportDao.getReport();
 	}
+	
+	@Override
+	public List<ReportVo> searchReport(PageVo pageVo) {
+		return reportDao.searchReport(pageVo);
+	}
 
 	@Override
 	public int updateReport(ReportVo reportVo) {
 		return reportDao.updateReport(reportVo);
 	}
+
 
 
 }

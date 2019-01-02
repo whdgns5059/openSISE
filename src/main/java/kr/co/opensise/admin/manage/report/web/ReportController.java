@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.opensise.admin.manage.dataetc.web.DataEtcController;
 import kr.co.opensise.admin.manage.report.service.ReportServiceInf;
+import kr.co.opensise.admin.manage.review.model.PageVo;
+import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.model.Report_classfVo;
 
 @Controller
@@ -120,7 +122,23 @@ public class ReportController {
 		return "jsonView";
 	}
 	
-	
+	/**
+	* Method : reportListAjax
+	* 작성자 : Bella
+	* 변경이력 :
+	* @param model
+	* @param reportVo
+	* @return
+	* Method 설명 : 검색 결과에 따른 신고 리스트 결과
+	*/
+	@PostMapping(value="/reportListAjax")
+	public String reportListAjax(Model model, PageVo pageVo) {
+		
+		
+		log.info("확인합시다 {}", pageVo);
+		
+		return "admin/manage/reportAjax/reportListAjax";
+	}
 	
 	
 	

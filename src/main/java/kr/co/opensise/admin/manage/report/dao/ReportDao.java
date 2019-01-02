@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.opensise.admin.manage.review.model.PageVo;
 import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.model.Report_classfVo;
 
@@ -43,6 +44,12 @@ public class ReportDao implements ReportDaoInf {
 	@Override
 	public List<ReportVo> getReport() {
 		List<ReportVo> reportVoList = template.selectList("mng_report.getReport");
+		return reportVoList;
+	}
+	
+	@Override
+	public List<ReportVo> searchReport(PageVo pageVo) {
+		List<ReportVo> reportVoList = template.selectList("mng_report.searchReport", pageVo);
 		return reportVoList;
 	}
 
