@@ -55,6 +55,41 @@
  		}
  		
  		
+ 		$('.chatroom').on('click', function(e){
+ 	
+ 			e.preventDefault();	
+ 			
+ 			$.ajax({
+ 				type : 'POST',
+ 				url : '/chat/chatroom',
+ 				data : {
+ 					mem_no : ${nowLogin.mem_no}
+ 				},
+ 				success : function(data){
+					var chatPopup = window.open("/chat/chatroom", "new window", "width=600, height=800, location=no");
+ 				}
+ 			});	
+ 			
+ 		});
+ 		
+ 		
+ 		$('.chatlobby').on('click', function(e){
+ 	
+ 			e.preventDefault();	
+ 			
+ 			$.ajax({
+ 				type : 'POST',
+ 				url : '/chat/chatroom',
+ 				data : {
+ 					mem_no : ${nowLogin.mem_no}
+ 				},
+ 				success : function(data){
+					var chatPopup = window.open("/chat/chatlobby", "new window", "width=600, height=800, location=no");
+ 				}
+ 			});	
+ 			
+ 		});
+ 		
  	});
  	
 	function switchPage(bc) {
@@ -72,6 +107,9 @@
 			$("#fmi").submit();
 		}
 	}
+	
+	
+	
 </script>
 
 <script type="text/javascript">
@@ -120,6 +158,7 @@
 					<c:if test="${nowLogin.mem_mngr!= null}">
 						${nowLogin.mem_nm} 관리자님 안녕하세요  &emsp;
 						<a href="/manage/dataTrade/dataTrade" style="display: inline-block;">관리정보</a>&emsp;
+						<a href="/chat/lobby" class="chatlobby" style="display: inline-block;">채팅 문의</a>&emsp;
 						<a href="/login/logout" style="display: inline-block;">로그아웃</a>
 					</c:if>
 				</li>
@@ -129,6 +168,7 @@
 					<c:if test="${nowLogin.mem_nm!= null && nowLogin.mem_mngr == null}">
 						${nowLogin.mem_nm} 님 안녕하세요  &emsp;
 						<a href="/mypage/myInfo" style="display: inline-block;">나의 정보</a>&emsp;
+						<a href="/chat/chatroom" class="chatroom" style="display: inline-block;">채팅 문의</a>&emsp;
 						<a href="/login/logout" style="display: inline-block;">로그아웃</a>
 					</c:if>
 				</li>
