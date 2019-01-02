@@ -69,6 +69,10 @@ public class MainController {
 	@RequestMapping("/mainAjax")
 	public String mainAjax(Model model, FilterVo filterVo) {
 		List<BuildingSaleVo> buildFilterList = null;
+		
+		logger.info("filterVo.getDlpirce : " + filterVo.getDl_price1());
+		logger.info("filterVo.getDlpirce : " + filterVo.getDl_price2());
+		
 		if(filterVo.getBuilding().equals("all")) {
 			buildFilterList = mainService.buildingSingleFilterList(filterVo);
 		}else {

@@ -131,7 +131,6 @@
                     and a.artcl_zip = d.dl_zip 
                     and a.artcl_rd = d.dl_rd)
 		group by artcl_zip, artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty, artcl_bc
-
 	</select>
 	
 	<!-- 단/다세대일 경우 필터를 이용한 매물 리스트 출력 -->
@@ -207,6 +206,28 @@
                     and a.artcl_zip = d.dl_zip 
                     and a.artcl_rd = d.dl_rd)
 		group by artcl_zip, artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty, artcl_bc
+	</select>
+	
+	<!-- 매매일때 최대 매매가 -->
+	<select id="maxDlPrice" resultType="buildingSaleVo">
+		select max(dl_price)as dl_price
+		from deal inner join article on (dl_dong = artcl_dong 
+		                                and dl_gu = artcl_gu 
+		                                and dl_zip = artcl_zip 
+		                                and dl_rd = artcl_rd
+		                                )
+		where dl_ty = '매매'
+	</select>
+	
+	<!-- 전세일때 최대 전세가 -->
+	<select id="maxDlDepos" resultType="buildingSaleVo">
+		select max(dl_depos)
+		from deal inner join article on (dl_dong = artcl_dong 
+		                                and dl_gu = artcl_gu 
+		                                and dl_zip = artcl_zip 
+		                                and dl_rd = artcl_rd
+		                                )
+		where dl_ty = '전세'
 	</select>
 
 </mapper>

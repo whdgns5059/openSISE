@@ -49,7 +49,7 @@
 		<typeAlias type="kr.co.opensise.user.detail.model.ReportVo" alias="reportVo"/>
 		<typeAlias type="kr.co.opensise.user.detail.model.Report_classfVo" alias="rpt_cfVo"/>
 
-		<!-- 관리자 리뷰 -->
+		<!-- 관리자 리뷰 -->   
 		<typeAlias type="kr.co.opensise.admin.manage.review.model.ReviewVo" alias="reviewVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.review.model.ReportHistoryVo" alias="reportHistoryVo"/>
 		<typeAlias type="kr.co.opensise.admin.manage.review.model.PictureVo" alias="picturesVo"/>
