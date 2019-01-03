@@ -30,11 +30,20 @@ public class IndexController {
 //		visitTime.setMaxAge(60*30); // 기간을 30분으로 지정
 		
 		//공지사항 타이틀 나열
-		List<PostVo> noticeList =  noticeService.selectNoticeList();
+		List<PostVo> noticeList =  noticeService.selectNoticeView();
 		
 		model.addAttribute("noticeList", noticeList);
 		return "openPage";
 	}
 	
+	@RequestMapping("/noticeList")
+	public String noticeList(Model model) {
+		//공지사항 타이틀 나열
+		List<PostVo> noticeList =  noticeService.selectNoticeView();
+		
+		model.addAttribute("noticeList", noticeList);
+		
+		return "noticeListAjax";
+	}
 	
 }

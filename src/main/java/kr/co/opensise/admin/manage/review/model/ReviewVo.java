@@ -1,53 +1,96 @@
 package kr.co.opensise.admin.manage.review.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class ReviewVo {
-	private int rpl_no; 
-	private String rpl_cntnt;
-	private Date rpl_date;
-	private String rpl_exst;
-	private int rpl_post;
-	private int rpl_mem;
+	private int post_no;
+	private int post_mem;
+	private int post_brd;
+	private String post_ttl;
+	private String post_cntnt;
+	private Date post_date;
+	private String post_star;
+	private String post_exst;
+	private String post_gu;
+	private String post_dong;
+	private String post_zip;
+	private String post_rd;
 	private String mem_email;
-	private int rownum;
+	private int rnum;
+	private String pic_file_nm;
+	private int pic_no;
 	
-	
-	public int getRpl_no() {
-		return rpl_no;
+	public int getPost_no() {
+		return post_no;
 	}
-	public void setRpl_no(int rpl_no) {
-		this.rpl_no = rpl_no;
+	public void setPost_no(int post_no) {
+		this.post_no = post_no;
 	}
-	public String getRpl_cntnt() {
-		return rpl_cntnt;
+	public int getPost_mem() {
+		return post_mem;
 	}
-	public void setRpl_cntnt(String rpl_cntnt) {
-		this.rpl_cntnt = rpl_cntnt;
+	public void setPost_mem(int post_mem) {
+		this.post_mem = post_mem;
 	}
-	public Date getRpl_date() {
-		return rpl_date;
+	public int getPost_brd() {
+		return post_brd;
 	}
-	public void setRpl_date(Date rpl_date) {
-		this.rpl_date = rpl_date;
+	public void setPost_brd(int post_brd) {
+		this.post_brd = post_brd;
 	}
-	public String getRpl_exst() {
-		return rpl_exst;
+	public String getPost_ttl() {
+		return post_ttl;
 	}
-	public void setRpl_exst(String rpl_exst) {
-		this.rpl_exst = rpl_exst;
+	public void setPost_ttl(String post_ttl) {
+		this.post_ttl = post_ttl;
 	}
-	public int getRpl_post() {
-		return rpl_post;
+	public String getPost_cntnt() {
+		return post_cntnt;
 	}
-	public void setRpl_post(int rpl_post) {
-		this.rpl_post = rpl_post;
+	public void setPost_cntnt(String post_cntnt) {
+		this.post_cntnt = post_cntnt;
 	}
-	public int getRpl_mem() {
-		return rpl_mem;
+	public Date getPost_date() {
+		return post_date;
 	}
-	public void setRpl_mem(int rpl_mem) {
-		this.rpl_mem = rpl_mem;
+	public void setPost_date(Date post_date) {
+		this.post_date = post_date;
+	}
+	public String getPost_star() {
+		return post_star;
+	}
+	public void setPost_star(String post_star) {
+		this.post_star = post_star;
+	}
+	public String getPost_exst() {
+		return post_exst;
+	}
+	public void setPost_exst(String post_exst) {
+		this.post_exst = post_exst;
+	}
+	public String getPost_gu() {
+		return post_gu;
+	}
+	public void setPost_gu(String post_gu) {
+		this.post_gu = post_gu;
+	}
+	public String getPost_dong() {
+		return post_dong;
+	}
+	public void setPost_dong(String post_dong) {
+		this.post_dong = post_dong;
+	}
+	public String getPost_zip() {
+		return post_zip;
+	}
+	public void setPost_zip(String post_zip) {
+		this.post_zip = post_zip;
+	}
+	public String getPost_rd() {
+		return post_rd;
+	}
+	public void setPost_rd(String post_rd) {
+		this.post_rd = post_rd;
 	}
 	public String getMem_email() {
 		return mem_email;
@@ -55,12 +98,29 @@ public class ReviewVo {
 	public void setMem_email(String mem_email) {
 		this.mem_email = mem_email;
 	}
-	public int getRownum() {
-		return rownum;
+	public int getRnum() {
+		return rnum;
 	}
-	public void setRownum(int rownum) {
-		this.rownum = rownum;
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
+	public String getPic_file_nm() {
+		return pic_file_nm;
+	}
+	public void setPic_file_nm(String pic_file_nm) {
+		this.pic_file_nm = pic_file_nm;
+	}
+	public int getPic_no() {
+		return pic_no;
+	}
+	public void setPic_no(int pic_no) {
+		this.pic_no = pic_no;
+	}
+	
+	
+	
+	
+	
 	
 	
 	

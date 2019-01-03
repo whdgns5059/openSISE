@@ -15,7 +15,15 @@ public class PostVo {
 	private String post_zip;
 	private String post_rd;
 	private String mem_email;
+	private int rnum;
 	
+	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public String getMem_email() {
 		return mem_email;
 	}
@@ -99,8 +107,9 @@ public class PostVo {
 		return "PostVo [post_no=" + post_no + ", post_brd=" + post_brd + ", post_mem=" + post_mem + ", post_ttl="
 				+ post_ttl + ", post_cntnt=" + post_cntnt + ", post_date=" + post_date + ", post_star=" + post_star
 				+ ", post_exst=" + post_exst + ", post_gu=" + post_gu + ", post_dong=" + post_dong + ", post_zip="
-				+ post_zip + ", post_rd=" + post_rd + "]";
+				+ post_zip + ", post_rd=" + post_rd + ", mem_email=" + mem_email + ", rnum=" + rnum + "]";
 	}
+	
 	
 	
 	

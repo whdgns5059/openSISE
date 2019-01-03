@@ -3,11 +3,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link href="/css/main.css" rel="stylesheet" />
-<link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet" />
-<script type="text/javascript" src="/css/boostratp_slider_css_js/js/bootstrap-slider.js"></script>
+<!-- <link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet" /> -->
+<!-- <script type="text/javascript" src="/css/boostratp_slider_css_js/js/bootstrap-slider.js"></script> -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=caa07714ce07e9a1979c7eda8f6bd258&libraries=clusterer"></script>
 <script type="text/javascript">
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
+		
+		
+		sliderMaker(5000,10000000);
+		
+		//가격 슬라이더바 생성
+		function sliderMaker(minimum, maximum){
+			$( "#slider-range" ).slider({
+		      range: true,
+		      min: minimum,
+		      max: maximum,
+		      values: [ minimum, maximum],
+		      step : 1000,
+		      slide: function( event, ui ) {
+		        $("#price").html(ui.values[ 0 ] + "만원" + " - " + ui.values[ 1 ] + "만원" );
+		      }
+	    	});
+		}
+		
 		
 		var map;
 		
@@ -19,136 +42,6 @@
 		
 		
 		settingMap(0,0);
-		sliderRange(0,30);
-		
-		/*------------ 슬라이드 생성 코드(매매) ---------------*/
-		function sliderRange(minimum, maximum){
-			
-			$("#slider-bar").slider({
-				range: "max",
-				min : minimum,
-				max : maximum,
-				value :0,
-				step : 5,
-				orientation : "horizontal",
-				animate: "slow",
-			});
-		}
-		/*----------- 슬라이드 생성 코드(전세, 월세) -------------*/
-		function sliderRangeDepos(minimum, maximum){
-			
-			$("#slider-bar").slider({
-				range: "max",
-				min : minimum,
-				max : maximum,
-				value :0,
-				step : 100,
-				orientation : "horizontal",
-				animate: "slow",
-			});
-		}
-		
-		function sliderRangeRnt(minimum, maximum){
-			$("#slider-rnt").slider({
-				range: "max",
-				min : minimum,
-				max : maximum,
-				value :0,
-				step : 50,
-				orientation : "horizontal",
-				animate: "slow",
-			});
-		}
-		/*---------- 슬라이더 생성 코드 끝 --------------*/
-		
-		/*---------- 초기에 무제한이라고 초기값 설정 -------*/
-		var price = $("#slider-bar").val();	
-		var span = "<span id='price'> 무제한 </span>";
-		$("#price").html("");
-		$("#price").html(span);
-		/*---------- 초기에 무제한이라고 초기값 설정 끝  -------*/
-		
-		/*---------- 슬라이더 값 변화 function -------*/
-	/* 	$("#slider-bar").on("change",function(){
-			priceTitle();
-		});
-		$("#slider-rnt").on("change",function(){
-			priceTitle();
-		}); */
-		
-		/*------------- 가격 ajax 설정(지금 이거 막아놨어 사용할거면 이거 풀어) -------------------*/
-		/* $(".divHeight").on("change","#slider-bar",function(){
-			priceTitle();
-			getArticleList();
-		});
-		$(".divHeight").on("change","#slider-rnt",function(){
-			priceTitle();
-			getArticleList();
-		}); */
-		/*-----------------------------------------------------------------------*/
-		
-		
-		
-		/*------- 가격 ajax --------*/
-		$(".divHeight").on("mousedown","#slider-bar",function(){
-			alert("mouseOut");
-		}); 
-		/* $("#slider-bar").mouseleave(function(){
-			console.log($("#slider-bar").val());
-		}); */
-		/*------- 가격 ajax 끝 ------*/
-		function priceTitle(){
-			
-			if($("#dl_ty").val()=="매매"){
-				
-				price = $("#slider-bar").val();	
-				if(price[1] == 30){
-					span = "<span id='price'>" + price[0] + " 억 ~ " + " 무제한</span>";
-				}else{
-					span = "<span id='price'>" + price[0] + " 억 ~ " + price[1]+ " 억</span>";
-				}
-				$("#price").html("");
-				$("#price").html(span);
-				$("#dl_price1").val($("#slider-bar").val()[0]);
-				$("#dl_price2").val($("#slider-bar").val()[1]);
-			}else if($("#dl_ty").val()=="전세"){
-				
-				price = $("#slider-bar").val();	
-				if(price[1] == 30000){
-					span = "<span id='price'>" + price[0] + " 만원 ~ " + " 무제한</span>";
-				}else{
-					span = "<span id='price'>" + price[0] + " 만원  ~ " + price[1]+ " 만원</span>";
-				}
-				$("#price").html("");
-				$("#price").html(span);
-				$("#dl_price1").val($("#slider-bar").val()[0]);
-				$("#dl_price2").val($("#slider-bar").val()[1]);
-			}else{
-				
-				price = $("#slider-bar").val();
-				if(price[1] == 10000){
-					span = "<span id='price'>" + price[0] + " 만원  ~ " + " 무제한</span>";
-				}else{
-					span = "<span id='price'>" + price[0] + " 만원  ~ " + price[1]+ " 만원</span>";
-				}
-				$("#price").html("");
-				$("#price").html(span);
-				
-				var price2 = $("#slider-rnt").val();
-				if(price2[1] == 400){
-					span = "<span id='priceRnt'>" + price2[0] + " 만원  ~ " + " 무제한</span>";
-				}else{
-					span = "<span id='priceRnt'>" + price2[0] + " 만원  ~ " + price2[1] + "만원</span>";
-				}
-				$("#priceRnt").html("");
-				$("#priceRnt").html(span);
-				$("#dl_price1").val($("#slider-bar").val()[0]);
-				$("#dl_price2").val($("#slider-bar").val()[1]);
-				$("#dl_rnt1").val($("#slider-rnt").val()[0]);
-				$("#dl_rnt2").val($("#slider-rnt").val()[1]);
-			}
-		}
-		/*------------------- 슬라이더 onChange 끝 -------------------------*/
 		
 
 		/*전/월/매 ajax 처리*/
@@ -163,62 +56,9 @@
 			console.log($("#buildings").val());
 			console.log($("#searchName").val());
 			
-			if($("#dl_ty").val() =="월세"){
-				$(".divHeight").css("height", 200);
-				priceRnt();
-			}else{
-				$(".divHeight").html("");
-				$(".divHeight").css("height", 100);
-				var html ;
-				html += "<h4 id='dlTypePrice'>매매가</h4>";
-				html +=	"<div id='slider-bar'></div>&nbsp&nbsp&nbsp";
-				html +=	"<span id='price'>무제한</span>";
-				html +=	"<hr>";
-				$(".divHeight").html(html);
-			}
-			
-			dlTypeInnerHtml();
-			sliderMaker();
 			getArticleList();
 		}); 
 		
-		/*---------- 월세 가격 설정 -------------*/
-		function priceRnt(){
-			var html;
-			html += "<h4>월세</h4>";
-			html += "<div id='slider-rnt'></div>&nbsp&nbsp&nbsp";
-			html += "<span id='priceRnt'>무제한</span>";
-			
-			$(".divHeight").append(html);
-			
-		}
-		/*---------- 월세 가격 설정 끝 -----------*/
-		
-		/*---------- 매매 형태에 따른 가격 기본값 고정 --------- */
-		function dlTypeInnerHtml(){
-			if($("#dl_ty").val() == '매매'){
-				$("#dlTypePrice").html("매매가");
-			}else if($("#dl_ty").val() == '전세'){
-				$("#dlTypePrice").html("보증금");
-			}else{
-				$("#dlTypePrice").html("보증금");
-				$("#dlRntPrice").html("월세");
-			}
-		}
-		/*---------- 매매 형태에 따른 가격 탭 기본값 고정 끝 --------- */
-		
-		/*---------- 매매 형태에 따른 슬라이더 생성 -----------*/
-		function sliderMaker(){
-			if($("#dl_ty").val() == '매매'){
-				sliderRange(0,30);
-			}else if($("#dl_ty").val() == '전세'){
-				sliderRangeDepos(0,30000);
-			}else{
-				sliderRangeDepos(0,10000);
-				sliderRangeRnt(0,400);
-			}
-		}
-		/*---------- 매매 형태에 따른 슬라이더 생성 끝 -----------*/
 		
 		/*단/다세대 ajax 처리*/
 		$(".houseSelector").on("click", function(){
@@ -266,14 +106,42 @@
 			
 		});
 		
+		//가격 ajax 처리
+		$(".priceSelector").on("click",function(){
+			dl_price = document.querySelector('input[name="price"]:checked').value;
+		});
+		
 		
 		/*검색버튼 ajax 처리*/
 		$("#search").on("click",function(){
 			dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
-			$("#buildT").html(dl_Type);
-			$("#dl_ty").val(dl_Type);
+			$("#dl_ty").val('매매');
+			
+			
+			//검색 시 check된 필터 모두 초기화
+			$("#allArea").prop("checked",true);
+			$("#maemae").prop("checked", true);
+			$("#all").prop("checked", true);
+			$("#ignore").prop("checked", true);
+			$("#slider-bar").html("");
+			
+			//필터 innerHTML 재정의
+			$("#houseType").html("주거형태");
+			$("#buildT").html('매매');
+			$("#excv_area").html('평(형)수');
+			$("#const_y").html('준공년도');
+			
+			
+			$("#dl_excv_area").val("");
+			$("#artcl_const_y").val("");
+			$("#dl_price1").val("");
+			$("#dl_price2").val("");
+			$("#dl_rnt1").val("");
+			$("#dl_rnt2").val("");
 
+			
 			getArticleList();
+			
 		});
 		
 		
@@ -320,7 +188,7 @@
 				lat = x;
 				lng = y;
 			}
-
+			
 			// 해당 주소를 담을 값
 			var addr;
 
@@ -585,10 +453,6 @@
 			        el.className = 'on';
 			    } 
 			} 	
-			
-			
-			
-			
 		}
 		
 		function getArticleList(){
@@ -604,19 +468,36 @@
 		 	var dl_rnt1 = document.getElementById("dl_rnt1").value;
 		 	var dl_rnt2 = document.getElementById("dl_rnt2").value;
 		 	
-			$.ajax({
-				type : "POST",
-				url : "/main/mainAjax",
-				data : {building : building, searchName : searchName, 
-						dl_ty : dl_ty, dl_excv_area : dl_excv_area, 
-						artcl_const_y : artcl_const_y, dl_price1 : dl_price1, 
-						dl_price2 : dl_price2, dl_rnt1 :dl_rnt1 ,dl_rnt2 : dl_rnt2},
-				success : function(data){
-					$(".main-right").html("");
-					$(".main-right").html(data);
-					settingMap(0,0);
-				}
-			});
+		 	console.log("dl_price1 : "+ dl_price1);
+		 	console.log("dl_price2 : "+ dl_price2);
+		 	
+		 	var ajaxFlag = true;
+		 	
+		 	if(ajaxFlag == true){
+		 		
+		 		ajaxFlag = false;
+		 		
+		 		$.ajax({
+					type : "POST",
+					url : "/main/mainAjax",
+					data : {building : building, searchName : searchName, 
+							dl_ty : dl_ty, dl_excv_area : dl_excv_area, 
+							artcl_const_y : artcl_const_y, dl_price1 : dl_price1, 
+							dl_price2 : dl_price2, dl_rnt1 :dl_rnt1 ,dl_rnt2 : dl_rnt2},
+					success : function(data){
+						$(".main-right").html("");
+						$(".main-right").html(data);
+						settingMap(0,0);
+					},
+					complete : function(){
+						setAjaxFlagChange();
+					}
+				});	
+		 	}
+		}
+		
+		function setAjaxFlagChange(){
+			ajaxFlag = true;
 		}
 		
 		
@@ -747,11 +628,49 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false">가격</a>
-					<div class="dropdown-menu divHeight">
-						<h4 id="dlTypePrice">매매가</h4>
-  						<div id="slider-bar"></div>&nbsp&nbsp&nbsp
-  						<span id="price">무제한</span>
-  						<hr>
+					<div class="dropdown-menu">
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input priceSelector " id="lowPrice" name="price" value="10000"/> 
+								<label class="custom-control-label" for="lowPrice">&nbsp&nbsp1억 이하</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input priceSelector " id="fvPrice" name="price" value="10000,50000"/> 
+								<label class="custom-control-label" for="fvPrice">&nbsp&nbsp1억 ~ 5억</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input priceSelector " id="thPrice" name="price" value="50000,100000"/> 
+								<label class="custom-control-label" for="thPrice">&nbsp&nbsp5억 ~ 10억</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input priceSelector " id="ftPrice" name="price" value="100000,150000"/> 
+								<label class="custom-control-label" for="ftPrice">&nbsp&nbsp10억 ~ 15억</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input priceSelector " id="twPrice" name="price" value="150000,200000"/> 
+								<label class="custom-control-label" for="twPrice">&nbsp&nbsp15억 ~ 20억</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input priceSelector " id="twOverPrice" name="price" value="200000"/> 
+								<label class="custom-control-label" for="twOverPrice">&nbsp&nbsp20억 이상</label>
+							</a>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<a class="dropdown-item" href="#"> 
+								<input type="radio" class="custom-control-input priceSelector " checked="checked" id="noPrice" name="price" value="200000"/> 
+								<label class="custom-control-label" for="noPrice">&nbsp&nbsp가격 무관</label>
+							</a>
+						</div>
 					</div>
 					</li>
 				<li class="nav-item dropdown"><a
@@ -993,7 +912,6 @@
 		
 	
 </script>
-
 
 
 

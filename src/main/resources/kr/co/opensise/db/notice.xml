@@ -4,12 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 	<!--공지사항 list 가져오기 -->
-	<select id="selectPosts" resultType="postVo">
+	<select id="selectNotice" resultType="postVo">
 		select * from post where post_brd=2 order by post_date desc
+	</select>
+	<!-- 공지사항list 페이징처리 -->
+	<select id="selectPosts" parameterType="pageVo" resultType="postVo">
+        select b.* from
+		(select a.*,rownum as rnum from (select post_no, post_ttl,post_cntnt,post_date from post
+		where post_brd=2 order by post_no desc)a) b
+		where rnum between #{page}*#{pageSize}-(#{pageSize}-1) 
+        and #{page}*#{pageSize}
 	</select>
 	
 	<select id="getPostCnt" resultType="int">
-    	select count(*) from post 
+    	select count(*) from post where post_brd=2
   	</select>
   	
   	<!-- 공지사항 가져오기 -->
@@ -22,70 +30,21 @@
 		insert into post(post_no,post_brd,post_mem,post_ttl,post_cntnt,post_date)
 	values (seq_post_no.nextval,2,1,#{post_ttl},#{post_cntnt},sysdate)
 	</insert>
-<!-- 	<select id="selectPostsPageList" resultType="postVo" parameterType="psPageVo"> -->
-<!-- 		select * -->
-<!-- 		from -->
-<!-- 			(select rownum rnum, a.* -->
-<!-- 				from -->
-<!-- 				(select lpad('☞',(level-1)*4,'　')||posts_title title, post.* ,level -->
-<!--     				from post -->
-<!--     				where notice_id=#{notice_id} -->
-<!--     				start with posts_id2 is null  -->
-<!--     				connect by prior posts_id = posts_id2 -->
-<!--     				order siblings by posts_group desc,posts_id asc) a) -->
-<!-- 		where rnum between #{page}*#{pageSize}-(#{pageSize}-1) and -->
-<!-- 		#{page}*#{pageSize} -->
-<!-- 	</select> -->
-	<!-- insertPost -->
-<!--  	<insert id="insertPost" parameterType="postVo"> -->
-<!--  		<selectKey keyProperty="post_no" resultType="int" order="BEFORE"> -->
-<!--  			select seq_post_no.nextval from dual -->
-<!--  		</selectKey> -->
-<!--  		insert into posts(post_no, post_brd, post_mem, posts_ttl, post_cntnt,  -->
-<!--  							post_date) -->
-<!-- 			values (#{post_no},2,#{post_mem},#{posts_ttl},#{post_cntnt}, -->
-<!-- 							sysdate) -->
-<!--  	</insert>	 -->
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="postVo">
+		update post set <if test="post_ttl!=null">post_ttl=#{post_ttl}</if>,<if test="post_cntnt!=null">post_cntnt=#{post_cntnt}</if> where post_brd=2 and post_no=#{post_no} 
+	</update>
 
-  	
-<!-- 	<select id="selectPostsPageList" resultType="postsVo" parameterType="psPageVo"> -->
-<!-- 		select * -->
-<!-- 		from -->
-<!-- 			(select rownum rnum, a.* -->
-<!-- 				from -->
-<!-- 				(select lpad('☞',(level-1)*4,'　')||posts_title title, posts.* ,level -->
-<!--     				from posts -->
-<!--     				where notice_id=#{notice_id} -->
-<!--     				start with posts_id2 is null  -->
-<!--     				connect by prior posts_id = posts_id2 -->
-<!--     				order siblings by posts_group desc,posts_id asc) a) -->
-<!-- 		where rnum between #{page}*#{pageSize}-(#{pageSize}-1) and -->
-<!-- 		#{page}*#{pageSize} -->
-<!-- 	</select> -->
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="int">
+		delete from post where post_no=#{post_no}
+	</delete>
+	
  
 
  	
-<!--  	<update id="updatePosts" parameterType="postsVo" > -->
-<!--  		update posts set <if test="posts_title!=null">posts_title=#{posts_title}</if>, -->
-<!--  			<if test="posts_ctn!=null">posts_ctn=#{posts_ctn}</if> -->
-<!-- 			where posts_id=#{posts_id} -->
-<!--  	</update> -->
  	
-  	<!-- 게시글 삭제 --> 
-<!--  	<update id="deletePost" parameterType="int"> -->
-<!--  		update posts set posts_del='y' where posts_id=#{posts_id} -->
-<!--  	</update> -->
- 	
- 	<!-- 답글등록 --> 
-<!--  	<insert id="insertAnswer"> -->
-<!--  		<selectKey keyProperty="posts_id" resultType="int" order="BEFORE"> -->
-<!--  			select seq_postsno.nextval from dual -->
-<!--  		</selectKey> -->
-<!--  		insert into posts(posts_id, notice_id, posts_title, posts_ctn,  -->
-<!--  							posts_time,posts_id2, pst_userid,posts_group) -->
-<!-- 			values (#{posts_id},#{notice_id},#{posts_title},#{posts_ctn}, -->
-<!-- 							sysdate,#{posts_id2},#{pst_userid},#{posts_id}) -->
-<!--  	</insert> -->
  	
   	<!-- 게시글 제목 검색 --> 
 <!--  	<select id="searchTitle" resultType="postsVo" parameterType="psPageVo"> -->

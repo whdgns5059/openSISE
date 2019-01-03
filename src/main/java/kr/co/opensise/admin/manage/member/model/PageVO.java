@@ -1,9 +1,10 @@
 package kr.co.opensise.admin.manage.member.model;
-
+	
 public class PageVO {
+	
 	private int page;
 	private int pageSize;
-
+	
 	public int getPage() {
 		return page;
 	}
@@ -16,9 +17,5 @@ public class PageVO {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	
-
-	
-	
 	
 }

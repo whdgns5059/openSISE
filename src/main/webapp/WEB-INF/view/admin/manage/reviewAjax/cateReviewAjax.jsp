@@ -27,23 +27,57 @@
 <table class="table table-striped table-hover">
 	<tr>
 		<th>번호</th>
-		<th>내용</th>
+		<th>제목</th>
 		<th>작성자</th>
 		<th>작성일</th>
 	</tr>
 
-
-	<c:forEach items="${cateList}" var="cate">
+	<c:forEach items="${pageReviewList}" var="cate">
 		<tr class="content">
-			<td>${cate.rownum}</td>
-			<td>${cate.rpl_cntnt}</td>
+			<td>${cate.rnum}</td>
+			<td>${cate.post_ttl}</td>
 			<td>${cate.mem_email}</td>
-			<td><fmt:formatDate value="${cate.rpl_date}" pattern="yyyy-MM-dd" /></td>
+			<td><fmt:formatDate value="${cate.post_date}" pattern="yyyy-MM-dd" /></td>
+			<td class ="hidden" >
+				<label for="post_gu">${cate.post_gu}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_dong">${cate.post_dong}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_zip">${cate.post_zip}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_rd">${cate.post_rd}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_cntnt">${cate.post_cntnt}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_star">${cate.post_star}</label>
+			</td>
+			<td class ="hidden" >
+				<label for="post_no">${cate.post_no}</label>
+			</td>
 		</tr>
 	</c:forEach>
 </table>
 <div id="noList">
-<c:if test="${cateSize == '0'}">
+<c:if test="${reviewSize == '0'}">
 	<span id="noSearch">검색 결과가 없습니다</span>
 </c:if>
+</div>
+<div class="text-center" id="nav" >
+	<ul class="pagination">
+		<li><a href="javascript:ajaxCall(1);" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+		</a></li>
+		<c:forEach begin="1" end="${cateCnt}" var="p">
+			<li><a href="javascript:ajaxCall(${p});">${p}</a></li>
+		</c:forEach>
+		
+		<li><a href="javascript:ajaxCall(${cateCnt});"
+			aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+		</a></li>
+	</ul>
 </div>

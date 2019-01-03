@@ -6,6 +6,14 @@ public class PageVo {
 	private String post_brd;
 	private String search;
 	
+	private int rnum;
+	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public String getNotice_id() {
 		return post_brd;
 	}
@@ -34,7 +42,7 @@ public class PageVo {
 	@Override
 	public String toString() {
 		return "PageVo [page=" + page + ", pageSize=" + pageSize + ", post_brd=" + post_brd + ", search=" + search
-				+ "]";
+				+ ", rnum=" + rnum + "]";
 	}
 	
 	

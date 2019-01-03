@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.opensise.admin.manage.review.model.PageVo;
+import kr.co.opensise.admin.manage.review.model.PictureVo;
+import kr.co.opensise.admin.manage.review.model.ReportHistoryVo;
 import kr.co.opensise.admin.manage.review.model.ReviewVo;
 import kr.co.opensise.admin.manage.review.service.ReviewServiceInf;
 
@@ -29,21 +32,34 @@ public class ReviewController {
 	@Resource
 	private ReviewServiceInf reviewService;
 
+	/**  
+	* Method   : review
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param model
+	* @return 
+	* Method 설명 : review 첫 리스트 출력
+	*/
 	@RequestMapping("/review")
 	public String review(Model model) {
-
-		// 모든 회원의 삭제하지 않은 리뷰 출력
-		List<ReviewVo> reviewAllList = reviewService.allReviewList();
-		model.addAttribute("reviewAllList", reviewAllList);
-		model.addAttribute("reviewSize", reviewAllList.size());
+		PageVo pageVo = new PageVo();
+		pageVo.setPage(1);
+		pageVo.setPageSize(10);
+		
+		Map<String, Object> reviewAllList = reviewService.allReviewList(pageVo);
+		List<ReviewVo> reviewList = (List<ReviewVo>) reviewAllList.get("pageReviewList");
+		
+		model.addAllAttributes(reviewAllList);
+		model.addAttribute("reviewSize", reviewList.size());
+		
 
 		return "manage/review";
 	}
 
 	@RequestMapping(value="/search", method = {RequestMethod.POST})
-	public String searchList(@RequestParam("searchNm") String searchNm, @RequestParam("selBox") String selBox, Model model) {
+	public String searchList(PageVo pageVo, Model model) {
 		Map<String, Object> searchMap = new HashMap<>();
-		if(selBox.equals("all") || selBox.equals("email")) {
+		/*if(pageVo.getSelBox().equals("all") || pageVo.getSelBox().equals("email")) {
 			searchMap.put("searchNm", searchNm);
 			searchMap.put("selBox", selBox);
 		}else {
@@ -58,12 +74,74 @@ public class ReviewController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		List<ReviewVo> cateSearchList = reviewService.cateReviewList(searchMap);
-		model.addAttribute("cateList", cateSearchList);
-		model.addAttribute("cateSize", cateSearchList.size());
+		}*/
+		
+		
+		Map<String, Object> reviewAllList = reviewService.allReviewList(pageVo);
+		List<ReviewVo> reviewList = (List<ReviewVo>) reviewAllList.get("pageReviewList");
+		model.addAllAttributes(reviewAllList);
+		model.addAttribute("reviewSize", reviewList.size());
+		
+		//페이징 처리 Cnt 검색
+		int cateCnt = reviewService.cateReviewCnt(pageVo);
+		model.addAttribute("cateCnt",cateCnt);
 
 		return "admin/manage/reviewAjax/cateReviewAjax";
 	}
+	
+	/**  
+	* Method   : reviewHistory
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param reviewVo
+	* @param model
+	* @return 
+	* Method 설명 : 해당 리뷰의 신고 이력 검색
+	*/
+	@RequestMapping(value="/reviewReportHistory" , method = {RequestMethod.POST})
+	public String reviewHistory(ReviewVo reviewVo, Model model) {
+		
+		List<ReportHistoryVo> reportList = reviewService.reportList(reviewVo);
+		model.addAttribute("reportList", reportList);
+		model.addAttribute("reportSize", reportList.size());
+		
+		return "admin/manage/reviewReportHistory";
+	}
+	
+	/**  
+	* Method   : deleteReview
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param reviewVo
+	* @param model
+	* @return 
+	* Method 설명 : 관리자 리뷰 강제 삭제 
+	*/
+	@RequestMapping(value="/deleteReivew", method = {RequestMethod.POST})
+	public String deleteReview(ReviewVo reviewVo, Model model) {
+		
+		int reviewDelete = reviewService.deleteReivew(reviewVo);
+		model.addAttribute("reviewDelete", reviewDelete);
+		return "jsonView";
+	}
+
+	/**  
+	* Method   : searchPicture
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param reviewVo
+	* @param model
+	* @return 
+	* Method 설명 : 해당 리뷰에 대한 첨부파일 검색
+	*/
+	@RequestMapping(value="/searchPicture", method = {RequestMethod.POST})
+	public String searchPicture(ReviewVo reviewVo, Model model) {
+		
+		List<PictureVo> pictureList = reviewService.pictureList(reviewVo);
+		model.addAttribute("pictureList", pictureList);
+		
+		return "jsonView";
+	}
+	
 
 }

@@ -1,15 +1,19 @@
 package kr.co.opensise.user.detail.model;
 
+import java.util.Date;
+
 public class ReportVo {
 
 	private int rpt_no;
 	private int rpt_post;
 	private String rpt_cntnt;
-	private String rpt_date;
+	private Date rpt_date;
 	private int rpt_classf;
+	private String rpt_cf_nm;
 	private int rpt_mem;
 	private String rpt_ttl;
 	private String rpt_exst;
+	private int rnum;
 	
 	
 	public String getRpt_ttl() {
@@ -36,10 +40,10 @@ public class ReportVo {
 	public void setRpt_cntnt(String rpt_cntnt) {
 		this.rpt_cntnt = rpt_cntnt;
 	}
-	public String getRpt_date() {
+	public Date getRpt_date() {
 		return rpt_date;
 	}
-	public void setRpt_date(String rpt_date) {
+	public void setRpt_date(Date rpt_date) {
 		this.rpt_date = rpt_date;
 	}
 	public int getRpt_classf() {
@@ -60,11 +64,23 @@ public class ReportVo {
 	public void setRpt_exst(String rpt_exst) {
 		this.rpt_exst = rpt_exst;
 	}
+	public String getRpt_cf_nm() {
+		return rpt_cf_nm;
+	}
+	public void setRpt_cf_nm(String rpt_cf_nm) {
+		this.rpt_cf_nm = rpt_cf_nm;
+	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	@Override
 	public String toString() {
 		return "ReportVo [rpt_no=" + rpt_no + ", rpt_post=" + rpt_post + ", rpt_cntnt=" + rpt_cntnt + ", rpt_date="
-				+ rpt_date + ", rpt_classf=" + rpt_classf + ", rpt_mem=" + rpt_mem + ", rpt_ttl=" + rpt_ttl
-				+ ", rpt_exst=" + rpt_exst + "]";
+				+ rpt_date + ", rpt_classf=" + rpt_classf + ", rpt_cf_nm=" + rpt_cf_nm + ", rpt_mem=" + rpt_mem
+				+ ", rpt_ttl=" + rpt_ttl + ", rpt_exst=" + rpt_exst + ", rnum=" + rnum + "]";
 	}
 	
 

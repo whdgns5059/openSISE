@@ -1,7 +1,9 @@
 package kr.co.opensise.admin.manage.report.service;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.co.opensise.admin.manage.review.model.PageVo;
 import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.model.Report_classfVo;
 
@@ -70,6 +72,16 @@ public interface ReportServiceInf {
 	* Method 설명 : 신고 리스트
 	*/
 	List<ReportVo> getReport();
+	
+	/**
+	* Method : searchReport
+	* 작성자 : Bella
+	* 변경이력 :
+	* @param pageVo
+	* @return
+	* Method 설명 : 신고 리스트 검색 결과
+	*/
+	Map<String, Object> searchReport(PageVo pageVo);
 	
 	/**
 	* Method : updateReport

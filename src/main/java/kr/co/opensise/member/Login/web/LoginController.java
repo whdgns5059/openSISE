@@ -1,3 +1,4 @@
+
 package kr.co.opensise.member.Login.web;
 
 import java.util.List;
@@ -25,10 +26,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.opensise.admin.manage.notice.service.NoticeServiceInf;
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.member.Login.service.LoginServiceInf;
 import kr.co.opensise.member.encrypt.seed.KISA_SEED_CBC;
 import kr.co.opensise.member.encrypt.sha.KISA_SHA256;
+import kr.co.opensise.user.detail.model.PostVo;
 
 @Controller
 @RequestMapping("/login")
@@ -37,6 +40,9 @@ public class LoginController {
 	
 	@Resource(name = "loginService")
 	private LoginServiceInf loginService;
+	
+	@Resource(name="noticeService")
+	private NoticeServiceInf noticeService;
 	
 	/**  
 	* Method   :  selectLogin
@@ -79,6 +85,12 @@ public class LoginController {
 		if (user != null && user.authPass(encryptPass)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("nowLogin", user);
+			
+			//로그인시 모달창에도 공지사항리스트 보여주기
+			List<PostVo> noticeList =  noticeService.selectNoticeView();
+			model.addAttribute("noticeList", noticeList);
+			//
+			
 			model.addAttribute("memberVo",user);
 			return "openPage";
 		} else if(user == null ){
@@ -97,9 +109,14 @@ public class LoginController {
 	* Method 설명 :  로그아웃
 	*/
 	@RequestMapping("/logout")
-	public String logout(HttpServletRequest request) {
+	public String logout(HttpServletRequest request,Model model) {
 		HttpSession session = request.getSession();
 		session.invalidate();
+		
+		//로그아웃시 모달창에도 공지사항리스트 보여주기
+		List<PostVo> noticeList =  noticeService.selectNoticeView();
+		model.addAttribute("noticeList", noticeList);
+		//
 		
 		return "openPage";
 	}
@@ -191,8 +208,7 @@ public class LoginController {
 	@RequestMapping(value="/duplication2", method={RequestMethod.POST})
 	public String duplication2(Model model,@RequestParam("memNm") String mem_nm,@RequestParam("memEmail") String memEmail, HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
 		MemberVo user = loginService.selectMember(memEmail);
-		if (user == user ) {
-			model.addAttribute("msg","ㅎㅎㅎ");
+		if (user == null ) {
 			return "signup";
 		} else {
 		
