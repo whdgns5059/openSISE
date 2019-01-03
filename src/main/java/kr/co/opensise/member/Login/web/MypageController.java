@@ -138,7 +138,6 @@ public class MypageController {
 	@RequestMapping(value="/steamListUpdate", method = {RequestMethod.GET})
 	public String steamListUpdate(Model model, @RequestParam("favor_no") int favor_no, HttpSession session) {
 		loginService.steamListUpdate(favor_no);
-		logger.info("favor_no : "+ favor_no);
 	
 		MemberVo memberVo = (MemberVo)session.getAttribute("nowLogin");
 		List<SteamVo> steamVo = loginService.steamList(memberVo.getMem_no());
@@ -147,6 +146,37 @@ public class MypageController {
 		
 		return "steamList";
 	}
+	
+	/** Method   : recentlyViewed 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  최근 본 매물이동 
+	*/
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/recentlyviewed")
+	public String recentlyViewed() {
+		
+		return "recentlyViewed";
+	}
+	
+	
+	/** Method   : recentlyViewed 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  최근 본 매물삭제 
+	*/
+	@RequestMapping("/recently")
+	public String recently(HttpSession session, ArticleVo articleVo, @RequestParam("artcl_index") int index ) {
+		List<ArticleVo> searchList = (List<ArticleVo>) session.getAttribute("searchList");
+
+		searchList.remove(index);
+		
+		return "recentlyViewed";
+	}
+	
+	
 	
 	
 	/**  
@@ -160,6 +190,7 @@ public class MypageController {
 	public String withdrawal(Model model, HttpSession session) {
 		MemberVo user = (MemberVo) session.getAttribute("nowLogin");
 		MemberVo member = loginService.searchUser(user.getMem_email());
+		
 		
 		model.addAttribute("memberVo", member);
 		
@@ -194,18 +225,6 @@ public class MypageController {
 	
 	
 	
-	/** Method   : recentlyViewed 
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @return  
-	* Method 설명 :  최근 본 매물
-	*/
-	@SuppressWarnings("unchecked")
-	@RequestMapping("/recentlyviewed")
-	public String recentlyViewed() {
-		
-		return "recentlyViewed";
-	}
 	
 	
 	

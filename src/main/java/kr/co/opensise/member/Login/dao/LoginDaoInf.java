@@ -29,6 +29,9 @@ public interface LoginDaoInf {
 	 */
 	public int signup(MemberVo memberVo);
 	
+	
+	
+	
 	/**
 	 * Method : updateUser 
 	 * 작성자 : 

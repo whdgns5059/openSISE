@@ -15,21 +15,6 @@ $(document).ready(function(){
 			this.src = ("../img/heart-outline.png");
 			location.href = '/mypage/steamListUpdate?favor_no='+this.value;
 					
-		/* 	$.ajax({
-				contentType : "application/json; charset=utf-8",
-			    url:"/mypage/steamListUpdate",
-			    type: "POST",
-			    data : {favor_no : this.value},
-			    dataType : "json",
-			    success:function(dt){
-			    	var html="";
-			    	html += "<input type='image' src='../img/heart.png' width='15' height='15' class='img' value='${steam.favor_no}'>";
-			    	
-			    	 $("#img").html("");
-			         $("#img").html(html);
-			    }
-				
-		}; */
 	};
 
 	});

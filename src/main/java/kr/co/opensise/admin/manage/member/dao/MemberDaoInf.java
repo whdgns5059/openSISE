@@ -50,13 +50,4 @@ public interface MemberDaoInf {
 	public ManagementVo selectUser(String mem_email);
 	
 	
-	/**  
-	* Method   : memberList 
-	* 작성자 : 김주연 
-	* 변경이력 :  
-	* @param member
-	* @return  
-	* Method 설명 :  회원 분류 검색
-	*/
-	public List<ManagementVo> memberList(Map<String, String> member);
 }
