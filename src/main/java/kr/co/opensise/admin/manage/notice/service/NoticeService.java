@@ -29,7 +29,7 @@ public class NoticeService implements NoticeServiceInf {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		resultMap.put("pageNoticeList", noticeList);
-		resultMap.put("pageCnt", (int) Math.ceil((double) noticeCnt / pageVo.getPageSize()));
+		resultMap.put("pageCnt", noticeCnt );
 		return resultMap;
 	}
 	
@@ -73,6 +73,35 @@ public class NoticeService implements NoticeServiceInf {
 	@Override
 	public List<PostVo> selectNoticeView() {
 		return noticeDao.selectNoticeView();
+	}
+
+
+	@Override
+	public Map<String, Object> searchNotice(PageVo pageVo) {
+		List<PostVo> noticeList = noticeDao.searchNotice(pageVo);
+		
+		int searchCnt = noticeDao.searchCnt(pageVo);
+		
+		Map<String, Object> searchResultMap = new HashMap<>();
+		
+		searchResultMap.put("pageNoticeList", noticeList);
+		searchResultMap.put("pageCnt", searchCnt);
+		
+		return searchResultMap;
+	}
+
+
+	@Override
+	public int searchCnt(PageVo pageVo) {
+		int searchCnt = noticeDao.searchCnt(pageVo);
+		int pageCnt = 0;
+		
+		if((searchCnt % pageVo.getPageSize())==0) {
+			pageCnt = searchCnt/pageVo.getPageSize();
+		}else if((searchCnt % pageVo.getPageSize())>0) {
+			pageCnt = searchCnt/pageVo.getPageSize() +1;
+		}
+		return pageCnt;
 	}
 
 	

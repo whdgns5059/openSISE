@@ -10,8 +10,10 @@
 	<!-- 공지사항list 페이징처리 -->
 	<select id="selectPosts" parameterType="pageVo" resultType="postVo">
         select b.* from
-		(select a.*,rownum as rnum from (select post_no, post_ttl,post_cntnt,post_date from post
-		where post_brd=2 order by post_no desc)a) b
+			(select a.*,rownum as rnum 
+			from 
+				(select post_no, post_ttl,post_cntnt,post_date from post
+				where post_brd=2 order by post_no desc)a) b
 		where rnum between #{page}*#{pageSize}-(#{pageSize}-1) 
         and #{page}*#{pageSize}
 	</select>
@@ -41,26 +43,52 @@
 		delete from post where post_no=#{post_no}
 	</delete>
 	
- 
-
- 	
- 	
- 	
   	<!-- 게시글 제목 검색 --> 
-<!--  	<select id="searchTitle" resultType="postsVo" parameterType="psPageVo"> -->
-<!--  		select * -->
-<!-- 		from -->
-<!-- 			(select rownum rnum, a.* -->
-<!-- 				from -->
-<!-- 				(select lpad('☞',(level-1)*4,'　')||posts_title title, posts.* ,level -->
-<!--     				from posts -->
-<!--     				where notice_id=#{notice_id} -->
-<!--     				start with posts_id2 is null  -->
-<!--     				connect by prior posts_id = posts_id2 -->
-<!--     				order siblings by posts_group desc,posts_id asc) a) -->
-<!-- 		where rnum between #{page}*#{pageSize}-(#{pageSize}-1) and -->
-<!-- 		#{page}*#{pageSize} and posts_title like '%'||#{search}||'%' -->
-<!--  	</select> -->
+ 	<select id="searchNotice" resultType="postVo" parameterType="pageVo">
+        select b.* from
+			(select a.*,rownum as rnum 
+			from 
+				(select post_no, post_ttl,post_cntnt,post_date from post
+				where post_brd=2 
+				<if test="selBox != null and searchNm != null">
+					<if test="selBox == 'title'">
+						and (post_ttl like '%' || #{searchNm} || '%'
+					</if>
+					<if test="selBox == 'content'">
+						and (post_cntnt like '%' || #{searchNm} || '%'
+					</if>
+					<if test="selBox == 'all'">
+						and (post_ttl like '%' || #{searchNm} || '%'
+						or post_cntnt like '%' || #{searchNm} || '%'
+					</if>
+					)
+				</if>
+				order by post_no desc)a
+			 ) b
+		where rnum between #{page}*#{pageSize}-(#{pageSize}-1) and
+		#{page}*#{pageSize} 
+ 	</select>
+ 	
+ 	<!-- 검색 게시글 수 -->
+ 	<select id="searchCnt" resultType="int" parameterType="pageVo">
+ 		select count(*) from post
+				where post_brd=2 
+				<if test="selBox != null and searchNm != null">
+					<if test="selBox == 'title'">
+						and (post_ttl like '%' || #{searchNm} || '%'
+					</if>
+					<if test="selBox == 'content'">
+						and (post_cntnt like '%' || #{searchNm} || '%'
+
+					</if>
+					<if test="selBox == 'all'">
+						and (post_ttl like '%' || #{searchNm} || '%'
+						or post_cntnt like '%' || #{searchNm} || '%'
+					</if>
+					)
+				</if>
+			order by post_no desc
+ 	</select>
 </mapper>
 
 

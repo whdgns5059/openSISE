@@ -52,4 +52,14 @@ public class NoticeDao implements NoticeDaoInf {
 		return template.selectList("notice.selectNotice");
 	}
 
+	@Override
+	public List<PostVo> searchNotice(PageVo pageVo) {
+		return template.selectList("notice.searchNotice", pageVo);
+	}
+
+	@Override
+	public int searchCnt(PageVo pageVo) {
+		return template.selectOne("notice.searchCnt", pageVo);
+	}
+
 }

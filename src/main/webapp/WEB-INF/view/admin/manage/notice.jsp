@@ -118,6 +118,11 @@
 	font-size: 13px;
 	font-weight: 500;
 }
+
+.noticeList{
+	cursor: pointer;
+}
+
 </style>
 
 <script src="/SE2/js/HuskyEZCreator.js"></script>
@@ -336,12 +341,13 @@
 	</div>
 	<div>
 		<div style="display: inline;">
-			<form action="" style="width: 100%;">
-				<select id="selBox">
-					<option>제목</option>
-					<option>내용</option>
+			<form action="/manage/notice/searchNotice" style="width: 100%;">
+				<select id="selBox" name="selBox">
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="all">전체</option>
 				</select>
-				<input type="text" id="searchNm"/>
+				<input type="text" id="searchNm" name="searchNm"/>
 				<input type="submit" name="search" id="search" value="검색">
 			</form>
 			<form action="/manage/notice/insertView">
@@ -390,14 +396,15 @@
 					</li>
 				</c:when>
 			</c:choose>
-
-
+			
+			<!-- 기본page -->
 			<c:set var="pageCnt" value="${pageCnt }" />
 			<c:forEach begin="1" end="${pageCnt }" var="p">
 
 				<li><a
 					href="/manage/notice/notice?page=${p}&pageSize=10">${p }</a></li>
 			</c:forEach>
+			<!-- 기본page -->
 			<li class="page-item">
 				<c:choose>
 					<c:when test="${page==pageCnt }">
