@@ -72,6 +72,20 @@ public class MainDao implements MainDaoInf {
 		return template.selectList("map.searchSingleFilterList",filterVo);
 	}
 
+	/**  
+	* Method   : miniMaxPriceSerach
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param filterVo
+	* @return 
+	* Method 설명 : 건물 형태와 매물 형태에 따른 가격의 최대, 최솟값
+	*/
+	@Override
+	public FilterVo miniMaxPriceSerach(FilterVo filterVo) {
+		// TODO Auto-generated method stub
+		return template.selectOne("map.miniMaxPriceSearch", filterVo);
+	}
+
 	
 	
 }

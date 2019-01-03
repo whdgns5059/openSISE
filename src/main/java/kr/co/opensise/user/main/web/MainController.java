@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -72,6 +74,9 @@ public class MainController {
 		
 		logger.info("filterVo.getDlpirce : " + filterVo.getDl_price1());
 		logger.info("filterVo.getDlpirce : " + filterVo.getDl_price2());
+		logger.info("filterVo.getDlRnt : " + filterVo.getDl_rnt1());
+		logger.info("filterVo.getDlRnt : " + filterVo.getDl_rnt2());
+		logger.info("filterVo.getDl_ty : " + filterVo.getDl_ty());
 		
 		if(filterVo.getBuilding().equals("all")) {
 			buildFilterList = mainService.buildingSingleFilterList(filterVo);
@@ -154,6 +159,14 @@ public class MainController {
 		}
 		
 		
+	}
+	
+	@RequestMapping(value="priceAjax", method = {RequestMethod.POST})
+	public String priceAjax(FilterVo filterVo, Model model) {
+		FilterVo filter = mainService.miniMaxPriceSerach(filterVo);
+		model.addAttribute("price", filter);
+		
+		return "jsonView";
 	}
 	
 	

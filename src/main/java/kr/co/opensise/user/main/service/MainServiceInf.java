@@ -48,5 +48,15 @@ public interface MainServiceInf {
 	* Method 설명 :  필터 적용한 매물리스트 검색
 	*/
 	public List<BuildingSaleVo> buildingFilterList(FilterVo filterVo);
+	
+	/**  
+	* Method   : miniMaxPriceSerach
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @param filterVo
+	* @return 
+	* Method 설명 : 건물 형태 및 매물 형태에 따른 가격의 최대 , 최솟값 
+	*/
+	public FilterVo miniMaxPriceSerach(FilterVo filterVo);
 
 }

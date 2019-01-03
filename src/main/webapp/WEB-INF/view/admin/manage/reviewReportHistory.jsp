@@ -4,11 +4,11 @@
 <%@ taglib prefix="fmt" uri ="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 #noReportList{
-	margin-left: 190px;
+	margin-left: 264px;
 }
 
 #but{
-    margin-left: 230px;
+    margin-left: 306px;
     line-height: 495px;
 }
 
@@ -54,7 +54,7 @@
 				<tr>
 					<td>${report.rpt_no}</td>
 					<td><fmt:formatDate value="${report.rpt_date}" pattern="yyyy-MM-dd"/></td>
-					<td>${report.rpt_cntnt}</td>
+					<td>${report.rpt_ttl}</td>
 					<td>${report.rpt_cf_nm}</td>
 					<c:choose>
 						<c:when test="${report.rpt_exst == 'Y'}">

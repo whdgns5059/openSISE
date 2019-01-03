@@ -161,7 +161,30 @@
 }
 .divHeight{
 	width:500px;
-	height: 100px;
+	height:140px;
+}
+
+.divHeight h4{
+	font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    margin-left: 14px;
+}
+
+#dlRnt{
+	border:none;
+	margin-left: 22px;
+    margin-top: 6px;
+     font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#dlPrice{
+	border:none;
+	margin-left: 22px;
+    margin-top: 6px;
+     font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 #slider-range{

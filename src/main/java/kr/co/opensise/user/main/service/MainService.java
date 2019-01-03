@@ -41,4 +41,10 @@ public class MainService implements MainServiceInf {
 		return mainDao.buildingSingleFilterList(filterVo);
 	}
 
+	@Override
+	public FilterVo miniMaxPriceSerach(FilterVo filterVo) {
+		// TODO Auto-generated method stub
+		return mainDao.miniMaxPriceSerach(filterVo);
+	}
+
 }

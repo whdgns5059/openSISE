@@ -8,6 +8,7 @@ public class ReportHistoryVo {
 	private String rpt_cntnt;
 	private String rpt_cf_nm;
 	private String rpt_exst;
+	private String rpt_ttl;
 	
 	public int getRpt_no() {
 		return rpt_no;
@@ -39,5 +40,12 @@ public class ReportHistoryVo {
 	public void setRpt_exst(String rpt_exst) {
 		this.rpt_exst = rpt_exst;
 	}
+	public String getRpt_ttl() {
+		return rpt_ttl;
+	}
+	public void setRpt_ttl(String rpt_ttl) {
+		this.rpt_ttl = rpt_ttl;
+	}
+	
 
 }

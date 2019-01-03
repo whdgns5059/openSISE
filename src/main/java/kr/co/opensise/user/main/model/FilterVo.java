@@ -8,10 +8,12 @@ public class FilterVo {
 	private String dl_flr;		 // 층수
 	private String searchName;   //검색어
 	private String building;     //건물형태
-	private Long dl_price1;
-	private Long dl_price2;
-	private Long dl_rnt1;
-	private Long dl_rnt2;
+	private Integer dl_price1;
+	private Integer dl_price2;
+	private Integer dl_depos1;
+	private Integer dl_depos2;
+	private Integer dl_rnt1;
+	private Integer dl_rnt2;
 	
 	
 	public String getDl_ty() {
@@ -56,30 +58,45 @@ public class FilterVo {
 	public void setBuilding(String building) {
 		this.building = building;
 	}
-	public Long getDl_price1() {
+	public Integer getDl_price1() {
 		return dl_price1;
 	}
-	public void setDl_price1(Long dl_price1) {
+	public void setDl_price1(Integer dl_price1) {
 		this.dl_price1 = dl_price1;
 	}
-	public Long getDl_price2() {
+	public Integer getDl_price2() {
 		return dl_price2;
 	}
-	public void setDl_price2(Long dl_price2) {
+	public void setDl_price2(Integer dl_price2) {
 		this.dl_price2 = dl_price2;
 	}
-	public Long getDl_rnt1() {
+	public Integer getDl_depos1() {
+		return dl_depos1;
+	}
+	public void setDl_depos1(Integer dl_depos1) {
+		this.dl_depos1 = dl_depos1;
+	}
+	public Integer getDl_depos2() {
+		return dl_depos2;
+	}
+	public void setDl_depos2(Integer dl_depos2) {
+		this.dl_depos2 = dl_depos2;
+	}
+	public Integer getDl_rnt1() {
 		return dl_rnt1;
 	}
-	public void setDl_rnt1(Long dl_rnt1) {
+	public void setDl_rnt1(Integer dl_rnt1) {
 		this.dl_rnt1 = dl_rnt1;
 	}
-	public Long getDl_rnt2() {
+	public Integer getDl_rnt2() {
 		return dl_rnt2;
 	}
-	public void setDl_rnt2(Long dl_rnt2) {
+	public void setDl_rnt2(Integer dl_rnt2) {
 		this.dl_rnt2 = dl_rnt2;
 	}
+	
+	
+	
 	
 	
 	

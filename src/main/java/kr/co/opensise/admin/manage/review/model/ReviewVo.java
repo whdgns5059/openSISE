@@ -19,6 +19,7 @@ public class ReviewVo {
 	private int rnum;
 	private String pic_file_nm;
 	private int pic_no;
+	private String mem_nm;
 	
 	public int getPost_no() {
 		return post_no;
@@ -116,6 +117,13 @@ public class ReviewVo {
 	public void setPic_no(int pic_no) {
 		this.pic_no = pic_no;
 	}
+	public String getMem_nm() {
+		return mem_nm;
+	}
+	public void setMem_nm(String mem_nm) {
+		this.mem_nm = mem_nm;
+	}
+	
 	
 	
 	
