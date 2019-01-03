@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,11 +29,11 @@ public class ChatController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/chatroom")
-	public String chatroom(@RequestParam("mem_no") Integer mem_no, Model model) {
+	public String chatroom(@RequestParam("mem_no") int mem_no, Model model) {
 
 		MemberVo selmem = chatService.selectMember(mem_no);
 	
-		if(!(selmem.getMem_mngr().equals("Y"))) {
+		if(selmem.getMem_mngr() == null || !(selmem.getMem_mngr().equals("Y"))) {
 			
 			List<ChatVo> chatList = (List<ChatVo>) context.getAttribute("chatList");
 			
@@ -49,7 +48,7 @@ public class ChatController {
 			chatVo.setChat_create_time(new Date());
 			
 			chatList.add(chatVo);
-			
+
 		}
 		
 		
@@ -58,7 +57,6 @@ public class ChatController {
 		return "user/chat/chating";
 	}
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/lobby")
 	public String lobby(MemberVo memberVo, Model model ) {
 		

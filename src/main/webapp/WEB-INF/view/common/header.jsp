@@ -55,7 +55,7 @@
  		}
  		
  		
- 		$('.chatroom').on('click', function(e){
+  		$('.chatroom').on('click', function(e){
  	
  			e.preventDefault();	
  			
@@ -66,7 +66,7 @@
  					mem_no : ${nowLogin.mem_no}
  				},
  				success : function(data){
-					var chatPopup = window.open("", "new window", "width=600, height=800, location=no");
+					var chatPopup = window.open("", "", "width=600, height=800, location=no");
 					chatPopup.document.write(data);
  				}
  			});	
@@ -85,7 +85,7 @@
  					mem_no : ${nowLogin.mem_no}
  				},
  				success : function(data){
-					var chatPopup = window.open("", "new window", "width=600, height=800, location=no");
+					var chatPopup = window.open("", "", "width=600, height=800, location=no");
 					chatPopup.document.write(data);
  				}
  			});	
