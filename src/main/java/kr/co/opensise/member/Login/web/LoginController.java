@@ -191,7 +191,8 @@ public class LoginController {
 	@RequestMapping(value="/duplication2", method={RequestMethod.POST})
 	public String duplication2(Model model,@RequestParam("memNm") String mem_nm,@RequestParam("memEmail") String memEmail, HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
 		MemberVo user = loginService.selectMember(memEmail);
-		if (user == null ) {
+		if (user == user ) {
+			model.addAttribute("msg","ㅎㅎㅎ");
 			return "signup";
 		} else {
 		

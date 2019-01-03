@@ -12,7 +12,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <head>
-
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#modified_N").on("click",function(){
+		$.modal("close");
+	});
+});
+</script>
+<style type="text/css">
+.modal a.close-modal {
+    position: absolute;
+    top: 3.5px;
+    right: 2.5px;
+    width: 30px;
+    height: 30px;
+    text-indent: -9999px;
+    background-size: contain;
+</style>
 </head>
 
 <body>
@@ -80,7 +96,7 @@
 				</br>
 				
 			  	<div  align="center">
-					<input type="button" id="modified_Y"  value="탈퇴취소" />
+					<input type="button" id="modified_N"  value="탈퇴취소" />
 					<input type="submit" id="modified_Y"  value="탈퇴완료" />
 				</div>
 			  

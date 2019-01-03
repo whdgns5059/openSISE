@@ -74,25 +74,6 @@ public class MemberDao implements MemberDaoInf{
 		return member;
 	}
 	
-	/**  
-	* Method   : selectUser 
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @param 
-	* @return  
-	* Method 설명 :  회원 분류검색
-	*/
-	@Override
-	public List<ManagementVo> memberList(Map<String, String> member) {
-		// TODO Auto-generated method stub
-		return template.selectList("admin.selectMember", member);
-	}
-	
-	//@Override
-	//public List<ReviewVo> cateReviewList(Map<String, String> searchMap) {
-		// TODO Auto-generated method stub
-	//	return template.selectList("review.cateSearchList", searchMap);
-	//}
 
 	
 	
