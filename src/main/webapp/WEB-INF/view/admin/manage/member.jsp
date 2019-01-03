@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@page import="java.text.SimpleDateFormat"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -30,20 +29,67 @@
 					html +="<th>"+user.mem_no+"</th>";
 					html +="<th>"+user.mem_nm+"</th>";
 					html +="<th>"+user.mem_email+"</th>";
-					html += "<th>"+user.mem_date+"</th>";
+					let mem_date = new Date(user.mem_date);
+					html += "<th>"+mem_date.getFullYear()+"-"+(mem_date.getMonth()+1)+"-"+mem_date.getDate()+"</th>";
+					html +="<th class='hidden'>";
+						if(user.mem_gndr == null){
+							html+= '<label for="memGndr" class="control-label" >선택안함</label>';
+						}else if (user.mem_gndr != null) {
+							html += '<label for="memGndr" class="control-label" >';
+							 if(user.mem_gndr == 'F'){
+								 html += '여자';
+							 }else if (user.mem_gndr == 'M') {
+								 html += '남자';
+							}
+							html += '</label>';
+						}
+					html += "</th>";
+					
+					html += "<th class='hidden'>";
+						if(user.mem_age == '0'){
+							html += '<label for="mem_age" class="control-label">선택안함</label>';
+						}else if (user.mem_age != null ) {
+							html += '<label for="mem_age" class="control-label">'+user.mem_age+'</label>';
+						}
+					html += "</th>";
+					
+					html += "<th class='hidden'>";
+						if(user.job_nm == null){
+							html += '<label for="mem_job" class="control-label">선택안함</label>';
+						}else if (user.job_nm != null) {
+							html += '<label for="mem_job" class="control-label">'+user.job_nm+'</label>';
+						}
+					let mem_exdate = new Date(user.mem_exdate);
+					html += "</th>";
+					html += "<th class='hidden'>"+mem_exdate.getFullYear()+"-"+(mem_exdate.getMonth()+1)+"-"+mem_exdate.getDate()+"</th>";
+						if(user.mem_exdate == null){
+							html += '<label for="mem_exdate" class="control-label">없음</label>';
+						}
+					html += "</th>";
+					html += "<th class='hidden'>"+user.mem_lvl+"</th>";
 					html +="</tr>";
+					
 				});
 				
 				$("#userList").html("");
 				$("#userList").html(html);
 				
+				var pageNav = ""; 
+				for(var i=1; i<data.pageCnt+1; i++){
+					pageNav += "<li><a href=\"javascript:getUserList(" +i+ ") \">"+i+"</a></li>";
+				}
+				$("#nav").html("");
+				$("#nav").html(pageNav);
 			}
 		});
 	}
 	
+	
+	
+	
 	$(document).ready(function(){
 		$("#ex").hide();
-		$(".memList").on("click",function(){
+		$("#userList").on("click",".memList",function(){
 			var mem_no = this.children[0].innerText;
 			var mem_nm = this.children[1].innerText;
 			var mem_email = this.children[2].innerText;
@@ -90,21 +136,6 @@
 
 	});
 	
-	//검색 버튼 클릭시 분류 별 검색
-	$("#search").on("click", function() {
-		var searchNm = $("#searchNm").val();
-		var selBox = $("#selBox").val();
-		
-		$.ajax({
-			type : "POST",
-			url : "/admin/search",
-			date : {searchNm : searchNm, selBox : selBox},
-			success : function(data){
-				$("#yd").html("");
-				$("#yd").html(data);
-			}
-		});
-	});
 </script>
 
 <style type="text/css">
@@ -119,14 +150,12 @@
     position: absolute;
     top: 2.5px;
     right: 1.5px;
-    isplay: block;
     width: 30px;
     height: 30px;
     text-indent: -9999px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    background-image: 
 }
 .hidden{
 	display:none;
@@ -166,7 +195,7 @@
 				<th><fmt:formatDate value="${page.mem_date}" pattern="yyyy-MM-dd"/></th>
 				<th class="hidden">
 				<c:choose>
-						<c:when test="${page.mem_gndr 3== null}">
+						<c:when test="${page.mem_gndr == null}">
 							<label for="memGndr" class="control-label" >선택안함</label>
 						</c:when>
 						<c:when test="${page.mem_gndr != null}">
@@ -219,18 +248,23 @@
 		</tbody>
 	</table>
 	 </div>  
-	<div class="text-center" id="nav" >
+	<div class="pagination" id="nav" >
 			<ul class="pagination">
-				<li><a href="javascript:getUserList(1);" aria-label="Previous">
+				<li>
+					<a href="javascript:getUserList(1);" aria-label="Previous">
 						<span aria-hidden="true">&laquo;</span>
-				</a></li>
+					</a>
+				</li>
+				
 				<c:forEach begin="1" end="${pageCnt}" var="p">
 					<li><a href="javascript:getUserList(${p});">${p}</a></li>
 				</c:forEach>
 				
-				<li><a href="javascript:getUserList(${pageCnt});"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
+				<li>
+					<a href="javascript:getUserList(${pageCnt});" aria-label="Next"> 
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
 			</ul>
 		</div>
 	
@@ -254,7 +288,6 @@
 				<div class="form-group">
 					<label for="mem_gndr" >성별</label>
 					<label for="mem_gndr" class="control-label" id="mem_gndr"></label>
-					
 				</div>
 				<div class="form-group">
 					<label for="mem_gndr" >연령대</label>
@@ -308,10 +341,6 @@
 			</div>
 			
 			
-			
-			<!-- <form action="/admin/memberDetail" id="fmm" method="get">
-				<input type="hidden" id="memNm" name="mem_email">
-			</form> -->
 	
 </div>
 

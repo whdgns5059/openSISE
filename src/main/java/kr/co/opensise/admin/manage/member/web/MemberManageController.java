@@ -59,25 +59,12 @@ public class MemberManageController {
 	public String userPageListAjax(Model model, PageVO pageVo) {
 		
 		Map<String, Object> resultMap = memberService.selectUserPageList(pageVo);
-		logger.info("map-userPageList : " + resultMap.get("pageUserList"));
-		logger.info("map-pageCnt : " + resultMap.get("pageCnt"));
 		model.addAllAttributes(resultMap);
+		
 		
 		return "jsonView";
 	}
 	
 	
-	@RequestMapping(value="/search", method = {RequestMethod.POST})
-	public String searchList(@RequestParam("searchNm") String searchNm, @RequestParam("selBox") String selBox,
-			Model model) {
-		Map<String, String> searchMap = new HashMap<>();
-		searchMap.put("searchNm", searchNm);
-		searchMap.put("selBox", selBox);
-
-		List<ManagementVo> cateSearchList = memberService.memberList(searchMap);
-		model.addAttribute("cateList", cateSearchList);
-
-		return "jsonView";
-	}
 
 }

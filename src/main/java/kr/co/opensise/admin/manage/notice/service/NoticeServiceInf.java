@@ -31,4 +31,22 @@ public interface NoticeServiceInf {
 	* Method 설명 :공지사항 지우기
 	*/
 	public int deleteNotice(int post_no);
+	/**
+	* Method : searchNotice
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @param pageVo
+	* @return
+	* Method 설명 : 조건에 맞는 공지사항 게시글 검색,페이징처리
+	*/
+	public Map<String, Object> searchNotice(PageVo pageVo);
+	/**
+	* Method : searchCnt
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @param pageVo
+	* @return
+	* Method 설명 :검색된 게시글 수
+	*/
+	public int searchCnt(PageVo pageVo);
 }

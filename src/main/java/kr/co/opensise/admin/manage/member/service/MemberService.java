@@ -68,23 +68,4 @@ public class MemberService implements MemberServiceInf{
 	}
 
 
-	/**  
-	* Method   : memberList 
-	* 작성자 :  김주연
-	* 변경이력 :  
-	* @param 
-	* @return  
-	* Method 설명 :  회원 분류 검색
-	*/
-	@Override
-	public List<ManagementVo> memberList(Map<String, String> member) {
-		// TODO Auto-generated method stub
-		return memberDao.memberList(member);
-	}
-	
-	//@Override
-	//public List<ReviewVo> cateReviewList(Map<String, String> searchMap) {
-	//	// TODO Auto-generated method stub
-	//	return reviewDao.cateReviewList(searchMap);
-	//}
 }

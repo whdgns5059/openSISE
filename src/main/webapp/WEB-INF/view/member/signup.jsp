@@ -54,13 +54,9 @@
 			$("#memNm").val(memberNm);
 			//form 실행
 			$("#fm").submit();
-
 		}); 
-		
 	}); 
 	
-	
-		
 		// 이메일 인증  
 	$(document).ready(function() {
 		$("#duplication2").on("click", function() {
@@ -78,11 +74,10 @@
 				data : {memEmail : memberEmail, memNm : memberNm},
 				success : function(){
 					var html;
-					html += "<span>인증되었습니다.</span>";
+					html += "<span>메일이 발송 되었습니다.</span>";
 					
 					$("#test").html("");
 					$("#test").html(html);
-					
 				}
 			});
 			//form 실행
@@ -282,13 +277,11 @@ ul {
 						</label>
 						</li>
 						<li><label for="inputEmail" id="necessary"> <span>*</span>
-								<input type="email" id="userId" name="mem_email" value="${param.memEmail}"
-								class="form-control" placeholder="이메일을 입력하세요" required autofocus>
+								<input type="email" id="userId" name="mem_email" value="${param.memEmail}" class="form-control" placeholder="이메일을 입력하세요" required autofocus>
 								<div id="test"></div>
 						</label></li>
 						<li><label for="inputEmail" id="necessary"> <span>*</span>
-								<input type="password" id="inputPassword" name="mem_pass"
-								class="form-control" placeholder="비밀번호를 입력하세요" required>
+								<input type="password" id="inputPassword" name="mem_pass" class="form-control" placeholder="비밀번호를 입력하세요" required>
 						</label></li>
 						<li><input type="radio" id="male" name="mem_gndr" value="M">남자&emsp;&emsp;&emsp;
 							<input type="radio" id="female" name="mem_gndr" value="F">여자
