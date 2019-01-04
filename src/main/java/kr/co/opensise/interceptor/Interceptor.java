@@ -112,7 +112,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		        	}
 		        	break;
 		        // 법원경매
-		        case "/main/auction" : 
+		        case "/auction/auction" : 
 		        	if(uriCounts.get(uri) == null) {
 		        		uriCounts.put(uri, new Page_statisticVo("법원경매", uri, 1));
 		        	}else {

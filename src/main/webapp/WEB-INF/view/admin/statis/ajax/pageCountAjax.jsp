@@ -9,6 +9,7 @@ $(document).ready(function(){
 	var pageMax = <c:out value="${pageMax.ps_vstr}"/>;
 	
 	var colorList = new Array();
+	colorList.push("#999");
 	colorList.push("#f7cc06");
 	colorList.push("#f38b72");
 	colorList.push("#aad035");
@@ -50,7 +51,7 @@ $(document).ready(function(){
 	            "adjust-layout":true,
 	            "item":{
 	              "padding": 7,
-	              "marginRight": 17,
+	              /* "marginRight": 17, */
 	              "cursor":"hand" },
 	            "marker": {
 	               "type": "square",

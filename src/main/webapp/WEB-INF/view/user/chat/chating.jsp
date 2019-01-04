@@ -48,7 +48,7 @@ function insertChat(who, text){
     var control = "";
     var date = formatAMPM(new Date());
     
-    if (who == "other"){
+    if (who == "me"){
         
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
@@ -69,7 +69,8 @@ function insertChat(who, text){
                   '</li>';
     }
 
-    $("ul").append(control);
+    
+    $('ul').append(control);
     
 }
 
@@ -91,21 +92,28 @@ $(".mytext").on("keyup", function(e){
 //-- Clear Chat
 resetChat();
 
-//서버로부터 메시지 받기
-function onMessage(msg){
-	var data = msg.data;
-	insertChat("other", data);
-}
 
-//서버와 연결이 끊킴
-function onClose(evt){
-	var text = '접속이 종료되었습니다';
-	insertChat("other", text);
-}
+
+
+
+	//메시지 전송
+	function sendMessage(){
+		
+		var msg = $('.mytext').val();
+		
+		insertChat("you", msg );
+	}
 	
-
+	//서버로부터 메시지 받기
+	function onMessage(msg){
+		var data = msg.data;
+		insertChat("other", data);
+	}
 	
-
+	//서버와 연결이 끊킴
+	function onClose(evt){
+		insertChat("other", "접속이 종료되었습니다.");
+	}
 	
 	
 	

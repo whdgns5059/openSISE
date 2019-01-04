@@ -98,12 +98,8 @@
  				success : function(data){
 					var chatPopup = window.open("", "", "width=500, height=800, location=no");
 					chatPopup.document.write(data);
-					
-
-					
  				}
  			});	
- 			
  		});
  		
  		function exitChat(){
@@ -119,12 +115,9 @@
  						alert('채팅종료');
  				}
  			});
- 				
  		}
  		
  	
- 		
- 		
  	});
  	
 	function switchPage(bc) {
@@ -132,7 +125,7 @@
 		
 		/* 시세 페이지와 경매 페이지 구분하기 */
 		if(building == 'auction'){
-			location.href = "https://www.courtauction.go.kr/";
+			location.href = "/auction/auction";
 		}else{
 			var searchName = document.getElementById('loc').value;
 	
@@ -142,8 +135,6 @@
 			$("#fmi").submit();
 		}
 	}
-	
-	
 	
 </script>
 
