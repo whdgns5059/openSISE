@@ -98,12 +98,8 @@
  				success : function(data){
 					var chatPopup = window.open("", "", "width=500, height=800, location=no");
 					chatPopup.document.write(data);
-					
-
-					
  				}
  			});	
- 			
  		});
  		
  		function exitChat(){
@@ -119,12 +115,9 @@
  						alert('채팅종료');
  				}
  			});
- 				
  		}
  		
  	
- 		
- 		
  	});
  	
 	function switchPage(bc) {
@@ -142,8 +135,6 @@
 			$("#fmi").submit();
 		}
 	}
-	
-	
 	
 </script>
 
