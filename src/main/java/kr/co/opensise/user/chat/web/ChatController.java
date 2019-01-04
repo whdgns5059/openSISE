@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.user.chat.model.ChatVo;
@@ -48,6 +49,7 @@ public class ChatController {
 			chatVo.setChat_create_time(new Date());
 			
 			chatList.add(chatVo);
+			model.addAttribute("chatVo", chatVo);
 
 		}
 		
@@ -66,5 +68,48 @@ public class ChatController {
 
 		return "user/chat/lobby";
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/exit")
+	@ResponseBody
+	public boolean exit(@RequestParam("mem_no") int mem_no) {
+		
+		boolean result = false;
+		
+		List<ChatVo> chatList = (List<ChatVo>) context.getAttribute("chatList");
+		
+		for(ChatVo chatVo : chatList) {
+			
+			if(chatVo.getChat_mem_no() == mem_no) {
+				
+				result = chatList.remove(chatVo);
+				break;
+				
+			}
+		}
+		
+		
+		return result;
+	}
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
