@@ -69,6 +69,29 @@ public class ChatController {
 		return "user/chat/lobby";
 	}
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/exit")
+	@ResponseBody
+	public boolean exit(@RequestParam("mem_no") int mem_no) {
+		
+		boolean result = false;
+		
+		List<ChatVo> chatList = (List<ChatVo>) context.getAttribute("chatList");
+		
+		for(ChatVo chatVo : chatList) {
+			
+			if(chatVo.getChat_mem_no() == mem_no) {
+				
+				result = chatList.remove(chatVo);
+				break;
+				
+			}
+		}
+		
+		
+		return result;
+	}
+	
 
 }
 

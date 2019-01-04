@@ -24,6 +24,10 @@ public class ChatHandler extends TextWebSocketHandler{
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		for(WebSocketSession wss : sessionList) {
+			TextMessage tm = new TextMessage("접속 하였습니다.");
+			wss.sendMessage(tm);
+		}
 		sessionList.add(session);
 	}
 	
