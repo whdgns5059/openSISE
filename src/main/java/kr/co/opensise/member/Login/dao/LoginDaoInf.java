@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.opensise.admin.manage.member.model.PageVO;
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.member.Login.model.SteamVo;
 
@@ -29,6 +30,16 @@ public interface LoginDaoInf {
 	 */
 	public int signup(MemberVo memberVo);
 	
+	
+	/**
+	 * Method : updateUser 
+	 * 작성자 : 
+	 * 변경이력 :
+	 * 
+	 * @param UserVo
+	 * @return Method 설명 : 카카오 회원 등록
+	 */
+	public int kakao(MemberVo memberVo);
 	
 	
 	
@@ -73,6 +84,7 @@ public interface LoginDaoInf {
 	* Method 설명 :  찜리스트 출력
 	*/
 	public List<SteamVo> steamList(int favor_mem);
+	
 	
 	/**  
 	* Method   : steamListUpdate 

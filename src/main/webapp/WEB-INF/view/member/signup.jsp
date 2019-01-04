@@ -283,7 +283,7 @@ ul {
 						<li><label for="inputEmail" id="necessary"> <span>*</span>
 								<input type="password" id="inputPassword" name="mem_pass" class="form-control" placeholder="비밀번호를 입력하세요" required>
 						</label></li>
-						<li><input type="radio" id="male" name="mem_gndr" value="M">남자&emsp;&emsp;&emsp;
+						<li><input type="radio" id="male" name="mem_gndr" value="M"><label for="male" style="cursor:pointer;">남자</label>&emsp;&emsp;&emsp;
 							<input type="radio" id="female" name="mem_gndr" value="F">여자
 						</li>
 						<li><select id="jobLiset" name="mem_job" class="form-control">

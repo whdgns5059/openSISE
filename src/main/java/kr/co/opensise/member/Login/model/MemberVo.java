@@ -23,9 +23,18 @@ public class MemberVo {
 	private String mem_mngr;
 	private String mem_age;
 	private String mem_new_pass;
+	private String nickname;
 	
 	
 	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	public  MemberVo(){
 	}
 	

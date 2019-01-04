@@ -390,6 +390,8 @@
 					</li>
 				</c:when>
 			</c:choose>
+			
+			
 
 
 			<c:set var="pageCnt" value="${pageCnt }" />
@@ -398,13 +400,15 @@
 				<li><a
 					href="/manage/notice/notice?page=${p}&pageSize=10">${p }</a></li>
 			</c:forEach>
+			
+			
+			
+			
 			<li class="page-item">
 				<c:choose>
 					<c:when test="${page==pageCnt }">
-						<li class="page-item disabled"><a class="page-link" href="#"
-							tabindex="-1">Next</a></li>
-						<li class="disabled"><a href="#" aria-label="Next"
-							tabindex="-1"> <span aria-hidden="true">&laquo;</span>
+						<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Next</a></li>
+						<li class="disabled"><a href="#" aria-label="Next" tabindex="-1"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
 					</c:when>
 					<c:when test="${page!=pageCnt }">

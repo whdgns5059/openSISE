@@ -1,7 +1,6 @@
 package kr.co.opensise.member.Login.service;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -31,6 +30,15 @@ public class LoginService implements LoginServiceInf{
 		return loginDao.selectMember(mem_email);
 	}
 
+	
+	@Override
+	public int kakao(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		return loginDao.kakao(memberVo);
+	}
+	
+	
+	
 	/**  
 	* Method   : signup 
 	* 작성자 :  김주연
@@ -215,6 +223,8 @@ public class LoginService implements LoginServiceInf{
 	public int mailFinsh(MemberVo memberVo) {
 		return loginDao.mailFinsh(memberVo);
 	}
+
+
 
 	
 
