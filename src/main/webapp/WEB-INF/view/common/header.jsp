@@ -55,6 +55,9 @@
  		}
  		
  		
+ 		var mem_no = ${nowLogin.mem_no};
+ 		
+ 		
   		$('.chatroom').on('click', function(e){
  	
  			e.preventDefault();	
@@ -63,10 +66,10 @@
  				type : 'POST',
  				url : '/chat/chatroom',
  				data : {
- 					mem_no : ${nowLogin.mem_no}
+ 					mem_no : mem_no
  				},
  				success : function(data){
-					var chatPopup = window.open("", "", "width=600, height=800, location=no");
+					var chatPopup = window.open("", "", "width=500, height=800, location=no");
 					chatPopup.document.write(data);
  				}
  			});	
@@ -82,15 +85,19 @@
  				type : 'POST',
  				url : '/chat/lobby',
  				data : {
- 					mem_no : ${nowLogin.mem_no}
+ 					mem_no : mem_no
  				},
  				success : function(data){
-					var chatPopup = window.open("", "", "width=600, height=800, location=no");
+					var chatPopup = window.open("", "", "width=500, height=800, location=no");
 					chatPopup.document.write(data);
  				}
  			});	
  			
  		});
+ 		
+ 		
+ 	
+ 		
  		
  	});
  	
