@@ -6,13 +6,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.user.chat.model.ChatVo;
@@ -30,11 +30,11 @@ public class ChatController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/chatroom")
-	public String chatroom(@RequestParam("mem_no") Integer mem_no, Model model) {
+	public String chatroom(@RequestParam("mem_no") int mem_no, Model model) {
 
 		MemberVo selmem = chatService.selectMember(mem_no);
 	
-		if(!(selmem.getMem_mngr().equals("Y"))) {
+		if(selmem.getMem_mngr() == null || !(selmem.getMem_mngr().equals("Y"))) {
 			
 			List<ChatVo> chatList = (List<ChatVo>) context.getAttribute("chatList");
 			
@@ -49,7 +49,8 @@ public class ChatController {
 			chatVo.setChat_create_time(new Date());
 			
 			chatList.add(chatVo);
-			
+			model.addAttribute("chatVo", chatVo);
+
 		}
 		
 		
@@ -58,7 +59,6 @@ public class ChatController {
 		return "user/chat/chating";
 	}
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/lobby")
 	public String lobby(MemberVo memberVo, Model model ) {
 		
@@ -68,5 +68,48 @@ public class ChatController {
 
 		return "user/chat/lobby";
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/exit")
+	@ResponseBody
+	public boolean exit(@RequestParam("mem_no") int mem_no) {
+		
+		boolean result = false;
+		
+		List<ChatVo> chatList = (List<ChatVo>) context.getAttribute("chatList");
+		
+		for(ChatVo chatVo : chatList) {
+			
+			if(chatVo.getChat_mem_no() == mem_no) {
+				
+				result = chatList.remove(chatVo);
+				break;
+				
+			}
+		}
+		
+		
+		return result;
+	}
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

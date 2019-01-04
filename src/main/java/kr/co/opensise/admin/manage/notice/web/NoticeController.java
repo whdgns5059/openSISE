@@ -115,5 +115,25 @@ public class NoticeController {
 		
 		return "redirect:/manage/notice/notice";
 	}
+	
+	@RequestMapping("/searchNotice")
+	public String searchNotice(PageVo pageVo,Model model) {
+		if(pageVo.getPage()==0 || pageVo.getPageSize()==0) {
+			pageVo.setPage(1);
+			pageVo.setPageSize(10);
+		}
+		
+		Map<String, Object> noticeList =  noticeService.searchNotice(pageVo);
+		
+		int page = pageVo.getPage();
+		
+		int pageCnt = noticeService.searchCnt(pageVo);
+		log.info("pageCnt:{}",pageCnt);
+		
+		model.addAllAttributes(noticeList);
+		model.addAttribute("page", page);
+		model.addAttribute("pageCnt", pageCnt);
+		return "manage/notice";
+	}
 
 }

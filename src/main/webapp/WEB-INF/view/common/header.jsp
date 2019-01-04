@@ -55,7 +55,10 @@
  		}
  		
  		
- 		$('.chatroom').on('click', function(e){
+ 		var mem_no = ${nowLogin.mem_no == null ? 0 : nowLogin.mem_no};
+ 		
+ 		
+  		$('.chatroom').on('click', function(e){
  	
  			e.preventDefault();	
  			
@@ -63,11 +66,19 @@
  				type : 'POST',
  				url : '/chat/chatroom',
  				data : {
- 					mem_no : ${nowLogin.mem_no}
+ 					mem_no : mem_no
  				},
  				success : function(data){
-					var chatPopup = window.open("", "new window", "width=600, height=800, location=no");
+					var chatPopup = window.open("", "", "width=500, height=800, location=no");
 					chatPopup.document.write(data);
+					
+					var chk_chat = setInterval(function(){
+						if(chatPopup.closed){
+							
+							exitChat();
+							clearInterval(chk_chat);
+						}
+					},500);
  				}
  			});	
  			
@@ -82,15 +93,37 @@
  				type : 'POST',
  				url : '/chat/lobby',
  				data : {
- 					mem_no : ${nowLogin.mem_no}
+ 					mem_no : mem_no
  				},
  				success : function(data){
-					var chatPopup = window.open("", "new window", "width=600, height=800, location=no");
+					var chatPopup = window.open("", "", "width=500, height=800, location=no");
 					chatPopup.document.write(data);
+					
+
+					
  				}
  			});	
  			
  		});
+ 		
+ 		function exitChat(){
+ 			
+ 			$.ajax({
+ 				type:'POST',
+ 				url:'/chat/exit',
+ 				data : {
+ 					mem_no : mem_no
+ 				},
+ 				success : function(data){
+ 					if(data == true)
+ 						alert('채팅종료');
+ 				}
+ 			});
+ 				
+ 		}
+ 		
+ 	
+ 		
  		
  	});
  	

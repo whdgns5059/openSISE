@@ -731,20 +731,23 @@ public class DataEtcController {
 	}
 	
 	@RequestMapping("/deletInstiAttr")
-	public String deletInstiAttr(@RequestParam("checked") String checked,Model model,
-			@RequestParam("instiHere") Integer iattr_insti) {
+	public String deletInstiAttr(Model model, @RequestParam("instiHere") Integer iattr_insti,
+				@RequestParam("checked") String iattrNo) {
 		
+		String[] checkedDelete = iattrNo.split(",");
+		
+		int[] iattr_no = new int[checkedDelete.length]; 
+		for(int i=0;i<checkedDelete.length;i++) {
+			iattr_no[i] = Integer.parseInt(checkedDelete[i]);
+			log.info("iattr_no : {}", iattr_no[i]);
+			dataEtcService.deleteInstiattr(iattr_no[i]);
+		}
+		List<InstiAttrVo> insti_attrList = dataEtcService.selectInsti_attr(iattr_insti);
 		List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
 		
-		String[] checkedDelete = checked.split(",");
+		model.addAttribute("insti_attrList", insti_attrList);
+		model.addAttribute("instiAttrList", instiAttrList);
 		
-		for(String delNo : checkedDelete ) {
-			log.info("del {}", delNo);
-			
-		}
-		
-		List<InstiVo> instiList = dataEtcService.selectInsti();
-		model.addAttribute("instiList", instiList);
-		return "manage/dataEtc";
+		return "admin/manage/dataEtcAjax/dataEtcAjax";
 	}
 }

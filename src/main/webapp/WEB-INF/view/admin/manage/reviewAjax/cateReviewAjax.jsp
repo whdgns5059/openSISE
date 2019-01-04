@@ -36,7 +36,7 @@
 		<tr class="content">
 			<td>${cate.rnum}</td>
 			<td>${cate.post_ttl}</td>
-			<td>${cate.mem_email}</td>
+			<td>${cate.mem_nm}</td>
 			<td><fmt:formatDate value="${cate.post_date}" pattern="yyyy-MM-dd" /></td>
 			<td class ="hidden" >
 				<label for="post_gu">${cate.post_gu}</label>

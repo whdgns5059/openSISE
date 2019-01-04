@@ -84,48 +84,53 @@
         				<if test="dl_excv_area != 0"> 
 									and round(dl_excv_area/3.3,0) between #{dl_excv_area} and #{dl_excv_area}+9
 						</if>
-						<if test="dl_price1 != null">
+						<if test="(dl_price1 != null and dl_price2 != null) or (dl_rnt1 != null and dl_rnt2 != null)">
 							<choose>
 								<when test="dl_ty == '매매'">
 									<choose>
-										<when test="dl_price2 == 30">
+										<when test="dl_price2 == 300000">
 											and dl_price <![CDATA[ >= ]]> #{dl_price1}
 										</when>
-										<when test="dl_price2 != 30">
+										<when test="dl_price2 != 300000">
 											and dl_price between #{dl_price1} and #{dl_price2}
 										</when>
 									</choose>
 								</when>
 								<when test="dl_ty == '전세'">
 									<choose>
-										<when test="dl_price2 == 30000 ">
+										<when test="dl_price2 == 100000 ">
 											and dl_depos <![CDATA[ >= ]]> #{dl_price1}
 										</when>
-										<when test="dl_price2 != 30000 ">
+										<when test="dl_price2 != 100000">
 											and dl_depos between #{dl_price1} and #{dl_price2}
 										</when>
 									</choose>
 								</when>
 								<when test="dl_ty =='월세'">
+									<if test="dl_price1 != null and dl_price2 != null">
 									<choose>
-										<when test="dl_price2 == 10000">
+										<when test="dl_price2 == 100000">
 											and dl_depos <![CDATA[ >= ]]> #{dl_price1}
 										</when>
-										<when test="dl_price2 != 10000">
+										<when test="dl_price2 != 100000">
 											and dl_depos between #{dl_price1} and #{dl_price2}
 										</when>
 									</choose>
+									</if>
+									<if test="dl_rnt1 != null and dl_rnt2 != null">
 									<choose>
-										<when test="dl_rnt2 == 400">
+										<when test="dl_rnt2 == 1000">
 											and dl_rnt <![CDATA[ >= ]]> #{dl_rnt1}
 										</when>
-										<when test="dl_rnt2 != 400">
+										<when test="dl_rnt2 != 1000">
 											and dl_rnt between #{dl_rnt1} and #{dl_rnt2}
 										</when>
 									</choose>
+									</if>
 								</when>
 							</choose>
-								</if>) d 
+						</if>
+								) d 
                 on (a.artcl_gu = d.dl_gu 
                     and a.artcl_dong = d.dl_dong 
                     and a.artcl_zip = d.dl_zip 
@@ -163,38 +168,38 @@
 											<choose>
 												<when test="dl_ty == '매매'">
 													<choose>
-														<when test="dl_price2 == 30">
+														<when test="dl_price2 == 300000">
 															and dl_price <![CDATA[ >= ]]> #{dl_price1}
 														</when>
-														<when test="dl_price2 != 30">
+														<when test="dl_price2 != 300000">
 															and dl_price between #{dl_price1} and #{dl_price2}
 														</when>
 													</choose>
 												</when>
 												<when test="dl_ty == '전세'">
 													<choose>
-														<when test="dl_price2 == 30000 ">
+														<when test="dl_price2 == 100000 ">
 															and dl_depos <![CDATA[ >= ]]> #{dl_price1}
 														</when>
-														<when test="dl_price2 != 30000 ">
+														<when test="dl_price2 != 100000 ">
 															and dl_depos between #{dl_price1} and #{dl_price2}
 														</when>
 													</choose>
 												</when>
 												<when test="dl_ty =='월세'">
 													<choose>
-														<when test="dl_price2 == 10000">
+														<when test="dl_price2 == 100000">
 															and dl_depos <![CDATA[ >= ]]> #{dl_price1}
 														</when>
-														<when test="dl_price2 != 10000">
+														<when test="dl_price2 != 100000">
 															and dl_depos between #{dl_price1} and #{dl_price2}
 														</when>
 													</choose>
 													<choose>
-														<when test="dl_rnt2 == 400">
+														<when test="dl_rnt2 == 1000">
 															and dl_rnt <![CDATA[ >= ]]> #{dl_rnt1}
 														</when>
-														<when test="dl_rnt2 != 400">
+														<when test="dl_rnt2 != 1000">
 															and dl_rnt between #{dl_rnt1} and #{dl_rnt2}
 														</when>
 													</choose>
@@ -208,26 +213,29 @@
 		group by artcl_zip, artcl_gu, artcl_complx, artcl_nm, artcl_rd, artcl_rd_detail, artcl_dong,artcl_lat, artcl_lng, dl_ty, artcl_bc
 	</select>
 	
-	<!-- 매매일때 최대 매매가 -->
-	<select id="maxDlPrice" resultType="buildingSaleVo">
-		select max(dl_price)as dl_price
-		from deal inner join article on (dl_dong = artcl_dong 
-		                                and dl_gu = artcl_gu 
-		                                and dl_zip = artcl_zip 
-		                                and dl_rd = artcl_rd
-		                                )
-		where dl_ty = '매매'
-	</select>
-	
-	<!-- 전세일때 최대 전세가 -->
-	<select id="maxDlDepos" resultType="buildingSaleVo">
-		select max(dl_depos)
-		from deal inner join article on (dl_dong = artcl_dong 
-		                                and dl_gu = artcl_gu 
-		                                and dl_zip = artcl_zip 
-		                                and dl_rd = artcl_rd
-		                                )
-		where dl_ty = '전세'
+	<!-- 전.월.매에 따른 가격의 최대 ,최솟값  -->
+	<select id="miniMaxPriceSearch" parameterType="filterVo" resultType="filterVo">
+		select min(dl_price) as dl_price1, 
+		       max(dl_price) as dl_price2,
+		       min(dl_rnt) as dl_rnt1,
+		       max(dl_rnt) as dl_rnt2,
+		       min(dl_depos) as dl_depos1,
+		       max(dl_depos)as dl_depos2
+		from deal inner join article on (dl_gu = artcl_gu
+		                                 and dl_dong  = artcl_dong
+		                                 and dl_zip = artcl_zip
+		                                 and dl_rd = artcl_rd
+		                                 <choose>
+		                                 	<when test="#{building == house}">
+		                                 		and artcl_bc in ('single','multi', 'multip')
+		                                 	</when>
+		                                 	<when test="#{building != house}">
+		                                 		and artcl_bc = #{building}
+		                                 	</when>
+		                                 </choose>
+		                                 )
+		where dl_ty = #{dl_ty}
+			
 	</select>
 
 </mapper>
