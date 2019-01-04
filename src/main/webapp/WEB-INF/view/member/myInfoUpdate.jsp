@@ -22,52 +22,74 @@
 		});
 	       
 	</script>
+	
+<style type="text/css">
+	.btn {
+    width: 84px;
+    border: 1px solid #ffe1af;
+    border-width: 1px;
+    border-bottom: 4px solid #e8a93f;
+    color: #e8a93f;
+    background-color: white;
+    }
+    
+    .table {
+ 	 margin-top: 30px;
+ 	 background-color: white-space; 
+ 	 border: solid #f3af3d; 
+ 	 width:70%;
+ 	 border-top: 1px solid #eaedef;
+ 	 border-bottom: 1px solid #eaedef;
+ 	 border-right : 1px solid #ffffff;
+ 	 border-left : 1px solid #ffffff;
+ 	 border-collapse: collapse;
+ 	 
+ }   
+ .th{
+ 	background-color: #f3af3d;
+ 	color: #fbe9c4;
+ }
+ 
+ .th2{
+ 	color: #848484;
+ }
+ 
+ #mem_nm{
+ border: none;
+ }
+ 
+	</style>
 </head>
 
 <body >
-<div class="admin-title">
+<div class="admin-title" align="center" style="margin-top: 10px;">
 	<!-- 전체 contents div -->
-	<h1>나의 정보</h1>
-	<div class="hr2">
-	<div class="row" style="height: 850px !important">
-		<form action="/mypage/updateFinish" method="post">
-			<div class="logoInputCenter">
-				<div class="logoInputDiv">
-					<ul>
+	<h1>나의 정보 수정</h1>
+	<form action="/mypage/updateFinish" method="post">
+	<table class="table" border="1">
+					<tbody align="center">
+						<th class="th">닉네임</th>
+						<th class="th2"><label for="memNm" class="control-label"><input type="text" id="mem_nm" name="mem_nm" value="${memberVo.mem_nm }"  class="form-control"	 required autofocus>
+						<input type="submit" id="myPageDuplication" class="form-control" value="중복확인"/></label></th>
+					</tbody>
 					
-						<li>
-							<label for="inputEmail" id="necessary">
-								<span>* 닉네임</span>
-								<input type="text" id="mem_nm" name="mem_nm" value="${memberVo.mem_nm }"  class="form-control"	 required autofocus>						
-						 	</label>
-						 	
-						</li>
-						<li>
-							<label for="inputEmail" id="necessary">
-								<span>* 이메일</span>
-								<input type="text" id="mem_email" name="mem_email" value="${memberVo.mem_email}" class="form-control"  required autofocus>
-								
-							</label> 
-						</li>
-						<li>
-						<span>성별 선택</span>
+					<tbody align="center">
+						<th class="th">ID</th>
+						<th class="th2"><label for="memEmail" class="control-label"><input type="email" id="mem_email" readonly="readonly" name="mem_email" value="${memberVo.mem_email}" class="form-control"  required autofocus></label></th>
+					</tbody>
+					
+					<tbody align="center">
+						<th class="th">성별</th>
+						<th class="th2">
 							<input type="radio" name="mem_gndr" value="M" <c:if test="${memberVo.mem_gndr eq 'M'}">checked</c:if>>남 
 							<input type="radio" name="mem_gndr" value="F" <c:if test="${memberVo.mem_gndr eq 'F'}">checked</c:if>>여
-						</li>
-						<li>
-						<span>직업정보 선택</span>
-						
-							<select id="jobLiset" name="mem_job" class="form-control">
-<%-- 								<option value="">${memberVo.job_nm}</option> --%>
-								<c:forEach items="${JobList}" var="mem">
-								<option value="${mem.job_no}" <c:if test="${mem.job_no == memberVo.job_no }"> selected </c:if> >${mem.job_nm}</option>
-								</c:forEach>
-							</select>
-						</li>
-						
-						<li>
-						<span>연령대 선택</span>
-							<select id="ageList" name="mem_age" class="form-control">
+						</th>
+					</tbody>
+					
+					<tbody align="center">
+						<th class="th">연령대</th>
+						<th class="th2">
+							<label>	<select id="ageList" name="mem_age" class="form-control">
 								<c:forEach items="age" var="memAge">
 								<option value="">${memberVo.mem_age}</option>
 								<option value="10대">10대</option>
@@ -77,30 +99,29 @@
 								<option value="50대">50대</option>
 								<option value="60대">60대 이상</option>
 								</c:forEach>
-							</select>
-						</li>
-						<li>
-							<p id="necessary">* 필수입력사항</p>
-						</li>
-				 	</ul>
-				</div>
-				
-				<div class="logoInputBtn">
-					<ul>
-						<li><input type="submit" id="myPageDuplication" class="form-control" value="중복확인"/></li>
-						<li><input type="button" class="form-control" value="인증"/></li>
-					</ul>				
-				</div>
+							</select></label>
+						</th>
+					</tbody>
+					
+					<tbody align="center">
+						<th class="th">직장정보</th>
+						<th class="th2">
+							<label>	<select id="jobLiset" name="mem_job" class="form-control">
+<%-- 							<option value="">${memberVo.job_nm}</option> --%>
+								<c:forEach items="${JobList}" var="mem">
+								<option value="${mem.job_no}" <c:if test="${mem.job_no == memberVo.job_no }"> selected </c:if> >${mem.job_nm}</option>
+								</c:forEach>
+							</select></label>
+						</th>
+					</table>
+						
 				<div class="submitBtnDiv">
-					<input type="submit" id="modified_Y" class="btn btn-outline-primary" value="수정완료" />
+					<input type="submit" id="modified_Y" class="btn" value="수정완료" />
 				</div>
-			</div>
 		</form>
-		</div>
 		<form action="/mypage/myPageDuplication" id="fm" method="post">
 			<input type="hidden" id="memNm" name="memNm">
 		</form>
 		</div>
-</div>		
 </body>
 </html>

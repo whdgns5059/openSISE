@@ -37,5 +37,13 @@ public interface DataEtcServiceInf {
 	public List<InstiAttrVo> selectInstiAttr(int iattr_insti);
 //	public List<List<InstiAttrVo>> selectInstiAttr(int iattr_insti);
 	public int insertInstiattr(InstiAttrVo instiAttrVo);
-	
+	/**
+	* Method : deleteInstiattr
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @param numList
+	* @return
+	* Method 설명 :기타데이터 시설 삭제
+	*/
+	public int deleteInstiattr(int iattr_no);
 }

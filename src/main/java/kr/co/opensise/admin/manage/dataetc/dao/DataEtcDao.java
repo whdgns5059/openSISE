@@ -1,6 +1,7 @@
 package kr.co.opensise.admin.manage.dataetc.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -105,9 +106,17 @@ public class DataEtcDao implements DataEtcDaoInf {
 		return template.insert("dataEtc.insertIattr", instiAttrVo);
 	}
 
+	/**
+	* Method : deleteInstiattr
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @param numList
+	* @return
+	* Method 설명 : 기타데이터 시설 삭제
+	*/
 	@Override
-	public int deleteInstiattr(int groupno) {
-		return template.delete("dataEtc.deleteInsti", groupno);
+	public int deleteInstiattr(int iattr_no) {
+		return template.delete("dataEtc.deleteInsti", iattr_no);
 	}
 
 }

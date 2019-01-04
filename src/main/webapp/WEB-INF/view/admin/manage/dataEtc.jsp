@@ -79,7 +79,7 @@ label{
 			 $( this).children("td").css( "cursor", "pointer" ); 
 			 $(this).siblings().css("background-color", "white");
 			var tr = $(this);
-			var td = $(tr.children()[1]).text();
+			var td = $(this).children()[2].textContent;
 // 			alert(td.text());
 			$("#iattr_pare").val(td);
 			
@@ -99,19 +99,33 @@ label{
 	        }
 	    })
 
-	    
+	    //삭제버튼 클릭시
 	    $("#del").click(function(){
+// 	    	alert("del");
 	    	var checkList = "";
 	    	$("input[name=chk]:checked").each(function() { 
 	    		if(checkList == ""){
 
-	    			checkList = $(this).val();
+	    			checkList = $(this).parent().siblings().eq(1).text();
 	    			} else {
-	    				checkList = checkList + "," + $(this).val();
+	    				checkList = checkList + "," + $(this).parent().siblings().eq(1).text();
 	    			}
 	    	});
 	    	$("#checked").val(checkList);
-	    	$("#delInsti").submit();
+	    	
+	    	//iattr_no or iattr_pare값 저장
+			var param = $("form[name=delInsti]").serialize();
+	    	
+	    	$.ajax({
+				type : "POST",
+				url : "/manage/dataEtc/deletInstiAttr",
+				data : param,
+				success : function(data){
+					var html = data;
+					$("#tbody").html(html);
+				}
+			
+			});
 	   });
 
 	});
@@ -168,9 +182,9 @@ label{
 		<!-- 시설추가 -->
 		<br/>
 		<label>시설 추가하기</label>
-		<form id="delInsti" action="/manage/dataEtc/deletInstiAttr" method="post">
+		<form id="delInsti" name="delInsti">
 			<div style="float: right;margin-right: 130px;margin-top: 25px;">
-				<input type="text" id="checked" name="checked" value=""/>
+				<input type="hidden" id="checked" name="checked" value=""/>
 				<input class="here" type="hidden" name="instiHere" value="${iattr_insti }" >
 				<button type="button" id="del" name="del">삭제</button>
 			</div>
@@ -212,13 +226,20 @@ label{
 											<c:when test="${instiAttrList[status.index].groupno != instiAttrList[status.index-1].groupno}">
 												<tr>
 													<td><input type="checkbox"  name="chk" value="${instiAttr_List.groupno }" class="instiattr"/></td>
-													<td style="display: none;">${instiAttr_List.groupno }</td>
 													<td>${instiAttr_List.iattr_val}</td>
-													<!-- </tr>태그가 없어도 되나요?? -->
+													<td style="display: none;">${instiAttr_List.iattr_no }</td>
+													<td style="display: none;">${instiAttr_List.iattr_pare }</td>
 											</c:when>
 											<c:when test="${instiAttrList[status.index].groupno == instiAttrList[status.index-1].groupno}">
-												<td>${instiAttr_List.iattr_val}</td>
-												<td style="display: none;">${instiAttr_List.groupno }</td>
+												<c:if test="${instiAttrList[status.index].groupno == instiAttrList[status.index+1].groupno}">
+													<td>${instiAttr_List.iattr_val}</td>
+												</c:if>
+												<c:if test="${instiAttrList[status.index].groupno != instiAttrList[status.index+1].groupno}">
+													<td>${instiAttr_List.iattr_val}</td>
+													<td style="display: none;">${instiAttr_List.iattr_no }</td>
+													<td style="display: none;">${instiAttr_List.iattr_pare }</td>
+												</tr>
+												</c:if>
 											</c:when>
 										</c:choose>
 									</c:forEach>
