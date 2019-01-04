@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.opensise.admin.manage.member.model.PageVO;
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.member.Login.model.SteamVo;
 
@@ -30,6 +31,12 @@ public class LoginDao implements LoginDaoInf{
 		return user;
 	}
 	
+	@Override
+	public int kakao(MemberVo memberVo) {
+		int kakaoLogin = template.insert("member.kakao", memberVo);
+		return kakaoLogin;
+	}
+	
 	/**  
 	* Method   : signup 
 	* 작성자 :  김주연
@@ -40,7 +47,8 @@ public class LoginDao implements LoginDaoInf{
 	*/
 	@Override
 	public int signup(MemberVo memberVo) {
-		int signUpselection = template.insert("member.signUpSelection", memberVo);
+		int signUpselection = template.insert("member.signUpSelection", memberVo); 
+		System.out.println("signUpselection : " + signUpselection);
 		return signUpselection;
 	}
 		
@@ -159,7 +167,7 @@ public class LoginDao implements LoginDaoInf{
 		List<SteamVo> steam = template.selectList("member.steam", favor_mem);
 		return steam;
 	}
-
+	
 	
 	/**  
 	* Method   : steamListUpdate 
@@ -220,6 +228,8 @@ public class LoginDao implements LoginDaoInf{
 		int mailFinsh = template.update("member.mailFinsh", memberVo);
 		return mailFinsh;
 	}
+
+	
 
 	
 	

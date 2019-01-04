@@ -91,4 +91,9 @@ public class DataEtcService implements DataEtcServiceInf {
 	public List<InstiAttrVo> selectInstiAttr(int iattr_insti) {
 		return dataEtcDao.selectInstiAttr(iattr_insti);
 	}
+
+	@Override
+	public int deleteInstiattr(int iattr_no) {
+		return dataEtcDao.deleteInstiattr(iattr_no);
+	}
 }

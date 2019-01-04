@@ -45,28 +45,26 @@
 					Kakao.API.request({
 						url: '/v1/user/me',
 						success: function(res) {
-							console.log(res);
-							
-							var userID = res.id;						//유저의 카카오톡 고유 id
-							var userEmail = res.kaccount_email;			//유저의 이메일
-							var userNickName = res.properties.nickname;	//유저가 등록한 별명
-							
-							console.log(userID);
-							console.log(userEmail);
-							console.log(userNickName);
+							alert(res.properties.nickname+'님 로그인되었냐!!!!!');
+							location.href="/login/kakao?nickname="+res.properties.nickname;
 						},
-						fail: function(error) {
+						fail: function
+						(error) {
 							alert(JSON.stringify(error));
 						}
 					});
-
-
 				},
 				fail : function(err) {
 					alert(JSON.stringify(err));
 				}
-				
 			});
+			function ktout(){
+				Kakao.Auth.logout(function(){
+					setTimout(function(){
+						location.href="/login/kakao"
+					},1000); // 로그아웃 처리되는 타임을 임시적으로 설정 (1초)
+				});
+			}
 			//]]>
 		</script>
 		</div>

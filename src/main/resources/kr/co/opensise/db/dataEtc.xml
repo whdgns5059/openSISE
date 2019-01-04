@@ -189,8 +189,9 @@ ORDER BY
     
 	</select>
 	
-	<delete id="deleteInsti" parameterType="integer">
-			delete from insti_attr where groupno=#{dvo.groupno}
+	<delete id="deleteInsti" parameterType="int">
+		 delete insti_attr
+			where iattr_no = #{iattr_no} or iattr_pare=#{iattr_no}	
 	</delete>
 </mapper>
 

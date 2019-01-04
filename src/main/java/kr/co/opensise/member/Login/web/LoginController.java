@@ -102,6 +102,10 @@ public class LoginController {
 		}
 	}
 	
+	
+	
+	
+	
 	/** Method   : duplication 
 	* 작성자 :  김주연
 	* 변경이력 :  
@@ -133,7 +137,7 @@ public class LoginController {
 	public String passButton() {
 		return "member/passButton";
 	}
-
+	
 	
 	/** Method   : sign_Up 
 	* 작성자 :  김주연
@@ -148,6 +152,31 @@ public class LoginController {
 		return "signup";
 	}
 	
+	/** Method   : sign_Up 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 :  카카오톡 회원등록
+	*/
+	@RequestMapping("/kakao")
+	public String kakao(Model model, @RequestParam String nickname, MemberVo memberVo, HttpServletRequest request) {
+		loginService.kakao(memberVo);
+		model.addAttribute("kakao", memberVo.getNickname());
+		System.out.println("뭐가나오려나~" + memberVo.getNickname());
+		
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("kakaoLogin", memberVo.getNickname());
+		
+		System.out.println("여기까지 오긴했닝? " + memberVo.getNickname());
+		
+		//로그인시 모달창에도 공지사항리스트 보여주기
+		List<PostVo> noticeList =  noticeService.selectNoticeView();
+		model.addAttribute("noticeList", noticeList);
+		//
+		
+		return "openPage";
+	}
 	
 	/** Method   : signUpSelection 
 	* 작성자 :  김주연

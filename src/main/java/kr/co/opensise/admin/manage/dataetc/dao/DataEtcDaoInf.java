@@ -1,6 +1,7 @@
 package kr.co.opensise.admin.manage.dataetc.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
 import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
@@ -30,6 +31,6 @@ public interface DataEtcDaoInf {
 	public List<InstiAttrVo> selectInsti_attr(int iattr_insti);
 	public List<InstiAttrVo> selectInstiAttr(int iattr_insti);
 	public int insertInstiattr(InstiAttrVo instiAttrVo);
-	public int deleteInstiattr(int groupno);
+	public int deleteInstiattr(int iattr_no);
 	
 }
