@@ -47,6 +47,10 @@
 	<definition name="signup" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/member/signup.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="kakaoSignup" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/member/kakaoSignup.jsp"></put-attribute>
+	</definition>
 
 	<definition name="signupDetail" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/member/signupDetail.jsp"></put-attribute>

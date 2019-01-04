@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.opensise.admin.manage.member.model.PageVO;
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.member.Login.model.SteamVo;
 
@@ -18,6 +19,16 @@ public interface LoginServiceInf {
 	* Method 설명 : 오픈시세  암호화 및 로그인
 	*/
 	public MemberVo selectMember(String mem_email);
+	
+	/**
+	 * Method : updateUser 
+	 * 작성자 : 
+	 * 변경이력 :
+	 * 
+	 * @param UserVo
+	 * @return Method 설명 : 카카오 회원 등록
+	 */
+	public int kakao(MemberVo memberVo);
 	
 	/**  
 	* Method   : signup 

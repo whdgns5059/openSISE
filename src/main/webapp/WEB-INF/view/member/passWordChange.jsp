@@ -5,6 +5,15 @@
 	
 
 <head>
+<style type="text/css">
+.btn {
+    width: 70px;
+    border: 1px solid #ffe1af;
+    border-width: 1px;
+    border-bottom: 4px solid #e8a93f;
+    text-transform: uppercase;
+    background-color: white;
+</style>
 </head>
 
 <body>
@@ -23,7 +32,7 @@
 				</div>
 				<div class="form-group">
 					<label><input type="password" class="form-control" id="mem_new_pass" name="mem_new_pass" placeholder="새 비밀번호 입력" /> 
-					<input type="password" class="form-control" id="memPass" name="memPass" placeholder="새 비밀번호 확인" /> </label>
+					<input type="password" class="form-control" id="memPass" name="memPass" placeholder="새 비밀번호 재확인" /> </label>
 				</div>
 				</br>
 				

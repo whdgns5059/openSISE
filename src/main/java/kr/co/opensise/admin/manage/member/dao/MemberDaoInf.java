@@ -38,7 +38,6 @@ public interface MemberDaoInf {
 	*/
 	int getUserCnt();
 	
-	
 	/**  
 	* Method   : selectUser 
 	* 작성자 :  김주연

@@ -16,7 +16,9 @@
   		select mem_email, mem_nm, mem_gndr, job_no, job_nm, mem_age
   		from member inner join job 
   		on (mem_job = job.JOB_NO)
-  		where mem_email = #{mem_email}
+  		where mem_email = #{mem_email} 
+  		or mem_nm = #{mem_email}
+  		
   	</select>
   	
   	<!-- 회원수정 -->
@@ -36,6 +38,12 @@
 	<insert id="signUpSelection" parameterType="memberVo">
 		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job, mem_date, mem_age, mem_lvl)
 		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, #{mem_age, jdbcType=VARCHAR}, 3)  
+	</insert>
+	
+	<!-- 카카오톡 회원 등록 -->
+	<insert id="kakao" parameterType="memberVo">
+		insert into member (mem_no, mem_nm, mem_lvl)
+		values (seq_mem_no.nextval , #{nickname}, 3)  
 	</insert>
 	
 	<!-- 직업정보 받아오기 -->

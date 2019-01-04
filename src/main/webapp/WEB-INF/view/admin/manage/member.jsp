@@ -12,6 +12,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
+<!-- pagination -->
+<link href="/css/pagination.css" rel="stylesheet">
+
 <head>
 <script type="text/javascript">
 	function getUserList(page) {
@@ -74,17 +77,44 @@
 				$("#userList").html("");
 				$("#userList").html(html);
 				
-				var pageNav = ""; 
+				/* var pageNav = ""; 
 				for(var i=1; i<data.pageCnt+1; i++){
 					pageNav += "<li><a href=\"javascript:getUserList(" +i+ ") \">"+i+"</a></li>";
+				} */
+				
+				html += "<ul class='pagination'>";
+				if(user==1){
+					html += "<li> <a href='javascript:getUserList(1);' aria-label='Previous'>&laquo;</span> </a> </li>";
+				}else {
+					html += "<li class='page-item disabled'><a class='page-link' href='javascript:getUserList(1)'>&lt;</a></li>";
 				}
+				
+				if(user!=1){
+					html += "<li><a href='javascript:getUserList(1);' aria-label='Previous'>&laquo;</span></a></li>";
+				}else {
+					html += "<li class='page-item'><a class='page-link'	href='javascript:getUserList(1);'>&lt;</a></li>";
+				}
+				
+				for (var p = 0; p < 11; p++) {
+					html += "<li><a href='javascript:getUserList(p);'>p</a></li>";
+				}
+				
+				html += "<li class='page-item'>";
+				if(user==pageCnt){
+					html += "<li class='page-item disabled'><a class='page-link' href='#' tabindex='-1'>Next</a></li>";
+					html += "<li class='disabled'><a href='#' aria-label='Next' tabindex='-1'><span aria-hidden='true'>&laquo;</span></a></li>";
+				}else if (user!=pageCnt) {
+					html += "<li class='page-item'><a class='page-link'	href='javascript:getUserList("+(pageSize+10)+");'>&gt;</a></li>";
+					html += "<li class='page-item'><a href='javascript:getUserList(pageCnt);' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+				}
+					
+				html += "</ul>";
+				
 				$("#nav").html("");
 				$("#nav").html(pageNav);
 			}
 		});
 	}
-	
-	
 	
 	
 	$(document).ready(function(){
@@ -250,21 +280,76 @@
 	 </div>  
 	<div class="pagination" id="nav" >
 			<ul class="pagination">
-				<li>
+				<!-- <li>
 					<a href="javascript:getUserList(1);" aria-label="Previous">
 						<span aria-hidden="true">&laquo;</span>
 					</a>
-				</li>
+				</li> -->
 				
-				<c:forEach begin="1" end="${pageCnt}" var="p">
+				<!-- 페이징 앞부분 처리 -->
+				<c:choose>
+				<c:when test="${page==1 }">
+					<li class="disabled">
+						<a href="javascript:getUserList(1);" aria-label="Previous">
+							 <span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					<li class="page-item disabled">
+						<a class="page-link" href="javascript:getUserList(1);" tabindex="-1">&lt;</a>
+					</li>
+				</c:when>
+				<c:when test="${page!=1 }">
+					<li>
+						<a href="javascript:getUserList(1);" aria-label="Previous"> 
+							<span aria-hidden="true">&laquo;</span>
+						</a> 
+					</li>
+					<li class="page-item"><a class="page-link"
+						href="javascript:getUserList(1);">&lt;</a>
+					</li>
+				</c:when>
+			</c:choose>
+			
+				<!-- 페이징처리 -->
+				<c:forEach begin="1" end="10" var="p">
 					<li><a href="javascript:getUserList(${p});">${p}</a></li>
 				</c:forEach>
+				<!-- ${pageCnt} -->
 				
-				<li>
+				
+				<%-- <li >
 					<a href="javascript:getUserList(${pageCnt});" aria-label="Next"> 
 						<span aria-hidden="true">&raquo;</span>
 					</a>
-				</li>
+				</li> --%>
+				
+				<!-- 페이징 뒷부분 처리 -->
+				<li class="page-item">
+				<c:choose>
+					<c:when test="${page==pageCnt }">
+						<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Next</a></li>
+						<li class="disabled">
+							<a href="#" aria-label="Next" tabindex="-1"> 
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					</c:when>
+					
+					<c:when test="${page!=pageCnt }">
+						<li class="page-item"><a class="page-link"
+							href="javascript:getUserList(10);">&gt;</a>
+						</li>
+						<li class="page-item">
+							<a href="javascript:getUserList(${pageCnt});" aria-label="Next"> 
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</c:when>
+				</c:choose></li>
+				
+				
+				
+				
 			</ul>
 		</div>
 	
