@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 .tab-yellow .nav-link, .tab-yellow .nav-link.disabled, .tab-yellow .nav-link.disabled:hover, 
 .tab-yellow .nav-link.disabled:focus{
@@ -21,7 +22,15 @@
 .tab-green .nav-link:hover, .tab-green .nav-link:focus {
 	background: #aad035;
 }
+#map {width : 650px !important; height:1000px;}
 </style>
-<div>
-	<img src="https://via.placeholder.com/1000x800?text=nearFaci"/>
+<div class="middleCategory">
+	<ul class="nav nav-tabs tab-yellow">
+		<c:forEach items="${instiList}" var="insti">
+			<li class="nav-item"><a class="nav-link tab-yellow show middleCategory" data-toggle="tab" href="#signDaily" >${insti.insti_nm}</a></li>
+		</c:forEach>
+	</ul>
+</div>
+<div class="content">
+
 </div>

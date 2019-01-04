@@ -17,6 +17,7 @@
 		
 		<!-- local(지역분석) 관련 alias setting -->
 		<typeAlias type="kr.co.opensise.user.local.model.HumanStatisVo" alias="humanStatisVo"/>
+		<typeAlias type="kr.co.opensise.user.local.model.InstiVo" alias="insti"/>
 		<!-- local(지역분석) 관련 alias setting 끝 -->
 		
 		

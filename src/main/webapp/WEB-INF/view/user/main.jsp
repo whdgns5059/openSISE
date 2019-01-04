@@ -428,11 +428,10 @@
 			    var order = document.getElementById(currCategory).getAttribute('data-order');
 
 			    
-
 			    for ( var i=0; i<places.length; i++ ) {
 
 			            // 마커를 생성하고 지도에 표시합니다
-			            var marker = addMarker(new daum.maps.LatLng(places[i].y, places[i].x), order);
+			            marker = addMarker(new daum.maps.LatLng(places[i].y, places[i].x), order);
 
 			            // 마커와 검색결과 항목을 클릭 했을 때
 			            // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
@@ -442,6 +441,7 @@
 			                });
 			            })(marker, places[i]);
 			    }
+			    
 			}
 
 			// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
@@ -461,10 +461,11 @@
 
 			    marker.setMap(map); // 지도 위에 마커를 표출합니다
 			    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
-
+			    
+			  
 			    return marker;
 			}
-
+			
 			// 지도 위에 표시되고 있는 마커를 모두 제거합니다
 			function removeMarker() {
 			    for ( var i = 0; i < markers.length; i++ ) {

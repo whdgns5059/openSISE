@@ -3,6 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="/css/local.css" rel="stylesheet">
 
+<script>
+	$(document).ready(function(){
+		$(".tagCategory").on("click",function(){
+			if(this.id == 'nearFaci'){
+// 				$("#mapwrap").css("width", "100%");
+// 				$("#mapwrap").css("position", "relative");
+// 				$(".contentDiv").css("width", "30%");
+			}
+		});
+	});
+</script>
 <!-- 전체 contents div -->
 <div class="row" style="height: 850px !important">
 	<!-- left contents -->
@@ -47,17 +58,13 @@
 			</div>
 			<div class="categoryDiv">
 				<ul class="nav nav-tabs tab-yellow">
-					<li class="nav-item"><a
-						class="nav-link tab-yellow show category" data-toggle="tab"
-						href="#signDaily" id="popStatis">인구 통계</a></li>
-					<li class="nav-item"><a class="nav-link tab-yellow category"
-						data-toggle="tab" href="#signAgeGndr" id="nearFaci">근린 시설</a></li>
-					<li class="nav-item"><a class="nav-link tab-yellow category"
-						data-toggle="tab" href="#signMonthly" id="market">물가 정보</a></li>
-					<li class="nav-item"><a class="nav-link tab-yellow category"
-						data-toggle="tab" href="#signAgeGndr" id="station">교통 정보</a></li>
-					<li class="nav-item"><a class="nav-link tab-yellow category"
-						data-toggle="tab" href="#signAgeGndr" id="etc">기타 정보</a></li>
+					<li class="nav-item">
+					<a class="nav-link tab-yellow show category tagCategory" data-toggle="tab" href="#signDaily" id="popStatis">인구 통계</a></li>
+					<li class="nav-item">
+					<a class="nav-link tab-yellow category tagCategory"  data-toggle="tab" href="#signAgeGndr" id="nearFaci">근린 시설</a></li>
+					<li class="nav-item">
+					<a class="nav-link tab-yellow category tagCategory" data-toggle="tab" href="#signMonthly" id="market">물가 정보</a></li>
+					<li class="nav-item"><a class="nav-link tab-yellow category" data-toggle="tab" href="#signAgeGndr" id="station">교통 정보</a></li>
 				</ul>
 			</div>
 			<div class="contentDiv"></div>

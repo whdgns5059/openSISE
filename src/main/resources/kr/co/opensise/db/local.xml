@@ -229,5 +229,10 @@
 		group by h1.hs_date, a.female, b.male
 		order by h1.hs_date      
 	</select>
+	
+	<select id="searchInstiNm" resultType="insti">
+		select distinct insti_nm 
+		from insti
+	</select>
 
 </mapper>

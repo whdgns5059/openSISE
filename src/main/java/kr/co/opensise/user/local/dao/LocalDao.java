@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.opensise.user.local.model.HumanStatisVo;
+import kr.co.opensise.user.local.model.InstiVo;
 
 @Repository
 public class LocalDao implements LocalDaoInf {
@@ -152,6 +153,12 @@ public class LocalDao implements LocalDaoInf {
 	public List<HumanStatisVo> humanAllTableList(String dong) {
 		// TODO Auto-generated method stub
 		return template.selectList("local.allHumanTableList", dong);
+	}
+
+	@Override
+	public List<InstiVo> searchInstiNm() {
+		// TODO Auto-generated method stub
+		return template.selectList("local.searchInstiNm");
 	}
 
 	

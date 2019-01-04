@@ -1,8 +1,8 @@
 package kr.co.opensise.user.local.dao;
 
-import java.util.List;
-
+import java.util.List;import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
 import kr.co.opensise.user.local.model.HumanStatisVo;
+import kr.co.opensise.user.local.model.InstiVo;
 
 public interface LocalDaoInf {
 	
@@ -146,4 +146,13 @@ public interface LocalDaoInf {
 	* Method 설명 :  연령별 비율 그래프
 	*/
 	public List<HumanStatisVo> ageCircle(HumanStatisVo humanVo);
+	
+	/**  
+	* Method   : searchInstiNm
+	* 작성자 :1003yd
+	* 변경이력 :  
+	* @return 
+	* Method 설명 : 근린시설 시설명 출력
+	*/
+	public List<InstiVo> searchInstiNm();
 }

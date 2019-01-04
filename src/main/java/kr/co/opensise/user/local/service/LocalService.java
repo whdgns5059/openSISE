@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.opensise.user.local.dao.LocalDaoInf;
 import kr.co.opensise.user.local.model.HumanStatisVo;
+import kr.co.opensise.user.local.model.InstiVo;
 
 @Service
 public class LocalService implements LocalServiceInf {
@@ -161,6 +162,13 @@ public class LocalService implements LocalServiceInf {
 	public List<HumanStatisVo> humanAllTableList(String dong) {
 		// TODO Auto-generated method stub
 		return localDao.humanAllTableList(dong);
+	}
+
+
+	@Override
+	public List<InstiVo> searchInstiNm() {
+		// TODO Auto-generated method stub
+		return localDao.searchInstiNm();
 	}
 
 
