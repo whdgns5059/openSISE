@@ -39,7 +39,6 @@ public class MypageController {
 	
 	@Resource(name = "loginService")
 	private LoginServiceInf loginService;
-	
 
 	/**  
 	* Method   :  selectMypage
