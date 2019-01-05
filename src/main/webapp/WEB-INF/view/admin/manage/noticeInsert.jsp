@@ -2,7 +2,43 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
-
+<style>
+#insertNotice{
+	padding: 12px 10px;
+    width: 800px;
+    height: 500px;
+    border: 1px solid #d8d8d8;
+    border-radius: 12px ;
+    overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.inputbox{
+	margin: 10px;
+	width: 500px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+}
+.noticefont{
+	padding: 0;
+	width: 800px;
+	height: 40px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 15px;
+}
+.noticeB{
+	width: 80px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    color: #808080;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    cursor: pointer;
+    margin-top:10px;
+}
+</style>
 <script src="/SE2/js/HuskyEZCreator.js"></script>
 
 <script type="text/javascript">
@@ -66,16 +102,16 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 	</div>
 	<div>
 		<form action="/manage/notice/insertPost" id="insert" method="post">
-			<table border="1" style="width: 800px;">
+			<table id="insertNotice" class="noticefont">
 				<thead>
 					<tr>
-						<td colspan="1">제목</td>
-						<td colspan="2"><input type="text" name="post_ttl"></td>
+						<td colspan="1"> &nbsp &nbsp &nbsp 제목</td>
+						<td colspan="2"><input type="text" name="post_ttl" class="inputbox"></td>
 					</tr>
 				</thead>
 				<tbody>
 						<tr>
-							<td colspan="3">
+							<td colspan="3" style="padding-left:15px;">
 								<textarea name="POST_CNTNT" id="smarteditor" rows="10"
 										cols="100" style="width: 766px; height: 412px;"></textarea>
 							</td>
@@ -84,7 +120,7 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 			</table>
 		</form>
 		<div>
-			<button type="button" id="savebutton">등록</button>
+			<button type="button" id="savebutton" class="noticeB">등록</button>
 		</div>
 	</div>
 	

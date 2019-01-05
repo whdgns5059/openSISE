@@ -34,3 +34,8 @@
 		</c:if>
 	</tbody>
 </table>
+
+<!-- <div class="insti"> -->
+<!-- 	<input type="hidden" id="iattr_pare" value="0" name="iattr_pare" /> <input -->
+<%-- 		type="hidden" value="${iattr_insti }" name="iattr_insti" /> --%>
+<!-- </div> -->
