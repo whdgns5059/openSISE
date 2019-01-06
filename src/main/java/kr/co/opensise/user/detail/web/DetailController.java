@@ -124,13 +124,12 @@ public class DetailController {
 	}
 	
 	@RequestMapping("/insertReview")
-	public String insertReview(PostVo postVo, @RequestParam("dl_ty") String dl_ty, Model model
+	public String insertReview(PostVo postVo,  @RequestParam("dl_ty") String dl_ty, Model model
 								, @RequestPart("post_img") List<MultipartFile> parts, HttpServletRequest request) {
 	
 		String path = request.getServletContext().getRealPath("/reviewImg");
 		
 		detailService.insertReview(postVo, parts, path);
-		
 		
 		model.addAttribute("artcl_gu", postVo.getPost_gu());
 		model.addAttribute("artcl_dong", postVo.getPost_dong());

@@ -98,12 +98,8 @@
  				success : function(data){
 					var chatPopup = window.open("", "", "width=500, height=800, location=no");
 					chatPopup.document.write(data);
-					
-
-					
  				}
  			});	
- 			
  		});
  		
  		function exitChat(){
@@ -119,12 +115,9 @@
  						alert('채팅종료');
  				}
  			});
- 				
  		}
  		
  	
- 		
- 		
  	});
  	
 	function switchPage(bc) {
@@ -132,7 +125,7 @@
 		
 		/* 시세 페이지와 경매 페이지 구분하기 */
 		if(building == 'auction'){
-			location.href = "https://www.courtauction.go.kr/";
+			location.href = "/auction/auction";
 		}else{
 			var searchName = document.getElementById('loc').value;
 	
@@ -142,8 +135,6 @@
 			$("#fmi").submit();
 		}
 	}
-	
-	
 	
 </script>
 
@@ -182,7 +173,7 @@
 			<ul class="top-menu">
 				<!-- memVo가 null인 경우 -->
 				<li>
-					<c:if test="${nowLogin == null}">
+					<c:if test="${nowLogin == null && kakaoLogin == null}">
 						<a href="/login/selectLogin" style="display: inline-block;">로그인</a>&emsp;
 						<a href="/login/signup" style="display: inline-block;" >회원가입</a>
 					</c:if>
@@ -202,6 +193,15 @@
 				<li>
 					<c:if test="${nowLogin.mem_nm!= null && nowLogin.mem_mngr == null}">
 						${nowLogin.mem_nm} 님 안녕하세요  &emsp;
+						<a href="/mypage/myInfo" style="display: inline-block;">나의 정보</a>&emsp;
+						<a href="/chat/chatroom" class="chatroom" style="display: inline-block;">채팅 문의</a>&emsp;
+						<a href="/login/logout" style="display: inline-block;">로그아웃</a>
+					</c:if>
+				</li>
+				
+				<li>
+					<c:if test="${kakaoLogin != null }">
+						${kakaoLogin} 님 안녕하세요  &emsp;
 						<a href="/mypage/myInfo" style="display: inline-block;">나의 정보</a>&emsp;
 						<a href="/chat/chatroom" class="chatroom" style="display: inline-block;">채팅 문의</a>&emsp;
 						<a href="/login/logout" style="display: inline-block;">로그아웃</a>

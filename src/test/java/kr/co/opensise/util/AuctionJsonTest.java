@@ -35,9 +35,8 @@ public class AuctionJsonTest {
 	public void getJSONDataTest() throws UnsupportedEncodingException, IOException {
 		/***Given***/
 		String url = null;
-		String startdt = "2018-12-26";
 		try {
-			url = "http://api.work6.kr/courtauction?court="+ URLEncoder.encode("대전지방법원", "UTF-8") + "&startdt="+startdt;
+			url = "http://100dream.net:8888/api/courtauction?addr0="+ URLEncoder.encode("대전광역시", "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
@@ -59,9 +58,8 @@ public class AuctionJsonTest {
 	public void getDataVoTest() {
 		/***Given***/
 		String url = null;
-		String startdt = "2018-12-26";
 		try {
-			url = "http://api.work6.kr/courtauction?court="+ URLEncoder.encode("대전지방법원", "UTF-8") + "&startdt="+startdt;
+			url = "http://100dream.net:8888/api/courtauction?addr0="+ URLEncoder.encode("대전광역시", "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
@@ -78,7 +76,7 @@ public class AuctionJsonTest {
 		/***Then***/
 		for(AuctionVo aucVo : aucVoList) {
 			
-			log.info(aucVo.getCaseNum());
+			//log.info(aucVo.getCaseNum());
 		}
 		 
 	}

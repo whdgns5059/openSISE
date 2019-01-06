@@ -101,7 +101,6 @@ public class DetailService implements DetailServiceInf{
 		
 		insertFile(parts, path, post_no);
 		
-		
 		return insertResult;
 		
 	}

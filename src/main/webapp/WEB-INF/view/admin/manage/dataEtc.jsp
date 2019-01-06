@@ -3,6 +3,52 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
+.dataEtcB{
+	width: 80px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    color: #808080;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    cursor: pointer;
+    float:right;
+}
+.dataEtcf{
+	padding: 0;
+	width: 800px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 15px;
+}
+.dataEtcbtn{
+	width: 60px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    color: #808080;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-left:5px;
+}
+.selBox {
+	margin-right: 10px;
+	width: 100px;
+	height: 30px;
+	border: 1px solid #d8d8d8;
+	border-radius: 5px;
+	color: #808080;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.inputbox{
+	margin-right: 10px;
+	margin-top: 10px;
+	width: 200px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+}
 .data-updateDiv{
 	width: 100%;
 	height: 120px;
@@ -10,7 +56,7 @@
 .instiDiv{
 	width: 100%;
     height: 550px;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 .data-updateT{
 	padding: 0;
@@ -50,18 +96,22 @@ label{
 		width: 800px;
 		height:450px;
 	}
-	.insti {
-		width: 700px;
-		margin-bottom: 10px;
-	}
-	#instiT{
-		border:1px solid black; 
-		width:800px;
-		height:400px;
-	}
-	.info tr td{
-		border : 1px solid #ccc;
-	}
+.insti {
+	width: 700px;
+}
+#instiT{
+	padding: 12px 10px;
+    width: 560px;
+    height: 345px;
+    border: 1px solid #d8d8d8;
+    border-radius: 12px ;
+    overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.info tr td{
+	border-top : 1px solid #ccc;
+}
 </style>    
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -147,7 +197,7 @@ label{
 				<td>인구통계&nbsp:</td>
 				<td><a target="_blank" href="http://www.daejeon.go.kr/sta/StaStatisticsFldList.do?menuSeq=180&colmn1Cont=C0201&colmn2Cont=C020101">대전인구통계 홈페이지</a></td>
 				<td><input type="file" name="etcData" /></td>
-				<td><input type="submit" value="DB 저장" /></td>
+				<td><input type="submit" value="DB 저장" class="dataEtcB"/></td>
 			</tr>
 		</table>
 		</form>
@@ -161,7 +211,7 @@ label{
 					대전교통정보 홈페이지</a>
 				</td>
 				<td>openAPI 호출</td>
-				<td><input type="submit" value="DB 저장" /></td>
+				<td><input type="submit" value="DB 저장" class="dataEtcB"/></td>
 			</tr>
 		</table>
 		</form>
@@ -172,7 +222,7 @@ label{
 				<td>물가정보&nbsp:</td>
 				<td><a target="_blank" href="http://www.daejeon.go.kr/drh/board/boardNormalList.do?boardId=normal_1009&menuSeq=3306">대전물가정보 홈페이지</a></td>
 				<td><input type="file" name="marketData" /></td>
-				<td><input type="submit" value="DB 저장" /></td>
+				<td><input type="submit" value="DB 저장" class="dataEtcB"/></td>
 			</tr>
 		</table>
 		</form>
@@ -186,12 +236,12 @@ label{
 			<div style="float: right;margin-right: 130px;margin-top: 25px;">
 				<input type="hidden" id="checked" name="checked" value=""/>
 				<input class="here" type="hidden" name="instiHere" value="${iattr_insti }" >
-				<button type="button" id="del" name="del">삭제</button>
+				<button type="button" id="del" name="del" class="dataEtcbtn">삭제</button>
 			</div>
 		</form>
-		<div class="insti">
+		<div class="insti dataEtcf">
 			<form id="frm" name="frm" action="/manage/dataEtc/selectInsti" method="post">
-				시설명 : <select id="insti_nm" name="instiNm">
+				시설명  : &nbsp <select id="insti_nm" class="selBox" name="instiNm">
 							<option>분류</option>
 							
 						<c:forEach items="${instiList }" var="instiVo" varStatus="status">
@@ -202,13 +252,13 @@ label{
 					  <input class="here" type="hidden" name="instiHere" value="" >
 			</form>
 			<form action="/manage/dataEtc/insertInsti" method="post">
-				시설명추가 : <input type="text" name="insti" placeholder="예:도서관"><button type="submit">추가</button>
+				시설명추가 : &nbsp<input type="text" class="inputbox" name="insti" placeholder="예:도서관"><button type="submit" class="dataEtcbtn">추가</button>
 			</form>
 		</div>
 		<form action="/manage/dataEtc/insertIattr" method="post">
 			<div id="insti">
 				<div id="instiT" style="overflow: auto;width:800px;height:350px;">
-					<table class="info" >
+					<table class="table info" >
 						<thead>
 							<tr>
 								<td><input type="checkbox" id="checkAll"/></td>
@@ -248,12 +298,12 @@ label{
 					</table>
 				</div>
 				<br/>
-				<div class="insti">
-					속성명 : <input type="text" name="iattr_key" placeholder="예: 도서관이름">
-					속성값 : <input type="text" name="iattr_val" placeholder="예: 유성도서관">
+				<div class="insti dataEtcf" >
+					속성명 : &nbsp <input type="text" name="iattr_key" class="inputbox" placeholder="예: 도서관이름">
+					속성값 : &nbsp <input type="text" name="iattr_val" class="inputbox" placeholder="예: 유성도서관">
 					<input type="hidden" id="iattr_pare" value="0" name="iattr_pare"/>
 					<input type="hidden" value="${iattr_insti }" name="iattr_insti"/>
-					<button>입력</button>
+					<button class="dataEtcbtn">입력</button>
 				</div>
 			</div>
 			

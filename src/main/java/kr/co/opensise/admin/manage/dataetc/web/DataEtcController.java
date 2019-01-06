@@ -681,7 +681,7 @@ public class DataEtcController {
 	
 	//시설속성추가
 	@RequestMapping("/insertIattr")
-	public String insertIattr(InstiAttrVo instiAttrVo) {
+	public String insertIattr(InstiAttrVo instiAttrVo,Model model,@RequestParam("iattr_insti") String iattr_instiS) {
 		log.info("여기");
 //		List<InstiAttrVo> instiattrList =  dataEtcService.selectInsti_attr(iattr_insti);
 //		int cnt=0;
@@ -697,6 +697,17 @@ public class DataEtcController {
 //			log.info("아하...");
 //		}
 		int insertIattr = dataEtcService.insertInstiattr(instiAttrVo);
+		
+		
+		int iattr_insti = Integer.parseInt(iattr_instiS);
+		//시설 속성 테이블에서 제목부분리트스(중복제거)
+		List<InstiAttrVo> insti_attrList = dataEtcService.selectInsti_attr(iattr_insti);
+		//시설 속성 테이블에서 body부분 리스트
+		List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
+		
+		model.addAttribute("insti_attrList", insti_attrList);
+		model.addAttribute("instiAttrList", instiAttrList);
+		
 		
 		return "redirect:/manage/dataEtc/dataEtc";
 	}

@@ -75,7 +75,7 @@
 	float: left;
 }
 
-.articles {
+#auctions {
 	width: 95%;
 	height: 100%;
 	float: right;
@@ -96,18 +96,20 @@
 ::-webkit-scrollbar-thumb:hover {
 	background: #4159a9;
 }
-.article {
+.auction {
 	width: 500px;
-	height: 140px;
+	/* height: 170px; */
 	margin: 15px 0;
-	padding: 20px;
+	padding: 20px 20px 10px 20px;
 	border: 1px solid #e0e0e0;
 	font-size: 15px;
 	font-family: 'Nanum Gothic Coding', monospace;
 	background: white;
 	cursor: pointer;
 }
-.article h4 {
+.h4 {
+	width: 50%;
+    margin-bottom: 15px;
 	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 600;
 	color: #4159a9;
@@ -161,7 +163,9 @@
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
 		
-		settingMap(0.0);
+		// 경매 리스트 뿌리기
+		aucListAjax();
+		/* settingMap(0.0); */
 		
 		function settingMap(x,y){
 			var lat;
@@ -184,7 +188,7 @@
 
 			/*------------- 마커 생성 코드 ----------------*/
 
-			var positions = setLatlngArr();
+			/* var positions = setLatlngArr(); */
 
 			//마커가 표시될 위치입니다 
 			var markerPosition = new daum.maps.LatLng(lat, lng);
@@ -224,54 +228,45 @@
 			
 		}
 
-		
+		/* geocoder로 좌표 변환 */
+		var geocoder = new daum.maps.services.Geocoder();
+
+		var addr = document.getElementById('addr').value;
+		//주소로 좌표검색
+		geocoder.addressSearch(addr, function(result, status) {
+
+			//TODO : 주소로 좌표 검색...
+			if (status === daum.maps.services.Status.OK) {
+
+				var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+				var marker = new daum.maps.Marker({
+					map : map,
+					position : coords
+				});
+
+				map.setCenter(coords);
+
+			}
+
+		});
+		/*     */
 		
 		
 	});
 	
-	function getArticleList(){
-		console.log($("#buildings").val());
-	 	var param = $("form[name=frm]").serialize();
-	 	var building = document.getElementById("buildings").value;
-	 	var searchName = document.getElementById("loc").value;
-	 	var dl_ty = document.getElementById("dl_ty").value;
-	 	var dl_excv_area = document.getElementById("dl_excv_area").value;
-	 	var artcl_const_y = document.getElementById("artcl_const_y").value;
-	 	var dl_price1 = document.getElementById("dl_price1").value;
-	 	var dl_price2 = document.getElementById("dl_price2").value;
-	 	var dl_rnt1 = document.getElementById("dl_rnt1").value;
-	 	var dl_rnt2 = document.getElementById("dl_rnt2").value;
+	function aucListAjax(){
 	 	
 		$.ajax({
-			type : "POST",
-			url : "/main/mainAjax",
-			data : {building : building, searchName : searchName, 
-					dl_ty : dl_ty, dl_excv_area : dl_excv_area, 
-					artcl_const_y : artcl_const_y, dl_price1 : dl_price1, 
-					dl_price2 : dl_price2, dl_rnt1 :dl_rnt1 ,dl_rnt2 : dl_rnt2},
+			type : "GET",
+			url : "/auction/aucListAjax",
 			success : function(data){
-				$(".main-right").html("");
-				$(".main-right").html(data);
-				settingMap(0,0);
+				console.log("여기");
+				$("#auctions").html(data);
+				/* settingMap(0,0); */
 			}
 		});
 	}
-	
-	
-	/*검색한 좌표들을 배열에 담아준다*/
-	function setLatlngArr() {
-		/* console.log(lat[0]);
-		console.log(lng[0]); */
-		var lat = document.getElementsByClassName("lat");
-		var lng = document.getElementsByClassName("lng");
-		var position = [];
-		for (var i = 0; i < lat.length; i++) {
-			position[i] = new daum.maps.LatLng(lat[i].value, lng[i].value);
-		}
-		return position;
-	}
-	
-
 	
 	
 </script>
@@ -295,68 +290,9 @@
 	<div id="lngLat">
 		<input type="hidden" id="listSize" value="${buildingSaleListSize}" />
 	</div>
-<!-- 매물리스트  -->
-	<div class="articles">
-	<form action="/detail/info" id="frmDetail">
+<!-- 경매 리스트  -->
+	<div id="auctions">
 		
-		<input type="hidden" id="ty" name="dl_ty" value ="${dlType}">
-	</form>
-		<c:choose>
-			<c:when test="${buildingSaleListSize != 0}">
-				<c:forEach items="${buildingSaleList}" var="build">
-					<div class="article">
-						<input type="hidden" class="lat" value="${build.artcl_lat}">
-						<input type="hidden" class="lng" value="${build.artcl_lng}">
-						<input type="hidden" id="gu" value="${build.artcl_gu}">
-						<input type="hidden" id="dong" value="${build.artcl_dong}">
-						<input type="hidden" id="zip" value="${build.artcl_zip}">
-						<input type="hidden" id="rd" value="${build.artcl_rd}">
-						<c:choose>
-							<c:when test="${building == 'apt'}">
-								<h4 class="clickDetail">${build.artcl_complx}</h4>
-							</c:when>
-							<c:when test="${building == 'house'}">
-								<c:choose>
-									<c:when test="${build.artcl_bc == 'multi'}">
-										<h4 class="clickDetail">${build.artcl_rd}</h4><span>다세대</span>
-									</c:when>
-									<c:when test="${build.artcl_bc == 'multip'}">
-										<h4 class="clickDetail">${build.artcl_nm}</h4><span>연립</span>
-									</c:when>
-									<c:when test="${build.artcl_bc == 'single'}">
-										<h4 class="clickDetail">${build.artcl_rd}</h4><span>단세대</span>
-									</c:when>
-								</c:choose>
-								<br>
-							</c:when>
-							<c:when test="${building == 'office'}">
-								<h4 class="clickDetail">${build.artcl_complx}</h4>
-							</c:when>
-							<c:when test="${building == 'store'}">
-								<h4 class="clickDetail">${build.artcl_rd}</h4>
-							</c:when>
-						</c:choose>
-						<label class="address">대전광역시 ${build.artcl_gu} ${build.artcl_dong} ${build.artcl_rd} ${build.artcl_rd_detail}</label><br />
-						<!-- 평균 시세는 근 3개월 간의 시세를 평균으로 낸다. -->
-						<c:choose>
-							<c:when test="${build.dl_ty == '매매' }">
-								<label class="avg-price">평당 평균가&nbsp&nbsp${build.avg_dl}만원</label>
-							</c:when>
-							<c:when test="${build.dl_ty == '전세' }">
-								<label class="avg-price">평균 전세가 &nbsp&nbsp${build.dl_depos}만원</label>
-							</c:when>
-							<c:when test="${build.dl_ty == '월세' }">
-								<label class="avg-price">평균 보증금&nbsp ${build.dl_depos}만원 <br> 평균 월세가 &nbsp ${build.dl_rnt}만원</label>
-							</c:when>
-						</c:choose>
-					</div>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-			검색 결과가 없습니다.(돋보기 그림 추가 + 글씨크기 키우고 색은 옅은 회색)
-		</c:otherwise>
-		</c:choose>
-		<div style="width:100px; height:100px; background:black;"></div>
 	</div>
 </div>
 
