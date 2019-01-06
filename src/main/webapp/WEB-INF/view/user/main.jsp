@@ -10,7 +10,6 @@
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=caa07714ce07e9a1979c7eda8f6bd258&libraries=clusterer"></script>
 <script type="text/javascript">
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
@@ -285,7 +284,17 @@
 			};
 			map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 			/*------------- 지도 생성 코드 끝 ----------------*/
-
+			
+			/*---------- 마커 클러스터러 생성 -------------*/
+			  // 마커 클러스터러를 생성합니다 
+		    var clusterer = new daum.maps.MarkerClusterer({
+		        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+		        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+		        minLevel: 10 // 클러스터 할 최소 지도 레벨 
+		    });
+			
+			/*---------- 마커 클러스터러 생성 끝 -----------*/
+			
 			/*------------- 마커 생성 코드 ----------------*/
 
 			var positions = setLatlngArr();
@@ -309,9 +318,10 @@
 					//마커이미지 주소
 					var imageSrc = '/img/placePicker.png',
 					 imageSize = new daum.maps.Size(34, 50),
-					 imageOption = {offset : new daum.maps.Point(27, 80)};
+					 imageOption = {offset : new daum.maps.Point(27, 80)},
+					 imageValue = positions[i];
 
-					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption, imageValue);
 				
 					marker = new daum.maps.Marker({
 					position : positions[i],
@@ -319,8 +329,48 @@
 				});
 				//마커가 지도 위에 표시되도록 설정합니다
 				marker.setMap(map);
+				markerClick(marker);
+			
 			}
+			
+			/*-------------- 마커 클릭 이벤트 시작 -----------*/
+			function markerClick(marker){
+				// 마커에 클릭이벤트를 등록합니다
+				daum.maps.event.addListener(marker, 'click', function(mouseEvent) {
+				      // 마커 위에 인포윈도우를 표시합니다
+	// 			      infowindow.open(map, marker);  
+				    // var latlng =  mouseEvent.latLng;
+				     alert("클릭이 된것이냥");
+				});
+
+				daum.maps.event.addListener(marker, 'mouseover', function() {
+				      // 마커 위에 인포윈도우를 표시합니다
+	// 			      infowindow.open(map, marker);  
+				    // var latlng =  mouseEvent.latLng;
+				     alert("over 된것이냥");
+				});
+			}
+			/*-------------- 마커 클릭 이벤트 끝 -----------*/
+			
+		
+			
 			/*--------------마커 생성 코드 끝--------------*/
+			
+			/*-------------- 마커 클러스터러 데이터 가져오기--------*/
+		    // 데이터를 가져오기 위해 jQuery를 사용합니다
+		    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
+		    $.get(positions, function(data) {
+		        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
+		        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
+		        var markers = $(data.positions).map(function(i, position) {
+		            return new daum.maps.Marker({
+		                position : new daum.maps.LatLng(position.lat, position.lng)
+		            });
+		        });
+
+		    
+		    });
+			/*-------------- 마커 클러스터러 데이터 가져오기 끝 --------*/
 			
 			//toLocal 클릭시 좌표읽어서 이동
 			$('.toLocal').on('click',function(){
@@ -432,11 +482,14 @@
 
 			            // 마커를 생성하고 지도에 표시합니다
 			            marker = addMarker(new daum.maps.LatLng(places[i].y, places[i].x), order);
+			         // 클러스터러에 마커들을 추가합니다
+				        clusterer.addMarkers(markers);
 
 			            // 마커와 검색결과 항목을 클릭 했을 때
 			            // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
 			            (function(marker, place) {
 			                daum.maps.event.addListener(marker, 'click', function() {
+			                	alert("마커 클릭시 이벤트 발생 실행??")
 			                    displayPlaceInfo(place);
 			                });
 			            })(marker, places[i]);

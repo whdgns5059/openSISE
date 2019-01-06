@@ -15,6 +15,7 @@ import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 import kr.co.opensise.user.market.service.MarketServiceInf;
 import kr.co.opensise.user.local.model.HumanStatisVo;
 import kr.co.opensise.user.local.model.InstiVo;
+import kr.co.opensise.user.local.model.LocalVo;
 import kr.co.opensise.user.local.service.LocalServiceInf;
 
 @RequestMapping("/local")
@@ -69,10 +70,11 @@ public class LocalController {
 	}
 	
 	@RequestMapping("/nearFaci")
-	public String nearFaci( @RequestParam("dong") String dong, Model model) {
+	public String nearFaci( @RequestParam("dong") String dong, @RequestParam("addr") String addr, Model model) {
 		List<InstiVo> instiList = localService.searchInstiNm();
 		model.addAttribute("instiList", instiList);
-		model.addAttribute("dong", dong);
+		model.addAttribute("dong",dong);
+		model.addAttribute("addr",addr);
 		
 		return "user/localAjax/nearFaci";
 	} 

@@ -9,9 +9,35 @@
 	margin-top:40px; 
 	margin-bottom: 40px;
 }
+.rowChange{
+	width: 2000px !important;
+}
+
+.mapChange{
+	width: 1124px !important;
+}
+
+.mapWrapChange{
+	width: 1124px !important;
+}
+
+.rightWrapChange{
+	width: 539px !important;
+}
+
+.rigntContentChange{
+	width: 100% !important;
+	height: 100% !important;
+	overflow-y: scroll; 
+	overflow-x:hidden;
+	margin:auto; 
+	margin-top:40px; 
+	margin-bottom: 40px;
+}
+
 
 #mapWrap {position: relative;}
-#map {width : 650px !important; height:1000px;}
+#map {width : 650px; height:1000px; margin-left: 0px;}
 
 #localNameDiv{text-align: center;}
 #localNameSpan {font-size: 40px;  }
