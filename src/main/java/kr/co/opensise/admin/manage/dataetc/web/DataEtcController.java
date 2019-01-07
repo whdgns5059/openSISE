@@ -448,7 +448,7 @@ public class DataEtcController {
 	@RequestMapping("/insertStationData")
 	public String insertStation(Model model) {
 //		BufferedReader br = null;
-		BufferedReader brA = null;
+/*		BufferedReader brA = null;
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();// Document를 생성할 Factory
 		factory.setNamespaceAware(true);
 		
@@ -638,7 +638,7 @@ public class DataEtcController {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		*/
 		return "redirect:/manage/dataEtc/dataEtc";
 	}
 	
@@ -659,21 +659,25 @@ public class DataEtcController {
 	@RequestMapping(value="/insertInsti", method = RequestMethod.POST)
 	public String insertInsti(@RequestParam("insti") String insti) {
 		
-		List<InstiVo> instiList = dataEtcService.selectInsti();
-		
-		InstiVo instiVo = new InstiVo();
-		int cnt=0;
-		for(int i=0;i<instiList.size();i++) {
-			if(insti.equals(instiList.get(i).getInsti_nm())){
-				cnt++;
-			}else {
-				continue;
-			}
-		}
-		if(cnt<=0) {
-			instiVo.setInsti_nm(insti);
+		try {
+			List<InstiVo> instiList = dataEtcService.selectInsti();
 			
-			int insertInsti = dataEtcService.insertInsti(instiVo);
+			InstiVo instiVo = new InstiVo();
+			int cnt=0;
+			for(int i=0;i<instiList.size();i++) {
+				if(insti.equals(instiList.get(i).getInsti_nm())){
+					cnt++;
+				}else {
+					continue;
+				}
+			}
+			if(cnt<=0) {
+				instiVo.setInsti_nm(insti);
+				
+				int insertInsti = dataEtcService.insertInsti(instiVo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return "redirect:/manage/dataEtc/dataEtc";
@@ -682,31 +686,27 @@ public class DataEtcController {
 	//시설속성추가
 	@RequestMapping("/insertIattr")
 	public String insertIattr(InstiAttrVo instiAttrVo,Model model,@RequestParam("iattr_insti") String iattr_instiS) {
-		log.info("여기");
-//		List<InstiAttrVo> instiattrList =  dataEtcService.selectInsti_attr(iattr_insti);
-//		int cnt=0;
-//		for(int i=0;i<instiattrList.size();i++) {
-//			if(instiAttrVo.getIattr_key()==instiattrList.get(i).getIattr_key()) {
-//				cnt++;
-//			}
-//		}
-//		if(cnt<1) {
-//			int insertIattr = dataEtcService.insertInstiattr(instiAttrVo);
-//			return "redirect:/manage/dataEtc/dataEtc";
-//		}else {
-//			log.info("아하...");
-//		}
-		int insertIattr = dataEtcService.insertInstiattr(instiAttrVo);
 		
+		try {
+			//시설속성 insert
+			int insertIattr = dataEtcService.insertInstiattr(instiAttrVo);
+			
+			//시설번호 가져오기
+			if(iattr_instiS != "0") {
+				int iattr_insti = Integer.parseInt(iattr_instiS);
+				//시설 속성 테이블에서 제목부분리트스(중복제거)
+				List<InstiAttrVo> insti_attrList = dataEtcService.selectInsti_attr(iattr_insti);
+				//시설 속성 테이블에서 body부분 리스트
+				List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
+				
+				model.addAttribute("insti_attrList", insti_attrList);
+				model.addAttribute("instiAttrList", instiAttrList);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		int iattr_insti = Integer.parseInt(iattr_instiS);
-		//시설 속성 테이블에서 제목부분리트스(중복제거)
-		List<InstiAttrVo> insti_attrList = dataEtcService.selectInsti_attr(iattr_insti);
-		//시설 속성 테이블에서 body부분 리스트
-		List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
-		
-		model.addAttribute("insti_attrList", insti_attrList);
-		model.addAttribute("instiAttrList", instiAttrList);
 		
 		
 		return "redirect:/manage/dataEtc/dataEtc";

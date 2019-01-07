@@ -66,16 +66,17 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 		
 		
 
-			// 전송버튼 클릭이벤트
+		// 전송버튼 클릭이벤트
 		$("#savebutton").click(function(){
-			if(confirm("저장하시겠습니까?")) {
+			if(confirm("저장하시겠습니까?")){
 				// id가 smarteditor인 textarea에 에디터에서 대입
 				oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-
+	
 				// 이부분에 에디터 validation 검증
 				if(validation()) {
 					$("#insert").submit();
 				}
+				
 			}
 		})
 
@@ -85,7 +86,12 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 	//필수값 Check
 	function validation(){
 		var contents = $.trim(oEditors[0].getContents());
-		if(contents === '&nbsp;' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
+		
+		if($("#titlecheck").val()==""){
+			alert("제목을 입력하세요.");
+			$("#titlecheck").focus();
+			return false;
+		}else if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
 			alert("내용을 입력하세요.");
 			oEditors.getById['smarteditor'].exec('FOCUS');
 			return false;
@@ -106,7 +112,7 @@ var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수�
 				<thead>
 					<tr>
 						<td colspan="1"> &nbsp &nbsp &nbsp 제목</td>
-						<td colspan="2"><input type="text" name="post_ttl" class="inputbox"></td>
+						<td colspan="2"><input type="text" name="post_ttl" id="titlecheck" class="inputbox"></td>
 					</tr>
 				</thead>
 				<tbody>
