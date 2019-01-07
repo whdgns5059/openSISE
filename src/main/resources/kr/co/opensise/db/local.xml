@@ -185,22 +185,24 @@
 	</select>
 
 	<select id="ageCircle" parameterType="humanStatisVo" resultType="humanStatisVo">
-		select hs_age_grp, sum(hs_hm_no) as hs_hm_no
+		
+		select hs_age_grp, sum(hs_hm_no) as hs_hm_no, substr(hs_date,0,4)
 		from human_statistic
 		where hs_dong like #{dong}||'%'
-		and hs_date >= '201706'
 		and substr(hs_age_grp,0,1) between '0' and '6'
 		and length(hs_age_grp) <![CDATA[ <= ]]> 6
-		group by hs_age_grp
+        and substr(hs_date,0,4)= #{hs_date}
+		group by hs_age_grp, substr(hs_date,0,4)
 		union
-		select '70세 이상' as hs_age_grp, sum(hs_hm_no) as hs_hm_no
+		select '70세 이상' as hs_age_grp, sum(hs_hm_no) as hs_hm_no, substr(hs_date,0,4)
 		from human_statistic
 		where hs_dong like #{dong}||'%'
-		and hs_date >= '201706'
-		and substr(hs_age_grp,0,1) between '7' and '9'
-		or hs_age_grp = '100세 이상'
-		group by '70세 이상'
+		and (substr(hs_age_grp,0,1) between '7' and '9'
+		or hs_age_grp = '100세 이상')
+        and substr(hs_date,0,4)= #{hs_date}
+		group by '70세 이상', substr(hs_date,0,4)
 		order by 1
+		
 	</select>
 	
 	<select id="allHumanTableList" parameterType="humanStatisVo" resultType="humanStatisVo">

@@ -117,5 +117,6 @@ var totalPopChart = {
 	});
 }
 
+
 setChart();
 </script>

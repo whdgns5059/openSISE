@@ -13,6 +13,8 @@
 <script type="text/javascript">
 	//36.3505393936125,127.38483389033713
 	$(document).ready(function() {
+		
+		var jsonLatLng;
 		//처음에는 무조건 매매가 이므로 월세 div는 숨겨준다.
 		$("#rnt").hide();
 		sliderPrice(0, 300000);
@@ -290,7 +292,7 @@
 		    var clusterer = new daum.maps.MarkerClusterer({
 		        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
 		        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-		        minLevel: 10 // 클러스터 할 최소 지도 레벨 
+		        minLevel: 4 // 클러스터 할 최소 지도 레벨 
 		    });
 			
 			/*---------- 마커 클러스터러 생성 끝 -----------*/
@@ -298,7 +300,13 @@
 			/*------------- 마커 생성 코드 ----------------*/
 
 			var positions = setLatlngArr();
-
+			
+			var positiont = markerLatLngArr();
+			var totalObj = new Object();
+			totalObj.positions = positiont;
+			console.log(positiont);
+		/* 	jsonLatLng = JSON.stringify(totalObj);
+			console.log(jsonLatLng); */
 			var mapTypeControl = new daum.maps.MapTypeControl();
 
 			// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
@@ -313,6 +321,7 @@
 			//마커가 표시될 위치입니다 
 			var markerPosition = new daum.maps.LatLng(lat, lng);
 			var marker;
+			var markerPos = [];
 			for(var i =0; i<positions.length; i++){
 				//마커를 생성합니다
 					//마커이미지 주소
@@ -326,12 +335,14 @@
 					marker = new daum.maps.Marker({
 					position : positions[i],
 					image : markerImage
-				});
+					});
+				
+				markerPos.push(marker);
 				//마커가 지도 위에 표시되도록 설정합니다
 				marker.setMap(map);
 				markerClick(marker);
-			
 			}
+			clusterer.addMarkers(markerPos);
 			
 			/*-------------- 마커 클릭 이벤트 시작 -----------*/
 			function markerClick(marker){
@@ -340,37 +351,31 @@
 				      // 마커 위에 인포윈도우를 표시합니다
 	// 			      infowindow.open(map, marker);  
 				    // var latlng =  mouseEvent.latLng;
-				     alert("클릭이 된것이냥");
+// 				     alert("클릭이 된것이냥");
 				});
 
 				daum.maps.event.addListener(marker, 'mouseover', function() {
 				      // 마커 위에 인포윈도우를 표시합니다
 	// 			      infowindow.open(map, marker);  
 				    // var latlng =  mouseEvent.latLng;
-				     alert("over 된것이냥");
+// 				     alert("over 된것이냥");
 				});
 			}
 			/*-------------- 마커 클릭 이벤트 끝 -----------*/
 			
 		
+			/*--------------- 마커 클러스터러 데이터 가져오기 시작 --------*/
 			
-			/*--------------마커 생성 코드 끝--------------*/
-			
-			/*-------------- 마커 클러스터러 데이터 가져오기--------*/
-		    // 데이터를 가져오기 위해 jQuery를 사용합니다
-		    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
-		    $.get(positions, function(data) {
-		        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
-		        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
-		        var markers = $(data.positions).map(function(i, position) {
-		            return new daum.maps.Marker({
-		                position : new daum.maps.LatLng(position.lat, position.lng)
-		            });
-		        });
-
-		    
-		    });
-			/*-------------- 마커 클러스터러 데이터 가져오기 끝 --------*/
+  		    	/*  var markers = $(positiont).map(function(i, position) {
+ 		            return new daum.maps.Marker({
+ 		                position : new daum.maps.LatLng(position.lat, position.lng)
+ 		            });
+ 		        });
+  		    	 
+		        // 클러스터러에 마커들을 추가합니다
+  		    	clusterer.addMarkers(markers); */
+		       
+			/*-------------- 마커 클러스터러 데이터 가져오기 끝 -----------*/
 			
 			//toLocal 클릭시 좌표읽어서 이동
 			$('.toLocal').on('click',function(){
@@ -482,8 +487,6 @@
 
 			            // 마커를 생성하고 지도에 표시합니다
 			            marker = addMarker(new daum.maps.LatLng(places[i].y, places[i].x), order);
-			         // 클러스터러에 마커들을 추가합니다
-				        clusterer.addMarkers(markers);
 
 			            // 마커와 검색결과 항목을 클릭 했을 때
 			            // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
@@ -651,6 +654,21 @@
 			for (var i = 0; i < lat.length; i++) {
 				position[i] = new daum.maps.LatLng(lat[i].value, lng[i].value);
 			}
+			return position;
+		}
+		
+		function markerLatLngArr(){
+			var latt = document.getElementsByClassName("lat");
+			var lngt = document.getElementsByClassName("lng");
+			var position = [];
+			
+			for (var i = 0; i < latt.length; i++) {
+				let pos = {lat:latt[i].value, lng:lngt[i].value};
+// 				position.push(pos);
+				position[i] = pos;
+			}
+			console.log("position : " + position);
+			
 			return position;
 		}
 

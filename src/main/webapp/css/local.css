@@ -14,11 +14,11 @@
 }
 
 .mapChange{
-	width: 1124px !important;
+	width: 996px !important;
 }
 
 .mapWrapChange{
-	width: 1124px !important;
+	width: 996px !important;
 }
 
 .rightWrapChange{
@@ -40,7 +40,10 @@
 #map {width : 650px; height:1000px; margin-left: 0px;}
 
 #localNameDiv{text-align: center;}
-#localNameSpan {font-size: 40px;  }
+#localNameSpan {
+	font-size: 53px;  
+	font-family: 'Do Hyeon', sans-serif;
+}
 .categoryDiv {height :60px;}
 .subTitle {font-size: 30px;}
 #myChart{ width:1200px; height:500px; margin-top: 30px;}

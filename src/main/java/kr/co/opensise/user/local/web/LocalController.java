@@ -175,6 +175,7 @@ public class LocalController {
 		logger.info("changeDong : " + changeDong);
 		humanVo.setDong(changeDong);
 		humanVo.setHs_age_grp("0~4세");
+		humanVo.setHs_date("2017");
 		
 		//연령 리스트
 		List<HumanStatisVo> ageList = localService.ageList();
@@ -202,6 +203,10 @@ public class LocalController {
 		//연령별 비율 그래프
 		List<HumanStatisVo> ageCircle = localService.ageCircle(humanVo);
 		model.addAttribute("ageCircle", ageCircle);
+		
+		logger.info("ageCircle.size1 : "+ ageCircle.size());
+		logger.info("ageCricle List1 : " + ageCircle);
+		
 		
 		model.addAttribute("dong", humanVo.getDong());
 		
@@ -240,6 +245,49 @@ public class LocalController {
 		model.addAttribute("hsDate", hsDateSearch);
 		
 		return "user/localAjax/pop/ageAjaxPop";
+	}
+	
+	@RequestMapping("ageAjaxDatePop")
+	public String ageAjaxDatePop(HumanStatisVo humanVo, Model model) {
+		
+		logger.info("dong : " + humanVo.getDong());
+		String changeDong = (humanVo.getDong()).substring(0,2);
+		logger.info("changeDong : " + changeDong);
+		humanVo.setDong(changeDong);
+		
+		//연령 리스트
+//		List<HumanStatisVo> ageList = localService.ageList();
+//		model.addAttribute("ageList", ageList);
+		
+		
+		//연령별 인구 통계
+//		List<HumanStatisVo> ageHumanStatisList = localService.humanAgeStatistic(humanVo);
+//		model.addAttribute("ageHumanStatisList", ageHumanStatisList);
+		
+		//연령별 인구 통계 최댓값
+//		int ageHumanStatisMaxValue = localService.humanAgeStatisMaxValue(humanVo);
+//		model.addAttribute("ageHumanStatisMaxValue", ageHumanStatisMaxValue);
+//		logger.info("ageHumanSatisMaxValue : " + ageHumanStatisMaxValue);
+		
+		//연령별 인구 통계 최솟값
+//		int ageHumanStatisMinValue = localService.humanAgeStatisMinValue(humanVo);
+//		model.addAttribute("ageHumanStatisMinValue", ageHumanStatisMinValue);
+//		logger.info("ageHumanSatisMinValue : " + ageHumanStatisMinValue );
+		
+		//날짜 검색
+//		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
+//		model.addAttribute("hsDate", hsDateSearch);
+		
+		//연령별 비율 그래프
+		List<HumanStatisVo> ageCircle = localService.ageCircle(humanVo);
+		model.addAttribute("ageCircle", ageCircle);
+		logger.info("ageCircle.size : "+ ageCircle.size());
+		logger.info("ageCricle List : " + ageCircle);
+		
+		model.addAttribute("dong", humanVo.getDong());
+				
+		
+		return "user/localAjax/pop/ageAjaxDatePop";
 	}
 	
 	

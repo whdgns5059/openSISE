@@ -27,8 +27,12 @@
     height: 100%;
     float: left;
     border-left: 1px solid #e0e0e0;
-    background: #f5f3f0;
+    background: #ffffff;
     position: relative;
+}
+
+ul{
+	list-style: none;
 }
 
 .cate{
@@ -36,6 +40,15 @@
 	height: 46px;
 	margin-top: 14px;
     margin-left: 20px;
+}
+
+.line{
+	width: 439px;
+    margin-right: 63px;
+}
+
+.title{
+	margin-left: 12px;
 }
 
 </style>
@@ -122,6 +135,7 @@
 			finalKeyword = "대전  ${dong} " + $("#searchFaci").val();
 		}else{
 			finalKeyword = "대전광역시 ${dong} "+ " "+ keyword;	
+			console.log(finalKeyword);
 		}
 
 	    if (!keyword.replace(/^\s+|\s+$/g, '')) {
@@ -220,17 +234,17 @@
 	    var el = document.createElement('li'),
 	    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
 	                '<div class="info">' +
-	                '   <h5>' + places.place_name + '</h5>';
+	                '   <h5 class="title">' + places.place_name + '</h5>';
 
 	    if (places.road_address_name) {
-	        itemStr += '    <span>' + places.road_address_name + '</span>' +
+	        itemStr += '    <span class="title">' + places.road_address_name + '</span>' +
 	                    '   <span class="jibun gray">' +  places.address_name  + '</span>' + '<br>';
 	    } else {
-	        itemStr += '    <span>' +  places.address_name  + '</span>'+ '<br>';
+	        itemStr += '    <span class="title">' +  places.address_name  + '</span>'+ '<br>';
 	    }
 	                 
-	      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-					'<hr>'    +
+	      itemStr += '  <span class="tel title">' + places.phone  + '</span>' +
+					'<hr class="line">'    +
 	                '</div>';           
 
 	    el.innerHTML = itemStr;

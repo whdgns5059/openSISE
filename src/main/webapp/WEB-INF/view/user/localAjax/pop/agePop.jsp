@@ -28,6 +28,24 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	// 연령 선택
+	$(".selectDate").on("change", function(){
+		var hs_date = this.value;
+		var ageData = {dong : "${dong}", hs_date : hs_date };
+		
+		$.ajax({
+			type : 'POST',
+			url : '/local/ageAjaxDatePop',
+			data : ageData,
+			success : function(data){
+				// 연령별 관심사 그래프
+				console.log(data);
+				$('#ageCircle').html(data);
+				
+			}
+		});
+	});
 		
 		function setChart(){
 			var colorList = new Array();
@@ -286,6 +304,12 @@ $(document).ready(function(){
 <div>
 	<div id="siseTableDiv">
 		<!-- <span class="subTitle"> 연령별 인구 비율 그래프</span> -->
+			<p>년도&nbsp:&nbsp
+		<select id="selBox"  class="selectDate">
+			<option value="2017">2017년</option>
+			<option value="2018">2018년</option>
+		</select>
+	</p>
 		<div id="ageCircle" style="height: 800px;"></div>
 	</div>
 </div>
