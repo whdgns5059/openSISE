@@ -23,7 +23,7 @@
 <script>
 
 //웹소켓을 해당 url과 연결
-var sock = new WebSocket('ws://localhost:8081/chatHandler');
+var sock = new WebSocket('ws://192.168.203.110:8082/chatHandler');
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 
