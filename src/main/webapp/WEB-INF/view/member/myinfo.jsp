@@ -45,26 +45,26 @@
 	<table class="table" border="1">
 		<tbody align="center">
 			<th class="th">ID</th>
-			<th class="th2"><label for="memEmail" class="control-label">${memberVo.mem_email}</label></th>
+			<th class="th2"><label for="memEmail" class="control-label">${nowLogin.mem_email}</label></th>
 		</tbody>
 		<tbody align="center">
 			<th class="th">닉네임</th>
-			<th class="th2"><label for="memNm" class="control-label">${memberVo.mem_nm}</label></th>
+			<th class="th2"><label for="memNm" class="control-label">${nowLogin.mem_nm}</label></th>
 		</tbody>
 		<tbody align="center">
 			<th class="th">성별</th>
 			<th class="th2">
 				<c:choose>
-				<c:when test="${memberVo.mem_gndr == null}">
+				<c:when test="${nowLigin.mem_gndr == null}">
 					<label for="memGndr" class="control-label" >선택안함</label>
 				</c:when>
-				<c:when test="${memberVo.mem_gndr != null}">
+				<c:when test="${nowLigin.mem_gndr != null}">
 					<label for="memGndr" class="control-label" >
 						<c:choose>
-							<c:when test="${memberVo.mem_gndr == 'F'}">
+							<c:when test="${nowLigin.mem_gndr == 'F'}">
 								여자
 							</c:when>
-							<c:when test="${memberVo.mem_gndr == 'M'}">
+							<c:when test="${nowLigin.mem_gndr == 'M'}">
 								남자
 							</c:when>
 						</c:choose>
@@ -77,11 +77,11 @@
 			<th class="th">연령대</th>
 			<th class="th2">
 				<c:choose>
-				<c:when test="${memberVo.mem_age == '0' }">
+				<c:when test="${nowLigin.mem_age == '0' }">
 					<label for="memAge" class="control-label">선택안함</label>
 				</c:when>
-				<c:when test="${memberVo.mem_age != '0' }">
-					<label for="memAge" class="control-label">${memberVo.mem_age}</label>
+				<c:when test="${nowLigin.mem_age != '0' }">
+					<label for="memAge" class="control-label">${nowLigin.mem_age}</label>
 				</c:when>
 				</c:choose>
 			</th>
@@ -90,11 +90,11 @@
 			<th class="th">직장정보</th>
 			<th class="th2">
 				<c:choose>
-				<c:when test="${memberVo.job_nm == null }">
+				<c:when test="${nowLigin.job_nm == null }">
 					<label for="memJob" class="control-label">선택안함</label>
 				</c:when>
-				<c:when test="${memberVo.job_nm != null }">
-					<label for="memJob" class="control-label">${memberVo.job_nm}</label>
+				<c:when test="${nowLigin.job_nm != null }">
+					<label for="memJob" class="control-label">${nowLigin.job_nm}</label>
 				</c:when>
 			</c:choose>
 			</th>
@@ -105,7 +105,8 @@
 	<div class="form-group" style="margin-top: 30px;">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<input type="hidden" name="mem_email" value="${memberVo.mem_email}">
+				<input type="hidden" name="mem_email" value="${nowLigin.mem_email}">
+				<input type="hidden" name="mem_email" value="${nowLigin.mem_nm}">
      			<button type="submit" class="btn" style="background-color: white;">수정</button>
 			</div>
 		</div>
