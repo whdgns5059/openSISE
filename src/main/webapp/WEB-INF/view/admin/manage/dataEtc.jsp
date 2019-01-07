@@ -116,8 +116,17 @@ label{
 <script type="text/javascript">
 	$(document).ready(function(){
 
+		$(".dataEtcB").click(function(){
+			if($(".dataEtcFile").val()==""){
+				alert("파일을 선택해주세요");
+			}
+		});
+		
+		var insti_nm="";
+		
 		$("#insti_nm").on("change",function(){
 			var iattr_insti = $("#insti_nm option:selected").val();
+			insti_nm = $("#insti_nm option:selected").text();
 // 			alert("시설ID:"+iattr_insti)
 		$(".here").val(iattr_insti);
 // 		alert("here값 : " +$(".here").val());
@@ -125,13 +134,24 @@ label{
 		});
 		
 		$("#tbody tr").on("click",function(){
-			 $( this ).css( "background-color", "#f4f4f4" ); 
-			 $( this).children("td").css( "cursor", "pointer" ); 
-			 $(this).siblings().css("background-color", "white");
-			var tr = $(this);
-			var td = $(this).children()[2].textContent;
-// 			alert(td.text());
-			$("#iattr_pare").val(td);
+			if($( this ).css( "background-color") != "rgb(244, 244, 244)"){
+				 $( this ).css( "background-color", "#f4f4f4" ); 
+				 $( this).children("td").css( "cursor", "pointer" ); 
+				 $(this).siblings().css("background-color", "white");
+				var tr = $(this);
+				var td = $(this).children()[2].textContent;
+//	 			alert(td);
+				$("#iattr_pare").val(td);
+			}else{
+				$( this ).css( "background-color", "#ffffff" ); 
+				 $( this).children("td").css( "cursor", "pointer" ); 
+				 $(this).siblings().css("background-color", "white");
+				var tr = $(this);
+				var td = $(this).children()[2].textContent;
+//	 			alert(td);
+				$("#iattr_pare").val("");
+			}
+			
 			
 		});
 		
@@ -196,7 +216,7 @@ label{
 			<tr>
 				<td>인구통계&nbsp:</td>
 				<td><a target="_blank" href="http://www.daejeon.go.kr/sta/StaStatisticsFldList.do?menuSeq=180&colmn1Cont=C0201&colmn2Cont=C020101">대전인구통계 홈페이지</a></td>
-				<td><input type="file" name="etcData" /></td>
+				<td class="dataEtcFile"><input type="file" name="etcData" /></td>
 				<td><input type="submit" value="DB 저장" class="dataEtcB"/></td>
 			</tr>
 		</table>
@@ -221,7 +241,7 @@ label{
 			<tr>
 				<td>물가정보&nbsp:</td>
 				<td><a target="_blank" href="http://www.daejeon.go.kr/drh/board/boardNormalList.do?boardId=normal_1009&menuSeq=3306">대전물가정보 홈페이지</a></td>
-				<td><input type="file" name="marketData" /></td>
+				<td class="dataEtcFile"><input type="file" name="marketData" /></td>
 				<td><input type="submit" value="DB 저장" class="dataEtcB"/></td>
 			</tr>
 		</table>
@@ -283,6 +303,8 @@ label{
 											<c:when test="${instiAttrList[status.index].groupno == instiAttrList[status.index-1].groupno}">
 												<c:if test="${instiAttrList[status.index].groupno == instiAttrList[status.index+1].groupno}">
 													<td>${instiAttr_List.iattr_val}</td>
+													<td style="display: none;">${instiAttr_List.iattr_no }</td>
+													<td style="display: none;">${instiAttr_List.iattr_pare }</td>
 												</c:if>
 												<c:if test="${instiAttrList[status.index].groupno != instiAttrList[status.index+1].groupno}">
 													<td>${instiAttr_List.iattr_val}</td>
@@ -302,7 +324,14 @@ label{
 					속성명 : &nbsp <input type="text" name="iattr_key" class="inputbox" placeholder="예: 도서관이름">
 					속성값 : &nbsp <input type="text" name="iattr_val" class="inputbox" placeholder="예: 유성도서관">
 					<input type="hidden" id="iattr_pare" value="0" name="iattr_pare"/>
-					<input type="hidden" value="${iattr_insti }" name="iattr_insti"/>
+					<c:choose>
+						<c:when test="${iattr_insti==null }">
+							<input type="hidden" value="0" name="iattr_insti"/>
+						</c:when>
+						<c:when test="${iattr_insti!=null }">
+							<input type="hidden" value="${iattr_insti }" name="iattr_insti"/>
+						</c:when>
+					</c:choose>
 					<button class="dataEtcbtn">입력</button>
 				</div>
 			</div>
