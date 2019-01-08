@@ -82,6 +82,7 @@
 	overflow: scroll;
 	overflow-x: hidden;
 	overflow-y: auto;
+	padding-top: 50px;
 }
 ::-webkit-scrollbar {
 	width: 16px;
@@ -96,9 +97,21 @@
 ::-webkit-scrollbar-thumb:hover {
 	background: #4159a9;
 }
+.urlA {
+    color: #f3af3d;
+    background: #f5f3f0;
+    display: block;
+    width: 29%;
+    margin: 0 auto;
+    padding: 20px 0 15px 47px;
+    font-weight: 100;
+    font-size: 20px;
+    font-family: 'Do Hyeon', sans-serif;
+    position: fixed;
+    float: left;
+}
 .auction {
 	width: 500px;
-	/* height: 170px; */
 	margin: 15px 0;
 	padding: 20px 20px 10px 20px;
 	border: 1px solid #e0e0e0;
@@ -157,118 +170,126 @@
 
 
 </style>
-<link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet">
-<script type="text/javascript" src="/css/boostratp_slider_css_js/js/bootstrap-slider.js"></script>
 <script type="text/javascript">
-	//36.3505393936125,127.38483389033713
-	$(document).ready(function() {
+function settingMap(x,y){
+	var lat;
+	var lng;
+	lat = 36.3505393936125;
+	lng = 127.38483389033713;
+	
+	// 해당 주소를 담을 값
+	var addr;
+
+/*------------ 지도생성 코드 ----------------*/
+	var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+
+	mapOption = {
+		center : new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
+		level : 5 // 지도의 확대 레벨
+	};
+	// 지도를 생성합니다
+	var map = new daum.maps.Map(mapContainer, mapOption); 
+/*------------- 지도 생성 코드 끝 ----------------*/
+ 
+ 	getGeocoder('addr');
+ 	
+// 마우스 오버에 따른 지도 이동
+ 	$('#auctions').on('mouseover','.auction',function(){
+		var addr = this.children[0].value;
+		movingMap(addr);
+	});
+	
+ 	function panTo(y, x) {
+ 	    // 이동할 위도 경도 위치를 생성합니다 
+ 	    var moveLatLon = new daum.maps.LatLng(y, x);
+ 	    
+ 	    // 지도 중심을 부드럽게 이동시킵니다
+ 	    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+ 	    map.panTo(moveLatLon);            
+ 	}
+
+ 	/* 중심좌표 바꾸기 */
+ 	function movingMap(addr){
+ 		
+ 		var geocoder = new daum.maps.services.Geocoder();
+ 		
+ 		// 주소 
+ 		var address = addr;
+ 		//주소로 좌표검색
+ 		geocoder.addressSearch(address, function(result, status) {
+ 		
+ 			// 좌표 검색 성공시
+ 			if (status === daum.maps.services.Status.OK) {
+ 				// 지도 위치 이동
+ 				panTo(result[0].y, result[0].x);
+ 				
+ 			}
+ 		});
+ 	}; 
+// 마우스 오버에 따른 지도 이동 끝
+ 	
+/*------------- 마커 생성 코드 ----------------*/
+	/* geocoder로 좌표 변환 */
+	function getGeocoder(addr){
+		var geocoder = new daum.maps.services.Geocoder();
+		
+		for(var i = 0; i< document.getElementsByClassName(addr).length ; i++){
+			// 주소 
+			var address = document.getElementsByClassName(addr)[i].value;
+			//주소로 좌표검색
+			geocoder.addressSearch(address, function(result, status) {
+	
+				// 좌표 검색 성공시
+				if (status === daum.maps.services.Status.OK) {
+					var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+					
+					//마커이미지 주소
+					var imageSrc = '/img/placePicker.png',
+					imageSize = new daum.maps.Size(34, 50),
+					imageOption = {offset : new daum.maps.Point(27, 80)};
+					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+					
+					// 마커를 생성합니다
+					var marker = new daum.maps.Marker({
+						map : map,
+						position : coords,
+						image: markerImage, // 마커이미지 설정 
+						clickable: true
+					});
+		
+					// 마커가 지도 위에 표시되도록 설정합니다
+					marker.setMap(map);
+				}
+			});
+		}
+	};
+/*--------------마커 생성 코드 끝--------------*/
+};
+
+
+
+/* 경매 리스트 출력하는 메서드 */
+function aucListAjax(){
+ 	
+	$.ajax({
+		type : "GET",
+		url : "/auction/aucListAjax",
+		success : function(data){
+			$("#auctions").html(data);
+			
+			/* 지도를 뿌리고, 마커를 표시 */
+			settingMap(0,0);
+		}
+	});
+};
+
+
+$(document).ready(function() {
 		
 		// 경매 리스트 뿌리기
 		aucListAjax();
-		/* settingMap(0.0); */
 		
-		function settingMap(x,y){
-			var lat;
-			var lng;
-			lat = 36.3505393936125;
-			lng = 127.38483389033713;
-			
-			// 해당 주소를 담을 값
-			var addr;
-
-			/*------------ 지도생성 코드 ----------------*/
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			mapOption = {
-				center : new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
-				level : 3
-			// 지도의 확대 레벨
-			};
-			var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-			/*------------- 지도 생성 코드 끝 ----------------*/
-
-			/*------------- 마커 생성 코드 ----------------*/
-
-			/* var positions = setLatlngArr(); */
-
-			//마커가 표시될 위치입니다 
-			var markerPosition = new daum.maps.LatLng(lat, lng);
-			var marker;
-			for(var i =0; i<positions.length; i++){
-				//마커를 생성합니다
-					marker = new daum.maps.Marker({
-					position : positions[i]
-				});
-				//마커가 지도 위에 표시되도록 설정합니다
-				marker.setMap(map);
-			}
-			/*--------------마커 생성 코드 끝--------------*/
-			
-			//toLocal 클릭시 좌표읽어서 이동
-			$('.toLocal').on('click',function(){
-				console.log("클림됨");
-				var geocoder = new daum.maps.services.Geocoder();
-
-				var center = map.getCenter();
-
-				var coord = new daum.maps.LatLng(center.getLat(), center.getLng());
-				var callback = function(result, status) {
-					if (status === daum.maps.services.Status.OK) {
-						
-						var gu = result[0].address.region_2depth_name;
-						var dong = result[0].address.region_3depth_name;
-
-
-						location.href="/local/local?gu="+gu+"&dong="+dong;
-						
-					}
-				};
-
-				geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-			});
-			
-		}
-
-		/* geocoder로 좌표 변환 */
-		var geocoder = new daum.maps.services.Geocoder();
-
-		var addr = document.getElementById('addr').value;
-		//주소로 좌표검색
-		geocoder.addressSearch(addr, function(result, status) {
-
-			//TODO : 주소로 좌표 검색...
-			if (status === daum.maps.services.Status.OK) {
-
-				var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-				var marker = new daum.maps.Marker({
-					map : map,
-					position : coords
-				});
-
-				map.setCenter(coords);
-
-			}
-
-		});
-		/*     */
-		
-		
-	});
-	
-	function aucListAjax(){
-	 	
-		$.ajax({
-			type : "GET",
-			url : "/auction/aucListAjax",
-			success : function(data){
-				console.log("여기");
-				$("#auctions").html(data);
-				/* settingMap(0,0); */
-			}
-		});
-	}
-	
-	
+});
 </script>
 
 
@@ -285,11 +306,8 @@
 
 <!-- right contents -->
 <div class="main-right">
-	<!-- 매물리스트 들어가는 자리 -->
+	<a href="https://www.courtauction.go.kr/" class="urlA">법원 경매 사이트로 이동</a>
 	
-	<div id="lngLat">
-		<input type="hidden" id="listSize" value="${buildingSaleListSize}" />
-	</div>
 <!-- 경매 리스트  -->
 	<div id="auctions">
 		
