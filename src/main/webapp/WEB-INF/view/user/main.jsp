@@ -723,6 +723,22 @@
 	<input type="hidden" id ="lngY" value="${buildingSaleList[0].artcl_lng}">
 	<!-- 검색 조건 -->
 	<div class="search-filt">
+		<div id="cameraDiv">
+			<form action="/main/searchCam" method="post" id="cam_form" enctype="multipart/form-data">
+				<img  src="../img/pictures.png" id="camera" />
+				<input type="hidden" id="search_cam" name="search_cam" />
+				<input type="hidden" id="cam_buildings" name="building" value="${building}">
+				<input type="hidden" id="cam_dl_ty" name="dl_ty" value ="${dlType}"> 
+				<input type="hidden" id="cam_dl_excv_area" name="dl_excv_area"> 
+				<input type="hidden" id="cam_artcl_const_y" name="artcl_const_y"> 
+				<input type="hidden" id="cam_dl_price1" name="dl_price1"/>
+				<input type="hidden" id="cam_dl_price2" name="dl_price2"/>
+				<input type="hidden" id="cam_dl_rnt1" name="dl_rnt1"/>
+				<input type="hidden" id="cam_dl_rnt2" name="dl_rnt2"/> 
+				
+				<input type="hidden" id="cam_submit" class="btn search_cam" value="사진검색"/>
+			</form>
+		</div>
 		<!-- 검색어 -->
 		<div class="search">
 			<input type="hidden" id="dl_type" name="dl_type" value="${dlType}"> 
@@ -743,22 +759,6 @@
 		<!-- 필터 -->
 		<div class="filters-div">
 			<ul class="nav nav-tabs">
-				<li id="cameraDiv">
-					<form action="/main/searchCam" method="post" id="cam_form" enctype="multipart/form-data">
-						<img  src="../img/pictures.png" id="camera" />
-						<input type="hidden" id="search_cam" name="search_cam" />
-						<input type="hidden" id="cam_buildings" name="building" value="${building}">
-						<input type="hidden" id="cam_dl_ty" name="dl_ty" value ="${dlType}"> 
-						<input type="hidden" id="cam_dl_excv_area" name="dl_excv_area"> 
-						<input type="hidden" id="cam_artcl_const_y" name="artcl_const_y"> 
-						<input type="hidden" id="cam_dl_price1" name="dl_price1"/>
-						<input type="hidden" id="cam_dl_price2" name="dl_price2"/>
-						<input type="hidden" id="cam_dl_rnt1" name="dl_rnt1"/>
-						<input type="hidden" id="cam_dl_rnt2" name="dl_rnt2"/> 
-						
-						<input type="hidden" id="cam_submit" class="btn search_cam" value="사진검색"/>
-					</form>
-				</li>
 				<c:if test="${building == 'house'}">
 					<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="houseType">주거형태</a>

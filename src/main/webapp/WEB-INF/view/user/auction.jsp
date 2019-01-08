@@ -107,7 +107,7 @@
     font-weight: 100;
     font-size: 20px;
     font-family: 'Do Hyeon', sans-serif;
-    position: fixed;
+    position: absolute;
     float: left;
 }
 .auction {
@@ -164,7 +164,7 @@
 	height: 100px;
 }
 
-#mapWrap {width:100%; height:95%; position: relative;}
+#mapWrap {width:100%; height:100%; position: relative;}
 #map {width:100%; height:100%;}
 .toLocal {position: absolute; top: 740px; left: 1150px; z-index: 10; width:150px; height: 150px;}
 
