@@ -304,7 +304,11 @@ input:disabled {
 
 		//search
 		$("#search").click(function() {
-			$(".searchF").submit();
+			if($("#building").val()=="" || $("#building").val()== null){
+				alert("최소한의  건물 분류는 선택해주세요");
+			}else{
+				$(".searchF").submit();
+			}
 		})
 
 		//bxslider

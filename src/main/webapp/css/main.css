@@ -308,6 +308,7 @@ input[type=range]:focus::-ms-fill-upper {
 	z-index: 1;
 }
 
+
 .toLocal {
     position: absolute;
     top: 640px;
@@ -316,6 +317,20 @@ input[type=range]:focus::-ms-fill-upper {
     width: 280px;
     height: 200px;
     cursor: pointer;
+}
+#noSearchImage{
+	margin-top: 290px;
+}
+
+#glassImg{
+	width: 240px;
+    margin-left: 156px;
+}
+
+#noSearchText{
+	margin-left: 104px;
+    font-size: 16pt;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .search_cam {

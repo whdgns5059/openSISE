@@ -55,8 +55,9 @@
 				<input type="hidden" id="artcl_dong" name ="artcle_dong" value="${selectArticleVo.artcl_dong }"/>
 				<input type="hidden" id="artcl_zip" name ="artcle_zip" value="${selectArticleVo.artcl_zip }"/>
 				<input type="hidden" id="artcl_rd" name ="artcle_rd" value="${selectArticleVo.artcl_rd }"/>
-				<input type="hidden" id="loc" name="searchName" value="${selectArticleVo.artcl_dong}"/>
-				<input type="hidden" id="dl_ty" name ="dl_ty" value="${dl_ty}"/>
+				<input type="hidden" id="loc" name="searchName" value="${articleVo.searchName}"/>
+				<input type="hidden" id="dl_ty" name ="dl_ty" value="${articleVo.dl_ty}"/>
+				<input type="hidden" id="buildingss" name ="building" value="${articleVo.building}"/>
 				
 				<h1>${selectArticleVo.artcl_complx }</h1>  
 				<a href="#">거리뷰 보기</a><br/> 

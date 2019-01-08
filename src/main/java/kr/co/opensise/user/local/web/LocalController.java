@@ -36,6 +36,11 @@ public class LocalController {
 		model.addAttribute("gu", filterVo.getGu());
 		model.addAttribute("dong",filterVo.getDong());
 		model.addAttribute("filterVo",filterVo);
+		
+		logger.info("filterVo :" + filterVo.getBuilding());
+		logger.info("filterVo :" + filterVo.getSearchName());
+		logger.info("filterVo :" + filterVo.getDl_ty());
+		
 		return "local";
 	}
 	

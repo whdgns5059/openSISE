@@ -96,6 +96,11 @@ public class DetailController {
 		model.addAttribute("dlType", "매매");
 		model.addAttribute("articleVo", articleVo);
 		
+		Logger logger = LoggerFactory.getLogger(DetailController.class);
+		logger.info("buildings : " + articleVo.getBuilding());
+		logger.info("searchName : " + articleVo.getSearchName());
+		logger.info("dl_ty : " + articleVo.getArtcl_dl_ty());
+		
 		return "detail";
 	}
 	

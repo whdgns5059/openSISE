@@ -61,7 +61,10 @@
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
-			검색 결과가 없습니다.(돋보기 그림 추가 + 글씨크기 키우고 색은 옅은 회색)
+			<div id="noSearchImage">
+				<img src="../../img/magnifying_glass.png" id="glassImg"> <br>
+				<span id="noSearchText">해당 매물의 검색결과가 존재하지 않습니다</span>
+			</div>
 		</c:otherwise>
 		</c:choose>
 	</div>
