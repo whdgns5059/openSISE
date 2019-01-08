@@ -190,7 +190,6 @@ body {
     line-height: 116px;
     font-family: 'Noto Sans KR', sans-serif;
     margin-left: 33px;
-    cursor: pointer;
 }
 .bc-select li{
 	float: left;
@@ -198,6 +197,7 @@ body {
 	color: #ffffffc7;
 	border-radius: 5px;
 	font-size: 1.2em;
+    cursor: pointer;
 }
 .bc-select li:hover{
 	color: white;

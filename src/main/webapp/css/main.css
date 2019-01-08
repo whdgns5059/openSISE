@@ -25,6 +25,7 @@
 	padding: 0;
 	border: none;
 	border-bottom: 2px solid #4159a9;
+	border-left: 2px solid #4159a9;
 }
 
 .search-box::placeholder {
@@ -155,10 +156,9 @@
 }
 
 #cameraDiv {
-    width: 35px;
-    height: 30px;
+    height: 37px;
     float: left;
-    margin: 16px 0 0 12px;
+    margin: 10px 0 0 12px;
 }
 
 .divHeight {
@@ -334,7 +334,11 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .search_cam {
-	width: 100px;
+    width: 84px;
+    height: 36px;
+    padding: 2px;
+    background: white;
+    font-weight: 300;
 }
 
 #category {
