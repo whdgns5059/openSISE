@@ -761,4 +761,5 @@ public class DataEtcController {
 		
 		return "admin/manage/dataEtcAjax/dataEtcAjax";
 	}
+	// 브랜치 테스트
 }
