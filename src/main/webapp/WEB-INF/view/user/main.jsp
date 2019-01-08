@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <link href="/css/main.css" rel="stylesheet" />
 <link href="/css/boostratp_slider_css_js/css/bootstrap-slider.css" rel="stylesheet" />
@@ -58,26 +59,44 @@
 			var priceRange = $("#slider-price").val();
 			$("#dl_price1").val(priceRange[0]);
 			$("#dl_price2").val(priceRange[1]);
-			if(priceRange[0] >= 10000){
-				$(this).slider("option","step", "10000");
-			}
-			if(priceRange[1] == 300000 ){
-				$("#dlPrice").val(priceRange[0] + "만원  ~ 무제한 ");
+			
+			if(priceRange[0] < 10000 && priceRange[1] <10000){
+				if(priceRange[1] == 300000 ){
+	 				$("#dlPrice").val(priceRange[0] + "만원  ~ 무제한 ");
+	 			}else{	
+					$("#dlPrice").val(priceRange[0] + "만원  ~ " + priceRange[1] + "만원");
+				}
+			}else if(priceRange[0] < 10000 && priceRange[1] >= 10000){
+				if(priceRange[1] == 300000 ){
+	 				$("#dlPrice").val(priceRange[0] + "만원  ~ 무제한 ");
+	 			}else{	
+					$("#dlPrice").val(priceRange[0] + "만원  ~ " + priceRange[1] + "억");
+				}
 			}else{
-				if(priceRange[0] < 10000){
-					if(priceRange[1] < 10000){
-						$("#dlPrice").val(priceRange[0] + "만원  ~ " + priceRange[1] + "만원");
-					}else{
-						$("#dlPrice").val(priceRange[0] + "만원  ~ " + priceRange[1] + "억");
-					}
-				}else{
-					if(priceRange[1] < 10000){
-						$("#dlPrice").val(priceRange[0] + "억  ~ " + priceRange[1] + "만원");
-					}else{
-						$("#dlPrice").val(priceRange[0] + "억 ~ " + priceRange[1] + "억");
-					}
+				if(priceRange[1] == 300000 ){
+	 				$("#dlPrice").val(priceRange[0] + "억  ~ 무제한 ");
+	 			}else{	
+					$("#dlPrice").val(priceRange[0] + "억  ~ " + priceRange[1] + "억");
 				}
 			}
+			
+// 			if(priceRange[1] == 300000 ){
+// 				$("#dlPrice").val(priceRange[0] + "만원  ~ 무제한 ");
+// 			}else{
+// 				if(priceRange[0] < 10000){
+// 					if(priceRange[1] < 10000){
+// 						$("#dlPrice").val(priceRange[0] + "만원  ~ " + priceRange[1] + "만원");
+// 					}else{
+// 						$("#dlPrice").val(priceRange[0] + "만원  ~ " + priceRange[1] + "억");
+// 					}
+// 				}else{
+// 					if(priceRange[1] < 10000){
+// 						$("#dlPrice").val(priceRange[0] + "억  ~ " + priceRange[1] + "만원");
+// 					}else{
+// 						$("#dlPrice").val(priceRange[0] + "억 ~ " + priceRange[1] + "억");
+// 					}
+// 				}
+// 			}
 		});
 		
 		//월세일때의 가격 변화

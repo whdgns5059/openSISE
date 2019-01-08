@@ -68,8 +68,14 @@
 				var artcl_rd = $("#artcl_rd").val();
 				var artcl_zip = $("#artcl_zip").val();
 				var dl_ty = $("#dl_ty").val();
+				var searchName = $("#loc").val();
+				var building = $("#buildingss").val();
+				
+				console.log(building);
+				console.log(searchName);
+				console.log(dl_ty);
 
-				location.href="/local/local?gu="+gu+"&dong="+dong;
+				location.href="/local/local?gu="+gu+"&dong="+dong+"&searchName="+searchName+"&dl_ty="+ dl_ty+"&building="+building;
 				
 			}
 		};
