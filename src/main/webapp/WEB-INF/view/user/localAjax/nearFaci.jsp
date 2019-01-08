@@ -131,7 +131,7 @@ ul{
 	// 키워드 검색을 요청하는 함수입니다
 	function searchPlacest(keyword) {
 		if(keyword == 'other'){
-			$("#searchFaci").attr("type","text");
+// 			$("#searchFaci").attr("type","text");
 			finalKeyword = "대전  ${dong} " + $("#searchFaci").val();
 		}else{
 			finalKeyword = "대전광역시 ${dong} "+ " "+ keyword;	

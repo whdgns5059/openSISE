@@ -288,6 +288,20 @@ input[type=range]:focus::-ms-fill-upper {
 
 .search_cam {width: 100px;}
 
+#noSearchImage{
+	margin-top: 290px;
+}
+
+#glassImg{
+	width: 240px;
+    margin-left: 156px;
+}
+
+#noSearchText{
+	margin-left: 104px;
+    font-size: 16pt;
+    font-family: 'Noto Sans KR', sans-serif;
+}
 
 #category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
 #category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
