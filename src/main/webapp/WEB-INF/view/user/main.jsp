@@ -390,9 +390,10 @@
 						
 						var gu = result[0].address.region_2depth_name;
 						var dong = result[0].address.region_3depth_name;
-
-
-						location.href="/local/local?gu="+gu+"&dong="+dong;
+						var searchName = $("#loc").val();
+						var dl_ty = $("#dl_ty").val();
+						var building = $("#buildings").val();
+						location.href="/local/local?gu="+gu+"&dong="+dong+"&searchName="+searchName+"&dl_ty="+ dl_ty+"&building="+building;
 						
 					}
 				};
@@ -959,7 +960,9 @@
 		<input type="hidden" id="artcl_dong" name="artcl_dong">
 		<input type="hidden" id="artcl_zip" name="artcl_zip">
 		<input type="hidden" id="artcl_rd" name="artcl_rd">
-		<input type="hidden" id="ty" name="dl_ty" value ="${dlType}">
+		<input type="hidden" id="artcl_bc" name="building" value="${building}">
+		<input type="hidden" id="ty" name="dl_ty" value ="매매">
+		<input type="hidden" name="searchName" id="sear" value="${searchName}" > 
 	</form>
 		<c:choose>
 			<c:when test="${buildingSaleListSize != 0}">

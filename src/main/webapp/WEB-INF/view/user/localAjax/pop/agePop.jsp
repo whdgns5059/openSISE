@@ -306,8 +306,9 @@ $(document).ready(function(){
 		<!-- <span class="subTitle"> 연령별 인구 비율 그래프</span> -->
 			<p>년도&nbsp:&nbsp
 		<select id="selBox"  class="selectDate">
-			<option value="2017">2017년</option>
-			<option value="2018">2018년</option>
+			<c:forEach items="${hsDate}" var="hs">
+				<option value="${hs.hs_date}">${hs.hs_dat}</option>
+			</c:forEach>
 		</select>
 	</p>
 		<div id="ageCircle" style="height: 800px;"></div>

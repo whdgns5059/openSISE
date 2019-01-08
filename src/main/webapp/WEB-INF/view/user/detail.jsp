@@ -12,6 +12,7 @@
 <div id="mask"></div>	
 <div class="row">
 	<div id="mapWrap">
+		<img alt="뒤로가기" src="../../img/back.png" id="image">
 		<!-- 지도-->
 		<div id="map"></div>
 		<!-- 지도 오버레이(지역분석으로 이동) -->
@@ -50,12 +51,12 @@
 			<div>
 				<%-- 매물 디테일 정보 --%>
 				<input type="hidden" id="mem_no" value="${nowLogin.mem_no }"/>
-				<input type="hidden" id="artcl_gu" value="${selectArticleVo.artcl_gu }"/>
-				<input type="hidden" id="artcl_dong" value="${selectArticleVo.artcl_dong }"/>
-				<input type="hidden" id="artcl_zip" value="${selectArticleVo.artcl_zip }"/>
-				<input type="hidden" id="artcl_rd" value="${selectArticleVo.artcl_rd }"/>
-				<input type="hidden" id="loc" value="${selectArticleVo.artcl_dong}"/>
-				<input type="hidden" id="dl_ty" value="${dl_ty}"/>
+				<input type="hidden" id="artcl_gu" name ="artcle_gu" value="${selectArticleVo.artcl_gu }"/>
+				<input type="hidden" id="artcl_dong" name ="artcle_dong" value="${selectArticleVo.artcl_dong }"/>
+				<input type="hidden" id="artcl_zip" name ="artcle_zip" value="${selectArticleVo.artcl_zip }"/>
+				<input type="hidden" id="artcl_rd" name ="artcle_rd" value="${selectArticleVo.artcl_rd }"/>
+				<input type="hidden" id="loc" name="searchName" value="${selectArticleVo.artcl_dong}"/>
+				<input type="hidden" id="dl_ty" name ="dl_ty" value="${dl_ty}"/>
 				
 				<h1>${selectArticleVo.artcl_complx }</h1>  
 				<a href="#">거리뷰 보기</a><br/> 
@@ -225,7 +226,17 @@
 		</div>
 
 	</div>
+	<form action="/main/main" id="frmt">
+		<input type="hidden" name="searchName" value="${articleVo.searchName}">
+		<input type="hidden" name="building" value="${articleVo.building}">
+		<input type="hidden" name="dl_ty" value="${articleVo.dl_ty}">
+	</form>
 </div>
-
+<script>
+//이미지 클릭 시 이전 페이지로 이동
+$("#image").on("click",function(){
+	$("#frmt").submit();
+});
+</script>
 
 <script src="/js/detail.js"></script>

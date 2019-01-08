@@ -8,6 +8,8 @@ public class FilterVo {
 	private String dl_flr;		 // 층수
 	private String searchName;   //검색어
 	private String building;     //건물형태
+	private String gu;
+	private String dong;
 	private Integer dl_price1;
 	private Integer dl_price2;
 	private Integer dl_depos1;
@@ -93,6 +95,18 @@ public class FilterVo {
 	}
 	public void setDl_rnt2(Integer dl_rnt2) {
 		this.dl_rnt2 = dl_rnt2;
+	}
+	public String getGu() {
+		return gu;
+	}
+	public void setGu(String gu) {
+		this.gu = gu;
+	}
+	public String getDong() {
+		return dong;
+	}
+	public void setDong(String dong) {
+		this.dong = dong;
 	}
 	
 	

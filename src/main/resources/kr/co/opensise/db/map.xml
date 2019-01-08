@@ -12,11 +12,11 @@
 		from (
 	        select * from article  
 	        where artcl_bc = #{building} 
-	        <if test="searchName == null">
-	        and artcl_lat between (36.3505393936125-0.00000000001) and (36.3505393936125+0.00000000001)
-	        and artcl_lng between (127.38483389033713-0.00000000001) and (127.38483389033713+0.00000000001)
+	        <if test="searchName == ''">
+	        and artcl_lat between (36.3505393936125-0.008) and (36.3505393936125+0.008)
+	        and artcl_lng between (127.38483389033713-0.008) and (127.38483389033713+0.008)
 	        </if>
-	        <if test="searchName != null">
+	        <if test="searchName != ''">
 	        and artcl_dong = #{searchName} 
 	        or artcl_gu = #{searchName}  
 	        or artcl_complx like #{searchName} || '%' 
@@ -38,11 +38,11 @@
 		from (
 	        select * from article  
 	        where artcl_bc in ('single', 'multi', 'multip')
-	       <if test="searchName == null">
+	       <if test="searchName == ''">
 	        and artcl_lat between (36.3505393936125-0.08) and (36.3505393936125+0.08)
 	        and artcl_lng between (127.38483389033713-0.08) and (127.38483389033713-0.08)
 	        </if>
-	        <if test="searchName != null">
+	        <if test="searchName != ''">
 	        and artcl_dong = #{searchName} 
 	        or artcl_gu = #{searchName}  
 	        or artcl_complx like #{searchName} || '%' 
@@ -68,11 +68,11 @@
 	        <if test="artcl_const_y != null and artcl_const_y != '' and artcl_const_y != 'all' "> 
 				and artcl_const_y <![CDATA[ >= ]]> to_char(extract(year from sysdate)- #{artcl_const_y})
 			</if>
-	        <if test="searchName == null">
+	        <if test="searchName == ''">
 	        and artcl_lat between (36.3505393936125-0.08) and (36.3505393936125+0.08)
 	        and artcl_lng between (127.38483389033713-0.08) and (127.38483389033713-0.08)
 	        </if>
-	        <if test="searchName != null">
+	        <if test="searchName != ''">
 	        and artcl_dong = #{searchName} 
 	        or artcl_gu = #{searchName}  
 	        or artcl_complx like #{searchName} || '%' 
@@ -148,11 +148,11 @@
 	        <if test="artcl_const_y != null and artcl_const_y != '' and artcl_const_y != 'all' "> 
 				and artcl_const_y <![CDATA[ >= ]]> to_char(extract(year from sysdate)- #{artcl_const_y})
 			</if>
-	        <if test="searchName == null">
+	        <if test="searchName == ''">
 	        and artcl_lat between (36.3505393936125-0.08) and (36.3505393936125+0.08)
 	        and artcl_lng between (127.38483389033713-0.08) and (127.38483389033713-0.08)
 	        </if>
-	        <if test="searchName != null">
+	        <if test="searchName != ''">
 	        and artcl_dong = #{searchName} 
 	        or artcl_gu = #{searchName}  
 	        or artcl_complx like #{searchName} || '%' 

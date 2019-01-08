@@ -5,12 +5,11 @@
 <mapper namespace="local">
 	<!-- 통계 날짜 -->
 	<select id="hsDateSearch" resultType="humanStatisVo">
-		select DISTINCT hs_date
+		select DISTINCT substr(hs_date,0,4) || '년' || substr(hs_date,5) ||'월'  as hs_dat , hs_date
 		from human_statistic
 		where hs_date >= '201706'
 		order by hs_date
 	</select>
-
 
 	<!-- 월별 전체 인구 통계 -->
 	<select id="allHumanStatis" parameterType="String" resultType="humanStatisVo">
@@ -186,21 +185,21 @@
 
 	<select id="ageCircle" parameterType="humanStatisVo" resultType="humanStatisVo">
 		
-		select hs_age_grp, sum(hs_hm_no) as hs_hm_no, substr(hs_date,0,4)
+		select hs_age_grp, sum(hs_hm_no) as hs_hm_no, hs_date
 		from human_statistic
 		where hs_dong like #{dong}||'%'
 		and substr(hs_age_grp,0,1) between '0' and '6'
 		and length(hs_age_grp) <![CDATA[ <= ]]> 6
-        and substr(hs_date,0,4)= #{hs_date}
-		group by hs_age_grp, substr(hs_date,0,4)
+        and hs_date = #{hs_date}
+		group by hs_age_grp, hs_date
 		union
-		select '70세 이상' as hs_age_grp, sum(hs_hm_no) as hs_hm_no, substr(hs_date,0,4)
+		select '70세 이상' as hs_age_grp, sum(hs_hm_no) as hs_hm_no, hs_date
 		from human_statistic
 		where hs_dong like #{dong}||'%'
 		and (substr(hs_age_grp,0,1) between '7' and '9'
 		or hs_age_grp = '100세 이상')
-        and substr(hs_date,0,4)= #{hs_date}
-		group by '70세 이상', substr(hs_date,0,4)
+        and hs_date = #{hs_date}
+		group by '70세 이상', hs_date
 		order by 1
 		
 	</select>

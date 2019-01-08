@@ -19,6 +19,16 @@
 	cursor: pointer;
 }
 
+#image{
+	position: absolute;
+    top: 90px;
+    left: 10px;
+    width: 51px;
+    height: 55px;
+    z-index: 2;
+    margin-left: 19px;
+}
+
 .floatclear {clear:left; clear:right;}
 
 .orangetext {color : #f29c3e; font-weight: bold; font-size: x-large;}

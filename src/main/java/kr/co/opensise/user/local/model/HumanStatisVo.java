@@ -9,6 +9,7 @@ public class HumanStatisVo {
 	private String dong;
 	private String hs_gndrf;
 	private String hs_gndrm;
+	private String hs_dat;
 	
 	
 	public String getHs_dong() {
@@ -58,6 +59,12 @@ public class HumanStatisVo {
 	}
 	public void setHs_gndrm(String hs_gndrm) {
 		this.hs_gndrm = hs_gndrm;
+	}
+	public String getHs_dat() {
+		return hs_dat;
+	}
+	public void setHs_dat(String hs_dat) {
+		this.hs_dat = hs_dat;
 	}
 	
 	

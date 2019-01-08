@@ -75,7 +75,7 @@ public class DetailController {
 		favorVo.setFavor_dong(articleVo.getArtcl_dong());
 		favorVo.setFavor_zip(articleVo.getArtcl_zip());
 		favorVo.setFavor_rd(articleVo.getArtcl_rd());
-		favorVo.setFavor_ty(dl_ty);
+		favorVo.setFavor_ty(articleVo.getDl_ty());
 
 		int favorCount = detailService.selectFavorCount(favorVo);
 		
@@ -94,6 +94,7 @@ public class DetailController {
 		model.addAttribute("favorCount", favorCount);
 		model.addAttribute("building", selectArticleVo.getArtcl_bc());
 		model.addAttribute("dlType", "매매");
+		model.addAttribute("articleVo", articleVo);
 		
 		return "detail";
 	}

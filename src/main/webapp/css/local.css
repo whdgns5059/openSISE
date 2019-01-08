@@ -44,6 +44,17 @@
 	font-size: 53px;  
 	font-family: 'Do Hyeon', sans-serif;
 }
+
+#image{
+	position: absolute;
+    top: 90px;
+    left: 10px;
+    width: 51px;
+    height: 55px;
+    z-index: 2;
+    margin-left: 19px;
+}
+
 .categoryDiv {height :60px;}
 .subTitle {font-size: 30px;}
 #myChart{ width:1200px; height:500px; margin-top: 30px;}

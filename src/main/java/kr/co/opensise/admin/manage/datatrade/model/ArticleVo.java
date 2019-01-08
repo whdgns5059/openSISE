@@ -17,6 +17,9 @@ public class ArticleVo {
 	private String artcl_lat;
 	private String artcl_lng;
 	private String artcl_dl_ty;
+	private String dl_ty;
+	private String searchName;
+	private String building;
 	
 	
 	public String getArtcl_dl_ty() {
@@ -109,6 +112,25 @@ public class ArticleVo {
 	public void setArtcl_lng(String artcl_lng) {
 		this.artcl_lng = artcl_lng;
 	}
+	public String getDl_ty() {
+		return dl_ty;
+	}
+	public void setDl_ty(String dl_ty) {
+		this.dl_ty = dl_ty;
+	}
+	public String getSearchName() {
+		return searchName;
+	}
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
+	public String getBuilding() {
+		return building;
+	}
+	public void setBuilding(String building) {
+		this.building = building;
+	}
+	
 	@Override
 	public String toString() {
 		return "ArticleVo [artcl_gu=" + artcl_gu + ", artcl_dong=" + artcl_dong + ", artcl_zip=" + artcl_zip

@@ -63,6 +63,11 @@
 				
 				var gu = result[0].address.region_2depth_name;
 				var dong = result[0].address.region_3depth_name;
+				var artcl_dong = $("#artcl_dong").val();
+				var artcl_gu = $("#artcl_gu").val();
+				var artcl_rd = $("#artcl_rd").val();
+				var artcl_zip = $("#artcl_zip").val();
+				var dl_ty = $("#dl_ty").val();
 
 				location.href="/local/local?gu="+gu+"&dong="+dong;
 				

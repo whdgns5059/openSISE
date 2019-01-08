@@ -17,6 +17,7 @@ import kr.co.opensise.user.local.model.HumanStatisVo;
 import kr.co.opensise.user.local.model.InstiVo;
 import kr.co.opensise.user.local.model.LocalVo;
 import kr.co.opensise.user.local.service.LocalServiceInf;
+import kr.co.opensise.user.main.model.FilterVo;
 
 @RequestMapping("/local")
 @Controller
@@ -31,9 +32,10 @@ public class LocalController {
 	private MarketServiceInf MarketService;
 	
 	@RequestMapping("/local")
-	public String local(@RequestParam("gu") String gu , @RequestParam("dong") String dong, Model model) {
-		model.addAttribute("gu", gu);
-		model.addAttribute("dong",dong);
+	public String local(FilterVo filterVo, Model model) {
+		model.addAttribute("gu", filterVo.getGu());
+		model.addAttribute("dong",filterVo.getDong());
+		model.addAttribute("filterVo",filterVo);
 		return "local";
 	}
 	
@@ -175,7 +177,7 @@ public class LocalController {
 		logger.info("changeDong : " + changeDong);
 		humanVo.setDong(changeDong);
 		humanVo.setHs_age_grp("0~4세");
-		humanVo.setHs_date("2017");
+		humanVo.setHs_date("201706");
 		
 		//연령 리스트
 		List<HumanStatisVo> ageList = localService.ageList();
@@ -255,34 +257,17 @@ public class LocalController {
 		logger.info("changeDong : " + changeDong);
 		humanVo.setDong(changeDong);
 		
-		//연령 리스트
-//		List<HumanStatisVo> ageList = localService.ageList();
-//		model.addAttribute("ageList", ageList);
-		
-		
-		//연령별 인구 통계
-//		List<HumanStatisVo> ageHumanStatisList = localService.humanAgeStatistic(humanVo);
-//		model.addAttribute("ageHumanStatisList", ageHumanStatisList);
-		
-		//연령별 인구 통계 최댓값
-//		int ageHumanStatisMaxValue = localService.humanAgeStatisMaxValue(humanVo);
-//		model.addAttribute("ageHumanStatisMaxValue", ageHumanStatisMaxValue);
-//		logger.info("ageHumanSatisMaxValue : " + ageHumanStatisMaxValue);
-		
-		//연령별 인구 통계 최솟값
-//		int ageHumanStatisMinValue = localService.humanAgeStatisMinValue(humanVo);
-//		model.addAttribute("ageHumanStatisMinValue", ageHumanStatisMinValue);
-//		logger.info("ageHumanSatisMinValue : " + ageHumanStatisMinValue );
-		
 		//날짜 검색
-//		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
-//		model.addAttribute("hsDate", hsDateSearch);
+		List<HumanStatisVo> hsDateSearch = localService.hsDateSearch();
+		model.addAttribute("hsDate", hsDateSearch);
+		
+		//날짜 분류 검색
+		
+		
 		
 		//연령별 비율 그래프
 		List<HumanStatisVo> ageCircle = localService.ageCircle(humanVo);
 		model.addAttribute("ageCircle", ageCircle);
-		logger.info("ageCircle.size : "+ ageCircle.size());
-		logger.info("ageCricle List : " + ageCircle);
 		
 		model.addAttribute("dong", humanVo.getDong());
 				

@@ -8,6 +8,7 @@
 <div class="row" style="height: 1000px !important">
 	<!-- left contents -->
 	<div id="mapWrap">
+		<img alt="뒤로가기" src="../../img/back.png" id="image">
 		<div id="map"></div>
 		<ul id="category">
 			<li id="BK9" data-order="0"> 
@@ -35,6 +36,7 @@
 				편의점
 			</li>      
 		</ul>
+		
 	</div>
 	<!-- right contents -->
 	<div id="rightContentWrapper">
@@ -42,9 +44,13 @@
 			<div id="localNameDiv">
 				<span id="localNameSpan">${gu } ${dong} 지역 분석</span> 
 				<input type="hidden" id="addr" value="대전광역시 ${gu } ${dong}" />
+				<form action="/main/main" id="frmm">
 				<input type="hidden" id="loc" value="${dong}"/>
-				<input type="hidden" id="gu" value="${gu}"/>
-				<input type="hidden" id="dl_ty" value="매매"/>
+				<input type="hidden" id="gu" name="gu" value="${gu}"/>
+				<input type="hidden" id="dl_ty" name="gu" value="${filterVo.dl_ty}"/>
+				<input type="hidden" id="searchName" name="searchName" value="${filterVo.searchName}"/>
+				<input type="hidden" id="building" name="building" value="${filterVo.building}"/>
+				</form>
 				<hr />
 			</div>
 			<div class="categoryDiv">
@@ -370,4 +376,9 @@
 		});
 
 	}
+	
+	//뒤로가기 이미지 클릭 시 전 화면으로 이동	
+	$("#image").on("click",function(){
+		$("#frmm").submit();
+	});
 </script>
