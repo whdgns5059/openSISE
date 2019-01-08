@@ -308,7 +308,6 @@ input[type=range]:focus::-ms-fill-upper {
 	z-index: 1;
 }
 
-
 .toLocal {
     position: absolute;
     top: 640px;
