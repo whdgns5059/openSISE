@@ -29,33 +29,33 @@ public class InsertAllDataTest extends RootSetup{
 	@Test
 	@Ignore
 	public void insertAllDataTest() throws IOException {
-		
-		/***given***/
-		/*
-		String root = "C:\\Users\\nlbo\\Desktop\\실거래가\\201401";
-		/*/
-		String root = "D:\\A_TeachingMaterial\\7.LastProject\\TradeInfo\\누락";
-		//*/
-		
-		/***when***/
-		List<String> sidoWrongList = new ArrayList<>();
-		sidoWrongList.addAll(insertAllData.insertAllDataTrade(root, sidoWrongList));
-		
-		
-		log.info("******************************");
-		log.info("시도구분이 틀린파일");
-		log.info("******************************");
-		
-		for(String str : sidoWrongList) {
-			log.info("{}", str);
-		}
-	
-		/***then***/
-		log.info("******************************");
-		log.info("끝끝끝");
-		log.info("끝끝끝");
-		log.info("끝끝끝");
-		log.info("******************************");
+//		
+//		/***given***/
+//		/*
+//		String root = "C:\\Users\\nlbo\\Desktop\\실거래가\\201401";
+//		/*/
+//		String root = "D:\\A_TeachingMaterial\\7.LastProject\\TradeInfo\\누락";
+//		//*/
+//		
+//		/***when***/
+//		List<String> sidoWrongList = new ArrayList<>();
+//		sidoWrongList.addAll(insertAllData.insertAllDataTrade(root, sidoWrongList));
+//		
+//		
+//		log.info("******************************");
+//		log.info("시도구분이 틀린파일");
+//		log.info("******************************");
+//		
+//		for(String str : sidoWrongList) {
+//			log.info("{}", str);
+//		}
+//	
+//		/***then***/
+//		log.info("******************************");
+//		log.info("끝끝끝");
+//		log.info("끝끝끝");
+//		log.info("끝끝끝");
+//		log.info("******************************");
 	}
 
 }
