@@ -31,6 +31,7 @@
 			mem_job=#{mem_job},
 			mem_age=#{mem_age}
 		where mem_email = #{mem_email}
+		or mem_nm = #{mem_email}
 	</update >
 	
   	

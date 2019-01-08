@@ -149,6 +149,9 @@ public class LoginController {
 	public String sign_Up(Model model) {
 		List<MemberVo> memberJobLiset = loginService.jobList();
 		model.addAttribute("JobList",memberJobLiset);
+		
+		List<MemberVo> interest = loginService.interestLiset();
+		model.addAttribute("intrstList",interest);
 		return "signup";
 	}
 	
@@ -195,7 +198,7 @@ public class LoginController {
 		List<MemberVo> interest = loginService.interestLiset();
 		model.addAttribute("intrstList",interest);
 
-		return "signupDetail";
+		return "login";
 	}
 	
 	/** Method   : signupDetail 
@@ -262,8 +265,6 @@ public class LoginController {
 				+ "</form>"
 				+ "</html>";
 		
-		
-		
 		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
 
 		// SMTP 서버 정보 설정
@@ -272,7 +273,6 @@ public class LoginController {
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.ssl.enable", "true");
 		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-		
 
 		//Session 생성 
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
@@ -298,15 +298,6 @@ public class LoginController {
 		
 	}
 	
-	@RequestMapping(value="/test")
-	public String test() {
-		Logger logger = LoggerFactory.getLogger(LoginController.class);
-		logger.info("test : 컨트롤러 들어옴" );
-		return "signup";
-	}
-	
-	
-	
 	/** Method   : passWordChange 
 	* 작성자 :  김주연
 	* 변경이력 :  
@@ -322,7 +313,7 @@ public class LoginController {
 			model.addAttribute("JobList",memberJobLiset);
 			return "signup";
 		} else {
-		
+			
 		// 암호화 처리
 		String seedEncrypt = KISA_SEED_CBC.Encrypt(memEmail);
 		
@@ -369,6 +360,8 @@ public class LoginController {
 		mimeMessage.setText(body, "utf-8", "html"); //내용셋팅
 		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
 
+		
+		
 		return "passMailOk";
 	}	
 	}
@@ -411,6 +404,14 @@ public class LoginController {
 			return "passCertification";
 	}
 		
+	}
+	
+	@RequestMapping(value="/testing", method={RequestMethod.POST})
+	public String testing(@RequestParam("mem_nm") String mem_nm) {
+		Logger logger = LoggerFactory.getLogger(LoginController.class);
+		logger.info("들어왔냐 들어왔따");
+		logger.info(mem_nm);
+		return null;
 	}
 	
 }

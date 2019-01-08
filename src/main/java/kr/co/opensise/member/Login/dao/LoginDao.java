@@ -133,6 +133,7 @@ public class LoginDao implements LoginDaoInf{
 	@Override
 	public MemberVo searchUser(String mem_email) {
 		MemberVo member = template.selectOne("member.selectMember", mem_email);
+		System.out.println("member : " + member.getMem_email());
 		return member;
 	}
 	

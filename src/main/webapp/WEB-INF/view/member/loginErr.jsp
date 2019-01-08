@@ -27,6 +27,21 @@
 			return cookieValue;
 		}
 		
+		$(document).ready(function(){
+			$("#modified_N").on("click",function(){
+				$.modal("close");
+			});
+		});
+		
+		//var onloadCallback = function (){
+		//	greCAPTCHA.render('google',{
+		//		'sitekey':'6Lcq0IIUAAAAADmbjoiH0hCkrpV164fgqe8G-H7Y',
+		//		'theme':'light'
+		//	});
+		//};
+		
+		
+		
 	</script>
 	
 	
@@ -102,7 +117,7 @@
 	<!-- 가운데정렬 div -->
 	<div class="contents" align="center" style="margin: 100px;">
 	
-		<form action="/login/openLogin" method="post">
+		<form action="/login/openLogin" method="post" id="frm">
 		<div class="logo">
 			<img src="/img/openSise_login.png"  alt="오픈시세 로그인" title="오픈시세 로그인 " />
 			
@@ -116,6 +131,7 @@
 			<!-- Link to open the modal -->
 			<p style="font-size: 10pt; margin-top: 5px; "><a href="#ex1" rel="modal:open">비밀번호 찾기</a></p>
 				<br/>
+			<!--<div id="google"></div>-->
 			<div class="g-recaptcha" data-sitekey="6Lcq0IIUAAAAADmbjoiH0hCkrpV164fgqe8G-H7Y"></div>
 			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
 			</div>

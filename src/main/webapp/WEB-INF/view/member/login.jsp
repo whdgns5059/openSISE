@@ -122,7 +122,7 @@
 				<br/>
 			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
 			</div>
-			</div>
+		</div>
 		</form>
 		
 		<!-- Modal HTML embedded directly into document -->
