@@ -40,15 +40,18 @@ public class AuctionController {
 			for(AuctionVo aucVo : aucVoList) {
 				if(aucVo.getItemType().equals("중기") || aucVo.getItemType().equals("자동차")) {
 					// 부동산이 아닌 정보에 대해서는 정보를 가져오지 않습니다.
-				}else {
+				}else{
+					String address = aucVo.getAddr().split(",")[0];
+					
 					html.append("<div class='auction'>");
+					html.append("	<input type='hidden' value='" + address + "' class='addr' />");
 					html.append("	<label class='clickDetail h4'>"+ aucVo.getAddr1() +"</label>");
 					html.append("	<label style='float: right;margin-right: 20px;color:#808080;'>"+ aucVo.getItemType() +"</label><br/>");
 					html.append("	<label>"+ aucVo.getAddr() +"</label><br/>");
-					html.append("	<label>매각기일 : "+ aucVo.getAuctionDate() +"</label><br/>");
 					html.append("	<label>"+ aucVo.getAddrInfo() +"</label><br/>");
 					html.append("	<label>최저매각 가격 : "+ aucVo.getValueMin() +"</label>");
 					html.append("	<label style='float: right; margin-right: 20px;'>감정평가액 : "+ aucVo.getValue() +"</label><br/>");
+					html.append("	<label>매각기일 : "+ aucVo.getAuctionDate() +"</label><br/>");
 					html.append("</div>");
 				}
 			}
