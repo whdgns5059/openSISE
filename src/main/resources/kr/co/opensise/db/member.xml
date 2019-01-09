@@ -58,11 +58,11 @@
 		select *  from interest
 	</select>
 	
-	<!-- 관심사정보 등록
+	<!-- 관심사정보 등록 -->
 	<insert id="interestInsert" parameterType="memberVo">
 		INSERT into mem_inter
 		VALUES (#{mem_no}, #{intrst_no})
-	</insert> -->
+	</insert>
 	
 	<!-- 닉네임 중복검사  -->
 	<select id="check_nm" parameterType="String" resultType="int">
@@ -129,6 +129,14 @@
 		SET mem_pass = #{mem_pass}
 		WHERE mem_email = #{mem_email}
 	</update>
+	
+	<!-- 신고요청에따른 신고처리 --> 
+	<update id="declaration" parameterType="memberVo">
+		UPDATE member
+		SET mem_lvl = #{mem_lvl}-1
+		where mem_email = #{mem_email}
+	</update>
+	
 </mapper>
 
 

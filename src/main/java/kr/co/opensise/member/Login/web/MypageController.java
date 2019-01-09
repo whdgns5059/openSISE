@@ -52,12 +52,14 @@ public class MypageController {
 		if(session.getAttribute("nowLigin") != null ) {
 			MemberVo user = (MemberVo) session.getAttribute("nowLogin");
 			logger.info("nowLogin : " + user); 
+			
 			MemberVo member = loginService.searchUser(user.getMem_email());
 			model.addAttribute("memberVo", member);
 			
 		}else if (session.getAttribute("nowLogin") == null) {
 			String user = (String) session.getAttribute("kakaoLogin");
 			logger.info("kakaoLogin + : " + user); 
+			
 			MemberVo member = loginService.searchUser(user);
 			model.addAttribute("memberVo", member);
 		}

@@ -5,9 +5,13 @@
 <mapper namespace="admin">
 	<!-- 회원 리스트 출력 -->
 	<select id="memberList" resultType="managementVo" >
-		select m.mem_no, m.mem_nm, m.mem_email, m.mem_date, m.mem_age, m.mem_exdate, m.mem_gndr, j.job_nm, m.mem_lvl
+		select m.mem_no, m.mem_nm, m.mem_email, m.mem_date, m.mem_age, m.mem_exdate, m.mem_gndr, j.job_nm, m.mem_lvl, z.nm
 		from member m join job j on(m.mem_job = j.job_no)
-		
+		left outer join (select m.mem_no
+            , substr(xmlagg(xmlelement(col,',',i.intrst_nm) order by i.intrst_nm).extract('//text()').getstringval(),2) nm
+		from  mem_inter m, interest i
+		where  m.intrst_no = i.intrst_no
+		group by m.mem_no) z on(m.mem_no = z.mem_no)
 	</select>
 	
 	<!-- 회원리스트 페이징처리 -->
@@ -15,8 +19,13 @@
 		select * from(
 		select rownum rnum ,a.*
 		from
-		(select m.mem_no, m.mem_nm, m.mem_email, m.mem_date, m.mem_age, m.mem_exdate, m.mem_gndr, j.job_nm, m.mem_lvl
+		(select m.mem_no, m.mem_nm, m.mem_email, m.mem_date, m.mem_age, m.mem_exdate, m.mem_gndr, j.job_nm, m.mem_lvl, z.nm
 		from member m join job j on(m.mem_job = j.job_no)
+		left outer join (select m.mem_no
+            , substr(xmlagg(xmlelement(col,',',i.intrst_nm) order by i.intrst_nm).extract('//text()').getstringval(),2) nm
+		from  mem_inter m, interest i
+		where  m.intrst_no = i.intrst_no
+		group by m.mem_no) z on(m.mem_no = z.mem_no)
 		order by mem_nm) a)
 		where rnum between #{page}*#{pageSize}-(#{pageSize}-1) 
         and #{page}*#{pageSize}

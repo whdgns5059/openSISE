@@ -70,6 +70,7 @@
 						}
 					html += "</th>";
 					html += "<th class='hidden'>"+user.mem_lvl+"</th>";
+					html += "<th class='hidden'>"+user.nm+"</th>";
 					html +="</tr>";
 					
 				});
@@ -127,9 +128,9 @@
 			var mem_gndr = this.children[4].innerText;
 			var mem_age = this.children[5].innerText;
 			var job_nm = this.children[6].innerText;
-			//var mem_interest = this.children[6].innerText;
 			var mem_exdate = this.children[7].innerText;
 			var mem_lvl = this.children[8].innerText;
+			var nm = this.children[9].innerText;
 			
 			$("#mem_no").html(mem_no);
 			$("#mem_nm").html(mem_nm);
@@ -140,9 +141,15 @@
 			$("#job_nm").html(job_nm);
 			$("#mem_exdate").html(mem_exdate);
 			$("#mem_lvl").html(mem_lvl);
+			$("#mem_interest").html(nm);
 			
 			//form 실행
 			$(".modal").modal("show");
+		});
+		
+		$("#Declaration").on("click", function() {
+			//form 실행
+			$("#fmm").submit();
 		});
 
 	});
@@ -155,7 +162,9 @@
 	
 	$(document).ready(function(){
 		$("#close").on("click",function(){
-			$.modal("close");
+			$(".modal2").modal("hide");
+// 			location.reload();
+		
 		});
 	});
 	
@@ -165,6 +174,7 @@
 		});
 
 	});
+	
 	
 </script>
 
@@ -190,6 +200,37 @@
 .hidden{
 	display:none;
 }
+
+#Declaration{
+	font-size: 9pt;
+	border-radius: 25px; 
+	border: 2px solid red;
+	background-color: white;
+	font-family: 'Do Hyeon', sans-serif;
+}
+.table2 {
+ 	 margin-top: 30px;
+ 	 background-color: white-space; 
+ 	 border: solid #f3af3d; 
+ 	 width:70%;
+ 	 border-top: 1px solid #eaedef;
+ 	 border-bottom: 1px solid #eaedef;
+ 	 border-right : 1px solid #ffffff;
+ 	 border-left : 1px solid #ffffff;
+ 	 border-collapse: collapse;
+ 	 
+ }
+
+ .th{
+ 	color: #848484;
+ }
+ .bg-danger {
+    background-color: #f3af3d !important;
+}
+.table {
+    width: 100%;
+    border: 1px solid #f3af3d;
+  }
 </style>
 </head>
 
@@ -272,7 +313,10 @@
 					</c:when>
 				</c:choose>
 				</th>
+				
 				<th class="hidden">${page.mem_lvl}</th>
+				
+				<th class="hidden">${page.nm}</th>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -354,69 +398,94 @@
 		</div>
 	
 	<!-- Modal HTML embedded directly into document -->
-			<div id="ex1" class="modal">
-			<form action="/login/mailSender" id="fm" method="post">
+			<div id="ex1" class="modal" align="center" style="margin-top: 5px;">
+			<form action="/login/mailSender" id="fm" method="post"></br>
 			<!-- <input type="hidden" id="memNm" name="memNm"> -->
-				</br><h3 align="center" >회원상세정보</h3></br>
-			  	<div class="form-group">
-					<label for="mem_no" >회원번호</label>
-					<label for="mem_no" class="control-label" id="mem_no"></label>
-				</div>
-				<div class="form-group">
-					<label for="mem_nm" >닉네임</label>
-					<label for="mem_nm" class="control-label" id="mem_nm"></label>
-				</div>
-				<div class="form-group">
-					<label for="mem_email" >Email</label>
-					<label for="mem_email" class="control-label" id="mem_email" ></label>
-				</div>
-				<div class="form-group">
-					<label for="mem_gndr" >성별</label>
-					<label for="mem_gndr" class="control-label" id="mem_gndr"></label>
-				</div>
-				<div class="form-group">
-					<label for="mem_gndr" >연령대</label>
-					<label for="mem_gndr" class="control-label" id="mem_age"></label>
-				</div>
-				<div class="form-group">
-					<label for="job_nm" >직업</label>
-					<label for="job_nm" class="control-label" id="job_nm"></label>
-				</div>
-				<!-- <div class="form-group">
-					<label for="mem_interest" >관심사</label>
-					<label for="mem_interest" class="control-label" id="mem_interest"></label>
-				</div>-->
-				<div class="form-group">
-					<label for="mem_date" >가입날짜</label>
-					<label for="mem_date" class="control-label" id="mem_date"></label>
-				</div>
-				<div class="form-group">
-					<label for="mem_exdate" >탈퇴날짜</label>
-					<label for="mem_exdate" class="control-label" id="mem_exdate"></label>
-				</div>
-				<div class="form-group">
-					<label for="mem_lvl" >신고레벨</label>
-					<label for="mem_lvl" class="control-label" id="mem_lvl"></label>
-				</div>
+				<h3 align="center" style="font-family: 'Do Hyeon', sans-serif;">회원상세정보</h3></br>
+			<table align="center" class="table2" border="1"> 
+				<tbody>
+					<th class="form-group">
+						<label for="mem_no" >회원번호</label>
+						<label for="mem_no" class="th" id="mem_no"></label>
+					</th>
+				</tbody>
+				<tbody>
+					<th class="form-group">
+						<label for="mem_nm" >닉네임</label>
+						<label for="mem_nm" class="th" id="mem_nm"></label>
+					</th>
+				</tbody>
+				<tbody>
+					<th class="form-group">
+						<label for="mem_email" >Email</label>
+						<label for="mem_email" class="th" id="mem_email" ></label>
+					</th>
+				</tbody>
+				<tbody>
+					<th class="form-group">
+						<label for="mem_gndr" >성별</label>
+						<label for="mem_gndr" class="th" id="mem_gndr"></label>
+					</th>
+				</tbody>
+				<tbody>
+					<th class="form-group">
+						<label for="mem_gndr" >연령대</label>
+						<label for="mem_gndr" class="th" id="mem_age"></label>
+					</th>
+				</tbody>
+				<tbody>
+					<th class="form-group">
+						<label for="job_nm" >직업</label>
+						<label for="job_nm" class="th" id="job_nm"></label>
+					</th>
+				</tbody>
+				<tbody>
+					<th class="form-group">
+						<label for="mem_date" >가입날짜</label>
+						<label for="mem_date" class="th" id="mem_date"></label>
+					</th>
+				</tbody>
+				<tbody>
+					<th class="form-group">
+						<label for="mem_exdate" >탈퇴날짜</label>
+						<label for="mem_exdate" class="th" id="mem_exdate"></label>
+					</th>
+				</tbody>
+				<tbody>
+					<th class="form-group">
+						<label for="mem_lvl" >신고레벨</label>
+						<label for="mem_lvl" class="th" id="mem_lvl"></label>
+						<input type="button" id="Declaration" class="btns3" value="신고" />
+					</th>
+				</tbody>
+			</table>
 			  	</br>
 			  	
 			  	  <div  align="center" style="font-family: 'Do Hyeon', sans-serif; ">
 					<input type="button" id="interest" class="btns1" value="관심사보기" />
 					<input type="button" id="pass_y" class="btns2" value="비밀번호 초기화" />
+					
 				  </div>
 				  </form>
 			</div>
+			
+			<!-- 신고버튼 선택시 컨틀러이동 처리 -->
+			<form action="/admin/declaration" id="fmm" method="post">
+				<input type="hidden" id="mem_email" name="mem_email">
+			</form>
 			
 			
 			<div id="ex" class="modal2">
 			<form action="/login/mailSender" id="fm" method="post">
 			<!-- <input type="hidden" id="memNm" name="memNm"> -->
 				</br><h3 align="center" >관심사보기</h3></br>
-				<!-- <div class="form-group">
-					<label for="mem_interest" >관심사</label>
-					<label for="mem_interest" class="control-label" id="mem_interest"></label>
-				</div>-->
-			  	</br>
+			  	<table>
+			  		<tbody>
+						<th class="form-group">
+							<label for="mem_interest" class="control-label" id="mem_interest"></label>
+						</th>
+					</tbody>
+				</table>
 			  	
 			  	  <div  align="center" style="font-family: 'Do Hyeon', sans-serif; ">
 					<input type="button" id="close" class="close_btn" value="닫기" />
@@ -428,7 +497,4 @@
 			
 	
 </div>
-
-
-
 </html>
