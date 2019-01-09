@@ -382,8 +382,10 @@ $(document).ready(function(){
 		<div id="myTabContent" class="tab-content tab-content-size">
 			<div class="tab-pane fade show active" id="visitDate">
 				<p>
-					방문자가 가장 많았던 날 &nbsp : &nbsp ${maxCnt.ymd} <br/>
-					방문자 수 &nbsp : &nbsp ${maxCnt.counts}
+					방문자가 가장 많았던 날 &nbsp : &nbsp ${maxCnt.ymd}
+					&nbsp ${maxCnt.counts}명 </br>
+					누적 방문 수 &nbsp:&nbsp ${visitorCnt}
+					
 				</p>
 				<div id="visitDateG"></div>
 			</div>

@@ -118,6 +118,12 @@ public class StatisDao implements StatisDaoInf {
 	}
 	
 	@Override
+	public int allVisitor() {
+		int visitorCnt = template.selectOne("admin_statis.allVisitor");
+		return visitorCnt;
+	}
+	
+	@Override
 	public List<VisitorVo> visitDate() {
 		List<VisitorVo> visitVo = template.selectList("admin_statis.visitDate");
 		return visitVo;
@@ -176,8 +182,7 @@ public class StatisDao implements StatisDaoInf {
 	
 
 	
-	
-	
+
 	
 	
 	

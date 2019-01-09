@@ -167,6 +167,11 @@
 		WHERE ROWNUM = 1
 	</select>
 	
+	<!-- 누적 방문자 수 -->
+	<select id="allVisitor" resultType="int">
+		Select Count(vstr_date) From visitor
+	</select>
+	
 	<!-- 날짜별 방문 수 -->
 	<select id="visitDate" resultType="visitVo">
 		Select count(vstr_date) as counts , (Select Round(date_to_unix_ts(a.ymd)) From dual) as ymd

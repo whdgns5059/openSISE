@@ -123,6 +123,11 @@ public class StatisService implements StatisServiceInf {
 	}
 	
 	@Override
+	public int allVisitor() {
+		return statisDao.allVisitor();
+	}
+	
+	@Override
 	public List<VisitorVo> visitDate() {
 		return statisDao.visitDate();
 	}
@@ -192,6 +197,7 @@ public class StatisService implements StatisServiceInf {
 	public Page_statisticVo pageMax() {
 		return statisDao.pageMax();
 	}
+
 
 	
 
