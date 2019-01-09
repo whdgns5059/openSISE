@@ -29,24 +29,25 @@ h4{
 	height: 28px;
 }
 .rpt_post_no{
-	display: block;
-	border: none;
-	background: white;
-    width: 22px;
+    display: block;
+    border: none;
+    background: white;
+    min-width: 22px;
     height: 28px;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 16px;
-	font-weight: 400;
+    font-weight: 400;
     float: left;
 }
 .rpt_post_noLabel{
-	width: 70px;
+	width: 30px;
     height: 28px;
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 15px;
 	font-weight: 400;
 	line-height: 30px;
 	color: #808080;
+	float: left;
 }
 .selBox{
     width: 122px;
@@ -63,6 +64,7 @@ h4{
 	font-size: 17px;
 	font-weight: 500;
 	color: #808080;
+	margin-left: 5px;
 }
 .btnClass{
 	text-align: center;
@@ -155,8 +157,8 @@ h4{
 	<form action="/detail/reportInsert" method="post" id="rpt_frm">
 		<div class="form-horizontal">
 			<div class="form-group rpt_post">
+				<label for="rpt_post" class="rpt_post_noLabel">no.</label>
 				<input type="text" class="rpt_post_no" id="rpt_post" name="rpt_post" value="${rpt_post }" readonly="readonly"/>
-				<label for="rpt_post" class="rpt_post_noLabel">번 게시글</label>
 				<select id="selBox" class="selBox" >
 					  	<option value="" selected disabled hidden>신고분류</option>
 						<c:forEach items="${rpt_cfList }" var="classf">
