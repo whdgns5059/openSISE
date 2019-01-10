@@ -186,7 +186,7 @@
 	
 	<!-- 요일별/시간별 방문 수 -->
 	<select id="visitDay" resultType="visitVo">
-		SELECT * FROM VW_VISITOR_DY
+		SELECT DY_NO, DY, HR, COUNTS FROM VW_VISITOR_DY
 		<!-- Select count(vstr_date) as counts, a.dy dy
 		From visitor Right Join (
 		    Select to_date('20181206', 'yyyyMMdd')+(level-1) as ymd,
