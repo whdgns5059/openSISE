@@ -120,13 +120,13 @@ public class LoginService implements LoginServiceInf{
 	* @param 
 	* @return  
 	* Method 설명 : 회원가입시 관심사 등록
-	
+	*/
 	@Override
 	public List<MemberVo> interestInsert(MemberVo memberVo) {
 		// TODO Auto-generated method stub
 		return loginDao.interestInsert(memberVo);
 	}
-	*/
+	
 
 	/**  
 	* Method   : searchUser 
@@ -222,6 +222,20 @@ public class LoginService implements LoginServiceInf{
 	* */
 	public int mailFinsh(MemberVo memberVo) {
 		return loginDao.mailFinsh(memberVo);
+	}
+
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  신고요청에따른 신고처리
+	* */
+	@Override
+	public int declaration(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		return loginDao.declaration(memberVo);
 	}
 
 

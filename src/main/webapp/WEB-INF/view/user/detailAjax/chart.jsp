@@ -7,11 +7,6 @@
 		<table>
 			<c:choose>	
 				<c:when test="${dl_ty == '매매' }">
-					<tr>
-						<td>매매금</td>
-						<td>층수</td>
-						<td>거래년월</td>
-					</tr>
 					<c:forEach items="${recentTradeList }" var="tlist" end="2">
 						<tr>
 							<td> <span class="orangetext">${tlist.dl_price } 만원</span> </td>
@@ -21,11 +16,6 @@
 					</c:forEach>
 				</c:when>
 				<c:when test="${dl_ty == '전세' }">
-					<tr>
-						<td>전세금</td>
-						<td>층수</td>
-						<td>거래년월</td>
-					</tr>
 					<c:forEach items="${recentTradeList }" var="tlist" end="2">
 						<tr>
 							<td> <span class="orangetext">${tlist.dl_depos } 만원</span> </td>
@@ -35,12 +25,6 @@
 					</c:forEach>
 				</c:when>
 				<c:when test="${dl_ty == '월세' }">
-					<tr>
-						<td>보증금</td>
-						<td>월세</td>
-						<td>층수</td>
-						<td>거래년월</td>
-					</tr>
 					<c:forEach items="${recentTradeList }" var="tlist" end="2">
 						<tr>
 							<td><span class="orangetext">${tlist.dl_depos} 만원</span> </td>
@@ -104,7 +88,7 @@
 <div>
 	<input type="hidden" name="excv_area" id="excv_area" value="${excv_area }"/>
 	<button class="btn" id="totalDeal">전체 거래 내역</button>
-	<table class="table table-striped">
+	<table class="table table-striped tradeTable">
 		<thead>
 			<c:choose>
 				<c:when test="${dl_ty == '매매'}">
@@ -136,8 +120,8 @@
 				<c:when test="${dl_ty == '매매'}">
 					<c:forEach items="${dealListByArea }" var="dealList" begin="0" end="6">
 						<tr>
-							<td width="250px">${dealList.dl_cont_ym }월  ${dealList.dl_cont_d }</td>
-							<td width="300px">${dealList.dl_price }</td>
+							<td width="250px">${dealList.dl_cont_ym }  ${dealList.dl_cont_d }</td>
+							<td width="100px">${dealList.dl_price }</td>
 							<td width="100px">${dealList.dl_flr }</td>
 						</tr>
 					</c:forEach>
@@ -145,8 +129,8 @@
 				<c:when test="${dl_ty == '전세'}">
 					<c:forEach items="${dealListByArea }" var="dealList" begin="0" end="6">
 						<tr>
-							<td width="250px">${dealList.dl_cont_ym }월  ${dealList.dl_cont_d }</td>
-							<td width="300px">${dealList.dl_depos }</td>
+							<td width="250px">${dealList.dl_cont_ym }  ${dealList.dl_cont_d }</td>
+							<td width="100px">${dealList.dl_depos }</td>
 							<td width="100px">${dealList.dl_flr }</td>
 						</tr>
 					</c:forEach>
@@ -154,9 +138,9 @@
 				<c:when test="${dl_ty == '월세'}">
 					<c:forEach items="${dealListByArea }" var="dealList" begin="0" end="6">
 						<tr>
-							<td width="250px">${dealList.dl_cont_ym }월  ${dealList.dl_cont_d }</td>
-							<td width="300px">${dealList.dl_depos}</td>
-							<td width="300px">${dealList.dl_rnt}</td>
+							<td width="250px">${dealList.dl_cont_ym }  ${dealList.dl_cont_d }</td>
+							<td width="100px">${dealList.dl_depos}</td>
+							<td width="100px">${dealList.dl_rnt}</td>
 							<td width="100px">${dealList.dl_flr }</td>
 						</tr>
 					</c:forEach>

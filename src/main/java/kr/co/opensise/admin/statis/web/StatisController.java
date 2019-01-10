@@ -1,9 +1,7 @@
 package kr.co.opensise.admin.statis.web;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -136,6 +134,10 @@ public class StatisController {
 		// 방문이 많은 요일 순위별
 		List<VisitorVo> maxVisitDay = statisService.maxVisitDay();
 		model.addAttribute("maxVisitDay", maxVisitDay);
+		
+		// 누적 방문자 수
+		int visitorCnt = statisService.allVisitor();
+		model.addAttribute("visitorCnt", visitorCnt);
 		
 		// 날짜별 방문 수
 		List<VisitorVo> visitDate = statisService.visitDate();

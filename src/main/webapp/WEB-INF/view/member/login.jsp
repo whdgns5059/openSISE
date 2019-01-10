@@ -29,6 +29,11 @@
 			$("#modified_N").on("click",function(){
 				$.modal("close");
 			});
+			
+			var msg = '${msg}';
+			if(msg != ""){
+				alert(msg);
+			}
 		});
 		
 	</script>

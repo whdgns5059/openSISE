@@ -76,9 +76,40 @@ public class DetailService implements DetailServiceInf{
 		
 		//selectRecentTrade : 가장 최근 거래 내역 
 		List<DealVo> recentTradeVo = detailDao.selectRecentTrade(dealVo);
+		for(DealVo dVo : recentTradeVo) {
+			
+			String cont = dVo.getDl_cont_ym();
+			
+			StringBuffer sb = new StringBuffer();
+			
+			sb.append(cont.substring(0, 4));
+			sb.append("년 ");
+			sb.append(cont.substring(4));
+			sb.append("월");
+			
+			dVo.setDl_cont_ym(sb.toString());
+			
+		}
 		
 		//electDealListByArea : 해당 평수의 모든 거래 내역
 		List<DealVo> dealListByArea = detailDao.selectDealListByArea(dealVo);
+		
+		for(DealVo dVo : dealListByArea) {
+			
+			String cont = dVo.getDl_cont_ym();
+			
+			StringBuffer sb = new StringBuffer();
+			
+			sb.append(cont.substring(0, 4));
+			sb.append("년 ");
+			sb.append(cont.substring(4));
+			sb.append("월");
+			
+			dVo.setDl_cont_ym(sb.toString());
+			
+		}
+		
+		
 		
 		//montylyAvf : 월별 평균 거래가
 		List<DealVo> monthlyAvg = detailDao.selectMonthlyAng(dealVo);

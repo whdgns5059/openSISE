@@ -68,12 +68,12 @@ public class MemberDao implements MemberDaoInf{
 	* @return  
 	* Method 설명 :  회원 상세조회
 	*/
-	@Override
-	public ManagementVo selectUser(String mem_email) {
-		ManagementVo member = (ManagementVo)template.selectOne("admin.selectUser", mem_email);
-		return member;
-	}
-	
+//	@Override
+//	public ManagementVo selectUser(String mem_email) {
+//		ManagementVo member = (ManagementVo)template.selectOne("admin.selectUser", mem_email);
+//		return member;
+//	}
+//	
 
 	
 	

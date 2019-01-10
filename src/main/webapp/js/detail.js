@@ -92,10 +92,7 @@ function detailInfoAjax(area){
 	var artcl_zip = document.getElementById('artcl_zip').value;
 	var artcl_rd = document.getElementById('artcl_rd').value;
 	var dl_ty = document.getElementById('dl_ty').value;
-	
-	var brIndex = area.indexOf('<br>')
-	
-	var dl_excv_area = area.substr(0, brIndex);
+	var dl_excv_area = area;
 	
 	var ajaxData = {
 		artcl_gu : artcl_gu,
@@ -227,7 +224,7 @@ function setRadarChart(){
 }
 
 //최초 로딩시 ajax 호출
-var defaultarea = document.getElementsByClassName('areatab')[0].innerHTML;
+var defaultarea = document.getElementsByClassName('selVal')[0].value;
 
 detailInfoAjax(defaultarea);
 setRadarChart();
@@ -239,7 +236,7 @@ setHeart();
 
 $('.area').on('click', '.areatab', function(){
 	
-	var area = this.innerHTML;
+	var area = this.getElementsByClassName('selVal')[0].value
 	detailInfoAjax(area);
 	
 });

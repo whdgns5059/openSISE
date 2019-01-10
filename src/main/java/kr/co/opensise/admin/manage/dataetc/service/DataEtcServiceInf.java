@@ -46,4 +46,6 @@ public interface DataEtcServiceInf {
 	* Method 설명 :기타데이터 시설 삭제
 	*/
 	public int deleteInstiattr(int iattr_no);
+	
+	public int countMarket();
 }

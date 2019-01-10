@@ -240,9 +240,7 @@ public class LoginController {
 	@RequestMapping(value="/duplication2", method={RequestMethod.POST})
 	public String duplication2(Model model,@RequestParam("memNm") String mem_nm,@RequestParam("memEmail") String memEmail, HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
 		MemberVo user = loginService.selectMember(memEmail);
-		if (user == null ) {
-			return "signup";
-		} else {
+		model.addAttribute("msg2",user);
 		
 		// 암호화 처리
 		String seedEncrypt = KISA_SEED_CBC.Encrypt(memEmail);
@@ -291,9 +289,8 @@ public class LoginController {
 		mimeMessage.setSubject(subject); //제목셋팅 
 		mimeMessage.setText(body, "utf-8", "html"); //내용셋팅
 		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
-
+		
 		return "signup";
-	}	
 		
 		
 	}
@@ -311,7 +308,8 @@ public class LoginController {
 		
 		if (user == null ) {
 			model.addAttribute("JobList",memberJobLiset);
-			return "signup";
+			model.addAttribute("msg","정확하지않거나 존재하지 않는 이메일입니다. 재확인 후  진행해주세요");
+			return "login";
 		} else {
 			
 		// 암호화 처리
@@ -406,12 +404,5 @@ public class LoginController {
 		
 	}
 	
-	@RequestMapping(value="/testing", method={RequestMethod.POST})
-	public String testing(@RequestParam("mem_nm") String mem_nm) {
-		Logger logger = LoggerFactory.getLogger(LoginController.class);
-		logger.info("들어왔냐 들어왔따");
-		logger.info(mem_nm);
-		return null;
-	}
 	
 }

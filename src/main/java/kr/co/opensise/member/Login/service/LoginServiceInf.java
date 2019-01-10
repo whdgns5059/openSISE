@@ -90,9 +90,9 @@ public interface LoginServiceInf {
 		* @param 
 		* @return  
 		* Method 설명 :  회원가입시 관심사 등록
-		
-		public List<MemberVo> interestInsert(MemberVo memberVo);
 		*/	
+		public List<MemberVo> interestInsert(MemberVo memberVo);
+		
 		
 		/**  
 		* Method   : searchUser 
@@ -167,4 +167,14 @@ public interface LoginServiceInf {
 		* Method 설명 :  비밀번호 찾기
 		* */
 		public int mailFinsh(MemberVo memberVo);
+		
+		/**  
+		* Method   :  
+		* 작성자 : 김주연 
+		* 변경이력 :  
+		* @param 
+		* @return  
+		* Method 설명 :  신고요청에따른 신고처리
+		* */
+		public int declaration(MemberVo memberVo);
 }

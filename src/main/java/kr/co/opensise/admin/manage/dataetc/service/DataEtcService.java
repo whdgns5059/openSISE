@@ -96,4 +96,9 @@ public class DataEtcService implements DataEtcServiceInf {
 	public int deleteInstiattr(int iattr_no) {
 		return dataEtcDao.deleteInstiattr(iattr_no);
 	}
+
+	@Override
+	public int countMarket() {
+		return dataEtcDao.countMarket();
+	}
 }

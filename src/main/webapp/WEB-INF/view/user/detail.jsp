@@ -47,6 +47,20 @@
 		</ul>
 	</div>	
 	<div class="detailcontainer">
+		<div>
+			<c:choose>
+				<c:when test="${articleVo.building eq 'apt'}">
+					<h1 class="buildingName">${selectArticleVo.artcl_complx } 아파트</h1>  
+				</c:when>
+				<c:when test="${articleVo.building eq 'office'}">
+					<h1 class="buildingName">${selectArticleVo.artcl_complx } </h1>  
+				</c:when>
+				<c:otherwise>
+					<h1 class="buildingName">${selectArticleVo.artcl_rd} </h1>  
+				</c:otherwise>
+			</c:choose>
+			<hr/>
+		</div>
 		<div class="info">
 			<div>
 				<%-- 매물 디테일 정보 --%>
@@ -59,18 +73,17 @@
 				<input type="hidden" id="dl_ty" name ="dl_ty" value="${articleVo.dl_ty}"/>
 				<input type="hidden" id="buildingss" name ="building" value="${articleVo.building}"/>
 				
-				<h1>${selectArticleVo.artcl_complx }</h1>  
-				<a href="#">거리뷰 보기</a><br/> 
-				<span>${selectArticleVo.artcl_gu} ${selectArticleVo.artcl_dong} ${selectArticleVo.artcl_zip} / ${selectArticleVo.artcl_rd}</span>  <br/>
-				<span>준공년도 : ${selectArticleVo.artcl_const_y }년</span>
+				<span class="bldInfo">${selectArticleVo.artcl_gu} ${selectArticleVo.artcl_dong} ${selectArticleVo.artcl_zip}</span><br/>
+				<span class="bldInfo">${selectArticleVo.artcl_rd}</span>  <br/>
+				<span class="bldInfo">준공년도 : ${selectArticleVo.artcl_const_y }년</span>
 				<input type="hidden" id="lat" value="${selectArticleVo.artcl_lat }"/>
 				<input type="hidden" id="lng" value="${selectArticleVo.artcl_lng}"/>
 			</div>
 			<div class="like">
 				<input type="hidden" id="favor_no" value="${selFavor.favor_no }" />
-				<span>찜하기</span> 
-				<img id="likely" src="/img/heart-outline.png" class="heartimg" width="20px" height="20px"/>
-				<h4><span id="favorCount">${favorCount }</span>명이 해당 매물을 찜 했습니다.</h4>
+				<span class="bldInfo">찜하기</span> 
+				<img id="likely" src="/img/heart-outline.png" class="heartimg" width="20px" height="20px"/> <br/>
+				<span id="favorCount" class="bldInfo">${favorCount }명이 해당 매물을 찜 했습니다.</span>
 			</div>
 		</div>
 		<div>
@@ -81,7 +94,7 @@
 				<ul class="nav nav-tabs tab-yellow">
 					<c:forEach items="${selectAreas }" var="sel">
 						<li role="presentation" class="active">
-						<a class="nav-link tag-yellow areatab" data-toggle="tab" aira-expanded="true" href="#">${sel }<br/><fmt:formatNumber value="${sel/3.3 }" pattern=".0"/>평</a>
+						<a class="nav-link tag-yellow areatab" data-toggle="tab" aira-expanded="true" href="#"><input type="hidden" class="selVal" value="${sel }"/><fmt:formatNumber value="${sel/3.3 }" pattern=".0"/>평</a>
 						</li>
 					</c:forEach>
 				</ul>

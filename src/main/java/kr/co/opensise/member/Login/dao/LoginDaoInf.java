@@ -114,9 +114,12 @@ public interface LoginDaoInf {
 	* @param 
 	* @return  
 	* Method 설명 :  회원가입시 관심사 등록
-	
+		*/	
 	public List<MemberVo> interestInsert(MemberVo memberVo);
-	*/	
+
+	
+	
+	
 	
 	public int delete();
 	
@@ -174,4 +177,15 @@ public interface LoginDaoInf {
 	* */
 	public int mailFinsh(MemberVo memberVo);
 	
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  신고요청에따른 신고처리
+	* */
+	public int declaration(MemberVo memberVo);
+
+
 }

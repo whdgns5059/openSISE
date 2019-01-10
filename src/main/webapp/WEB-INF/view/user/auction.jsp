@@ -101,7 +101,7 @@
     color: #f3af3d;
     background: #f5f3f0;
     display: block;
-    width: 29%;
+    width: 550px;
     margin: 0 auto;
     padding: 20px 0 15px 47px;
     font-weight: 100;

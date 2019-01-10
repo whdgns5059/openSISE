@@ -17,10 +17,17 @@ public class ManagementVo {
 	private String intrst_nm;
 	private int job_no;
 	private String job_nm;
+	private String nm;
 	
 	
 	
 	
+	public String getNm() {
+		return nm;
+	}
+	public void setNm(String nm) {
+		this.nm = nm;
+	}
 	public int getIntrst_no() {
 		return intrst_no;
 	}

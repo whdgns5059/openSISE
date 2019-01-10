@@ -119,12 +119,18 @@ public class MainController {
 			e.printStackTrace();
 		}
 		
+		
 		Metadata metadata = null;
 		try {
 			metadata = ImageMetadataReader.readMetadata(file);
 		} catch (ImageProcessingException | IOException e1) {
 			e1.printStackTrace();
 		}
+		
+		if(metadata == null) {
+			return  "user/mainAjax/wrong_request";
+		}
+		
 		
 		GpsDirectory gpsDirec = metadata.getFirstDirectoryOfType(GpsDirectory.class);
 	

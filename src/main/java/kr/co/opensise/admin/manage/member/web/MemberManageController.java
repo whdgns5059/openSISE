@@ -18,6 +18,8 @@ import kr.co.opensise.admin.manage.member.model.ManagementVo;
 import kr.co.opensise.admin.manage.member.model.PageVO;
 import kr.co.opensise.admin.manage.member.service.MemberServiceInf;
 import kr.co.opensise.admin.manage.review.model.ReviewVo;
+import kr.co.opensise.member.Login.model.MemberVo;
+import kr.co.opensise.member.Login.service.LoginServiceInf;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,6 +30,8 @@ public class MemberManageController {
 	@Resource(name = "memberService")
 	private MemberServiceInf memberService;
 	
+	@Resource(name = "loginService")
+	private LoginServiceInf loginService;
 	
 	/**  
 	* Method   :  memberList
@@ -65,6 +69,27 @@ public class MemberManageController {
 		return "jsonView";
 	}
 	
-	
+	/**  
+	* Method   :  memberList
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @return  
+	* Method 설명 : 회원 신고처리
+	*/
+	@RequestMapping(value="/declaration", method = {RequestMethod.POST})
+	public String declaration(Model model, MemberVo memberVo) {
+		// 페이징 처리
+		PageVO pageVo = new PageVO();
+		pageVo.setPage(1);
+		pageVo.setPageSize(10);
+		Map<String, Object> resultMap = memberService.selectUserPageList(pageVo);
+		model.addAllAttributes(resultMap);
+		
+		// 신고처리
+		int member = loginService.declaration(memberVo);
+		model.addAttribute("memberVo", member);
+		
+		return "memberList";
+	}
 
 }

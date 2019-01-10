@@ -52,12 +52,14 @@ public class MypageController {
 		if(session.getAttribute("nowLigin") != null ) {
 			MemberVo user = (MemberVo) session.getAttribute("nowLogin");
 			logger.info("nowLogin : " + user); 
+			
 			MemberVo member = loginService.searchUser(user.getMem_email());
 			model.addAttribute("memberVo", member);
 			
 		}else if (session.getAttribute("nowLogin") == null) {
 			String user = (String) session.getAttribute("kakaoLogin");
 			logger.info("kakaoLogin + : " + user); 
+			
 			MemberVo member = loginService.searchUser(user);
 			model.addAttribute("memberVo", member);
 		}
@@ -271,12 +273,7 @@ public class MypageController {
 		MemberVo users = (MemberVo) session.getAttribute("nowLogin");
 		model.addAttribute("memberVo", users);
 		
-		if (user != 0 ) {
-			model.addAttribute("msg","변경완료 되었습니다!");
-			return "openPage";
-		} else {
-			model.addAttribute("msg","비밀번호 오입력!");
-			return "passWordChange";
+		return "passWordChange";
 	}
 		
 		
@@ -286,5 +283,5 @@ public class MypageController {
 	}
 	
 
-}
+
 

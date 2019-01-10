@@ -157,6 +157,15 @@ public interface StatisServiceInf {
 	public VisitorVo maxVisit();
 	
 	/**
+	* Method : allVisitor
+	* 작성자 : Bella
+	* 변경이력 :
+	* @return
+	* Method 설명 : 누적 방문자 수
+	*/
+	public int allVisitor();
+	
+	/**
 	* Method : visitDate
 	* 작성자 : Bella
 	* 변경이력 :

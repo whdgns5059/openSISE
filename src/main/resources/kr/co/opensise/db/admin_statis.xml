@@ -167,6 +167,11 @@
 		WHERE ROWNUM = 1
 	</select>
 	
+	<!-- 누적 방문자 수 -->
+	<select id="allVisitor" resultType="int">
+		Select Count(vstr_date) From visitor
+	</select>
+	
 	<!-- 날짜별 방문 수 -->
 	<select id="visitDate" resultType="visitVo">
 		Select count(vstr_date) as counts , (Select Round(date_to_unix_ts(a.ymd)) From dual) as ymd
@@ -181,7 +186,7 @@
 	
 	<!-- 요일별/시간별 방문 수 -->
 	<select id="visitDay" resultType="visitVo">
-		SELECT * FROM VW_VISITOR_DY
+		SELECT DY_NO, DY, HR, COUNTS FROM VW_VISITOR_DY
 		<!-- Select count(vstr_date) as counts, a.dy dy
 		From visitor Right Join (
 		    Select to_date('20181206', 'yyyyMMdd')+(level-1) as ymd,

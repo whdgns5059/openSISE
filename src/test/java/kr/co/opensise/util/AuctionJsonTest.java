@@ -59,7 +59,7 @@ public class AuctionJsonTest {
 		/***Given***/
 		String url = null;
 		try {
-			url = "http://100dream.net:8888/api/courtauction?addr0="+ URLEncoder.encode("대전광역시", "UTF-8");
+			url = "http://100dream.net:8888/api/courtauction?addr0="+ URLEncoder.encode("대전광역시", "UTF-8") + "&pageSize=30";
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}

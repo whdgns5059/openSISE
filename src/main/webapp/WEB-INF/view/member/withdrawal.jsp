@@ -17,6 +17,15 @@ $(document).ready(function(){
 	$("#modified_N").on("click",function(){
 		$.modal("close");
 	});
+	
+	$("#next").on("click",function(){
+	      if($("#ok").is(":checked") == false){
+	         alert("동의함에 체크해 주세요");
+	   }else if ($("#ok").is(":checked") != false) {
+		   $("#ex2").modal("show");
+	}
+
+	   });
 });
 </script>
 <style type="text/css">
@@ -63,16 +72,15 @@ $(document).ready(function(){
 					<input type="checkbox">제재조치로 이용 제한됨</input></br>
 					<input type="checkbox">이용할만한 기능/서비스 부족</input>&emsp;&emsp;&ensp;
 					<input type="checkbox">사생활 기록 삭제 목적</input></br>
-					<input type="checkbox">시스템 품질에대한 불만(잦은오류/오작동 등)</input></br>
-					<input type="checkbox"/>
-					<input type="text" placeholder="직접입력" style="border-radius: 5px;"></input>
-				</div></br>
+					<input type="checkbox">시스템 품질에대한 불만(잦은오류/오작동 등)</input>
+					</br><p>* 미선택시 선택안함으로 처리됩니다.</p>
+				</div>
 				
-				<input type="checkbox"> 위 내용을 모두 확인하였으며, 해지시 모든 정보가 복구 </br>&ensp; 불가능함에 동의합니다</input></br></br>
+				<input type="checkbox" id="ok"> 위 내용을 모두 확인하였으며, 해지시 모든 정보가 복구 </br>&ensp; 불가능함에 동의합니다</input></br></br>
 				
 			  <div id="ex1" align="center">
 			  	<a href="#" rel="modal:close">탈퇴취소</a>&emsp;
-			  	<a href="#ex2" rel="modal:open">다음</a>
+			  	<a id="next">다음</a>
 			  </div>
 			</div>
 			
