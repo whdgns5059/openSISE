@@ -15,6 +15,8 @@
 <script>
 
 	map.addOverlayMapTypeId(daum.maps.MapTypeId.TRAFFIC);    
+	
+	console.log("station here!");
 
 	
 	
