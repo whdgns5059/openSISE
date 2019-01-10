@@ -104,17 +104,7 @@ var totalPopChart = {
                     "borderRadiusTopLeft": 7,
                     "background-color": colorList[i++],
                     "text": "총 인구수(명)",
-                }/* ,
-                {
-                  // 실제 값
-                    "values": [
-                    	 4,8,5,2,9,2
-                    ],
-                    "alpha": 0.95,
-                    "borderRadiusTopLeft": 7,
-                    "background-color": colorList[i++],
-                    "text": "12월",
-                } */
+                }
             ]
         }
     ]

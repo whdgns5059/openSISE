@@ -54,7 +54,6 @@ public class MainController {
 		List<BuildingSaleVo> buildSaleList = null;
 		logger.info("buildng : "+ filterVo.getBuilding());
 		if(filterVo.getBuilding().equals("house")) {
-			logger.info("house input");
 			buildSaleList = mainService.buildingSingleSaleList(filterVo);
 		}else {
 			buildSaleList = mainService.buildingSaleList(filterVo);

@@ -5,7 +5,7 @@
 <script type="text/javascript" src="/js/local_nearFaci.js"></script>
 
 <!-- 전체 contents div -->
-<div class="row" style="height: 1000px !important">
+<div class="row">
 	<!-- left contents -->
 	<div id="mapWrap">
 		<img alt="뒤로가기" src="../../img/back.png" id="image">
@@ -322,12 +322,6 @@
 	    markers = [];
 	}
 	
-	
-	
-	
-
-	
-	
 	//*************지도 끝 ******************
 
 	setContentDivByAjax('popStatis');
@@ -358,6 +352,7 @@
 		var addr = $("#addr").val();
 		if(id != "nearFaci"){
 			settingMap();
+			
 		}
 
 		$.ajax({
