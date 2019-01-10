@@ -117,8 +117,8 @@
 		});
 	}
 	
-	
-	$(document).ready(function(){
+	$(function() {
+	//$(document).ready(function(){
 		$("#ex").hide();
 		$("#userList").on("click",".memList",function(){
 			var mem_no = this.children[0].innerText;
@@ -144,7 +144,9 @@
 			$("#mem_interest").html(nm);
 			
 			//form 실행
+			$('#ex').removeClass('modal');
 			$(".modal").modal("show");
+			
 		});
 		
 		$("#Declaration").on("click", function() {
@@ -162,17 +164,12 @@
 	
 	$(document).ready(function(){
 		$("#close").on("click",function(){
-			$(".modal2").modal("hide");
-// 			location.reload();
-		
+			$(".modal2").modal("close");
 		});
-	});
-	
-	$(document).ready(function(){
+		
 		$("#back").on("click",function(){
 			$(".modal").modal("show");
 		});
-
 	});
 	
 	

@@ -85,6 +85,7 @@ body {
 	height: 980px;
     width: 100%;
     margin: 0 auto;
+    overflow-x:hidden;
 }
 .contents {
 	margin: 0 auto;

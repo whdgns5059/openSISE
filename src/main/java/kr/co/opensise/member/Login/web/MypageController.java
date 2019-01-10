@@ -273,12 +273,7 @@ public class MypageController {
 		MemberVo users = (MemberVo) session.getAttribute("nowLogin");
 		model.addAttribute("memberVo", users);
 		
-		if (user != 0 ) {
-			model.addAttribute("msg","변경완료 되었습니다!");
-			return "openPage";
-		} else {
-			model.addAttribute("msg","비밀번호 오입력!");
-			return "passWordChange";
+		return "passWordChange";
 	}
 		
 		
@@ -288,5 +283,5 @@ public class MypageController {
 	}
 	
 
-}
+
 
