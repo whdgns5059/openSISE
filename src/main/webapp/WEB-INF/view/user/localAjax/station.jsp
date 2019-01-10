@@ -46,6 +46,10 @@
 			});
 
 			map.setCenter(coords);
+			
+			//주소 중앙 좌표 가져오기
+			getCenterLatLng();
+
 
 		}
 
@@ -125,8 +129,6 @@
 	}
 	
 	
-	//주소 중앙 좌표 가져오기
-	getCenterLatLng();
 
 	
 	//정류장 tr 클릭시 아래 데이터 표시
