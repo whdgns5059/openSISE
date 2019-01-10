@@ -46,7 +46,7 @@ public interface MemberDaoInf {
 	* @return  
 	* Method 설명 :  회원 상세조회
 	*/
-	public ManagementVo selectUser(String mem_email);
+//	public ManagementVo selectUser(String mem_email);
 	
 	
 }

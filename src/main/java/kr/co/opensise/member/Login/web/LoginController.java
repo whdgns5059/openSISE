@@ -406,12 +406,5 @@ public class LoginController {
 		
 	}
 	
-	@RequestMapping(value="/testing", method={RequestMethod.POST})
-	public String testing(@RequestParam("mem_nm") String mem_nm) {
-		Logger logger = LoggerFactory.getLogger(LoginController.class);
-		logger.info("들어왔냐 들어왔따");
-		logger.info(mem_nm);
-		return null;
-	}
 	
 }

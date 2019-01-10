@@ -62,10 +62,10 @@ public class MemberService implements MemberServiceInf{
 	* @return  
 	* Method 설명 :  회원 상세조회
 	*/
-	@Override
-	public ManagementVo selectUser(String mem_email) {
-		return memberDao.selectUser(mem_email);
-	}
+//	@Override
+//	public ManagementVo selectUser(String mem_email) {
+//		return memberDao.selectUser(mem_email);
+//	}
 
 
 }

@@ -107,12 +107,20 @@ public class LoginDao implements LoginDaoInf{
 	*/
 	@Override
 	public List<MemberVo> interestLiset() {
-		List<MemberVo> interestLiset = template.selectList("member.interest");		
-		return interestLiset;
+		List<MemberVo> interestList = template.selectList("member.interest");
+		return interestList;
 	}
 	
 	
-
+	@Override
+	public List<MemberVo> interestInsert(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	
 	
 	@Override
 	public int delete() {
@@ -230,6 +238,28 @@ public class LoginDao implements LoginDaoInf{
 		return mailFinsh;
 	}
 
+	/**  
+	* Method   :  
+	* 작성자 : 김주연 
+	* 변경이력 :  
+	* @param 
+	* @return  
+	* Method 설명 :  신고요청에따른 신고처리
+	* */
+	@Override
+	public int declaration(MemberVo memberVo) {
+		int declaration = template.update("member.declaration", memberVo);
+		return declaration;
+	}
+
+
+	
+
+	
+
+	
+
+	
 	
 
 	
