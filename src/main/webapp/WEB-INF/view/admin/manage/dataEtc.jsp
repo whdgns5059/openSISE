@@ -115,9 +115,18 @@ label{
 </style>    
 <script type="text/javascript">
 	$(document).ready(function(){
-
-		$(".dataEtcB").click(function(){
-			if($(".dataEtcFile").val()==""){
+		var fName= "";
+		var marketname="";
+		
+		$("#humanClick").click(function(){
+			fName =$('input[name=etcData]').val();
+			if(fName=="" ){
+				alert("파일을 선택해주세요");
+			}
+		});
+		$("#marketClick").click(function(){
+			marketname = $('input[name=marketData]').val();
+			if(marketname==""){
 				alert("파일을 선택해주세요");
 			}
 		});
@@ -216,8 +225,8 @@ label{
 			<tr>
 				<td>인구통계&nbsp:</td>
 				<td><a target="_blank" href="http://www.daejeon.go.kr/sta/StaStatisticsFldList.do?menuSeq=180&colmn1Cont=C0201&colmn2Cont=C020101">대전인구통계 홈페이지</a></td>
-				<td class="dataEtcFile"><input type="file" name="etcData" /></td>
-				<td><input type="submit" value="DB 저장" class="dataEtcB"/></td>
+				<td class="dataEtcFile"><input type="file" name="etcData" id="human" /></td>
+				<td><input type="submit" value="DB 저장" class="dataEtcB" id="humanClick"/></td>
 			</tr>
 		</table>
 		</form>
@@ -231,7 +240,7 @@ label{
 					대전교통정보 홈페이지</a>
 				</td>
 				<td>openAPI 호출</td>
-				<td><input type="submit" value="DB 저장" class="dataEtcB"/></td>
+				<td><input type="submit" value="DB 저장" class="dataEtcB" /></td>
 			</tr>
 		</table>
 		</form>
@@ -242,7 +251,7 @@ label{
 				<td>물가정보&nbsp:</td>
 				<td><a target="_blank" href="http://www.daejeon.go.kr/drh/board/boardNormalList.do?boardId=normal_1009&menuSeq=3306">대전물가정보 홈페이지</a></td>
 				<td class="dataEtcFile"><input type="file" name="marketData" /></td>
-				<td><input type="submit" value="DB 저장" class="dataEtcB"/></td>
+				<td><input type="submit" value="DB 저장" class="dataEtcB" id="marketClick"/></td>
 			</tr>
 		</table>
 		</form>

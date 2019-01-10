@@ -419,7 +419,7 @@ public class DataEtcController {
 					
 					
 //					log.info("marketList : {}", marketList);
-//					log.info("marketDetailList : {}", marketDetailList);
+					log.info("marketDetailList : {}", marketDetailList);
 				}
 				
 			}
