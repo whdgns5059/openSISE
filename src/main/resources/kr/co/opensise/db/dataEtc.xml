@@ -30,6 +30,10 @@
 		select * from dual 
 	</insert>
 	
+	<select id="countMarket" resultType="int">
+		select count(*) from market
+	</select>
+	
 <!-- 물가상세  insert -->	
 	<insert id="insertMarketDetail" parameterType="map">
 		insert all

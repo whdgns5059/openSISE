@@ -270,10 +270,6 @@ public class DataEtcController {
 					log.info("mk_classf : {}", mk_classf);
 				}
 				
-				
-				
-				
-				
 				//조사일시
 				XSSFRow mkd_dateRow = sheet.getRow(1);
 				XSSFCell mkd_dateCell = mkd_dateRow.getCell(1);
@@ -431,7 +427,10 @@ public class DataEtcController {
 			//list로 옮기기
 			marketList.addAll(marketSet);
 			
-			insertMarketList = dataEtcService.insertMarket(marketList);
+			int countMarket = dataEtcService.countMarket();
+			if(countMarket != 41) {
+				insertMarketList = dataEtcService.insertMarket(marketList);
+			}
 			insertMarketDetailList = dataEtcService.insertMarketDetail(marketDetailList);
 		
 			model.addAttribute("insertMarketList", insertMarketList);	
