@@ -43,7 +43,6 @@
 .chartajax div {padding: 0px; margin: 0px;}
 .chartajax .info {margin:30px;}
 
-
 #mapWrap {position: relative;}
 #map {width : 700px; height:900px;}
 .toLocal {
@@ -56,9 +55,11 @@
     cursor: pointer;
 }
 
-.info {width: 1100px; height: 150px; padding : 20px;}
+.info {width: 1100px; height: 120px; padding : 20px; padding-bottom:0px;}
 .info div {width: 40%; float:left;}
-.info .like {padding-top: 40px;}
+
+.buildingName { margin : 40px; padding-left : 200px; font-weight: bold;}
+.bldInfo {font-size: large; margin: 15px;}
 
 #radarChartDiv {padding : 0px !important; margin:0px !important;}
 #radarChartDiv div {padding : 0px !important; margin:0px !important;}

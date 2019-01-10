@@ -7,11 +7,6 @@
 		<table>
 			<c:choose>	
 				<c:when test="${dl_ty == '매매' }">
-					<tr>
-						<td>매매금</td>
-						<td>층수</td>
-						<td>거래년월</td>
-					</tr>
 					<c:forEach items="${recentTradeList }" var="tlist" end="2">
 						<tr>
 							<td> <span class="orangetext">${tlist.dl_price } 만원</span> </td>
@@ -21,11 +16,6 @@
 					</c:forEach>
 				</c:when>
 				<c:when test="${dl_ty == '전세' }">
-					<tr>
-						<td>전세금</td>
-						<td>층수</td>
-						<td>거래년월</td>
-					</tr>
 					<c:forEach items="${recentTradeList }" var="tlist" end="2">
 						<tr>
 							<td> <span class="orangetext">${tlist.dl_depos } 만원</span> </td>
@@ -35,12 +25,6 @@
 					</c:forEach>
 				</c:when>
 				<c:when test="${dl_ty == '월세' }">
-					<tr>
-						<td>보증금</td>
-						<td>월세</td>
-						<td>층수</td>
-						<td>거래년월</td>
-					</tr>
 					<c:forEach items="${recentTradeList }" var="tlist" end="2">
 						<tr>
 							<td><span class="orangetext">${tlist.dl_depos} 만원</span> </td>
