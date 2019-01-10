@@ -119,4 +119,16 @@ public class DataEtcDao implements DataEtcDaoInf {
 		return template.delete("dataEtc.deleteInsti", iattr_no);
 	}
 
+	/**
+	* Method : countMarket
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @return
+	* Method 설명 :market은 최초 한번만 입력되면 되므로 market의 갯수를 센다.
+	*/
+	@Override
+	public int countMarket() {
+		return template.selectOne("dataEtc.countMarket");
+	}
+
 }
