@@ -272,22 +272,26 @@ ol, ul, dl {
 		$("#duplication2").on("click", function() {
 			if($("#userId").val() == "" && $("#userNm").val() == "" || $("#userId").val() != "" && $("#userNm").val() == ""){
 				alert("닉네임을 입력해 주세요.");
+			}else if($("#userId").val() == "" && $("#userNm").val() != ""){
+				alert("이메일을 입력해 주세요.");
 			}else {
+				
 			// 사용자가 입력한 email을 memEmail 변수에 저장
 			var memberEmail = $("#userId").val();
 			// 파라미터로 보낼 form 태그 안 input(hidden)에 value 값 저장
 			$("#memEmail").val(memberEmail);
-			alert("이메일이 전송되었습니다.");
-			
+				alert("이메일이 전송되었습니다.");
 			var memberNm = $("#userNm").val();
 			$("#memNm2").val(memberNm);
 			//form 실행
 			$("#fmm").submit();
 			}
+			
+			
+		});
 
 		});
 
-	});
 	
 
 </script>

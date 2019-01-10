@@ -133,7 +133,7 @@
 	<!-- 신고요청에따른 신고처리 --> 
 	<update id="declaration" parameterType="memberVo">
 		UPDATE member
-		SET mem_lvl = #{mem_lvl}-1
+		SET mem_lvl = (#{mem_lvl}-1)
 		where mem_email = #{mem_email}
 	</update>
 	
