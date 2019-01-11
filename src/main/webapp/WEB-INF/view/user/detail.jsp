@@ -176,6 +176,7 @@
 					</c:when>
 				<c:otherwise>
 					<c:forEach items="${selectReview }" var="postVo" varStatus="status">
+						<c:if test="${postVo.post_exst eq 'Y' }" >
 						<div class="reviewWrapper">
 							<div class="titleWrapper">
 								<div class="reviewNo">${postVo.post_no }</div>
@@ -234,6 +235,7 @@
 								</div>
 							</div>
 						</div>		
+						</c:if>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
