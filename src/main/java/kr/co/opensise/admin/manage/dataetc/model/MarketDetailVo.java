@@ -11,15 +11,9 @@ public class MarketDetailVo {
 	private String mkd_mk_dong;
 	private String mkd_classf;
 	
-	/**
-	 * @return the mkd_classf
-	 */
 	public String getMkd_classf() {
 		return mkd_classf;
 	}
-	/**
-	 * @param mkd_classf the mkd_classf to set
-	 */
 	public void setMkd_classf(String mkd_classf) {
 		this.mkd_classf = mkd_classf;
 	}
