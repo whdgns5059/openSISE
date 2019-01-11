@@ -160,7 +160,6 @@ public class DetailService implements DetailServiceInf{
 
 	@Override
 	public int deleteReview(String post_no) {
-		detailDao.deleteReviewChild(post_no);
 		return detailDao.deleteReview(post_no);
 	}
 
@@ -208,6 +207,7 @@ public class DetailService implements DetailServiceInf{
 		
 		String dl_dong = dealVo.getDl_dong();
 		String dong = dl_dong.substring(0, 2);
+	
 		
 		Float marketStat = detailDao.selectMarketStat(dong);
 		if(marketStat == null) {

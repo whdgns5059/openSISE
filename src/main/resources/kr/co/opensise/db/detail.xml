@@ -109,8 +109,9 @@
 	</delete>
 		
 	<delete id="deleteReview" parameterType="String">
-		delete post
-		where post_no = #{post_no}
+		update post
+		set post_exst = 'N'
+		where post_no = #{String}
 	</delete>
 	
 	<delete id="deleteReviewChild" parameterType="String">
