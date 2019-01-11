@@ -14,7 +14,9 @@ import org.slf4j.LoggerFactory;
 import kr.co.opensise.admin.manage.dataetc.model.BusVo;
 import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
 import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
+import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
 import kr.co.opensise.setup.RootSetup;
+import kr.co.opensise.user.detail.dao.DetailDao;
 
 public class DataEtcDaoTest extends RootSetup{
 
@@ -98,6 +100,25 @@ public class DataEtcDaoTest extends RootSetup{
 		
 		/***Then***/
 		assertEquals(1, insertInstiattr);
+	}
+	
+	@Test
+	public void insertMarketOne() {
+		
+		/***given***/
+		MarketVo mVo = new MarketVo();
+		mVo.setMk_nm("테스트");
+		mVo.setMk_dong("아무동");
+		mVo.setMk_classf("청소시간");
+	
+		/***when***/
+		
+		int result = dataEtcDao.insertMarketOne(mVo);
+
+		/***then***/
+		assertEquals(result, 1);
+		
+		
 	}
 
 }

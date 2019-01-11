@@ -444,8 +444,19 @@ public class DataEtcController {
 			//중복되면 지워주기
 			marketList.removeAll(marketListdb);
 			
+		
+			
+			
 			if(marketList.size()!=0) {
-				insertMarketList = dataEtcService.insertMarket(marketList);
+				for(MarketVo mVo : marketList) {
+					
+					mVo.getMk_nm().replaceAll("\\s", "");
+					mVo.getMk_classf().replaceAll("\\s", "");
+					mVo.getMk_dong().replaceAll("\\s", "");
+					
+					log.info("mVo : {}",mVo.toString());
+					dataEtcService.insertMarketOne(mVo);
+				}
 			}
 			
 			insertMarketDetailList = dataEtcService.insertMarketDetail(marketDetailList);
