@@ -364,6 +364,7 @@ public class DataEtcController {
 							mk_dongCell = mk_dongRow.getCell(cells-1);
 						}
 						String mk_dong = mk_dongCell.toString();
+						mk_dong.replaceAll(" ", "");
 //						log.info("mk_dong : {}", mk_dong);
 						
 						//동 vo에 담기
