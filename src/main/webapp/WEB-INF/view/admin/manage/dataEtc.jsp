@@ -130,6 +130,9 @@ label{
 				alert("파일을 선택해주세요");
 			}
 		});
+		$("#station").click(function(){
+			confirm("저장하시겠습니까?");
+		})
 		
 		var insti_nm="";
 		
@@ -240,7 +243,7 @@ label{
 					대전교통정보 홈페이지</a>
 				</td>
 				<td>openAPI 호출</td>
-				<td><input type="submit" value="DB 저장" class="dataEtcB" /></td>
+				<td><input type="submit" value="DB 저장" class="dataEtcB" id="station"/></td>
 			</tr>
 		</table>
 		</form>

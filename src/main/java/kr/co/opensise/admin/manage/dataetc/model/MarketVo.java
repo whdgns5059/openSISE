@@ -25,21 +25,61 @@ public class MarketVo {
 		this.mk_classf = mk_classf;
 	}
 	
-	public boolean equals(Object obj) {
-		if(obj instanceof MarketVo) {
-			MarketVo tmp = (MarketVo) obj;
-			return mk_nm.equals(tmp.mk_nm) && mk_dong.equals(tmp.mk_dong);
-		}
-		return false;
-	}
-	
-	public int hashCode() {
-		return (mk_nm + mk_dong).hashCode();
-	}
+
 	
 	@Override
 	public String toString() {
 		return "MarketVo [mk_nm=" + mk_nm + ", mk_dong=" + mk_dong + ", mk_classf=" + mk_classf + "]";
+	}
+	/**
+	* Method : hashCode
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((mk_classf == null) ? 0 : mk_classf.hashCode());
+		result = prime * result + ((mk_dong == null) ? 0 : mk_dong.hashCode());
+		result = prime * result + ((mk_nm == null) ? 0 : mk_nm.hashCode());
+		return result;
+	}
+	/**
+	* Method : equals
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @param obj
+	* @return
+	* Method 설명 :
+	*/
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MarketVo other = (MarketVo) obj;
+		if (mk_classf == null) {
+			if (other.mk_classf != null)
+				return false;
+		} else if (!mk_classf.equals(other.mk_classf))
+			return false;
+		if (mk_dong == null) {
+			if (other.mk_dong != null)
+				return false;
+		} else if (!mk_dong.equals(other.mk_dong))
+			return false;
+		if (mk_nm == null) {
+			if (other.mk_nm != null)
+				return false;
+		} else if (!mk_nm.equals(other.mk_nm))
+			return false;
+		return true;
 	}
 	
 	

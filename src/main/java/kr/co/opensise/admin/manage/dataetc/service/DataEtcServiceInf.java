@@ -47,5 +47,5 @@ public interface DataEtcServiceInf {
 	*/
 	public int deleteInstiattr(int iattr_no);
 	
-	public int countMarket();
+	public List<MarketVo> marketList();
 }

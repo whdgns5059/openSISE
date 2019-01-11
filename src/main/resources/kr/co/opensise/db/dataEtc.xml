@@ -30,8 +30,8 @@
 		select * from dual 
 	</insert>
 	
-	<select id="countMarket" resultType="int">
-		select count(*) from market
+	<select id="market" resultType="marketVo">
+		select * from market
 	</select>
 	
 <!-- 물가상세  insert -->	

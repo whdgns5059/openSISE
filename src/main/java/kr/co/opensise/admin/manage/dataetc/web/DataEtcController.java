@@ -427,10 +427,16 @@ public class DataEtcController {
 			//list로 옮기기
 			marketList.addAll(marketSet);
 			
-			int countMarket = dataEtcService.countMarket();
-			if(countMarket != 41) {
+			//기존에 존재하는 MarketList와 중복되지 않도록 처리하기
+			List<MarketVo> marketListdb = dataEtcService.marketList();
+			
+			//중복되면 지워주기
+			marketList.removeAll(marketListdb);
+			
+			if(marketList.size()!=0) {
 				insertMarketList = dataEtcService.insertMarket(marketList);
 			}
+			
 			insertMarketDetailList = dataEtcService.insertMarketDetail(marketDetailList);
 		
 			model.addAttribute("insertMarketList", insertMarketList);	

@@ -98,7 +98,8 @@ public class DataEtcService implements DataEtcServiceInf {
 	}
 
 	@Override
-	public int countMarket() {
-		return dataEtcDao.countMarket();
+	public List<MarketVo> marketList() {
+		return dataEtcDao.marketList();
 	}
+
 }
