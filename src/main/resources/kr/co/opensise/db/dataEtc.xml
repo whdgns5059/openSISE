@@ -30,7 +30,7 @@
 		select * from dual 
 	</insert>
 	
-	<select id="market" resultType="marketVo">
+	<select id="marketList" resultType="marketVo">
 		select * from market
 	</select>
 	
