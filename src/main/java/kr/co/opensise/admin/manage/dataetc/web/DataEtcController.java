@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -21,6 +22,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -211,8 +213,16 @@ public class DataEtcController {
 			insertHumanList = dataEtcService.insertHuman_statistic(human_statisticList);
 		
 			model.addAttribute("human_statisticList", human_statisticList);
+			
+			
+			if(insertHumanList>0) {
+				model.addAttribute("success", human_statisticList.size());
+			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("success", 0);
+			return "redirect:/manage/dataEtc/dataEtc";
 		}
 		
 		
@@ -228,7 +238,7 @@ public class DataEtcController {
 	
 	//물가정보
 	@RequestMapping("/insertMarketData")
-	public String insertMarketData(@RequestPart("marketData") MultipartFile part, Model model) {
+	public String insertMarketData(@RequestPart("marketData") MultipartFile part, Model model,HttpServletResponse response) {
 		try {
 			//buffedinputStream으로 속도 상승
 			BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
@@ -440,11 +450,38 @@ public class DataEtcController {
 			
 			insertMarketDetailList = dataEtcService.insertMarketDetail(marketDetailList);
 		
-			model.addAttribute("insertMarketList", insertMarketList);	
-			model.addAttribute("insertMarketDetailList", insertMarketDetailList);	
+			model.addAttribute("insertMarketListCnt", insertMarketList);	
+			model.addAttribute("insertMarketDetailListCnt", insertMarketDetailList);
+			
+			
+			if(insertMarketDetailList>0) {
+				model.addAttribute("success", marketDetailList.size());
+			}
+			
+//			if(insertMarketDetailList<0) {
+//				response.setContentType("text/html; charset=UTF-8");
+//				 
+//				PrintWriter out = response.getWriter();
+//				 
+//				out.println("<script>alert('중복된 데이터입니다.'); location.href='admin/dataEtc.jsp';</script>");
+//				 
+//				out.flush();
+//
+//
+//			}else {
+//				response.setContentType("text/html; charset=UTF-8");
+//				 
+//				PrintWriter out = response.getWriter();
+//				 
+//				out.println("<script>alert('데이터입력을 완료하였습니다.'); location.href='admin/dataEtc.jsp';</script>");
+//				 
+//				out.flush();
+//			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("success", 0);
+			return "redirect:/manage/dataEtc/dataEtc";
 		}
 		
 		return "redirect:/manage/dataEtc/dataEtc";

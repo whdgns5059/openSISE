@@ -72,7 +72,7 @@
 	padding: 0;
 }
 .data-updateT tr :nth-child(1){
-	width: 80px;
+/* 	width: 80px; */
 }
 .data-updateT tr :nth-child(2){
     width: 176px;
@@ -118,18 +118,32 @@ label{
 		var fName= "";
 		var marketname="";
 		
+		
+		
 		$("#humanClick").click(function(){
 			fName =$('input[name=etcData]').val();
 			if(fName=="" ){
 				alert("파일을 선택해주세요");
 			}
+			$("#Hsfile").val(fName);
+			
 		});
+		
+		
 		$("#marketClick").click(function(){
 			marketname = $('input[name=marketData]').val();
 			if(marketname==""){
 				alert("파일을 선택해주세요");
 			}
 		});
+		
+		if(${param.success } == 0 ){
+			alert("중복된 데이터 입니다.");
+		}else{
+			alert(${param.success } + "건의 \n정보를 업데이트 하였습니다.");
+		}
+		
+		
 		$("#station").click(function(){
 			confirm("저장하시겠습니까?");
 		})
@@ -228,7 +242,7 @@ label{
 			<tr>
 				<td>인구통계&nbsp:</td>
 				<td><a target="_blank" href="http://www.daejeon.go.kr/sta/StaStatisticsFldList.do?menuSeq=180&colmn1Cont=C0201&colmn2Cont=C020101">대전인구통계 홈페이지</a></td>
-				<td class="dataEtcFile"><input type="file" name="etcData" id="human" /></td>
+				<td class="dataEtcFile" id="Hsfile"><input type="file" name="etcData" id="human" /></td>
 				<td><input type="submit" value="DB 저장" class="dataEtcB" id="humanClick"/></td>
 			</tr>
 		</table>
