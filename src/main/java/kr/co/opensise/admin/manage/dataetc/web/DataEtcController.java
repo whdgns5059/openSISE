@@ -447,7 +447,7 @@ public class DataEtcController {
 	@RequestMapping("/insertStationData")
 	public String insertStation(Model model) {
 //		BufferedReader br = null;
-/*		BufferedReader brA = null;
+		BufferedReader brA = null;
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();// Document를 생성할 Factory
 		factory.setNamespaceAware(true);
 		
@@ -637,7 +637,7 @@ public class DataEtcController {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		*/
+		
 		return "redirect:/manage/dataEtc/dataEtc";
 	}
 	
