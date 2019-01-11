@@ -131,4 +131,9 @@ public class DataEtcDao implements DataEtcDaoInf {
 		return template.selectList("dataEtc.marketList");
 	}
 
+	@Override
+	public int insertMarketOne(MarketVo mVo) {
+		return template.insert("dataEtc.marketListOne", mVo);
+	}
+
 }
