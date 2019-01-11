@@ -39,10 +39,10 @@
 		insert all
 		<foreach collection="list" item="mdvo" separator=" ">
 			into Market_detail(
-              mkd_no , mkd_date,mkd_price,mkd_prod,mkd_prod_detail,mkd_mk,mkd_mk_dong) 
+              mkd_no , mkd_date,mkd_price,mkd_prod,mkd_prod_detail,mkd_mk,mkd_mk_dong,mkd_classf) 
             values  (
                 get_seq_mkd_no(),#{mdvo.mkd_date},#{mdvo.mkd_price},#{mdvo.mkd_prod},
-                #{mdvo.mkd_prod_detail},#{mdvo.mkd_mk},#{mdvo.mkd_mk_dong}
+                #{mdvo.mkd_prod_detail},#{mdvo.mkd_mk},#{mdvo.mkd_mk_dong},#{mkd_classf}
             )
 		</foreach>
 		select * from dual 

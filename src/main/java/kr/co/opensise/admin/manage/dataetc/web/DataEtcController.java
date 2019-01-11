@@ -327,6 +327,7 @@ public class DataEtcController {
 						
 						//시장분류Vo에 담기
 						marketVo.setMk_classf(mk_classf);
+						marketDetailVo.setMkd_classf(mk_classf);
 						
 						//조사일시 vo에 담기
 						marketDetailVo.setMkd_date(mkd_date);
