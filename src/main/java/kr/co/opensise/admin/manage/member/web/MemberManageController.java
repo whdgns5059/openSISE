@@ -65,7 +65,6 @@ public class MemberManageController {
 		Map<String, Object> resultMap = memberService.selectUserPageList(pageVo);
 		model.addAllAttributes(resultMap);
 		
-		
 		return "jsonView";
 	}
 	
@@ -83,13 +82,14 @@ public class MemberManageController {
 		pageVo.setPage(1);
 		pageVo.setPageSize(10);
 		Map<String, Object> resultMap = memberService.selectUserPageList(pageVo);
-		model.addAllAttributes(resultMap);
-		
+//		model.addAllAttributes(resultMap);
+
 		// 신고처리
 		int member = loginService.declaration(memberVo);
-		model.addAttribute("memberVo", member);
+//		model.addAttribute("memberVo", member);
 		
-		return "memberList";
+		
+		return "redirect:/admin/member";
 	}
 
 }
