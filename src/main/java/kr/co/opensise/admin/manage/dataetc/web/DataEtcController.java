@@ -458,25 +458,6 @@ public class DataEtcController {
 				model.addAttribute("success", marketDetailList.size());
 			}
 			
-//			if(insertMarketDetailList<0) {
-//				response.setContentType("text/html; charset=UTF-8");
-//				 
-//				PrintWriter out = response.getWriter();
-//				 
-//				out.println("<script>alert('중복된 데이터입니다.'); location.href='admin/dataEtc.jsp';</script>");
-//				 
-//				out.flush();
-//
-//
-//			}else {
-//				response.setContentType("text/html; charset=UTF-8");
-//				 
-//				PrintWriter out = response.getWriter();
-//				 
-//				out.println("<script>alert('데이터입력을 완료하였습니다.'); location.href='admin/dataEtc.jsp';</script>");
-//				 
-//				out.flush();
-//			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
