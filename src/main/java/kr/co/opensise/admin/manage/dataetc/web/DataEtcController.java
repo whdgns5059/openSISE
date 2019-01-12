@@ -118,6 +118,7 @@ public class DataEtcController {
 			
 			//반복문을 이용해 성별,연령별,동별,시기별 셀 정보를 human_statisticVo에 담고 list에 넣기
 			List<HumanStatisticVo> human_statisticList = new ArrayList<HumanStatisticVo>();
+		
 			
 			for(int i=6;i<rows;i++) {
 				HSSFRow row = sheet.getRow(i);
