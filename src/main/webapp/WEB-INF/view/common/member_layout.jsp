@@ -13,9 +13,9 @@
 
 </head>
 <body>
+	<tiles:insertAttribute name="header"/>
+	
 	<div class="contentWrapper">	
-		<tiles:insertAttribute name="header"/>
-
 		<tiles:insertAttribute name="left"/>
 
 		<!-- right contents -->	

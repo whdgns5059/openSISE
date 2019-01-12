@@ -133,7 +133,7 @@ function rpt_cfList(){
 				html += '<div class="classf_rVo">';
 				html += '<input type="hidden" value="'+data.rpt_cfVoList[i].rpt_classf+'"/>';
 				html += '<input type="text" class="inputBox no" value="'+(i+1) +'"/>';
-				html += '<input type="text" class="inputBox nm" value="'+data.rpt_cfVoList[i].rpt_cf_nm+'"/>';
+				html += '<input type="text" class="inputBox nm rpt_cf_names" value="'+data.rpt_cfVoList[i].rpt_cf_nm+'"/>';
 				html += '<button class="classfUpdate">수정</button>';
 				html += '<button class="classfDel">삭제</button>';
 				html += '</div>';
@@ -153,23 +153,39 @@ $(document).ready(function(){
 	$('#classfAdd').on('click',function(){
 		var rpt_cf_nm = document.getElementById('rpt_cf_nm').value;
 		var data = {rpt_cf_nm : rpt_cf_nm};
+		var overlap = 0;
 		
-		$.ajax({
-			type : 'POST',
-			url : '/manage/insertAjax',
-			data : data,
-			success : function(data){
-				if(data.insertCnt < 1){
-					// insert 실패
-					alert("insert 실패");
-				}else{
-					// 리스트 다시 뿌리기
-					rpt_cfList();
-					document.getElementById('rpt_cf_nm').value = '';
-				}
+		// 신고분류명이 겹치는 것이 있는지 확인
+		var rpt_cf_names = document.getElementsByClassName("rpt_cf_names");
+		for(var i=0 ; i<rpt_cf_names.length ; i++){
+			if(rpt_cf_nm == rpt_cf_names[i].value){
+				overlap ++;
 			}
-		});
+		}
+		// 겹치는 법이 있으면 Ajax 실행 안함.
+		if(overlap > 0){
+			alert("신고분류명이 겹칩니다.");
+		}else{
+		
+			// 신고분류명 추가
+			$.ajax({
+				type : 'POST',
+				url : '/manage/insertAjax',
+				data : data,
+				success : function(data){
+					if(data.insertCnt < 1){
+						// insert 실패
+						alert("insert 실패");
+					}else{
+						// 리스트 다시 뿌리기
+						rpt_cfList();
+						document.getElementById('rpt_cf_nm').value = '';
+					}
+				}
+			});
+		}
 	});
+	
 	/* 신고 분류 수정하기 */
 	$('#rpt_cfList').on('click','.classfUpdate',function(){
 		
