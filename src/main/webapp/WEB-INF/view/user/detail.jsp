@@ -176,7 +176,7 @@
 					</c:when>
 				<c:otherwise>
 					<c:forEach items="${selectReview }" var="postVo" varStatus="status">
-						<c:if test="${postVo.post_exst eq 'Y' }" >
+						<c:if test="${postVo.post_exst eq 'N' }" >
 						<div class="reviewWrapper">
 							<div class="titleWrapper">
 								<div class="reviewNo">${postVo.post_no }</div>
