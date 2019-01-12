@@ -144,6 +144,51 @@ function rpt_cfList(){
 	});
 };
 
+/* 신고 분류 추가하기 */
+function addRpt_cf(){
+	var rpt_cf_nm = document.getElementById('rpt_cf_nm').value;
+	var data = {rpt_cf_nm : rpt_cf_nm};
+	var overlap = 0;
+	
+	// 신고분류명이 겹치는 것이 있는지 확인
+	var rpt_cf_names = document.getElementsByClassName("rpt_cf_names");
+	for(var i=0 ; i<rpt_cf_names.length ; i++){
+		if(rpt_cf_nm == rpt_cf_names[i].value){
+			overlap ++;
+		}
+	}
+	// 겹치는 법이 있으면 Ajax 실행 안함.
+	if(overlap > 0){
+		alert("신고분류명이 겹칩니다.");
+	}else{
+	
+		// 신고분류명 추가
+		$.ajax({
+			type : 'POST',
+			url : '/manage/insertAjax',
+			data : data,
+			success : function(data){
+				if(data.insertCnt < 1){
+					// insert 실패
+					alert("insert 실패");
+				}else{
+					// 리스트 다시 뿌리기
+					rpt_cfList();
+					document.getElementById('rpt_cf_nm').value = '';
+				}
+			}
+		});
+	}
+};
+
+//검색 Enter Key 처리
+function enterkey(){
+	if(window.event.keyCode == 13){
+		event.preventDefault();
+		addRpt_cf();
+	}
+}
+
 // 먼저 리스트 뿌리는 함수 실행
 rpt_cfList();
 
@@ -151,39 +196,8 @@ $(document).ready(function(){
 	
 	/* 신고 분류 추가하기 */
 	$('#classfAdd').on('click',function(){
-		var rpt_cf_nm = document.getElementById('rpt_cf_nm').value;
-		var data = {rpt_cf_nm : rpt_cf_nm};
-		var overlap = 0;
 		
-		// 신고분류명이 겹치는 것이 있는지 확인
-		var rpt_cf_names = document.getElementsByClassName("rpt_cf_names");
-		for(var i=0 ; i<rpt_cf_names.length ; i++){
-			if(rpt_cf_nm == rpt_cf_names[i].value){
-				overlap ++;
-			}
-		}
-		// 겹치는 법이 있으면 Ajax 실행 안함.
-		if(overlap > 0){
-			alert("신고분류명이 겹칩니다.");
-		}else{
-		
-			// 신고분류명 추가
-			$.ajax({
-				type : 'POST',
-				url : '/manage/insertAjax',
-				data : data,
-				success : function(data){
-					if(data.insertCnt < 1){
-						// insert 실패
-						alert("insert 실패");
-					}else{
-						// 리스트 다시 뿌리기
-						rpt_cfList();
-						document.getElementById('rpt_cf_nm').value = '';
-					}
-				}
-			});
-		}
+
 	});
 	
 	/* 신고 분류 수정하기 */
@@ -204,6 +218,7 @@ $(document).ready(function(){
 				}else{
 					// 리스트 다시 뿌리기
 					rpt_cfList();
+					alert("수정 되었습니다.");
 				}
 			}
 		});
@@ -251,7 +266,7 @@ $(document).ready(function(){
 	<!-- C 추가 -->
 	<div class="classf_rVo lastVo">
 		<input type="text" class="inputBox no backYellow" value=" " disabled />
-		<input type="text" id="rpt_cf_nm" class="inputBox" name="rpt_cf_nm"/>
+		<input type="text" id="rpt_cf_nm" class="inputBox" name="rpt_cf_nm" onkeyup="enterkey();"/>
 		<button id="classfAdd">추가</button>
 	</div>
 
