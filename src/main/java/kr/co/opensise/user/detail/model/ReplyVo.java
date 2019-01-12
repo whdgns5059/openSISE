@@ -9,7 +9,16 @@ public class ReplyVo {
 	private int rpl_post;
 	private int rpl_mem;
 	private String mem_email;
+	private String mem_nm;
+	
+	
 
+	public String getMem_nm() {
+		return mem_nm;
+	}
+	public void setMem_nm(String mem_nm) {
+		this.mem_nm = mem_nm;
+	}
 	public String getMem_email() {
 		return mem_email;
 	}
