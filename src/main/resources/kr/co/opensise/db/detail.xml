@@ -65,7 +65,7 @@
 	</insert>		
 	
 	<select id="selectReview" parameterType="articleVo" resultType="postVo">
-		select post.*, substr(mem_email, 0, 6) || '**********' as mem_email from post, member
+		select post.*, substr(mem_email, 0, 6) || '**********' as mem_email, mem_nm from post, member
 		where post_brd = 1 and post_gu = #{artcl_gu} and post_dong= #{artcl_dong} and post_zip= #{artcl_zip} and post_rd= #{artcl_rd}
 		and post_mem = mem_no
 		order by post_no desc
@@ -96,7 +96,7 @@
 	</insert>		
 	
 	<select id="selectReply" parameterType="int" resultType="replyVo">
-	    select rpl_no, rpl_cntnt, to_char(rpl_date, 'yyyy-MM-dd') as rlp_date, rpl_exst, rpl_post, rpl_mem, mem_email from 
+	    select rpl_no, rpl_cntnt, to_char(rpl_date, 'yyyy-MM-dd') as rlp_date, rpl_exst, rpl_post, rpl_mem, mem_email, mem_nm from 
 		(select * from post
 			where post_no = #{int}), reply b, member
 		where post_no = rpl_post
@@ -109,8 +109,9 @@
 	</delete>
 		
 	<delete id="deleteReview" parameterType="String">
-		delete post
-		where post_no = #{post_no}
+		update post
+		set post_exst = 'N'
+		where post_no = #{String}
 	</delete>
 	
 	<delete id="deleteReviewChild" parameterType="String">

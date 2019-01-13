@@ -238,6 +238,8 @@ ol, ul, dl {
 			navigation : {
 				nextEl : '.swiper-button-next',
 			},
+			
+			allowTouchMove : false
 		});
 
 		$("#next").on("click", function(event) {

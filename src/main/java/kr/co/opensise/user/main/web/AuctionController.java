@@ -64,7 +64,6 @@ public class AuctionController {
 			e.printStackTrace();
 		}
 		
-		// 인코딩
 		String htmlWrite = html.toString();
 		
 		return htmlWrite;

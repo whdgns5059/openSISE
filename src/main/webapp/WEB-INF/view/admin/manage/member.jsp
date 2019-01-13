@@ -117,10 +117,15 @@
 		});
 	}
 	
+	var level = null;
+	
 	$(function() {
 	//$(document).ready(function(){
 		$("#ex").hide();
 		$("#userList").on("click",".memList",function(){
+			
+			level = this;
+			
 			var mem_no = this.children[0].innerText;
 			var mem_nm = this.children[1].innerText;
 			var mem_email = this.children[2].innerText;
@@ -150,13 +155,12 @@
 		});
 		
 		$("#Declaration").on("click", function() {
+			$("#mem_email2").val($("#mem_email").html());
+			$("#lvl").val($("#mem_lvl").html());
+			console.log(level);
+			//level.children[8].innerText;
+			level.children[8].innerText = level.children[8].innerText-1;
 			//form 실행
-			$("#mem_emailSetting").val($("#mem_email").html());
-			console.log($("#mem_emailSetting").val());
-			$("#reportLevel").val($("#mem_lvl").html());
-			console.log($("#reportLevel").val());
-// 			$("#fmm").submit();
-// 			location.reload();
 		});
 
 	});
@@ -473,8 +477,8 @@
 			
 			<!-- 신고버튼 선택시 컨틀러이동 처리 -->
 			<form action="/admin/declaration" id="fmm" method="post">
-				<input type="hidden" id="mem_emailSetting" name="mem_email">
-				<input type="hidden" id="reportLevel" name="mem_lvl">
+				<input type="hidden" id="mem_email2" name="mem_email">
+				<input type="hidden" id="lvl" name="mem_lvl">
 			</form>
 			
 			

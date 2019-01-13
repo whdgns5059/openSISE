@@ -57,33 +57,44 @@
 
 .info {width: 1100px; height: 120px; padding : 20px; padding-bottom:0px;}
 .info div {width: 40%; float:left;}
+.recentInfo h3 {padding-left : 50px; }
 
 .buildingName { margin : 40px; padding-left : 200px; font-weight: bold;}
 .bldInfo {font-size: large; margin: 15px;}
+
+
+.tradeTable {}
+
 
 #radarChartDiv {padding : 0px !important; margin:0px !important;}
 #radarChartDiv div {padding : 0px !important; margin:0px !important;}
 
 
 #review {min-height: 300px;}
-#review div {padding:0px !important;}
 
 .reviewWrapper {margin:auto; margin:20px;}
 .titleWrapper {margin:auto;}
-.titleWrapper * {border:1px solid black;}
-.reviewNo {clear:left; float:left; width:30px;}
+.titleWrapper * { border-bottom:3px  #fff3e6 solid; border-top:1px  #fff3e6 solid;
+			 background-color: #ffe6b3; margin-bottom: 10px; padding:5px; }
+.reviewNo {clear:left; float:left; width:50px;}
 .reviewDate { float:left; width:200px;}
 .reviewTitle {float:left; width:500px;}
 .reviewWriter {float:left; width: 200px;}
-.reviewDetailWrapper {clear:left; margin:auto; padding-top: 15px; padding-bottom: 15px; }
+.reviewDetailWrapper {clear:left; margin:auto; padding-top: 15px; padding-bottom: 15px; 
+						background-color:  #fff3e6; width:950px;}
 .starDivWrapper { height: 45px;}
+.starDivWrapper div { float:left;}
 .starDiv {float:left;}
-.reportDiv {width: 40px;float: right;cursor: pointer;margin-right: 110px;}
+.reportDiv {width: 40px;cursor: pointer;margin-right: 110px; margin-left:340px; float:left;}
 .photo {clear:left;}
 .reviewModify {float: right; width: 400px;}
+.reviewText  {margin:20px;}
 
 .labelred {color: red; font-weight: bold;}
-.replyInput {width: 400px; margin-right:20px;}
+.replyInput {width: 700px; margin-right:20px;insertReply}
+.insertReply {width: 100px;}
+
+
 
 
 

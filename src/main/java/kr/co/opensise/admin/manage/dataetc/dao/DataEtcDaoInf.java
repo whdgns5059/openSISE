@@ -33,6 +33,8 @@ public interface DataEtcDaoInf {
 	public int insertInstiattr(InstiAttrVo instiAttrVo);
 	public int deleteInstiattr(int iattr_no);
 	
-	public int countMarket();
+	public List<MarketVo> marketList();
+
+	public int insertMarketOne(MarketVo mVo);
 	
 }

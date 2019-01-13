@@ -44,8 +44,8 @@
 		Select * From(
 			Select Rownum rnum ,a.*
 			From
-			(Select b.rpt_no, b.rpt_post, c.rpt_cf_nm, b.rpt_ttl, b.rpt_cntnt, b.rpt_date, b.rpt_mem, b.rpt_exst
-			From report b Inner Join report_classf c on(b.rpt_classf = c.rpt_classf)
+				(Select b.rpt_no, b.rpt_post, c.rpt_cf_nm, b.rpt_ttl, b.rpt_cntnt, b.rpt_date, b.rpt_mem, b.rpt_exst
+				From report b Inner Join report_classf c on(b.rpt_classf = c.rpt_classf)
 	        Where rpt_no > 0
 			<if test="selBox != null and searchNm != null">
 				<if test="selBox == 'rpt_no'">
@@ -67,7 +67,7 @@
 					and rpt_mem 	like '%' || #{searchNm} || '%' 
 				</if>
 	             <if test="selBox == 'rpt_exst'">
-					and rpt_exst 	= Upper(#{searchNm})
+					and rpt_exst 	like '%' || Upper(#{searchNm}) || '%'
 				</if>
 				<if test="selBox == 'all'">
 					and rpt_no 		like '%' || #{searchNm} || '%'

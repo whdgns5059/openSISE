@@ -120,15 +120,20 @@ public class DataEtcDao implements DataEtcDaoInf {
 	}
 
 	/**
-	* Method : countMarket
+	* Method : marketList
 	* 작성자 : ASUS
 	* 변경이력 :
 	* @return
-	* Method 설명 :market은 최초 한번만 입력되면 되므로 market의 갯수를 센다.
+	* Method 설명 :market은 최초 한번만 입력되면 되므로 기존 market의 list를 가져온다.
 	*/
 	@Override
-	public int countMarket() {
-		return template.selectOne("dataEtc.countMarket");
+	public List<MarketVo> marketList() {
+		return template.selectList("dataEtc.marketList");
+	}
+
+	@Override
+	public int insertMarketOne(MarketVo mVo) {
+		return template.insert("dataEtc.marketListOne", mVo);
 	}
 
 }

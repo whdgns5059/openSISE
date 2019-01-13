@@ -1,9 +1,6 @@
 package kr.co.opensise.admin.manage.dataetc.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -14,10 +11,10 @@ import kr.co.opensise.admin.manage.dataetc.model.BusVo;
 import kr.co.opensise.admin.manage.dataetc.model.HumanStatisticVo;
 import kr.co.opensise.admin.manage.dataetc.model.InstiAttrVo;
 import kr.co.opensise.admin.manage.dataetc.model.InstiVo;
+import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
 import kr.co.opensise.admin.manage.dataetc.model.RouteVo;
 import kr.co.opensise.admin.manage.dataetc.model.StationVo;
-import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 
 @Service
 public class DataEtcService implements DataEtcServiceInf {
@@ -98,7 +95,13 @@ public class DataEtcService implements DataEtcServiceInf {
 	}
 
 	@Override
-	public int countMarket() {
-		return dataEtcDao.countMarket();
+	public List<MarketVo> marketList() {
+		return dataEtcDao.marketList();
 	}
+
+	@Override
+	public void insertMarketOne(MarketVo mVo) {
+		dataEtcDao.insertMarketOne(mVo);
+	}
+
 }
