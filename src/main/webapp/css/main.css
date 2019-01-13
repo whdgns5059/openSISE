@@ -101,8 +101,6 @@
 }
 
 .article {
-	width: 500px;
-	height: 140px;
 	margin: 15px 0;
 	padding: 20px;
 	border: 1px solid #e0e0e0;
@@ -162,30 +160,31 @@
 }
 
 .divHeight {
-	width: 500px;
+	width: 420px;
 	height: 140px;
 }
 
 .divHeight h4 {
 	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 600;
+	font-weight: 500;
 	font-size: 24px;
 	margin-left: 14px;
+	margin-bottom: 15px;
 }
 
 #dlRnt {
 	border: none;
 	margin-left: 22px;
-	margin-top: 6px;
-	font-size: 15px;
+	margin-top: 11px;
+    font-size: 17px;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #dlPrice {
 	border: none;
 	margin-left: 22px;
-	margin-top: 6px;
-	font-size: 15px;
+	margin-top: 11px;
+    font-size: 17px;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 

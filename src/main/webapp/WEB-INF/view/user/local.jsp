@@ -352,7 +352,9 @@
 		var addr = $("#addr").val();
 		if(id != "nearFaci"){
 			settingMap();
-			
+		}else{
+			map.removeControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+			map.removeControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
 		}
 
 		$.ajax({

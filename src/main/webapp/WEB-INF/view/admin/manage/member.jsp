@@ -151,7 +151,12 @@
 		
 		$("#Declaration").on("click", function() {
 			//form 실행
-			$("#fmm").submit();
+			$("#mem_emailSetting").val($("#mem_email").html());
+			console.log($("#mem_emailSetting").val());
+			$("#reportLevel").val($("#mem_lvl").html());
+			console.log($("#reportLevel").val());
+// 			$("#fmm").submit();
+// 			location.reload();
 		});
 
 	});
@@ -164,7 +169,7 @@
 	
 	$(document).ready(function(){
 		$("#close").on("click",function(){
-			$(".modal2").modal("close");
+			$(".modal2").modal("c,lose");
 		});
 		
 		$("#back").on("click",function(){
@@ -468,7 +473,8 @@
 			
 			<!-- 신고버튼 선택시 컨틀러이동 처리 -->
 			<form action="/admin/declaration" id="fmm" method="post">
-				<input type="hidden" id="mem_email" name="mem_email">
+				<input type="hidden" id="mem_emailSetting" name="mem_email">
+				<input type="hidden" id="reportLevel" name="mem_lvl">
 			</form>
 			
 			

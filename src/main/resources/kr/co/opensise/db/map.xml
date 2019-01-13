@@ -43,10 +43,10 @@
 	        and artcl_lng between (127.38483389033713-0.08) and (127.38483389033713-0.08)
 	        </if>
 	        <if test="searchName != ''">
-	        and artcl_dong = #{searchName} 
+	        and (artcl_dong = #{searchName} 
 	        or artcl_gu = #{searchName}  
 	        or artcl_complx like #{searchName} || '%' 
-	        or artcl_nm like #{searchName} || '%' 
+	        or artcl_nm like #{searchName} || '%') 
 	        </if>
      	) 
         a inner join (select * from deal where dl_ty = '매매') d 
@@ -73,10 +73,10 @@
 	        and artcl_lng between (127.38483389033713-0.08) and (127.38483389033713-0.08)
 	        </if>
 	        <if test="searchName != ''">
-	        and artcl_dong = #{searchName} 
+	        and (artcl_dong = #{searchName} 
 	        or artcl_gu = #{searchName}  
 	        or artcl_complx like #{searchName} || '%' 
-	        or artcl_nm like #{searchName} || '%' 
+	        or artcl_nm like #{searchName} || '%' )
 	        </if>
 	        
      	) 
