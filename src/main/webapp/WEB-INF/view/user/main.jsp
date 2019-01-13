@@ -97,19 +97,22 @@
 			}
 		});
 		
+		var type;
 		//가격 ajax 처리
 		 $(".divHeight").on("slideStop","#slider-price",function(){
 			getArticleList();
+			type="";
 		});
 		$(".divHeight").on("slideStop","#slider-rnt",function(){
 			getArticleList();
+			type="";
 		}); 
-		
 		
 
 		/*전/월/매 ajax 처리*/
 		$(".dlSelector").on("click", function(){
 			dl_Type = document.querySelector('input[name="buildingType"]:checked').value;
+			type="hType";
 			$("#buildT").html(dl_Type);
 			$("#ty").val(dl_Type);
 			$("#dl_ty").val(dl_Type);
@@ -119,21 +122,26 @@
 			
 			if(dl_Type == '매매'){
 				$("#priceTitle").html("매매가");
+				 $("#slider-price").slider("destroy");
 				sliderPrice(0,300000);
 				$("#rnt").hide();
 				$(".divHeight").css("height", "140px");
 				$("#dlPrice").val("");
 				$("#dlRnt").val("");
 			}else if(dl_Type == '월세'){
+				 $("#priceTitle").html("보증금");
+				 $("#slider-price").slider("destroy");
+				 $("#slider-rnt").slider("destroy");
 				sliderPrice(0,100000);
 				sliderRnt(0,1000);
-				$(".divHeight").css("height", "260px");
+				$(".divHeight").css("height", "267px");
 				$("#rnt").show();
 				$("#dlPrice").val("");
 				$("#dlRnt").val("");
 			}else {
-				sliderPrice(0,100000);
 				$("#priceTitle").html("보증금");
+				$("#slider-price").slider("destroy");
+				sliderPrice(0,100000);
 				$("#rnt").hide();
 				$(".divHeight").css("height", "140px");
 				$("#dlPrice").val("");
@@ -146,6 +154,7 @@
 		/*단/다세대 ajax 처리*/
 		$(".houseSelector").on("click", function(){
 			building = document.querySelector('input[name="house"]:checked').value;
+			type="";
 			$("#buildings").val(building);
 			console.log($("#buildings").val());
 			if(building == "single"){
@@ -163,6 +172,7 @@
 		/*평(형)수 ajax 처리*/
 		$(".areaSelector").on("click",function(){
 			dl_excv_area = document.querySelector('input[name="area"]:checked').value;
+			type="";
 			if(dl_excv_area == "0"){
 				$("#excv_area").html("전체");
 			}else if(dl_excv_area == "60"){
@@ -179,6 +189,7 @@
 		/*준공년도 ajax 처리*/
 		$(".yearSelector").on("click",function(){
 			artcl_const_y = document.querySelector('input[name="year"]:checked').value;
+			type="";
 			if(artcl_const_y == "all"){
 				$("#const_y").html("무관");
 			}else{
@@ -190,9 +201,9 @@
 		});
 		
 		//가격 ajax 처리
-		$(".priceSelector").on("click",function(){
-			dl_price = document.querySelector('input[name="price"]:checked').value;
-		});
+// 		$(".priceSelector").on("click",function(){
+// 			dl_price = document.querySelector('input[name="price"]:checked').value;
+// 		});
 		
 		
 		
@@ -615,6 +626,13 @@
 		 	var dl_rnt1 = document.getElementById("dl_rnt1").value;
 		 	var dl_rnt2 = document.getElementById("dl_rnt2").value;
 		 	
+		 	if(type == "hType"){
+		 		dl_price1 = null;
+		 		dl_price2 = null;
+		 		dl_rnt1 = null;
+		 		dl_rnt2 = null;
+		 	}
+		 	
 		 	console.log("dl_price1 : "+ dl_price1);
 		 	console.log("dl_price2 : "+ dl_price2);
 		 	console.log("dl_rnt1 : " + dl_rnt1) 
@@ -678,6 +696,35 @@
 			return position;
 		}
 
+		
+		
+// 		$(".dropdown-menu").on("click",function(){
+// 			console.log(this.id);
+// 			if(this.id == "houseType"){
+// 				var parent = $(this).parent();
+// 				$ (parent). on ( 'hide.bs.dropdown' , function () { return false ; }); 
+// 			}else if(this.id == "dlType"){
+// 				var parent = $(this).parent();
+// 				$ (parent). on ( 'hide.bs.dropdown' , function () { return false ; }); 
+// 			}else if(this.id == "priceT"){
+// 				var parent = $(this).parent();
+// 				$ (parent). on ( 'hide.bs.dropdown' , function () { return false ; });
+// 			}else if(this.id == "excvArea"){
+// 				var parent = $(this).parent();
+// 				$ (parent). on ( 'hide.bs.dropdown' , function () { return false ; });
+// 			}else{
+// 				var parent = $(this).parent();
+// 				$ (parent). on ( 'hide.bs.dropdown' , function () { return false ; });
+// 			}
+// 		});
+		
+// 	$(".dropdown-toggle").on("click",function(){
+// 		alert("이것도 되나...?");
+// 		alert(this.id);
+// 		console.log("아무거나");
+		
+// 		$("#lt").on( 'hide.bs.dropdown' , function () { return true ; }); 
+// 	});
 		
 		
 		
@@ -765,9 +812,9 @@
 		<div class="filters-div">
 			<ul class="nav nav-tabs">
 				<c:if test="${building == 'house'}">
-					<li class="nav-item dropdown">
+					<li class="nav-item dropdown" id="ht">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="houseType">주거형태</a>
-						<div class="dropdown-menu">
+						<div class="dropdown-menu" id="houseTypes">
 							<div class="custom-control custom-checkbox">
 								<a class="dropdown-item" href="#"> 
 									<input type="radio" class="custom-control-input houseSelector" id="single" name="house" value="single" /> 
@@ -796,7 +843,7 @@
 						</div>
 					</li>
 				</c:if>
-				<li class="nav-item dropdown"><a
+				<li class="nav-item dropdown" id="lt"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false"><span id="buildT">전/월/매</span></a>
 					<div class="dropdown-menu" id="dlType">
@@ -820,25 +867,25 @@
 						</div>
 					</div></li>
 					<!-- 가격 수정 -->
-				<li class="nav-item dropdown"><a
+				<li class="nav-item dropdown" id="pt"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-					role="button" aria-haspopup="true" aria-expanded="false">가격</a>
-					<div class="dropdown-menu divHeight">
+					role="button" aria-haspopup="true" aria-expanded="false" >가격</a>
+					<div class="dropdown-menu divHeight" id="priceT">
 						<h4 id="priceTitle">매매가</h4>
 						<div id="slider-price"></div>
-						<input type="text" readonly="readonly" id="dlPrice">
+						<input type="text" readonly="readonly" id="dlPrice" value="무제한">
 						<hr>
 						<div id="rnt">
 						<h4>월세</h4>
 						<div id="slider-rnt"></div>
-						<input type="text" readonly="readonly" id="dlRnt">
+						<input type="text" readonly="readonly" id="dlRnt" value="무제한">
 						</div>
 					</div>
 					</li>
-				<li class="nav-item dropdown"><a
+				<li class="nav-item dropdown" id="et"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false" id="excv_area">평(형)수</a>
-					<div class="dropdown-menu">
+					<div class="dropdown-menu" id="excvArea">
 						<div class="custom-control custom-checkbox">
 							<a class="dropdown-item" href="#"> 
 								<input type="radio" class="custom-control-input areaSelector " id="tenArea" name="area" value="10"/> 
@@ -882,10 +929,10 @@
 							</a>
 						</div>
 					</div></li>
-				<li class="nav-item dropdown"><a
+				<li class="nav-item dropdown" id="ct"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 					role="button" aria-haspopup="true" aria-expanded="false" id="const_y">준공년도</a>
-					<div class="dropdown-menu">
+					<div class="dropdown-menu" id="consty">
 						<div class="custom-control custom-checkbox">
 							<a class="dropdown-item" href="#"> 
 								<input type="radio" class="custom-control-input yearSelector " id="fiveYear" name="year" value="5"/> 
@@ -981,26 +1028,44 @@
 						<input type="hidden" id="rd" value="${build.artcl_rd}">
 						<c:choose>
 							<c:when test="${building == 'apt'}">
+								<c:if test="${build.artcl_complx == null}">
+									<h4 class="clickDetail">-</h4>
+								</c:if>
 								<h4 class="clickDetail">${build.artcl_complx}</h4>
 							</c:when>
 							<c:when test="${building == 'house'}">
 								<c:choose>
 									<c:when test="${build.artcl_bc == 'multi'}">
+										<c:if test="${build.artcl_rd == null}">
+											<h4 class="clickDetail">-</h4>
+										</c:if>
 										<h4 class="clickDetail">${build.artcl_rd}</h4><span>다세대</span>
 									</c:when>
 									<c:when test="${build.artcl_bc == 'multip'}">
+										<c:if test="${build.artcl_nm == null}">
+											<h4 class="clickDetail">-</h4>
+										</c:if>
 										<h4 class="clickDetail">${build.artcl_nm}</h4><span>연립</span>
 									</c:when>
 									<c:when test="${build.artcl_bc == 'single'}">
+										<c:if test="${build.artcl_rd == null}">
+											<h4 class="clickDetail">-</h4>
+										</c:if>
 										<h4 class="clickDetail">${build.artcl_rd}</h4><span>단세대</span>
 									</c:when>
 								</c:choose>
 								<br>
 							</c:when>
 							<c:when test="${building == 'office'}">
+								<c:if test="${build.artcl_complx == null}">
+									<h4 class="clickDetail">-</h4>
+								</c:if>
 								<h4 class="clickDetail">${build.artcl_complx}</h4>
 							</c:when>
 							<c:when test="${building == 'store'}">
+								<c:if test="${build.artcl_rd == null}">
+									<h4 class="clickDetail">-</h4>
+								</c:if>
 								<h4 class="clickDetail">${build.artcl_rd}</h4>
 							</c:when>
 						</c:choose>

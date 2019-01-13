@@ -9,7 +9,14 @@ public class MarketDetailVo {
 	private String mkd_prod_detail;
 	private String mkd_mk;
 	private String mkd_mk_dong;
+	private String mkd_classf;
 	
+	public String getMkd_classf() {
+		return mkd_classf;
+	}
+	public void setMkd_classf(String mkd_classf) {
+		this.mkd_classf = mkd_classf;
+	}
 	public int getMkd_no() {
 		return mkd_no;
 	}
@@ -52,12 +59,20 @@ public class MarketDetailVo {
 	public void setMkd_mk_dong(String mkd_mk_dong) {
 		this.mkd_mk_dong = mkd_mk_dong;
 	}
+	/**
+	* Method : toString
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @return
+	* Method 설명 :
+	*/
 	@Override
 	public String toString() {
-		return "Market_detailVo [mkd_no=" + mkd_no + ", mkd_date=" + mkd_date + ", mkd_price=" + mkd_price
+		return "MarketDetailVo [mkd_no=" + mkd_no + ", mkd_date=" + mkd_date + ", mkd_price=" + mkd_price
 				+ ", mkd_prod=" + mkd_prod + ", mkd_prod_detail=" + mkd_prod_detail + ", mkd_mk=" + mkd_mk
-				+ ", mkd_mk_dong=" + mkd_mk_dong + "]";
+				+ ", mkd_mk_dong=" + mkd_mk_dong + ", mkd_classf=" + mkd_classf + "]";
 	}
+	
 	
 	
 	

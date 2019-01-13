@@ -176,13 +176,15 @@
 					</c:when>
 				<c:otherwise>
 					<c:forEach items="${selectReview }" var="postVo" varStatus="status">
-						<c:if test="${postVo.post_exst eq 'Y' }" >
+						<c:if test="${postVo.post_exst eq 'N' }" >
 						<div class="reviewWrapper">
 							<div class="titleWrapper">
 								<div class="reviewNo">${postVo.post_no }</div>
-								<div class="reviewDate">${postVo.post_date }</div>
 								<div class="reviewTitle">${postVo.post_ttl}</div>
-								<div class="reviewWriter">${postVo.mem_email} </div>
+								<div class="reviewWriter">${postVo.mem_nm} </div>
+								<div class="reviewDate">
+									${fn:substring(postVo.post_date, 0, 10)  }
+								</div>
 							</div>
 							<div class="reviewDetailWrapper">
 								<div class="starDivWrapper">
@@ -230,7 +232,7 @@
 												<input type="text" class="form-control replyInput" name="rpl_cntnt" placeholder="댓글을 작성해 주세요"/>
 												<input type="hidden" class="post_no" value="${postVo.post_no }"/>
 										</div>
-										<input type="button" class="insertReply btn"/>
+										<input type="button" class="insertReply btn" value="댓글작성"/>
 									</div>
 								</div>
 							</div>

@@ -15,10 +15,10 @@
 <body>
 	<tiles:insertAttribute name="header"/>
 
-		<tiles:insertAttribute name="left"/>
+	<tiles:insertAttribute name="left"/>
 
-		<!-- right contents -->	
-		<tiles:insertAttribute name="content"/>
+	<!-- right contents -->	
+	<tiles:insertAttribute name="content"/>
 
 
 </body>

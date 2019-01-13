@@ -161,6 +161,35 @@ td{
 }
 </style>
 <script type="text/javascript">
+
+	// 신고글 페이지에 따른 리스트
+	function reportListPage(pageNum){
+		// 선택한 페이지 번호
+	 	$("#page").val(pageNum);
+		// form 전체 보내기
+	 	var param = $("form[name=frm]").serialize();
+		
+		$.ajax({
+			type : "POST",
+			url : "/manage/reportListAjax",
+			data : param,
+			success : function(data) {
+				// 먼저 현재 html을 지우고
+				$("#reportList").html("");
+				// 결과에 따른 새로운 html 쓰기
+				$("#reportList").html(data);
+			}
+		});
+	}
+	
+	// 검색 Enter Key 처리
+	function enterkey(){
+		if(window.event.keyCode == 13){
+			event.preventDefault();
+			reportListPage(1);
+		}
+	}
+	
 $(document).ready(function(){
 	/* 신고분류 관리 */
 	$('#rptCfBtn').on('click',function(){
@@ -203,25 +232,6 @@ $(document).ready(function(){
 		reportListPage(1);
 	});
 	
-	function reportListPage(pageNum){
-		// 선택한 페이지 번호
-	 	$("#page").val(pageNum);
-		// form 전체 보내기
-	 	var param = $("form[name=frm]").serialize();
-		
-		$.ajax({
-			type : "POST",
-			url : "/manage/reportListAjax",
-			data : param,
-			success : function(data) {
-				// 먼저 현재 html을 지우고
-				$("#reportList").html("");
-				// 결과에 따른 새로운 html 쓰기
-				$("#reportList").html(data);
-			}
-		});
-	}
-	
 	// 신고 처리여부 수정
 	$('#rpt_ok').on('click',function(){
 		// 숨겨진 input에 rpt_no 값 넣기
@@ -257,7 +267,10 @@ $(document).ready(function(){
 		$('.blocker').hide();
 	});
 	
+	
+	
 });
+	
 </script>
     
 <div class="admin-title">
@@ -289,8 +302,8 @@ $(document).ready(function(){
 				<option value="rpt_exst">처리여부</option>
 			</select>
 			<!-- 검색어 -->
-			<input type="text" id="searchNm" name="searchNm" />
-			<button type="button" id="search">검색</button>
+			<input type="text" id="searchNm" onkeyup="enterkey();" name="searchNm" />
+			<input type="text" id="search"  value="검색"/>
 		</form>
 	</div>
 	

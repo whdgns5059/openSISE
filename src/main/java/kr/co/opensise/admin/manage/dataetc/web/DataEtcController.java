@@ -80,6 +80,8 @@ public class DataEtcController {
 	//인구통계
 	@RequestMapping("/insertDataEtc")
 	public String insertDateEtc(@RequestPart("etcData") MultipartFile part, Model model) {
+		
+		
 		try {
 			//buffedinputStream으로 속도 상승
 			BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
@@ -112,8 +114,11 @@ public class DataEtcController {
 			
 //			Date hs_date = new SimpleDateFormat("yyyy/MM").parse(dateC);
 			
+			
+			
 			//반복문을 이용해 성별,연령별,동별,시기별 셀 정보를 human_statisticVo에 담고 list에 넣기
 			List<HumanStatisticVo> human_statisticList = new ArrayList<HumanStatisticVo>();
+		
 			
 			for(int i=6;i<rows;i++) {
 				HSSFRow row = sheet.getRow(i);
@@ -327,6 +332,7 @@ public class DataEtcController {
 						
 						//시장분류Vo에 담기
 						marketVo.setMk_classf(mk_classf);
+						marketDetailVo.setMkd_classf(mk_classf);
 						
 						//조사일시 vo에 담기
 						marketDetailVo.setMkd_date(mkd_date);
@@ -444,10 +450,22 @@ public class DataEtcController {
 			//중복되면 지워주기
 			marketList.removeAll(marketListdb);
 			
+		
+			
+			
 			if(marketList.size()!=0) {
-				insertMarketList = dataEtcService.insertMarket(marketList);
+				for(MarketVo mVo : marketList) {
+					
+					mVo.getMk_nm().replaceAll("[\\t\\n\\x0B\\f\\r]", "");
+					mVo.getMk_classf().replaceAll("[\\t\\n\\x0B\\f\\r]", "");
+					mVo.getMk_dong().replaceAll("[\\t\\n\\x0B\\f\\r]", "");
+					
+					log.info("mVo : {}",mVo.toString());
+					dataEtcService.insertMarketOne(mVo);
+				}
 			}
 			
+			log.info("detailInsert");
 			insertMarketDetailList = dataEtcService.insertMarketDetail(marketDetailList);
 		
 			model.addAttribute("insertMarketListCnt", insertMarketList);	
@@ -458,25 +476,6 @@ public class DataEtcController {
 				model.addAttribute("success", marketDetailList.size());
 			}
 			
-//			if(insertMarketDetailList<0) {
-//				response.setContentType("text/html; charset=UTF-8");
-//				 
-//				PrintWriter out = response.getWriter();
-//				 
-//				out.println("<script>alert('중복된 데이터입니다.'); location.href='admin/dataEtc.jsp';</script>");
-//				 
-//				out.flush();
-//
-//
-//			}else {
-//				response.setContentType("text/html; charset=UTF-8");
-//				 
-//				PrintWriter out = response.getWriter();
-//				 
-//				out.println("<script>alert('데이터입력을 완료하였습니다.'); location.href='admin/dataEtc.jsp';</script>");
-//				 
-//				out.flush();
-//			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();

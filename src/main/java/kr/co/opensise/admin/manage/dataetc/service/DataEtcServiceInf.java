@@ -48,4 +48,6 @@ public interface DataEtcServiceInf {
 	public int deleteInstiattr(int iattr_no);
 	
 	public List<MarketVo> marketList();
+
+	public void insertMarketOne(MarketVo mVo);
 }

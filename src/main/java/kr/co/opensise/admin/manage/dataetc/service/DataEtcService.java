@@ -99,4 +99,9 @@ public class DataEtcService implements DataEtcServiceInf {
 		return dataEtcDao.marketList();
 	}
 
+	@Override
+	public void insertMarketOne(MarketVo mVo) {
+		dataEtcDao.insertMarketOne(mVo);
+	}
+
 }

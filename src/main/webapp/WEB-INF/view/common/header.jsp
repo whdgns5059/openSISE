@@ -127,10 +127,18 @@
 		if(building == 'auction'){
 			location.href = "/auction/auction";
 		}else{
-			var searchName = document.getElementById('loc').value;
-	
+			var searchName
+			if($("#loc").val() == null){
+				$("#searchName").val("");
+			}else{
+				searchName = document.getElementById('loc').value;
+				$("#searchName").val(searchName);
+			}
 			$("#building").val(building);
-			$("#searchName").val(searchName);
+			
+			if($("#searchName").val() == ""){
+				$("#dl_t").val("매매");
+			}
 	
 			$("#fmi").submit();
 		}
