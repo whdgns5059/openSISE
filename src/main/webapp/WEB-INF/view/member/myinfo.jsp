@@ -115,5 +115,6 @@
 		<div class="col-sm-10"></div>
 	</div>
 </form>
+
 </div>
 </style>
