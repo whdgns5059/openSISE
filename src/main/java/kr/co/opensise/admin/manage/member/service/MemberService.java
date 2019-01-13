@@ -42,7 +42,7 @@ public class MemberService implements MemberServiceInf{
 		List<ManagementVo> userList = memberDao.selectUserPageList(page);
 
 		// 페이지 내비게이션을 위한 전체 유저 리스트 조회
-		int totalUserCnt = memberDao.getUserCnt();
+		int totalUserCnt = memberDao.getUserCnt(page);
 
 		// 결과를 담는 map
 		Map<String, Object> resultMap = new HashMap<String, Object>();

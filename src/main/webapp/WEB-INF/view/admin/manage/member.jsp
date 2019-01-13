@@ -24,7 +24,7 @@
 		$.ajax({
 			type : "GET",
 			url : "/admin/userPageListAjax",
-			data : "page=" + page + "&pageSize=" + pageSize,
+			data : "page=" + page + "&pageSize=" + pageSize ,
 			success : function(data) {
 				var html ="";
 				$.each(data.pageUserList, function(idx, user){
@@ -117,6 +117,106 @@
 		});
 	}
 	
+	function getUserSearchList(page, key, value) {
+		var pageSize = 10;
+		console.log("page :" + page);
+
+		$.ajax({
+			type : "GET",
+			url : "/admin/userPageListAjax",
+			data : "page=" + page + "&pageSize=" + pageSize + "&key=" + key + "&value="+ value,
+			success : function(data) {
+				var html ="";
+				$.each(data.pageUserList, function(idx, user){
+					html +="<tr class='memList'>";
+					html +="<th>"+user.mem_no+"</th>";
+					html +="<th>"+user.mem_nm+"</th>";
+					html +="<th>"+user.mem_email+"</th>";
+					let mem_date = new Date(user.mem_date);
+					html += "<th>"+mem_date.getFullYear()+"-"+(mem_date.getMonth()+1)+"-"+mem_date.getDate()+"</th>";
+					html +="<th class='hidden'>";
+						if(user.mem_gndr == null){
+							html+= '<label for="memGndr" class="control-label" >선택안함</label>';
+						}else if (user.mem_gndr != null) {
+							html += '<label for="memGndr" class="control-label" >';
+							 if(user.mem_gndr == 'F'){
+								 html += '여자';
+							 }else if (user.mem_gndr == 'M') {
+								 html += '남자';
+							}
+							html += '</label>';
+						}
+					html += "</th>";
+					
+					html += "<th class='hidden'>";
+						if(user.mem_age == '0'){
+							html += '<label for="mem_age" class="control-label">선택안함</label>';
+						}else if (user.mem_age != null ) {
+							html += '<label for="mem_age" class="control-label">'+user.mem_age+'</label>';
+						}
+					html += "</th>";
+					
+					html += "<th class='hidden'>";
+						if(user.job_nm == null){
+							html += '<label for="mem_job" class="control-label">선택안함</label>';
+						}else if (user.job_nm != null) {
+							html += '<label for="mem_job" class="control-label">'+user.job_nm+'</label>';
+						}
+					let mem_exdate = new Date(user.mem_exdate);
+					html += "</th>";
+					html += "<th class='hidden'>"+mem_exdate.getFullYear()+"-"+(mem_exdate.getMonth()+1)+"-"+mem_exdate.getDate()+"</th>";
+						if(user.mem_exdate == null){
+							html += '<label for="mem_exdate" class="control-label">없음</label>';
+						}
+					html += "</th>";
+					html += "<th class='hidden'>"+user.mem_lvl+"</th>";
+					html += "<th class='hidden'>"+user.nm+"</th>";
+					html +="</tr>";
+					
+				});
+				
+				$("#userList").html("");
+				$("#userList").html(html);
+				
+				/* var pageNav = ""; 
+				for(var i=1; i<data.pageCnt+1; i++){
+					pageNav += "<li><a href=\"javascript:getUserList(" +i+ ") \">"+i+"</a></li>";
+				} */
+				
+				html += "<ul class='pagination'>";
+				if(user==1){
+					html += "<li> <a href='javascript:getUserSearchList(1, "+ key +");' aria-label='Previous'>&laquo;</span> </a> </li>";
+				}else {
+					html += "<li class='page-item disabled'><a class='page-link' href='javascript:getUserSearchList(1, "+ key +")'>&lt;</a></li>";
+				}
+				
+				if(user!=1){
+					html += "<li><a href='javascript:getUserSearchList(1, "+ key +");' aria-label='Previous'>&laquo;</span></a></li>";
+				}else {
+					html += "<li class='page-item'><a class='page-link'	href='javascript:getUserSearchList(1, "+ key +");'>&lt;</a></li>";
+				}
+				
+				for (var p = 0; p < 11; p++) {
+					html += "<li><a href='javascript:getUserSearchList(p, "+ key +");'>p</a></li>";
+				}
+				
+				html += "<li class='page-item'>";
+				if(user==pageCnt){
+					html += "<li class='page-item disabled'><a class='page-link' href='#' tabindex='-1'>Next</a></li>";
+					html += "<li class='disabled'><a href='#' aria-label='Next' tabindex='-1'><span aria-hidden='true'>&laquo;</span></a></li>";
+				}else if (user!=pageCnt) {
+					html += "<li class='page-item'><a class='page-link'	href='javascript:getUserSearchList("+(pageSize+10)+", , "+ key +");'>&gt;</a></li>";
+					html += "<li class='page-item'><a href='javascript:getUserSearchList(pageCnt, "+ key +");' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+				}
+					
+				html += "</ul>";
+				
+				$("#nav").html("");
+				$("#nav").html(pageNav);
+			}
+		});
+	}
+	
 	var level = null;
 	
 	$(function() {
@@ -167,6 +267,7 @@
 			
 			
 		});
+		
 
 	});
 	
@@ -184,12 +285,31 @@
 		$("#back").on("click",function(){
 			$(".modal").modal("show");
 		});
+		
+		
+		$('#search').click(function(){
+		
+			var key = $('#selBox').val();
+			var value = $('#searchNm').val();
+
+			
+			getUserSearchList(1, key, value);
+			
+				
+			
+		});
 	});
 	
 	
 </script>
 
 <style type="text/css">
+.selDiv { text-align: right; align-content: right; margin-bottom: 30px;}
+#selBox { width : 100px;}
+#searchNm {width : 200px; height: 37px; }
+#search { width : 100px;}
+
+
 .bg-danger {
     background-color: #f3af3d !important;
 }
@@ -247,16 +367,15 @@
 
 <div class="admin-title">
 	<h2>회원 목록 관리</h2></br>
-	
-	<select id="selBox" name="selBox" class="btn">
-            <option value="all">전체</option>
-            <option value="email">회원 번호</option>
-            <option value="nm">회원 닉네임</option>
-            <option value="date">회원 이메일</option>
-    </select> 
-    <input type="text" id="searchNm" name="searchNm" class="btn" />
-    <button type="button" class="btn btn-primary searchBtn btn-lg" id="search">검색</button>
-         
+	<div class="selDiv">	
+		<select id="selBox" name="selBox" class="btn">
+				<option value="no">회원 번호</option>
+				<option value="nm">회원 닉네임</option>
+				<option value="email">회원 이메일</option>
+		</select> 
+		<input type="text" id="searchNm" name="searchNm" class="searchNm"/>
+		<button type="button" class="btn" id="search">검색</button>
+    </div>
     <div id="yd">
 	<table class="table table-hover "  style="border-radius: 50px !important;">
 		<thead>
