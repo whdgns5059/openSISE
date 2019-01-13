@@ -162,16 +162,12 @@ public class LoginController {
 	* Method 설명 :  카카오톡 회원등록
 	*/
 	@RequestMapping("/kakao")
-	public String kakao(Model model, @RequestParam String nickname, MemberVo memberVo, HttpServletRequest request) {
-		loginService.kakao(memberVo);
-		model.addAttribute("kakao", memberVo.getNickname());
-		System.out.println("뭐가나오려나~" + memberVo.getNickname());
-		
+	public String kakao(Model model, MemberVo memberVo, HttpServletRequest request) {
+		loginService.signup(memberVo);
+		model.addAttribute("kakao", memberVo.getMem_nm());
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("kakaoLogin", memberVo.getNickname());
-		
-		System.out.println("여기까지 오긴했닝? " + memberVo.getNickname());
+		session.setAttribute("nowLogin", memberVo);
 		
 		//로그인시 모달창에도 공지사항리스트 보여주기
 		List<PostVo> noticeList =  noticeService.selectNoticeView();
@@ -240,7 +236,12 @@ public class LoginController {
 	@RequestMapping(value="/duplication2", method={RequestMethod.POST})
 	public String duplication2(Model model,@RequestParam("memNm") String mem_nm,@RequestParam("memEmail") String memEmail, HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
 		MemberVo user = loginService.selectMember(memEmail);
-		model.addAttribute("msg2",user);
+		int check = loginService.check_mail(memEmail);
+		
+		if(check  == 1) {
+			model.addAttribute("msgNo","중복된이메일입니다.");
+			return "signup";
+		}else {
 		
 		// 암호화 처리
 		String seedEncrypt = KISA_SEED_CBC.Encrypt(memEmail);
@@ -290,9 +291,10 @@ public class LoginController {
 		mimeMessage.setText(body, "utf-8", "html"); //내용셋팅
 		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
 		
+		model.addAttribute("msgOk","메일이 발송되었습니다.");
 		return "signup";
 		
-		
+		}
 	}
 	
 	/** Method   : passWordChange 

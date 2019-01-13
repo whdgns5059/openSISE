@@ -49,22 +49,23 @@ public class MypageController {
 	*/
 	@RequestMapping("/myInfo")
 	public String userInfo(Model model, HttpSession session) {
-		if(session.getAttribute("nowLigin") != null ) {
+//		if(session.getAttribute("nowLogin") != null ) {
 			MemberVo user = (MemberVo) session.getAttribute("nowLogin");
-			logger.info("nowLogin : " + user); 
+			MemberVo member = null;
+			if(user.getMem_email() == null) {
+				member = loginService.searchUser(user.getMem_nm());
+			}else {
+				member = loginService.searchUser(user.getMem_email());
+			}
+			logger.info("memVO :" + member);
+			model.addAttribute("member", member);
 			
-			MemberVo member = loginService.searchUser(user.getMem_email());
-			model.addAttribute("memberVo", member);
-			
-		}else if (session.getAttribute("nowLogin") == null) {
-			String user = (String) session.getAttribute("kakaoLogin");
-			logger.info("kakaoLogin + : " + user); 
-			
-			MemberVo member = loginService.searchUser(user);
-			model.addAttribute("memberVo", member);
-		}
-			
-		
+//		}else if (session.getAttribute("nowLogin") == null) {
+//			String user2 = (String) session.getAttribute("nowLogin");
+//			MemberVo member2 = loginService.searchUser(user2);
+//			
+//			model.addAttribute("memberVo", member2);
+//		}
 		return "myinfo";
 	}
 	
@@ -76,8 +77,15 @@ public class MypageController {
 	* Method 설명 : 해당 회원 정보 수정
 	*/
 	@RequestMapping(value="/myInfoUpdate", method = {RequestMethod.POST})
-	public String InfoUpdate(Model model, @RequestParam("mem_email")String mem_email) {
-		MemberVo memberVo = loginService.searchUser(mem_email);
+	public String InfoUpdate(Model model, MemberVo memVo) {
+		logger.info("mem_email :" + memVo.getMem_email());
+		logger.info("mem_nm :" + memVo.getMem_nm());
+		MemberVo memberVo = null;
+		if(memVo.getMem_email().equals("")|| memVo.getMem_email() == null) {
+			memberVo = loginService.searchUser(memVo.getMem_nm());
+		}else {
+			memberVo = loginService.searchUser(memVo.getMem_email());
+		}
 		List<MemberVo> memberJobLiset = loginService.jobList();
 		
 		model.addAttribute("memberVo", memberVo);
@@ -115,9 +123,15 @@ public class MypageController {
 	@RequestMapping(value="/updateFinish", method = {RequestMethod.POST})
 	public String updateFinish(Model model, MemberVo memberVo) {
 		loginService.myInfoUpdate(memberVo);
-		MemberVo member = loginService.searchUser(memberVo.getMem_email());
 		
-		model.addAttribute("memberVo", member);
+		MemberVo member = null;
+		if(memberVo.getMem_email().equals("")|| memberVo.getMem_email() == null) {
+			member = loginService.searchUser(memberVo.getMem_nm());
+		}else {
+			member = loginService.searchUser(memberVo.getMem_email());
+		}
+		
+		model.addAttribute("member", member);
 		return "myinfo";
 	}
 	
@@ -233,11 +247,6 @@ public class MypageController {
 		}
 	}
 	
-	
-	
-	
-	
-	
 	/** Method   : passWordChange 
 	* 작성자 :  김주연
 	* 변경이력 :  
@@ -245,10 +254,10 @@ public class MypageController {
 	* Method 설명 :  보안설정으로 이동
 	*/
 	@RequestMapping("/passwordChange")
-	public String passwordChange(Model model, HttpSession session) {
+	public String passwordChange(Model model, HttpSession session){
 		MemberVo user = (MemberVo) session.getAttribute("nowLogin");
 		MemberVo member = loginService.searchUser(user.getMem_email());
-		logger.info("mem_email {}", user.getMem_email());
+		
 		model.addAttribute("memberVo", member);
 		
 		return "passWordChange";
@@ -263,24 +272,35 @@ public class MypageController {
 	* Method 설명 :  보안설정(비밀번호 변경)
 	*/
 	@RequestMapping(value="/passChange", method = {RequestMethod.POST})
-	public String passChange(MemberVo memberVo, HttpServletRequest request, Model model, HttpSession session) {
-		String encrypt = KISA_SHA256.encrypt(memberVo.getMem_pass());
-		memberVo.setMem_pass(encrypt);
-		String encryptPass = KISA_SHA256.encrypt(memberVo.getMem_new_pass());
-		memberVo.setMem_new_pass(encryptPass);
+	public String passChange(MemberVo memberVo, HttpServletRequest request, Model model, HttpSession session, @RequestParam("mem_pass") String mem_pass) {
+		String encryptpass = KISA_SHA256.encrypt(mem_pass);
+		MemberVo mem = (MemberVo) session.getAttribute("nowLogin");
 		
-		int user = loginService.passChange(memberVo);
-		MemberVo users = (MemberVo) session.getAttribute("nowLogin");
-		model.addAttribute("memberVo", users);
+		if(!(encryptpass.equals(mem.getMem_pass())) && !(mem_pass.equals(""))) {
+			model.addAttribute("msgNo","현재비밀번호가 일치하지않습니다.확인후 재시도해주세요");
+			return "passWordChange";
+		}else if(encryptpass.equals(mem.getMem_pass())){
+			String encrypt = KISA_SHA256.encrypt(memberVo.getMem_pass());
+			memberVo.setMem_pass(encrypt);
+			String encryptPass = KISA_SHA256.encrypt(memberVo.getMem_new_pass());
+			memberVo.setMem_new_pass(encryptPass);
+			
+			int user = loginService.passChange(memberVo);
+			
+			MemberVo users = (MemberVo) session.getAttribute("nowLogin");
+			model.addAttribute("memberVo", users);
+			model.addAttribute("msgOk","변경이완료되었습니다");
+			
+			return "passWordChange";
+			
+		}else {
+			return "openPage";
+		}
 		
-		return "passWordChange";
+		
+		
 	}
-		
-		
-		
-		
-		
-	}
+}
 	
 
 

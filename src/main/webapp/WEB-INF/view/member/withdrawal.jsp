@@ -37,6 +37,15 @@ $(document).ready(function(){
     height: 30px;
     text-indent: -9999px;
     background-size: contain;
+    }
+.btn {
+    width: 100px;
+    border: 1px solid #ffe1af;
+    border-width: 1px;
+    border-bottom: 4px solid #e8a93f;
+    text-transform: uppercase;
+    background-color: white;
+    }
 </style>
 </head>
 
@@ -104,8 +113,7 @@ $(document).ready(function(){
 				</br>
 				
 			  	<div  align="center">
-					<input type="button" id="modified_N"  value="탈퇴취소" />
-					<input type="submit" id="modified_Y"  value="탈퇴완료" />
+					<input type="submit" class="btn" id="modified_Y"  value="탈퇴완료" />
 				</div>
 			  
 			  	</form>

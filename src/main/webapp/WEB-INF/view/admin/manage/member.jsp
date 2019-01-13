@@ -258,14 +258,13 @@
 			$("#mem_email2").val($("#mem_email").html());
 			$("#lvl").val($("#mem_lvl").html());
 			console.log(level);
-			//level.children[8].innerText;
 			level.children[8].innerText = level.children[8].innerText-1;
 			//form 실행
+<<<<<<< HEAD
 			$("#fmm").submit();
 			
-			
-			
-			
+=======
+>>>>>>> branch 'master' of https://github.com/whdgns5059/openSISE.git
 		});
 		
 
@@ -279,7 +278,7 @@
 	
 	$(document).ready(function(){
 		$("#close").on("click",function(){
-			$(".modal2").modal("close");
+			$(".modal2").modal("c,lose");
 		});
 		
 		$("#back").on("click",function(){

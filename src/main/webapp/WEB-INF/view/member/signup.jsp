@@ -136,14 +136,6 @@ ol, ul, dl {
 										<input type="email" id="userId" name="mem_email"
 										value="${param.memEmail}" class="form-control"
 										placeholder="이메일을 입력하세요" required autofocus>
-										<div id="duplicate2">
-											<c:if test="${msg2 == 0}">
-												<span id="y"> 사용가능한 닉네임 입니다.</span>
-											</c:if>
-											<c:if test="${msg2 >= 1}">
-												<span id="n">* 중복된 닉네임 입니다.</span>
-											</c:if>
-										</div>
 								</label></li>
 
 								<li class="auth"><input type="submit" id="duplication2"
@@ -194,15 +186,16 @@ ol, ul, dl {
 								</c:forEach> 
 							</select>
 							<div class="btn-group">
-								<button type="button" class="multiselect dropdown-toggle form-control" data-toggle="dropdown" title="None selected">관심사를 선택해 주세요</button>
+								<button type="button" class="multiselect dropdown-toggle form-control inst" data-toggle="dropdown" title="None selected">관심사를 선택해 주세요</button>
 									<ul class="multiselect-container dropdown-menu">
 										<li>
 											<a href="javascript:void(0);">
-								 		 	  <label class="checkbox">
-								 		 	  		<c:forEach items="${intrstList}" var="mem">
-								 		 			  	<input type="checkbox" value="${mem.intrst_no }">${mem.intrst_nm}</br>
-								 		 			 </c:forEach> 
-								 		 	  </label>
+								 		 	  <c:forEach items="${intrstList}" var="mem">
+								 		 	  	<label class="checkbox">
+								 		 			  	<input class="chkName" type="checkbox" value="${mem.intrst_no }">${mem.intrst_nm}
+									 		 	 </label>
+									 		 	 </br>
+								 		 	  </c:forEach> 
 											</a>
 										</li>
 								</ul>
@@ -213,7 +206,7 @@ ol, ul, dl {
 			</div>
 
 			<!-- Add Arrows -->
-			<div class="swiper-button-next swiper-next-img-none " id="next" style="font-family: 'Do Hyeon', sans-serif; font-size: 17pt;">다음</div>
+			<div class="swiper-button-next swiper-next-img-none" id="next" style="font-family: 'Do Hyeon', sans-serif; font-size: 17pt;">다음</div>
 		</div>
 	</form>
 
@@ -238,14 +231,14 @@ ol, ul, dl {
 			navigation : {
 				nextEl : '.swiper-button-next',
 			},
-			
 			allowTouchMove : false
 		});
 
-		$("#next").on("click", function(event) {
+		 $("#next").on("click", function(event) {
 			if($("#userNm").val() == "" || $("#userId").val() == "" || $("#inputPassword").val() == ""){
 				alert("필수입력사항입니다. 전체 입력해 주세요.");
-				//swiper.autoplay.stop();
+ 				//event.preventDefault();
+// 				swiper.autoplay.stop();
 			}else {
 				if (document.getElementById('next').innerText == '다음') {
 					$("#next").html("회원가입");
@@ -253,7 +246,7 @@ ol, ul, dl {
 					$("#frm").submit();
 				}
 			}
-		});
+		}); 
 
 		$("#duplication").on("click", function() {
 			if($("#userNm").val() == ""){
@@ -271,18 +264,18 @@ ol, ul, dl {
 
 	// 이메일 인증  
 	$(document).ready(function() {
-		$("#duplication2").on("click", function() {
+		$("#duplication2").on("click", function(event) {
 			if($("#userId").val() == "" && $("#userNm").val() == "" || $("#userId").val() != "" && $("#userNm").val() == ""){
 				alert("닉네임을 입력해 주세요.");
+				event.preventDefault();
 			}else if($("#userId").val() == "" && $("#userNm").val() != ""){
 				alert("이메일을 입력해 주세요.");
+				event.preventDefault();
 			}else {
-				
 			// 사용자가 입력한 email을 memEmail 변수에 저장
 			var memberEmail = $("#userId").val();
 			// 파라미터로 보낼 form 태그 안 input(hidden)에 value 값 저장
 			$("#memEmail").val(memberEmail);
-				alert("이메일이 전송되었습니다.");
 			var memberNm = $("#userNm").val();
 			$("#memNm2").val(memberNm);
 			//form 실행
@@ -291,9 +284,28 @@ ol, ul, dl {
 			
 			
 		});
+		
+		// 비밀번호 찾기 alert
+		var msgNo = '${msgNo}';
+		var msgOk = '${msgOk}';
+		if(msgNo != ""){
+			alert(msgNo);
+		}
+		if(msgOk != ""){
+			alert(msgOk);
+		}
 
 		});
-
+	
+	
+		$(".chkName").on("change", function(){
+			console.log(this.value)
+			if($(".inst").html() == "관심사를 선택해 주세요"){
+				$(".inst").html($(this).parent().text());
+			}else{
+				$(".inst").append("," + $(this).parent().text());
+			}
+		});
 	
 
 </script>

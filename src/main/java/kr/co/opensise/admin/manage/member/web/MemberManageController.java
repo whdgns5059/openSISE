@@ -76,6 +76,7 @@ public class MemberManageController {
 	*/
 	@RequestMapping(value="/declaration", method = {RequestMethod.POST})
 	public String declaration(Model model, MemberVo memberVo) {
+		
 		// 페이징 처리
 		PageVO pageVo = new PageVO();
 		pageVo.setPage(1);
