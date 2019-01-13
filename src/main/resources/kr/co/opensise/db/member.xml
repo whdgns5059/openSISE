@@ -17,7 +17,7 @@
   		from member inner join job 
   		on (mem_job = job.JOB_NO)
   		where mem_email = #{mem_email} 
-  		or mem_nm = #{mem_email}
+  		or mem_nm = #{mem_nm}
   		
   	</select>
   	
@@ -31,7 +31,7 @@
 			mem_job=#{mem_job},
 			mem_age=#{mem_age}
 		where mem_email = #{mem_email}
-		or mem_nm = #{mem_email}
+		or mem_nm = #{mem_nm}
 	</update >
 	
   	
@@ -44,6 +44,7 @@
 		, sysdate
 		<if test="mem_age != null">, #{mem_age, jdbcType=VARCHAR}</if>
 		, 3)  
+		values (seq_mem_no.nextval , #{mem_email, jdbcType=VARCHAR}, #{mem_pass, jdbcType=VARCHAR}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, #{mem_age, jdbcType=VARCHAR}, 3)  
 	</insert>
 	
 	<!-- 카카오톡 회원 등록 -->

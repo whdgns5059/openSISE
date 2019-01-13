@@ -62,7 +62,7 @@
  	
  			e.preventDefault();	
  			
- 			$.ajax({
+/*  			$.ajax({
  				type : 'POST',
  				url : '/chat/chatroom',
  				data : {
@@ -80,14 +80,16 @@
 						}
 					},500);
  				}
- 			});	
+ 			});	 */
  			
+ 			var chatPopup = window.open("http://192.168.1.6:3000","", "width=500, height=800")
+			chatPopup.document.getElementById('name').value = '${nowLogin.mem_nm}';
  		});
  		
  		
  		$('.chatlobby').on('click', function(e){
  	
- 			e.preventDefault();	
+ 		/* 	e.preventDefault();	
  			
  			$.ajax({
  				type : 'POST',
@@ -99,7 +101,9 @@
 					var chatPopup = window.open("", "", "width=500, height=800, location=no");
 					chatPopup.document.write(data);
  				}
- 			});	
+ 			});	 */
+ 			var chatPopup = window.open("http://192.168.1.6:3000", "","width=500, height=800")
+			chatPopup.document.getElementById('name').value = '관리자';
  		});
  		
  		function exitChat(){
@@ -127,10 +131,18 @@
 		if(building == 'auction'){
 			location.href = "/auction/auction";
 		}else{
-			var searchName = document.getElementById('loc').value;
-	
+			var searchName
+			if($("#loc").val() == null){
+				$("#searchName").val("");
+			}else{
+				searchName = document.getElementById('loc').value;
+				$("#searchName").val(searchName);
+			}
 			$("#building").val(building);
-			$("#searchName").val(searchName);
+			
+			if($("#searchName").val() == ""){
+				$("#dl_t").val("매매");
+			}
 	
 			$("#fmi").submit();
 		}

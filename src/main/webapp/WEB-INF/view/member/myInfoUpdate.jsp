@@ -69,20 +69,20 @@
 	<table class="table" border="1">
 					<tbody align="center">
 						<th class="th">닉네임</th>
-						<th class="th2"><label for="memNm" class="control-label"><input type="text" id="mem_nm" name="mem_nm" value="${memberVo.mem_nm }"  class="form-control"	 required autofocus>
+						<th class="th2"><label for="memNm" class="control-label"><input type="text" id="mem_nm" name="mem_nm" value="${nowLogin.mem_nm }"  class="form-control"	 required autofocus>
 						<input type="submit" id="myPageDuplication" class="form-control" value="중복확인"/></label></th>
 					</tbody>
 					
 					<tbody align="center">
 						<th class="th">ID</th>
-						<th class="th2"><label for="memEmail" class="control-label"><input type="email" id="mem_email" readonly="readonly" name="mem_email" value="${memberVo.mem_email}" class="form-control"  required autofocus></label></th>
+						<th class="th2"><label for="memEmail" class="control-label"><input type="email" id="mem_email" readonly="readonly" name="mem_email" value="${nowLogin.mem_email}" class="form-control"  required autofocus></label></th>
 					</tbody>
 					
 					<tbody align="center">
 						<th class="th">성별</th>
 						<th class="th2">
-							<input type="radio" name="mem_gndr" value="M" <c:if test="${memberVo.mem_gndr eq 'M'}">checked</c:if>>남 
-							<input type="radio" name="mem_gndr" value="F" <c:if test="${memberVo.mem_gndr eq 'F'}">checked</c:if>>여
+							<input type="radio" name="mem_gndr" value="M" <c:if test="${nowLogin.mem_gndr eq 'M'}">checked</c:if>>남 
+							<input type="radio" name="mem_gndr" value="F" <c:if test="${nowLogin.mem_gndr eq 'F'}">checked</c:if>>여
 						</th>
 					</tbody>
 					
@@ -91,7 +91,7 @@
 						<th class="th2">
 							<label>	<select id="ageList" name="mem_age" class="form-control">
 								<c:forEach items="age" var="memAge">
-								<option value="">${memberVo.mem_age}</option>
+								<option value="">${nowLogin.mem_age}</option>
 								<option value="10대">10대</option>
 								<option value="20대">20대</option>
 								<option value="30대">30대</option>
@@ -109,7 +109,7 @@
 							<label>	<select id="jobLiset" name="mem_job" class="form-control">
 <%-- 							<option value="">${memberVo.job_nm}</option> --%>
 								<c:forEach items="${JobList}" var="mem">
-								<option value="${mem.job_no}" <c:if test="${mem.job_no == memberVo.job_no }"> selected </c:if> >${mem.job_nm}</option>
+								<option value="${mem.job_no}" <c:if test="${mem.job_no == nowLogin.job_no }"> selected </c:if> >${mem.job_nm}</option>
 								</c:forEach>
 							</select></label>
 						</th>

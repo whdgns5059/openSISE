@@ -45,8 +45,8 @@
 					Kakao.API.request({
 						url: '/v1/user/me',
 						success: function(res) {
-							alert(res.properties.nickname+'님 로그인되었냐!!!!!');
-							location.href="/login/kakao?nickname="+res.properties.nickname;
+							alert(res.properties.nickname+'님 로그인되었습니다.');
+							location.href="/login/kakao?mem_nm="+res.properties.nickname;
 						},
 						fail: function
 						(error) {

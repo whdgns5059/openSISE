@@ -50,4 +50,8 @@ public interface DataEtcServiceInf {
 	public List<MarketVo> marketList();
 
 	public void insertMarketOne(MarketVo mVo);
+
+	public Boolean hasmonth(String hs_date);
+
+	public Boolean markethasmonth(String mkd_date);
 }

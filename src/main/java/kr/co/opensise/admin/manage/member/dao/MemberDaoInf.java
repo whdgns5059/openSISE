@@ -36,7 +36,7 @@ public interface MemberDaoInf {
 	* @return  
 	* Method 설명 : 사용자 전체 건수 조회 
 	*/
-	int getUserCnt();
+	int getUserCnt(PageVO page);
 	
 	/**  
 	* Method   : selectUser 

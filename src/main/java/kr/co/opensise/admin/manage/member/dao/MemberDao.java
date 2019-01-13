@@ -54,8 +54,8 @@ public class MemberDao implements MemberDaoInf{
 	* Method 설명 : 회원 전체 건수 조회 
 	*/
 	@Override
-	public int getUserCnt() {
-		int cntUserList = template.selectOne("admin.getUserCnt");
+	public int getUserCnt(PageVO page) {
+		int cntUserList = template.selectOne("admin.getUserCnt", page);
 		return cntUserList;
 	}
 

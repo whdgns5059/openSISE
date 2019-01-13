@@ -37,4 +37,8 @@ public interface DataEtcDaoInf {
 
 	public int insertMarketOne(MarketVo mVo);
 	
+	public List<HumanStatisticVo> hasmonth(String hs_date);
+	
+	public List<MarketDetailVo> markethasmonth(String mkd_date);
+	
 }
