@@ -560,6 +560,7 @@ function setReviewStar(starReview){
 			score : starReview[i].nextElementSibling.getElementsByClassName('reviewStarInput')[0].value
 			,path : "/img"
 			,width : 400
+			,height : 60
 			,readOnly: true
 		});
 		

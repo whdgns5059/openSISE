@@ -21,7 +21,17 @@
 		select rownum rnum ,a.*
 		from
 		(select m.mem_no, m.mem_nm, m.mem_email, m.mem_date, m.mem_age, m.mem_exdate, m.mem_gndr, j.job_nm, m.mem_lvl, z.nm
-		from member m join job j on(m.mem_job = j.job_no)
+		from member m join job j on(m.mem_job = j.job_no
+		<if test='key == "email"'>
+			and mem_email like '%' || #{value} || '%'
+		</if>
+		<if test='key == "nm"'>
+			and mem_nm like '%' || #{value} || '%'
+		</if>
+		<if test='key == "no"'>
+			and mem_no like '%' || #{value} || '%'
+		</if>
+		)
 		left outer join (select m.mem_no
             , substr(xmlagg(xmlelement(col,',',i.intrst_nm) order by i.intrst_nm).extract('//text()').getstringval(),2) nm
 		from  mem_inter m, interest i
@@ -33,8 +43,17 @@
 	</select>
 	
 	<!-- 회원 전체건수 -->
-	<select id="getUserCnt" resultType="int">
+	<select id="getUserCnt" parameterType="pageVo" resultType="int">
 		select count(*) from member
+		<if test='key == "email"'>
+			where mem_email like '%' || #{value} || '%'
+		</if>
+		<if test='key == "nm"'>
+			where mem_nm like '%' || #{value} || '%'
+		</if>
+		<if test='key == "no"'>
+			where mem_no like '%' || #{value} || '%'
+		</if>
 	</select>
 	
 	

@@ -78,8 +78,8 @@
 		var addr;
 
 		var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
-		mapContainer.style.width = '650px';
-		mapContainer.style.height = '1000px';
+		mapContainer.style.width = '100%';
+		mapContainer.style.height = '100%';
 
 		mapOption = {
 			center : new daum.maps.LatLng(36.3505393936125, 127.38483389033713), // 지도의 중심좌표
@@ -352,7 +352,9 @@
 		var addr = $("#addr").val();
 		if(id != "nearFaci"){
 			settingMap();
-			
+		}else{
+			map.removeControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+			map.removeControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
 		}
 
 		$.ajax({
@@ -387,8 +389,8 @@
 		var addr;
 
 		var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
-		mapContainer.style.width = '650px';
-		mapContainer.style.height = '1000px';
+		mapContainer.style.width = '100%';
+		mapContainer.style.height = '100%';
 
 		mapOption = {
 			center : new daum.maps.LatLng(36.3505393936125, 127.38483389033713), // 지도의 중심좌표

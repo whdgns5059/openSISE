@@ -334,6 +334,13 @@ input:disabled {
 			
 		});
 		
+		// 비밀번호 찾기 alert
+			var msg = '${msg}';
+			if(msg != ""){
+				alert(msg);
+			}
+
+		
 	});
 
 	//]]>

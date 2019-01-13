@@ -295,9 +295,6 @@ $(document).ready(function() {
 
 <!-- left contents -->
 <div class="main-left">
-	<input type="hidden" id ="latX" value="${buildingSaleList[0].artcl_lat}">
-	<input type="hidden" id ="lngY" value="${buildingSaleList[0].artcl_lng}">
-	
 	<!-- 지도 -->
 	<div id="mapWrap">
 		<div id="map"></div>

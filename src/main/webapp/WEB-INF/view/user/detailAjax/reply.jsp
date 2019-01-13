@@ -7,7 +7,7 @@
 		
 		<c:forEach items="${replyList }" var="rlist">
 			<tr>	
-				<td width="200px"> <label>${rlist.mem_email }</label></td>
+				<td width="200px"> <label>${rlist.mem_nm}</label></td>
 				<td width="400px"> <label>${rlist.rpl_cntnt }</label></td>
 				<td width="200px"> <label>${rlist.rpl_date }</label></td>
 				<td width="100px" class="deleteReply">

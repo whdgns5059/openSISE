@@ -51,6 +51,23 @@ ul{
 	margin-left: 12px;
 }
 
+::-webkit-scrollbar {
+   width: 16px;
+}
+
+::-webkit-scrollbar-track {
+   background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+   background-color: #ffae24;
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+   background: #4159a9;
+}
+
 </style>
 <script>
 	searchPlacest("대전광역시 ${dong} "+ $(".selBox").val());

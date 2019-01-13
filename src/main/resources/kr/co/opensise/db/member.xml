@@ -17,7 +17,7 @@
   		from member inner join job 
   		on (mem_job = job.JOB_NO)
   		where mem_email = #{mem_email} 
-  		or mem_nm = #{mem_email}
+  		or mem_nm = #{mem_nm}
   		
   	</select>
   	
@@ -31,14 +31,14 @@
 			mem_job=#{mem_job},
 			mem_age=#{mem_age}
 		where mem_email = #{mem_email}
-		or mem_nm = #{mem_email}
+		or mem_nm = #{mem_nm}
 	</update >
 	
   	
   	<!-- 회원가입 -->
 	<insert id="signUpSelection" parameterType="memberVo">
 		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job, mem_date, mem_age, mem_lvl)
-		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, #{mem_age, jdbcType=VARCHAR}, 3)  
+		values (seq_mem_no.nextval , #{mem_email, jdbcType=VARCHAR}, #{mem_pass, jdbcType=VARCHAR}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, #{mem_age, jdbcType=VARCHAR}, 3)  
 	</insert>
 	
 	<!-- 카카오톡 회원 등록 -->
