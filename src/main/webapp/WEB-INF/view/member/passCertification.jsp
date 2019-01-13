@@ -19,6 +19,26 @@
 			
 			return cookieValue;
 		}
+		
+		$(document).ready(function() {
+			  $("#change").on("click",function(event){
+				  if($("#mem_pass").val() != $("#memPass").val() && $("#memPass").val() == ""){
+					  alert("새비밀번호 재확인이 입력되지않았습니다.");
+				        event.preventDefault();
+				  }else if($("#mem_pass").val() == ""){
+			         alert("새비밀번호가 입력되지않았습니다.");
+			         event.preventDefault();
+			      }else if($("#mem_pass").val() != $("#memPass").val()){
+				         alert("새비밀번호 와 재확인 비밀번호가 일치하지않습니다.");
+				         event.preventDefault();
+			      }else {
+			         $("#frm").submit();
+			      }
+			  });
+
+			});
+		
+		
 	</script>
 	
 	
@@ -63,7 +83,7 @@
 	<!-- 가운데정렬 div -->
 	<div class="contents" align="center" style="margin-top: 100px;">
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<form action="/login/passFinsh" method="post">
+			<form action="/login/passFinsh" method="post" id="frm">
 				<div class="blog-header">
 					<h2>비밀번호 변경</h2>
 					<h6>신규 비밀번호를 입력해 주세요!</h6>
@@ -79,7 +99,7 @@
 				</br>
 				
 				<div class="col-sm-offset-2 col-sm-10">
-	     			<button type="submit" class="btn btn-default">변경</button>
+	     			<button type="submit" id="change" class="btn btn-default">변경</button>
 				</div>
 				
 				</form>
