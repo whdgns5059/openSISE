@@ -55,7 +55,8 @@ public class ReportService implements ReportServiceInf {
 		List<ReportVo> reportVoList = reportDao.searchReport(pageVo);
 		
 		// 전체 신고 리스트 개수
-		int reportCnt = reportDao.reportCnt();
+		//int reportCnt = reportDao.reportCnt();
+		int reportCnt = reportVoList.get(0).getCounts();
 		
 		// 신고 리스트와 페이징 갯수 넣기
 		Map<String, Object> resultMap = new HashMap<>();

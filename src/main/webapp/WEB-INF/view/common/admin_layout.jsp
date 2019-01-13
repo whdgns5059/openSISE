@@ -14,12 +14,13 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
-
-	<tiles:insertAttribute name="left"/>
-
-	<!-- right contents -->	
-	<tiles:insertAttribute name="content"/>
-
+	
+	<div class="contentWrapper">
+		<tiles:insertAttribute name="left"/>
+	
+		<!-- right contents -->	
+		<tiles:insertAttribute name="content"/>
+	</div>
 
 </body>
 </html>

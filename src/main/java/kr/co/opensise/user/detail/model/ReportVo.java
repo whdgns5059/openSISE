@@ -14,8 +14,16 @@ public class ReportVo {
 	private String rpt_ttl;
 	private String rpt_exst;
 	private int rnum;
+	private int counts;
 	
-	
+	public ReportVo() {
+	}
+	public int getCounts() {
+		return counts;
+	}
+	public void setCounts(int counts) {
+		this.counts = counts;
+	}
 	public String getRpt_ttl() {
 		return rpt_ttl;
 	}
@@ -80,7 +88,7 @@ public class ReportVo {
 	public String toString() {
 		return "ReportVo [rpt_no=" + rpt_no + ", rpt_post=" + rpt_post + ", rpt_cntnt=" + rpt_cntnt + ", rpt_date="
 				+ rpt_date + ", rpt_classf=" + rpt_classf + ", rpt_cf_nm=" + rpt_cf_nm + ", rpt_mem=" + rpt_mem
-				+ ", rpt_ttl=" + rpt_ttl + ", rpt_exst=" + rpt_exst + ", rnum=" + rnum + "]";
+				+ ", rpt_ttl=" + rpt_ttl + ", rpt_exst=" + rpt_exst + ", rnum=" + rnum + ", counts=" + counts + "]";
 	}
 	
 

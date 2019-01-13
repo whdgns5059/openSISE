@@ -118,7 +118,6 @@
 	font-size: 15px;
 	font-family: 'Nanum Gothic Coding', monospace;
 	background: white;
-	cursor: pointer;
 }
 .h4 {
 	width: 50%;
