@@ -104,4 +104,34 @@ public class DataEtcService implements DataEtcServiceInf {
 		dataEtcDao.insertMarketOne(mVo);
 	}
 
+	@Override
+	public Boolean hasmonth(String hs_date) {
+		//1.연도 가지고 오는 리스트만들기 
+		List<HumanStatisticVo> monthList = dataEtcDao.hasmonth(hs_date);
+		
+		//2.리스트에 hs_date가 존재하는지 확인 
+		for(int i=0; i<monthList.size();i++) {
+			if(monthList.get(i).getHs_date().equals(hs_date)) {
+				return true;
+			}
+		}
+		//3. 있으면 true,  없으면  false 반환
+		return false;
+	}
+
+	@Override
+	public Boolean markethasmonth(String mkd_date) {
+		//1.연도 가지고 오는 리스트만들기 
+				List<MarketDetailVo> monthList = dataEtcDao.markethasmonth(mkd_date);
+				
+				//2.리스트에 hs_date가 존재하는지 확인 
+				for(int i=0; i<monthList.size();i++) {
+					if(monthList.get(i).getMkd_date().equals(mkd_date)) {
+						return true;
+					}
+				}
+				//3. 있으면 true,  없으면  false 반환
+				return false;
+	}
+
 }

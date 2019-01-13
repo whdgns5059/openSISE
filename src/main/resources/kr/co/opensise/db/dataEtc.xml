@@ -17,6 +17,10 @@
 		</foreach>
 		select * from dual 
 	</insert>
+<!-- 인구통계 연도 select -->
+	<select id="hasmonth" resultType="human_statisticVo">
+		select DISTINCT hs_date from human_statistic
+	</select>
 <!-- 물가  insert -->	
 	<insert id="insertMarket" parameterType="map">
 		insert all
@@ -47,6 +51,10 @@
 		</foreach>
 		select * from dual 
 	</insert>
+<!-- 물가상세 연도 select -->
+	<select id="markethasmonth" resultType="marketDetailVo">
+		select distinct MKD_DATE from market_detail
+	</select>
 
 <!-- bus insert -->
     <insert id="insertBus" parameterType="map">
