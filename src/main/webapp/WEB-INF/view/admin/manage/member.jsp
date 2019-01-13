@@ -158,13 +158,9 @@
 			$("#mem_email2").val($("#mem_email").html());
 			$("#lvl").val($("#mem_lvl").html());
 			console.log(level);
-			//level.children[8].innerText;
 			level.children[8].innerText = level.children[8].innerText-1;
 			//form 실행
 			$("#fmm").submit();
-			
-			
-			
 			
 		});
 

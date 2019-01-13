@@ -10,18 +10,32 @@
 $(document).ready(function() {
 	  $("#change").on("click",function(){
 		  if($("#mem_new_pass").val() != $("#memPass").val() && $("#memPass").val() != "" && $("#mem_new_pass").val() != "" ){
-		        alert("새비밀번호 재확인이 틀립니다 확인해주세요.");
+		        alert("새비밀번호 와 재확인이 일치하지 않습니다.확인해주세요.");
+		        event.preventDefault();
 		  }else if($("#mem_pass").val() == ""){
 		         alert("현재비밀번호가 입력되지않았습니다. 입력후 진행해주세요");
+		         event.preventDefault();
 	      }else if($("#mem_new_pass").val() == ""){
 	         alert("새비밀번호가 입력되지않았습니다.");
+	         event.preventDefault();
 	      }else if($("#memPass").val() == ""){
 		         alert("새비밀번호 재확인이 입력되지않았습니다.");
 	      }else {
-	    	  alert("비밀번호가 수정되었습니다.");
 	         $("#frm").submit();
 	      }
+		  
 	  });
+	  
+	// 비밀번호 찾기 alert
+		var msgNo = '${msgNo}';
+		var msgOk = '${msgOk}';
+		if(msgNo != ""){
+			alert(msgNo);
+		}
+		if(msgOk != ""){
+			alert(msgOk);
+		}
+
 
 	});
 </script>
