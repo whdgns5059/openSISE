@@ -26,9 +26,10 @@
 		}
 		
 		$(document).ready(function(){
-			$("#modified_N").on("click",function(){
-				$.modal("close");
-			});
+			var msgNo = '${msgNo}';
+			if(msgNo != ""){
+				alert(msgNo);
+			}
 			
 		});
 		
@@ -137,7 +138,6 @@
 			  	
 				  <div  align="center" style="font-family: 'Do Hyeon', sans-serif; ">
 					<!-- <a href="#close-modal" id="modified_N" rel="modal:close" class="btns">닫기</a> -->
-					<input type="button" id="modified_N" class="btns1" value="닫기" />
 					<input type="submit" id="modified_Y" class="btns2" value="인증" />
 				  </div>
 				  </form>

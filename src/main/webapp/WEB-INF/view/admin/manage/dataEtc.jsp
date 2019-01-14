@@ -118,16 +118,12 @@ label{
 		var fName= "";
 		var marketname="";
 		
-		
+		var success = $("#success").val();
 		
 		$("#humanClick").click(function(){
 			fName =$('input[name=etcData]').val();
 			if(fName=="" ){
 				alert("파일을 선택해주세요");
-			}else if(0${param.success } == 0){
-				alert("중복된 데이터 입니다.");
-			}else{
-				alert(${param.success } + "건의 \n정보를 업데이트 하였습니다.");
 			}
 			$("#Hsfile").val(fName);
 			
@@ -138,18 +134,16 @@ label{
 			marketname = $('input[name=marketData]').val();
 			if(marketname==""){
 				alert("파일을 선택해주세요");
-			}else if(0${param.success } == 0){
-				alert("중복된 데이터 입니다.");
-			}else{
-				alert(${param.success } + "건의 \n정보를 업데이트 하였습니다.");
 			}
 		});
 		
-// 		if(${param.success } == 0 ){
-// 			alert("중복된 데이터 입니다.");
-// 		}else{
-// 			alert(${param.success } + "건의 \n정보를 업데이트 하였습니다.");
-// 		}
+		if(success == '0'){
+			alert("중복된 데이터 입니다.");
+		}else if(success ==''){
+			
+		}else{
+			alert(success + "건의 \n정보를 업데이트 하였습니다.");
+		}
 		
 		
 		$("#station").click(function(){
@@ -245,6 +239,8 @@ label{
 	<h2>데이터 업데이트(기타)</h2>
 	<div class="hr2">
 	</div>
+	
+	<input type="hidden" id="success" value="${param.success }">
 	
 	<div class="data-updateDiv">
 		<form action="/manage/dataEtc/insertDataEtc" method="post" enctype="multipart/form-data">

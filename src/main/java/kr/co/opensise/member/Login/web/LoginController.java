@@ -102,10 +102,6 @@ public class LoginController {
 		}
 	}
 	
-	
-	
-	
-	
 	/** Method   : duplication 
 	* 작성자 :  김주연
 	* 변경이력 :  
@@ -120,11 +116,9 @@ public class LoginController {
 		//로그아웃시 모달창에도 공지사항리스트 보여주기
 		List<PostVo> noticeList =  noticeService.selectNoticeView();
 		model.addAttribute("noticeList", noticeList);
-		//
 		
 		return "openPage";
 	}
-	
 	
 	/**  
 	* Method   :  passButton
@@ -137,7 +131,6 @@ public class LoginController {
 	public String passButton() {
 		return "member/passButton";
 	}
-	
 	
 	/** Method   : sign_Up 
 	* 작성자 :  김주연
@@ -172,7 +165,6 @@ public class LoginController {
 		//로그인시 모달창에도 공지사항리스트 보여주기
 		List<PostVo> noticeList =  noticeService.selectNoticeView();
 		model.addAttribute("noticeList", noticeList);
-		//
 		
 		return "openPage";
 	}
@@ -185,7 +177,6 @@ public class LoginController {
 	*/
 	@RequestMapping(value="/signUpSelection", method= {RequestMethod.POST})
 	public String signUpSelection(Model model, MemberVo memberVo) {
-		
 		// 암호화 처리
 		memberVo.setMem_pass(KISA_SHA256.encrypt(memberVo.getMem_pass()));
 		
@@ -205,7 +196,6 @@ public class LoginController {
 	*/
 	@RequestMapping(value="/signupDetail", method= {RequestMethod.POST})
 	public String signupDetail(Model model, MemberVo memberVo) {
-		
 		// 리턴값 임시
 		return "openPage";
 	}
@@ -224,7 +214,6 @@ public class LoginController {
 		model.addAttribute("JobList",memberJobLiset);
 		
 		return "signup";
-		
 	}
 	
 	/** Method   : duplication2
@@ -242,58 +231,8 @@ public class LoginController {
 			model.addAttribute("msgNo","중복된이메일입니다.");
 			return "signup";
 		}else {
-		
-		// 암호화 처리
-		String seedEncrypt = KISA_SEED_CBC.Encrypt(memEmail);
-		
-		// 네이버일 경우 smtp.naver.com 
-		// Google일 경우 smtp.gmail.com 
-		String host = "smtp.naver.com";
-
-		final String username = "openSise"; 
-		final String password = "nikfdcsobtusygbi"; 
-		int port=465; //포트번호
-
-		// 메일 내용 
-		String recipient = memEmail; //받는 사람의 메일주소
-		String subject = "이메일 인증"; //메일 제목 입력해주세요.
-		String body = "<html><h2>OpenSise 회원가입 이메일 인증</h2></br> "
-				+ "<h5>아래 이미지 클릭시 회원인증 처리가 완료 됩니다!</h5></br>"
-				+ "<form action=\"http://localhost:8081/login/test\"  id=\"frm\">"
-				+ "<input type=\"submit\" id=\"duplication2\" class=\"form-control\" value=\"인증\"/> "
-				+ "</form>"
-				+ "</html>";
-		
-		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
-
-		// SMTP 서버 정보 설정
-		props.put("mail.smtp.host", "smtp.gmail.com"); 
-		props.put("mail.smtp.port", 465); 
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.ssl.enable", "true");
-		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
-		//Session 생성 
-		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
-		String un=username; 
-		String pw=password; 
-		protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-		return new javax.mail.PasswordAuthentication(un, pw); } });
-
-		session.setDebug(true); //for debug
-		
-		MimeMessage mimeMessage = new MimeMessage(session); //MimeMessage 생성
-		mimeMessage.setFrom(new InternetAddress("openSise@gmail.com")); //발신자 셋팅 , 보내는 사람의 이메일주소
-
-		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
-
-		mimeMessage.setSubject(subject); //제목셋팅 
-		mimeMessage.setText(body, "utf-8", "html"); //내용셋팅
-		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
-		
-		model.addAttribute("msgOk","메일이 발송되었습니다.");
+		model.addAttribute("msgOk","사용가능한 이메일입니다.");
 		return "signup";
-		
 		}
 	}
 	
@@ -310,7 +249,7 @@ public class LoginController {
 		
 		if (user == null ) {
 			model.addAttribute("JobList",memberJobLiset);
-			model.addAttribute("msg","정확하지않거나 존재하지 않는 이메일입니다. 재확인 후  진행해주세요");
+			model.addAttribute("msgNo","정확하지않거나 존재하지 않는 이메일입니다. 재확인 후  진행해주세요");
 			return "login";
 		} else {
 			
@@ -360,10 +299,8 @@ public class LoginController {
 		mimeMessage.setText(body, "utf-8", "html"); //내용셋팅
 		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
 
-		
-		
 		return "passMailOk";
-	}	
+		}	
 	}
 	 
 	/** Method   : passWordChange 
@@ -379,7 +316,6 @@ public class LoginController {
 		memberVo.setMem_email(decrypt);
 		return "passCertification";
 	}
-	
 	
 	/** Method   : passWordChange 
 	* 작성자 :  김주연
@@ -402,7 +338,7 @@ public class LoginController {
 		} else {
 			model.addAttribute("msg","::서버문제발생:: 비밀번호 찾기를 다시 실행해 주세요");
 			return "passCertification";
-	}
+		}
 		
 	}
 	

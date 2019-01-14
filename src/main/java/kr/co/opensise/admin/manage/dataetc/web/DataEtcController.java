@@ -71,9 +71,14 @@ public class DataEtcController {
 	private DataEtcServiceInf dataEtcService;
 	
 	@RequestMapping("/dataEtc")
-	public String dataEtc(Model model) {
+	public String dataEtc(Model model,HttpServletRequest request) {
 		List<InstiVo> instiList = dataEtcService.selectInsti();
 		model.addAttribute("instiList", instiList);
+		
+		String success = request.getParameter("success");
+		if(success != null) {
+			model.addAttribute("success", success);
+		}
 		return "manage/dataEtc";
 	}
 
