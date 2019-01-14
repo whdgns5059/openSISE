@@ -191,6 +191,7 @@ body {
     line-height: 116px;
     font-family: 'Noto Sans KR', sans-serif;
     margin-left: 33px;
+    font-weight: 600;
 }
 .bc-select li{
 	float: left;

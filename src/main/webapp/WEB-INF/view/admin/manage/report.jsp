@@ -115,6 +115,10 @@ td{
     width: 35%;
     text-align: center;
 }
+#rpt_post{
+    border: none;
+    text-align: left;
+}
 .selBox{
     width: 25%;
     float: right;
@@ -211,11 +215,11 @@ $(document).ready(function(){
 		var rpt_exst = this.children[4].innerText;
 		
 		$("#rpt_no").html(rpt_no);
-		$("#rpt_post").html(rpt_post);
 		$("#rpt_cntnt").html(rpt_cntnt);
 		$("#rpt_date").html(rpt_date);
 		$("#rpt_cf_nm").html(rpt_cf_nm);
 		$("#rpt_mem").html(rpt_mem);
+		document.getElementById("rpt_post").value = rpt_post;
 		document.getElementById("rpt_ttl").value = rpt_ttl;
 		// 처리여부 
 		if(rpt_exst == 'Y'){
@@ -377,15 +381,15 @@ $(document).ready(function(){
 					<option value="N" >미처리</option>
 				</select>
 			</div>
-		</form>	
-		<hr/>
-		<div class="form-horizontal">
-			<div class="form-group">
-				<label class="rpt_noLabel postNoLabel">신고받은 게시글 :</label>
-				<label id="rpt_post"></label>
-				<label id="rpt_cf_nm"></label>
+			<hr/>
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label class="rpt_noLabel postNoLabel">신고받은 게시글 :</label>
+					<input id="rpt_post" name="rpt_post"/>
+					<label id="rpt_cf_nm"></label>
+				</div>
 			</div>
-		</div>
+		</form>
 		<div class="form-group">
 			<label class="lbl">제목</label>
 			<input type="text" class="form-control" id="rpt_ttl" readonly disabled/>
