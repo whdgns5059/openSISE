@@ -86,24 +86,7 @@
  		});
  		
  		
- 		$('.chatlobby').on('click', function(e){
- 	
- 		 	e.preventDefault();	
- 			/*	
- 			$.ajax({
- 				type : 'POST',
- 				url : '/chat/lobby',
- 				data : {
- 					mem_no : mem_no
- 				},
- 				success : function(data){
-					var chatPopup = window.open("", "", "width=500, height=800, location=no");
-					chatPopup.document.write(data);
- 				}
- 			});	 */
- 			
- 			var chatPopup = window.open("http://192.168.203.110:3000", "adminChat","width=500, height=800")
- 		});
+
  		
  		function exitChat(){
  			
