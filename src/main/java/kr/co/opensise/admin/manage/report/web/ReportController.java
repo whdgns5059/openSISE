@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.opensise.admin.manage.report.service.ReportServiceInf;
 import kr.co.opensise.admin.manage.review.model.PageVo;
+import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.model.Report_classfVo;
 
@@ -156,12 +157,33 @@ public class ReportController {
 		return "admin/manage/reportAjax/reportListAjax";
 	}
 	
+	/**
+	* Method : reportUpdateAjax
+	* 작성자 : Bella
+	* 변경이력 :
+	* @param model
+	* @param reportVo
+	* @return
+	* Method 설명 : 신고 처리여부 수정
+	*/
 	@PostMapping(value="/reportUpdateAjax")
 	public String reportUpdateAjax(Model model, ReportVo reportVo) {
 		
 		try {
 			int updateCnt = reportService.updateReport(reportVo);
 			model.addAttribute("updateCnt",updateCnt);
+			
+			// 리뷰 삭제여부 수정
+			String exst = reportVo.getRpt_exst();
+			log.info("삭제여부? {}",exst);
+			PostVo postVo = new PostVo();
+			postVo.setPost_no(reportVo.getRpt_post());
+			log.info("리뷰 번호? {}",reportVo.getRpt_post());
+			postVo.setPost_exst(exst);;
+			int a = reportService.updatePost(postVo);
+			log.info("리뷰 수정 됬니? {}",a);
+			
+					
 		}catch (Exception e){
 			log.info(e.toString());
 		}

@@ -80,5 +80,19 @@ public class CommonUtilTest {
 		assertTrue(8200 == result);
 	}
 	
+	@Test 
+	public void getNonWhiteSpaceTest() {
+		
+		/***given***/
+		String  string = "대    동";
+		/***when***/
+		String result = CommonUtil.getNonWhiteSpace(string);
+		
+		/***then***/
+		assertEquals("대동", result);
+		
+		
+	}
+	
 
 }

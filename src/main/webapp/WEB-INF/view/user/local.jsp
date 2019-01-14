@@ -327,7 +327,7 @@
 	setContentDivByAjax('popStatis');
 
 	$('.categoryDiv').on('click', '.category', function() {
-		if(this.id == 'nearFaci'){
+		if(this.id == 'nearFaci' || this.id == 'station'){
 			$(".row").addClass("rowChange");
 			$("#mapWrap").addClass("mapWrapChange");
 			$("#map").addClass("mapChange");

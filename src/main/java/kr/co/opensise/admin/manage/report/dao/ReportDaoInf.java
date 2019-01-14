@@ -3,9 +3,26 @@ package kr.co.opensise.admin.manage.report.dao;
 import java.util.List;
 
 import kr.co.opensise.admin.manage.review.model.PageVo;
+import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.model.Report_classfVo;
 
+/**
+* ReportDaoInf.java
+*
+* @author Bella
+* @version 1.0
+* @see
+*
+* <pre>
+* << 개정이력(Modification Information) >>
+*
+* 수정자 수정내용
+* ------ ------------------------
+* Bella 최초 생성
+*
+* </pre>
+*/
 /**
 * ReportDaoInf.java
 *
@@ -101,7 +118,15 @@ public interface ReportDaoInf {
 	*/
 	int updateReport(ReportVo reportVo);
 	
-	
+	/**
+	* Method : updatePost
+	* 작성자 : Bella
+	* 변경이력 :
+	* @param postVo
+	* @return
+	* Method 설명 : 신고 처리가 되면 리뷰는 삭제로 바뀜
+	*/
+	int updatePost(PostVo postVo);
 	
 	
 	
