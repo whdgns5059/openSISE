@@ -118,6 +118,11 @@
 		Update report Set rpt_exst = Upper(#{rpt_exst}) Where rpt_no =#{rpt_no}
 	</update>
 	
+	<!-- 신고 처리가 되면 리뷰는 삭제로 바뀜 -->
+	<update id="updatePost">
+		Update post Set post_exst = #{post_exst} Where post_no = #{post_no}
+	</update>
+	
 	
 	
 	

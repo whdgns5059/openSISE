@@ -159,7 +159,7 @@ function addRpt_cf(){
 	}
 	// 겹치는 법이 있으면 Ajax 실행 안함.
 	if(overlap > 0){
-		alert("신고분류명이 겹칩니다.");
+		alert("이미 존재하는 신고분류명입니다.");
 	}else{
 	
 		// 신고분류명 추가

@@ -689,6 +689,7 @@ public class DataEtcController {
 			model.addAttribute("busList", busList);
 			model.addAttribute("routeList", routeList);
 			model.addAttribute("stationList", stationList);
+//			model.addAttribute("insertRoute", insertRoute);
 			
 			//===============================================================================
 			
@@ -696,6 +697,7 @@ public class DataEtcController {
 			e.printStackTrace();
 		}
 		
+//		model.addAttribute("insertRoute", 1);
 		return "redirect:/manage/dataEtc/dataEtc";
 	}
 	
@@ -799,23 +801,33 @@ public class DataEtcController {
 	}
 	
 	@RequestMapping("/deletInstiAttr")
-	public String deletInstiAttr(Model model, @RequestParam("instiHere") Integer iattr_insti,
-				@RequestParam("checked") String iattrNo) {
+//	public String deletInstiAttr(Model model, @RequestParam("instiHere") Integer insti_no,
+//				@RequestParam("checked") String iattrNo) {
+//		
+//		String[] checkedDelete = iattrNo.split(",");
+//		
+//		int[] iattr_no = new int[checkedDelete.length]; 
+//		for(int i=0;i<checkedDelete.length;i++) {
+//			iattr_no[i] = Integer.parseInt(checkedDelete[i]);
+//			log.info("iattr_no : {}", iattr_no[i]);
+//			dataEtcService.deleteInstiattr(iattr_no[i]);
+//		}
+//		List<InstiAttrVo> insti_attrList = dataEtcService.selectInsti_attr(iattr_insti);
+//		List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
+//		
+//		model.addAttribute("insti_attrList", insti_attrList);
+//		model.addAttribute("instiAttrList", instiAttrList);
+//		
+//		return "admin/manage/dataEtcAjax/dataEtcAjax";
+//	}
+	public String deletInstiAttr(Model model, @RequestParam("insti_no") Integer insti_no) {
+	
+		log.info("insti_no:{}",insti_no);
+		dataEtcService.deleteInsti(insti_no);
 		
-		String[] checkedDelete = iattrNo.split(",");
-		
-		int[] iattr_no = new int[checkedDelete.length]; 
-		for(int i=0;i<checkedDelete.length;i++) {
-			iattr_no[i] = Integer.parseInt(checkedDelete[i]);
-			log.info("iattr_no : {}", iattr_no[i]);
-			dataEtcService.deleteInstiattr(iattr_no[i]);
-		}
-		List<InstiAttrVo> insti_attrList = dataEtcService.selectInsti_attr(iattr_insti);
-		List<InstiAttrVo> instiAttrList = dataEtcService.selectInstiAttr(iattr_insti);
-		
-		model.addAttribute("insti_attrList", insti_attrList);
-		model.addAttribute("instiAttrList", instiAttrList);
-		
-		return "admin/manage/dataEtcAjax/dataEtcAjax";
-	}
+		List<InstiVo> instiList = dataEtcService.selectInsti();
+		model.addAttribute("instiList", instiList);
+	
+	return "manage/dataEtc";
+}
 }
