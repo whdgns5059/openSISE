@@ -21,7 +21,7 @@ import kr.co.opensise.user.chat.service.ChatServiceInf;
 @RequestMapping("/chat")
 @Controller
 public class ChatController {
-
+/*
 	@Resource(name="chatService")
 	private ChatServiceInf chatService;
 	
@@ -91,7 +91,7 @@ public class ChatController {
 		
 		return result;
 	}
-	
+	*/
 
 }
 
