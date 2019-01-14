@@ -476,9 +476,6 @@ public class DataEtcController {
 			if(marketList.size()!=0) {
 				for(MarketVo mVo : marketList) {
 					
-					mVo.getMk_nm().replaceAll("[\\t\\n\\x0B\\f\\r]", "");
-					mVo.getMk_classf().replaceAll("[\\t\\n\\x0B\\f\\r]", "");
-					mVo.getMk_dong().replaceAll("[\\t\\n\\x0B\\f\\r]", "");
 					
 					log.info("mVo : {}",mVo.toString());
 					dataEtcService.insertMarketOne(mVo);

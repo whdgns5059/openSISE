@@ -167,4 +167,10 @@ public class CommonUtil {
 			return fileName.substring(dotIndex);
 		}	
 	}
+	
+	public static String getNonWhiteSpace(String string) {
+		String result = string.replaceAll("\\s", "");
+		
+		return result;
+	}
 }

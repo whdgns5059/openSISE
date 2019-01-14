@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
+<style>
+	.stationtitle {text-align: center;}
+</style>    
    
 <div>
 
+<div class="stationtitle">
 <h4>교통 정보</h4>	
+</div>
+<hr/>
 <div class="stationDiv">
 </div>
 

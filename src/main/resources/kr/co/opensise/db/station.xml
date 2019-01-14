@@ -10,7 +10,7 @@
 		and rt_cd = bus_cd
 		and sttn_lat between #{sttn_lat} - 0.005 and #{sttn_lat} + 0.005
 		and sttn_lng between #{sttn_lng} - 0.005 and #{sttn_lng} + 0.005
-		order by sttn_id
+		order by sttn_id, bus_tp, bus_no
 	</select>	
 
 
