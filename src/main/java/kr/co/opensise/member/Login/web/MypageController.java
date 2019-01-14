@@ -49,7 +49,6 @@ public class MypageController {
 	*/
 	@RequestMapping("/myInfo")
 	public String userInfo(Model model, HttpSession session) {
-//		if(session.getAttribute("nowLogin") != null ) {
 			MemberVo user = (MemberVo) session.getAttribute("nowLogin");
 			MemberVo member = null;
 			if(user.getMem_email() == null) {
@@ -57,15 +56,8 @@ public class MypageController {
 			}else {
 				member = loginService.searchUser(user.getMem_email());
 			}
-			logger.info("memVO :" + member);
 			model.addAttribute("member", member);
 			
-//		}else if (session.getAttribute("nowLogin") == null) {
-//			String user2 = (String) session.getAttribute("nowLogin");
-//			MemberVo member2 = loginService.searchUser(user2);
-//			
-//			model.addAttribute("memberVo", member2);
-//		}
 		return "myinfo";
 	}
 	
@@ -78,8 +70,6 @@ public class MypageController {
 	*/
 	@RequestMapping(value="/myInfoUpdate", method = {RequestMethod.POST})
 	public String InfoUpdate(Model model, MemberVo memVo) {
-		logger.info("mem_email :" + memVo.getMem_email());
-		logger.info("mem_nm :" + memVo.getMem_nm());
 		MemberVo memberVo = null;
 		if(memVo.getMem_email().equals("")|| memVo.getMem_email() == null) {
 			memberVo = loginService.searchUser(memVo.getMem_nm());
@@ -102,7 +92,6 @@ public class MypageController {
 	* @return  
 	* Method 설명 : 해당 회원 정보 수정시 닉네임 중복체크
 	*/
-	
 	@RequestMapping(value="/myPageDuplication", method={RequestMethod.POST})
 	public String duplication(@RequestParam("memNm") String mem_nm, Model model ) {
 		int memberNm = loginService.check_nm(mem_nm);
@@ -123,7 +112,6 @@ public class MypageController {
 	@RequestMapping(value="/updateFinish", method = {RequestMethod.POST})
 	public String updateFinish(Model model, MemberVo memberVo) {
 		loginService.myInfoUpdate(memberVo);
-		
 		MemberVo member = null;
 		if(memberVo.getMem_email().equals("")|| memberVo.getMem_email() == null) {
 			member = loginService.searchUser(memberVo.getMem_nm());
@@ -194,14 +182,10 @@ public class MypageController {
 	@RequestMapping("/recently")
 	public String recently(HttpSession session, ArticleVo articleVo, @RequestParam("artcl_index") int index ) {
 		List<ArticleVo> searchList = (List<ArticleVo>) session.getAttribute("searchList");
-
 		searchList.remove(index);
 		
 		return "recentlyViewed";
 	}
-	
-	
-	
 	
 	/**  
 	* Method   :  selectMypage
@@ -214,7 +198,6 @@ public class MypageController {
 	public String withdrawal(Model model, HttpSession session) {
 		MemberVo user = (MemberVo) session.getAttribute("nowLogin");
 		MemberVo member = loginService.searchUser(user.getMem_email());
-		
 		
 		model.addAttribute("memberVo", member);
 		
@@ -230,7 +213,6 @@ public class MypageController {
 	*/
 	@RequestMapping(value="/Withdrawal", method = {RequestMethod.POST})
 	public String memwithdrawal(MemberVo memberVo, @RequestParam("mem_pass") String mem_pass, HttpServletRequest request, Model model) {
-		
 		String encryptPass = KISA_SHA256.encrypt(mem_pass);
 		memberVo.setMem_pass(encryptPass);
 		
@@ -263,8 +245,6 @@ public class MypageController {
 		return "passWordChange";
 	}
 	
-	
-	
 	/** Method   : passWordChange 
 	* 작성자 :  김주연
 	* 변경이력 :  
@@ -296,9 +276,6 @@ public class MypageController {
 		}else {
 			return "openPage";
 		}
-		
-		
-		
 	}
 }
 	
