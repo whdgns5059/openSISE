@@ -1,7 +1,5 @@
 package kr.co.opensise.admin.manage.member.web;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.opensise.admin.manage.member.model.ManagementVo;
 import kr.co.opensise.admin.manage.member.model.PageVO;
 import kr.co.opensise.admin.manage.member.service.MemberServiceInf;
-import kr.co.opensise.admin.manage.review.model.ReviewVo;
 import kr.co.opensise.member.Login.model.MemberVo;
 import kr.co.opensise.member.Login.service.LoginServiceInf;
 
@@ -65,6 +62,8 @@ public class MemberManageController {
 		
 		return "jsonView";
 	}
+	
+	
 	
 	/**  
 	* Method   :  memberList

@@ -114,7 +114,15 @@ public class DataEtcController {
 			
 //			Date hs_date = new SimpleDateFormat("yyyy/MM").parse(dateC);
 			
+			Boolean monthresult = dataEtcService.hasmonth(hs_date);
 			
+			if(monthresult == true) {
+				//TODO : 메서드 만들어야할것
+				//model에 success를 0으로 보낸다.
+				model.addAttribute("success", 0);
+				//페이지로 리다이렉트
+				return "redirect:/manage/dataEtc/dataEtc";
+			}
 			
 			//반복문을 이용해 성별,연령별,동별,시기별 셀 정보를 human_statisticVo에 담고 list에 넣기
 			List<HumanStatisticVo> human_statisticList = new ArrayList<HumanStatisticVo>();
@@ -226,8 +234,6 @@ public class DataEtcController {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("success", 0);
-			return "redirect:/manage/dataEtc/dataEtc";
 		}
 		
 		
@@ -308,7 +314,16 @@ public class DataEtcController {
 				mkd_date = yyyy + MM;
 				log.info("mkd_dateC : {}", mkd_date);
 				
+				//연도의 중복체크를 통해 중복된 데이터인지 알려주는 메서드
+				Boolean monthresult = dataEtcService.markethasmonth(mkd_date);
 				
+				if(monthresult == true) {
+					//TODO : 메서드 만들어야할것
+					//model에 success를 0으로 보낸다.
+					model.addAttribute("success", 0);
+					//페이지로 리다이렉트
+					return "redirect:/manage/dataEtc/dataEtc";
+				}
 				
 				//행의 갯수
 				int rows = sheet.getPhysicalNumberOfRows();
@@ -479,8 +494,6 @@ public class DataEtcController {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("success", 0);
-			return "redirect:/manage/dataEtc/dataEtc";
 		}
 		
 		return "redirect:/manage/dataEtc/dataEtc";

@@ -43,7 +43,7 @@ ul{
 }
 
 .line{
-	width: 439px;
+	width: 625px;
     margin-right: 63px;
 }
 
@@ -51,8 +51,27 @@ ul{
 	margin-left: 12px;
 }
 
+::-webkit-scrollbar {
+   width: 16px;
+}
+
+::-webkit-scrollbar-track {
+   background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+   background-color: #ffae24;
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+   background: #4159a9;
+}
+
 </style>
 <script>
+	removeControl();
+	removeControls();
 	searchPlacest("대전광역시 ${dong} "+ $(".selBox").val());
 	
 	// 해당 주소에 대한 좌표값을 담을 변수
@@ -81,12 +100,14 @@ ul{
 	});
 
 	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-	var mapTypeControl = new daum.maps.MapTypeControl();
+	var mapTypeController = new daum.maps.MapTypeControl();
 	//지도 확대 축소 컨트롤
-	var zoomControl = new daum.maps.ZoomControl();
+	var zoomController = new daum.maps.ZoomControl();
+	console.log("dfdfdf");
+	
 
-	map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
-	map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+	map.addControl(zoomController, daum.maps.ControlPosition.RIGHT);
+	map.addControl(mapTypeController, daum.maps.ControlPosition.TOPRIGHT);
 
 	//마커가 지도 위에 표시되도록 설정합니다
 	marker.setMap(map);
@@ -115,7 +136,6 @@ ul{
 	
 	//selectBox 클릭시 이벤트 발생
 	$(".contentDiv").on("change",".selBox",function(){
-	
 		// select box 에서 선택한 값을 검색어로 넘겨준다.
 		searchPlacest(this.value);
 	});

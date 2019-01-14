@@ -41,46 +41,75 @@
 	
 	<!-- 신고 리스트 검색 결과 -->
 	<select id="searchReport" parameterType="pgVo" resultType="reportVo">
-		Select * From(
-			Select Rownum rnum ,a.*
-			From
-				(Select b.rpt_no, b.rpt_post, c.rpt_cf_nm, b.rpt_ttl, b.rpt_cntnt, b.rpt_date, b.rpt_mem, b.rpt_exst
-				From report b Inner Join report_classf c on(b.rpt_classf = c.rpt_classf)
-	        Where rpt_no > 0
-			<if test="selBox != null and searchNm != null">
-				<if test="selBox == 'rpt_no'">
-					and rpt_no 		like '%' || #{searchNm} || '%'
-				</if>
-				<if test="selBox == 'rpt_post'">
-					and rpt_post 	like '%' || #{searchNm} || '%' 
-				</if>
-	            <if test="selBox == 'rpt_cf_nm'">
-					and rpt_cf_nm 	like '%' || #{searchNm} || '%' 
-				</if>
-	            <if test="selBox == 'rpt_ttl'">
-					and rpt_ttl 	like '%' || #{searchNm} || '%' 
-				</if>
-	            <if test="selBox == 'rpt_cntnt'">
-					and rpt_cntnt 	like '%' || #{searchNm} || '%' 
-				</if>
-	             <if test="selBox == 'rpt_mem'">
-					and rpt_mem 	like '%' || #{searchNm} || '%' 
-				</if>
-	             <if test="selBox == 'rpt_exst'">
-					and rpt_exst 	like '%' || Upper(#{searchNm}) || '%'
-				</if>
-				<if test="selBox == 'all'">
-					and rpt_no 		like '%' || #{searchNm} || '%'
-					or rpt_post 	like '%' || #{searchNm} || '%'
-					or rpt_cf_nm 	like '%' || #{searchNm} || '%'
-	                or rpt_ttl 		like '%' || #{searchNm} || '%'
-	                or rpt_cntnt 	like '%' || #{searchNm} || '%'
-	                or rpt_mem 		like '%' || #{searchNm} || '%'
-	                or rpt_exst 	like '%' || #{searchNm} || '%'
-				</if>
-			</if>
-			Order by rpt_no desc) a)
-			Where rnum Between #{page}*#{pageSize}-(#{pageSize}-1) 
+		SELECT
+		    rnum, rpt_no, rpt_post, rpt_cf_nm, rpt_ttl, rpt_cntnt, rpt_date, rpt_mem, rpt_exst, counts
+		FROM
+		    (
+		        SELECT
+		            ROWNUM rnum,
+		            a.rpt_no,
+		            a.rpt_post,
+		            a.rpt_cf_nm,
+		            a.rpt_ttl,
+		            a.rpt_cntnt,
+		            a.rpt_date,
+		            a.rpt_mem,
+		            a.rpt_exst,
+		            count(a.rpt_no) over() counts
+		        FROM
+		            (
+		                SELECT
+		                    b.rpt_no,
+		                    b.rpt_post,
+		                    c.rpt_cf_nm,
+		                    b.rpt_ttl,
+		                    b.rpt_cntnt,
+		                    b.rpt_date,
+		                    b.rpt_mem,
+		                    b.rpt_exst
+				 FROM
+                    report b
+                    INNER JOIN report_classf c ON ( b.rpt_classf = c.rpt_classf )
+                WHERE
+                    rpt_no > 0
+					<if test="selBox != null and searchNm != null">
+						<if test="selBox == 'rpt_no'">
+							and rpt_no 		like '%' || #{searchNm} || '%'
+						</if>
+						<if test="selBox == 'rpt_post'">
+							and rpt_post 	like '%' || #{searchNm} || '%' 
+						</if>
+			            <if test="selBox == 'rpt_cf_nm'">
+							and rpt_cf_nm 	like '%' || #{searchNm} || '%' 
+						</if>
+			            <if test="selBox == 'rpt_ttl'">
+							and rpt_ttl 	like '%' || #{searchNm} || '%' 
+						</if>
+			            <if test="selBox == 'rpt_cntnt'">
+							and rpt_cntnt 	like '%' || #{searchNm} || '%' 
+						</if>
+			             <if test="selBox == 'rpt_mem'">
+							and rpt_mem 	like '%' || #{searchNm} || '%' 
+						</if>
+			             <if test="selBox == 'rpt_exst'">
+							and rpt_exst 	like '%' || Upper(#{searchNm}) || '%'
+						</if>
+						<if test="selBox == 'all'">
+							and rpt_no 		like '%' || #{searchNm} || '%'
+							or rpt_post 	like '%' || #{searchNm} || '%'
+							or rpt_cf_nm 	like '%' || #{searchNm} || '%'
+			                or rpt_ttl 		like '%' || #{searchNm} || '%'
+			                or rpt_cntnt 	like '%' || #{searchNm} || '%'
+			                or rpt_mem 		like '%' || #{searchNm} || '%'
+			                or rpt_exst 	like '%' || #{searchNm} || '%'
+						</if>
+					</if>
+				 ORDER BY
+	                    rpt_no DESC
+	            ) a
+		    )
+		WHERE
+			rnum Between #{page}*#{pageSize}-(#{pageSize}-1) 
 	        And #{page}*#{pageSize}
 	</select>
 		
