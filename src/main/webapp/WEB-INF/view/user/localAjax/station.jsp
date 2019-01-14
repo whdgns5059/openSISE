@@ -56,13 +56,13 @@
 	})
 	
 
-	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-	var mapTypeControl = new daum.maps.MapTypeControl();
-	//지도 확대 축소 컨트롤
-	var zoomControl = new daum.maps.ZoomControl();
+// 	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+// 	var mapTypeControl = new daum.maps.MapTypeControl();
+// 	//지도 확대 축소 컨트롤
+// 	var zoomControl = new daum.maps.ZoomControl();
 
-	map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
-	map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+// 	map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+// 	map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
 
 
 

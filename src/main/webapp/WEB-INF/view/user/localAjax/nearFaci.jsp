@@ -70,8 +70,6 @@ ul{
 
 </style>
 <script>
-	removeControl();
-	removeControls();
 	searchPlacest("대전광역시 ${dong} "+ $(".selBox").val());
 	
 	// 해당 주소에 대한 좌표값을 담을 변수

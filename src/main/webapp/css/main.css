@@ -322,11 +322,11 @@ input[type=range]:focus::-ms-fill-upper {
 
 #glassImg{
 	width: 240px;
-    margin-left: 156px;
+    margin-left: 131px;
 }
 
 #noSearchText{
-	margin-left: 104px;
+	margin-left: 80px;
     font-size: 16pt;
     font-family: 'Noto Sans KR', sans-serif;
 }
