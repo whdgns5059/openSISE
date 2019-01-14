@@ -70,7 +70,7 @@ ul{
 
 </style>
 <script>
-	searchPlacest("대전광역시 ${dong} "+ $(".selBox").val());
+	searchPlacest($(".selBox").val());
 	
 	// 해당 주소에 대한 좌표값을 담을 변수
 	var x;
