@@ -260,7 +260,6 @@ ol, ul, dl {
 						</li>
 					</ul>
 				</div>  
-				
 				<div class="swiper-slide"> 
 					 <div id="accordion-resizer" class="ui-widget-content">
          <div id="accordion">
@@ -362,7 +361,7 @@ ol, ul, dl {
 			                  정보를 다른 목적으로는 절대 이용하지 않습니다. - 전자상거래 등에서 소비자 보호에 관한 법률 계약 또는 청약철회 등에
 			                  관한 기록: 5년 보관 대금결제 및 재화 등의 공급에 관한 기록: 5년 보관 소비자의 불만 또는 분쟁처리에 관한 기록:
                   3년 보관 - 전자금융거래법 전자금융에 관한 기록: 5년 보관 - 통신비밀보호법 로그인 기록: 3개월</p>
-                  <input type="checkbox" name="U_checkAgreement3" id="U_checkAgreement3" value="" /> 약관동의
+                  <input type="checkbox" name="U_checkAgreement2" id="U_checkAgreement2" value="" /> 약관동의
             </div>
 
             <h3 class="bgColor" id="firstH5">위치정보 이용약관 동의(선택)</h3>
@@ -405,7 +404,7 @@ ol, ul, dl {
                   203호 전화번호: 010-6351-4419 이메일 주소: openSise@naver.com 부칙 제1조 시행일
                   2015년 6월 2일부터 시행되던 종전의 약관은 본 약관으로 대체하며, 본 약관은 2015년 11월 26일부터
                   	적용됩니다.</p>
-                  	  <input type="checkbox" name="U_checkAgreement4" id="U_checkAgreement4" value="" /> 약관동의
+                  	  <input type="checkbox" name="U_checkAgreement3" id="U_checkAgreement3" value="" /> 약관동의
             </div>
          </div>
       </div>
@@ -521,7 +520,7 @@ ol, ul, dl {
 
 	});
 			// 1동의버튼 클릭시 색상처리
-		/*    $("#U_checkAgreement1").on("click",function(){
+		    $("#U_checkAgreement1").on("click",function(){
 		       $("#firstH3").removeClass("bgColor");
 		       $("#firstH3").addClass("bgColorChange");
 		    });
@@ -534,7 +533,7 @@ ol, ul, dl {
 		    $("#U_checkAgreement3").on("click",function(){
 		       $("#firstH5").removeClass("bgColor");
 		       $("#firstH5").addClass("bgColorChange");
-		    }); */
+		    }); 
 
 		$(".chkName").on("change", function(){
 			console.log(this.value)
