@@ -526,13 +526,8 @@ ol, ul, dl {
 		
 		// 동의버튼 클릭시 색상처리
 		   $("#U_checkAgreement1").on("click",function(){
-			   if($("#U_checkAgreement1").is(":checked") == false){
-				   $("#firstH3").removeClass("bgColorChange");
-				   $("#firstH3").addClass("bgColor");
-			   }else {
 		      $("#firstH3").removeClass("bgColor");
 		      $("#firstH3").addClass("bgColorChange");
-			}
 		   });
 
 		});

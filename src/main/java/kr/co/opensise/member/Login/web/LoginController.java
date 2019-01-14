@@ -208,6 +208,10 @@ public class LoginController {
 	*/
 	@RequestMapping(value="/duplication", method={RequestMethod.POST})
 	public String duplication(@RequestParam("memNm") String mem_nm, Model model ) {
+		
+		List<MemberVo> interest = loginService.interestLiset();
+		model.addAttribute("intrstList",interest);
+		
 		int memberNm = loginService.check_nm(mem_nm);
 		List<MemberVo> memberJobLiset = loginService.jobList();
 		model.addAttribute("msg",memberNm);
@@ -224,6 +228,13 @@ public class LoginController {
 	*/
 	@RequestMapping(value="/duplication2", method={RequestMethod.POST})
 	public String duplication2(Model model,@RequestParam("memNm") String mem_nm,@RequestParam("memEmail") String memEmail, HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
+		
+		List<MemberVo> memberJobLiset = loginService.jobList();
+		model.addAttribute("JobList",memberJobLiset);
+		
+		List<MemberVo> interest = loginService.interestLiset();
+		model.addAttribute("intrstList",interest);
+		
 		MemberVo user = loginService.selectMember(memEmail);
 		int check = loginService.check_mail(memEmail);
 		
