@@ -45,9 +45,9 @@ $('#calcul').on('change', function(){
 	
 	var calDefault = parseInt(document.getElementById('calDefault').innerHTML);
 	
-	if(!(isNaN(calDefault) || carDefault == 1)){
+	if(!(isNaN(calDefault) || calDefault == 1)){
 		if(calval >= 20){
-			var calResult = calDefault / 100 * calval;
+			var calResult = Math.round(calDefault / 100 * calval);
 			var inter = Math.round((calDefault - calResult) * 0.03);
 			$('#clacResult').html(calResult +'만원');
 			$('#inter').html('연' + inter + '만원');
