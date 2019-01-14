@@ -114,10 +114,10 @@ public class DataEtcDao implements DataEtcDaoInf {
 	* @return
 	* Method 설명 : 기타데이터 시설 삭제
 	*/
-	@Override
-	public int deleteInstiattr(int iattr_no) {
-		return template.delete("dataEtc.deleteInsti", iattr_no);
-	}
+//	@Override
+//	public int deleteInstiattr(int iattr_no) {
+//		return template.delete("dataEtc.deleteInsti", iattr_no);
+//	}
 
 	/**
 	* Method : marketList
@@ -162,6 +162,11 @@ public class DataEtcDao implements DataEtcDaoInf {
 	public List<MarketDetailVo> markethasmonth(String mkd_date) {
 		List<MarketDetailVo> mkdmonthList = template.selectList("dataEtc.markethasmonth", mkd_date);
 		return mkdmonthList;
+	}
+
+	@Override
+	public int deleteInsti(int insti_no) {
+		return template.delete("dataEtc.deletInsti", insti_no);
 	}
 
 }

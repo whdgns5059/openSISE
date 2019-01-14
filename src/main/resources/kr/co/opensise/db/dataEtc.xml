@@ -274,10 +274,14 @@ ORDER BY
             a.iattr_no
 	</select>
 	
-	<delete id="deleteInsti" parameterType="int">
-		 delete insti_attr
-			where iattr_no = #{iattr_no} or iattr_pare=#{iattr_no}	
+	<delete id="deletInsti" parameterType="int">
+		delete from insti where insti_no=#{inti_no}
 	</delete>
+	
+<!-- 	<delete id="deleteInsti" parameterType="int"> -->
+<!-- 		 delete insti_attr -->
+<!-- 			where iattr_no = #{iattr_no} or iattr_pare=#{iattr_no}	 -->
+<!-- 	</delete> -->
 	
 	
 	<insert id="marketListOne" parameterType="marketVo">

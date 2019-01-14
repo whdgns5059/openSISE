@@ -31,7 +31,8 @@ public interface DataEtcDaoInf {
 	public List<InstiAttrVo> selectInsti_attr(int iattr_insti);
 	public List<InstiAttrVo> selectInstiAttr(int iattr_insti);
 	public int insertInstiattr(InstiAttrVo instiAttrVo);
-	public int deleteInstiattr(int iattr_no);
+//	public int deleteInstiattr(int iattr_no);
+	public int deleteInsti(int insti_no);
 	
 	public List<MarketVo> marketList();
 
