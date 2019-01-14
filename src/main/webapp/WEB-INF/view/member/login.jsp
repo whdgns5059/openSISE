@@ -122,7 +122,7 @@
 			<!-- Link to open the modal -->
 			<p style="font-size: 10pt; margin-top: 5px; "><a href="#ex1" rel="modal:open">비밀번호 찾기</a></p>
 				<br/>
-			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Sign in" />
+			<input type="submit" id="Sign_in" class="btn btn-outline-primary" value="Login" />
 			</div>
 		</div>
 		</form>
