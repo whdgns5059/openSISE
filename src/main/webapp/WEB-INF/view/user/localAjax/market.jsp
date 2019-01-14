@@ -109,7 +109,7 @@ var myConfig = {
 		        },
 		        "scale-y":{
 		            "progression":"demical",
-		            "min-value" : 0,
+		            "min-value" : 6000,
 		            "decimals":0,
 		            "auto-fit":true,
 		            "item":{
