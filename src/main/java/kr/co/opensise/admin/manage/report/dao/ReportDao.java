@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.opensise.admin.manage.review.model.PageVo;
+import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.model.Report_classfVo;
 
@@ -62,6 +63,12 @@ public class ReportDao implements ReportDaoInf {
 	@Override
 	public int updateReport(ReportVo reportVo) {
 		int updateCnt = template.update("mng_report.updateReport",reportVo);
+		return updateCnt;
+	}
+
+	@Override
+	public int updatePost(PostVo postVo) {
+		int updateCnt = template.update("mng_report.updatePost",postVo);
 		return updateCnt;
 	}
 

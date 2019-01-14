@@ -36,7 +36,7 @@
 	
 	
 	
-	<h1><a href="http://rtdown.molit.go.kr">국토 교통부 실거래 정보 다운로드페이지</a></h1>
+	<h1><a target="_blank" href="http://rtdown.molit.go.kr">국토 교통부 실거래 정보 다운로드페이지</a></h1>
 	<br/>
 	<br/>
 	

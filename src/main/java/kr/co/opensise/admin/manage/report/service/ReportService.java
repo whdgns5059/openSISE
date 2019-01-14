@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.co.opensise.admin.manage.report.dao.ReportDaoInf;
-import kr.co.opensise.admin.manage.report.web.ReportController;
 import kr.co.opensise.admin.manage.review.model.PageVo;
+import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.model.Report_classfVo;
 
@@ -69,6 +69,11 @@ public class ReportService implements ReportServiceInf {
 	@Override
 	public int updateReport(ReportVo reportVo) {
 		return reportDao.updateReport(reportVo);
+	}
+
+	@Override
+	public int updatePost(PostVo postVo) {
+		return reportDao.updatePost(postVo);
 	}
 
 

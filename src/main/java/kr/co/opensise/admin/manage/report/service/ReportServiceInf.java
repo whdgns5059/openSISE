@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.opensise.admin.manage.review.model.PageVo;
+import kr.co.opensise.user.detail.model.PostVo;
 import kr.co.opensise.user.detail.model.ReportVo;
 import kr.co.opensise.user.detail.model.Report_classfVo;
 
@@ -93,6 +94,15 @@ public interface ReportServiceInf {
 	*/
 	int updateReport(ReportVo reportVo);
 	
+	/**
+	* Method : updatePost
+	* 작성자 : Bella
+	* 변경이력 :
+	* @param postVo
+	* @return
+	* Method 설명 : 신고 처리가 되면 리뷰는 삭제로 바뀜
+	*/
+	int updatePost(PostVo postVo);
 	
 
 }
