@@ -110,7 +110,7 @@
 		
 	<delete id="deleteReview" parameterType="String">
 		update post
-		set post_exst = 'N'
+		set post_exst = 'Y'
 		where post_no = #{String}
 	</delete>
 	
