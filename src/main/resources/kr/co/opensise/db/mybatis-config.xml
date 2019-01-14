@@ -22,7 +22,6 @@
 		
 		
 		
-		
 		<!-- admin : statis START-->
 		<typeAlias type="kr.co.opensise.admin.statis.model.MemberVo" alias="memVo"/>
 		<typeAlias type="kr.co.opensise.admin.statis.model.FavoriteVo" alias="favorVo"/>

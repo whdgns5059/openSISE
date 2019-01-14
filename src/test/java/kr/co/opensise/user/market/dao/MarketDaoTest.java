@@ -24,7 +24,7 @@ public class MarketDaoTest extends RootSetup{
 	public void selectAvgMkdTest() {
 		
 		/***given***/
-		String dong = "노은";
+		String dong = "월평";
 
 		/***when***/
 		List<MarketDetailVo> mkd_list = marketDao.selectAvgMkd(dong);
@@ -36,7 +36,7 @@ public class MarketDaoTest extends RootSetup{
 			
 		}
 		
-		assertEquals(2, mkd_list.size());
+		assertEquals(4, mkd_list.size());
 		
 	}
 	

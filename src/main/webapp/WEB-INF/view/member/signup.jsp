@@ -146,7 +146,7 @@ ol, ul, dl {
 #accordion {
     display: block;
     height: 398px;
-    overflow: auto;
+    overflow: scroll !important;
     width: 480px;
 }
 
@@ -260,8 +260,6 @@ ol, ul, dl {
 						</li>
 					</ul>
 				</div>  
-				
-				
 				<div class="swiper-slide"> 
 					 <div id="accordion-resizer" class="ui-widget-content">
          <div id="accordion">
@@ -323,7 +321,7 @@ ol, ul, dl {
             </div>
             
             
-            <h3 class="bgColor">개인정보 수집 및 이용에 대한 안내(필수)</h3>
+            <h3 class="bgColor" id="firstH4">개인정보 수집 및 이용에 대한 안내(필수)</h3>
             <div>
                <p>정보통신망법 규정에 따라 오픈시세에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및
 			                  이용목적, 개인정보의 보유 및 이용기간을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다. 1. 수집하는
@@ -366,7 +364,7 @@ ol, ul, dl {
                   <input type="checkbox" name="U_checkAgreement2" id="U_checkAgreement2" value="" /> 약관동의
             </div>
 
-            <h3 class="bgColor">위치정보 이용약관 동의(선택)</h3>
+            <h3 class="bgColor" id="firstH5">위치정보 이용약관 동의(선택)</h3>
             <div>
                <p>위치정보 이용약관에 동의하시면, 위치를 활용한 광고 정보 수신 등을 포함하는 오픈시세 위치기반 서비스를
 			                  이용할 수 있습니다. 제 1 조 (목적) 이 약관은 오픈시세 주식회사 (이하 “회사”)가 제공하는 위치정보사업 또는
@@ -406,11 +404,7 @@ ol, ul, dl {
                   203호 전화번호: 010-6351-4419 이메일 주소: openSise@naver.com 부칙 제1조 시행일
                   2015년 6월 2일부터 시행되던 종전의 약관은 본 약관으로 대체하며, 본 약관은 2015년 11월 26일부터
                   	적용됩니다.</p>
-            </div>
-            
-            <h3 class="bgColor">이벤트 등 프로모션 알림 메일 수신(선택)</h3>
-            <div>
-               <p>에붸붸</p>
+                  	  <input type="checkbox" name="U_checkAgreement3" id="U_checkAgreement3" value="" /> 약관동의
             </div>
          </div>
       </div>
@@ -523,15 +517,24 @@ ol, ul, dl {
 			alert(msgOk);
 		}
 		
-		
-		// 동의버튼 클릭시 색상처리
-		   $("#U_checkAgreement1").on("click",function(){
-		      $("#firstH3").removeClass("bgColor");
-		      $("#firstH3").addClass("bgColorChange");
-		   });
 
-		});
-	
+	});
+			// 1동의버튼 클릭시 색상처리
+		    $("#U_checkAgreement1").on("click",function(){
+		       $("#firstH3").removeClass("bgColor");
+		       $("#firstH3").addClass("bgColorChange");
+		    });
+		  // 2동의버튼 클릭시 색상처리
+		    $("#U_checkAgreement2").on("click",function(){
+		       $("#firstH4").removeClass("bgColor");
+		       $("#firstH4").addClass("bgColorChange");
+		    });
+		 // 3동의버튼 클릭시 색상처리
+		    $("#U_checkAgreement3").on("click",function(){
+		       $("#firstH5").removeClass("bgColor");
+		       $("#firstH5").addClass("bgColorChange");
+		    }); 
+
 		$(".chkName").on("change", function(){
 			console.log(this.value)
 			if($(".inst").html() == "관심사를 선택해 주세요"){
