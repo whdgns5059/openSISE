@@ -40,16 +40,27 @@ $('#totalDeal').on('click',function(){
 $('#calcul').on('change', function(){
 
 	var calval = $('#calcul').val();
+	
+	console.log("here");
+	
 	var calDefault = parseInt(document.getElementById('calDefault').innerHTML);
 	
-	if(calval >= 20){
-		var calResult = calDefault / 100 * calval;
-		var inter = Math.round((calDefault - calResult) * 0.03);
-		$('#clacResult').html(calResult +'만원');
-		$('#inter').html('연' + inter + '만원');
-	}else{
-		$('#clacResult').html('최소 20%의 보유금이 필요합니다');
+	if(!(isNaN(calDefault) || carDefault == 1)){
+		if(calval >= 20){
+			var calResult = calDefault / 100 * calval;
+			var inter = Math.round((calDefault - calResult) * 0.03);
+			$('#clacResult').html(calResult +'만원');
+			$('#inter').html('연' + inter + '만원');
+		}else{
+			$('#clacResult').html('최소 20%의 보유금이 필요합니다');
+		}
+	}else {
+		
+		$('#clacResult').html('1년 평균거래가 없습니다.');
+		$('#inter').html('1년 평균거래가 없습니다.');
+		$('#calDefault').html('1년 평균거래가 없습니다.')
 	}
+	
 	
 	
 });
