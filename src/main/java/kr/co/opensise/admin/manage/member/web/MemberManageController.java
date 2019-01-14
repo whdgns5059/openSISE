@@ -42,7 +42,6 @@ public class MemberManageController {
 	*/
 	@RequestMapping("/member")
 	public String memberList(Model model, ManagementVo managementVo) {
-		
 		PageVO pageVo = new PageVO();
 		pageVo.setPage(1);
 		pageVo.setPageSize(10);
@@ -61,7 +60,6 @@ public class MemberManageController {
 	*/
 	@RequestMapping("/userPageListAjax")
 	public String userPageListAjax(Model model, PageVO pageVo) {
-		
 		Map<String, Object> resultMap = memberService.selectUserPageList(pageVo);
 		model.addAllAttributes(resultMap);
 		
@@ -77,20 +75,14 @@ public class MemberManageController {
 	*/
 	@RequestMapping(value="/declaration", method = {RequestMethod.POST})
 	public String declaration(Model model, MemberVo memberVo) {
-		
 		// 페이징 처리
 		PageVO pageVo = new PageVO();
 		pageVo.setPage(1);
 		pageVo.setPageSize(10);
 		Map<String, Object> resultMap = memberService.selectUserPageList(pageVo);
-//		model.addAllAttributes(resultMap);
-
 		// 신고처리
 		int member = loginService.declaration(memberVo);
-//		model.addAttribute("memberVo", member);
-		
 		
 		return "redirect:/admin/member";
 	}
-
 }

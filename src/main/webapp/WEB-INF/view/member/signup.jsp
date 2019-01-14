@@ -139,7 +139,7 @@ ol, ul, dl {
 								</label></li>
 
 								<li class="auth"><input type="submit" id="duplication2"
-									class="form-control" value="메일인증" /></li>
+									class="form-control" value="중복확인" /></li>
 							</div>
 							<li id="passCheck"><label for="inputEmail" id="necessary">
 									<input type="password" id="inputPassword" name="mem_pass"
@@ -202,28 +202,32 @@ ol, ul, dl {
 							</div>
 						</li>
 					</ul>
-				</div>
+				</div>  
 			</div>
 
 			<!-- Add Arrows -->
 			<div class="swiper-button-next swiper-next-img-none" id="next" style="font-family: 'Do Hyeon', sans-serif; font-size: 17pt;">다음</div>
 		</div>
 	</form>
-
+	
+	<div>
+		<p>ddd</p>
+	</div>  
+    
 
 	<form action="/login/duplication" id="fm" method="post">
 		<input type="hidden" id="memNm" name="memNm">
 	</form>
-
+  
 	<form action="/login/duplication2" id="fmm" method="post">
 		<input type="hidden" id="memEmail" name="memEmail"> <input
 			type="hidden" id="memNm2" name="memNm">
 	</form>
-	
+	  
 	<!-- Swiper JS -->
 <script src="../js/swiper.min.js"></script>
-
-
+  
+ 
 <script type="text/javascript">
 	// 중복확인 이벤트
 	$(document).ready(function() {
@@ -231,22 +235,36 @@ ol, ul, dl {
 			navigation : {
 				nextEl : '.swiper-button-next',
 			},
-			allowTouchMove : false
+			 allowTouchMove : false
+// 			on: {
+// 			    init: function () {
+// 			      /* do something */
+// 			    },
 		});
-
-		 $("#next").on("click", function(event) {
+		swiper.on('slideNextTransitionStart', function () {
+			alert("swiper on");
 			if($("#userNm").val() == "" || $("#userId").val() == "" || $("#inputPassword").val() == ""){
 				alert("필수입력사항입니다. 전체 입력해 주세요.");
- 				//event.preventDefault();
-// 				swiper.autoplay.stop();
-			}else {
-				if (document.getElementById('next').innerText == '다음') {
-					$("#next").html("회원가입");
-				} else {
-					$("#frm").submit();
-				}
+				swiper.destroy();
 			}
-		}); 
+		});
+		
+		
+// 		 $("#next").on("click", function(event) {
+// 			if($("#userNm").val() == "" || $("#userId").val() == "" || $("#inputPassword").val() == ""){
+// 				alert("필수입력사항입니다. 전체 입력해 주세요.");
+// 				swiper.navigation.update();
+// // 				swiper.navigation.nextEl = '.swiper-button-next';
+//  				//event.preventDefault();
+// // 				swiper.autoplay.stop();
+// 			}else {
+// 				if (document.getElementById('next').innerText == '다음') {
+// 					$("#next").html("회원가입");
+// 				} else {
+// 					$("#frm").submit();
+// 				}
+// 			}
+// 		}); 
 
 		$("#duplication").on("click", function() {
 			if($("#userNm").val() == ""){

@@ -26,7 +26,6 @@ $(document).ready(function() {
 		  
 	  });
 	  
-	// 비밀번호 찾기 alert
 		var msgNo = '${msgNo}';
 		var msgOk = '${msgOk}';
 		if(msgNo != ""){

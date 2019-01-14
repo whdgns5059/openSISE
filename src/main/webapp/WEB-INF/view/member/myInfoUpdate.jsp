@@ -16,9 +16,12 @@
 				$("#memNm").val(memberNm);
 				//form 실행
 				$("#fm").submit();
-				
 			});
-
+			
+// 			if(${nowLogin.mem_email} == null){
+// 				$("#mem_nm").attr("readonly", "readonly");
+// 			}
+			
 		});
 	       
 	</script>
@@ -69,13 +72,15 @@
 	<table class="table" border="1">
 					<tbody align="center">
 						<th class="th">닉네임</th>
-						<th class="th2"><label for="memNm" class="control-label"><input type="text" id="mem_nm" name="mem_nm" value="${nowLogin.mem_nm }"  class="form-control"	 required autofocus>
+						<th class="th2"><label for="memNm" class="control-label"><input type="text" id="mem_nm" 
+							<c:if test="${nowLogin.mem_email == null }"> readonly = "readonly" </c:if>
+							 name="mem_nm" value="${nowLogin.mem_nm }"  class="form-control"	 required autofocus>
 						<input type="submit" id="myPageDuplication" class="form-control" value="중복확인"/></label></th>
 					</tbody>
 					
 					<tbody align="center">
 						<th class="th">ID</th>
-						<th class="th2"><label for="memEmail" class="control-label"><input type="email" id="mem_email" readonly="readonly" name="mem_email" value="${nowLogin.mem_email}" class="form-control"  required autofocus></label></th>
+						<th class="th2"><label for="memEmail" class="control-label"><input type="email" id="mem_email" readonly="readonly"  name="mem_email" value="${nowLogin.mem_email}" class="form-control"  required autofocus></label></th>
 					</tbody>
 					
 					<tbody align="center">
