@@ -86,6 +86,8 @@ public class DetailController {
 		}
 		
 		
+		articleVo.setBuilding(selectArticleVo.getArtcl_bc());
+		
 		model.addAttribute("selectArticleVo", selectArticleVo);
 		model.addAttribute("selectAreas", selectAreas);
 		model.addAttribute("dl_ty", dl_ty);

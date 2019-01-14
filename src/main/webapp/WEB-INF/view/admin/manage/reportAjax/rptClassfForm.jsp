@@ -196,8 +196,7 @@ $(document).ready(function(){
 	
 	/* 신고 분류 추가하기 */
 	$('#classfAdd').on('click',function(){
-		
-
+		addRpt_cf();
 	});
 	
 	/* 신고 분류 수정하기 */

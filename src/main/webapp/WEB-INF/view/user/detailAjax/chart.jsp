@@ -9,7 +9,7 @@
 				<c:when test="${dl_ty == '매매' }">
 					<c:forEach items="${recentTradeList }" var="tlist" end="2">
 						<tr>
-							<td> <span class="orangetext">${tlist.dl_price } 만원</span> </td>
+							<td> <span class="orangetext recentTrade">${tlist.dl_price } 만원</span> </td>
 							<td class="textright" width="40px"> ${ tlist.dl_flr} 층</td>
 							<td> &nbsp; ${tlist.dl_cont_ym} </td>
 						</tr>
@@ -18,7 +18,7 @@
 				<c:when test="${dl_ty == '전세' }">
 					<c:forEach items="${recentTradeList }" var="tlist" end="2">
 						<tr>
-							<td> <span class="orangetext">${tlist.dl_depos } 만원</span> </td>
+							<td> <span class="orangetext recentTrade">${tlist.dl_depos } 만원</span> </td>
 							<td class="textright" width="40px"> ${ tlist.dl_flr} 층</td>
 							<td> &nbsp; ${tlist.dl_cont_ym} </td>
 						</tr>
@@ -158,9 +158,9 @@
 		<div>
 			<input type="range" id="calcul" value="0"/>
 		</div>
-		<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
-		<span class="orangetext">1년 평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_price }</span><span  class="orangetext">만원</span><br/>
-		<span class="orangetext">이자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
+		<span class="orangetext">보&nbsp;&nbsp;&nbsp;&nbsp;유&nbsp;&nbsp;&nbsp;&nbsp;금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
+		<span class="orangetext">1년&nbsp;평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_price }</span><br/>
+		<span class="orangetext">이&emsp;&nbsp;&emsp;&nbsp;&nbsp;&nbsp;자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
 	</c:when>
 	<c:when test="${dl_ty == '전세' }">
 		<div>
@@ -170,7 +170,7 @@
 			<input type="range" id="calcul" value="0"/>
 		</div>
 		<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
-		<span class="orangetext">1년 평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_depos}</span><span>만원</span><br/>
+		<span class="orangetext">1년 평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_depos}</span><br/>
 		<span class="orangetext">이자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
 	</c:when>
 </c:choose>

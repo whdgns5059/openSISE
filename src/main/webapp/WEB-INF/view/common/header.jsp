@@ -82,15 +82,14 @@
  				}
  			});	 */
  			
- 			var chatPopup = window.open("http://192.168.1.6:3000","", "width=500, height=800")
-			chatPopup.document.getElementById('name').value = '${nowLogin.mem_nm}';
+ 			var chatPopup = window.open("http://192.168.203.110:3000","userChat", "width=500, height=800")
  		});
  		
  		
  		$('.chatlobby').on('click', function(e){
  	
- 		/* 	e.preventDefault();	
- 			
+ 		 	e.preventDefault();	
+ 			/*	
  			$.ajax({
  				type : 'POST',
  				url : '/chat/lobby',
@@ -102,8 +101,8 @@
 					chatPopup.document.write(data);
  				}
  			});	 */
- 			var chatPopup = window.open("http://192.168.1.6:3000", "","width=500, height=800")
-			chatPopup.document.getElementById('name').value = '관리자';
+ 			
+ 			var chatPopup = window.open("http://192.168.203.110:3000", "adminChat","width=500, height=800")
  		});
  		
  		function exitChat(){
