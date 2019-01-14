@@ -25,7 +25,7 @@ public class MarketServiceTest extends RootSetup{
 	public void selectAvgMkdTest() {
 		
 		/***given***/
-		String dong = "노은";
+		String dong = "월평";
 
 		/***when***/
 		List<MarketDetailVo> mkd_list = marketService.selectAvgMkd(dong);
@@ -37,7 +37,7 @@ public class MarketServiceTest extends RootSetup{
 			
 		}
 		
-		assertEquals(2, mkd_list.size());
+		assertEquals(5, mkd_list.size());
 		
 	}
 	

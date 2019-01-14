@@ -17,7 +17,18 @@ public class MarketService implements MarketServiceInf{
 	
 	@Override
 	public List<MarketDetailVo> selectAvgMkd(String dong) {
-		return marketDao.selectAvgMkd(dong);
+		List<MarketDetailVo> result = marketDao.selectAvgMkd(dong);
+		
+		for(int i = 1 ; i < result.size() ; i++) {
+			int mkd_price = result.get(i).getMkd_price();
+
+			if(mkd_price == 0) {
+				result.get(i).setMkd_price(result.get(i-1).getMkd_price());
+			}
+		}
+		
+		return result;
+		
 	}
 
 	@Override

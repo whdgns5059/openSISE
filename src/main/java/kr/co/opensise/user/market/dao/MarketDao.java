@@ -17,12 +17,12 @@ public class MarketDao implements MarketDaoInf{
 
 	@Override
 	public List<MarketDetailVo> selectAvgMkd(String dong) {
-		return template.selectList("selectAvgMkd", dong);
+		return template.selectList("market.selectAvgMkd", dong);
 	}
 
 	@Override
 	public List<MarketDetailVo> selectMkd(String dong) {
-		return template.selectList("selectMkd", dong);
+		return template.selectList("market.selectMkd", dong);
 	}
 	
 	

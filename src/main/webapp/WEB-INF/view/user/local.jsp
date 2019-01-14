@@ -100,15 +100,10 @@
 		var mapTypeControl = new daum.maps.MapTypeControl();
 		//지도 확대 축소 컨트롤
 		var zoomControl = new daum.maps.ZoomControl();
-
+		
 		map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 		map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
-		
-		function removeControl(){
-			map.removeControl(zoomControl, daum.maps.ControlPosition.RIGHT);
-			map.removeControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
-		}
-
+	
 		//마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
 
@@ -338,7 +333,6 @@
 			$("#map").addClass("mapChange");
 			$("#rightContentWrapper").addClass("rightWrapChange");
 			$("#rightContent").addClass("rigntContentChange");
-			removeControl();
 		}else{
 			$(".row").removeClass("rowChange");
 			$("#mapWrap").removeClass("mapWrapChange");
@@ -359,6 +353,9 @@
 		var addr = $("#addr").val();
 		if(id != "nearFaci"){
 			settingMap();
+		}else{
+			map.removeControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+			map.removeControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
 		}
 	
 		$.ajax({
@@ -382,6 +379,7 @@
 	$("#image").on("click",function(){
 		$("#frmm").submit();
 	});
+	
 	
 	function settingMap(){
 
@@ -411,20 +409,20 @@
 			position : markerPosition
 		});
 
-		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-		var mapTypeControls = new daum.maps.MapTypeControl();
-		//지도 확대 축소 컨트롤
-		var zoomControls = new daum.maps.ZoomControl();
+	
+// 		var mapTypeControls = new daum.maps.MapTypeControl();
+// 		//지도 확대 축소 컨트롤
+// 		var zoomControls = new daum.maps.ZoomControl();
 		
-		function removeControls(){
-			map.removeControl(zoomControls, daum.maps.ControlPosition.RIGHT);
-			map.removeControl(mapTypeControls, daum.maps.ControlPosition.TOPRIGHT);	
-		}
+// 		map.addControl(zoomControls, daum.maps.ControlPosition.RIGHT);
+// 		map.addControl(mapTypeControls, daum.maps.ControlPosition.TOPRIGHT);
 		
+// 		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+// 		map.removeControl(zoomControls, daum.maps.ControlPosition.RIGHT);
+// 		map.removeControl(mapTypeControls, daum.maps.ControlPosition.TOPRIGHT);	
 
-		map.addControl(zoomControls, daum.maps.ControlPosition.RIGHT);
-		map.addControl(mapTypeControls, daum.maps.ControlPosition.TOPRIGHT);
-
+		
+		
 		//마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
 
