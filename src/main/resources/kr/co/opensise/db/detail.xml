@@ -249,7 +249,7 @@
 	
 	<update id="updateReview" parameterType="postVo">
 		update post
-		set post_ttl = #{post_ttl}, post_cntnt = #{post_cntnt}
+		set post_ttl = #{post_ttl}, post_cntnt = #{post_cntnt}, post_star = #{post_star}
 		where post_no = #{post_no}
 	</update>	
 	
