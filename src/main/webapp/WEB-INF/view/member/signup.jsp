@@ -261,7 +261,6 @@ ol, ul, dl {
 					</ul>
 				</div>  
 				
-				
 				<div class="swiper-slide"> 
 					 <div id="accordion-resizer" class="ui-widget-content">
          <div id="accordion">
