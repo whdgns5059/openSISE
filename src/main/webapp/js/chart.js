@@ -26,7 +26,7 @@ $('#totalDeal').on('click',function(){
 		url : '/detail/totalDeal',
 		data : data,
 		success : function(data){
-			 var newWindow = window.open("", "new window", "width=500, height=800");
+			 var newWindow = window.open("", "new window", "width=800, height=800");
 			 newWindow.document.write(data);
 		}
 		
