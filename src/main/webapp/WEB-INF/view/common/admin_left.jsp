@@ -7,6 +7,7 @@ ul { list-style : none; }
 .adminLeft {
     width: 13%;
     min-width:230px;
+    height: 100%;
     padding-left: 18px;
     padding-right: 20px;
     float: left;
@@ -22,16 +23,12 @@ ul { list-style : none; }
 	color: #757575;
 }
 .mngr-logout{
-    margin-top: 200px;
-    margin-bottom: 30px;
     text-align: center;
     font-size: 12px;
 }
 .mngr-logout a{
 	color: #e8a93f;
 }
-
-	
 </style>
 
 <div class="adminLeft">
@@ -65,7 +62,6 @@ ul { list-style : none; }
 	<hr/>
 	<ul class="left-menu">
 		<li><b>기타 관리</b></li>
-		<li><a href="#">광고문의</a></li>
 		<li><a href="#">1:1 채팅</a></li>
 	</ul>
 	<hr/>

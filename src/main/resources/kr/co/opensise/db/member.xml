@@ -38,6 +38,12 @@
   	<!-- 회원가입 -->
 	<insert id="signUpSelection" parameterType="memberVo">
 		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job, mem_date, mem_age, mem_lvl)
+		values (seq_mem_no.nextval , #{mem_email}, #{mem_pass}, #{mem_nm}
+		<if test="mem_gndr != null">,#{mem_gndr, jdbcType=CHAR}</if>
+		<if test="mem_job != null">,#{mem_job, jdbcType=NUMERIC}</if>
+		, sysdate
+		<if test="mem_age != null">, #{mem_age, jdbcType=VARCHAR}</if>
+		, 3)  
 		values (seq_mem_no.nextval , #{mem_email, jdbcType=VARCHAR}, #{mem_pass, jdbcType=VARCHAR}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, #{mem_age, jdbcType=VARCHAR}, 3)  
 	</insert>
 	

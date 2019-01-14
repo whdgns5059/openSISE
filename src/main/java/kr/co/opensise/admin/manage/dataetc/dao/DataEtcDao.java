@@ -136,4 +136,32 @@ public class DataEtcDao implements DataEtcDaoInf {
 		return template.insert("dataEtc.marketListOne", mVo);
 	}
 
+	/**
+	* Method : hasmonth
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @param hs_date
+	* @return
+	* Method 설명 : 인구통계 데이타 중복을 방지하기 위해 hs_date list를 가져온다.
+	*/
+	@Override
+	public List<HumanStatisticVo> hasmonth(String hs_date) {
+		List<HumanStatisticVo> monthList = template.selectList("dataEtc.hasmonth", hs_date);
+		return monthList;
+	}
+
+	/**
+	* Method : markethasmonth
+	* 작성자 : ASUS
+	* 변경이력 :
+	* @param mkd_date
+	* @return
+	* Method 설명 : 물가상세 데이타 중복을 방지하기 위해 mkd_date list를 가져온다.
+	*/
+	@Override
+	public List<MarketDetailVo> markethasmonth(String mkd_date) {
+		List<MarketDetailVo> mkdmonthList = template.selectList("dataEtc.markethasmonth", mkd_date);
+		return mkdmonthList;
+	}
+
 }
