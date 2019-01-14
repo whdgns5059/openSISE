@@ -692,7 +692,7 @@ public class DataEtcController {
 			model.addAttribute("busList", busList);
 			model.addAttribute("routeList", routeList);
 			model.addAttribute("stationList", stationList);
-			model.addAttribute("insertRoute", insertRoute);
+//			model.addAttribute("insertRoute", insertRoute);
 			
 			//===============================================================================
 			

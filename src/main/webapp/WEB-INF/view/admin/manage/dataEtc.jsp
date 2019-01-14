@@ -86,6 +86,7 @@ label{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 18px;
     font-weight: 400;
+    margin-bottom: 20px;
 }
 
 /* input[type="file" i] {
@@ -145,9 +146,6 @@ label{
 			alert(success + "건의 \n정보를 업데이트 하였습니다.");
 		}
 		
-		if(${param.insertRoute>0}){
-			alert("저장을 완료하였습니다.");
-		}
 		
 		$("#station").click(function(){
 			if(confirm("저장하시겠습니까?")==true){
@@ -271,8 +269,8 @@ label{
 <!-- 			</div> -->
 <!-- 		</form> -->
 		<div class="insti dataEtcf">
-			<form id="frm" name="frm" action="/manage/dataEtc/selectInsti" method="post">
-				시설명  : &nbsp <select id="insti_nm" class="selBox" name="instiNm">
+			<form id="frm" name="frm" action="/manage/dataEtc/selectInsti" method="post" style="display: inline;">
+				시설목록 :  <select id="insti_nm" class="selBox" name="instiNm" style="width: 200px;">
 							<option>분류</option>
 							
 						<c:forEach items="${instiList }" var="instiVo" varStatus="status">
@@ -282,15 +280,16 @@ label{
 					  </select>
 					  <input class="here" type="hidden" name="instiHere" value="" >
 			</form>
-			<form  action="/manage/dataEtc/insertInsti" method="post">
-				시설명추가 : &nbsp<input type="text" class="inputbox" name="insti" placeholder="예:도서관"><button type="submit" class="dataEtcbtn">추가</button>
-			</form>
-			<form id="delInsti" name="delInsti" action="/manage/dataEtc/deletInstiAttr" method="post">
-				<div style="float: left;">
+			<form id="delInsti" name="delInsti" action="/manage/dataEtc/deletInstiAttr" method="post" style="display: inline;">
 					<input  id="instiNo" type="hidden" name="insti_no" value="" >
 					<button type="button" id="del" name="del" class="dataEtcbtn">삭제</button>
-				</div>
 			</form>
+			<div style="width: auto;">
+				<form  action="/manage/dataEtc/insertInsti" method="post">
+					새시설명 : &nbsp<input type="text" class="inputbox" name="insti" placeholder="예:도서관"><button type="submit" class="dataEtcbtn">추가</button>
+				</form>
+			</div>
+			
 		</div>
 	</div>
 
