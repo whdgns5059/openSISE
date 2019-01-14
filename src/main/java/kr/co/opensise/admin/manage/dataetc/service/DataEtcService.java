@@ -89,10 +89,10 @@ public class DataEtcService implements DataEtcServiceInf {
 		return dataEtcDao.selectInstiAttr(iattr_insti);
 	}
 
-	@Override
-	public int deleteInstiattr(int iattr_no) {
-		return dataEtcDao.deleteInstiattr(iattr_no);
-	}
+//	@Override
+//	public int deleteInstiattr(int iattr_no) {
+//		return dataEtcDao.deleteInstiattr(iattr_no);
+//	}
 
 	@Override
 	public List<MarketVo> marketList() {
@@ -132,6 +132,11 @@ public class DataEtcService implements DataEtcServiceInf {
 				}
 				//3. 있으면 true,  없으면  false 반환
 				return false;
+	}
+
+	@Override
+	public int deleteInsti(int insti_no) {
+		return dataEtcDao.deleteInsti(insti_no);
 	}
 
 }

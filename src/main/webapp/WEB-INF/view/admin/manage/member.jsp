@@ -260,11 +260,7 @@
 			console.log(level);
 			level.children[8].innerText = level.children[8].innerText-1;
 			//form 실행
-<<<<<<< HEAD
 			$("#fmm").submit();
-			
-=======
->>>>>>> branch 'master' of https://github.com/whdgns5059/openSISE.git
 		});
 		
 

@@ -145,6 +145,9 @@ label{
 			alert(success + "건의 \n정보를 업데이트 하였습니다.");
 		}
 		
+		if(${param.insertRoute>0}){
+			alert("저장을 완료하였습니다.");
+		}
 		
 		$("#station").click(function(){
 			if(confirm("저장하시겠습니까?")==true){
@@ -160,7 +163,11 @@ label{
 // 			alert("시설ID:"+iattr_insti)
 		$(".here").val(iattr_insti);
 // 		alert("here값 : " +$(".here").val());
-		$("#frm").submit();
+		$("#instiNo").val(iattr_insti);
+		});
+		
+		$("#del").click(function(){
+			$("#delInsti").submit();
 		});
 		
 		$("#tbody tr").on("click",function(){
@@ -199,34 +206,6 @@ label{
 	        }
 	    })
 
-	    //삭제버튼 클릭시
-	    $("#del").click(function(){
-// 	    	alert("del");
-	    	var checkList = "";
-	    	$("input[name=chk]:checked").each(function() { 
-	    		if(checkList == ""){
-
-	    			checkList = $(this).parent().siblings().eq(1).text();
-	    			} else {
-	    				checkList = checkList + "," + $(this).parent().siblings().eq(1).text();
-	    			}
-	    	});
-	    	$("#checked").val(checkList);
-	    	
-	    	//iattr_no or iattr_pare값 저장
-			var param = $("form[name=delInsti]").serialize();
-	    	
-	    	$.ajax({
-				type : "POST",
-				url : "/manage/dataEtc/deletInstiAttr",
-				data : param,
-				success : function(data){
-					var html = data;
-					$("#tbody").html(html);
-				}
-			
-			});
-	   });
 
 	});
 	
@@ -303,72 +282,16 @@ label{
 					  </select>
 					  <input class="here" type="hidden" name="instiHere" value="" >
 			</form>
-			<form action="/manage/dataEtc/insertInsti" method="post">
+			<form  action="/manage/dataEtc/insertInsti" method="post">
 				시설명추가 : &nbsp<input type="text" class="inputbox" name="insti" placeholder="예:도서관"><button type="submit" class="dataEtcbtn">추가</button>
 			</form>
+			<form id="delInsti" name="delInsti" action="/manage/dataEtc/deletInstiAttr" method="post">
+				<div style="float: left;">
+					<input  id="instiNo" type="hidden" name="insti_no" value="" >
+					<button type="button" id="del" name="del" class="dataEtcbtn">삭제</button>
+				</div>
+			</form>
 		</div>
-<!-- 		<form action="/manage/dataEtc/insertIattr" method="post"> -->
-<!-- 			<div id="insti"> -->
-<!-- 				<div id="instiT" style="overflow: auto;width:800px;height:350px;"> -->
-<!-- 					<table class="table info" > -->
-<!-- 						<thead> -->
-<!-- 							<tr> -->
-<!-- 								<td><input type="checkbox" id="checkAll"/></td> -->
-<!-- 								중복제거한 컬럼명 -->
-<%-- 								<c:forEach items="${insti_attrList }" var="instiAttrVo" varStatus="status"> --%>
-<%-- 									<td>${instiAttrVo.iattr_key }</td> --%>
-<%-- 								</c:forEach> --%>
-<!-- 							</tr> -->
-<!-- 						</thead> -->
-<!-- 						<tbody id="tbody"> -->
-<%-- 								<c:if test="${instiAttrList !=null }"> --%>
-<!-- 									값을 가져오는 반복문 -->
-<%-- 									<c:forEach items="${instiAttrList }" var="instiAttr_List" varStatus="status"> --%>
-<%-- 										<c:choose> --%>
-<%-- 											<c:when test="${instiAttrList[status.index].groupno != instiAttrList[status.index-1].groupno}"> --%>
-<!-- 												<tr> -->
-<%-- 													<td><input type="checkbox"  name="chk" value="${instiAttr_List.groupno }" class="instiattr"/></td> --%>
-<%-- 													<td>${instiAttr_List.iattr_val}</td> --%>
-<%-- 													<td style="display: none;">${instiAttr_List.iattr_no }</td> --%>
-<%-- 													<td style="display: none;">${instiAttr_List.iattr_pare }</td> --%>
-<%-- 											</c:when> --%>
-<%-- 											<c:when test="${instiAttrList[status.index].groupno == instiAttrList[status.index-1].groupno}"> --%>
-<%-- 												<c:if test="${instiAttrList[status.index].groupno == instiAttrList[status.index+1].groupno}"> --%>
-<%-- 													<td>${instiAttr_List.iattr_val}</td> --%>
-<%-- 													<td style="display: none;">${instiAttr_List.iattr_no }</td> --%>
-<%-- 													<td style="display: none;">${instiAttr_List.iattr_pare }</td> --%>
-<%-- 												</c:if> --%>
-<%-- 												<c:if test="${instiAttrList[status.index].groupno != instiAttrList[status.index+1].groupno}"> --%>
-<%-- 													<td>${instiAttr_List.iattr_val}</td> --%>
-<%-- 													<td style="display: none;">${instiAttr_List.iattr_no }</td> --%>
-<%-- 													<td style="display: none;">${instiAttr_List.iattr_pare }</td> --%>
-<!-- 												</tr> -->
-<%-- 												</c:if> --%>
-<%-- 											</c:when> --%>
-<%-- 										</c:choose> --%>
-<%-- 									</c:forEach> --%>
-<%-- 								</c:if> --%>
-<!-- 						</tbody> -->
-<!-- 					</table> -->
-<!-- 				</div> -->
-<!-- 				<br/> -->
-<!-- 				<div class="insti dataEtcf" > -->
-<!-- 					속성명 : &nbsp <input type="text" name="iattr_key" class="inputbox" placeholder="예: 도서관이름"> -->
-<!-- 					속성값 : &nbsp <input type="text" name="iattr_val" class="inputbox" placeholder="예: 유성도서관"> -->
-<!-- 					<input type="hidden" id="iattr_pare" value="0" name="iattr_pare"/> -->
-<%-- 					<c:choose> --%>
-<%-- 						<c:when test="${iattr_insti==null }"> --%>
-<!-- 							<input type="hidden" value="0" name="iattr_insti"/> -->
-<%-- 						</c:when> --%>
-<%-- 						<c:when test="${iattr_insti!=null }"> --%>
-<%-- 							<input type="hidden" value="${iattr_insti }" name="iattr_insti"/> --%>
-<%-- 						</c:when> --%>
-<%-- 					</c:choose> --%>
-<!-- 					<button class="dataEtcbtn">입력</button> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-			
-<!-- 		</form> -->
 	</div>
 
 
