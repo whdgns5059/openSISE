@@ -156,7 +156,7 @@ input:disabled {
 .bottom-in{
     margin: 0 auto;
     margin-top: 30px;
-    width: 340px;
+    width: 500px;
     height: 200px;
     background-image: url(/logo/openSise_logo_f3af3d.png);
     background-size: 200px;
@@ -169,7 +169,7 @@ input:disabled {
     float: left;
     text-align: center;
     height: 140px;
-    width: 340px;
+    width: 500px;
     color: #000000b5;
     font-size: 13px;
     background-color: rgba(255, 255, 255, 0.7);

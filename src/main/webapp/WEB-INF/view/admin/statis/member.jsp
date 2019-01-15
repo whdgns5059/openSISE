@@ -92,7 +92,7 @@ $(document).ready(function(){
         /* 세로축 */
         "scale-y": {
         	"min-value": 0,
-        	"max-value": allCnt+10,
+        	"max-value": allCnt/6,
             "line-color": "#f6f7f8",
             "shadow": 0,
             "guide": { "line-style": "dashed" },
@@ -130,7 +130,7 @@ $(document).ready(function(){
             "animation":{
               "effect":1,
               "sequence":2,
-              "speed":200 } },
+              "speed":'fast' } },
         "series": [
             {// 가입 회원
                 "values": [
