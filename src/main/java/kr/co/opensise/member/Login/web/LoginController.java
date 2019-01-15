@@ -173,7 +173,7 @@ public class LoginController {
 	* Method 설명 :  회원가입 기본정보입력
 	*/
 	@RequestMapping(value="/signUpSelection", method= {RequestMethod.POST})
-	public String signUpSelection(Model model, MemberVo memberVo, @RequestParam("intrstNo") List<String> intrstNo) {
+	public String signUpSelection(Model model, MemberVo memberVo, @RequestParam(value="intrstNo", required=false ) List<String> intrstNo) {
 		// 암호화 처리
 		memberVo.setMem_pass(KISA_SHA256.encrypt(memberVo.getMem_pass()));
 		

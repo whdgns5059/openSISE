@@ -517,7 +517,7 @@ $('.like').on('click', '.heartimg', function(){
 		
 		var num = document.getElementById('favorCount').innerHTML;
 		var plusNum = parseInt(num) + 1;
-		$('#favorCount').html(plusNum);
+		$('#favorCount').html(plusNum + '명이 해당 매물을 찜 했습니다.');
 		
 		
 	}else {
@@ -537,7 +537,7 @@ $('.like').on('click', '.heartimg', function(){
 		
 		var num = document.getElementById('favorCount').innerHTML;
 		var minusNum = parseInt(num) -1;
-		$('#favorCount').html(minusNum);
+		$('#favorCount').html(minusNum + '명이 해당 매물을 찜 했습니다.');
 		
 	}
 	
