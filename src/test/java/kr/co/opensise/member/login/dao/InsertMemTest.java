@@ -65,7 +65,9 @@ public class InsertMemTest extends RootSetup{
 			String ran_gndr = gndr[(int)(Math.random()*gndr.length)];
 			
 			// 연령대 만들기
-			String[] ages = {"10대", "20대", "30대", "40대", "50대", "60대 이상"};
+			//String[] ages = {"10대", "20대", "30대", "40대", "50대", "60대 이상"};
+			String[] ages = { "20대", "30대", "40대"};
+			
 			
 			memberVo.setMem_email(email + "@gmail.com");
 			memberVo.setMem_pass(email);

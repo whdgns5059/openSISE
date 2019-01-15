@@ -298,19 +298,36 @@
 </script>
 
 <style type="text/css">
-.selDiv { text-align: right; align-content: right; margin-bottom: 30px;}
-#selBox { width : 100px;}
-#searchNm {width : 200px; height: 37px; }
-#search { width : 100px;}
-
-
-.bg-danger {
-    background-color: #f3af3d !important;
+.selDiv { text-align: right; align-content: right; margin-bottom: 30px; margin-right: 444px;}
+#selBox { 
+	width: 100px;
+    height: 28px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    color: #808080;
+    font-family: 'Noto Sans KR', sans-serif;
 }
-.table {
-    width: 100%;
-    border: 1px solid #f3af3d;
-  }
+
+#searchNm {
+	margin-right: 10px;
+    width: 300px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+}
+
+#search {
+	width: 60px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    color: #808080;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    cursor: pointer;
+}
+
+
 .modal a.close-modal {
     position: absolute;
     top: 2.5px;
@@ -333,47 +350,30 @@
 	background-color: white;
 	font-family: 'Do Hyeon', sans-serif;
 }
-.table2 {
- 	 margin-top: 30px;
- 	 background-color: white-space; 
- 	 border: solid #f3af3d; 
- 	 width:70%;
- 	 border-top: 1px solid #eaedef;
- 	 border-bottom: 1px solid #eaedef;
- 	 border-right : 1px solid #ffffff;
- 	 border-left : 1px solid #ffffff;
- 	 border-collapse: collapse;
- 	 
- }
+
 
  .th{
  	color: #848484;
  }
- .bg-danger {
-    background-color: #f3af3d !important;
-}
-.table {
-    width: 100%;
-    border: 1px solid #f3af3d;
-  }
+
 </style>
 </head>
 
 <div class="admin-title">
 	<h2>회원 목록 관리</h2></br>
 	<div class="selDiv">	
-		<select id="selBox" name="selBox" class="btn">
+		<select id="selBox" name="selBox">
 				<option value="no">회원 번호</option>
 				<option value="nm">회원 닉네임</option>
 				<option value="email">회원 이메일</option>
 		</select> 
 		<input type="text" id="searchNm" name="searchNm" class="searchNm"/>
-		<button type="button" class="btn" id="search">검색</button>
+		<button type="button" id="search">검색</button>
     </div>
     <div id="yd">
-	<table class="table table-hover "  style="border-radius: 50px !important;">
+	<table class="table table-striped table-hover"  >
 		<thead>
-		  	<tr class="bg-danger ">
+		  	<tr >
 				<th>회원 번호</th>
 				<th>회원 닉네임</th>
 				<th>회원 이메일</th>
@@ -384,11 +384,11 @@
 		<tbody id="userList">
 			<c:forEach items="${pageUserList}" var="page">
 			<tr class="memList">
-				<th>${page.mem_no}</th>
-				<th>${page.mem_nm}</th>
-				<th>${page.mem_email}</th>
-				<th><fmt:formatDate value="${page.mem_date}" pattern="yyyy-MM-dd"/></th>
-				<th class="hidden">
+				<td>${page.mem_no}</td>
+				<td>${page.mem_nm}</td>
+				<td>${page.mem_email}</td>
+				<td><fmt:formatDate value="${page.mem_date}" pattern="yyyy-MM-dd"/></td>
+				<td class="hidden">
 				<c:choose>
 						<c:when test="${page.mem_gndr == null}">
 							<label for="memGndr" class="control-label" >선택안함</label>
@@ -406,9 +406,9 @@
 							</label>
 						</c:when>
 					</c:choose>
-				</th>
+				</td>
 					
-				<th class="hidden">
+				<td class="hidden">
 				<c:choose>
 					<c:when test="${page.mem_age == '0' }">
 						<label for="mem_age" class="control-label">선택안함</label>
@@ -417,9 +417,9 @@
 						<label for="mem_age" class="control-label">${page.mem_age}</label>
 					</c:when>
 				</c:choose>
-				</th>
+				</td>
 				
-				<th class="hidden">
+				<td class="hidden">
 				<c:choose>
 					<c:when test="${page.job_nm == null }">
 						<label for="mem_job" class="control-label">선택안함</label>
@@ -428,19 +428,19 @@
 						<label for="mem_job" class="control-label">${page.job_nm}</label>
 					</c:when>
 				</c:choose>
-				</th>
+				</td>
 				
-				<th class="hidden"><fmt:formatDate value="${page.mem_exdate}" pattern="yyyy-MM-dd"/>
+				<td class="hidden"><fmt:formatDate value="${page.mem_exdate}" pattern="yyyy-MM-dd"/>
 				<c:choose>
 					<c:when test="${page.mem_exdate == null }">
 						<label for="mem_exdate" class="control-label">없음</label>
 					</c:when>
 				</c:choose>
-				</th>
+				</td>
 				
-				<th class="hidden">${page.mem_lvl}</th>
+				<td class="hidden">${page.mem_lvl}</td>
 				
-				<th class="hidden"> 
+				<td class="hidden"> 
 				<c:choose>
 						<c:when test="${page.mem_gndr == null}">
 							<label for="memGndr" class="control-label" >선택안함</label>
@@ -458,9 +458,9 @@
 							</label>
 						</c:when>
 					</c:choose>
-				</th>
+				</td>
 				
-				<th class="hidden">
+				<td class="hidden">
 					<c:choose>
 						<c:when test="${page.nm == null}">
 							<label for="nm" class="control-label" >선택안함</label>
@@ -469,7 +469,7 @@
 							<label for="nm" class="control-label" >${page.nm}</label>
 						</c:when>
 					</c:choose>
-				</th>
+				</td>
 			</tr>
 			</c:forEach>
 		</tbody>

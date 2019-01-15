@@ -5,7 +5,7 @@
 
 <table class="table table-striped table-hover">
 	<tr class="rptTblTtl">
-		<th>no.</th>
+		<th>번호</th>
 		<th>제목</th>
 		<th>분류</th>
 		<th>작성일</th>

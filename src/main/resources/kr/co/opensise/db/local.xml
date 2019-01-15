@@ -17,7 +17,7 @@
 		hs_date,
 		sum(hs_hm_no) as hs_hm_no
 		from human_statistic
-		where hs_dong like #{hs_dong} ||'%'
+		where hs_dong like '%'|| #{hs_dong} ||'%'
 		and hs_date >= '201706'
 		group by
 		hs_date
@@ -29,7 +29,7 @@
 		resultType="int">
 		select max(sum(hs_hm_no)) as maxCnt
 		from human_statistic
-		where hs_dong like #{hs_dong} || '%'
+		where hs_dong like '%'|| #{hs_dong} || '%'
 		and hs_date >= '201706'
 		group by
 		hs_date
@@ -41,7 +41,7 @@
 		resultType="int">
 		select min(sum(hs_hm_no)) as minCnt
 		from human_statistic
-		where hs_dong like #{hs_dong} || '%'
+		where hs_dong like  '%'|| #{hs_dong} || '%'
 		and hs_date >= '201706'
 		group by
 		hs_date
@@ -56,7 +56,7 @@
 		decode(hs_gndr,0,'남자','여자') as hs_gndr,
 		sum(hs_hm_no) as hs_hm_no
 		from human_statistic
-		where hs_dong like
+		where hs_dong like '%'||
 		#{hs_dong} || '%'
 		and hs_date >= '201706'
 		group by
@@ -73,7 +73,7 @@
 		decode(hs_gndr, '0','남자','여자') as hs_gndr,
 		sum(hs_hm_no) as hs_hm_no
 		from human_statistic
-		where hs_dong like
+		where hs_dong like '%'||
 		#{hs_dong} || '%'
 		and hs_date >= '201706'
 		group by
@@ -85,7 +85,7 @@
 		resultType="int">
 		select max(sum(hs_hm_no)) as hs_hm_no
 		from human_statistic
-		where hs_dong like #{hs_dong} || '%'
+		where hs_dong like '%'|| #{hs_dong} || '%'
 		and hs_date >= '201706'
 		group by
 		hs_date,
@@ -99,7 +99,7 @@
 		resultType="int">
 		select min(sum(hs_hm_no)) as hs_hm_no
 		from human_statistic
-		where hs_dong like #{hs_dong} || '%'
+		where hs_dong like '%'|| #{hs_dong} || '%'
 		and hs_date >= '201706'
 		group by
 		hs_date,
@@ -114,7 +114,7 @@
 		select substr(date_to_unix_ts(to_date(hs_date, 'YYYY-MM')),1,10) as hs_date,hs_age_grp, sum(hs_hm_no) as hs_hm_no
 		from
 		HUMAN_STATISTIC
-		where hs_dong like #{dong}||'%'
+		where hs_dong like '%'|| #{dong}||'%'
 		and hs_date >= '201706'
 		and hs_age_grp = #{hs_age_grp}
 		group by hs_date, hs_age_grp
@@ -136,7 +136,7 @@
 		sum(hs_hm_no) as hs_hm_no
 		from
 		HUMAN_STATISTIC
-		where hs_dong like
+		where hs_dong like '%'||
 		#{dong}||'%'
 		and hs_date >= '201706'
 		and hs_age_grp = #{hs_age_grp}
@@ -163,7 +163,7 @@
 		sum(hs_hm_no) as hs_hm_no
 		from
 		HUMAN_STATISTIC
-		where hs_dong like
+		where hs_dong like '%'||
 		#{dong}||'%'
 		and hs_date >= '201706'
 		and hs_age_grp = #{hs_age_grp}
@@ -187,7 +187,7 @@
 		
 		select hs_age_grp, sum(hs_hm_no) as hs_hm_no, hs_date
 		from human_statistic
-		where hs_dong like #{dong}||'%'
+		where hs_dong like '%'|| #{dong}||'%'
 		and substr(hs_age_grp,0,1) between '0' and '6'
 		and length(hs_age_grp) <![CDATA[ <= ]]> 6
         and hs_date = #{hs_date}
@@ -195,7 +195,7 @@
 		union
 		select '70세 이상' as hs_age_grp, sum(hs_hm_no) as hs_hm_no, hs_date
 		from human_statistic
-		where hs_dong like #{dong}||'%'
+		where hs_dong like '%'|| #{dong}||'%'
 		and (substr(hs_age_grp,0,1) between '7' and '9'
 		or hs_age_grp = '100세 이상')
         and hs_date = #{hs_date}
@@ -212,7 +212,7 @@
 		from human_statistic h1 inner join (select hs_date, sum(hs_hm_no)as female 
 		                                    from human_statistic h2 
 		                                    where hs_gndr = '1'
-		                                    and hs_dong like #{dong}||'%'
+		                                    and hs_dong like '%'|| #{dong}||'%'
 		                                    and hs_date >= '201706'
 		                                    group by hs_date
 		                                    order by hs_date)a
@@ -220,12 +220,12 @@
 								inner join (select h3.hs_date, sum(hs_hm_no)as male 
 								        from human_statistic h3 
 								        where hs_gndr = '0'
-								        and hs_dong like #{dong}||'%'
+								        and hs_dong like '%'|| #{dong}||'%'
 								        and hs_date >= '201706'
 								        group by hs_date
 								        order by hs_date) b
 								on (h1.hs_date = b.hs_date)
-		where h1.hs_dong like #{dong}||'%'
+		where h1.hs_dong like  '%'||  #{dong}||'%'
 		and h1.hs_date >= '201706'
 		group by h1.hs_date, a.female, b.male
 		order by h1.hs_date      

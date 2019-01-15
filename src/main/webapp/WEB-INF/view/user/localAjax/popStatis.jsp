@@ -14,6 +14,7 @@ $('.middleCategory').on('click',function(){
 	
 function setContentByAjax(id){
 	var dong = "${dong}";
+	console.log(dong);
 	$.ajax({
 		type : 'POST',
 		data : {dong : dong},
