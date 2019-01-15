@@ -37,7 +37,6 @@ import kr.co.opensise.user.detail.model.PostVo;
 @RequestMapping("/login")
 public class LoginController {
 	
-	
 	@Resource(name = "loginService")
 	private LoginServiceInf loginService;
 	
@@ -68,7 +67,6 @@ public class LoginController {
 		return "login";
 	}
 	
-	
 	/**  
 	* Method   :  loginView
 	* 작성자 :  김주연
@@ -89,7 +87,6 @@ public class LoginController {
 			//로그인시 모달창에도 공지사항리스트 보여주기
 			List<PostVo> noticeList =  noticeService.selectNoticeView();
 			model.addAttribute("noticeList", noticeList);
-			//
 			
 			model.addAttribute("memberVo",user);
 			return "openPage";
@@ -176,15 +173,25 @@ public class LoginController {
 	* Method 설명 :  회원가입 기본정보입력
 	*/
 	@RequestMapping(value="/signUpSelection", method= {RequestMethod.POST})
-	public String signUpSelection(Model model, MemberVo memberVo) {
+	public String signUpSelection(Model model, MemberVo memberVo, @RequestParam("intrstNo") List<String> intrstNo) {
 		// 암호화 처리
 		memberVo.setMem_pass(KISA_SHA256.encrypt(memberVo.getMem_pass()));
 		
 		loginService.signup(memberVo);
 		model.addAttribute("mem_email",memberVo.getMem_email());
+		
+		
+		for(String inter : intrstNo) {
+			memberVo.setIntrst_no(Integer.parseInt(inter));
+			
+			loginService.inter(memberVo);
+			model.addAttribute("intrst_no",memberVo.getIntrst_no());
+		}
+		
+		// 관심사 출력
 		List<MemberVo> interest = loginService.interestLiset();
 		model.addAttribute("intrstList",interest);
-
+		
 		return "login";
 	}
 	

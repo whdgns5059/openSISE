@@ -34,11 +34,19 @@
 		or mem_nm = #{mem_nm}
 	</update >
 	
-  	
   	<!-- 회원가입 -->
 	<insert id="signUpSelection" parameterType="memberVo">
-		insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job, mem_date, mem_age, mem_lvl)
-		values (seq_mem_no.nextval , #{mem_email, jdbcType=VARCHAR}, #{mem_pass, jdbcType=VARCHAR}, #{mem_nm},#{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, #{mem_age, jdbcType=VARCHAR}, 3)  
+		<selectKey keyProperty="mem_no" resultType="int" order="BEFORE">
+			select seq_mem_no.nextval from dual
+		</selectKey>
+			insert into member (mem_no, mem_email, mem_pass, mem_nm, mem_gndr, mem_job, mem_date, mem_age, mem_lvl)
+			values (#{mem_no}, #{mem_email, jdbcType=VARCHAR}, #{mem_pass, jdbcType=VARCHAR}, #{mem_nm}, #{mem_gndr, jdbcType=CHAR}, #{mem_job, jdbcType=NUMERIC}, sysdate, #{mem_age, jdbcType=VARCHAR}, 3)  
+	</insert>
+	
+	<!-- 관심사 등록 -->
+	<insert id="inter" parameterType="memberVo">
+		insert into mem_inter
+		values (#{mem_no}, #{intrst_no})
 	</insert>
 	
 	<!-- 카카오톡 회원 등록 -->
@@ -57,12 +65,6 @@
 	<select id="interest" resultType="memberVo">
 		select *  from interest
 	</select>
-	
-	<!-- 관심사정보 등록 -->
-	<insert id="interestInsert" parameterType="memberVo">
-		INSERT into mem_inter
-		VALUES (#{mem_no}, #{intrst_no})
-	</insert>
 	
 	<!-- 닉네임 중복검사  -->
 	<select id="check_nm" parameterType="String" resultType="int">

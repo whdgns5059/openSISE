@@ -223,7 +223,6 @@
 	//$(document).ready(function(){
 		$("#ex").hide();
 		$("#userList").on("click",".memList",function(){
-			
 			level = this;
 			
 			var mem_no = this.children[0].innerText;
@@ -262,8 +261,6 @@
 			//form 실행
 			$("#fmm").submit();
 		});
-		
-
 	});
 	
 	$(document).ready(function(){
@@ -281,20 +278,14 @@
 			$(".modal").modal("show");
 		});
 		
-		
 		$('#search').click(function(){
 		
 			var key = $('#selBox').val();
 			var value = $('#searchNm').val();
 
-			
 			getUserSearchList(1, key, value);
-			
-				
-			
 		});
 	});
-	
 	
 </script>
 

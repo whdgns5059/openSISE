@@ -134,11 +134,9 @@ ol, ul, dl {
 #y {
 	color: green;
 }
-
 #n {
 	color: red;
 }
-
 .form-control {
 	margin-bottom: 9px;
 }
@@ -249,7 +247,7 @@ ol, ul, dl {
 											<a href="javascript:void(0);">
 								 		 	  <c:forEach items="${intrstList}" var="mem">
 								 		 	  	<label class="checkbox">
-								 		 			  	<input class="chkName" type="checkbox" value="${mem.intrst_no }">${mem.intrst_nm}
+								 		 			  	<input class="chkName" type="checkbox" name="intrstNo" value="${mem.intrst_no }">${mem.intrst_nm}
 									 		 	 </label>
 									 		 	 </br>
 								 		 	  </c:forEach> 
@@ -408,7 +406,6 @@ ol, ul, dl {
             </div>
          </div>
       </div>
-
 				</div>
 				
 				<div class="swiper-slide"> 
@@ -420,10 +417,6 @@ ol, ul, dl {
 		</div>
 	</form>
 	
-    <div>
-     <p>,,</p>
-    </div>
-
 	<form action="/login/duplication" id="fm" method="post">
 		<input type="hidden" id="memNm" name="memNm">
 	</form>
@@ -450,6 +443,9 @@ ol, ul, dl {
 			if($("#userNm").val() == "" || $("#userId").val() == "" || $("#inputPassword").val() == ""){
 				alert("필수입력사항입니다. 전체 입력해 주세요.");
 				swiper.destroy();
+			}else if ($("#duplication").is(":checked") == false) {
+				alert("닉네임 중복확인이되지않았습니다.중복확인후 진행해주세요.");
+				swiper.destroy();
 			}else {
  				if (document.getElementById('next').innerText == '필수사항 입력완료') {
 					$("#next").html("선택사항 입력완료");
@@ -467,7 +463,6 @@ ol, ul, dl {
 				    	  alert("회원가입이 완료되었습니다.로그인해주세요");
 				         $("#frm").submit();
 				      }
-					//$("#frm").submit();
 				}
 			}
 		});
@@ -507,7 +502,6 @@ ol, ul, dl {
 			}
 		});
 		
-		// 비밀번호 찾기 alert
 		var msgNo = '${msgNo}';
 		var msgOk = '${msgOk}';
 		if(msgNo != ""){
@@ -516,9 +510,8 @@ ol, ul, dl {
 		if(msgOk != ""){
 			alert(msgOk);
 		}
-		
-
 	});
+	
 			// 1동의버튼 클릭시 색상처리
 		    $("#U_checkAgreement1").on("click",function(){
 		       $("#firstH3").removeClass("bgColor");

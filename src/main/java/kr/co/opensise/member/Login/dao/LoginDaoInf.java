@@ -30,6 +30,15 @@ public interface LoginDaoInf {
 	 */
 	public int signup(MemberVo memberVo);
 	
+	/**  
+	* Method   : inter 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param memberVo
+	* @return  
+	* Method 설명 :  관심사 등록
+	*/
+	public int inter(MemberVo memberVo);
 	
 	/**
 	 * Method : updateUser 
