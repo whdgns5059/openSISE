@@ -50,13 +50,13 @@
 		<div>
 			<c:choose>
 				<c:when test="${articleVo.building eq 'apt'}">
-					<h1 class="buildingName">${selectArticleVo.artcl_complx } 아파트</h1>  
+					<h1 class="buildingName">${selectArticleVo.artcl_complx } 아파트 (${dl_ty})</h1>  
 				</c:when>
 				<c:when test="${articleVo.building eq 'office'}">
-					<h1 class="buildingName">${selectArticleVo.artcl_complx } </h1>  
+					<h1 class="buildingName">${selectArticleVo.artcl_complx } (${dl_ty})</h1>  
 				</c:when>
 				<c:otherwise>
-					<h1 class="buildingName">${selectArticleVo.artcl_rd} </h1>  
+					<h1 class="buildingName">${selectArticleVo.artcl_rd} (${dl_ty})</h1>  
 				</c:otherwise>
 			</c:choose>
 			<hr/>
