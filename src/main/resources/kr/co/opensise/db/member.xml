@@ -65,7 +65,7 @@
 	<select id="interest" resultType="memberVo">
 		select *  from interest
 	</select>
-	
+	 
 	<!-- 닉네임 중복검사  -->
 	<select id="check_nm" parameterType="String" resultType="int">
 		select count(*) 

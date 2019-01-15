@@ -70,8 +70,15 @@
 						}
 					html += "</th>";
 					html += "<th class='hidden'>"+user.mem_lvl+"</th>";
-					html += "<th class='hidden'>"+user.nm+"</th>";
-					html +="</tr>";
+					html += "<th class='hidden'>"
+						if(user.nm == null){
+							html += '<label for="nm" class="control-label" >선택안함</label>';
+						}else if(user.nm){
+							html += '<label for="nm" class="control-label" >${page.nm}</label>';
+						}
+					
+					html += "</th>";
+					html += "</tr>";
 					
 				});
 				
@@ -82,6 +89,7 @@
 				for(var i=1; i<data.pageCnt+1; i++){
 					pageNav += "<li><a href=\"javascript:getUserList(" +i+ ") \">"+i+"</a></li>";
 				} */
+				
 				
 				html += "<ul class='pagination'>";
 				if(user==1){
@@ -113,6 +121,7 @@
 				
 				$("#nav").html("");
 				$("#nav").html(pageNav);
+				
 			}
 		});
 	}
@@ -221,6 +230,7 @@
 				
 				$("#nav").html("");
 				$("#nav").html(pageNav);
+				
 			}
 		});
 	}
@@ -355,6 +365,12 @@
  .th{
  	color: #848484;
  }
+ 
+ .table2{
+     border: none;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+ }
 
 </style>
 </head>
@@ -440,27 +456,7 @@
 				
 				<td class="hidden">${page.mem_lvl}</td>
 				
-				<td class="hidden"> 
-				<c:choose>
-						<c:when test="${page.mem_gndr == null}">
-							<label for="memGndr" class="control-label" >선택안함</label>
-						</c:when>
-						<c:when test="${page.mem_gndr != null}">
-							<label for="memGndr" class="control-label" >
-								<c:choose>
-									<c:when test="${page.mem_gndr == 'F'}">
-										여자
-									</c:when>
-									<c:when test="${page.mem_gndr == 'M'}">
-										남자
-									</c:when>
-								</c:choose>
-							</label>
-						</c:when>
-					</c:choose>
-				</td>
-				
-				<td class="hidden">
+				<td class="hidden" >
 					<c:choose>
 						<c:when test="${page.nm == null}">
 							<label for="nm" class="control-label" >선택안함</label>
@@ -543,10 +539,6 @@
 						</li>
 					</c:when>
 				</c:choose></li>
-				
-				
-				
-				
 			</ul>
 		</div>
 	
@@ -634,16 +626,11 @@
 				</br><h3 align="center" >관심사보기</h3></br>
 			  	<table>
 			  		<tbody>
-						<th class="form-group">
-							<label for="mem_interest" class="control-label" id="mem_interest"></label>
+						<th class="form-group" >
+							<label for="mem_interest" align="center" class="control-label" id="mem_interest"></label>
 						</th>
 					</tbody>
 				</table>
-			  	
-			  	  <div  align="center" style="font-family: 'Do Hyeon', sans-serif; ">
-					<input type="button" id="close" class="close_btn" value="닫기" />
-					<input type="button" id="back" class="back_btn" value="뒤로가기" />
-				  </div>
 				  </form>
 			</div>
 			
