@@ -168,8 +168,18 @@ public class CommonUtil {
 		}	
 	}
 	
+	/*************************************************  
+	* Method   : getNonWhiteSpace 
+	* 작성자 :  whdgn
+	* 변경이력 :  2019. 1. 14.
+	* @param string
+	* @return  
+	* Method 설명 : 문자열의 whiteSpace를 지워줌,
+	* ex 법   동 -> 법동,
+	* 추가로 1,2동을 동으로 바꿔준다.
+	**************************************************/
 	public static String getNonWhiteSpace(String string) {
-		String result = string.replaceAll("\\s", "");
+		String result = string.replaceAll("\\s", "").replaceAll("[0-9]","").replaceAll(",", "");
 		
 		return result;
 	}

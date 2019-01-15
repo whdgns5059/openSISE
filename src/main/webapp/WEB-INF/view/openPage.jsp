@@ -425,9 +425,13 @@ input:disabled {
 			<div class="picture" >
 				<!-- bxslider -->
 				<div class="bxslider">
-				  <div><img src="/img/img1.png"></div>
-				  <div><img src="/img/img2.png"></div>
-				  <div><img src="/img/img3.png"></div>
+				  <div><img src="/img/open4.jpg" style="width:580px; height:435px;"></div>
+				  <div><img src="/img/open6.png" style="width:580px; height:435px;"></div>
+				  <div><img src="/img/open5.jpg" style="width:580px; height:435px;"></div>
+				  <div><img src="/img/open7.jpg" style="width:580px; height:435px;"></div>
+				  <div><img src="/img/open1.jpg" style="width:580px; height:435px;"></div>
+				  <div><img src="/img/open8.jpg" style="width:580px; height:435px;"></div>
+				  <div><img src="/img/open2.jpg" style="width:580px; height:435px;"></div>
 				</div>
 			</div>
 				

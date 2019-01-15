@@ -48,10 +48,23 @@ public class LoginDao implements LoginDaoInf{
 	@Override
 	public int signup(MemberVo memberVo) {
 		int signUpselection = template.insert("member.signUpSelection", memberVo); 
-		System.out.println("signUpselection : " + signUpselection);
 		return signUpselection;
 	}
-		
+	
+	/**  
+	* Method   : inter 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param memberVo
+	* @return  
+	* Method 설명 :  관심사 등록
+	*/
+	@Override
+	public int inter(MemberVo memberVo) {
+		int inter = template.insert("member.inter", memberVo);
+		return inter;
+	}
+	
 		/**
 		 * Method : check_nm 
 		 * 작성자 : 김주연
@@ -252,50 +265,7 @@ public class LoginDao implements LoginDaoInf{
 		return declaration;
 	}
 
-
 	
-
-	
-
-	
-
-	
-	
-
-	
-	
-		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

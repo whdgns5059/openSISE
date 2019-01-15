@@ -62,11 +62,17 @@ ul { list-style : none; }
 	<hr/>
 	<ul class="left-menu">
 		<li><b>기타 관리</b></li>
-		<li><a href="#">1:1 채팅</a></li>
+		<li><a href="#" class="chatAdmin">1:1 채팅</a></li>
 	</ul>
 	<hr/>
 	<div class="mngr-logout">
 		<a href="/">관리자 로그아웃</a>
 	</div>
 </div>
+
+<script>
+	$('.chatAdmin').on('click', function(e){
+		var chatPopup = window.open("http://192.168.203.110:3000", "adminChat","width=500, height=800")
+	});
+</script>
 

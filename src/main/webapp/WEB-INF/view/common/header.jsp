@@ -86,24 +86,7 @@
  		});
  		
  		
- 		$('.chatlobby').on('click', function(e){
- 	
- 		 	e.preventDefault();	
- 			/*	
- 			$.ajax({
- 				type : 'POST',
- 				url : '/chat/lobby',
- 				data : {
- 					mem_no : mem_no
- 				},
- 				success : function(data){
-					var chatPopup = window.open("", "", "width=500, height=800, location=no");
-					chatPopup.document.write(data);
- 				}
- 			});	 */
- 			
- 			var chatPopup = window.open("http://192.168.203.110:3000", "adminChat","width=500, height=800")
- 		});
+
  		
  		function exitChat(){
  			
@@ -195,7 +178,6 @@
 					<c:if test="${nowLogin.mem_mngr!= null}">
 						${nowLogin.mem_nm} 관리자님 안녕하세요  &emsp;
 						<a href="/manage/dataTrade/dataTrade" style="display: inline-block;">관리정보</a>&emsp;
-						<a href="/chat/lobby" class="chatlobby" style="display: inline-block;">채팅 문의</a>&emsp;
 						<a href="/login/logout" style="display: inline-block;">로그아웃</a>
 					</c:if>
 				</li>

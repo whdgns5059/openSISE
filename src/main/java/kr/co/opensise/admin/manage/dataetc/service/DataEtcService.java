@@ -15,6 +15,7 @@ import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketVo;
 import kr.co.opensise.admin.manage.dataetc.model.RouteVo;
 import kr.co.opensise.admin.manage.dataetc.model.StationVo;
+import kr.co.opensise.util.CommonUtil;
 
 @Service
 public class DataEtcService implements DataEtcServiceInf {
@@ -29,11 +30,19 @@ public class DataEtcService implements DataEtcServiceInf {
 
 	@Override
 	public int insertMarket(List<MarketVo> marketList) {
+		
+
+		
 		return dataEtcDao.insertMarket(marketList);
 	}
 
 	@Override
 	public int insertMarketDetail(List<MarketDetailVo> marketDetailList) {
+
+		for(MarketDetailVo mVo : marketDetailList) {
+			String dong = CommonUtil.getNonWhiteSpace(mVo.getMkd_mk_dong());
+			mVo.setMkd_mk_dong(dong);
+		}
 		return dataEtcDao.insertMarketDetail(marketDetailList);
 	}
 

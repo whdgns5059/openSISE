@@ -134,11 +134,9 @@ ol, ul, dl {
 #y {
 	color: green;
 }
-
 #n {
 	color: red;
 }
-
 .form-control {
 	margin-bottom: 9px;
 }
@@ -178,10 +176,10 @@ ol, ul, dl {
 
 										<div id="duplicate">
 											<c:if test="${msg == 0}">
-												<span id="y"> 사용가능한 닉네임 입니다.</span>
+												<span id="y">*사용가능한 닉네임 입니다.</span>
 											</c:if>
 											<c:if test="${msg >= 1}">
-												<span id="n">* 중복된 닉네임 입니다.</span>
+												<span id="n">*중복된 닉네임 입니다.</span>
 											</c:if>
 										</div>
 								</label></li>
@@ -249,7 +247,7 @@ ol, ul, dl {
 											<a href="javascript:void(0);">
 								 		 	  <c:forEach items="${intrstList}" var="mem">
 								 		 	  	<label class="checkbox">
-								 		 			  	<input class="chkName" type="checkbox" value="${mem.intrst_no }">${mem.intrst_nm}
+								 		 			  	<input class="chkName" type="checkbox" name="intrstNo" value="${mem.intrst_no }">${mem.intrst_nm}
 									 		 	 </label>
 									 		 	 </br>
 								 		 	  </c:forEach> 
@@ -408,7 +406,6 @@ ol, ul, dl {
             </div>
          </div>
       </div>
-
 				</div>
 				
 				<div class="swiper-slide"> 
@@ -420,10 +417,6 @@ ol, ul, dl {
 		</div>
 	</form>
 	
-    <div>
-     <p>,,</p>
-    </div>
-
 	<form action="/login/duplication" id="fm" method="post">
 		<input type="hidden" id="memNm" name="memNm">
 	</form>
@@ -449,7 +442,8 @@ ol, ul, dl {
 		swiper.on('slideNextTransitionStart', function () {
 			if($("#userNm").val() == "" || $("#userId").val() == "" || $("#inputPassword").val() == ""){
 				alert("필수입력사항입니다. 전체 입력해 주세요.");
-				swiper.destroy();
+				//swiper.destroy();
+				swiper.slideTo(0);
 			}else {
  				if (document.getElementById('next').innerText == '필수사항 입력완료') {
 					$("#next").html("선택사항 입력완료");
@@ -459,22 +453,25 @@ ol, ul, dl {
 				}else {
 					 if($("#U_checkAgreement1").is(":checked") == false){
 				         alert("OpenSise 이용약관에 동의해주세요");
-				         swiper.destroy();
+				         //swiper.destroy();
+				         //swiper.slidePrev();
+				         swiper.slideTo(2);
 				      }else if($("#U_checkAgreement2").is(":checked") == false){
 				         alert("개인정보 수집및 이용에대한 안내에 동의해주세요");
-				         swiper.destroy();
+				         //swiper.destroy();
+				         //swiper.slidePrev();
+				         swiper.slideTo(2);
 				      }else {
 				    	  alert("회원가입이 완료되었습니다.로그인해주세요");
 				         $("#frm").submit();
 				      }
-					//$("#frm").submit();
 				}
 			}
 		});
 		
 		$("#duplication").on("click", function() {
 			if($("#userNm").val() == ""){
-				alert("닉네임을 입력해 주세요.");
+				alert("닉네임 입력후 중복확인해주세요.");
 			}else {
 			// 사용자가 입력한 email을 memEmail 변수에 저장
 			var memberNm = $("#userNm").val();
@@ -490,10 +487,10 @@ ol, ul, dl {
 	$(document).ready(function() {
 		$("#duplication2").on("click", function(event) {
 			if($("#userId").val() == "" && $("#userNm").val() == "" || $("#userId").val() != "" && $("#userNm").val() == ""){
-				alert("닉네임을 입력해 주세요.");
+				alert("닉네임 입력후 중복확인해주세요.");
 				event.preventDefault();
 			}else if($("#userId").val() == "" && $("#userNm").val() != ""){
-				alert("이메일을 입력해 주세요.");
+				alert("이메일 입력후 중복확인해주세요.");
 				event.preventDefault();
 			}else {
 			// 사용자가 입력한 email을 memEmail 변수에 저장
@@ -507,7 +504,6 @@ ol, ul, dl {
 			}
 		});
 		
-		// 비밀번호 찾기 alert
 		var msgNo = '${msgNo}';
 		var msgOk = '${msgOk}';
 		if(msgNo != ""){
@@ -516,9 +512,8 @@ ol, ul, dl {
 		if(msgOk != ""){
 			alert(msgOk);
 		}
-		
-
 	});
+	
 			// 1동의버튼 클릭시 색상처리
 		    $("#U_checkAgreement1").on("click",function(){
 		       $("#firstH3").removeClass("bgColor");

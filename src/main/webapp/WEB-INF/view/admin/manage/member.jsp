@@ -223,7 +223,6 @@
 	//$(document).ready(function(){
 		$("#ex").hide();
 		$("#userList").on("click",".memList",function(){
-			
 			level = this;
 			
 			var mem_no = this.children[0].innerText;
@@ -262,8 +261,6 @@
 			//form 실행
 			$("#fmm").submit();
 		});
-		
-
 	});
 	
 	$(document).ready(function(){
@@ -281,20 +278,14 @@
 			$(".modal").modal("show");
 		});
 		
-		
 		$('#search').click(function(){
 		
 			var key = $('#selBox').val();
 			var value = $('#searchNm').val();
 
-			
 			getUserSearchList(1, key, value);
-			
-				
-			
 		});
 	});
-	
 	
 </script>
 
@@ -441,7 +432,35 @@
 				
 				<th class="hidden">${page.mem_lvl}</th>
 				
-				<th class="hidden">${page.nm}</th>
+				
+				<c:choose>
+						<c:when test="${page.mem_gndr == null}">
+							<label for="memGndr" class="control-label" >선택안함</label>
+						</c:when>
+						<c:when test="${page.mem_gndr != null}">
+							<label for="memGndr" class="control-label" >
+								<c:choose>
+									<c:when test="${page.mem_gndr == 'F'}">
+										여자
+									</c:when>
+									<c:when test="${page.mem_gndr == 'M'}">
+										남자
+									</c:when>
+								</c:choose>
+							</label>
+						</c:when>
+					</c:choose>
+				
+				<th class="hidden">
+					<c:choose>
+						<c:when test="${page.nm == null}">
+							<label for="nm" class="control-label" >선택안함</label>
+						</c:when>
+						<c:when test="${page.nm != null}">
+							<label for="nm" class="control-label" >${page.nm}</label>
+						</c:when>
+					</c:choose>
+				</th>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -599,7 +618,6 @@
 				<input type="hidden" id="mem_email2" name="mem_email">
 				<input type="hidden" id="lvl" name="mem_lvl">
 			</form>
-			
 			
 			<div id="ex" class="modal2">
 			<form action="/login/mailSender" id="fm" method="post">

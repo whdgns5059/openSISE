@@ -11,7 +11,14 @@
     font-family: 'Noto Sans KR', sans-serif;
     text-align: center;
     cursor: pointer;
-    float:right;
+    float: left;
+}
+#fl{
+	width: 600px;
+    float: left;
+}
+#note{
+	color: #808080;
 }
 </style> 
     
@@ -43,9 +50,9 @@
 	<%-- 엑셀 데이터 입력용이므로 파일 전송 enctype 설정해주어야함 --%>
 	<form action="/manage/dataTrade/insertData" method="post" enctype="multipart/form-data">
 		
-		<label>업로드 할 파일을 선택 하세요</label>
+		<label id="note">업로드 할 파일을 선택 하세요</label>
 		<br/>
-		<input type="file" name="tradeData" />
+		<input type="file" name="tradeData" id="fl"/>
 		<input type="submit" class="databtn" value="저장" />
 		
 	</form>

@@ -93,16 +93,12 @@ $(document).ready(function(){
 			  </div>
 			</div>
 			
-			
-			
-			
 			<div id="ex2" class="modal" style="padding: 30px 25px 50px 25px;">
 			<form action="/mypage/Withdrawal" method="post">
 				<div align="center">
 					<h2>회원탈퇴</h2></br>
 					<p>회원정보 확인후 탈퇴가 완료 됩니다.</p>
 				</div>
-				
 				
 				<div>
 					<label for="inputEmail" class="sr-only">Email</label> 

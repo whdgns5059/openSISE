@@ -52,6 +52,19 @@ public class LoginService implements LoginServiceInf{
 		return loginDao.signup(memberVo);
 	}
 	
+	/**  
+	* Method   : signup 
+	* 작성자 :  김주연
+	* 변경이력 :  
+	* @param memberVo
+	* @return  
+	* Method 설명 :  회원가입
+	*/
+	@Override
+	public int inter(MemberVo memberVo) {
+		return loginDao.inter(memberVo);
+	}
+
 
 	/**
 	 * Method : check_nm 
@@ -237,12 +250,5 @@ public class LoginService implements LoginServiceInf{
 		// TODO Auto-generated method stub
 		return loginDao.declaration(memberVo);
 	}
-
-
-
-	
-
-	
-	
 	
 }

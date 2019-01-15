@@ -60,6 +60,7 @@ import kr.co.opensise.admin.manage.dataetc.model.StationVo;
 import kr.co.opensise.admin.manage.dataetc.model.MarketDetailVo;
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcService;
 import kr.co.opensise.admin.manage.dataetc.service.DataEtcServiceInf;
+import kr.co.opensise.util.CommonUtil;
 
 @Controller
 @RequestMapping("/manage/dataEtc")
@@ -464,6 +465,12 @@ public class DataEtcController {
 			//list로 옮기기
 			marketList.addAll(marketSet);
 			
+			//리스트 동의 숫자, 공백 제거
+			for(MarketVo mVo : marketList) {
+				String dong = CommonUtil.getNonWhiteSpace(mVo.getMk_dong());
+				mVo.setMk_dong(dong);
+			}
+			
 			//기존에 존재하는 MarketList와 중복되지 않도록 처리하기
 			List<MarketVo> marketListdb = dataEtcService.marketList();
 			
@@ -472,10 +479,8 @@ public class DataEtcController {
 			
 		
 			
-			
 			if(marketList.size()!=0) {
 				for(MarketVo mVo : marketList) {
-					
 					
 					log.info("mVo : {}",mVo.toString());
 					dataEtcService.insertMarketOne(mVo);
