@@ -384,11 +384,11 @@
 		<tbody id="userList">
 			<c:forEach items="${pageUserList}" var="page">
 			<tr class="memList">
-				<th>${page.mem_no}</th>
-				<th>${page.mem_nm}</th>
-				<th>${page.mem_email}</th>
-				<th><fmt:formatDate value="${page.mem_date}" pattern="yyyy-MM-dd"/></th>
-				<th class="hidden">
+				<td>${page.mem_no}</td>
+				<td>${page.mem_nm}</td>
+				<td>${page.mem_email}</td>
+				<td><fmt:formatDate value="${page.mem_date}" pattern="yyyy-MM-dd"/></td>
+				<td class="hidden">
 				<c:choose>
 						<c:when test="${page.mem_gndr == null}">
 							<label for="memGndr" class="control-label" >선택안함</label>
@@ -406,9 +406,9 @@
 							</label>
 						</c:when>
 					</c:choose>
-				</th>
+				</td>
 					
-				<th class="hidden">
+				<td class="hidden">
 				<c:choose>
 					<c:when test="${page.mem_age == '0' }">
 						<label for="mem_age" class="control-label">선택안함</label>
@@ -417,9 +417,9 @@
 						<label for="mem_age" class="control-label">${page.mem_age}</label>
 					</c:when>
 				</c:choose>
-				</th>
+				</td>
 				
-				<th class="hidden">
+				<td class="hidden">
 				<c:choose>
 					<c:when test="${page.job_nm == null }">
 						<label for="mem_job" class="control-label">선택안함</label>
@@ -428,19 +428,19 @@
 						<label for="mem_job" class="control-label">${page.job_nm}</label>
 					</c:when>
 				</c:choose>
-				</th>
+				</td>
 				
-				<th class="hidden"><fmt:formatDate value="${page.mem_exdate}" pattern="yyyy-MM-dd"/>
+				<td class="hidden"><fmt:formatDate value="${page.mem_exdate}" pattern="yyyy-MM-dd"/>
 				<c:choose>
 					<c:when test="${page.mem_exdate == null }">
 						<label for="mem_exdate" class="control-label">없음</label>
 					</c:when>
 				</c:choose>
-				</th>
+				</td>
 				
-				<th class="hidden">${page.mem_lvl}</th>
+				<td class="hidden">${page.mem_lvl}</td>
 				
-				<th class="hidden"> 
+				<td class="hidden"> 
 				<c:choose>
 						<c:when test="${page.mem_gndr == null}">
 							<label for="memGndr" class="control-label" >선택안함</label>
@@ -458,9 +458,9 @@
 							</label>
 						</c:when>
 					</c:choose>
-				</th>
+				</td>
 				
-				<th class="hidden">
+				<td class="hidden">
 					<c:choose>
 						<c:when test="${page.nm == null}">
 							<label for="nm" class="control-label" >선택안함</label>
@@ -469,7 +469,7 @@
 							<label for="nm" class="control-label" >${page.nm}</label>
 						</c:when>
 					</c:choose>
-				</th>
+				</td>
 			</tr>
 			</c:forEach>
 		</tbody>
