@@ -29,12 +29,12 @@
 				var html ="";
 				$.each(data.pageUserList, function(idx, user){
 					html +="<tr class='memList'>";
-					html +="<th>"+user.mem_no+"</th>";
-					html +="<th>"+user.mem_nm+"</th>";
-					html +="<th>"+user.mem_email+"</th>";
+					html +="<td>"+user.mem_no+"</td>";
+					html +="<td>"+user.mem_nm+"</td>";
+					html +="<td>"+user.mem_email+"</td>";
 					let mem_date = new Date(user.mem_date);
-					html += "<th>"+mem_date.getFullYear()+"-"+(mem_date.getMonth()+1)+"-"+mem_date.getDate()+"</th>";
-					html +="<th class='hidden'>";
+					html += "<td>"+mem_date.getFullYear()+"-"+(mem_date.getMonth()+1)+"-"+mem_date.getDate()+"</td>";
+					html +="<td class='hidden'>";
 						if(user.mem_gndr == null){
 							html+= '<label for="memGndr" class="control-label" >선택안함</label>';
 						}else if (user.mem_gndr != null) {
@@ -46,38 +46,38 @@
 							}
 							html += '</label>';
 						}
-					html += "</th>";
+					html += "</td>";
 					
-					html += "<th class='hidden'>";
+					html += "<td class='hidden'>";
 						if(user.mem_age == '0'){
 							html += '<label for="mem_age" class="control-label">선택안함</label>';
 						}else if (user.mem_age != null ) {
 							html += '<label for="mem_age" class="control-label">'+user.mem_age+'</label>';
 						}
-					html += "</th>";
+					html += "</td>";
 					
-					html += "<th class='hidden'>";
+					html += "<td class='hidden'>";
 						if(user.job_nm == null){
 							html += '<label for="mem_job" class="control-label">선택안함</label>';
 						}else if (user.job_nm != null) {
 							html += '<label for="mem_job" class="control-label">'+user.job_nm+'</label>';
 						}
 					let mem_exdate = new Date(user.mem_exdate);
-					html += "</th>";
-					html += "<th class='hidden'>"+mem_exdate.getFullYear()+"-"+(mem_exdate.getMonth()+1)+"-"+mem_exdate.getDate()+"</th>";
+					html += "</td>";
+					html += "<td class='hidden'>"+mem_exdate.getFullYear()+"-"+(mem_exdate.getMonth()+1)+"-"+mem_exdate.getDate()+"</th>";
 						if(user.mem_exdate == null){
 							html += '<label for="mem_exdate" class="control-label">없음</label>';
 						}
-					html += "</th>";
-					html += "<th class='hidden'>"+user.mem_lvl+"</th>";
-					html += "<th class='hidden'>"
+					html += "</td>";
+					html += "<td class='hidden'>"+user.mem_lvl+"</td>";
+					html += "<td class='hidden'>"
 						if(user.nm == null){
 							html += '<label for="nm" class="control-label" >선택안함</label>';
 						}else if(user.nm){
 							html += '<label for="nm" class="control-label" >${page.nm}</label>';
 						}
 					
-					html += "</th>";
+					html += "</td>";
 					html += "</tr>";
 					
 				});
@@ -199,6 +199,7 @@
 				for(var i=1; i<data.pageCnt+1; i++){
 					pageNav += "<li><a href=\"javascript:getUserList(" +i+ ") \">"+i+"</a></li>";
 				} */
+				
 				
 				html += "<ul class='pagination'>";
 				if(user==1){
