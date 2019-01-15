@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  <style>
 .tab-yellow .nav-link, .tab-yellow .nav-link.disabled, .tab-yellow .nav-link.disabled:hover, 
 .tab-yellow .nav-link.disabled:focus{
@@ -47,26 +48,37 @@
 			<h4> 품목별 물가 </h4>	
 		</div>
 	
-		<table class="table table-hover" style="width: 1000px;
-											    height: 400px;
-											    margin: 0 auto;">
-			<thead>
-				<tr>
-					<th>품목</th>
-					<th>제품명</th>
-					<th>가격</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${mkdList }" var="mkd">
-					<tr>
-						<td>${mkd.mkd_prod }</td>
-						<td>${mkd.mkd_prod_detail }</td>
-						<td>${mkd.mkd_price }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+		<hr/>	
+		
+		<c:choose>
+			<c:when test="${fn:length(mkdList) == 0}">
+				<div style="width: 1000px; margin:auto">
+					<h1>해당동은 물가 정보가 존재 하지 않습니다.</h1>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<table class="table table-hover" style="width: 1000px;
+														height: 400px;
+														margin: 0 auto;">
+					<thead>
+						<tr>
+							<th>품목</th>
+							<th>제품명</th>
+							<th>가격</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${mkdList }" var="mkd">
+							<tr>
+								<td>${mkd.mkd_prod }</td>
+								<td>${mkd.mkd_prod_detail }</td>
+								<td>${mkd.mkd_price }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:otherwise>
+		</c:choose>	
 	</div>
 </div>
 
