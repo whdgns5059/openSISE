@@ -176,10 +176,10 @@ ol, ul, dl {
 
 										<div id="duplicate">
 											<c:if test="${msg == 0}">
-												<span id="y"> 사용가능한 닉네임 입니다.</span>
+												<span id="y">*사용가능한 닉네임 입니다.</span>
 											</c:if>
 											<c:if test="${msg >= 1}">
-												<span id="n">* 중복된 닉네임 입니다.</span>
+												<span id="n">*중복된 닉네임 입니다.</span>
 											</c:if>
 										</div>
 								</label></li>
@@ -471,7 +471,7 @@ ol, ul, dl {
 		
 		$("#duplication").on("click", function() {
 			if($("#userNm").val() == ""){
-				alert("닉네임을 입력해 주세요.");
+				alert("닉네임 입력후 중복확인해주세요.");
 			}else {
 			// 사용자가 입력한 email을 memEmail 변수에 저장
 			var memberNm = $("#userNm").val();
@@ -487,10 +487,10 @@ ol, ul, dl {
 	$(document).ready(function() {
 		$("#duplication2").on("click", function(event) {
 			if($("#userId").val() == "" && $("#userNm").val() == "" || $("#userId").val() != "" && $("#userNm").val() == ""){
-				alert("닉네임을 입력해 주세요.");
+				alert("닉네임 입력후 중복확인해주세요.");
 				event.preventDefault();
 			}else if($("#userId").val() == "" && $("#userNm").val() != ""){
-				alert("이메일을 입력해 주세요.");
+				alert("이메일 입력후 중복확인해주세요.");
 				event.preventDefault();
 			}else {
 			// 사용자가 입력한 email을 memEmail 변수에 저장
