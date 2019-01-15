@@ -7,11 +7,11 @@
    
 <div>
 
-<div class="stationtitle">
+<div class="stationtitle" style="margin-top: 15px;">
 <h4>교통 정보</h4>	
 </div>
 <hr/>
-<div class="stationDiv">
+<div class="stationDiv" style="height:1500px;">
 </div>
 
 
