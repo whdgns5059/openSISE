@@ -38,19 +38,15 @@ ul { list-style : none; }
 <div class="memberLeft">
 	<br/>	
 	<ul class="left-menu">
-		<li><a href="/mypage/myInfo">나의 정보</a></li>
-	</ul>
-	<hr/>
-	<ul class="left-menu">
-		<li><a href="/mypage/steamList">찜 목록</a></li>
-	</ul>
-	<hr/>
-	<ul class="left-menu">
-		<li><a href="/mypage/recentlyviewed">최근 본 매물</a></li>
-	</ul>
-	<hr/>
-	<ul class="left-menu">
+		<li><b>나의 정보</b></li>
+		<li><a href="/mypage/myInfo">개인정보 수정</a></li>
 		<li><a href="/mypage/passwordChange">보안설정</a></li>
+	</ul>
+	<hr/>
+	<ul class="left-menu">
+		<li><b>나의 활동</b></li>
+		<li><a href="/mypage/steamList">찜 목록</a></li>
+		<li><a href="/mypage/recentlyviewed">최근 본 매물</a></li>
 	</ul>
 	<hr/>
 	<ul class="left-menu">

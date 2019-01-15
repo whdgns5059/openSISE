@@ -50,11 +50,8 @@ $(document).ready(function(){
 </head>
 
 <body>
-	<div class="container-fluid">
-		<div class="row">
+	<div class="admin-title" align="center" >
 			<%-- left --%>
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<div class="form-group" style="margin-top: 100px;">
 					<div align="center">
 						<img src="../img/Warning.png" width=90px" height="80px" />
 						<h1 >회원 탈퇴</h1></br></br> 
@@ -118,8 +115,5 @@ $(document).ready(function(){
 			<p align="center"><a href="#ex1" rel="modal:open">탈퇴하기</a></p>
 			
 				</div>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

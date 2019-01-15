@@ -35,14 +35,21 @@
  .th2{
  	color: #848484;
  }
+ .admin-title{
+	max-width: 85%;
+    min-width: 700px;
+    float: left;
+    margin: 0 auto;
+    margin-top: 50px;
+ }
  
  
  
-    </style>
+</style>
 </head>
 
 <body>
-<div class="admin-title"  align="center" style="margin-top: 10px;">
+<div class="admin-title"  align="center" >
 	<h1>나의 정보</h1>
 	<table class="table" border="1">
 		<tbody align="center">

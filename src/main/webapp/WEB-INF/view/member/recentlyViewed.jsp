@@ -31,9 +31,8 @@ $('.artcl_nm').click(function(){
 <body>
 	<div class="admin-title">
 		<h1>최근본 매물</h1>
+		<div class="hr2" style="margin: 26px 0 30px -20px;"></div>
 		<p>매물명을 클릭하면 상세보기로 이동합니다</p>
-		<div class="hr2">
-		
 			<table class="table">
 				<thead>
 					<tr>
@@ -71,7 +70,6 @@ $('.artcl_nm').click(function(){
 
 
 		</div>
-	</div>
 
 </body>
 </html>

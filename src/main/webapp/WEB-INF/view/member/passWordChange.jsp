@@ -46,14 +46,23 @@ $(document).ready(function() {
     border-bottom: 4px solid #e8a93f;
     text-transform: uppercase;
     background-color: white;
+}
+ .admin-title{
+	max-width: 85%;
+    min-width: 700px;
+    float: left;
+    margin: 0 auto;
+    margin-top: 50px;
+ }
 </style>
 </head>
 
 <body>
-	<div class="container-fluid">
-		<div class="row" align="center" style="margin: 50px;">
+	<!-- <div class="container-fluid">
+		<div class="" align="center" > -->
+		<div class="admin-title" align="center" >
 			<%-- left --%>
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
 			<form action="/mypage/passChange" method="post" id="frm">
 				<div class="blog-header">
 					<h3>비밀번호 변경</h3>
@@ -77,7 +86,7 @@ $(document).ready(function() {
 				
 				</form>
 			</div>
-		</div>
-	</div>
+		<!-- </div> -->
+	<!-- </div> -->
 </body>
 </html>

@@ -60,12 +60,18 @@
  #mem_nm{
  border: none;
  }
- 
-	</style>
+  .admin-title{
+	max-width: 85%;
+    min-width: 700px;
+    float: left;
+    margin: 0 auto;
+    margin-top: 50px;
+ }
+</style>
 </head>
 
 <body >
-<div class="admin-title" align="center" style="margin-top: 10px;">
+<div class="admin-title" align="center" >
 	<!-- 전체 contents div -->
 	<h1>나의 정보 수정</h1>
 	<form action="/mypage/updateFinish" method="post">
