@@ -443,9 +443,6 @@ ol, ul, dl {
 			if($("#userNm").val() == "" || $("#userId").val() == "" || $("#inputPassword").val() == ""){
 				alert("필수입력사항입니다. 전체 입력해 주세요.");
 				swiper.destroy();
-			}else if ($("#duplication").is(":checked") == false) {
-				alert("닉네임 중복확인이되지않았습니다.중복확인후 진행해주세요.");
-				swiper.destroy();
 			}else {
  				if (document.getElementById('next').innerText == '필수사항 입력완료') {
 					$("#next").html("선택사항 입력완료");
@@ -455,10 +452,10 @@ ol, ul, dl {
 				}else {
 					 if($("#U_checkAgreement1").is(":checked") == false){
 				         alert("OpenSise 이용약관에 동의해주세요");
-				         swiper.destroy();
+				         //swiper.destroy();
 				      }else if($("#U_checkAgreement2").is(":checked") == false){
 				         alert("개인정보 수집및 이용에대한 안내에 동의해주세요");
-				         swiper.destroy();
+				         //swiper.destroy();
 				      }else {
 				    	  alert("회원가입이 완료되었습니다.로그인해주세요");
 				         $("#frm").submit();
