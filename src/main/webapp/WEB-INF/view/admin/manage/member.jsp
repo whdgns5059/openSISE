@@ -47,7 +47,7 @@
 							html += '</label>';
 						}
 					html += "</td>";
-					
+					 
 					html += "<td class='hidden'>";
 						if(user.mem_age == '0'){
 							html += '<label for="mem_age" class="control-label">선택안함</label>';
