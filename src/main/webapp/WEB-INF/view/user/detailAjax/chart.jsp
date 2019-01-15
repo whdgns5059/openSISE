@@ -37,7 +37,7 @@
 			</c:choose>
 		</table>
 	</div>
-	<div>
+	<div class="recentInfo2">
 		<c:choose>
 			<c:when test="${dl_ty == '매매' }">
 				<h3>1년 평균 매매가</h3>
@@ -54,9 +54,6 @@
 			</c:when>
 		</c:choose>
 	</div>
-</div>
-<div>
-<hr/>
 </div>
 <div>
 		<c:choose>
@@ -83,9 +80,7 @@
 	<div id="monthlyAvg"></div>
 </div>
 <div>
-	<hr/>
-</div>
-<div>
+	<p class="ttl">최근 거래 내역</p>
 	<input type="hidden" name="excv_area" id="excv_area" value="${excv_area }"/>
 	<button class="btn" id="totalDeal">전체 거래 내역</button>
 	<table class="table table-striped tradeTable">
