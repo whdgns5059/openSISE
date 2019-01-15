@@ -797,7 +797,7 @@ pre code {
   display: -ms-flexbox;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-
+  display: flex;
 }
 
 .no-gutters {
