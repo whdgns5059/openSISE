@@ -12,6 +12,7 @@
 			<input type="hidden" id="artcl_zip" name="artcl_zip">
 			<input type="hidden" id="artcl_rd" name="artcl_rd">
 			<input type="hidden" id="ty" name="dl_ty" value ="${dlType}">
+			<input type="hidden" id="sea" name="searchName" value ="${searchName}">
 		</form>
 		<c:choose>
 			<c:when test="${buildingSaleListSize != 0}">

@@ -34,11 +34,22 @@
 	<div id="marketChart">
 	</div>	
 	
-	<div>
+	<div style="
+			    width: 1200px;
+			    height: 2300px;
+			    margin: 0 auto;">
 		<br/><br/>	
-		<h4> 품목별 물가 </h4>	
+		
+		<div style="
+			    width: 150px;
+			    margin: 0 auto;
+			    margin-bottom: 30px;">
+			<h4> 품목별 물가 </h4>	
+		</div>
 	
-		<table class="table table-hover">
+		<table class="table table-hover" style="width: 1000px;
+											    height: 400px;
+											    margin: 0 auto;">
 			<thead>
 				<tr>
 					<th>품목</th>
