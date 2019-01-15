@@ -5,7 +5,9 @@
 <style type="text/css">
 ul { list-style : none; }	
 .memberLeft {
-    width: 12%;
+	width: 13%;
+    min-width: 230px;
+    height: 100%;
     padding-left: 18px;
     padding-right: 20px;
     float: left;
