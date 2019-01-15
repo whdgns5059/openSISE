@@ -180,12 +180,13 @@ public class LoginController {
 		loginService.signup(memberVo);
 		model.addAttribute("mem_email",memberVo.getMem_email());
 		
-		
-		for(String inter : intrstNo) {
-			memberVo.setIntrst_no(Integer.parseInt(inter));
-			
-			loginService.inter(memberVo);
-			model.addAttribute("intrst_no",memberVo.getIntrst_no());
+		if(intrstNo != null) {
+			for(String inter : intrstNo) {
+				memberVo.setIntrst_no(Integer.parseInt(inter));
+				
+				loginService.inter(memberVo);
+				model.addAttribute("intrst_no",memberVo.getIntrst_no());
+			}
 		}
 		
 		// 관심사 출력
