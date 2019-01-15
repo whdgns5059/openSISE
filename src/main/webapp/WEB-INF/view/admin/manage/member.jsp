@@ -170,7 +170,15 @@
 						}
 					html += "</th>";
 					html += "<th class='hidden'>"+user.mem_lvl+"</th>";
-					html += "<th class='hidden'>"+user.nm+"</th>";
+					
+					html += "<th class='hidden'>"
+						if(user.nm == null){
+							html += '<label for="nm" class="control-label">선택안함 </label>';
+						}else if(user.nm != null){
+							html += '<label for="nm" class="control-label" >${page.nm}</label>';
+						}
+					html += "</th>";
+					
 					html +="</tr>";
 					
 				});
@@ -372,7 +380,7 @@
 				<th>가입일자</th>
 			</tr>
 		</thead>
-		
+		 
 		<tbody id="userList">
 			<c:forEach items="${pageUserList}" var="page">
 			<tr class="memList">
@@ -432,7 +440,7 @@
 				
 				<th class="hidden">${page.mem_lvl}</th>
 				
-				
+				<th class="hidden"> 
 				<c:choose>
 						<c:when test="${page.mem_gndr == null}">
 							<label for="memGndr" class="control-label" >선택안함</label>
@@ -450,6 +458,7 @@
 							</label>
 						</c:when>
 					</c:choose>
+				</th>
 				
 				<th class="hidden">
 					<c:choose>
