@@ -245,7 +245,7 @@ public class LoginController {
 		MemberVo user = loginService.selectMember(memEmail);
 		int check = loginService.check_mail(memEmail);
 		
-		if(check  == 1) {
+		if(check  >= 1) {
 			model.addAttribute("msgNo","중복된이메일입니다.");
 			return "signup";
 		}else {
