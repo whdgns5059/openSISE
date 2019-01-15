@@ -380,7 +380,7 @@
 				<th>가입일자</th>
 			</tr>
 		</thead>
-		
+		 
 		<tbody id="userList">
 			<c:forEach items="${pageUserList}" var="page">
 			<tr class="memList">
