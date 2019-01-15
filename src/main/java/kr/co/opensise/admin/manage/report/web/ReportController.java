@@ -43,7 +43,7 @@ public class ReportController {
 	* Method 설명 : 신고분류 윈도우로 이동
 	*/
 	@RequestMapping("/rptClassfForm")
-	public String rptClassf(Model model) {
+	public String rptClassf() {
 		return "admin/manage/reportAjax/rptClassfForm";
 	}
 	

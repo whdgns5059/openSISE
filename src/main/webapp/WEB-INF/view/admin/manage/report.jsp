@@ -11,17 +11,21 @@
 <style>
 #rptCfBtn{
 	width: 150px;
-	background: white;
-	margin-right: 20px;
+    height: 30px;
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 17px;
-	font-weight: 500;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    color: #808080;
+    background: #dddddd;
+    text-align: center;
+    cursor: pointer;
+    float: right;
 }
 .rpt_search{
     margin: 40px 0 15px 0;
     width: 100%;
     height: 30px;
-    display: flex;
 }
 #selBox {
 	margin-right: 10px;
@@ -50,6 +54,7 @@
     font-family: 'Noto Sans KR', sans-serif;
     text-align: center;
     cursor: pointer;
+    float: left;
 }
 #noSearch {
 	margin-left: 380px;
@@ -282,11 +287,6 @@ $(document).ready(function(){
 	<div class="hr2">
 	</div>
 	
-	<!-- 신고 분류 관리용 창으로 이동 -->
-	<div>
-		<button class="btn" id="rptCfBtn">신고 분류 관리</button>
-	</div>
-	
 	<!-- 검색하기 -->
 	<div class="rpt_search">
 		<form id="frm" method="post" name="frm">
@@ -307,7 +307,9 @@ $(document).ready(function(){
 			</select>
 			<!-- 검색어 -->
 			<input type="text" id="searchNm" onkeyup="enterkey();" name="searchNm" />
-			<input type="text" id="search"  value="검색"/>
+			<input type="button" id="search"  value="검색"/>
+			<!-- 신고 분류 관리용 창으로 이동 -->
+			<button type="button" id="rptCfBtn">신고 분류 관리</button>
 		</form>
 	</div>
 	
