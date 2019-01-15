@@ -86,6 +86,7 @@ public class MainController {
 		model.addAttribute("buildingSaleListSize", buildFilterList.size());
 		model.addAttribute("building",filterVo.getBuilding());
 		model.addAttribute("dlType",filterVo.getDl_ty());
+		model.addAttribute("searchName", filterVo.getSearchName());
 		return "user/mainAjax/rightList";
 	}
 	
