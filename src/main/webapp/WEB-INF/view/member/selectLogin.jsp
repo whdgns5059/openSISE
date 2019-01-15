@@ -4,9 +4,8 @@
 
 <style type="text/css">
 .logo{
-	margin: 100px 0 50px 200px;
-	padding: 20px 400px 20px 150px;
-	width: 250px;
+	margin: 0 auto;
+    width: 250px;
 }
 .button{
 	margin : 80px 0 20px 17px;
@@ -18,15 +17,19 @@
 	margin : 0 0 20px 0;
 	width:220px ;
 }	
-
+.contents {
+    margin: 0 auto;
+    margin-top: 150px;
+    padding-left: 300px;
+    padding-right: 300px;
+}
 
 </style>
 <!-- 전체 contents div -->
 <div class="contents"style="text-align: center ">
 	<!-- logo -->
 		<div class="logo" >
-			<img src="/img/snail.png"  />
-			<img src="/img/openSise.png"  alt="오픈시세" title="오픈시세!" />
+			<img src="/img/openSise_logo_f3af3d.png"  alt="오픈시세" title="오픈시세!" />
 			
 		<!-- button -->
 		<form action="/login/login" method="post">
