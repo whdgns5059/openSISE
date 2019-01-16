@@ -81,9 +81,9 @@
 			</div>
 			<div class="like">
 				<input type="hidden" id="favor_no" value="${selFavor.favor_no }" />
-				<span class="bldInfo">찜하기</span> 
+				<span class="bldInfo redLike">찜하기</span> 
 				<img id="likely" src="/img/heart-outline.png" class="heartimg" width="20px" height="20px"/> <br/>
-				<span id="favorCount" class="bldInfo">${favorCount }명이 해당 매물을 찜 했습니다.</span>
+				<span id="favorCount" class="bldInfo bldInfo2">${favorCount }명이 해당 매물을 찜 했습니다.</span>
 			</div>
 		</div>
 		<div>
@@ -103,12 +103,6 @@
 			</div>
 		</div>
 		<div>
-			<hr/>
-		</div>
-		<div>
-
-		</div>
-		<div>
 			<div id="radarChartDiv">
 			</div>	
 		</div>
@@ -124,6 +118,11 @@
 							<div>
 								<h2>리뷰 작성</h2>
 								<hr/>
+							</div>
+							<div class="starDiv">
+								<label class="floatLeft">시세 별점 &nbsp;&nbsp;&nbsp;</label>
+								<div id="star"  class="floatLeft"></div>
+								<input type="hidden" id="starRating" name="post_star" value="3"/>
 							</div>
 							<div> 
 								<input type="hidden" name="post_mem" value="${nowLogin.mem_no }"/>
@@ -142,7 +141,7 @@
 								<label>내용</label>
 								<textarea class="form-control" rows="10"  id="post_contnt" name="post_cntnt" ></textarea>
 							</div>
-							<div>
+							<div class="modal-file">
 								<label>파일 첨부</label>
 								<input type="button" class="plusfile" value="+"/>
 								<input type="button" class="minusfile" value="-"/>
@@ -150,23 +149,15 @@
 									<input type="file" class="post_img" name="post_img" id="post_img1" />
 								</div>
 							</div>
-							<div class="row">
-								<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;리뷰 별점 &nbsp;&nbsp;&nbsp;</label>
-								<div id="star" ></div>
-									<input type="hidden" id="starRating" name="post_star" value="3"/>
-									<hr/>
-							</div>
-							<div>
-								<input type="button" class="btn" id="insertReview" value="작성" />
-								<input type="button" class="btn close" id="cancelReview" class="close" value="취소" />
+							
+							<div class="sendDiv">
+								<input type="button" class="btn close btnYN" id="cancelReview" class="close" value="취소" />
+								<input type="button" class="btn btnYN" id="insertReview" value="작성" />
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>	
-			<div>
-				<hr/>
-			</div>
 				<c:choose>
 					<c:when test="${fn:length(selectReview) == 0 }">
 						<div class="noreivew">
@@ -189,7 +180,7 @@
 							<div class="reviewDetailWrapper">
 								<div class="starDivWrapper">
 									<div class="starReview"></div>
-									<div class="starDiv">
+									<div>
 										<input class="reviewStarInput" id="reviewStarRating" type="hidden" value="${postVo.post_star }"/>
 									</div>
 									<!-- REPORT 신고 START -->
@@ -220,7 +211,7 @@
 									</div>
 								</c:if>
 								<div class="floatclear"></div>
-								<div>
+								<div style="padding-right: 40px;">
 									<hr/>
 								</div>
 								<div class="replyWrapper">
@@ -228,7 +219,7 @@
 									<div class="reply">
 									</div>
 									<div class="writeReply form-inline">
-										<div class="form-group replyinsertDiv">
+										<div class="form-group replyinsertDiv insrtDiv">
 												<input type="text" class="form-control replyInput" name="rpl_cntnt" placeholder="댓글을 작성해 주세요"/>
 												<input type="hidden" class="post_no" value="${postVo.post_no }"/>
 										</div>

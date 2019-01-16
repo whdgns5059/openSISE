@@ -18,7 +18,9 @@
 #likely{
 	cursor: pointer;
 }
-
+.btn{
+	background: white;
+}
 #image{
 	position: absolute;
     top: 90px;
@@ -31,7 +33,7 @@
 
 .floatclear {clear:left; clear:right;}
 
-.orangetext {color : #f29c3e; font-weight: bold; font-size: x-large;}
+.orangetext {color : #f29c3e; font-weight: 600; font-size: 15px;}
 .textright {text-align: right;}
 
 .detailcontainer {   
@@ -39,18 +41,26 @@
     height: 100%; 
     overflow-y: scroll; 
     overflow-x:hidden;
+	border-left: 1px solid #e0e0e0;
+	padding-right: 20px;
 }
 
 .row{
 	width: 100%;
     height: 100%;
 }
-.detailcontainer div {padding-left :20px; padding-top : 10px;}
+.detailcontainer div {padding-left :20px; padding-top : 20px;}
 
 .heartimg {margin-left: 5px; margin-bottom : 5px;}
 
-.chartajax {padding: 0px !important;}
-.chartajax div {padding: 0px; margin: 0px;}
+.chartajax {padding: 0 5px;}
+.chartajax div {
+	margin: 0 auto;
+	padding: 0px;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+}
 .chartajax .info {margin:30px;}
 
 #mapWrap {
@@ -74,23 +84,33 @@
 
 .info {width: 1100px; height: 120px; padding : 20px; padding-bottom:0px;}
 .info div {width: 40%; float:left;}
-.recentInfo h3 {padding-left : 50px; }
+.recentInfo{padding-left : 50px; }
 
 .buildingName { margin : 40px; padding-left : 200px; font-weight: bold;}
-.bldInfo {font-size: large; margin: 15px;}
+.bldInfo {
+    font-size: 17px;
+    margin: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+}
+.bldInfo2 {color: #808080; font-size: 14px;}
 
 
-.tradeTable {}
+.tradeTable {margin-top:12px;}
 
 
-#radarChartDiv {padding : 0px !important; margin:0px !important;}
+#radarChartDiv {
+    padding: 0px !important;
+    margin: 0px !important;
+    margin-top: 50px !important;
+}
 #radarChartDiv div {padding : 0px !important; margin:0px !important;}
 
 
 #review {min-height: 300px;}
 
-.reviewWrapper {margin:auto; margin:20px;}
-.titleWrapper {margin:auto;}
+.reviewWrapper {margin:20px; padding: 0 !important;}
+.titleWrapper {padding-left: 0 !important;}
 .titleWrapper * { border-bottom:3px  #fff3e6 solid; border-top:1px  #fff3e6 solid;
 			 background-color: #ffe6b3; margin-bottom: 10px; padding:5px; }
 .reviewNo {clear:left; float:left; width:50px;}
@@ -105,7 +125,7 @@
 .reportDiv {width: 40px;cursor: pointer;margin-right: 110px; margin-left:340px; float:left;}
 .photo {clear:left;}
 .reviewModify {float: right; width: 400px;}
-.reviewText  {margin:20px;}
+.reviewText  {margin:20px; 	padding-right: 40px;}
 
 .labelred {color: red; font-weight: bold;}
 .replyInput {width: 700px; margin-right:20px;insertReply}
@@ -152,7 +172,7 @@
 .window{
     left: 50%;
     width: 1000px;
-    height: 800px;
+    height: 745px;
     background-color: #FFF;
     z-index: 10000;
     border-radius: 20px;
@@ -169,17 +189,17 @@
     display: contents;
 }
 .close{
-	font-size: 14px;
-	color: black;
+    opacity: 1;
+    line-height: normal;
 }
 .notice-pop{
- 	margin: 0 auto;
- 	margin-top: 30px;
+    margin: 0 auto;
     width: 850px;
-    height: 750px;
-	overflow:scroll;
-	overflow-x:hidden; 
-	overflow-y:auto;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0px !important;
+    margin-top: 30px;
 }
 .notice-tbl{
     margin: 0 auto;
@@ -281,3 +301,65 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #E3C164;
 }
+.ttl{
+	width: 100%;
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: #f38600;
+    margin-top: 50px;
+}
+.recentInfo2{padding-left : 70px !important; }
+.redLike{
+	color: #c0392b;
+    font-weight: bold;
+}
+.loanDiv{
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 18px !important;
+    margin-top: 50px !important;
+}
+.floatLeft{
+	float:left;
+	width: 150px;
+	padding: 0 !important;
+}
+.starDiv{
+    padding: 0 !important;
+    width: 100%;
+    height: 50px;
+    margin-top: 18px;
+}
+.modal-file{
+	padding: 0 !important;
+}
+.notice-pop div{
+	padding: 0 !important;
+}
+.btnYN{
+	width: 100px;
+	background: white;
+	margin-right: 20px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 17px;
+	font-weight: 500;
+	float: right;
+}
+.sendDiv{
+    height: 50px;
+    margin-top: 25px;
+}
+.insrtDiv{
+	padding: 0 !important;
+}
+
+
+
+
+
+
+
+
+

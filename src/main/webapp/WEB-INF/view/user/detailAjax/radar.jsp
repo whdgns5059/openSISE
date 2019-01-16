@@ -25,12 +25,6 @@ var radarConfig =
         {
             "type": "radar",
             "background-color": "white",
-            "border-top": "3px solid #7e7e7e",
-            "border-bottom": "3px solid #7e7e7e",
-            "border-right": "3px solid #7e7e7e",
-            "border-left": "3px solid #7e7e7e",
-            "border-color": "black",
-            "border-size": "5",
             "title": {
                 "text": "openSISE 점수표",
                 "background-color": "none",

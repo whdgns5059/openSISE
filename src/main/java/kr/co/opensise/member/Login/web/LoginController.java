@@ -180,12 +180,13 @@ public class LoginController {
 		loginService.signup(memberVo);
 		model.addAttribute("mem_email",memberVo.getMem_email());
 		
-		
-		for(String inter : intrstNo) {
-			memberVo.setIntrst_no(Integer.parseInt(inter));
-			
-			loginService.inter(memberVo);
-			model.addAttribute("intrst_no",memberVo.getIntrst_no());
+		if(intrstNo != null) {
+			for(String inter : intrstNo) {
+				memberVo.setIntrst_no(Integer.parseInt(inter));
+				
+				loginService.inter(memberVo);
+				model.addAttribute("intrst_no",memberVo.getIntrst_no());
+			}
 		}
 		
 		// 관심사 출력
@@ -245,7 +246,7 @@ public class LoginController {
 		MemberVo user = loginService.selectMember(memEmail);
 		int check = loginService.check_mail(memEmail);
 		
-		if(check  == 1) {
+		if(check  >= 1) {
 			model.addAttribute("msgNo","중복된이메일입니다.");
 			return "signup";
 		}else {

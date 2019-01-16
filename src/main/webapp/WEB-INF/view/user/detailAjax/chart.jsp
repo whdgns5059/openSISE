@@ -37,7 +37,7 @@
 			</c:choose>
 		</table>
 	</div>
-	<div>
+	<div class="recentInfo2">
 		<c:choose>
 			<c:when test="${dl_ty == '매매' }">
 				<h3>1년 평균 매매가</h3>
@@ -54,9 +54,6 @@
 			</c:when>
 		</c:choose>
 	</div>
-</div>
-<div>
-<hr/>
 </div>
 <div>
 		<c:choose>
@@ -83,9 +80,7 @@
 	<div id="monthlyAvg"></div>
 </div>
 <div>
-	<hr/>
-</div>
-<div>
+	<p class="ttl">최근 거래 내역</p>
 	<input type="hidden" name="excv_area" id="excv_area" value="${excv_area }"/>
 	<button class="btn" id="totalDeal">전체 거래 내역</button>
 	<table class="table table-striped tradeTable">
@@ -93,9 +88,9 @@
 			<c:choose>
 				<c:when test="${dl_ty == '매매'}">
 					<tr>
-						<td>거래일</td>
-						<td>매매가</td>
-						<td>층</td>
+						<th>거래일</th>
+						<th>매매가</th>
+						<th>층</th>
 					</tr>
 				</c:when>
 				<c:when test="${dl_ty == '전세'}">
@@ -152,8 +147,16 @@
 
 <c:choose>
 	<c:when test="${dl_ty == '매매' }">
-		<div>
-			<h4>대출금 계산기</h4>
+		<div class="loanDiv">
+			<div class="loan">
+				<p class="ttl" style="margin-top:5px;">대출금 계산기</p>
+			</div>
+			<div>
+				<input type="range" id="calcul" value="0"/>
+			</div>
+			<span class="orangetext">보&nbsp;&nbsp;&nbsp;&nbsp;유&nbsp;&nbsp;&nbsp;&nbsp;금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
+			<span class="orangetext">1년&nbsp;평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_price }</span><br/>
+			<span class="orangetext">이&emsp;&nbsp;&emsp;&nbsp;&nbsp;&nbsp;자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
 		</div>
 		<div>
 			<label>원리금균등분할상환, 한국은행 기준 2.25% 3년상환</label>	
@@ -171,9 +174,6 @@
 			<label>원리금균등분할상환, 한국은행 기준 2.25%</label>	
 			<input type="range" id="calcul" value="0"/>
 		</div>
-		<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
-		<span class="orangetext">1년 평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_depos}</span><br/>
-		<span class="orangetext">이자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
 	</c:when>
 </c:choose>
 
