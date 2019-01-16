@@ -48,9 +48,10 @@ $('#calcul').on('change', function(){
 	if(!(isNaN(calDefault) || calDefault == 1)){
 		if(calval >= 20){
 			var calResult = Math.round(calDefault / 100 * calval);
-			var inter = Math.round((calDefault - calResult) * 0.03);
+			var ori = calDefault - calResult;
+			var inter = Math.round(ori * 0.025 / 12 * Math.pow((1 + 0.025 / 12), 36) / Math.pow((1+0.025 / 12), 36) - 1)
 			$('#clacResult').html(calResult +'만원');
-			$('#inter').html('연' + inter + '만원');
+			$('#inter').html('월' + inter + '만원');
 		}else{
 			$('#clacResult').html('최소 20%의 보유금이 필요합니다');
 		}
