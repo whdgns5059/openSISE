@@ -30,7 +30,7 @@ public class InsertMemTest extends RootSetup{
 	@Test
 	public void signup() {
 		
-		for(int j =0 ; j< 1000 ; j++) {
+		for(int j =0 ; j< 342 ; j++) {
 			
 			MemberVo memberVo = new MemberVo();
 			
