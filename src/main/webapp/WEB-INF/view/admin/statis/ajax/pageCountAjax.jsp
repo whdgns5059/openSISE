@@ -106,7 +106,7 @@ $(document).ready(function(){
 	    "scale-y":{
 	    	"autoFit":true,
 	        "min-value":0,
-        	"max-value":pageMax,
+        	"max-value": 200,
         	"short":true,
 	      	"line-color": "#f6f7f8",
 	      	"shadow": 0,
