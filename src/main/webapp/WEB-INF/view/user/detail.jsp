@@ -180,12 +180,12 @@
 							<div class="reviewDetailWrapper">
 								<div class="starDivWrapper">
 									<div class="starReview"></div>
-									<div>
+									<div style="padding:0 !important;">
 										<input class="reviewStarInput" id="reviewStarRating" type="hidden" value="${postVo.post_star }"/>
 									</div>
 									<!-- REPORT 신고 START -->
 									<div class="reportDiv">
-										<img src="/img/alert.png" width="40" height="40"/>
+										<img src="/img/alert.png" width="40" height="40" style="float: right; margin-right: 50px;"/>
 										<input class="rpt_post" value="${postVo.post_no }" type="hidden" />
 									</div>
 									<!-- REPORT 신고 END -->
