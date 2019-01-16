@@ -150,6 +150,7 @@
 		<div class="loanDiv">
 			<div class="loan">
 				<p class="ttl" style="margin-top:5px;">대출금 계산기</p>
+				<label class="">원리금균등분할상환 금리 2.25% 3년상환</label>	
 			</div>
 			<div>
 				<input type="range" id="calcul" value="0"/>
@@ -157,7 +158,6 @@
 			<span class="orangetext">보&nbsp;&nbsp;&nbsp;&nbsp;유&nbsp;&nbsp;&nbsp;&nbsp;금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
 			<span class="orangetext">1년&nbsp;평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_price }</span><br/>
 			<span class="orangetext">이&emsp;&nbsp;&emsp;&nbsp;&nbsp;&nbsp;자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
-		</div>
 	</c:when>
 	<c:when test="${dl_ty == '전세' }">
 		<div class="loanDiv">
@@ -165,12 +165,12 @@
 				<p class="ttl" style="margin-top:5px;">대출금 계산기</p>
 			</div>
 			<div>
+				<label>원리금균등분할상환, 한국은행 기준 2.25% 3년상환</label>	
 				<input type="range" id="calcul" value="0"/>
 			</div>
-			<span class="orangetext">보유금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
-			<span class="orangetext">1년 평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_depos}</span><br/>
-			<span class="orangetext">이자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
-		</div>
+			<span class="orangetext">보&nbsp;&nbsp;&nbsp;&nbsp;유&nbsp;&nbsp;&nbsp;&nbsp;금 : </span><span class="orangetext" id="clacResult">슬라이더를 움직여 주세요</span><br/>
+			<span class="orangetext">1년&nbsp;평균가 : </span><span class="orangetext" id="calDefault">${avgTradeVo.avg_depos}</span><br/>
+			<span class="orangetext">이&emsp;&nbsp;&emsp;&nbsp;&nbsp;&nbsp;자 : </span><span class="orangetext" id="inter">슬라이더를 움직여 주세요</span><br/>
 	</c:when>
 </c:choose>
 
