@@ -559,8 +559,8 @@ function setReviewStar(starReview){
 		$(starReview[i]).raty({
 			score : starReview[i].nextElementSibling.getElementsByClassName('reviewStarInput')[0].value
 			,path : "/img"
-			,width : 400
-			,height : 60
+			,width : "50%"
+			,height : 45
 			,readOnly: true
 		});
 		

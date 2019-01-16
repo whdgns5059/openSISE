@@ -92,7 +92,8 @@
 	<select id="favorDong" resultType="favorVo">		
 		Select favor_gu, favor_dong, counts, 
 		     Row_number() Over ( Order by counts desc) as rank
-		From (Select count(*) as counts, favor_gu, favor_dong From favorite Group by favor_gu, favor_dong)
+		From (Select count(*) as counts, favor_gu, favor_dong From favorite Group by favor_gu, favor_dong
+		order by counts desc)
 		Where Rownum <![CDATA[ < ]]>= 20
 	</select>
 	
