@@ -305,7 +305,7 @@ $(document).ready(function(){
 	                "values":["10대","20대","30대","40대", "50대","60대"] },
 	            "scale-y":{ 
 	            	"min-value": 0,
-	            	"max-value": allCnt+10 },
+	            	"max-value": allCnt/4 },
 	            // 작은 컨트롤러
 	            "legend" : {
 	            	"overflow": "none",
@@ -336,7 +336,6 @@ $(document).ready(function(){
 	                    	<c:forEach items="${memVoF }" var="memVo">
 			            		${memVo.counts},
 			            	</c:forEach>
-			            		0
 			            ]
 	                },
 	                { 
@@ -350,7 +349,6 @@ $(document).ready(function(){
 	                    	<c:forEach items="${memVoM }" var="memVo">
 			            		${memVo.counts},
 			            	</c:forEach>
-			            		0
 		            	]
 	                }]
 	    }],
