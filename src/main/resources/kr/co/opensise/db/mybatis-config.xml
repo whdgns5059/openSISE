@@ -56,6 +56,8 @@
 		<typeAlias type="kr.co.opensise.admin.manage.review.model.PageVo" alias="pgVo"/>
 		
 		
+		
+		
 	</typeAliases>
 
 	<mappers>
@@ -73,5 +75,7 @@
 		<mapper resource="kr/co/opensise/db/review.xml" />
 		<mapper resource="kr/co/opensise/db/mng_report.xml" />
 		<mapper resource="kr/co/opensise/db/chat.xml" />
+		<mapper resource="kr/co/opensise/db/favorInsert.xml" />
+
 	</mappers>
 </configuration>

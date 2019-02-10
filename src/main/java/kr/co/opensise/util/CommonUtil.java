@@ -18,55 +18,51 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-
-
 public class CommonUtil {
-	
+
 	private static Logger log = LoggerFactory.getLogger(CommonUtil.class);
-	
-	
+
 	/*******************************************
 	 * @param location
 	 * @return Map<String, String>
-	 * @throws Exception 
-	 * @throws NullPointerException 
-	 * @throws IOException 
-	 * @throws IndexOutOfBoundsException 
-	 * @throws UnsupportedEncodingException
-	 * location에 해당되는 lat,lng를 map으로 리턴한다
+	 * location은 주소로써
+	 * location에 해당되는 lat,lng를 map으로 리턴한다 
 	 * 해당 메서드는 kakao REST API를 이용함
 	 ******************************************/
-	public static Map<String, String> addr2Coord(String location) throws NullPointerException, IndexOutOfBoundsException, IOException{
-		
-        String url = null;
+	public static Map<String, String> addr2Coord(String location){
+
+		String url = null;
 		try {
-			url = "https://dapi.kakao.com/v2/local/search/address.json?query="+ URLEncoder.encode(location, "UTF-8");
+			url = "https://dapi.kakao.com/v2/local/search/address.json?query=" + URLEncoder.encode(location, "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
-        Map<String, String> addr = null;
-        
-           addr = getLatLng(getJSONData(url));
-        return addr;
+		Map<String, String> addr = null;
 
+		String jsonData = null;
+		try {
+			jsonData = getJSONData(url);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		addr = getLatLng(jsonData);
 
-		
+		return addr;
+
 	}
-	
-	
+
 	public static String coord2Addr(Map<String, Double> latLng) throws IOException {
-		
+
 		Double x = latLng.get("lng");
 		Double y = latLng.get("lat");
-		
-		String url = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x="+x+"&y="+y+"&input_coord=WGS84";
-		
+
+		String url = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=" + x + "&y=" + y + "&input_coord=WGS84";
+
 		String dong = getAddr(getJSONData(url));
-		
-		return dong; 
+
+		return dong;
 	}
 
-	
 	public static String getJSONData(String apiUrl) throws IOException {
 		String jsonString = new String();
 		String buf;
@@ -76,111 +72,101 @@ public class CommonUtil {
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("X-Requested-With", "curl");
 		conn.setRequestProperty("Authorization", auth);
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				conn.getInputStream(), "UTF-8"));
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 		while ((buf = br.readLine()) != null) {
 			jsonString += buf;
 		}
 		return jsonString;
 	}
 
-	private static Map<String, String> getLatLng(String jsonString) throws IndexOutOfBoundsException, NullPointerException{
-		  
-		  	JsonParser jsonParser = new JsonParser();
-		  	
-		  	JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonString);
-		  	
-		  	JsonArray documentsObject = (JsonArray) jsonObject.get("documents");
-		  	
-		  	Map<String, String> resultMap = new HashMap<String, String>();
-		  	
-		  	if(documentsObject == null) {
-		  		throw new NullPointerException();
-		  	}
-		  	
-		  	if(documentsObject.size() < 1) {
-		  		throw new IndexOutOfBoundsException();
-		  	}
-		  	
-		  	String lng = documentsObject.get(0).getAsJsonObject().get("x").getAsString();
-		  	String lat = documentsObject.get(0).getAsJsonObject().get("y").getAsString();
-		  	
-		  	resultMap.put("lat", lat);
-		  	resultMap.put("lng", lng);
-		  	
-	        return resultMap;
-	    }
-	
-	private static String getAddr(String jsonString) {
-		
+	private static Map<String, String> getLatLng(String jsonString)
+			throws IndexOutOfBoundsException, NullPointerException {
+
 		JsonParser jsonParser = new JsonParser();
-		
+
 		JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonString);
-		
-		JsonArray documents = (JsonArray) jsonObject.get("documents");
-		
-		if(documents== null) {
+
+		JsonArray documentsObject = (JsonArray) jsonObject.get("documents");
+
+		Map<String, String> resultMap = new HashMap<String, String>();
+
+		if (documentsObject == null) {
 			throw new NullPointerException();
 		}
-		  
-		if(documents.size() < 1) {
+
+		if (documentsObject.size() < 1) {
 			throw new IndexOutOfBoundsException();
 		}
-		
-		String dong = documents.get(0).getAsJsonObject().get("address").getAsJsonObject().get("region_3depth_name").toString();
-		
+
+		String lng = documentsObject.get(0).getAsJsonObject().get("x").getAsString();
+		String lat = documentsObject.get(0).getAsJsonObject().get("y").getAsString();
+
+		resultMap.put("lat", lat);
+		resultMap.put("lng", lng);
+
+		return resultMap;
+	}
+
+	private static String getAddr(String jsonString) {
+
+		JsonParser jsonParser = new JsonParser();
+
+		JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonString);
+
+		JsonArray documents = (JsonArray) jsonObject.get("documents");
+
+		if (documents == null) {
+			throw new NullPointerException();
+		}
+
+		if (documents.size() < 1) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		String dong = documents.get(0).getAsJsonObject().get("address").getAsJsonObject().get("region_3depth_name")
+				.toString();
+
 		return dong;
 	}
-	
-	
-	
+
 	/*******************************************
 	 * @param data
-	 * @return double
-	 * 콤마가 존재하는 숫자 문자열을 콤마가 없는 문자로 변환해준다
+	 * @return double 콤마가 존재하는 숫자 문자열을 콤마가 없는 문자로 변환해준다
 	 ******************************************/
 	public static double delComma(String data) {
 		String removeData = data.replaceAll(",", "").trim();
 		return Double.parseDouble(removeData);
 	}
-	
-	
-	/*************************************************  
-	* Method   : getFileExt 
-	* 작성자 :  whdgn
-	* 변경이력 :  2018. 12. 19.
-	* @param fileName
-	* @return  
-	* Method 설명 : 파일명에서  확장자 추출
-	**************************************************/
+
+	/*************************************************
+	 * Method : getFileExt 작성자 : whdgn 변경이력 : 2018. 12. 19.
+	 * 
+	 * @param fileName
+	 * @return Method 설명 : 파일명에서 확장자 추출
+	 **************************************************/
 	public static String getFileExt(String fileName) {
-		//확장가가 있을경우 .을 포함한 확장자 값을 리턴
-		//확장자가 없을경우 "" 리턴(white space)
-		
-			
+		// 확장가가 있을경우 .을 포함한 확장자 값을 리턴
+		// 확장자가 없을경우 "" 리턴(white space)
+
 		int dotIndex = fileName.lastIndexOf(".");
-		
-		if(dotIndex == -1) {
+
+		if (dotIndex == -1) {
 			return "";
 		} else {
 			return fileName.substring(dotIndex);
-		}	
+		}
 	}
-	
-	/*************************************************  
-	* Method   : getNonWhiteSpace 
-	* 작성자 :  whdgn
-	* 변경이력 :  2019. 1. 14.
-	* @param string
-	* @return  
-	* Method 설명 : 문자열의 whiteSpace를 지워줌,
-	* ex 법   동 -> 법동,
-	* 추가로 1,2동을 동으로 바꿔준다.
-	**************************************************/
+
+	/*************************************************
+	 * Method : getNonWhiteSpace 작성자 : whdgn 변경이력 : 2019. 1. 14.
+	 * 
+	 * @param string
+	 * @return Method 설명 : 문자열의 whiteSpace를 지워줌, ex 법 동 -> 법동, 추가로 1,2동을 동으로 바꿔준다.
+	 **************************************************/
 	public static String getNonWhiteSpace(String string) {
-		String result = string.replaceAll("\\s", "").replaceAll("[0-9]","").replaceAll(",", "");
-		
+		String result = string.replaceAll("\\s", "").replaceAll("[0-9]", "").replaceAll(",", "");
+
 		return result;
 	}
 }

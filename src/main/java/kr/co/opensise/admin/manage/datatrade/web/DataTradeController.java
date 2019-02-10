@@ -205,7 +205,7 @@ public class DataTradeController {
 				lat = latlngMap.get("lat");
 				lng = latlngMap.get("lng");
 
-			} catch (IndexOutOfBoundsException | NullPointerException | IOException out) {
+			} catch (IndexOutOfBoundsException | NullPointerException  out) {
 				
 				deleteArticleDeal(articleVo);
 				continue;

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="favorInsert">
+	
+	<select id="selRanMem" resultType="memVo">
+		select * from( 
+			select * from member
+			order by DBMS_RANDOM.RANDOM 
+		) where rownum &lt; 100	
+	</select>	
+	
+	<select id="selRanArt" resultType="articleVo">
+		select * from( 
+			select * from article
+			where artcl_gu &lt;&gt; '동구'
+			order by DBMS_RANDOM.RANDOM 
+		) where rownum &lt; 200
+	</select>
+	
+	<insert id="insertFavorList" parameterType="favorVo">
+		insert all
+		<foreach collection="list" item="fVo" separator=" ">
+			into favorite(
+				favor_no, favor_mem, favor_gu, favor_dong, favor_zip, favor_rd, favor_ty
+			)
+			values (
+				seq_favor_no,
+				#{fVo.favor_mem},
+				#{fVo.favor_gu},
+				#{fVo.favor_dong},
+				#{fVo.favor_zip},
+				#{fVo.favor_rd},
+				#{fVo.favor_ty}
+			)
+		</foreach>	
+		select * from dual
+	</insert>
+
+</mapper>

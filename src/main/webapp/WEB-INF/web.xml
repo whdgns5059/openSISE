@@ -66,14 +66,14 @@
 	<!-- 필터!!!!! -->
 	<filter>
 		<filter-name>FilterTest</filter-name> 
-		<filter-class>kr.co.opensise.interceptor.FilterTest</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncdoingFilter</filter-class>
 		<init-param> 
 			<param-name>encoding</param-name> 
 			<param-value>utf-8</param-value> 
 		</init-param> 
 	</filter> 
 	<filter-mapping> 
-		<filter-name>FilterTest</filter-name> 
+		<filter-name>encodingFilter</filter-name> 
 		<url-pattern>/*</url-pattern> 
 	</filter-mapping>
 
